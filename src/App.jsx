@@ -375,11 +375,11 @@ function EntityCard({ entity, onClick, lang }) {
       {(() => {
         const total = PARAMS_TRANS.es.reduce((s,p) => s + entity.params[p.id], 0);
         return (
-          <div style={{ display:"flex", width:"100%", height:"5px", borderRadius:"3px", overflow:"hidden", marginBottom:"10px" }}>
+          <div style={{ display:"flex", width:"100%", height:"5px", gap:"2px", marginBottom:"10px" }}>
             {PARAMS_TRANS.es.map((p,i) => (
               <div key={i} style={{
                 width: `${(entity.params[p.id] / total) * 100}%`, height:"100%",
-                background: PARAM_COLORS[i],
+                background: PARAM_COLORS[i], borderRadius:"2px",
               }} />
             ))}
           </div>
