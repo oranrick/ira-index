@@ -20,14 +20,21 @@ function useWindowWidth() {
   return width;
 }
 
-export function SpeechView({ speech, onBack }) {
+export function SpeechView({ speech, onBack, lang = 'es' }) {
   const [activeAnnotation, setActiveAnnotation] = useState(null);
   const [pinnedAnnotation, setPinnedAnnotation] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 });
+  const [showTranslation, setShowTranslation] = useState(false);
   const containerRef = useRef(null);
   const width = useWindowWidth();
   const isMobile = width < 768;
   const scoreColor = IRA_COLOR(speech.iraScore);
+
+  const isEnglishSpeech = speech.speechLang === 'en';
+  const showTranslationToggle = lang === 'es' && isEnglishSpeech;
+  const translationText = isEnglishSpeech
+    ? speech.segments.map((s) => s.textEs != null ? s.textEs : s.text).join('')
+    : '';
 
   useEffect(() => {
     const handler = (e) => {
@@ -142,7 +149,28 @@ export function SpeechView({ speech, onBack }) {
 
         {/* Annotated text */}
         <div style={styles.textColumn} ref={containerRef}>
-          <p style={styles.sectionLabel}>FRAGMENTO ANOTADO</p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+            <p style={{ ...styles.sectionLabel, margin: 0 }}>FRAGMENTO ANOTADO</p>
+            {showTranslationToggle && (
+              <button
+                onClick={() => setShowTranslation((v) => !v)}
+                style={{
+                  background: showTranslation ? 'rgba(255,102,0,0.15)' : 'rgba(255,255,255,0.04)',
+                  border: `1px solid ${showTranslation ? 'rgba(255,102,0,0.5)' : 'rgba(255,255,255,0.1)'}`,
+                  borderRadius: '20px',
+                  padding: '3px 10px',
+                  color: showTranslation ? '#ff6600' : 'rgba(255,255,255,0.35)',
+                  fontFamily: "'DM Mono', monospace",
+                  fontSize: '0.62rem',
+                  letterSpacing: '0.1em',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                {showTranslation ? '✕ traducción' : '🌐 ver traducción'}
+              </button>
+            )}
+          </div>
           <div style={{ ...styles.textBlock, fontSize: isMobile ? '0.9rem' : '0.98rem' }}>
             {speech.segments.map((segment, i) => {
               if (!segment.type) {
@@ -173,6 +201,35 @@ export function SpeechView({ speech, onBack }) {
               );
             })}
           </div>
+
+          {/* Translation block */}
+          {showTranslation && showTranslationToggle && (
+            <div style={{
+              marginTop: '0.8rem',
+              background: 'rgba(255,102,0,0.04)',
+              border: '1px solid rgba(255,102,0,0.15)',
+              borderLeft: '2px solid rgba(255,102,0,0.4)',
+              borderRadius: '0 8px 8px 0',
+              padding: '1rem 1.2rem',
+            }}>
+              <p style={{
+                margin: '0 0 0.5rem',
+                fontFamily: "'DM Mono', monospace",
+                fontSize: '0.58rem',
+                letterSpacing: '0.14em',
+                color: 'rgba(255,102,0,0.6)',
+                textTransform: 'uppercase',
+              }}>Traducción al español</p>
+              <p style={{
+                margin: 0,
+                fontFamily: 'Georgia, serif',
+                fontSize: isMobile ? '0.85rem' : '0.92rem',
+                lineHeight: 1.85,
+                color: 'rgba(255,255,255,0.52)',
+                fontStyle: 'italic',
+              }}>{translationText}</p>
+            </div>
+          )}
 
           {/* Tooltip — desktop only */}
           {activeAnnotation && !isMobile && (

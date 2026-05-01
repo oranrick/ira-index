@@ -521,7 +521,7 @@ function Detail({ entity, onClose, lang }) {
         position:"fixed", inset:0, zIndex:250,
         background:"#08080c", overflowY:"auto",
       }}>
-        <SpeechView speech={activeSpeech} onBack={() => setActiveSpeechId(null)} />
+        <SpeechView speech={activeSpeech} onBack={() => setActiveSpeechId(null)} lang={lang} />
       </div>
     )}
   </>
