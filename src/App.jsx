@@ -254,13 +254,13 @@ function Detail({ entity, onClose }) {
                     <button
                       onClick={() => setExpanded(isOpen ? null : p.id)}
                       style={{
-                        background: isOpen ? "rgba(200,70,0,0.28)" : "rgba(255,102,0,0.15)",
-                        border: `1px solid ${isOpen ? "rgba(200,70,0,0.7)" : "rgba(255,102,0,0.5)"}`,
-                        borderRadius:"4px", padding:"1px 6px",
-                        color: isOpen ? "#cc5200" : "#ff6600",
+                        background: isOpen ? "#ff6600" : "rgba(255,102,0,0.12)",
+                        border: "1px solid rgba(255,102,0,0.55)",
+                        borderRadius:"4px", padding:"2px 7px",
+                        color: isOpen ? "#fff" : "#ff6600",
                         fontSize:"9px", cursor:"pointer", lineHeight:"1.5",
-                        transition:"all 0.2s ease", fontFamily:"'DM Mono',monospace",
-                        letterSpacing:"0.04em",
+                        transition:"all 0.18s ease", fontFamily:"'DM Mono',monospace",
+                        letterSpacing:"0.04em", fontWeight: isOpen ? 700 : 400,
                       }}
                     >{isOpen ? "▲" : "▼"}</button>
                   </div>
