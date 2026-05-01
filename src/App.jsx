@@ -298,6 +298,20 @@ function catColor(cat) {
 
 // ── Componentes ───────────────────────────────────────────────────────────────
 
+function FlagEmoji({ emoji, size = 18 }) {
+  const codepoints = [...emoji]
+    .map(c => c.codePointAt(0).toString(16))
+    .filter(cp => cp !== "fe0f")
+    .join("-");
+  return (
+    <img
+      src={`https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/${codepoints}.svg`}
+      alt={emoji}
+      style={{ width: size, height: size, verticalAlign: "middle", display: "inline-block" }}
+    />
+  );
+}
+
 function ScoreRing({ score, size = 80, stroke = 5 }) {
   const r = (size - stroke * 2) / 2;
   const circ = 2 * Math.PI * r;
@@ -341,7 +355,7 @@ function EntityCard({ entity, onClick, lang }) {
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"14px" }}>
         <div>
           <div style={{ marginBottom:"6px", display:"flex", gap:"6px", alignItems:"center" }}>
-            <span style={{ fontSize:"16px" }}>{entity.flag}</span>
+            <FlagEmoji emoji={entity.flag} size={18} />
             <Badge label={catLabel} color={catColor(entity.category)} />
           </div>
           <h3 style={{ margin:0, fontSize:"16px", fontWeight:700, color:"#fff", fontFamily:"'Syne',sans-serif", letterSpacing:"-0.02em" }}>
@@ -399,7 +413,7 @@ function Detail({ entity, onClose, lang }) {
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"24px" }}>
           <div>
             <div style={{ display:"flex", gap:"8px", alignItems:"center", marginBottom:"8px" }}>
-              <span style={{ fontSize:"20px" }}>{entity.flag}</span>
+              <FlagEmoji emoji={entity.flag} size={22} />
               <Badge label={catLabel} color={catColor(entity.category)} />
             </div>
             <h2 style={{ margin:"0 0 2px", fontSize:"24px", fontWeight:800, color:"#fff", fontFamily:"'Syne',sans-serif", letterSpacing:"-0.03em" }}>
