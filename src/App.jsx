@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { SpeechesSection } from "./components/SpeechCard";
+import { SpeechView } from "./components/SpeechView";
+import { getSpeechById } from "./data/speeches";
 
 // ── Traducciones ─────────────────────────────────────────────────────────────
 
@@ -393,14 +396,16 @@ function EntityCard({ entity, onClick, lang }) {
 function Detail({ entity, onClose, lang }) {
   const [mounted, setMounted] = useState(false);
   const [expanded, setExpanded] = useState(null);
+  const [activeSpeechId, setActiveSpeechId] = useState(null);
   useEffect(() => { setTimeout(() => setMounted(true), 20); }, []);
+  const activeSpeech = activeSpeechId ? getSpeechById(activeSpeechId) : null;
   const col = scoreColor(entity.score);
   const T = TEXTS[lang];
   const params = PARAMS_TRANS[lang];
   const details = PARAM_DETAILS_TRANS[lang];
   const catLabel = CAT_TRANS[lang][entity.category] || entity.category;
   const context = lang === "en" && entity.contextEn ? entity.contextEn : entity.context;
-  return (
+  return (<>
     <div onClick={onClose} style={{
       position:"fixed", inset:0, zIndex:200,
       background:"rgba(8,8,12,0.88)", backdropFilter:"blur(20px)",
@@ -502,6 +507,7 @@ function Detail({ entity, onClose, lang }) {
             );
           })}
         </div>
+        <SpeechesSection entityId={entity.id} onSelectSpeech={setActiveSpeechId} />
         <button onClick={onClose} style={{
           marginTop:"20px", width:"100%", padding:"11px",
           background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)",
@@ -510,6 +516,15 @@ function Detail({ entity, onClose, lang }) {
         }}>{T.close}</button>
       </div>
     </div>
+    {activeSpeech && (
+      <div style={{
+        position:"fixed", inset:0, zIndex:250,
+        background:"#08080c", overflowY:"auto",
+      }}>
+        <SpeechView speech={activeSpeech} onBack={() => setActiveSpeechId(null)} />
+      </div>
+    )}
+  </>
   );
 }
 
