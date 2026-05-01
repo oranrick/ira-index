@@ -372,15 +372,19 @@ function EntityCard({ entity, onClick, lang }) {
           </div>
         </div>
       </div>
-      <div style={{ display:"flex", gap:"3px", marginBottom:"10px" }}>
-        {PARAMS_TRANS.es.map((p,i) => (
-          <div key={i} style={{
-            flex:1, height:"3px", borderRadius:"2px",
-            background: PARAM_COLORS[i],
-            opacity: 0.3 + (entity.params[p.id] / 10) * 0.7,
-          }} />
-        ))}
-      </div>
+      {(() => {
+        const total = PARAMS_TRANS.es.reduce((s,p) => s + entity.params[p.id], 0);
+        return (
+          <div style={{ display:"flex", width:"100%", height:"5px", borderRadius:"3px", overflow:"hidden", marginBottom:"10px" }}>
+            {PARAMS_TRANS.es.map((p,i) => (
+              <div key={i} style={{
+                width: `${(entity.params[p.id] / total) * 100}%`, height:"100%",
+                background: PARAM_COLORS[i],
+              }} />
+            ))}
+          </div>
+        );
+      })()}
       <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.25)", letterSpacing:"0.06em" }}>{T.seeAnalysis}</p>
     </div>
   );
