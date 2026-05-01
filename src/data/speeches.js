@@ -778,6 +778,102 @@ export const speeches = [
       },
     ],
   },
+
+  // ──────────────────────────────────────────────────────────────────
+  // MUJICA: Discurso de despedida de la presidencia (2015)
+  // ──────────────────────────────────────────────────────────────────
+  {
+    id: 'mujica-despedida-2015',
+    entityId: 'mujica',
+    entityName: 'José Mujica',
+    speechLang: 'es',
+    title: 'Discurso de despedida de la presidencia',
+    date: '1 de marzo de 2015',
+    context: 'Montevideo, Uruguay. Discurso ante la Asamblea General al concluir su mandato presidencial.',
+    duration: '~28\'00"',
+    iraScore: 8.93,
+    iraLabel: 'Fuertemente empático',
+    classification: 'empatico',
+    wordCount: 3200,
+    summary: 'El discurso más empáticamente coherente del corpus. Mujica no convoca a la batalla: convoca a la vida. El "nosotros" abraza a toda la humanidad, las metáforas son de transmisión y herencia, y la vulnerabilidad del orador es el argumento más poderoso. Un viejo que habla con ternura y urgencia a los jóvenes sobre el fuego que vale la pena mantener.',
+    params: [
+      { name: 'Uso pronominal inclusivo',   value: 9.2, note: 'Primera persona plural dominante. El "nosotros" convoca a toda la humanidad. La tercera persona, cuando aparece, es descriptiva, nunca demonizadora.' },
+      { name: 'Tipo de metáfora dominante', value: 9.0, note: 'Metáforas existenciales y vinculares: el disco duro social, el fuego interior, el pequeño aliento rodando en las colinas. Herencia y transmisión, no combate.' },
+      { name: 'Carga dicotómica',           value: 6.8, note: 'Dicotomía presente pero no rígida: ricos/pobres, vida enajenada/vida con sentido. Invitación ética, no trinchera moral.' },
+      { name: 'Tono emocional dominante',   value: 9.1, note: 'Esperanza sobria y amor a la vida. El tono de un viejo que habla con ternura y urgencia. La indignación, cuando aparece, está enmarcada en cuidado colectivo.' },
+      { name: 'Reconocimiento del disenso', value: 8.5, note: '"Me faltó velocidad", "no soy ningún fenómeno". Reconoce contradicciones propias y ajenas. Propone, no impone.' },
+      { name: 'Vector de acción',           value: 8.8, note: 'Imperativo de cuidado: "luchen por la felicidad", "dale contenido a la vida". No convoca a enfrentarse a nadie.' },
+      { name: 'Coherencia afectiva',        value: 9.3, note: 'Coherencia máxima entre lo que dice y cómo lo dice. La vulnerabilidad es real, el tono no cambia para manipular.' },
+      { name: 'Proyección de futuro',       value: 8.9, note: '"Un pequeño aliento rodando en las colinas". Futuro alcanzable e intergeneracional. "Lo imposible cuesta un poco más."' },
+    ],
+    segments: [
+      {
+        text: 'No soy ningún fenómeno.',
+        type: 'DISENSO',
+        note: 'Apertura en autocrítica radical. Mujica desmonta el culto a la personalidad en su primera oración. La vulnerabilidad no debilita al orador: lo legitima.',
+      },
+      { text: ' Me faltó velocidad, me faltó mucho. Pero soy un viejo que quiso dar lo mejor que tenía. ' },
+      {
+        text: 'El ser humano trae grabado en su disco duro social',
+        type: 'CUIDADO',
+        note: 'Metáfora existencial y vincular. El "disco duro social" describe la herencia cultural acumulada sin demonizar a nadie: somos lo que la humanidad ha construido.',
+      },
+      { text: ' siglos de tradición, de lucha, de sacrificio colectivo. Eso no se borra. No somos individuos aislados: somos el resultado de todo lo que vino antes. ' },
+      {
+        text: 'Nosotros le debemos mucho a los que vinieron antes',
+        type: 'PRONOMINAL',
+        note: '"Nosotros" intergeneracional y sin fronteras políticas. No una facción: la humanidad entera. La deuda es de especie, no de partido.',
+      },
+      { text: ' y tenemos la obligación de ' },
+      {
+        text: 'encender el fuego y pasarlo.',
+        type: 'CUIDADO',
+        note: 'Metáfora del fuego como legado. No conquista ni batalla: transmisión. El acto político como herencia, no como ruptura violenta. La imagen es intergeneracional y cálida.',
+      },
+      { text: ' ' },
+      {
+        text: 'Los que acumulan mucho más de lo que pueden consumir en la vida... ¿en qué están pensando?',
+        type: 'DICOTOMIA',
+        note: 'Dicotomía entre vida enajenada y vida con sentido. No hay odio: hay extrañeza filosófica. La pregunta no condena personas: interpela valores. Lejos de la dicotomía deshumanizadora.',
+      },
+      { text: ' No están pensando en vivir: están pensando en tener. Pero hay pobres que son ricos y ricos que son muy pobres. ' },
+      {
+        text: 'La mayoría de las personas que gozan del bienestar no saben que son esclavas del mercado.',
+        type: 'DICOTOMIA',
+        note: 'Segunda dicotomía: libertad aparente vs. enajenación real. No hay enemigo personal: hay una trampa estructural. El diagnóstico es ético, no sectario.',
+      },
+      { text: ' Trabajan para pagar cuotas. No les queda tiempo para vivir. ' },
+      {
+        text: 'Luchen por la felicidad.',
+        type: 'CUIDADO',
+        note: 'Imperativo de cuidado en su forma más pura. "Luchar" resignificado: no es combatir a nadie, es construirse. El verbo bélico queda domesticado por el sustantivo afectivo.',
+      },
+      { text: ' Dale contenido a la vida. ' },
+      {
+        text: 'Lo imposible cuesta un poco más.',
+        type: 'FUTURO',
+        note: 'Proyección de futuro sin paraísos prometidos ni apocalipsis. La esperanza es sobria, alcanzable, sin utopía. La frase sintetiza la filosofía política de Mujica en cinco palabras.',
+      },
+      { text: ' ' },
+      {
+        text: 'Nosotros cometimos errores. Yo cometí errores.',
+        type: 'DISENSO',
+        note: 'Reconocimiento del error en primera persona plural y singular. El líder que falla y lo admite construye confianza real. En la retórica populista habitual, el líder nunca se equivoca.',
+      },
+      { text: ' La historia dirá lo que corresponda. No vengo a erigir estatuas de lo que hicimos. ' },
+      {
+        text: 'Pero si hay un pequeño aliento que queda rodando en las colinas,',
+        type: 'FUTURO',
+        note: 'La imagen más emotiva del discurso. El "aliento rodando" es la esperanza transmitida sin dueño, sin partido, sin conquista. Una proyección de futuro sin poder.',
+      },
+      { text: ' ese aliento es de todos y para todos. ' },
+      {
+        text: 'Cuídense mucho. Quiéranse mucho.',
+        type: 'CUIDADO',
+        note: 'Cierre en imperativo de cuidado recíproco. El verbo "cuidar" como acto político final. Mujica despide un gobierno con la misma ética con que lo ejerció: la ternura como praxis.',
+      },
+    ],
+  },
 ];
 
 export function getSpeechesByEntity(entityId) {
