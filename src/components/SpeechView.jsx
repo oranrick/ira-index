@@ -8,14 +8,27 @@ const IRA_COLOR = (score) => {
   return '#ff6600';
 };
 
+function useWindowWidth() {
+  const [width, setWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
+  useEffect(() => {
+    const handler = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
+  return width;
+}
+
 export function SpeechView({ speech, onBack }) {
-  const [activeAnnotation, setActiveAnnotation] = useState(null); // { type, note, rect }
-  const [pinnedAnnotation, setPinnedAnnotation] = useState(null); // clicked/pinned
+  const [activeAnnotation, setActiveAnnotation] = useState(null);
+  const [pinnedAnnotation, setPinnedAnnotation] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 });
   const containerRef = useRef(null);
+  const width = useWindowWidth();
+  const isMobile = width < 768;
   const scoreColor = IRA_COLOR(speech.iraScore);
 
-  // Close pinned panel on Escape
   useEffect(() => {
     const handler = (e) => {
       if (e.key === 'Escape') setPinnedAnnotation(null);
@@ -25,16 +38,13 @@ export function SpeechView({ speech, onBack }) {
   }, []);
 
   const handleAnnotationHover = (e, segment) => {
-    if (!segment.type) return;
+    if (!segment.type || isMobile) return;
     const annotationType = ANNOTATION_TYPES[segment.type];
     const rect = e.target.getBoundingClientRect();
     const containerRect = containerRef.current.getBoundingClientRect();
     setTooltipPos({
       top: rect.bottom - containerRect.top + 8,
-      left: Math.min(
-        rect.left - containerRect.left,
-        containerRect.width - 280
-      ),
+      left: Math.min(rect.left - containerRect.left, containerRect.width - 260),
     });
     setActiveAnnotation({ ...annotationType, note: segment.note });
   };
@@ -47,7 +57,6 @@ export function SpeechView({ speech, onBack }) {
     setActiveAnnotation(null);
   };
 
-  // Count annotations by type
   const annotationCounts = speech.segments
     .filter((s) => s.type)
     .reduce((acc, s) => {
@@ -56,78 +65,91 @@ export function SpeechView({ speech, onBack }) {
     }, {});
 
   return (
-    <div style={styles.wrapper} onClick={() => setPinnedAnnotation(null)}>
-      {/* Back button */}
+    <div
+      style={{ ...styles.wrapper, padding: isMobile ? '1rem 0.9rem 5rem' : '1.5rem 1.5rem 4rem' }}
+      onClick={() => setPinnedAnnotation(null)}
+    >
+      {/* Back */}
       <button onClick={onBack} style={styles.backBtn}>
-        ← Volver al perfil
+        ← Volver
       </button>
 
       {/* Header */}
-      <div style={styles.header}>
+      <div style={{ ...styles.header, flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? '0.8rem' : '2rem' }}>
         <div style={styles.headerLeft}>
           <div style={styles.entityChip}>{speech.entityName}</div>
-          <h1 style={styles.title}>{speech.title}</h1>
+          <h1 style={{ ...styles.title, fontSize: isMobile ? '1.2rem' : 'clamp(1.3rem, 3vw, 1.8rem)' }}>
+            {speech.title}
+          </h1>
           <div style={styles.meta}>
             <span style={styles.metaItem}>📅 {speech.date}</span>
             <span style={styles.metaDot}>·</span>
             <span style={styles.metaItem}>⏱ {speech.duration}</span>
-            <span style={styles.metaDot}>·</span>
-            <span style={styles.metaItem}>{speech.wordCount.toLocaleString()} palabras</span>
+            {!isMobile && (
+              <>
+                <span style={styles.metaDot}>·</span>
+                <span style={styles.metaItem}>{speech.wordCount.toLocaleString()} palabras</span>
+              </>
+            )}
           </div>
-          <p style={styles.context}>{speech.context}</p>
+          {!isMobile && <p style={styles.context}>{speech.context}</p>}
         </div>
-        <div style={styles.headerRight}>
-          <div style={styles.scoreBox}>
-            <span style={{ ...styles.scoreNumber, color: scoreColor }}>
-              {speech.iraScore.toFixed(1)}
-            </span>
+
+        {/* Score */}
+        <div style={{
+          ...styles.scoreBox,
+          flexDirection: isMobile ? 'row' : 'column',
+          alignItems: 'center',
+          padding: isMobile ? '0.5rem 0.9rem' : '1rem 1.4rem',
+          alignSelf: isMobile ? 'flex-start' : 'auto',
+        }}>
+          <span style={{ ...styles.scoreNumber, fontSize: isMobile ? '1.9rem' : '2.6rem', color: scoreColor }}>
+            {speech.iraScore.toFixed(1)}
+          </span>
+          {isMobile && <span style={styles.scoreSep}>/10</span>}
+          <div style={{
+            display: 'flex', flexDirection: 'column',
+            alignItems: isMobile ? 'flex-start' : 'center',
+            marginLeft: isMobile ? '0.5rem' : 0,
+          }}>
             <span style={styles.scoreLabel}>IRA Score</span>
-            <span style={{ ...styles.scoreClassification, color: scoreColor }}>
-              {speech.iraLabel}
-            </span>
+            <span style={{ ...styles.scoreClassification, color: scoreColor }}>{speech.iraLabel}</span>
           </div>
         </div>
       </div>
 
       {/* Summary */}
       <div style={styles.summaryBox}>
-        <span style={styles.summaryIcon}>🔍</span>
         <p style={styles.summaryText}>{speech.summary}</p>
       </div>
 
       {/* Legend */}
       <div style={styles.legend}>
-        <span style={styles.legendTitle}>Leyenda de anotaciones:</span>
         {Object.entries(annotationCounts).map(([typeKey, count]) => {
           const t = ANNOTATION_TYPES[typeKey];
           return (
             <div key={typeKey} style={styles.legendItem}>
-              <span
-                style={{
-                  ...styles.legendDot,
-                  background: t.color,
-                }}
-              />
-              <span style={{ ...styles.legendLabel, color: t.color }}>
-                {t.label}
-              </span>
+              <span style={{ ...styles.legendDot, background: t.color }} />
+              <span style={{ ...styles.legendLabel, color: t.color }}>{t.label}</span>
               <span style={styles.legendCount}>×{count}</span>
             </div>
           );
         })}
       </div>
 
-      {/* Main layout: text + params */}
-      <div style={styles.mainLayout}>
+      {/* Main layout */}
+      <div style={{ ...styles.mainLayout, gridTemplateColumns: isMobile ? '1fr' : '1fr 300px' }}>
+
         {/* Annotated text */}
         <div style={styles.textColumn} ref={containerRef}>
-          <h2 style={styles.sectionTitle}>Fragmento anotado</h2>
-          <div style={styles.textBlock}>
+          <p style={styles.sectionLabel}>FRAGMENTO ANOTADO</p>
+          <div style={{ ...styles.textBlock, fontSize: isMobile ? '0.9rem' : '0.98rem' }}>
             {speech.segments.map((segment, i) => {
               if (!segment.type) {
                 return <span key={i} style={styles.plainText}>{segment.text}</span>;
               }
-              const annotationType = ANNOTATION_TYPES[segment.type];
+              const at = ANNOTATION_TYPES[segment.type];
+              const isPinned = pinnedAnnotation?.note === segment.note;
               return (
                 <span
                   key={i}
@@ -135,15 +157,16 @@ export function SpeechView({ speech, onBack }) {
                   onMouseLeave={() => setActiveAnnotation(null)}
                   onClick={(e) => handleAnnotationClick(e, segment)}
                   style={{
-                    ...styles.annotatedSpan,
-                    color: annotationType.color,
-                    borderBottomColor: annotationType.color,
-                    background:
-                      pinnedAnnotation?.note === segment.note
-                        ? annotationType.bg
-                        : 'transparent',
+                    color: at.color,
+                    borderBottom: `1.5px solid ${at.color}`,
+                    opacity: isPinned ? 1 : 0.88,
+                    background: isPinned ? at.bg : 'transparent',
+                    cursor: 'pointer',
+                    borderRadius: '2px',
+                    padding: '0 1px',
+                    transition: 'all 0.15s',
+                    fontWeight: 500,
                   }}
-                  title=""
                 >
                   {segment.text}
                 </span>
@@ -151,53 +174,39 @@ export function SpeechView({ speech, onBack }) {
             })}
           </div>
 
-          {/* Hover tooltip */}
-          {activeAnnotation && (
-            <div
-              style={{
-                ...styles.tooltip,
-                top: tooltipPos.top,
-                left: tooltipPos.left,
-              }}
-            >
+          {/* Tooltip — desktop only */}
+          {activeAnnotation && !isMobile && (
+            <div style={{ ...styles.tooltip, top: tooltipPos.top, left: tooltipPos.left }}>
               <div style={styles.tooltipHeader}>
                 <span style={styles.tooltipIcon}>{activeAnnotation.icon}</span>
                 <span style={{ ...styles.tooltipLabel, color: activeAnnotation.color }}>
                   {activeAnnotation.label}
                 </span>
-                <span style={styles.tooltipParam}>{activeAnnotation.param}</span>
               </div>
               <p style={styles.tooltipDesc}>{activeAnnotation.description}</p>
-              <p style={styles.tooltipHint}>Clic para fijar el análisis →</p>
+              <p style={styles.tooltipHint}>Clic para análisis completo →</p>
             </div>
           )}
         </div>
 
-        {/* Params panel */}
-        <div style={styles.paramsColumn}>
-          <h2 style={styles.sectionTitle}>Parámetros IRA</h2>
+        {/* Params */}
+        <div style={{ ...styles.paramsColumn, position: isMobile ? 'static' : 'sticky', top: '1rem' }}>
+          <p style={styles.sectionLabel}>PARÁMETROS IRA</p>
           <div style={styles.paramsList}>
             {speech.params.map((param, i) => (
               <div key={i} style={styles.paramItem}>
                 <div style={styles.paramHeader}>
                   <span style={styles.paramName}>{param.name}</span>
-                  <span
-                    style={{
-                      ...styles.paramValue,
-                      color: IRA_COLOR(param.value),
-                    }}
-                  >
+                  <span style={{ ...styles.paramValue, color: IRA_COLOR(param.value) }}>
                     {param.value.toFixed(1)}
                   </span>
                 </div>
                 <div style={styles.paramBarTrack}>
-                  <div
-                    style={{
-                      ...styles.paramBarFill,
-                      width: `${(param.value / 10) * 100}%`,
-                      background: IRA_COLOR(param.value),
-                    }}
-                  />
+                  <div style={{
+                    ...styles.paramBarFill,
+                    width: `${(param.value / 10) * 100}%`,
+                    background: IRA_COLOR(param.value),
+                  }} />
                 </div>
                 <p style={styles.paramNote}>{param.note}</p>
               </div>
@@ -206,24 +215,18 @@ export function SpeechView({ speech, onBack }) {
         </div>
       </div>
 
-      {/* Pinned annotation panel (side drawer style, fixed) */}
+      {/* Pinned panel */}
       {pinnedAnnotation && (
         <div
-          style={styles.pinnedPanel}
+          style={{
+            ...styles.pinnedPanel,
+            width: isMobile ? 'calc(100vw - 2rem)' : '320px',
+            right: isMobile ? '1rem' : '1.5rem',
+          }}
           onClick={(e) => e.stopPropagation()}
         >
-          <button
-            onClick={() => setPinnedAnnotation(null)}
-            style={styles.pinnedClose}
-          >
-            ✕
-          </button>
-          <div
-            style={{
-              ...styles.pinnedColorBar,
-              background: pinnedAnnotation.color,
-            }}
-          />
+          <div style={{ ...styles.pinnedColorBar, background: pinnedAnnotation.color }} />
+          <button onClick={() => setPinnedAnnotation(null)} style={styles.pinnedClose}>✕</button>
           <div style={styles.pinnedContent}>
             <div style={styles.pinnedTopRow}>
               <span style={styles.pinnedIcon}>{pinnedAnnotation.icon}</span>
@@ -250,50 +253,41 @@ const styles = {
     position: 'relative',
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '1.5rem 1rem 4rem',
-    minHeight: '100vh',
   },
   backBtn: {
     background: 'none',
-    border: '1px solid rgba(255,255,255,0.12)',
-    color: 'rgba(255,255,255,0.5)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    color: 'rgba(255,255,255,0.4)',
     borderRadius: '6px',
-    padding: '0.4rem 0.9rem',
+    padding: '0.35rem 0.8rem',
     cursor: 'pointer',
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.75rem',
-    marginBottom: '1.5rem',
+    fontSize: '0.72rem',
+    marginBottom: '1.2rem',
     transition: 'all 0.2s',
   },
   header: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'flex-start',
-    gap: '2rem',
-    marginBottom: '1.2rem',
-    flexWrap: 'wrap',
+    marginBottom: '1rem',
   },
-  headerLeft: {
-    flex: 1,
-    minWidth: '260px',
-  },
+  headerLeft: { flex: 1 },
   entityChip: {
     display: 'inline-block',
-    background: 'rgba(255,102,0,0.15)',
+    background: 'rgba(255,102,0,0.12)',
     color: '#ff6600',
-    border: '1px solid rgba(255,102,0,0.3)',
+    border: '1px solid rgba(255,102,0,0.25)',
     borderRadius: '4px',
-    padding: '2px 10px',
+    padding: '2px 8px',
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.7rem',
-    marginBottom: '0.6rem',
+    fontSize: '0.65rem',
+    marginBottom: '0.5rem',
     textTransform: 'uppercase',
     letterSpacing: '0.08em',
   },
   title: {
-    margin: '0 0 0.5rem',
+    margin: '0 0 0.4rem',
     fontFamily: "'Syne', sans-serif",
-    fontSize: 'clamp(1.3rem, 3vw, 1.9rem)',
     fontWeight: 800,
     color: '#fff',
     lineHeight: 1.2,
@@ -301,337 +295,268 @@ const styles = {
   meta: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '0.4rem',
+    gap: '0.3rem',
     alignItems: 'center',
-    marginBottom: '0.6rem',
+    marginBottom: '0.5rem',
   },
   metaItem: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.72rem',
-    color: 'rgba(255,255,255,0.4)',
+    fontSize: '0.68rem',
+    color: 'rgba(255,255,255,0.35)',
   },
-  metaDot: {
-    color: 'rgba(255,255,255,0.2)',
-  },
+  metaDot: { color: 'rgba(255,255,255,0.15)' },
   context: {
     margin: 0,
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.76rem',
-    color: 'rgba(255,255,255,0.5)',
+    fontSize: '0.72rem',
+    color: 'rgba(255,255,255,0.4)',
     lineHeight: 1.6,
-    maxWidth: '560px',
-  },
-  headerRight: {
-    flexShrink: 0,
+    maxWidth: '520px',
   },
   scoreBox: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '12px',
-    padding: '1rem 1.5rem',
-    gap: '0.2rem',
-    minWidth: '120px',
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.07)',
+    borderRadius: '10px',
+    flexShrink: 0,
   },
   scoreNumber: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '2.8rem',
     fontWeight: 700,
     lineHeight: 1,
   },
+  scoreSep: {
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '0.75rem',
+    color: 'rgba(255,255,255,0.2)',
+    alignSelf: 'flex-end',
+    marginBottom: '3px',
+  },
   scoreLabel: {
     fontFamily: "'Syne', sans-serif",
-    fontSize: '0.65rem',
-    color: 'rgba(255,255,255,0.3)',
+    fontSize: '0.58rem',
+    color: 'rgba(255,255,255,0.25)',
     textTransform: 'uppercase',
     letterSpacing: '0.1em',
   },
   scoreClassification: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.65rem',
+    fontSize: '0.6rem',
     fontWeight: 600,
-    textAlign: 'center',
   },
   summaryBox: {
-    display: 'flex',
-    gap: '0.8rem',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.07)',
-    borderLeft: '3px solid #ff6600',
-    borderRadius: '0 8px 8px 0',
-    padding: '0.9rem 1rem',
-    marginBottom: '1.2rem',
-  },
-  summaryIcon: {
-    fontSize: '1rem',
-    flexShrink: 0,
-    marginTop: '2px',
+    background: 'rgba(255,255,255,0.02)',
+    borderLeft: '2px solid #ff6600',
+    padding: '0.75rem 1rem',
+    marginBottom: '1rem',
+    borderRadius: '0 6px 6px 0',
   },
   summaryText: {
     margin: 0,
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.78rem',
-    color: 'rgba(255,255,255,0.65)',
+    fontSize: '0.73rem',
+    color: 'rgba(255,255,255,0.5)',
     lineHeight: 1.7,
   },
   legend: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '0.5rem',
-    alignItems: 'center',
-    marginBottom: '1.5rem',
-    padding: '0.7rem 1rem',
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid rgba(255,255,255,0.06)',
-    borderRadius: '8px',
-  },
-  legendTitle: {
-    fontFamily: "'DM Mono', monospace",
-    fontSize: '0.68rem',
-    color: 'rgba(255,255,255,0.3)',
-    marginRight: '0.3rem',
+    gap: '0.4rem',
+    marginBottom: '1.2rem',
   },
   legendItem: {
     display: 'flex',
     alignItems: 'center',
     gap: '0.3rem',
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.06)',
+    borderRadius: '99px',
+    padding: '3px 8px',
   },
   legendDot: {
-    width: '8px',
-    height: '8px',
+    width: '6px',
+    height: '6px',
     borderRadius: '50%',
     flexShrink: 0,
   },
   legendLabel: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.68rem',
-    fontWeight: 600,
+    fontSize: '0.62rem',
+    fontWeight: 500,
   },
   legendCount: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.62rem',
-    color: 'rgba(255,255,255,0.25)',
+    fontSize: '0.57rem',
+    color: 'rgba(255,255,255,0.2)',
   },
   mainLayout: {
     display: 'grid',
-    gridTemplateColumns: '1fr 320px',
-    gap: '1.5rem',
+    gap: '1.2rem',
     alignItems: 'start',
   },
-  textColumn: {
-    position: 'relative',
-  },
-  paramsColumn: {
-    position: 'sticky',
-    top: '1rem',
-  },
-  sectionTitle: {
-    fontFamily: "'Syne', sans-serif",
-    fontSize: '0.8rem',
-    fontWeight: 700,
-    color: 'rgba(255,255,255,0.4)',
-    textTransform: 'uppercase',
-    letterSpacing: '0.12em',
-    marginBottom: '0.8rem',
-    margin: '0 0 0.8rem',
+  textColumn: { position: 'relative' },
+  sectionLabel: {
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '0.6rem',
+    fontWeight: 600,
+    color: 'rgba(255,255,255,0.22)',
+    letterSpacing: '0.14em',
+    margin: '0 0 0.5rem',
   },
   textBlock: {
-    fontFamily: 'Georgia, serif',
-    fontSize: '1.05rem',
-    lineHeight: 1.9,
-    color: 'rgba(255,255,255,0.82)',
+    fontFamily: "'DM Mono', monospace",
+    lineHeight: 2,
+    color: 'rgba(255,255,255,0.72)',
     background: 'rgba(255,255,255,0.02)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.05)',
     borderRadius: '10px',
-    padding: '1.5rem 1.8rem',
-    position: 'relative',
+    padding: '1.3rem 1.4rem',
   },
   plainText: {
-    color: 'rgba(255,255,255,0.82)',
-  },
-  annotatedSpan: {
-    borderBottom: '2px solid',
-    cursor: 'pointer',
-    borderRadius: '2px',
-    padding: '1px 2px',
-    transition: 'background 0.15s',
-    fontWeight: 600,
+    color: 'rgba(255,255,255,0.7)',
+    fontWeight: 400,
   },
   tooltip: {
     position: 'absolute',
     zIndex: 100,
-    background: '#1a1a1a',
-    border: '1px solid rgba(255,255,255,0.12)',
-    borderRadius: '10px',
-    padding: '0.8rem 1rem',
-    maxWidth: '280px',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+    background: '#181818',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '8px',
+    padding: '0.65rem 0.85rem',
+    maxWidth: '255px',
+    boxShadow: '0 8px 28px rgba(0,0,0,0.6)',
     pointerEvents: 'none',
   },
   tooltipHeader: {
     display: 'flex',
     alignItems: 'center',
-    gap: '0.4rem',
-    marginBottom: '0.4rem',
-    flexWrap: 'wrap',
+    gap: '0.35rem',
+    marginBottom: '0.3rem',
   },
-  tooltipIcon: {
-    fontSize: '0.9rem',
-  },
+  tooltipIcon: { fontSize: '0.82rem' },
   tooltipLabel: {
     fontFamily: "'Syne', sans-serif",
-    fontSize: '0.78rem',
+    fontSize: '0.72rem',
     fontWeight: 700,
-  },
-  tooltipParam: {
-    fontFamily: "'DM Mono', monospace",
-    fontSize: '0.62rem',
-    color: 'rgba(255,255,255,0.35)',
-    marginLeft: 'auto',
   },
   tooltipDesc: {
     margin: 0,
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.72rem',
-    color: 'rgba(255,255,255,0.6)',
+    fontSize: '0.67rem',
+    color: 'rgba(255,255,255,0.48)',
     lineHeight: 1.5,
   },
   tooltipHint: {
-    margin: '0.5rem 0 0',
+    margin: '0.35rem 0 0',
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.62rem',
-    color: 'rgba(255,102,0,0.6)',
+    fontSize: '0.58rem',
+    color: 'rgba(255,102,0,0.45)',
   },
+  paramsColumn: {},
   paramsList: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '0.9rem',
+    gap: '0.7rem',
     background: 'rgba(255,255,255,0.02)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.05)',
     borderRadius: '10px',
-    padding: '1rem',
+    padding: '0.9rem',
   },
-  paramItem: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.25rem',
-  },
-  paramHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+  paramItem: { display: 'flex', flexDirection: 'column', gap: '0.18rem' },
+  paramHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
   paramName: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.7rem',
-    color: 'rgba(255,255,255,0.6)',
-    fontWeight: 600,
+    fontSize: '0.65rem',
+    color: 'rgba(255,255,255,0.5)',
+    fontWeight: 500,
   },
   paramValue: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.85rem',
+    fontSize: '0.8rem',
     fontWeight: 700,
   },
   paramBarTrack: {
-    height: '3px',
-    background: 'rgba(255,255,255,0.07)',
-    borderRadius: '3px',
+    height: '2px',
+    background: 'rgba(255,255,255,0.06)',
+    borderRadius: '2px',
     overflow: 'hidden',
   },
   paramBarFill: {
     height: '100%',
-    borderRadius: '3px',
+    borderRadius: '2px',
     transition: 'width 0.6s ease',
   },
   paramNote: {
     margin: 0,
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.65rem',
-    color: 'rgba(255,255,255,0.35)',
+    fontSize: '0.6rem',
+    color: 'rgba(255,255,255,0.26)',
     lineHeight: 1.5,
   },
-  // Pinned panel (fixed, bottom-right)
   pinnedPanel: {
     position: 'fixed',
-    bottom: '1.5rem',
-    right: '1.5rem',
-    width: '320px',
-    background: '#161616',
-    border: '1px solid rgba(255,255,255,0.12)',
+    bottom: '1.2rem',
+    background: '#141414',
+    border: '1px solid rgba(255,255,255,0.1)',
     borderRadius: '12px',
     boxShadow: '0 16px 48px rgba(0,0,0,0.8)',
     zIndex: 200,
     overflow: 'hidden',
-    animation: 'slideUp 0.2s ease',
+    animation: 'slideUp 0.18s ease',
   },
-  pinnedColorBar: {
-    height: '4px',
-    width: '100%',
-  },
+  pinnedColorBar: { height: '3px', width: '100%' },
   pinnedClose: {
     position: 'absolute',
-    top: '12px',
-    right: '12px',
+    top: '10px',
+    right: '10px',
     background: 'none',
     border: 'none',
-    color: 'rgba(255,255,255,0.3)',
+    color: 'rgba(255,255,255,0.22)',
     cursor: 'pointer',
-    fontSize: '0.9rem',
-    padding: '2px 6px',
+    fontSize: '0.82rem',
+    padding: '2px 5px',
     zIndex: 1,
   },
-  pinnedContent: {
-    padding: '0.9rem 1.1rem 1.1rem',
-  },
-  pinnedTopRow: {
-    display: 'flex',
-    gap: '0.6rem',
-    alignItems: 'flex-start',
-    marginBottom: '0.6rem',
-  },
-  pinnedIcon: {
-    fontSize: '1.4rem',
-    marginTop: '2px',
-  },
+  pinnedContent: { padding: '0.75rem 1rem 1rem' },
+  pinnedTopRow: { display: 'flex', gap: '0.5rem', alignItems: 'flex-start', marginBottom: '0.45rem' },
+  pinnedIcon: { fontSize: '1.1rem', marginTop: '2px' },
   pinnedLabel: {
     fontFamily: "'Syne', sans-serif",
-    fontSize: '0.85rem',
+    fontSize: '0.8rem',
     fontWeight: 700,
     margin: 0,
   },
   pinnedParam: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.65rem',
-    color: 'rgba(255,255,255,0.35)',
+    fontSize: '0.58rem',
+    color: 'rgba(255,255,255,0.28)',
     margin: '0.1rem 0 0',
   },
   pinnedDesc: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.75rem',
-    color: 'rgba(255,255,255,0.55)',
+    fontSize: '0.7rem',
+    color: 'rgba(255,255,255,0.48)',
     lineHeight: 1.6,
-    margin: '0 0 0.7rem',
+    margin: '0 0 0.5rem',
   },
   pinnedDivider: {
     height: '1px',
-    background: 'rgba(255,255,255,0.07)',
-    margin: '0.7rem 0',
+    background: 'rgba(255,255,255,0.06)',
+    margin: '0.55rem 0',
   },
   pinnedNoteTitle: {
     fontFamily: "'Syne', sans-serif",
-    fontSize: '0.65rem',
+    fontSize: '0.58rem',
     fontWeight: 700,
-    color: 'rgba(255,255,255,0.3)',
+    color: 'rgba(255,255,255,0.22)',
     textTransform: 'uppercase',
     letterSpacing: '0.1em',
-    margin: '0 0 0.4rem',
+    margin: '0 0 0.3rem',
   },
   pinnedNote: {
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.75rem',
-    color: 'rgba(255,255,255,0.75)',
+    fontSize: '0.7rem',
+    color: 'rgba(255,255,255,0.68)',
     lineHeight: 1.7,
     margin: 0,
   },
