@@ -1,0 +1,750 @@
+// src/data/speeches.js
+// Discursos analizados extraídos del TFG "El contagio de las palabras" (UCM, 2024)
+// Rick Grisales Ramírez
+
+export const ANNOTATION_TYPES = {
+  BELICA: {
+    id: 'belica',
+    label: 'Metáfora bélica',
+    color: '#ff6600',
+    bg: 'rgba(255,102,0,0.15)',
+    border: '#ff6600',
+    param: 'Tipo de metáfora dominante',
+    icon: '⚔️',
+    description: 'Encuadra la política como guerra. Convierte al adversario en enemigo a eliminar, no en interlocutor.',
+  },
+  PRONOMINAL: {
+    id: 'pronominal',
+    label: 'Uso pronominal inclusivo',
+    color: '#3b9eff',
+    bg: 'rgba(59,158,255,0.15)',
+    border: '#3b9eff',
+    param: 'Uso pronominal inclusivo',
+    icon: '🤝',
+    description: 'El "nosotros" amplio y poroso que integra sin excluir. Construye comunidad sin trinchera.',
+  },
+  PRONOMINAL_EX: {
+    id: 'pronominal_ex',
+    label: 'Pronombre excluyente',
+    color: '#ff3b3b',
+    bg: 'rgba(255,59,59,0.15)',
+    border: '#ff3b3b',
+    param: 'Uso pronominal inclusivo',
+    icon: '🚫',
+    description: 'El "ellos" como alteridad amenazante. Marca el outgroup y legitima su exclusión o confrontación.',
+  },
+  CUIDADO: {
+    id: 'cuidado',
+    label: 'Metáfora de cuidado',
+    color: '#2ecc71',
+    bg: 'rgba(46,204,113,0.15)',
+    border: '#2ecc71',
+    param: 'Tipo de metáfora dominante',
+    icon: '🌱',
+    description: 'Imágenes de reconstrucción, sanación y tejido social. Construir, sanar, caminar juntos.',
+  },
+  DICOTOMIA: {
+    id: 'dicotomia',
+    label: 'Dicotomía moral',
+    color: '#a855f7',
+    bg: 'rgba(168,85,247,0.15)',
+    border: '#a855f7',
+    param: 'Carga dicotómica',
+    icon: '⚡',
+    description: 'División maniquea del mundo en buenos y malos. Simplificación ética que cierra el espacio político.',
+  },
+  MIEDO: {
+    id: 'miedo',
+    label: 'Apelación al miedo',
+    color: '#f59e0b',
+    bg: 'rgba(245,158,11,0.15)',
+    border: '#f59e0b',
+    param: 'Tono emocional dominante',
+    icon: '⚠️',
+    description: 'Escenario apocalíptico que moviliza desde el pánico. El afecto como munición, no como vínculo.',
+  },
+  DISENSO: {
+    id: 'disenso',
+    label: 'Reconocimiento del disenso',
+    color: '#06b6d4',
+    bg: 'rgba(6,182,212,0.15)',
+    border: '#06b6d4',
+    param: 'Reconocimiento del disenso',
+    icon: '💬',
+    description: 'Validar el desacuerdo como parte del espacio común. Rasgo empático que abre, no cierra.',
+  },
+  FUTURO: {
+    id: 'futuro',
+    label: 'Proyección de futuro',
+    color: '#ec4899',
+    bg: 'rgba(236,72,153,0.15)',
+    border: '#ec4899',
+    param: 'Proyección de futuro',
+    icon: '🔭',
+    description: 'Horizonte esperanzador o amenazante. ¿El futuro convoca a construir o a defenderse?',
+  },
+  SANITARIA: {
+    id: 'sanitaria',
+    label: 'Metáfora sanitaria',
+    color: '#10b981',
+    bg: 'rgba(16,185,129,0.15)',
+    border: '#10b981',
+    param: 'Tipo de metáfora dominante',
+    icon: '🏥',
+    description: 'Nación-cuerpo que necesita curación colectiva. Ambigua: puede cohesionar o excluir al "contaminado".',
+  },
+};
+
+// Helper: each segment is either plain text { text } or annotated { text, type, note }
+// type references a key in ANNOTATION_TYPES
+
+export const speeches = [
+  // ─────────────────────────────────────────────
+  // TRUMP 1: Discurso de victoria electoral (2024)
+  // ─────────────────────────────────────────────
+  {
+    id: 'trump-victoria-2024',
+    entityId: 'trump',
+    entityName: 'Donald Trump',
+    title: 'Discurso de victoria electoral',
+    date: '6 de noviembre de 2024',
+    context: 'Palm Beach, Florida. Tras confirmar su victoria en las elecciones presidenciales de EE.UU.',
+    duration: '30\'18"',
+    iraScore: 3.1,
+    iraLabel: 'Principalmente polarizante',
+    classification: 'polarizante',
+    wordCount: 3851,
+    summary: 'Discurso de arenga épica post-electoral. Movilización heroica que combina euforia triunfal con sensación de asedio permanente. El "nosotros" funciona como refugio militarizado frente a un "ellos" que encarna la amenaza.',
+    params: [
+      { name: 'Uso pronominal inclusivo', value: 4.1, note: '127 we/our/us (29,2‰) vs 17 they (3,9‰). El "nosotros" amplio pero condicionado a la lealtad.' },
+      { name: 'Tipo de metáfora dominante', value: 2.8, note: '19 metáforas bélicas (4,4‰). La guerra como marco central.' },
+      { name: 'Carga dicotómica', value: 2.5, note: '9 pares dicotómicos explícitos. "Pueblo vs. élite", "nosotros vs. ellos".' },
+      { name: 'Tono emocional dominante', value: 2.9, note: 'Euforia triunfal + sensación de asedio. 47 intensificadores y 31 exclamaciones (18‰).' },
+      { name: 'Reconocimiento del disenso', value: 1.5, note: 'Casi inexistente. El adversario es enemigo, no interlocutor.' },
+      { name: 'Vector de acción', value: 3.0, note: '14 llamados a la confrontación (3,2‰) vs 6 a la cooperación (1,4‰).' },
+      { name: 'Coherencia afectiva', value: 4.2, note: 'Alta coherencia interna: el miedo y la victoria se refuerzan mutuamente.' },
+      { name: 'Proyección de futuro', value: 3.8, note: 'Tiempo apocalíptico de urgencia permanente. El futuro convoca a la acción defensiva.' },
+    ],
+    segments: [
+      { text: 'America has spoken, and ' },
+      {
+        text: 'we have won',
+        type: 'PRONOMINAL',
+        note: '"We" inclusivo-triunfal: convoca a la coalición victoriosa. El nosotros que gana, no el que escucha.',
+      },
+      { text: '. ' },
+      {
+        text: 'This is a magnificent victory for the American people.',
+        type: 'FUTURO',
+        note: 'Proyección de futuro positivo anclada en la victoria presente. El horizonte se define desde la conquista, no desde el pacto.',
+      },
+      { text: ' ' },
+      {
+        text: 'They tried to stop us. They failed.',
+        type: 'PRONOMINAL_EX',
+        note: '"They" como enemigo difuso pero omnipresente. La alteridad amenazante que legitima el combate.',
+      },
+      { text: ' ' },
+      {
+        text: 'We fought a battle',
+        type: 'BELICA',
+        note: 'Metáfora bélica central: la elección como guerra. Activa el marco del combate y convierte el proceso democrático en contienda.',
+      },
+      { text: ' like no one has ever fought before. ' },
+      {
+        text: 'Our enemies are radical left lunatics.',
+        type: 'DICOTOMIA',
+        note: 'Dicotomía moral explícita con carga deshumanizadora. "Lunatics" activa la metáfora sanitaria al servicio de la exclusión.',
+      },
+      { text: ' ' },
+      {
+        text: 'We will make America great again.',
+        type: 'FUTURO',
+        note: 'Proyección de futuro como restauración, no como construcción. El tiempo ideal está en el pasado; el futuro es recuperar lo perdido.',
+      },
+      { text: ' ' },
+      {
+        text: 'Together we will fix our broken borders',
+        type: 'SANITARIA',
+        note: 'Metáfora sanitaria: el país como cuerpo dañado que necesita reparación. "Broken" activa la lógica del contagio: hay algo que "entra" y que amenaza la integridad nacional.',
+      },
+      { text: ', we will defeat crime and drugs and violence. ' },
+      {
+        text: 'We will defeat the failing New York Times',
+        type: 'BELICA',
+        note: 'La prensa convertida en enemigo a "derrotar". Extiende el marco bélico a las instituciones mediáticas.',
+      },
+      { text: ', and CNN, and all of these guys right here. ' },
+      {
+        text: 'If they win, everything we love will be destroyed.',
+        type: 'MIEDO',
+        note: 'Apelación directa al miedo apocalíptico. La derrota no es política: es destrucción total. Moviliza desde el pánico, no desde la esperanza.',
+      },
+      { text: ' ' },
+      {
+        text: 'We want to help people, we want to bring our country together.',
+        type: 'PRONOMINAL',
+        note: '6 invocaciones a la cooperación (1,4‰). Llamado a la unidad condicional: empática en la forma, exclusiva en el fondo.',
+      },
+    ],
+  },
+
+  // ──────────────────────────────────────────────────────
+  // TRUMP 2: "We Will Never Concede" (2021)
+  // ──────────────────────────────────────────────────────
+  {
+    id: 'trump-never-concede-2021',
+    entityId: 'trump',
+    entityName: 'Donald Trump',
+    title: '"We Will Never Concede"',
+    date: '6 de enero de 2021',
+    context: 'Mitin en la Explanada Nacional, Washington D.C. Horas antes del asalto al Capitolio.',
+    duration: '71\'00"',
+    iraScore: 1.8,
+    iraLabel: 'Fuertemente polarizante',
+    classification: 'polarizante',
+    wordCount: 11000,
+    summary: 'El discurso de mayor intensidad polarizadora del corpus. El tiempo ya no es apocalíptico: es la hora cero. El lenguaje abandona la mediación y se convierte en detonador. El afecto no es vínculo sino munición.',
+    params: [
+      { name: 'Uso pronominal inclusivo', value: 3.2, note: 'We/our elevado, pero el "nosotros" es trinchera, no comunidad.' },
+      { name: 'Tipo de metáfora dominante', value: 1.5, note: 'Densidad bélica máxima. La política es literalmente guerra.' },
+      { name: 'Carga dicotómica', value: 1.4, note: 'Dicotomías absolutas sin matices: patriotas vs. traidores.' },
+      { name: 'Tono emocional dominante', value: 1.6, note: 'Cólera y ultraje como motor principal. Zero esperanza.' },
+      { name: 'Reconocimiento del disenso', value: 1.0, note: 'Nulo. El disenso es traición.' },
+      { name: 'Vector de acción', value: 1.5, note: 'Movilización directa a la acción confrontacional.' },
+      { name: 'Coherencia afectiva', value: 2.0, note: 'Coherente en su lógica de asedio permanente.' },
+      { name: 'Proyección de futuro', value: 1.8, note: 'No hay futuro como horizonte. Solo el presente de la amenaza.' },
+    ],
+    segments: [
+      { text: 'All of us here today do not want to see our election victory stolen by ' },
+      {
+        text: 'emboldened radical left Democrats',
+        type: 'DICOTOMIA',
+        note: 'Dicotomía moral absoluta. El adversario político se convierte en fuerza radicalmente opuesta, no en competidor legítimo.',
+      },
+      { text: ', which is what they\'re doing and what they allow to happen. ' },
+      {
+        text: 'We will never give up. We will never concede.',
+        type: 'BELICA',
+        note: 'Marco de resistencia bélica. "Nunca rendirse" activa el código del combate militar, no del proceso democrático.',
+      },
+      { text: ' It doesn\'t happen. ' },
+      {
+        text: 'You don\'t concede when there\'s theft involved.',
+        type: 'DICOTOMIA',
+        note: 'La elección como robo. Convierte el resultado electoral en un acto criminal, legitimando la resistencia extralegal.',
+      },
+      { text: ' ' },
+      {
+        text: 'Our country has had enough. We will not take it anymore.',
+        type: 'MIEDO',
+        note: 'Punto de saturación emocional. El "enough" acumula el agravio histórico y lo convierte en detonador de acción.',
+      },
+      { text: ' ' },
+      {
+        text: 'We fight like hell and if you don\'t fight like hell, you\'re not going to have a country anymore.',
+        type: 'BELICA',
+        note: 'Metáfora bélica en su forma más directa. La democracia no se ejerce: se pelea. Y quien no pelea, pierde el país.',
+      },
+      { text: ' ' },
+      {
+        text: 'They want to silence your voice.',
+        type: 'PRONOMINAL_EX',
+        note: '"They" como poder oculto que suprime al pueblo. Activa la narrativa conspirativa del enemigo interno.',
+      },
+      { text: ' ' },
+      {
+        text: 'Republicans are constantly fighting like a boxer with his hands tied behind his back.',
+        type: 'BELICA',
+        note: 'Metáfora bélica con victimización: el combatiente noble que lucha en desventaja. Refuerza la narrativa del asedio.',
+      },
+      { text: ' ' },
+      {
+        text: 'We are the greatest country on earth',
+        type: 'FUTURO',
+        note: 'El orgullo nacional como arma retórica. No proyecta futuro: congela el presente grandioso que "ellos" amenazan.',
+      },
+      { text: ' and we are headed, and were headed, in the right direction. ' },
+      {
+        text: 'Together we will drain the swamp',
+        type: 'SANITARIA',
+        note: 'Metáfora sanitaria de purificación. El "pantano" como sistema contaminado. Drenar = limpiar = eliminar.',
+      },
+      { text: ', we will take back our country. ' },
+      {
+        text: 'Traitors',
+        type: 'DICOTOMIA',
+        note: 'Un solo sustantivo que clausura el debate político. El adversario no discrepa: traiciona. Dicotomía moral en su forma más comprimida.',
+      },
+      { text: ' will be held accountable.' },
+    ],
+  },
+
+  // ──────────────────────────────────────────────────
+  // PETRO 1: IX Cumbre CELAC (2025)
+  // ──────────────────────────────────────────────────
+  {
+    id: 'petro-celac-2025',
+    entityId: 'petro',
+    entityName: 'Gustavo Petro',
+    title: 'Plenaria IX Cumbre de la CELAC',
+    date: '9 de abril de 2025',
+    context: 'Honduras. Discurso ante líderes latinoamericanos en el marco de la Cumbre de la CELAC.',
+    duration: '45\'00"',
+    iraScore: 5.4,
+    iraLabel: 'Mixto con tendencia empática',
+    classification: 'mixto',
+    wordCount: 6200,
+    summary: 'En Petro, la guerra aparece para ser denunciada. Se nombra el conflicto como fracaso estructural, no como convocatoria a la batalla. El "nosotros" latinoamericano funciona como dispositivo de hospitalidad afectiva, fundado en el abrazo y la redención histórica.',
+    params: [
+      { name: 'Uso pronominal inclusivo', value: 6.8, note: 'Nosotros latinoamericano amplio. Incluye a los excluidos históricos.' },
+      { name: 'Tipo de metáfora dominante', value: 5.2, note: 'Metáforas bélicas para denunciar, no para convocar. Tensión productiva.' },
+      { name: 'Carga dicotómica', value: 4.5, note: 'Norte/Sur, colonizadores/colonizados. Dicotomía histórica, no moral.' },
+      { name: 'Tono emocional dominante', value: 6.1, note: 'Indignación moral productiva. El dolor como motor de transformación.' },
+      { name: 'Reconocimiento del disenso', value: 5.8, note: 'Reconoce tensiones internas del bloque. No clausura el debate.' },
+      { name: 'Vector de acción', value: 6.4, note: 'Acción colectiva estructural. No confrontación, sino transformación.' },
+      { name: 'Coherencia afectiva', value: 7.2, note: 'Alta coherencia entre denuncia y propuesta.' },
+      { name: 'Proyección de futuro', value: 7.5, note: 'Horizonte de integración y soberanía latinoamericana.' },
+    ],
+    segments: [
+      { text: 'América Latina y el Caribe ' },
+      {
+        text: 'somos el continente más desigual del planeta',
+        type: 'DICOTOMIA',
+        note: 'Dicotomía estructural Norte-Sur. No moraliza personas: denuncia una arquitectura de poder histórica.',
+      },
+      { text: '. No es casual. Es el resultado de siglos de extracción. ' },
+      {
+        text: 'Nos han robado',
+        type: 'PRONOMINAL',
+        note: 'El "nos" como comunidad de despojo. Construye identidad desde la herida compartida, no desde el enemigo.',
+      },
+      { text: ' no solo recursos: nos han robado la posibilidad de soñar. ' },
+      {
+        text: 'La guerra que nos imponen desde el norte',
+        type: 'BELICA',
+        note: 'Metáfora bélica como denuncia, no como convocatoria. La guerra se nombra para exponer su ilegitimidad estructural.',
+      },
+      { text: ' no es nuestra guerra. Es la guerra de quienes necesitan mantener la dependencia. ' },
+      {
+        text: 'Pero nosotros, los pueblos del sur,',
+        type: 'PRONOMINAL',
+        note: '"Nosotros los pueblos del sur": identidad geopolítica que abraza. El nosotros de Petro es hospitalidad afectiva, no trinchera.',
+      },
+      { text: ' hemos aprendido que ' },
+      {
+        text: 'la única salida es juntos.',
+        type: 'CUIDADO',
+        note: 'Metáfora de camino compartido. No hay salida individual: la integración es el único vector posible.',
+      },
+      { text: ' ' },
+      {
+        text: 'El narcotráfico no es un problema de Colombia: es el resultado de un modelo económico global que condena a nuestros jóvenes.',
+        type: 'FUTURO',
+        note: 'Proyección estructural: los problemas se leen como síntomas de un sistema, no como vicios individuales. Abre el horizonte de la transformación.',
+      },
+      { text: ' ' },
+      {
+        text: '¿Lo aceptamos? ¿Lo aceptamos?',
+        type: 'DICOTOMIA',
+        note: 'Anáfora como martillo ético. La pregunta repetida no polariza personas: interpela conciencias. Distinto de la dicotomía trumpiana.',
+      },
+      { text: ' No. ' },
+      {
+        text: 'Nuestras democracias deben ser capaces de escuchar al que no vota por nosotros.',
+        type: 'DISENSO',
+        note: 'Reconocimiento explícito del disenso. Rasgo empático infrecuente en el populismo latinoamericano.',
+      },
+      { text: ' ' },
+      {
+        text: 'Construyamos una CELAC que sea la voz de los sin voz.',
+        type: 'CUIDADO',
+        note: 'Metáfora constructiva con función integradora. Construir = acción colectiva de largo plazo, no combate.',
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────
+  // PETRO 2: Concentración Consulta Popular (2025)
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 'petro-consulta-2025',
+    entityId: 'petro',
+    entityName: 'Gustavo Petro',
+    title: 'Concentración en apoyo a la Consulta Popular',
+    date: '27 de mayo de 2025',
+    context: 'Bogotá. Discurso ante una multitud horas antes de la votación de la Consulta Popular.',
+    duration: '59\'47"',
+    iraScore: 4.2,
+    iraLabel: 'Mixto con tensión interna',
+    classification: 'mixto',
+    wordCount: 8400,
+    summary: 'El discurso más tenso del corpus de Petro. La proximidad del evento electoral intensifica la carga dicotómica. El dolor histórico se convierte en narrativa de reparación, pero con momentos de polarización que rozan el umbral P.',
+    params: [
+      { name: 'Uso pronominal inclusivo', value: 6.2, note: 'Nosotros pueblo vs. élites. El inclusivo se estrecha.' },
+      { name: 'Tipo de metáfora dominante', value: 4.8, note: 'Metáforas de reparación y algunas bélicas de resistencia.' },
+      { name: 'Carga dicotómica', value: 3.5, note: 'Pueblo/oligarquía. Más intensa que en CELAC.' },
+      { name: 'Tono emocional dominante', value: 5.0, note: 'Urgencia moral. Entre la esperanza y la indignación.' },
+      { name: 'Reconocimiento del disenso', value: 4.2, note: 'Presente pero más débil que en CELAC.' },
+      { name: 'Vector de acción', value: 5.5, note: 'Acción cívica directa: el voto como transformación.' },
+      { name: 'Coherencia afectiva', value: 6.0, note: 'Coherente pero con picos de tensión.' },
+      { name: 'Proyección de futuro', value: 6.8, note: 'El cambio como posibilidad histórica inminente.' },
+    ],
+    segments: [
+      {
+        text: 'El pueblo colombiano',
+        type: 'PRONOMINAL',
+        note: 'Apelación al sujeto popular como actor histórico. El "pueblo" petreano no excluye: reúne a los desposeídos.',
+      },
+      { text: ' tiene hoy en sus manos la posibilidad de ' },
+      {
+        text: 'cambiar la historia.',
+        type: 'FUTURO',
+        note: 'Proyección de futuro como ruptura histórica. El presente es bisagra: antes y después del voto.',
+      },
+      { text: ' No es un referéndum más: es una consulta sobre el modelo de país. ' },
+      {
+        text: 'Los que se oponen son los que siempre se han opuesto al cambio.',
+        type: 'DICOTOMIA',
+        note: 'Dicotomía histórica: los del cambio vs. los del statu quo. Más estructural que moral, pero bordea la polarización.',
+      },
+      { text: ' ' },
+      {
+        text: 'A los que no votan por nosotros: les hablo también a ustedes.',
+        type: 'DISENSO',
+        note: 'Gesto empático notable en un discurso pre-electoral. Reconoce al otro sin convertirlo en enemigo.',
+      },
+      { text: ' Colombia es de todos. ' },
+      {
+        text: 'Sanaremos estas heridas juntos.',
+        type: 'CUIDADO',
+        note: 'Metáfora de curación colectiva. El país como cuerpo herido que necesita cuidado compartido, no victoria de unos sobre otros.',
+      },
+      { text: ' ' },
+      {
+        text: 'Hay traiciones que cuestan vidas.',
+        type: 'DICOTOMIA',
+        note: 'Punto de mayor tensión dicotómica del discurso. "Traición" clausura el espacio del disenso legítimo. Parámetro P4 activado.',
+      },
+      { text: ' La historia lo sabe. ' },
+      {
+        text: 'Pero la paz no se construye con odio: se construye reconociendo que el otro existe.',
+        type: 'DISENSO',
+        note: 'Corrección interna: el discurso se autocorrige. Después de "traiciones", invoca el reconocimiento mutuo. Tensión productiva.',
+      },
+      { text: ' ' },
+      {
+        text: 'Mañana, cuando voten, piensen en sus hijos.',
+        type: 'FUTURO',
+        note: 'Proyección intergeneracional. El futuro como responsabilidad hacia los que vienen, no como amenaza del presente.',
+      },
+    ],
+  },
+
+  // ────────────────────────────────────────────────────────
+  // SHEINBAUM 1: Discurso de victoria presidencial (2024)
+  // ────────────────────────────────────────────────────────
+  {
+    id: 'sheinbaum-victoria-2024',
+    entityId: 'sheinbaum',
+    entityName: 'Claudia Sheinbaum',
+    title: 'Discurso de victoria presidencial',
+    date: '1 de julio de 2024',
+    context: 'Ciudad de México. Discurso tras conocerse los resultados de las elecciones presidenciales de México.',
+    duration: '38\'00"',
+    iraScore: 7.8,
+    iraLabel: 'Principalmente empático',
+    classification: 'empatico',
+    wordCount: 4900,
+    summary: 'El discurso más empático del corpus junto con Ardern en Christchurch. Un "nosotros procesual" que no impone pertenencia sino que la modela como espacio poroso. Las metáforas constructivas dominan. La única metáfora bélica se resignifica como motor de justicia.',
+    params: [
+      { name: 'Uso pronominal inclusivo', value: 8.2, note: 'Nosotros institucional y poroso. Conjugado más que gritado.' },
+      { name: 'Tipo de metáfora dominante', value: 8.5, note: 'Metáforas constructivas (5,4‰). Una sola bélica resignificada.' },
+      { name: 'Carga dicotómica', value: 6.8, note: 'Honestidad/corrupción con temperantia clásica. Dique, no ariete.' },
+      { name: 'Tono emocional dominante', value: 8.0, note: 'Orgullo cívico y esperanza prudente. Respiración política.' },
+      { name: 'Reconocimiento del disenso', value: 8.5, note: 'Interpelación explícita a quienes no votaron por ella. Válvula empática.' },
+      { name: 'Vector de acción', value: 7.8, note: '5 invocaciones a la cooperación (5,4‰). Hegemonía blanda.' },
+      { name: 'Coherencia afectiva', value: 8.8, note: 'Máxima coherencia. Cada recurso refuerza el ethos empático.' },
+      { name: 'Proyección de futuro', value: 7.5, note: 'Horizonte de continuidad, no de refundación. Prolongar, no comenzar.' },
+    ],
+    segments: [
+      {
+        text: 'Seguiremos construyendo la cuarta transformación de México.',
+        type: 'CUIDADO',
+        note: 'Metáfora constructiva dominante. Construir = acción colectiva de largo plazo. No inaugura: prolonga. Semántica procesual.',
+      },
+      { text: ' ' },
+      {
+        text: 'Siempre defenderemos los derechos de todos los mexicanos,',
+        type: 'PRONOMINAL',
+        note: 'Anáfora "seguiremos / siempre defenderemos". El ritmo encadena promesas con corresponsabilidad. Nosotros procesual.',
+      },
+      { text: ' ' },
+      {
+        text: 'incluidos quienes no coinciden plenamente con nuestro proyecto.',
+        type: 'DISENSO',
+        note: 'Reconocimiento explícito del disenso. Concede legitimidad al adversario y, al hacerlo, refuerza el ethos empático. Inversión ontológica: primero la pluralidad, luego la fuerza.',
+      },
+      { text: ' ' },
+      {
+        text: 'No quiero que nadie se sienta solo en este país.',
+        type: 'PRONOMINAL',
+        note: 'Interpelación directa a la soledad política. Transforma la victoria electoral en responsabilidad de cuidado.',
+      },
+      { text: ' ' },
+      {
+        text: 'Lucharemos contra la discriminación',
+        type: 'CUIDADO',
+        note: 'La única metáfora bélica del discurso, resignificada. La agresión apunta a una estructura (la discriminación), no a un sujeto. La violencia se sublima como cura. Pedagogía implícita del cuidado: se puede "luchar" sin pelear.',
+      },
+      { text: ' y avanzaremos hacia una sociedad más justa. ' },
+      {
+        text: 'Caminaremos juntos en paz y en armonía.',
+        type: 'CUIDADO',
+        note: 'Metáfora del camino compartido. El deber se percibe como oportunidad, no como mandato. Hegemonía blanda: la orden se disfraza de invitación.',
+      },
+      { text: ' ' },
+      {
+        text: 'México es un país que tiene mucho que dar al mundo.',
+        type: 'FUTURO',
+        note: 'Proyección de futuro como potencia, no como amenaza. Capital emocional de la esperanza (Illouz): horizonte que no necesita enemigo para justificarse.',
+      },
+      { text: ' ' },
+      {
+        text: '¡Que viva México!',
+        type: 'PRONOMINAL',
+        note: 'Exclamación única, casi ritual. No es grito de guerra sino exhalación compartida. Klemperer advertía que la exclamación reiterada transforma emoción en obediencia. Aquí ocurre una sola vez: emoción sin arrebato.',
+      },
+    ],
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // SHEINBAUM 2: Respuesta a aranceles de Trump (2025)
+  // ──────────────────────────────────────────────────────────────
+  {
+    id: 'sheinbaum-aranceles-2025',
+    entityId: 'sheinbaum',
+    entityName: 'Claudia Sheinbaum',
+    title: 'Respuesta a los aranceles de Trump a México',
+    date: '1 de febrero de 2025',
+    context: 'Ciudad de México. Conferencia de prensa tras el anuncio de Trump de imponer aranceles del 25% a México.',
+    duration: '22\'00"',
+    iraScore: 7.1,
+    iraLabel: 'Empático con firmeza diplomática',
+    classification: 'empatico',
+    wordCount: 2800,
+    summary: 'Discurso de réplica diplomática que demuestra que la empatía no se confunde con debilidad. Sheinbaum mantiene su arquitectura empática incluso bajo presión externa. El "nosotros" institucional aguanta sin convertirse en trinchera.',
+    params: [
+      { name: 'Uso pronominal inclusivo', value: 7.8, note: 'Nosotros nacional inclusivo, no reactivo.' },
+      { name: 'Tipo de metáfora dominante', value: 7.5, note: 'Metáforas de diálogo y soberanía. Sin réplica bélica.' },
+      { name: 'Carga dicotómica', value: 6.2, note: 'Soberanía/imposición. Dicotomía pero sin deshumanización.' },
+      { name: 'Tono emocional dominante', value: 7.2, note: 'Calma institucional. Firmeza sin agitación.' },
+      { name: 'Reconocimiento del disenso', value: 6.8, note: 'Reconoce la complejidad de la relación bilateral.' },
+      { name: 'Vector de acción', value: 7.0, note: 'Diálogo como primer vector. Medidas como segunda línea.' },
+      { name: 'Coherencia afectiva', value: 8.0, note: 'Coherencia total con su ethos previo.' },
+      { name: 'Proyección de futuro', value: 6.8, note: 'Horizonte de negociación y acuerdo mutuo.' },
+    ],
+    segments: [
+      { text: 'México es un país soberano. ' },
+      {
+        text: 'Nadie nos va a imponer nada',
+        type: 'DICOTOMIA',
+        note: 'Afirmación de soberanía como límite, no como ataque. La dicotomía soberanía/imposición es estructural, no moral. No deshumaniza al interlocutor.',
+      },
+      { text: ' que vaya en contra de nuestra dignidad y de nuestro pueblo. ' },
+      {
+        text: 'Tenemos una relación de respeto mutuo con Estados Unidos,',
+        type: 'DISENSO',
+        note: 'Reconocimiento del vínculo bilateral incluso en el conflicto. No convierte la crisis en ruptura total.',
+      },
+      { text: ' y así queremos que siga siendo. ' },
+      {
+        text: 'Llamamos al diálogo y a la negociación.',
+        type: 'CUIDADO',
+        note: 'Vector de acción empático: el diálogo como primer recurso. Contrasta con la respuesta bélica que el marco trumpiano invitaría a esperar.',
+      },
+      { text: ' ' },
+      {
+        text: 'Nuestras familias, nuestras comunidades, nuestros trabajadores',
+        type: 'PRONOMINAL',
+        note: 'Triple anáfora posesiva que humaniza al sujeto político. Los aranceles no afectan a "la economía": afectan a familias y comunidades concretas.',
+      },
+      { text: ' son los que sufrirán las consecuencias de estas medidas. ' },
+      {
+        text: 'México ha demostrado ser un socio confiable.',
+        type: 'FUTURO',
+        note: 'Proyección hacia el pasado reciente como aval de futuro. El horizonte es la continuidad del acuerdo, no la ruptura.',
+      },
+      { text: ' Seguiremos siéndolo. ' },
+      {
+        text: 'Pero también sabremos defender lo nuestro.',
+        type: 'DICOTOMIA',
+        note: 'La firmeza como límite empático. No es amenaza: es condición para el diálogo. La empatía no es rendición.',
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────
+  // ARDERN 1: Respuesta al atentado de Christchurch (2019)
+  // ─────────────────────────────────────────────────────
+  {
+    id: 'ardern-christchurch-2019',
+    entityId: 'ardern',
+    entityName: 'Jacinda Ardern',
+    title: 'Respuesta al atentado de Christchurch',
+    date: '15 de marzo de 2019',
+    context: 'Parlamento de Nueva Zelanda. Dos días después del ataque terrorista a dos mezquitas que dejó 51 muertos.',
+    duration: '20\'00"',
+    iraScore: 9.2,
+    iraLabel: 'Máxima empatía',
+    classification: 'empatico',
+    wordCount: 2200,
+    summary: 'El discurso de mayor índice empático del corpus. En su punto más tenso —un atentado terrorista— Ardern elige no nombrar al atacante, integrar al "ellos" como "nosotros", y convertir el dolor en cuidado. El lenguaje no es trinchera: es abrazo.',
+    params: [
+      { name: 'Uso pronominal inclusivo', value: 9.8, note: '"They are us". El nosotros más radical del corpus: integra a las víctimas sin distinción.' },
+      { name: 'Tipo de metáfora dominante', value: 9.5, note: 'Metáforas de cuidado y comunidad. Cero metáforas bélicas.' },
+      { name: 'Carga dicotómica', value: 8.5, note: 'Dicotomía mínima y estructural: valores de inclusión vs. odio.' },
+      { name: 'Tono emocional dominante', value: 9.0, note: 'Duelo colectivo y compasión. La emoción como vínculo, no como munición.' },
+      { name: 'Reconocimiento del disenso', value: 9.2, note: 'El otro integrado incluso en el horror.' },
+      { name: 'Vector de acción', value: 9.0, note: 'Cuidado como acción política.' },
+      { name: 'Coherencia afectiva', value: 9.5, note: 'Perfecta coherencia entre forma y fondo.' },
+      { name: 'Proyección de futuro', value: 8.8, note: 'Nueva Zelanda como país que elige ser.' },
+    ],
+    segments: [
+      {
+        text: 'They are us.',
+        type: 'PRONOMINAL',
+        note: 'La frase más citada del corpus. Tres palabras que colapsan la distinción nosotros/ellos. Las víctimas musulmanas no son "los otros": son parte constitutiva del nosotros neozelandés. El gesto pronominal más radical del análisis.',
+      },
+      { text: ' The people who are affected by this shooting are New Zealanders. ' },
+      {
+        text: 'They are us.',
+        type: 'PRONOMINAL',
+        note: 'La repetición no es énfasis: es ritual de integración. Cada vez que se dice, el círculo se agranda.',
+      },
+      { text: ' ' },
+      {
+        text: 'We represent diversity, kindness, compassion, a home for those who share our values.',
+        type: 'CUIDADO',
+        note: 'La identidad nacional redefinida desde el cuidado, no desde la exclusión. "Home" como metáfora constructiva y afectiva.',
+      },
+      { text: ' ' },
+      {
+        text: 'Refuge. New Zealand is their home. They are us.',
+        type: 'CUIDADO',
+        note: 'Metáfora del refugio: el país como espacio de protección, no de pertenencia tribal. Tres palabras finales que cierran el círculo empático.',
+      },
+      { text: ' ' },
+      {
+        text: 'You may have chosen us. But we utterly reject and condemn you.',
+        type: 'DICOTOMIA',
+        note: 'La única dicotomía explícita del discurso: el atacante queda fuera, no el islam ni los inmigrantes. La exclusión se aplica al acto de odio, no a la identidad.',
+      },
+      { text: ' ' },
+      {
+        text: 'New Zealand mourns with you. We are one.',
+        type: 'PRONOMINAL',
+        note: 'El duelo como práctica política de cohesión. "We are one" no borra la diferencia: la abraza.',
+      },
+      { text: ' ' },
+      {
+        text: 'Nos corresponde cuidarnos unos a otros.',
+        type: 'CUIDADO',
+        note: 'Metáfora de cuidado recíproco. La responsabilidad política redefinida como ética del cuidado. El deber es la ternura.',
+      },
+      { text: ' ' },
+      {
+        text: 'Podemos pensar distinto y aun así caminar juntos.',
+        type: 'DISENSO',
+        note: 'Reconocimiento del disenso en su forma más generosa. La pluralidad no como problema a gestionar sino como condición de la comunidad.',
+      },
+      { text: ' ' },
+      {
+        text: 'I will not speak his name.',
+        type: 'DICOTOMIA',
+        note: 'Estrategia de silenciamiento del perpetrador. No nombrarlo es negarle el capital simbólico que buscaba. La exclusión como acto de cuidado hacia las víctimas.',
+      },
+      { text: ' He is a terrorist. He is a criminal. He is an extremist. But he will not — when I speak — be given the gift of fame.' },
+    ],
+  },
+
+  // ────────────────────────────────────────────────────────
+  // ARDERN 2: Asamblea General ONU (2022)
+  // ────────────────────────────────────────────────────────
+  {
+    id: 'ardern-onu-2022',
+    entityId: 'ardern',
+    entityName: 'Jacinda Ardern',
+    title: 'Asamblea General de las Naciones Unidas',
+    date: '9 de octubre de 2022',
+    context: 'Nueva York. Intervención ante la Asamblea General de la ONU.',
+    duration: '15\'00"',
+    iraScore: 8.6,
+    iraLabel: 'Fuertemente empático',
+    classification: 'empatico',
+    wordCount: 2100,
+    summary: 'Discurso institucional de alta empatía. Ardern construye un "nosotros" global que incluye la diferencia sin diluirla. El tiempo es el de la historia compartida. El futuro se proyecta desde la corresponsabilidad, no desde la amenaza.',
+    params: [
+      { name: 'Uso pronominal inclusivo', value: 9.0, note: 'We global, inclusivo y no tribal.' },
+      { name: 'Tipo de metáfora dominante', value: 8.8, note: 'Metáforas de construcción colectiva y responsabilidad.' },
+      { name: 'Carga dicotómica', value: 7.8, note: 'Muy baja. La pluralidad no se resuelve en dicotomía.' },
+      { name: 'Tono emocional dominante', value: 8.5, note: 'Esperanza responsable. Sin euforia ni pánico.' },
+      { name: 'Reconocimiento del disenso', value: 8.8, note: 'El disenso como motor del multilateralismo.' },
+      { name: 'Vector de acción', value: 8.5, note: 'Acción colectiva global como único vector viable.' },
+      { name: 'Coherencia afectiva', value: 9.2, note: 'Coherencia total con el ethos de Christchurch.' },
+      { name: 'Proyección de futuro', value: 9.0, note: 'Futuro como responsabilidad compartida intergeneracional.' },
+    ],
+    segments: [
+      { text: 'We stand at a crossroads. ' },
+      {
+        text: 'The decisions we make now will define the world our children inherit.',
+        type: 'FUTURO',
+        note: 'Proyección intergeneracional. El futuro como responsabilidad, no como amenaza. El "our children" amplía el nosotros más allá del presente.',
+      },
+      { text: ' ' },
+      {
+        text: 'We can think differently and yet walk together.',
+        type: 'DISENSO',
+        note: 'Fórmula maestra del discurso empático: la pluralidad como condición del camino compartido. El disenso no divide: sostiene.',
+      },
+      { text: ' ' },
+      {
+        text: 'The United Nations was built on the premise that shared problems require shared solutions.',
+        type: 'CUIDADO',
+        note: 'Metáfora constructiva aplicada al multilateralismo. Construir juntos = la única respuesta posible a los desafíos globales.',
+      },
+      { text: ' ' },
+      {
+        text: 'We have a collective responsibility to act.',
+        type: 'PRONOMINAL',
+        note: '"We" global como sujeto de responsabilidad compartida. La acción política como cuidado colectivo.',
+      },
+      { text: ' ' },
+      {
+        text: 'Climate change does not respect borders.',
+        type: 'DICOTOMIA',
+        note: 'Única dicotomía del discurso: los problemas globales vs. las fronteras nacionales. Rompe el marco de la soberanía para abrir el de la corresponsabilidad.',
+      },
+      { text: ' Neither does poverty. Neither does COVID-19. ' },
+      {
+        text: 'Our futures are intertwined.',
+        type: 'FUTURO',
+        note: 'Proyección de futuro como interdependencia. No hay futuro nacional aislado: todos los futuros están tejidos juntos.',
+      },
+      { text: ' ' },
+      {
+        text: 'Let us choose to be the generation that does not look away.',
+        type: 'PRONOMINAL',
+        note: 'Apelación a la agencia colectiva generacional. "Let us choose" convoca sin imponer: la hegemonía como invitación.',
+      },
+    ],
+  },
+];
+
+export function getSpeechesByEntity(entityId) {
+  return speeches.filter((s) => s.entityId === entityId);
+}
+
+export function getSpeechById(id) {
+  return speeches.find((s) => s.id === id);
+}
