@@ -295,6 +295,84 @@ function Detail({ entity, onClose }) {
   );
 }
 
+const IRA_PARAMS_INFO = [
+  { name: "Uso pronominal inclusivo", desc: "Analiza qué pronombres usa el discurso y con qué verbos los asocia. Un 'nosotros' vinculado a verbos de cuidado construye comunidad; vinculado a verbos de combate, construye trincheras." },
+  { name: "Tipo de metáfora dominante", desc: "Las metáforas no son adornos: estructuran cómo percibimos la realidad. Las metáforas de cuidado, reparación y construcción activan empatía; las bélicas y de contagio activan miedo y exclusión." },
+  { name: "Carga dicotómica", desc: "Mide la rigidez moral del discurso. Cuanto más divide el mundo en buenos y malos, patriotas y traidores, puros y corruptos, más polariza y menos espacio deja para el matiz." },
+  { name: "Tono emocional dominante", desc: "¿Qué emoción instala el discurso en quien lo recibe? La compasión y la esperanza cohesionan; el miedo y la indignación sin salida fragmentan." },
+  { name: "Reconocimiento del disenso", desc: "El parámetro que mejor distingue empatía real de empatía performativa. ¿El discurso valida la diferencia o la clausura? ¿Puede existir un 'nosotros' que incluya al que piensa distinto?" },
+  { name: "Vector de acción", desc: "¿El discurso convoca a cooperar o a confrontar? Un imperativo inclusivo ('construyamos juntos') activa lógicas distintas a un imperativo hostil ('hay que derrotarlos')." },
+  { name: "Coherencia afectiva", desc: "El parámetro más original del IRA. Mide la distancia entre lo que el discurso dice y lo que hace retóricamente. Detecta el 'barniz de ternura': discursos que usan metáforas de cuidado pero cuya función real es polarizar." },
+  { name: "Proyección de futuro", desc: "¿El discurso abre un horizonte compartido o lo clausura? Un futuro inclusivo y posible cohesiona; un futuro apocalíptico o utópico sin ruta concreta fragmenta." },
+];
+
+function IRAModal({ onClose }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setTimeout(() => setMounted(true), 20); }, []);
+  return (
+    <div onClick={onClose} style={{
+      position:"fixed", inset:0, zIndex:300,
+      background:"rgba(8,8,12,0.92)", backdropFilter:"blur(20px)",
+      display:"flex", alignItems:"center", justifyContent:"center",
+      opacity: mounted?1:0, transition:"opacity 0.3s ease", padding:"20px",
+    }}>
+      <div onClick={e => e.stopPropagation()} style={{
+        background:"#0e0e14", border:"1px solid rgba(255,255,255,0.09)",
+        borderRadius:"20px", padding:"36px 32px", maxWidth:"580px", width:"100%",
+        maxHeight:"88vh", overflowY:"auto",
+        transform: mounted?"translateY(0)":"translateY(20px)",
+        transition:"transform 0.35s cubic-bezier(0.4,0,0.2,1)",
+      }}>
+        <div style={{ marginBottom:"24px" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px" }}>
+            <div style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#ff6600", boxShadow:"0 0 8px #ff6600" }} />
+            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>Metodología</span>
+          </div>
+          <h2 style={{ margin:"0 0 16px", fontSize:"22px", fontWeight:800, color:"#fff", fontFamily:"'Syne',sans-serif", letterSpacing:"-0.03em" }}>
+            Índice de Resonancia Afectiva
+          </h2>
+          <p style={{ margin:0, fontSize:"12.5px", color:"rgba(255,255,255,0.45)", lineHeight:1.75 }}>
+            El IRA es una herramienta de análisis lingüístico que mide la capacidad empática o polarizadora de un discurso político, mediático o institucional. Parte de una premisa respaldada por la neurociencia: antes de llegar al razonamiento lógico, todo estímulo atraviesa el sistema límbico, donde se originan las emociones. Las palabras no solo describen la realidad — la configuran. Una metáfora, un pronombre, un tono afectivo pueden construir comunidad o trincheras simbólicas.
+          </p>
+        </div>
+
+        <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"24px" }}>
+          <p style={{ margin:"0 0 10px", fontSize:"9px", letterSpacing:"0.16em", color:"#ff6600", textTransform:"uppercase" }}>¿Qué mide?</p>
+          <p style={{ margin:0, fontSize:"12.5px", color:"rgba(255,255,255,0.45)", lineHeight:1.75 }}>
+            El IRA evalúa si un discurso activa mecanismos de empatía y cohesión social o, por el contrario, refuerza la polarización afectiva — esa repulsión visceral que convierte al adversario en enemigo irreconciliable. La escala va de 0 a 10: <span style={{ color:"#e05252", fontWeight:600 }}>0 representa la máxima polarización</span>, <span style={{ color:"#6ec6a0", fontWeight:600 }}>10 la máxima resonancia empática</span>.
+          </p>
+        </div>
+
+        <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"24px" }}>
+          <p style={{ margin:"0 0 16px", fontSize:"9px", letterSpacing:"0.16em", color:"#ff6600", textTransform:"uppercase" }}>Los 8 parámetros</p>
+          <div style={{ display:"flex", flexDirection:"column", gap:"14px" }}>
+            {IRA_PARAMS_INFO.map((p, i) => (
+              <div key={i} style={{ borderLeft:`2px solid ${PARAM_COLORS[i]}50`, paddingLeft:"14px" }}>
+                <p style={{ margin:"0 0 4px", fontSize:"11px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"'DM Mono',monospace", letterSpacing:"0.03em" }}>{p.name}</p>
+                <p style={{ margin:0, fontSize:"11.5px", color:"rgba(255,255,255,0.38)", lineHeight:1.7 }}>{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"28px" }}>
+          <p style={{ margin:"0 0 10px", fontSize:"9px", letterSpacing:"0.16em", color:"#ff6600", textTransform:"uppercase" }}>Origen académico</p>
+          <p style={{ margin:0, fontSize:"12.5px", color:"rgba(255,255,255,0.45)", lineHeight:1.75 }}>
+            El IRA surge de la investigación <em style={{ color:"rgba(255,255,255,0.65)" }}>«El contagio de las palabras: Metáforas, empatía y polarización en el discurso político contemporáneo»</em>, de Ricardo Grisales Ramírez, Trabajo Fin de Grado en Periodismo, Universidad Complutense de Madrid, junio de 2024. La metodología analiza discursos de Donald Trump, Gustavo Petro, Claudia Sheinbaum y Jacinda Ardern aplicando el Análisis Crítico del Discurso desde una perspectiva emocional y retórica.
+          </p>
+        </div>
+
+        <button onClick={onClose} style={{
+          width:"100%", padding:"12px",
+          background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)",
+          borderRadius:"10px", color:"rgba(255,255,255,0.4)", fontSize:"11px",
+          cursor:"pointer", letterSpacing:"0.08em",
+        }}>Cerrar</button>
+      </div>
+    </div>
+  );
+}
+
 function Analyzer() {
   const [text, setText] = useState("");
   const [name, setName] = useState("");
@@ -451,6 +529,7 @@ export default function App() {
   const [tab, setTab] = useState("explore");
   const [filter, setFilter] = useState("Todos");
   const [selected, setSelected] = useState(null);
+  const [showIRA, setShowIRA] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -484,9 +563,21 @@ export default function App() {
             IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
             <span style={{ color:"#ff6600" }}>Resonancia</span>
           </h1>
-          <p style={{ margin:0, fontSize:"12px", color:"rgba(255,255,255,0.3)", lineHeight:1.65, maxWidth:"500px" }}>
+          <p style={{ margin:"0 0 20px", fontSize:"12px", color:"rgba(255,255,255,0.3)", lineHeight:1.65, maxWidth:"500px" }}>
             Medición del lenguaje empático y polarizador en políticos, medios y países. Escala 0–10. Analiza cualquier texto con IA.
           </p>
+          <button onClick={() => setShowIRA(true)} style={{
+            padding:"13px 28px", borderRadius:"12px",
+            background:"#ff6600", border:"none",
+            color:"#000", fontSize:"13px", fontWeight:700,
+            letterSpacing:"0.04em", cursor:"pointer",
+            fontFamily:"'DM Mono',monospace",
+            boxShadow:"0 0 24px rgba(255,102,0,0.35)",
+            transition:"all 0.2s ease",
+          }}
+            onMouseEnter={e => { e.currentTarget.style.background="#ff8533"; e.currentTarget.style.boxShadow="0 0 32px rgba(255,102,0,0.55)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background="#ff6600"; e.currentTarget.style.boxShadow="0 0 24px rgba(255,102,0,0.35)"; }}
+          >¿Qué es el IRA?</button>
         </div>
 
         <div style={{ display:"flex", gap:"4px", marginBottom:"32px", background:"rgba(255,255,255,0.03)", borderRadius:"12px", padding:"4px", width:"fit-content", opacity: mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
@@ -544,6 +635,7 @@ export default function App() {
         )}
       </div>
       {selected && <Detail entity={selected} onClose={() => setSelected(null)} />}
+      {showIRA && <IRAModal onClose={() => setShowIRA(false)} />}
     </div>
   );
 }
