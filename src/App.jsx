@@ -577,7 +577,7 @@ export default function App() {
           }}
             onMouseEnter={e => { e.currentTarget.style.background="#ff8533"; e.currentTarget.style.boxShadow="0 0 32px rgba(255,102,0,0.55)"; }}
             onMouseLeave={e => { e.currentTarget.style.background="#ff6600"; e.currentTarget.style.boxShadow="0 0 24px rgba(255,102,0,0.35)"; }}
-          >¿Qué es el IRA?</button>
+          >¿QUÉ ES EL IRA?</button>
         </div>
 
         <div style={{ display:"flex", gap:"4px", marginBottom:"32px", background:"rgba(255,255,255,0.03)", borderRadius:"12px", padding:"4px", width:"fit-content", opacity: mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
