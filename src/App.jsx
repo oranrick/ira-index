@@ -80,24 +80,6 @@ const ENTITIES = [
     context: "Presidente de EEUU (2017–2021, 2024–). Analizado sobre discurso victoria 2024 y mitin 'We Will Never Concede' (2021).",
   },
   {
-    id: "colombia", name: "Colombia", category: "País", country: "Colombia", flag: "🇨🇴",
-    score: 4.30,
-    params: { pronominal:4.5, metafora:4.0, dicotomia:3.8, tono:4.5, disenso:4.2, vector:4.3, coherencia:4.1, proyeccion:4.8 },
-    context: "Comunicación institucional colombiana 2022–2025. Marcada por la polarización del gobierno Petro y la fragmentación del espacio público.",
-  },
-  {
-    id: "mexico", name: "México", category: "País", country: "México", flag: "🇲🇽",
-    score: 6.10,
-    params: { pronominal:6.3, metafora:6.0, dicotomia:5.8, tono:6.4, disenso:5.9, vector:6.2, coherencia:6.1, proyeccion:6.0 },
-    context: "Comunicación institucional mexicana 2024–2025. Transición de AMLO a Sheinbaum con moderación progresiva del tono.",
-  },
-  {
-    id: "nz", name: "Nueva Zelanda", category: "País", country: "Nueva Zelanda", flag: "🇳🇿",
-    score: 7.80,
-    params: { pronominal:8.0, metafora:7.8, dicotomia:7.5, tono:8.0, disenso:7.6, vector:7.9, coherencia:7.8, proyeccion:7.8 },
-    context: "Comunicación institucional neozelandesa. Alta coherencia entre discurso empático y políticas públicas de cohesión.",
-  },
-  {
     id: "elpais", name: "El País", category: "Medio", country: "España", flag: "🇪🇸",
     score: 6.38,
     params: { pronominal:6.5, metafora:6.2, dicotomia:6.0, tono:6.8, disenso:6.1, vector:6.4, coherencia:6.3, proyeccion:6.5 },
@@ -360,7 +342,7 @@ function Analyzer() {
           Categoría
         </p>
         <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
-          {["Político","Medio","País","Otro"].map(cat => (
+          {["Político","Medio","Otro"].map(cat => (
             <button key={cat} onClick={() => setCategory(cat)} style={{
               padding:"7px 14px", borderRadius:"20px",
               border: category===cat ? "1px solid rgba(255,102,0,0.6)" : "1px solid rgba(255,255,255,0.08)",
@@ -479,7 +461,7 @@ export default function App() {
     document.head.appendChild(link);
   }, []);
 
-  const cats = ["Todos","Político","Medio","País"];
+  const cats = ["Todos","Político","Medio"];
   const filtered = filter === "Todos" ? ENTITIES : ENTITIES.filter(e => e.category === filter);
 
   return (
