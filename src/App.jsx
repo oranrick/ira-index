@@ -11,6 +11,49 @@ const PARAMS = [
   { id: "proyeccion",   label: "Proyección de futuro",         desc: "¿Abre un horizonte compartido o lo clausura?" },
 ];
 
+const PARAM_DETAILS = {
+  pronominal: {
+    detail: "Mide la frecuencia y el tipo de pronombres usados. 'Nosotros', 'nuestro' y 'juntos' construyen comunidad y responsabilidad compartida. El uso dominante de 'yo' señala ego-centralismo; 'ellos/los otros' como sujeto agente indica distancia o antagonismo estructural.",
+    empatico: "«Nosotros vamos a enfrentar esto juntos. Lo que nos hicieron a todos nos obliga a responder unidos.»",
+    polarizador: "«Yo lo resolví. Yo lo advertí. Ellos son los que destruyeron este país.»",
+  },
+  metafora: {
+    detail: "Las metáforas estructuran la realidad política. Las de construcción ('tejer redes', 'cultivar') activan esquemas cognitivos de cooperación. Las bélicas o de contaminación ('limpiar la corrupción', 'extirpar el problema') activan esquemas de amenaza y exclusión.",
+    empatico: "«La democracia es un jardín que todos debemos cuidar. Si lo abandonamos, se llena de maleza.»",
+    polarizador: "«Estamos en guerra. El enemigo está dentro de nuestras instituciones y hay que extirparlo.»",
+  },
+  dicotomia: {
+    detail: "Evalúa la rigidez moral del discurso: si divide el mundo en categorías absolutas de bien/mal, nosotros/ellos, patriotas/traidores. Alta dicotomía niega la ambigüedad, dificulta el diálogo y legitima la eliminación simbólica del adversario.",
+    empatico: "«Entiendo que hay quienes no comparten esta visión. Sus preocupaciones también son legítimas y merecen escucharse.»",
+    polarizador: "«O estás con nosotros o estás contra el pueblo. No hay grises, no hay término medio.»",
+  },
+  tono: {
+    detail: "Identifica la emoción dominante que el discurso instala en quien lo recibe. Esperanza, orgullo compartido y gratitud favorecen la cohesión social. Miedo, ira y asco son más contagiosos a corto plazo pero erosionan la confianza institucional.",
+    empatico: "«Siento una profunda esperanza cuando veo la resiliencia de nuestra gente. Hemos salido más fuertes de cada crisis.»",
+    polarizador: "«Deberían tener miedo. Porque lo que viene, si no actuamos ahora, será peor de lo que imaginan.»",
+  },
+  disenso: {
+    detail: "Mide la capacidad de reconocer y validar puntos de vista contrarios sin descalificarlos. Su presencia es señal de madurez democrática; su ausencia correlaciona con autoritarismo discursivo, aunque no necesariamente con autoritarismo institucional.",
+    empatico: "«Hay personas que votan diferente a nosotros con razones respetables. Esta política también debe funcionar para ellas.»",
+    polarizador: "«Los que se oponen solo pueden tener dos motivos: ignorancia o mala fe. No voy a perder el tiempo debatiendo con ellos.»",
+  },
+  vector: {
+    detail: "Examina el tipo de acción que el discurso convoca. Los vectores cooperativos ('trabajemos juntos', 'construyamos') generan capital social. Los de confrontación ('derrotemos', 'paremos a') pueden ser legítimos pero tienen un coste cohesivo alto.",
+    empatico: "«Los invito a que este proceso lo hagamos entre todos. La solución vendrá de cada comunidad, no de arriba.»",
+    polarizador: "«Hay que salir a las calles a demostrarles quién tiene el poder. Que nos vean. Que tiemblen.»",
+  },
+  coherencia: {
+    detail: "Analiza la distancia entre el contenido emocional del discurso y las acciones observables del hablante. Es el parámetro más difícil de medir porque requiere contexto extradiscursivo y seguimiento longitudinal.",
+    empatico: "«He dicho siempre que la transparencia es innegociable, y hoy publico todos mis datos patrimoniales sin que nadie me lo exija.»",
+    polarizador: "«Hablo de diálogo todos los días.» [Mientras bloquea sistemáticamente los canales de participación institucional.]",
+  },
+  proyeccion: {
+    detail: "Evalúa el horizonte temporal del discurso. Los discursos empáticos construyen un futuro compartido con agencia colectiva. Los polarizadores se anclan en el pasado como agravio o en un presente de crisis permanente, sin ofrecer horizonte real.",
+    empatico: "«Dentro de veinte años, cuando nuestros hijos pregunten qué hicimos aquí, quiero que podamos decirles que elegimos el entendimiento.»",
+    polarizador: "«Siempre nos han hecho lo mismo. Y si no frenamos esto ahora, nos lo seguirán haciendo para siempre.»",
+  },
+};
+
 const ENTITIES = [
   {
     id: "ardern", name: "Jacinda Ardern", category: "Político", country: "Nueva Zelanda", flag: "🇳🇿",
@@ -154,6 +197,7 @@ function EntityCard({ entity, onClick }) {
 
 function Detail({ entity, onClose }) {
   const [mounted, setMounted] = useState(false);
+  const [expanded, setExpanded] = useState(null);
   useEffect(() => { setTimeout(() => setMounted(true), 20); }, []);
   const col = scoreColor(entity.score);
   return (
@@ -200,10 +244,26 @@ function Detail({ entity, onClose }) {
           </p>
           {PARAMS.map((p, i) => {
             const val = entity.params[p.id];
+            const isOpen = expanded === p.id;
+            const det = PARAM_DETAILS[p.id];
             return (
               <div key={i} style={{ marginBottom:"14px" }}>
-                <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"5px" }}>
-                  <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.5)", letterSpacing:"0.04em" }}>{p.label}</span>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"5px" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"7px" }}>
+                    <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.5)", letterSpacing:"0.04em" }}>{p.label}</span>
+                    <button
+                      onClick={() => setExpanded(isOpen ? null : p.id)}
+                      style={{
+                        background: isOpen ? `${PARAM_COLORS[i]}18` : "rgba(255,255,255,0.04)",
+                        border: `1px solid ${isOpen ? PARAM_COLORS[i]+"50" : "rgba(255,255,255,0.08)"}`,
+                        borderRadius:"4px", padding:"1px 6px",
+                        color: isOpen ? PARAM_COLORS[i] : "rgba(255,255,255,0.25)",
+                        fontSize:"9px", cursor:"pointer", lineHeight:"1.5",
+                        transition:"all 0.2s ease", fontFamily:"'DM Mono',monospace",
+                        letterSpacing:"0.04em",
+                      }}
+                    >{isOpen ? "▲" : "▼"}</button>
+                  </div>
                   <span style={{ fontSize:"12px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"'DM Mono',monospace" }}>
                     {val.toFixed(1)}
                   </span>
@@ -216,6 +276,28 @@ function Detail({ entity, onClose }) {
                   }} />
                 </div>
                 <p style={{ margin:"4px 0 0", fontSize:"10.5px", color:"rgba(255,255,255,0.28)", lineHeight:1.5 }}>{p.desc}</p>
+                {isOpen && (
+                  <div style={{
+                    marginTop:"10px",
+                    background:"rgba(255,255,255,0.02)",
+                    border:`1px solid ${PARAM_COLORS[i]}20`,
+                    borderRadius:"10px", padding:"13px",
+                  }}>
+                    <p style={{ margin:"0 0 12px", fontSize:"11px", color:"rgba(255,255,255,0.48)", lineHeight:1.65 }}>
+                      {det.detail}
+                    </p>
+                    <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
+                      <div style={{ background:"rgba(110,198,160,0.06)", border:"1px solid rgba(110,198,160,0.18)", borderRadius:"8px", padding:"10px 12px" }}>
+                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"#6ec6a0", textTransform:"uppercase" }}>Empático</p>
+                        <p style={{ margin:0, fontSize:"10.5px", color:"rgba(255,255,255,0.42)", lineHeight:1.55, fontStyle:"italic", fontFamily:"Georgia,serif" }}>{det.empatico}</p>
+                      </div>
+                      <div style={{ background:"rgba(224,82,82,0.06)", border:"1px solid rgba(224,82,82,0.18)", borderRadius:"8px", padding:"10px 12px" }}>
+                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"#e05252", textTransform:"uppercase" }}>Polarizador</p>
+                        <p style={{ margin:0, fontSize:"10.5px", color:"rgba(255,255,255,0.42)", lineHeight:1.55, fontStyle:"italic", fontFamily:"Georgia,serif" }}>{det.polarizador}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             );
           })}
