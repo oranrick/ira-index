@@ -47,7 +47,7 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 1000,
         system: SYSTEM,
         messages: [{ role: 'user', content: `Analiza este texto:\n\n${text}` }],
@@ -55,6 +55,9 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
     });
 
     const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error?.message || `API error ${response.status}`);
+    }
     const raw = data.content?.find(b => b.type === 'text')?.text || '';
     const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
     const scores = Object.values(parsed.params).map(p => p.score);

@@ -25,7 +25,10 @@ const TEXTS = {
     textLabel:       "Texto a analizar — español o inglés",
     textPlaceholder: "Pega aquí el discurso, artículo, declaración o texto que quieres medir...",
     chars:           "caracteres",
+    words:           "palabras",
+    wordLimitMsg:    "Límite de 800 palabras alcanzado",
     errorShort:      "El texto es demasiado corto. Mínimo 50 caracteres.",
+    errorLong:       "El texto supera el límite de 800 palabras.",
     errorGeneral:    "Error al analizar. Intenta de nuevo.",
     analyzing:       "Analizando...",
     calcBtn:         "Calcular IRA →",
@@ -70,7 +73,10 @@ const TEXTS = {
     textLabel:       "Text to analyze — Spanish or English",
     textPlaceholder: "Paste the speech, article, statement or text you want to measure...",
     chars:           "characters",
+    words:           "words",
+    wordLimitMsg:    "800-word limit reached",
     errorShort:      "Text is too short. Minimum 50 characters.",
+    errorLong:       "Text exceeds the 800-word limit.",
     errorGeneral:    "Analysis error. Please try again.",
     analyzing:       "Analyzing...",
     calcBtn:         "Calculate IRA →",
@@ -603,6 +609,11 @@ function IRAModal({ onClose, lang }) {
   );
 }
 
+const WORD_LIMIT = 800;
+function countWords(str) {
+  return str.trim() ? str.trim().split(/\s+/).length : 0;
+}
+
 function Analyzer({ lang }) {
   const [text, setText] = useState("");
   const [name, setName] = useState("");
@@ -611,9 +622,12 @@ function Analyzer({ lang }) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
   const T = TEXTS[lang];
+  const wordCount = countWords(text);
+  const overLimit = wordCount > WORD_LIMIT;
 
   async function analyze() {
     if (!text.trim() || text.trim().length < 50) { setError(T.errorShort); return; }
+    if (overLimit) { setError(T.errorLong); return; }
     setError(""); setLoading(true); setResult(null);
     try {
       const res = await fetch("/api/analyze", {
@@ -671,26 +685,36 @@ function Analyzer({ lang }) {
           placeholder={T.textPlaceholder}
           rows={8}
           style={{
-            width:"100%", background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)",
-            borderRadius:"12px", padding:"14px", color:"rgba(255,255,255,0.8)", fontSize:"12.5px",
+            width:"100%", background:"rgba(255,255,255,0.04)",
+            border:`1px solid ${overLimit ? "rgba(224,82,82,0.5)" : "rgba(255,255,255,0.08)"}`,
+            borderRadius:"12px", padding:"14px", color:"rgba(255,255,255,0.8)", fontSize:"13px",
             outline:"none", resize:"vertical", boxSizing:"border-box", lineHeight:1.6,
-            fontFamily:"Georgia, serif",
+            fontFamily:"'DM Mono',monospace",
           }} />
-        <p style={{ margin:"6px 0 0", fontSize:"10px", color:"rgba(255,255,255,0.2)" }}>
-          {text.length} {T.chars}
-        </p>
+        <div style={{ display:"flex", justifyContent:"space-between", margin:"6px 0 0" }}>
+          <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.15)" }}>
+            {text.length} {T.chars}
+          </span>
+          <span style={{ fontSize:"10px", fontFamily:"'DM Mono',monospace",
+            color: overLimit ? "#e05252" : wordCount > WORD_LIMIT * 0.85 ? "#e8a838" : "rgba(255,255,255,0.2)",
+            fontWeight: overLimit ? 700 : 400,
+          }}>
+            {wordCount} / {WORD_LIMIT} {T.words}
+          </span>
+        </div>
       </div>
       {error && <p style={{ color:"#e05252", fontSize:"11px", marginBottom:"14px" }}>{error}</p>}
-      <button onClick={analyze} disabled={loading} style={{
+      <button onClick={analyze} disabled={loading || overLimit} style={{
         width:"100%", padding:"14px",
-        background: loading ? "rgba(255,102,0,0.1)" : "rgba(255,102,0,0.2)",
-        border:"1px solid rgba(255,102,0,0.4)", borderRadius:"12px",
-        color: loading ? "rgba(255,102,0,0.4)" : "#ff6600",
+        background: overLimit ? "rgba(255,255,255,0.03)" : loading ? "rgba(255,102,0,0.1)" : "rgba(255,102,0,0.2)",
+        border: overLimit ? "1px solid rgba(224,82,82,0.3)" : "1px solid rgba(255,102,0,0.4)",
+        borderRadius:"12px",
+        color: overLimit ? "#e05252" : loading ? "rgba(255,102,0,0.4)" : "#ff6600",
         fontSize:"12px", letterSpacing:"0.12em", textTransform:"uppercase",
-        cursor: loading ? "not-allowed" : "pointer", transition:"all 0.2s ease",
+        cursor: loading || overLimit ? "not-allowed" : "pointer", transition:"all 0.2s ease",
         fontFamily:"'DM Mono',monospace",
       }}>
-        {loading ? T.analyzing : T.calcBtn}
+        {overLimit ? T.wordLimitMsg : loading ? T.analyzing : T.calcBtn}
       </button>
     </div>
   );
