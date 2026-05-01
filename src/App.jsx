@@ -248,6 +248,23 @@ const IRA_PARAMS_INFO_TRANS = {
 
 const ENTITIES = [
   {
+    id: "mujica", name: "José Mujica", category: "Político", country: "Uruguay", flag: "🇺🇾",
+    score: 8.93,
+    params: { pronominal:9.2, metafora:9.0, dicotomia:6.8, tono:9.1, disenso:8.5, vector:8.8, coherencia:9.3, proyeccion:8.9 },
+    context: "Presidente de Uruguay (2010–2015). Analizado sobre discurso de despedida y homenaje final.",
+    contextEn: "President of Uruguay (2010–2015). Analyzed on farewell speech and final tribute.",
+    paramTexts: {
+      pronominal: "El discurso está construido casi enteramente en primera persona plural y segunda persona directa. No hay un \"ellos\" enemigo — cuando aparece la tercera persona es descriptiva, nunca demonizadora. El \"nosotros\" convoca a toda la humanidad, no a un bando.",
+      metafora:   "Las metáforas son existenciales y vinculares: el disco duro social del ser humano, la vida como camino, el fuego interior, el pequeño aliento rodando en las colinas. Son metáforas de herencia y transmisión, no de combate.",
+      dicotomia:  "Hay una dicotomía presente pero no rígida: ricos/pobres, mayoría/minoría, vida enajenada/vida con sentido. La nombra con claridad pero no la convierte en odio — es una invitación ética más que una trinchera moral.",
+      tono:       "Esperanza sobria y amor a la vida. El tono no es eufórico ni alarmista — es el de un viejo que habla con ternura y urgencia a los jóvenes. La indignación ante la injusticia siempre está enmarcada en una lógica de cuidado colectivo, no de ira.",
+      disenso:    "Mujica se presenta como imperfecto (\"me faltó velocidad\", \"no soy ningún fenómeno\"), reconoce las contradicciones de la civilización y valida la duda y el tropiezo. No construye una verdad única e incuestionable — propone, no impone.",
+      vector:     "El llamado a la acción es cooperativo y existencial: \"luchen por la felicidad\", \"dale contenido a la vida\". No convoca a enfrentarse a nadie — convoca a construirse a uno mismo y a los demás. Los imperativos son de cuidado, no de confrontación.",
+      coherencia: "Uno de los discursos más coherentes afectivamente. No hay disonancia entre lo que dice y cómo lo dice. La vulnerabilidad es real, la filosofía es consistente de principio a fin, y el tono no cambia para manipular.",
+      proyeccion: "El futuro no es utópico ni apocalíptico — es \"un pequeño aliento rodando en las colinas\", la esperanza que se transmite de generación en generación. \"Lo imposible cuesta un poco más\" sintetiza su proyección: alcanzable, humana, sin paraísos prometidos.",
+    },
+  },
+  {
     id: "ardern", name: "Jacinda Ardern", category: "Político", country: "Nueva Zelanda", flag: "🇳🇿",
     score: 8.75,
     params: { pronominal:9.1, metafora:9.0, dicotomia:8.2, tono:9.0, disenso:8.8, vector:9.0, coherencia:8.9, proyeccion:8.0 },
@@ -494,6 +511,16 @@ function Detail({ entity, onClose, lang }) {
                     border:`1px solid ${PARAM_COLORS[i]}20`,
                     borderRadius:"10px", padding:"13px",
                   }}>
+                    {entity.paramTexts?.[p.id] && (
+                      <div style={{
+                        background:`rgba(255,102,0,0.05)`,
+                        border:"1px solid rgba(255,102,0,0.2)",
+                        borderRadius:"8px", padding:"10px 12px", marginBottom:"12px",
+                      }}>
+                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"rgba(255,102,0,0.8)", textTransform:"uppercase" }}>Análisis</p>
+                        <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.55)", lineHeight:1.65 }}>{entity.paramTexts[p.id]}</p>
+                      </div>
+                    )}
                     <p style={{ margin:"0 0 12px", fontSize:"11px", color:"rgba(255,255,255,0.48)", lineHeight:1.65 }}>
                       {det.detail}
                     </p>
