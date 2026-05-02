@@ -287,6 +287,16 @@ const ENTITIES = [
     params: { pronominal:8.1, metafora:8.0, dicotomia:7.5, tono:8.2, disenso:7.8, vector:8.0, coherencia:7.9, proyeccion:7.8 },
     context: "Presidenta de México (2024–). Analizado sobre discurso de victoria (2024) y respuesta a aranceles Trump (2025).",
     contextEn: "President of Mexico (2024–). Analyzed on victory speech (2024) and response to Trump tariffs (2025).",
+    paramTexts: {
+      pronominal: "El discurso está construido casi enteramente en primera persona plural inclusivo. La frase central \"No llego sola, llegamos todas\" extiende el sujeto político más allá de ella misma hacia todas las mujeres de la historia. El \"nosotros\" no excluye: \"aunque muchas mexicanas y mexicanos no coincidan plenamente con nuestro proyecto, habremos de caminar en paz y en armonía\".",
+      metafora:   "Las metáforas son históricas y vinculares: México como nación que \"tejió textiles con manos de mujeres artesanas que entrelazan con el alma\". La llegada al poder como continuidad de una lucha colectiva, no como conquista individual.",
+      dicotomia:  "Hay una distinción implícita entre el proyecto transformador y el pasado, pero no se nombran enemigos. El adversario político existe pero no se convoca emocionalmente. \"Somos demócratas y por convicción nunca haríamos un gobierno autoritario ni represor\".",
+      tono:       "Esperanza histórica y orgullo colectivo. El tono es sobrio y festivo a la vez. La emoción no es euforia sino dignidad: \"después de al menos 503 años, por primera vez llegamos las mujeres a conducir los destinos de nuestra hermosa Nación\".",
+      disenso:    "Explícitamente reconoce a quienes no votaron por ella y los incluye: \"aunque muchas mexicanas y mexicanos no coincidan plenamente con nuestro proyecto, habremos de caminar en paz y en armonía para seguir construyendo un México justo y más próspero\".",
+      vector:     "El llamado a la acción es cooperativo y de continuidad: construir, ampliar, garantizar, defender. No hay exhortaciones confrontacionales. \"Continuaremos con una política exterior basada en nuestros principios constitucionales de no intervención, cooperación internacional para el desarrollo\".",
+      coherencia: "El discurso respira desde un único registro: dignidad histórica femenina y proyecto colectivo. No hay saltos de tono ni disonancias. La emoción personal y el programa político se integran de forma consistente.",
+      proyeccion: "El futuro es concreto y alcanzable: \"Garantizaremos las libertades de expresión, de prensa, de reunión\", \"Promoveremos la soberanía energética, las energías renovables y el desarrollo científico\". No hay utopía ni apocalipsis — hay programa.",
+    },
   },
   {
     id: "petro", name: "Gustavo Petro", category: "Político", country: "Colombia", flag: "🇨🇴",
