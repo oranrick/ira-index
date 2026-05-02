@@ -249,6 +249,8 @@ const IRA_PARAMS_INFO_TRANS = {
 const ENTITIES = [
   {
     id: "mujica", name: "José Mujica", category: "Político", country: "Uruguay", flag: "🇺🇾",
+    photo: "/images/13.07.2023_-_59º_Congresso_da_União_Nacional_dos_Estudantes_–_UNE_(53044654694)_(cropped2).jpg",
+    photoCredit: "Ricardo Stuckert / PR",
     score: 8.93,
     params: { pronominal:9.2, metafora:9.0, dicotomia:6.8, tono:9.1, disenso:8.5, vector:8.8, coherencia:9.3, proyeccion:8.9 },
     context: "Presidente de Uruguay (2010–2015). Analizado sobre discurso de despedida y homenaje final.",
@@ -276,6 +278,8 @@ const ENTITIES = [
   },
   {
     id: "ardern", name: "Jacinda Ardern", category: "Político", country: "Nueva Zelanda", flag: "🇳🇿",
+    photo: "/images/Jacinda_Ardern_August_2022_(cropped).jpg",
+    photoCredit: "Gobierno de Nueva Zelanda",
     score: 8.75,
     params: { pronominal:9.1, metafora:9.0, dicotomia:8.2, tono:9.0, disenso:8.8, vector:9.0, coherencia:8.9, proyeccion:8.0 },
     context: "Primera ministra de Nueva Zelanda (2017–2023). Analizado sobre respuesta a Christchurch (2019) y discurso ONU (2018).",
@@ -283,6 +287,8 @@ const ENTITIES = [
   },
   {
     id: "sheinbaum", name: "Claudia Sheinbaum", category: "Político", country: "México", flag: "🇲🇽",
+    photo: "/images/Claudia_Sheinbaum_in_2025_(3x4_cropped).jpg",
+    photoCredit: "Eneas De Troya / Flickr",
     score: 7.92,
     params: { pronominal:8.1, metafora:8.0, dicotomia:7.5, tono:8.2, disenso:7.8, vector:8.0, coherencia:7.9, proyeccion:7.8 },
     context: "Presidenta de México (2024–). Analizado sobre discurso de victoria (2024) y respuesta a aranceles Trump (2025).",
@@ -300,6 +306,8 @@ const ENTITIES = [
   },
   {
     id: "petro", name: "Gustavo Petro", category: "Político", country: "Colombia", flag: "🇨🇴",
+    photo: "/images/Foto_Oficial_Presidente_Gustavo_Petro_(3x4_cropped).jpg",
+    photoCredit: "Departamento Nacional de Planeación, Colombia",
     score: 5.60,
     params: { pronominal:6.8, metafora:5.2, dicotomia:4.5, tono:6.0, disenso:5.1, vector:5.8, coherencia:5.2, proyeccion:6.2 },
     context: "Presidente de Colombia (2022–). IRA promedio sobre IX Cumbre CELAC (2025) y mitin Consulta Popular (2025).",
@@ -317,6 +325,8 @@ const ENTITIES = [
   },
   {
     id: "trump", name: "Donald Trump", category: "Político", country: "Estados Unidos", flag: "🇺🇸",
+    photo: "/images/Official_Presidential_Portrait_of_President_Donald_J._Trump_(2025).jpg",
+    photoCredit: "Dominio público / Casa Blanca",
     score: 2.48,
     params: { pronominal:2.5, metafora:1.8, dicotomia:2.0, tono:2.1, disenso:1.5, vector:2.0, coherencia:2.8, proyeccion:3.1 },
     context: "Presidente de EEUU (2017–2021, 2024–). Analizado sobre discurso victoria 2024 y mitin 'We Will Never Concede' (2021).",
@@ -409,7 +419,14 @@ function EntityCard({ entity, onClick, lang }) {
         backdropFilter:"blur(8px)",
       }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"14px" }}>
-        <div>
+        {entity.photo && (
+          <img src={entity.photo} alt={entity.name} style={{
+            width: 46, height: 46, borderRadius: "50%", objectFit: "cover",
+            objectPosition: "center top", flexShrink: 0, alignSelf: "center",
+            border: "1.5px solid rgba(255,255,255,0.12)", marginRight: "12px",
+          }} />
+        )}
+        <div style={{ flex: 1 }}>
           <div style={{ marginBottom:"6px", display:"flex", gap:"6px", alignItems:"center" }}>
             <FlagEmoji emoji={entity.flag} size={18} />
             <Badge label={catLabel} color={catColor(entity.category)} />
@@ -493,6 +510,17 @@ function Detail({ entity, onClose, lang }) {
             </div>
           </div>
         </div>
+        {entity.photo && (
+          <div style={{ marginBottom: "20px" }}>
+            <img src={entity.photo} alt={entity.name} style={{
+              width: "100%", height: "200px", objectFit: "cover", objectPosition: "center top",
+              borderRadius: "12px", display: "block",
+            }} />
+            <p style={{ margin: "5px 0 0", fontSize: "9px", color: "rgba(255,255,255,0.18)", textAlign: "right", letterSpacing: "0.05em" }}>
+              {entity.photoCredit}
+            </p>
+          </div>
+        )}
         <p style={{ fontSize:"11.5px", color:"rgba(255,255,255,0.4)", lineHeight:1.6, marginBottom:"24px", borderLeft:"2px solid rgba(255,102,0,0.4)", paddingLeft:"12px" }}>
           {context}
         </p>
