@@ -366,6 +366,83 @@ const PARAM_SHORT = {
   proyeccion: 'Proyección',
 };
 
+const PARAMS_ORDER = ['pronominal','metafora','dicotomia','tono','disenso','vector','coherencia','proyeccion'];
+
+function encodeShareResult(result) {
+  const scores = PARAMS_ORDER.map(id => result.params[id]?.score ?? 0);
+  const compact = [result.name, result.category, result.ira, result.iraLabel, result.summary, ...scores];
+  try { return btoa(encodeURIComponent(JSON.stringify(compact))); } catch { return null; }
+}
+
+function decodeShareResult(encoded) {
+  try {
+    const arr = JSON.parse(decodeURIComponent(atob(encoded)));
+    const [name, category, ira, iraLabel, summary, ...scores] = arr;
+    const params = {};
+    PARAMS_ORDER.forEach((id, i) => { params[id] = { score: scores[i] ?? 0, desc: '' }; });
+    return { name, category, ira, iraLabel, summary, params };
+  } catch { return null; }
+}
+
+function drawRadar(canvas, result) {
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+  const R = Math.min(cx, cy) - 28;
+  const N = 8;
+  ctx.clearRect(0, 0, W, H);
+  // grid rings
+  for (let lvl = 1; lvl <= 5; lvl++) {
+    const r = (R * lvl) / 5;
+    ctx.beginPath();
+    for (let i = 0; i < N; i++) {
+      const a = (Math.PI * 2 * i) / N - Math.PI / 2;
+      const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  // axis spokes
+  for (let i = 0; i < N; i++) {
+    const a = (Math.PI * 2 * i) / N - Math.PI / 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  // data polygon
+  ctx.beginPath();
+  PARAMS_ORDER.forEach((id, i) => {
+    const val = result.params[id]?.score ?? 0;
+    const a = (Math.PI * 2 * i) / N - Math.PI / 2;
+    const r = (R * val) / 10;
+    const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(255,102,0,0.38)';
+  ctx.fill();
+  ctx.strokeStyle = '#ff6600';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  // labels
+  ctx.font = '9px monospace';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const labels = ['Pronominal','Metáfora','Dicotomía','Tono','Disenso','Vector','Coherencia','Proyección'];
+  labels.forEach((lbl, i) => {
+    const a = (Math.PI * 2 * i) / N - Math.PI / 2;
+    const r = R + 18;
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.fillText(lbl, cx + r * Math.cos(a), cy + r * Math.sin(a));
+  });
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function scoreColor(s) {
@@ -760,7 +837,11 @@ function Analyzer({ lang }) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Político");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState(() => {
+    const p = new URLSearchParams(window.location.search);
+    const share = p.get('share');
+    return share ? decodeShareResult(share) : null;
+  });
   const [error, setError] = useState("");
   const T = TEXTS[lang];
   const wordCount = countWords(text);
@@ -861,13 +942,94 @@ function Analyzer({ lang }) {
   );
 }
 
+function ShareCard({ result, cardRef }) {
+  const canvasRef = useRef(null);
+  const col = scoreColor(result.ira);
+  useEffect(() => {
+    if (canvasRef.current) drawRadar(canvasRef.current, result);
+  }, [result]);
+  return (
+    <div ref={cardRef} style={{
+      position:'fixed', left:'-9999px', top:0,
+      width:'480px', background:'#08080c',
+      padding:'28px 32px 24px', boxSizing:'border-box',
+      fontFamily:'DM Mono,monospace',
+      border:'1px solid rgba(255,102,0,0.25)', borderRadius:'16px',
+    }}>
+      {/* header */}
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'20px' }}>
+        <span style={{ color:'#ff6600', fontWeight:800, fontSize:'20px', fontFamily:'Syne,sans-serif', letterSpacing:'-0.02em' }}>IRA</span>
+        <span style={{ color:'rgba(255,255,255,0.18)', fontSize:'8px', letterSpacing:'0.14em', textTransform:'uppercase' }}>Índice de Retórica Afectiva</span>
+      </div>
+      {/* score + name */}
+      <div style={{ display:'flex', alignItems:'center', gap:'20px', marginBottom:'20px' }}>
+        <div style={{
+          width:'76px', height:'76px', borderRadius:'50%', flexShrink:0,
+          border:`2.5px solid ${col}`, display:'flex', flexDirection:'column',
+          alignItems:'center', justifyContent:'center', background:`${col}18`,
+        }}>
+          <span style={{ fontSize:'22px', fontWeight:800, color:col, lineHeight:1 }}>{result.ira.toFixed(2)}</span>
+          <span style={{ fontSize:'7px', color:'rgba(255,255,255,0.2)', letterSpacing:'0.1em' }}>IRA</span>
+        </div>
+        <div>
+          <p style={{ margin:'0 0 3px', fontSize:'8px', color:'#ff6600', letterSpacing:'0.14em', textTransform:'uppercase' }}>{result.category}</p>
+          <p style={{ margin:'0 0 3px', fontSize:'18px', fontWeight:700, color:'#fff', fontFamily:'Syne,sans-serif', lineHeight:1.2 }}>{result.name}</p>
+          <p style={{ margin:0, fontSize:'9px', color:col, letterSpacing:'0.06em' }}>{result.iraLabel}</p>
+        </div>
+      </div>
+      {/* radar canvas */}
+      <canvas ref={canvasRef} width={416} height={200} style={{ width:'100%', display:'block' }} />
+      {/* summary */}
+      <p style={{ margin:'14px 0 0', fontSize:'9px', color:'rgba(255,255,255,0.35)', lineHeight:1.65 }}>
+        {result.summary}
+      </p>
+      {/* footer */}
+      <div style={{ marginTop:'16px', paddingTop:'12px', borderTop:'1px solid rgba(255,255,255,0.06)', display:'flex', justifyContent:'space-between' }}>
+        <span style={{ fontSize:'8px', color:'rgba(255,255,255,0.15)' }}>ira-index.vercel.app</span>
+        <span style={{ fontSize:'8px', color:'rgba(255,102,0,0.35)' }}>Analiza tu propio texto →</span>
+      </div>
+    </div>
+  );
+}
+
 function AnalysisResult({ result, onReset, lang }) {
   const [mounted, setMounted] = useState(false);
+  const [copying, setCopying] = useState(false);
+  const [sharing, setSharing] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const cardRef = useRef(null);
   useEffect(() => { setTimeout(() => setMounted(true), 50); }, []);
   const col = scoreColor(result.ira);
   const T = TEXTS[lang];
   const params = PARAMS_TRANS[lang];
   const catLabel = CAT_TRANS[lang][result.category] || result.category;
+
+  async function handleShareImage() {
+    if (sharing) return;
+    setSharing(true);
+    try {
+      const { default: html2canvas } = await import('html2canvas');
+      const canvas = await html2canvas(cardRef.current, {
+        backgroundColor: '#08080c', scale: 2, logging: false,
+        useCORS: true, allowTaint: true,
+      });
+      const link = document.createElement('a');
+      link.download = `ira-${result.name.replace(/\s+/g,'-').slice(0,30)}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch(e) { console.error(e); }
+    setSharing(false);
+  }
+
+  function handleCopyLink() {
+    const encoded = encodeShareResult(result);
+    if (!encoded) return;
+    const url = `${window.location.origin}${window.location.pathname}?share=${encoded}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
+    });
+  }
   return (
     <div style={{ maxWidth:"640px", margin:"0 auto", opacity: mounted?1:0, transition:"opacity 0.4s ease" }}>
       <div style={{ display:"flex", alignItems:"center", gap:"20px", marginBottom:"28px",
@@ -914,12 +1076,40 @@ function AnalysisResult({ result, onReset, lang }) {
           </div>
         );
       })}
+      {/* Share buttons */}
+      <div style={{ display:"flex", gap:"10px", marginTop:"24px", flexWrap:"wrap" }}>
+        <button onClick={handleShareImage} disabled={sharing} style={{
+          flex:"1 1 160px", display:"flex", alignItems:"center", justifyContent:"center", gap:"7px",
+          padding:"11px 16px", borderRadius:"10px",
+          background: sharing ? "rgba(255,102,0,0.06)" : "rgba(255,102,0,0.12)",
+          border:"1px solid rgba(255,102,0,0.4)",
+          color: sharing ? "rgba(255,102,0,0.4)" : "#ff6600",
+          fontSize:"11px", letterSpacing:"0.08em", cursor: sharing ? "wait" : "pointer",
+          fontFamily:"'DM Mono',monospace", transition:"all 0.2s",
+        }}>
+          <span style={{ fontSize:"14px" }}>📷</span>
+          {sharing ? "Generando..." : "Compartir imagen"}
+        </button>
+        <button onClick={handleCopyLink} style={{
+          flex:"1 1 160px", display:"flex", alignItems:"center", justifyContent:"center", gap:"7px",
+          padding:"11px 16px", borderRadius:"10px",
+          background: copied ? "rgba(110,198,160,0.12)" : "rgba(255,255,255,0.04)",
+          border: copied ? "1px solid rgba(110,198,160,0.4)" : "1px solid rgba(255,255,255,0.1)",
+          color: copied ? "#6ec6a0" : "rgba(255,255,255,0.5)",
+          fontSize:"11px", letterSpacing:"0.08em", cursor:"pointer",
+          fontFamily:"'DM Mono',monospace", transition:"all 0.2s",
+        }}>
+          <span style={{ fontSize:"14px" }}>{copied ? "✓" : "🔗"}</span>
+          {copied ? "¡Link copiado!" : "Copiar link"}
+        </button>
+      </div>
       <button onClick={onReset} style={{
-        marginTop:"20px", width:"100%", padding:"11px",
+        marginTop:"10px", width:"100%", padding:"11px",
         background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)",
         borderRadius:"10px", color:"rgba(255,255,255,0.4)", fontSize:"11px",
-        cursor:"pointer", letterSpacing:"0.08em",
+        cursor:"pointer", letterSpacing:"0.08em", fontFamily:"'DM Mono',monospace",
       }}>{T.analyzeAnother}</button>
+      <ShareCard result={result} cardRef={cardRef} />
     </div>
   );
 }
@@ -927,7 +1117,10 @@ function AnalysisResult({ result, onReset, lang }) {
 // ── App ───────────────────────────────────────────────────────────────────────
 
 export default function App() {
-  const [tab, setTab] = useState("explore");
+  const [tab, setTab] = useState(() => {
+    const p = new URLSearchParams(window.location.search);
+    return p.get('share') ? 'analyze' : 'explore';
+  });
   const [filter, setFilter] = useState("Todos");
   const [selected, setSelected] = useState(null);
   const [showIRA, setShowIRA] = useState(false);
