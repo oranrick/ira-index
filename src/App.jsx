@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
 import { getSpeechById } from "./data/speeches";
@@ -350,6 +351,17 @@ const ENTITIES = [
 
 const PARAM_COLORS = ["#ff6600","#e8a838","#6ec6a0","#5ba8d4","#a07cd4","#e05890","#50c8b4","#c8a050"];
 
+const PARAM_SHORT = {
+  pronominal: 'Pronominal',
+  metafora:   'Metáfora',
+  dicotomia:  'Dicotomía',
+  tono:       'Tono',
+  disenso:    'Disenso',
+  vector:     'Vector',
+  coherencia: 'Coherencia',
+  proyeccion: 'Proyección',
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function scoreColor(s) {
@@ -525,6 +537,16 @@ function Detail({ entity, onClose, lang }) {
         <p style={{ fontSize:"11.5px", color:"rgba(255,255,255,0.4)", lineHeight:1.6, marginBottom:"24px", borderLeft:"2px solid rgba(255,102,0,0.4)", paddingLeft:"12px" }}>
           {context}
         </p>
+        <div style={{ marginBottom:"24px" }}>
+          <ResponsiveContainer width="100%" height={260}>
+            <RadarChart data={PARAMS_TRANS.es.map(p => ({ param: PARAM_SHORT[p.id], value: entity.params[p.id] }))} margin={{ top:12, right:44, bottom:12, left:44 }}>
+              <PolarGrid stroke="rgba(255,255,255,0.08)" gridType="polygon" />
+              <PolarAngleAxis dataKey="param" tick={{ fill:"rgba(255,255,255,0.45)", fontFamily:"'DM Mono',monospace", fontSize:9.5 }} />
+              <PolarRadiusAxis domain={[0,10]} tick={false} axisLine={false} />
+              <Radar dataKey="value" stroke="#ff6600" strokeWidth={1.5} fill="#ff6600" fillOpacity={0.4} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"20px" }}>
           <p style={{ fontSize:"9px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase", marginBottom:"16px" }}>
             {T.paramsTitle}
