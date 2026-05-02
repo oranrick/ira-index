@@ -263,6 +263,16 @@ const ENTITIES = [
       coherencia: "Uno de los discursos más coherentes afectivamente. No hay disonancia entre lo que dice y cómo lo dice. La vulnerabilidad es real, la filosofía es consistente de principio a fin, y el tono no cambia para manipular.",
       proyeccion: "El futuro no es utópico ni apocalíptico — es \"un pequeño aliento rodando en las colinas\", la esperanza que se transmite de generación en generación. \"Lo imposible cuesta un poco más\" sintetiza su proyección: alcanzable, humana, sin paraísos prometidos.",
     },
+    quotes: {
+      pronominal: "Nos corresponde cuidarnos, luchamos en política",
+      metafora:   "un pequeño aliento rodando en las colinas",
+      dicotomia:  "estás con la mayoría o con la minoría",
+      tono:       "tengo una especie de fuego adentro",
+      disenso:    "me faltó velocidad, no soy ningún fenómeno",
+      vector:     "lo imposible cuesta un poco más",
+      coherencia: "soy un paisano medio atravesao",
+      proyeccion: "derrotados son solo aquellos que bajan los brazos",
+    },
   },
   {
     id: "ardern", name: "Jacinda Ardern", category: "Político", country: "Nueva Zelanda", flag: "🇳🇿",
@@ -511,6 +521,14 @@ function Detail({ entity, onClose, lang }) {
                     border:`1px solid ${PARAM_COLORS[i]}20`,
                     borderRadius:"10px", padding:"13px",
                   }}>
+                    {entity.quotes?.[p.id] && (
+                      <p style={{
+                        margin:"0 0 12px", padding:"0 0 0 10px",
+                        borderLeft:`2px solid ${PARAM_COLORS[i]}`,
+                        fontSize:"12px", fontStyle:"italic", fontFamily:"Georgia,serif",
+                        color:"rgba(255,255,255,0.65)", lineHeight:1.55,
+                      }}>«{entity.quotes[p.id]}»</p>
+                    )}
                     {entity.paramTexts?.[p.id] && (
                       <div style={{
                         background:`rgba(255,102,0,0.05)`,
