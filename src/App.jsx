@@ -294,6 +294,16 @@ const ENTITIES = [
     params: { pronominal:6.8, metafora:5.2, dicotomia:4.5, tono:6.0, disenso:5.1, vector:5.8, coherencia:5.2, proyeccion:6.2 },
     context: "Presidente de Colombia (2022–). IRA promedio sobre IX Cumbre CELAC (2025) y mitin Consulta Popular (2025).",
     contextEn: "President of Colombia (2022–). Average IRA on IX CELAC Summit (2025) and Popular Consultation rally (2025).",
+    paramTexts: {
+      pronominal: "El \"nosotros\" aparece pero con tensión: convoca a la integración regional (\"somos pueblos que se ayudan\") pero también construye una frontera implícita frente al norte global. No hay un \"ellos\" personalizado, pero sí estructural.",
+      metafora:   "Mezcla metáforas vinculares (\"faro de democracia, paz, libertad y vida\", \"el corazón del mundo\") con metáforas de urgencia y peligro (\"vampiros de la salud\", \"sálvese quien pueda\", \"nave milagrosa\"). Las constructivas existen pero compiten con las de amenaza.",
+      dicotomia:  "Hay dicotomías claras: Sur/Norte, integración/colonialismo, vida/capitalismo fósil. Son más estructurales que personalistas, pero marcan un campo de batalla simbólico sostenido a lo largo del discurso.",
+      tono:       "Oscila entre la esperanza integradora y la alarma climática y geopolítica. \"Estamos en peligro\" como telón de fondo constante. La indignación está presente pero no domina completamente sobre la propuesta.",
+      disenso:    "Reconoce que \"hablamos mucho de unirnos pero lo hacemos poco\", lo cual es autocrítico hacia el bloque. Sin embargo, no valida voces disidentes dentro de la CELAC ni abre espacio real a la contradicción interna.",
+      vector:     "Los llamados a la acción son concretos y cooperativos: red eléctrica americana, soberanía alimentaria, agencia de medicinas. \"De la retórica tenemos que pasar a la realidad.\" El vector apunta a construcción colectiva más que a confrontación.",
+      coherencia: "La tensión entre el Petro esperanzador (\"faro de luz\") y el Petro apocalíptico (\"el mundo de hoy es un mundo de peligro para la vida\") genera cierta disonancia. El discurso no respira desde un solo registro emocional.",
+      proyeccion: "El futuro es ambicioso pero con sombra: \"cooperar o perecer\". La CELAC como faro es una imagen potente, pero está enmarcada por la urgencia del colapso. Esperanza condicionada a la acción inmediata.",
+    },
   },
   {
     id: "trump", name: "Donald Trump", category: "Político", country: "Estados Unidos", flag: "🇺🇸",
