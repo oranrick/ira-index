@@ -91,7 +91,7 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color }) {
           />
           {open && filtered.length > 0 && (
             <div style={{
-              position: "absolute", zIndex: 10, width: "100%",
+              position: "absolute", zIndex: 200, width: "100%",
               marginTop: "4px", borderRadius: "10px", overflow: "hidden",
               border: "1px solid rgba(255,255,255,0.08)", background: "#0e0e14",
             }}>

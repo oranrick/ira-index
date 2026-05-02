@@ -49,10 +49,16 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
     const annotationType = ANNOTATION_TYPES[segment.type];
     const rect = e.target.getBoundingClientRect();
     const containerRect = containerRef.current.getBoundingClientRect();
-    setTooltipPos({
-      top: rect.bottom - containerRect.top + 8,
-      left: Math.min(rect.left - containerRect.left, containerRect.width - 260),
-    });
+    const TOOLTIP_W = 255;
+    const MARGIN = 10;
+    // ideal: align tooltip left edge with the word
+    let left = rect.left - containerRect.left;
+    // clamp so tooltip doesn't overflow viewport right edge
+    const maxLeft = window.innerWidth - containerRect.left - TOOLTIP_W - MARGIN;
+    left = Math.min(left, maxLeft);
+    // clamp so tooltip doesn't overflow container left edge
+    left = Math.max(0, left);
+    setTooltipPos({ top: rect.bottom - containerRect.top + 8, left });
     setActiveAnnotation({ ...annotationType, note: segment.note });
   };
 
@@ -475,14 +481,16 @@ const styles = {
   },
   tooltip: {
     position: 'absolute',
-    zIndex: 100,
+    zIndex: 300,
     background: '#181818',
     border: '1px solid rgba(255,255,255,0.1)',
     borderRadius: '8px',
     padding: '0.65rem 0.85rem',
-    maxWidth: '255px',
+    width: '255px',
+    maxWidth: 'calc(100vw - 20px)',
     boxShadow: '0 8px 28px rgba(0,0,0,0.6)',
     pointerEvents: 'none',
+    boxSizing: 'border-box',
   },
   tooltipHeader: {
     display: 'flex',
@@ -557,9 +565,11 @@ const styles = {
     border: '1px solid rgba(255,255,255,0.1)',
     borderRadius: '12px',
     boxShadow: '0 16px 48px rgba(0,0,0,0.8)',
-    zIndex: 200,
+    zIndex: 400,
     overflow: 'hidden',
     animation: 'slideUp 0.18s ease',
+    maxWidth: 'calc(100vw - 2rem)',
+    boxSizing: 'border-box',
   },
   pinnedColorBar: { height: '3px', width: '100%' },
   pinnedClose: {
