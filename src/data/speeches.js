@@ -411,6 +411,16 @@ export const speeches = [
       { name: 'Coherencia afectiva', value: 6.0, note: 'Coherente pero con picos de tensión.' },
       { name: 'Proyección de futuro', value: 6.8, note: 'El cambio como posibilidad histórica inminente.' },
     ],
+    quotes: {
+      pronominal: "Aquí llegamos con el ejército de Colombia, hoy ejército libertador",
+      metafora:   "\"ejército libertador\" — la espada de Bolívar como símbolo físico central",
+      dicotomia:  "\"vampiros\" y \"HP: honorable parlamentario, periodista o político\"",
+      tono:       "Si el Senado no le hace caso al pueblo, me voy a amarrar al sillón con unas sogas a ver qué pasa",
+      disenso:    "Los que reprodujeron ese mensaje, siendo líderes políticos, se equivocan y están incendiando al país",
+      vector:     "Nadie puede hoy negar que el pueblo de Colombia, el constituyente, exige que su voz se oiga en la consulta popular",
+      coherencia: "No he dicho ninguna grosería, ojo. HP: honorable parlamentario",
+      proyeccion: "Si el Congreso no aprueba la consulta, será el pueblo el que cobre la cuenta con democracia",
+    },
     segments: [
       {
         text: 'El pueblo colombiano',
