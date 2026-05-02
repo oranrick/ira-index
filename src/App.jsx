@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
+import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
 import { getSpeechById } from "./data/speeches";
@@ -475,6 +475,23 @@ function EntityCard({ entity, onClick, lang }) {
   );
 }
 
+function RadarTooltip({ active, payload }) {
+  if (!active || !payload?.length) return null;
+  const { label, value } = payload[0].payload;
+  return (
+    <div style={{
+      background: "rgba(10,10,16,0.94)", border: "1px solid rgba(255,102,0,0.45)",
+      borderRadius: "8px", padding: "7px 12px",
+      fontFamily: "'DM Mono',monospace", pointerEvents: "none",
+    }}>
+      <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "10px" }}>{label}</span>
+      <span style={{ color: "#ff6600", fontSize: "12px", fontWeight: 700, marginLeft: "8px" }}>
+        — {Number(value).toFixed(1)}
+      </span>
+    </div>
+  );
+}
+
 function Detail({ entity, onClose, lang }) {
   const [mounted, setMounted] = useState(false);
   const [expanded, setExpanded] = useState(null);
@@ -539,11 +556,15 @@ function Detail({ entity, onClose, lang }) {
         </p>
         <div style={{ marginBottom:"24px" }}>
           <ResponsiveContainer width="100%" height={260}>
-            <RadarChart data={PARAMS_TRANS.es.map(p => ({ param: PARAM_SHORT[p.id], value: entity.params[p.id] }))} margin={{ top:12, right:44, bottom:12, left:44 }}>
+            <RadarChart data={PARAMS_TRANS.es.map(p => ({ param: PARAM_SHORT[p.id], label: p.label, value: entity.params[p.id] }))} margin={{ top:12, right:44, bottom:12, left:44 }}>
               <PolarGrid stroke="rgba(255,255,255,0.08)" gridType="polygon" />
               <PolarAngleAxis dataKey="param" tick={{ fill:"rgba(255,255,255,0.45)", fontFamily:"'DM Mono',monospace", fontSize:9.5 }} />
               <PolarRadiusAxis domain={[0,10]} tick={false} axisLine={false} />
-              <Radar dataKey="value" stroke="#ff6600" strokeWidth={1.5} fill="#ff6600" fillOpacity={0.4} />
+              <Tooltip content={<RadarTooltip />} cursor={false} />
+              <Radar dataKey="value" stroke="#ff6600" strokeWidth={1.5} fill="#ff6600" fillOpacity={0.4}
+                dot={{ r:3, fill:"#ff6600", strokeWidth:0 }}
+                activeDot={{ r:5, fill:"#ff6600", stroke:"rgba(255,255,255,0.25)", strokeWidth:1 }}
+              />
             </RadarChart>
           </ResponsiveContainer>
         </div>
