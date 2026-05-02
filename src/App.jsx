@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
 import { getSpeechById } from "./data/speeches";
+
+const Comparator = lazy(() => import("./components/Comparator"));
 
 // ── Traducciones ─────────────────────────────────────────────────────────────
 
@@ -12,6 +14,7 @@ const TEXTS = {
     btnWhat:         "¿QUÉ ES EL IRA?",
     tabExplore:      "Explorar",
     tabAnalyze:      "Analizar texto",
+    tabCompare:      "Comparar",
     filterAll:       "Todos",
     seeAnalysis:     "Ver análisis →",
     paramsTitle:     "8 Parámetros IRA",
@@ -60,6 +63,7 @@ const TEXTS = {
     btnWhat:         "WHAT IS THE IRA?",
     tabExplore:      "Explore",
     tabAnalyze:      "Analyze text",
+    tabCompare:      "Compare",
     filterAll:       "All",
     seeAnalysis:     "See analysis →",
     paramsTitle:     "8 IRA Parameters",
@@ -1014,7 +1018,7 @@ export default function App() {
         </div>
 
         <div style={{ display:"flex", gap:"4px", marginBottom:"32px", background:"rgba(255,255,255,0.03)", borderRadius:"12px", padding:"4px", width:"fit-content", opacity: mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
-          {[["explore", T.tabExplore],["analyze", T.tabAnalyze]].map(([id,label]) => (
+          {[["explore", T.tabExplore],["analyze", T.tabAnalyze],["compare", T.tabCompare]].map(([id,label]) => (
             <button key={id} onClick={() => setTab(id)} style={{
               padding:"8px 18px", borderRadius:"9px",
               background: tab===id ? "rgba(255,102,0,0.18)" : "transparent",
@@ -1066,6 +1070,22 @@ export default function App() {
               </p>
             </div>
             <Analyzer lang={lang} />
+          </div>
+        )}
+
+        {tab === "compare" && (
+          <div style={{ opacity: mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
+            <Suspense fallback={
+              <div style={{ height:"160px", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.2)", fontFamily:"'DM Mono',monospace" }}>Cargando...</span>
+              </div>
+            }>
+              <Comparator
+                politicians={ENTITIES.filter(e => e.category === "Político")}
+                paramsEs={PARAMS_TRANS.es}
+                paramShort={PARAM_SHORT}
+              />
+            </Suspense>
           </div>
         )}
       </div>
