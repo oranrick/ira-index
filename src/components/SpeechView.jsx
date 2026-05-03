@@ -2,6 +2,31 @@
 import { useState, useRef, useEffect } from 'react';
 import { ANNOTATION_TYPES } from '../data/speeches';
 
+const SPEECH_VIEW_TEXTS = {
+  es: {
+    back:             "← Volver",
+    annotatedFragment:"FRAGMENTO ANOTADO",
+    iraParams:        "PARÁMETROS IRA",
+    clickFullAnalysis:"Clic para análisis completo →",
+    pinnedNoteTitle:  "Análisis del fragmento",
+    translationLabel: "Traducción al español",
+    seeTranslation:   "🌐 ver traducción",
+    hideTranslation:  "✕ traducción",
+    words:            "palabras",
+  },
+  en: {
+    back:             "← Back",
+    annotatedFragment:"ANNOTATED FRAGMENT",
+    iraParams:        "IRA PARAMETERS",
+    clickFullAnalysis:"Click for full analysis →",
+    pinnedNoteTitle:  "Fragment analysis",
+    translationLabel: "Spanish translation",
+    seeTranslation:   "🌐 see translation",
+    hideTranslation:  "✕ translation",
+    words:            "words",
+  },
+};
+
 const IRA_COLOR = (score) => {
   if (score >= 7.5) return '#2ecc71';
   if (score >= 5) return '#f59e0b';
@@ -29,6 +54,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
   const width = useWindowWidth();
   const isMobile = width < 768;
   const scoreColor = IRA_COLOR(speech.iraScore);
+  const T = SPEECH_VIEW_TEXTS[lang] || SPEECH_VIEW_TEXTS.es;
 
   const isEnglishSpeech = speech.speechLang === 'en';
   const showTranslationToggle = lang === 'es' && isEnglishSpeech;
@@ -84,7 +110,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
     >
       {/* Back */}
       <button onClick={onBack} style={styles.backBtn}>
-        ← Volver
+        {T.back}
       </button>
 
       {/* Header */}
@@ -101,7 +127,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
             {!isMobile && (
               <>
                 <span style={styles.metaDot}>·</span>
-                <span style={styles.metaItem}>{speech.wordCount.toLocaleString()} palabras</span>
+                <span style={styles.metaItem}>{speech.wordCount.toLocaleString()} {T.words}</span>
               </>
             )}
           </div>
@@ -156,7 +182,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
         {/* Annotated text */}
         <div style={styles.textColumn} ref={containerRef}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-            <p style={{ ...styles.sectionLabel, margin: 0 }}>FRAGMENTO ANOTADO</p>
+            <p style={{ ...styles.sectionLabel, margin: 0 }}>{T.annotatedFragment}</p>
             {showTranslationToggle && (
               <button
                 onClick={() => setShowTranslation((v) => !v)}
@@ -173,7 +199,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                   transition: 'all 0.2s',
                 }}
               >
-                {showTranslation ? '✕ traducción' : '🌐 ver traducción'}
+                {showTranslation ? T.hideTranslation : T.seeTranslation}
               </button>
             )}
           </div>
@@ -225,7 +251,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                 letterSpacing: '0.14em',
                 color: 'rgba(255,102,0,0.6)',
                 textTransform: 'uppercase',
-              }}>Traducción al español</p>
+              }}>{T.translationLabel}</p>
               <p style={{
                 margin: 0,
                 fontFamily: 'Georgia, serif',
@@ -247,14 +273,14 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                 </span>
               </div>
               <p style={styles.tooltipDesc}>{activeAnnotation.description}</p>
-              <p style={styles.tooltipHint}>Clic para análisis completo →</p>
+              <p style={styles.tooltipHint}>{T.clickFullAnalysis}</p>
             </div>
           )}
         </div>
 
         {/* Params */}
         <div style={{ ...styles.paramsColumn, position: isMobile ? 'static' : 'sticky', top: '1rem' }}>
-          <p style={styles.sectionLabel}>PARÁMETROS IRA</p>
+          <p style={styles.sectionLabel}>{T.iraParams}</p>
           <div style={styles.paramsList}>
             {speech.params.map((param, i) => (
               <div key={i} style={styles.paramItem}>
@@ -302,7 +328,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
             </div>
             <p style={styles.pinnedDesc}>{pinnedAnnotation.description}</p>
             <div style={styles.pinnedDivider} />
-            <p style={styles.pinnedNoteTitle}>Análisis del fragmento</p>
+            <p style={styles.pinnedNoteTitle}>{T.pinnedNoteTitle}</p>
             <p style={styles.pinnedNote}>{pinnedAnnotation.note}</p>
           </div>
         </div>

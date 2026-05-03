@@ -45,6 +45,35 @@ const TEXTS = {
     footerBasedOn:   "Datos basados en",
     footerText:      "El contagio de las palabras",
     footerSub:       "(Grisales, UCM 2024). IRA — metodología en desarrollo.",
+    loading:         "Cargando...",
+    synthesis:       "Síntesis",
+    politicianA:     "Político A",
+    politicianB:     "Político B",
+    selectTwo:       "Selecciona dos políticos para comparar",
+    searchPolitician:"Buscar político...",
+    annotatedFragment:"FRAGMENTO ANOTADO",
+    iraParams:       "PARÁMETROS IRA",
+    analysisLabel:   "Análisis",
+    clickFullAnalysis:"Clic para análisis completo →",
+    translationLabel:"Traducción al español",
+    seeTranslation:  "🌐 ver traducción",
+    hideTranslation: "✕ traducción",
+    back:            "← Volver",
+    shareImage:      "Compartir imagen",
+    copyLink:        "Copiar link",
+    linkCopied:      "¡Link copiado!",
+    generating:      "Generando...",
+    lecturaAutorLabel: "Lectura del autor",
+    lecturaAutorBadge: "· no computa en la nota",
+    analyzeInSite:   "Analiza tu propio texto →",
+    pinnedNoteTitle: "Análisis del fragmento",
+    speechesTitle:   "Discursos analizados",
+    speechesDesc:    "Fragmentos anotados del TFG",
+    words:           "palabras",
+    seeAnalysisCard: "Ver análisis →",
+    iraLabelEmp:     "Empático",
+    iraLabelMix:     "Mixto",
+    iraLabelPol:     "Polarizante",
     modalTag:        "Metodología",
     modalTitle:      "Índice de Resonancia Afectiva",
     modalIntro:      "El IRA es una herramienta de análisis lingüístico que mide la capacidad empática o polarizadora de un discurso político, mediático o institucional. Parte de una premisa respaldada por la neurociencia: antes de llegar al razonamiento lógico, todo estímulo atraviesa el sistema límbico, donde se originan las emociones. Las palabras no solo describen la realidad — la configuran. Una metáfora, un pronombre, un tono afectivo pueden construir comunidad o trincheras simbólicas.",
@@ -94,6 +123,35 @@ const TEXTS = {
     footerBasedOn:   "Data based on",
     footerText:      "The contagion of words",
     footerSub:       "(Grisales, UCM 2024). IRA — methodology under development.",
+    loading:         "Loading...",
+    synthesis:       "Synthesis",
+    politicianA:     "Politician A",
+    politicianB:     "Politician B",
+    selectTwo:       "Select two politicians to compare",
+    searchPolitician:"Search politician...",
+    annotatedFragment:"ANNOTATED FRAGMENT",
+    iraParams:       "IRA PARAMETERS",
+    analysisLabel:   "Analysis",
+    clickFullAnalysis:"Click for full analysis →",
+    translationLabel:"Spanish translation",
+    seeTranslation:  "🌐 see translation",
+    hideTranslation: "✕ translation",
+    back:            "← Back",
+    shareImage:      "Share image",
+    copyLink:        "Copy link",
+    linkCopied:      "Link copied!",
+    generating:      "Generating...",
+    lecturaAutorLabel: "Author's reading",
+    lecturaAutorBadge: "· does not count toward the score",
+    analyzeInSite:   "Analyze your own text →",
+    pinnedNoteTitle: "Fragment analysis",
+    speechesTitle:   "Analyzed speeches",
+    speechesDesc:    "Annotated fragments from the thesis",
+    words:           "words",
+    seeAnalysisCard: "See analysis →",
+    iraLabelEmp:     "Empathic",
+    iraLabelMix:     "Mixed",
+    iraLabelPol:     "Polarizing",
     modalTag:        "Methodology",
     modalTitle:      "Affective Resonance Index",
     modalIntro:      "The IRA is a linguistic analysis tool that measures the empathic or polarizing capacity of a political, media or institutional discourse. It starts from a premise supported by neuroscience: before reaching logical reasoning, every stimulus passes through the limbic system, where emotions originate. Words don't just describe reality — they shape it. A metaphor, a pronoun, an affective tone can build community or symbolic trenches.",
@@ -118,24 +176,24 @@ const CAT_TRANS = {
 
 const PARAMS_TRANS = {
   es: [
-    { id: "pronominal", label: "Uso pronominal inclusivo",   desc: "Qué pronombres usa y con qué verbos los asocia." },
-    { id: "metafora",   label: "Tipo de metáfora dominante", desc: "¿El imaginario central construye comunidad o enemigo?" },
-    { id: "dicotomia",  label: "Carga dicotómica",           desc: "Rigidez moral: ¿divide el mundo en buenos y malos?" },
-    { id: "tono",       label: "Tono emocional dominante",   desc: "¿Qué emoción instala en quien lo recibe?" },
-    { id: "disenso",    label: "Reconocimiento del disenso", desc: "¿Valida la diferencia o la clausura?" },
-    { id: "vector",     label: "Vector de acción",           desc: "¿Convoca a cooperar o a confrontar?" },
-    { id: "coherencia", label: "Coherencia afectiva",        desc: "¿Hay distancia entre lo que dice y lo que hace?" },
-    { id: "proyeccion", label: "Proyección de futuro",       desc: "¿Abre un horizonte compartido o lo clausura?" },
+    { id: "pronominal", label: "Pronombres y vínculo",   desc: "Qué pronombres usa y con qué verbos los asocia." },
+    { id: "metafora",   label: "Marco metafórico",      desc: "¿El imaginario central construye comunidad o enemigo?" },
+    { id: "dicotomia",  label: "Polaridad moral",       desc: "Rigidez moral: ¿divide el mundo en buenos y malos?" },
+    { id: "tono",       label: "Tono emocional",        desc: "¿Qué emoción instala en quien lo recibe?" },
+    { id: "disenso",    label: "Apertura al disenso",   desc: "¿Valida la diferencia o la clausura?" },
+    { id: "vector",     label: "Llamada a la acción",   desc: "¿Convoca a cooperar o a confrontar?" },
+    { id: "coherencia", label: "Engagement dialógico",  desc: "¿Hay distancia entre lo que dice y lo que hace?" },
+    { id: "proyeccion", label: "Horizonte de futuro",   desc: "¿Abre un horizonte compartido o lo clausura?" },
   ],
   en: [
-    { id: "pronominal", label: "Inclusive Pronominal Use",  desc: "Which pronouns are used and which verbs they're paired with." },
-    { id: "metafora",   label: "Dominant Metaphor Type",    desc: "Does the central imagery build community or enemy?" },
-    { id: "dicotomia",  label: "Dichotomous Load",          desc: "Moral rigidity: does it divide the world into good and bad?" },
-    { id: "tono",       label: "Dominant Emotional Tone",   desc: "What emotion does it install in the receiver?" },
-    { id: "disenso",    label: "Recognition of Dissent",    desc: "Does it validate difference or shut it down?" },
-    { id: "vector",     label: "Action Vector",             desc: "Does it call for cooperation or confrontation?" },
-    { id: "coherencia", label: "Affective Coherence",       desc: "Is there a gap between what is said and what is done?" },
-    { id: "proyeccion", label: "Future Projection",         desc: "Does it open a shared horizon or close it?" },
+    { id: "pronominal", label: "Pronouns & Bond",        desc: "Which pronouns are used and which verbs they're paired with." },
+    { id: "metafora",   label: "Metaphorical Frame",     desc: "Does the central imagery build community or enemy?" },
+    { id: "dicotomia",  label: "Moral Polarity",         desc: "Moral rigidity: does it divide the world into good and bad?" },
+    { id: "tono",       label: "Emotional Tone",         desc: "What emotion does it install in the receiver?" },
+    { id: "disenso",    label: "Openness to Dissent",    desc: "Does it validate difference or shut it down?" },
+    { id: "vector",     label: "Call to Action",         desc: "Does it call for cooperation or confrontation?" },
+    { id: "coherencia", label: "Dialogic Engagement",    desc: "Is there a gap between what is said and what is done?" },
+    { id: "proyeccion", label: "Future Horizon",         desc: "Does it open a shared horizon or close it?" },
   ],
 };
 
@@ -270,6 +328,16 @@ const ENTITIES = [
       coherencia: "Uno de los discursos más coherentes afectivamente. No hay disonancia entre lo que dice y cómo lo dice. La vulnerabilidad es real, la filosofía es consistente de principio a fin, y el tono no cambia para manipular.",
       proyeccion: "El futuro no es utópico ni apocalíptico — es \"un pequeño aliento rodando en las colinas\", la esperanza que se transmite de generación en generación. \"Lo imposible cuesta un poco más\" sintetiza su proyección: alcanzable, humana, sin paraísos prometidos.",
     },
+    paramTextsEn: {
+      pronominal: "The speech is constructed almost entirely in inclusive first-person plural and direct second person. There is no 'them' as enemy — when the third person appears it is descriptive, never demonizing. The 'we' summons all of humanity, not a faction.",
+      metafora:   "The metaphors are existential and relational: the social hard drive of the human being, life as a journey, the inner fire, the small breath rolling through the hills. They are metaphors of inheritance and transmission, not of combat.",
+      dicotomia:  "A dichotomy is present but not rigid: rich/poor, majority/minority, alienated life/life with meaning. He names it clearly but does not turn it into hatred — it is an ethical invitation rather than a moral trench.",
+      tono:       "Sober hope and love for life. The tone is neither euphoric nor alarmist — it is that of an old man who speaks with tenderness and urgency to the young. Indignation at injustice is always framed within a logic of collective care, not anger.",
+      disenso:    "Mujica presents himself as imperfect ('I lacked speed', 'I am no phenomenon'), acknowledges the contradictions of civilization, and validates doubt and stumbling. He does not construct a single, unquestionable truth — he proposes, he does not impose.",
+      vector:     "The call to action is cooperative and existential: 'fight for happiness', 'give life content'. He does not summon anyone to confront others — he summons people to build themselves and one another. The imperatives are of care, not confrontation.",
+      coherencia: "One of the most affectively coherent speeches. There is no dissonance between what he says and how he says it. The vulnerability is real, the philosophy is consistent from beginning to end, and the tone does not shift to manipulate.",
+      proyeccion: "The future is neither utopian nor apocalyptic — it is 'a small breath rolling through the hills', the hope transmitted from generation to generation. 'The impossible costs a little more' encapsulates his projection: attainable, human, with no promised paradise.",
+    },
     quotes: {
       pronominal: "Nos corresponde cuidarnos, luchamos en política",
       metafora:   "un pequeño aliento rodando en las colinas",
@@ -308,6 +376,16 @@ const ENTITIES = [
       coherencia: "El discurso respira desde un único registro: dignidad histórica femenina y proyecto colectivo. No hay saltos de tono ni disonancias. La emoción personal y el programa político se integran de forma consistente.",
       proyeccion: "El futuro es concreto y alcanzable: \"Garantizaremos las libertades de expresión, de prensa, de reunión\", \"Promoveremos la soberanía energética, las energías renovables y el desarrollo científico\". No hay utopía ni apocalipsis — hay programa.",
     },
+    paramTextsEn: {
+      pronominal: "The speech is constructed almost entirely in inclusive first-person plural. The central phrase 'I do not arrive alone — we all arrive together' extends the political subject beyond herself to encompass all women throughout history. The 'we' does not exclude: 'even if many Mexicans do not fully share our project, we shall walk together in peace and harmony'.",
+      metafora:   "The metaphors are historical and relational: Mexico as a nation that 'wove textiles with the hands of artisan women who interweave with the soul'. The ascent to power as the continuation of a collective struggle, not as an individual conquest.",
+      dicotomia:  "There is an implicit distinction between the transformative project and the past, but no enemies are named. The political adversary exists but is not emotionally summoned. 'We are democrats and by conviction would never form an authoritarian or repressive government'.",
+      tono:       "Historical hope and collective pride. The tone is simultaneously sober and celebratory. The emotion is not euphoria but dignity: 'after at least 503 years, for the first time we women have arrived to guide the destiny of our beautiful Nation'.",
+      disenso:    "She explicitly acknowledges those who did not vote for her and includes them: 'even if many Mexicans do not fully share our project, we shall walk together in peace and harmony to keep building a just and more prosperous Mexico'.",
+      vector:     "The call to action is cooperative and oriented toward continuity: to build, expand, guarantee, defend. There are no confrontational exhortations. 'We will continue with a foreign policy grounded in our constitutional principles of non-intervention and international cooperation for development'.",
+      coherencia: "The speech breathes from a single register: historical feminine dignity and collective project. There are no tonal shifts or dissonances. Personal emotion and political program are integrated in a consistent manner.",
+      proyeccion: "The future is concrete and attainable: 'We will guarantee freedoms of expression, press, and assembly'; 'We will promote energy sovereignty, renewable energy and scientific development'. There is no utopia, no apocalypse — there is a program.",
+    },
   },
   {
     id: "petro", name: "Gustavo Petro", category: "Político", country: "Colombia", flag: "🇨🇴",
@@ -326,6 +404,16 @@ const ENTITIES = [
       vector:     "Los llamados a la acción son concretos y cooperativos: red eléctrica americana, soberanía alimentaria, agencia de medicinas. \"De la retórica tenemos que pasar a la realidad.\" El vector apunta a construcción colectiva más que a confrontación.",
       coherencia: "La tensión entre el Petro esperanzador (\"faro de luz\") y el Petro apocalíptico (\"el mundo de hoy es un mundo de peligro para la vida\") genera cierta disonancia. El discurso no respira desde un solo registro emocional.",
       proyeccion: "El futuro es ambicioso pero con sombra: \"cooperar o perecer\". La CELAC como faro es una imagen potente, pero está enmarcada por la urgencia del colapso. Esperanza condicionada a la acción inmediata.",
+    },
+    paramTextsEn: {
+      pronominal: "The 'we' appears but with tension: it invokes regional integration ('we are peoples who help one another') while simultaneously constructing an implicit boundary against the global North. There is no personalized 'them', but a structural one.",
+      metafora:   "He mixes relational metaphors ('beacon of democracy, peace, freedom and life', 'the heart of the world') with metaphors of urgency and danger ('health vampires', 'every man for himself', 'miraculous vessel'). The constructive ones exist but compete with those of threat.",
+      dicotomia:  "Clear dichotomies are present: South/North, integration/colonialism, life/fossil capitalism. They are more structural than personalist, but they delineate a sustained symbolic battlefield throughout the speech.",
+      tono:       "He oscillates between integrative hope and climatic and geopolitical alarm. 'We are in danger' functions as a constant backdrop. Indignation is present but does not completely dominate over the policy proposal.",
+      disenso:    "He acknowledges that 'we talk much about unity but act on it little', which is self-critical toward the bloc. However, he does not validate dissident voices within CELAC nor does he genuinely open space for internal contradiction.",
+      vector:     "The calls to action are concrete and cooperative: an American power grid, food sovereignty, a medicines agency. 'From rhetoric we must move to reality.' The vector points toward collective construction rather than confrontation.",
+      coherencia: "The tension between the hopeful Petro ('beacon of light') and the apocalyptic Petro ('the world today is a world of danger to life') generates a degree of dissonance. The speech does not breathe from a single emotional register.",
+      proyeccion: "The future is ambitious but shadowed: 'cooperate or perish'. CELAC as a beacon is a powerful image, but it is framed by the urgency of collapse. Hope is conditional upon immediate action.",
     },
   },
   {
@@ -364,6 +452,17 @@ const PARAM_SHORT = {
   vector:     'Vector',
   coherencia: 'Coherencia',
   proyeccion: 'Proyección',
+};
+
+const PARAM_SHORT_EN = {
+  pronominal: 'Pronominal',
+  metafora:   'Metaphor',
+  dicotomia:  'Dichotomy',
+  tono:       'Tone',
+  disenso:    'Dissent',
+  vector:     'Vector',
+  coherencia: 'Coherence',
+  proyeccion: 'Projection',
 };
 
 const PARAMS_ORDER = ['pronominal','metafora','dicotomia','tono','disenso','vector','coherencia','proyeccion'];
@@ -434,7 +533,7 @@ function drawRadar(canvas, result) {
   ctx.font = '9px monospace';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  const labels = ['Pronominal','Metáfora','Dicotomía','Tono','Disenso','Vector','Coherencia','Proyección'];
+  const labels = PARAMS_ORDER.map(id => PARAM_SHORT[id]);
   labels.forEach((lbl, i) => {
     const a = (Math.PI * 2 * i) / N - Math.PI / 2;
     const r = R + 18;
@@ -637,7 +736,7 @@ function Detail({ entity, onClose, lang }) {
         </p>
         <div style={{ marginBottom:"24px" }}>
           <ResponsiveContainer width="100%" height={260}>
-            <RadarChart data={PARAMS_TRANS.es.map(p => ({ param: PARAM_SHORT[p.id], label: p.label, value: entity.params[p.id] }))} margin={{ top:12, right:44, bottom:12, left:44 }}>
+            <RadarChart data={PARAMS_TRANS.es.map(p => ({ param: (lang === "en" ? PARAM_SHORT_EN : PARAM_SHORT)[p.id], label: p.label, value: entity.params[p.id] }))} margin={{ top:12, right:44, bottom:12, left:44 }}>
               <PolarGrid stroke="rgba(255,255,255,0.08)" gridType="polygon" />
               <PolarAngleAxis dataKey="param" tick={{ fill:"rgba(255,255,255,0.45)", fontFamily:"'DM Mono',monospace", fontSize:9.5 }} />
               <PolarRadiusAxis domain={[0,10]} tick={false} axisLine={false} />
@@ -702,14 +801,14 @@ function Detail({ entity, onClose, lang }) {
                         color:"rgba(255,255,255,0.65)", lineHeight:1.55,
                       }}>«{entity.quotes[p.id]}»</p>
                     )}
-                    {entity.paramTexts?.[p.id] && (
+                    {(lang === "en" ? entity.paramTextsEn?.[p.id] : entity.paramTexts?.[p.id]) && (
                       <div style={{
                         background:`rgba(255,102,0,0.05)`,
                         border:"1px solid rgba(255,102,0,0.2)",
                         borderRadius:"8px", padding:"10px 12px", marginBottom:"12px",
                       }}>
-                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"rgba(255,102,0,0.8)", textTransform:"uppercase" }}>Análisis</p>
-                        <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.55)", lineHeight:1.65 }}>{entity.paramTexts[p.id]}</p>
+                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"rgba(255,102,0,0.8)", textTransform:"uppercase" }}>{T.analysisLabel}</p>
+                        <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.55)", lineHeight:1.65 }}>{lang === "en" ? entity.paramTextsEn[p.id] : entity.paramTexts[p.id]}</p>
                       </div>
                     )}
                     <p style={{ margin:"0 0 12px", fontSize:"11px", color:"rgba(255,255,255,0.48)", lineHeight:1.65 }}>
@@ -731,7 +830,7 @@ function Detail({ entity, onClose, lang }) {
             );
           })}
         </div>
-        <SpeechesSection entityId={entity.id} onSelectSpeech={setActiveSpeechId} />
+        <SpeechesSection entityId={entity.id} onSelectSpeech={setActiveSpeechId} lang={lang} />
         <button onClick={onClose} style={{
           marginTop:"20px", width:"100%", padding:"11px",
           background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)",
@@ -986,7 +1085,7 @@ function ShareCard({ result, cardRef }) {
       {/* footer */}
       <div style={{ marginTop:'16px', paddingTop:'12px', borderTop:'1px solid rgba(255,255,255,0.06)', display:'flex', justifyContent:'space-between' }}>
         <span style={{ fontSize:'8px', color:'rgba(255,255,255,0.15)' }}>ira-index.vercel.app</span>
-        <span style={{ fontSize:'8px', color:'rgba(255,102,0,0.35)' }}>Analiza tu propio texto →</span>
+        <span style={{ fontSize:'8px', color:'rgba(255,102,0,0.35)' }}>ira-index.vercel.app</span>
       </div>
     </div>
   );
@@ -1076,6 +1175,27 @@ function AnalysisResult({ result, onReset, lang }) {
           </div>
         );
       })}
+      {/* Lectura del autor */}
+      {result.lecturaAutor && (
+        <div style={{ marginTop:"24px" }}>
+          <div style={{ height:"1px", background:"rgba(255,255,255,0.07)", marginBottom:"18px" }} />
+          <div style={{ display:"flex", alignItems:"baseline", gap:"8px", marginBottom:"10px" }}>
+            <span style={{
+              fontFamily:"'DM Mono',monospace", fontSize:"9px", fontWeight:600,
+              color:"rgba(255,102,0,0.7)", letterSpacing:"0.14em", textTransform:"uppercase",
+            }}>{T.lecturaAutorLabel}</span>
+            <span style={{
+              fontFamily:"'DM Mono',monospace", fontSize:"8.5px",
+              color:"rgba(255,255,255,0.2)", letterSpacing:"0.06em",
+            }}>{T.lecturaAutorBadge}</span>
+          </div>
+          <p style={{
+            margin:0, fontFamily:"Georgia, 'Times New Roman', serif",
+            fontSize:"12px", lineHeight:1.8,
+            color:"rgba(255,255,255,0.45)", fontStyle:"italic",
+          }}>{result.lecturaAutor}</p>
+        </div>
+      )}
       {/* Share buttons */}
       <div style={{ display:"flex", gap:"10px", marginTop:"24px", flexWrap:"wrap" }}>
         <button onClick={handleShareImage} disabled={sharing} style={{
@@ -1088,7 +1208,7 @@ function AnalysisResult({ result, onReset, lang }) {
           fontFamily:"'DM Mono',monospace", transition:"all 0.2s",
         }}>
           <span style={{ fontSize:"14px" }}>📷</span>
-          {sharing ? "Generando..." : "Compartir imagen"}
+          {sharing ? T.generating : T.shareImage}
         </button>
         <button onClick={handleCopyLink} style={{
           flex:"1 1 160px", display:"flex", alignItems:"center", justifyContent:"center", gap:"7px",
@@ -1100,7 +1220,7 @@ function AnalysisResult({ result, onReset, lang }) {
           fontFamily:"'DM Mono',monospace", transition:"all 0.2s",
         }}>
           <span style={{ fontSize:"14px" }}>{copied ? "✓" : "🔗"}</span>
-          {copied ? "¡Link copiado!" : "Copiar link"}
+          {copied ? T.linkCopied : T.copyLink}
         </button>
       </div>
       <button onClick={onReset} style={{
@@ -1270,13 +1390,15 @@ export default function App() {
           <div style={{ opacity: mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
             <Suspense fallback={
               <div style={{ height:"160px", display:"flex", alignItems:"center", justifyContent:"center" }}>
-                <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.2)", fontFamily:"'DM Mono',monospace" }}>Cargando...</span>
+                <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.2)", fontFamily:"'DM Mono',monospace" }}>{T.loading}</span>
               </div>
             }>
               <Comparator
                 politicians={ENTITIES.filter(e => e.category === "Político")}
                 paramsEs={PARAMS_TRANS.es}
-                paramShort={PARAM_SHORT}
+                paramShort={lang === "en" ? PARAM_SHORT_EN : PARAM_SHORT}
+                lang={lang}
+                T={T}
               />
             </Suspense>
           </div>

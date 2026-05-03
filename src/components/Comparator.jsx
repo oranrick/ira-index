@@ -37,7 +37,7 @@ function CompareTooltip({ active, payload, nameA, nameB }) {
   );
 }
 
-function PoliticianSelector({ label, selected, onSelect, politicians, color }) {
+function PoliticianSelector({ label, selected, onSelect, politicians, color, searchPlaceholder = "Buscar político..." }) {
   const [search, setSearch] = useState("");
   const [open, setOpen]   = useState(false);
 
@@ -80,7 +80,7 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color }) {
             onChange={e => setSearch(e.target.value)}
             onFocus={() => setOpen(true)}
             onBlur={() => setTimeout(() => setOpen(false), 150)}
-            placeholder="Buscar político..."
+            placeholder={searchPlaceholder}
             style={{
               width: "100%", boxSizing: "border-box",
               padding: "9px 14px", borderRadius: "10px",
@@ -119,7 +119,7 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color }) {
   );
 }
 
-export default function Comparator({ politicians, paramsEs, paramShort }) {
+export default function Comparator({ politicians, paramsEs, paramShort, lang = "es", T = {} }) {
   const [entityA, setEntityA] = useState(null);
   const [entityB, setEntityB] = useState(null);
 
@@ -143,11 +143,17 @@ export default function Comparator({ politicians, paramsEs, paramShort }) {
     return { aWins, bWins, biggest };
   })() : null;
 
+  const labelA = T.politicianA || "Político A";
+  const labelB = T.politicianB || "Político B";
+  const labelSelectTwo = T.selectTwo || "Selecciona dos políticos para comparar";
+  const labelSynthesis = T.synthesis || "Síntesis";
+  const labelSearch = T.searchPolitician || "Buscar político...";
+
   return (
     <div style={{ maxWidth: "540px" }}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "14px", marginBottom: "28px" }}>
-        <PoliticianSelector label="Político A" selected={entityA} onSelect={setEntityA} politicians={politicians} color={COLOR_A} />
-        <PoliticianSelector label="Político B" selected={entityB} onSelect={setEntityB} politicians={politicians} color={COLOR_B} />
+        <PoliticianSelector label={labelA} selected={entityA} onSelect={setEntityA} politicians={politicians} color={COLOR_A} searchPlaceholder={labelSearch} />
+        <PoliticianSelector label={labelB} selected={entityB} onSelect={setEntityB} politicians={politicians} color={COLOR_B} searchPlaceholder={labelSearch} />
       </div>
 
       {entityA && entityB ? (
@@ -200,21 +206,37 @@ export default function Comparator({ politicians, paramsEs, paramShort }) {
               background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)",
             }}>
               <p style={{ margin: "0 0 6px", fontSize: "9px", letterSpacing: "0.14em", color: "rgba(255,255,255,0.25)", textTransform: "uppercase" }}>
-                Síntesis
+                {labelSynthesis}
               </p>
-              <p style={{ margin: 0, fontSize: "12px", color: "rgba(255,255,255,0.55)", lineHeight: 1.7, fontFamily: "'DM Mono',monospace" }}>
-                <span style={{ color: COLOR_A }}>{entityA.name}</span> supera a{" "}
-                <span style={{ color: COLOR_B }}>{entityB.name}</span> en{" "}
-                <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.aWins}</span> de los 8 parámetros;{" "}
-                <span style={{ color: COLOR_B }}>{entityB.name}</span> en{" "}
-                <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.bWins}</span>.{" "}
-                La mayor diferencia está en{" "}
-                <span style={{ color: "#fff" }}>{synthesis.biggest.label}</span>{" "}
-                ({Math.abs(synthesis.biggest.diff).toFixed(1)} pts a favor de{" "}
-                <span style={{ color: synthesis.biggest.diff > 0 ? COLOR_A : COLOR_B }}>
-                  {synthesis.biggest.diff > 0 ? entityA.name : entityB.name}
-                </span>).
-              </p>
+              {lang === "en" ? (
+                <p style={{ margin: 0, fontSize: "12px", color: "rgba(255,255,255,0.55)", lineHeight: 1.7, fontFamily: "'DM Mono',monospace" }}>
+                  <span style={{ color: COLOR_A }}>{entityA.name}</span> outscores{" "}
+                  <span style={{ color: COLOR_B }}>{entityB.name}</span> on{" "}
+                  <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.aWins}</span> of the 8 parameters;{" "}
+                  <span style={{ color: COLOR_B }}>{entityB.name}</span> on{" "}
+                  <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.bWins}</span>.{" "}
+                  The largest gap is in{" "}
+                  <span style={{ color: "#fff" }}>{synthesis.biggest.label}</span>{" "}
+                  ({Math.abs(synthesis.biggest.diff).toFixed(1)} pts in favour of{" "}
+                  <span style={{ color: synthesis.biggest.diff > 0 ? COLOR_A : COLOR_B }}>
+                    {synthesis.biggest.diff > 0 ? entityA.name : entityB.name}
+                  </span>).
+                </p>
+              ) : (
+                <p style={{ margin: 0, fontSize: "12px", color: "rgba(255,255,255,0.55)", lineHeight: 1.7, fontFamily: "'DM Mono',monospace" }}>
+                  <span style={{ color: COLOR_A }}>{entityA.name}</span> supera a{" "}
+                  <span style={{ color: COLOR_B }}>{entityB.name}</span> en{" "}
+                  <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.aWins}</span> de los 8 parámetros;{" "}
+                  <span style={{ color: COLOR_B }}>{entityB.name}</span> en{" "}
+                  <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.bWins}</span>.{" "}
+                  La mayor diferencia está en{" "}
+                  <span style={{ color: "#fff" }}>{synthesis.biggest.label}</span>{" "}
+                  ({Math.abs(synthesis.biggest.diff).toFixed(1)} pts a favor de{" "}
+                  <span style={{ color: synthesis.biggest.diff > 0 ? COLOR_A : COLOR_B }}>
+                    {synthesis.biggest.diff > 0 ? entityA.name : entityB.name}
+                  </span>).
+                </p>
+              )}
             </div>
           )}
         </>
@@ -224,7 +246,7 @@ export default function Comparator({ politicians, paramsEs, paramShort }) {
           borderRadius: "14px", border: "1px dashed rgba(255,255,255,0.07)",
         }}>
           <p style={{ margin: 0, fontSize: "11px", color: "rgba(255,255,255,0.18)", fontFamily: "'DM Mono',monospace" }}>
-            Selecciona dos políticos para comparar
+            {labelSelectTwo}
           </p>
         </div>
       )}

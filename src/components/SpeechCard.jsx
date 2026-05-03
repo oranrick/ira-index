@@ -8,38 +8,61 @@ const IRA_COLOR = (score) => {
   return '#ff6600';
 };
 
-const IRA_LABEL_SHORT = (score) => {
-  if (score >= 7.5) return 'Empático';
-  if (score >= 5) return 'Mixto';
-  return 'Polarizante';
+const CARD_TEXTS = {
+  es: {
+    speechesTitle:   "Discursos analizados",
+    speechesDesc:    "Fragmentos anotados del TFG",
+    words:           "palabras",
+    seeAnalysis:     "Ver análisis →",
+    iraLabelEmp:     "Empático",
+    iraLabelMix:     "Mixto",
+    iraLabelPol:     "Polarizante",
+  },
+  en: {
+    speechesTitle:   "Analyzed speeches",
+    speechesDesc:    "Annotated fragments from the thesis",
+    words:           "words",
+    seeAnalysis:     "See analysis →",
+    iraLabelEmp:     "Empathic",
+    iraLabelMix:     "Mixed",
+    iraLabelPol:     "Polarizing",
+  },
 };
 
-export function SpeechesSection({ entityId, onSelectSpeech }) {
+export function SpeechesSection({ entityId, onSelectSpeech, lang = 'es' }) {
   const speeches = getSpeechesByEntity(entityId);
   if (!speeches.length) return null;
+  const T = CARD_TEXTS[lang] || CARD_TEXTS.es;
 
   return (
     <div style={styles.section}>
       <div style={styles.sectionHeader}>
         <span style={styles.sectionIcon}>📄</span>
-        <h3 style={styles.sectionTitle}>Discursos analizados</h3>
+        <h3 style={styles.sectionTitle}>{T.speechesTitle}</h3>
         <span style={styles.sectionBadge}>{speeches.length}</span>
       </div>
       <p style={styles.sectionDesc}>
-        Fragmentos anotados del TFG <em>El contagio de las palabras</em> (UCM, 2024)
+        {T.speechesDesc} <em>El contagio de las palabras</em> (UCM, 2024)
       </p>
       <div style={styles.grid}>
         {speeches.map((speech) => (
-          <SpeechCard key={speech.id} speech={speech} onClick={() => onSelectSpeech(speech.id)} />
+          <SpeechCard key={speech.id} speech={speech} onClick={() => onSelectSpeech(speech.id)} lang={lang} />
         ))}
       </div>
     </div>
   );
 }
 
-function SpeechCard({ speech, onClick }) {
+function SpeechCard({ speech, onClick, lang = 'es' }) {
   const [hovered, setHovered] = useState(false);
   const scoreColor = IRA_COLOR(speech.iraScore);
+  const T = CARD_TEXTS[lang] || CARD_TEXTS.es;
+
+  const IRA_LABEL_SHORT = (score) => {
+    if (score >= 7.5) return T.iraLabelEmp;
+    if (score >= 5) return T.iraLabelMix;
+    return T.iraLabelPol;
+  };
 
   return (
     <button
@@ -76,9 +99,9 @@ function SpeechCard({ speech, onClick }) {
       {/* Footer */}
       <div style={styles.cardFooter}>
         <span style={styles.cardDuration}>⏱ {speech.duration}</span>
-        <span style={styles.cardWords}>{speech.wordCount.toLocaleString()} palabras</span>
+        <span style={styles.cardWords}>{speech.wordCount.toLocaleString()} {T.words}</span>
         <span style={{ ...styles.cardCta, color: hovered ? '#ff6600' : 'rgba(255,255,255,0.4)' }}>
-          Ver análisis →
+          {T.seeAnalysis}
         </span>
       </div>
 
