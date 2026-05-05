@@ -693,10 +693,14 @@ function mergeSpeech(speech, row) {
     ...speech,
     iraScore: row.ira ?? speech.iraScore,
     summary:  row.summary ?? speech.summary,
-    params: speech.params.map(p => ({
-      ...p,
-      value: row.params?.[PARAM_KEY_MAP[p.name]]?.score ?? p.value,
-    })),
+    params: speech.params.map(p => {
+      const sup = row.params?.[PARAM_KEY_MAP[p.name]];
+      return {
+        ...p,
+        value: sup?.score ?? p.value,
+        note:  sup?.desc  ?? p.note,
+      };
+    }),
   };
 }
 
