@@ -5,7 +5,28 @@
       "Bash(git remote *)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git config *)",
+      "Bash(git branch *)",
+      "Bash(git pull *)",
+      "Bash(get-childitem -Path . -Recurse -Include *.js, *.ts, *.jsx, *.tsx, *.json)",
+      "Bash(select-object FullName)",
+      "Bash(git *)",
+      "Bash(npm install *)",
+      "Bash(node --input-type=module --eval \"import\\('./src/App.jsx'\\).catch\\(e=>console.error\\(e.message\\)\\)\")",
+      "Bash(npx vite *)",
+      "Bash(npm run *)",
+      "Bash(vercel --version)",
+      "PowerShell(npm install *)",
+      "Bash(node -e \"require\\('pdf-parse'\\)\")",
+      "Bash(node scripts/reanalyze-corpus.js)",
+      "Bash(node -e \"const {createRequire} = require\\('module'\\); const r = createRequire\\(import.meta.url\\); const m = r\\('pdf-parse'\\); console.log\\(typeof m, typeof m.default\\);\")",
+      "Bash(node --input-type=module)",
+      "Bash(node scripts/reanalyze-corpus.js sheinbaum_aranceles ardern_christchurch)",
+      "Bash(curl -s -X POST https://ira-index.vercel.app/api/analyze -H 'Content-Type: application/json' -d '{\"text\":\"Este es un discurso de prueba. El gobierno trabaja para el pueblo y busca la unidad nacional.\"}')",
+      "Bash(curl *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\oranr\\\\OneDrive\\\\Desktop\\\\ira-index\" -Recurse -Include \"*.jsx\", \"*.js\")",
+      "Bash(Select-Object -First 20)"
     ]
   }
 }

@@ -672,12 +672,40 @@ function RadarTooltip({ active, payload }) {
   );
 }
 
-function Detail({ entity, onClose, lang }) {
+const SUPABASE_URL = 'https://jsxmlxuzblezwlaxwpuc.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_VRQ9UW5FrRcARTfkmiYI4w_etib_jVA';
+
+const PARAM_KEY_MAP = {
+  'Uso pronominal inclusivo':   'pronominal',
+  'Tipo de metáfora dominante': 'metafora',
+  'Carga dicotómica':           'dicotomia',
+  'Tono emocional dominante':   'tono',
+  'Reconocimiento del disenso': 'disenso',
+  'Vector de acción':           'vector',
+  'Coherencia afectiva':        'coherencia',
+  'Proyección de futuro':       'proyeccion',
+};
+
+function mergeSpeech(speech, row) {
+  if (!speech) return null;
+  if (!row) return speech;
+  return {
+    ...speech,
+    iraScore: row.ira ?? speech.iraScore,
+    summary:  row.summary ?? speech.summary,
+    params: speech.params.map(p => ({
+      ...p,
+      value: row.params?.[PARAM_KEY_MAP[p.name]]?.score ?? p.value,
+    })),
+  };
+}
+
+function Detail({ entity, onClose, lang, supabaseMap = {} }) {
   const [mounted, setMounted] = useState(false);
   const [expanded, setExpanded] = useState(null);
   const [activeSpeechId, setActiveSpeechId] = useState(null);
   useEffect(() => { setTimeout(() => setMounted(true), 20); }, []);
-  const activeSpeech = activeSpeechId ? getSpeechById(activeSpeechId) : null;
+  const activeSpeech = mergeSpeech(activeSpeechId ? getSpeechById(activeSpeechId) : null, supabaseMap[activeSpeechId]);
   const col = scoreColor(entity.score);
   const T = TEXTS[lang];
   const params = PARAMS_TRANS[lang];
@@ -1246,6 +1274,23 @@ export default function App() {
   const [showIRA, setShowIRA] = useState(false);
   const [lang, setLang] = useState("es");
   const [mounted, setMounted] = useState(false);
+  const [supabaseMap, setSupabaseMap] = useState({});
+
+  useEffect(() => {
+    fetch(`${SUPABASE_URL}/rest/v1/analyses?select=speech_id,ira,params,summary`, {
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+      },
+    })
+      .then(r => r.json())
+      .then(rows => {
+        const map = {};
+        rows.forEach(r => { if (r.speech_id) map[r.speech_id] = r; });
+        setSupabaseMap(map);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 60);
@@ -1404,7 +1449,7 @@ export default function App() {
           </div>
         )}
       </div>
-      {selected && <Detail entity={selected} onClose={() => setSelected(null)} lang={lang} />}
+      {selected && <Detail entity={selected} onClose={() => setSelected(null)} lang={lang} supabaseMap={supabaseMap} />}
       {showIRA && <IRAModal onClose={() => setShowIRA(false)} lang={lang} />}
     </div>
   );
