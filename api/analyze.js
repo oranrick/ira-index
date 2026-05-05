@@ -1,5 +1,3 @@
-import { createClient } from '@supabase/supabase-js';
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -165,6 +163,7 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
 
     // Guardar en Supabase (fallo silencioso — no rompe la respuesta al usuario)
     try {
+      const { createClient } = await import('@supabase/supabase-js');
       const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
       await supabase.from('analyses').insert({
         text,
