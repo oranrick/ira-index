@@ -1277,6 +1277,7 @@ export default function App() {
   const [supabaseMap, setSupabaseMap] = useState({});
 
   useEffect(() => {
+    console.log('[IRA] useEffect Supabase montado');
     fetch(`${SUPABASE_URL}/rest/v1/analyses?select=speech_id,ira,params,summary`, {
       headers: {
         apikey: SUPABASE_KEY,
