@@ -1154,8 +1154,8 @@ function AnalysisResult({ result, onReset, lang }) {
         </div>
       </div>
       {params.map((p, i) => {
-        const val = result.params[p.id].score;
-        const desc = result.params[p.id].desc;
+        const val = +(result.params[p.id]?.score ?? 0);
+        const desc = result.params[p.id]?.desc ?? '';
         return (
           <div key={i} style={{ marginBottom:"14px" }}>
             <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"5px" }}>

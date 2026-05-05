@@ -161,16 +161,23 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
 
     const result = { ...parsed, ira: Math.round(ira * 100) / 100 };
 
-    // Guardar en Supabase (fallo silencioso — no rompe la respuesta al usuario)
+    // Guardar en Supabase via REST API (fallo silencioso — no rompe la respuesta al usuario)
     try {
-      const { createClient } = await import('@supabase/supabase-js');
-      const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-      await supabase.from('analyses').insert({
-        text,
-        ira: Math.round(result.ira * 100) / 100,
-        params: result.params,
-        summary: result.summary,
-        lectura_autor: result.lecturaAutor,
+      await fetch(`${process.env.SUPABASE_URL}/rest/v1/analyses`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': process.env.SUPABASE_KEY,
+          'Authorization': `Bearer ${process.env.SUPABASE_KEY}`,
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({
+          text,
+          ira: Math.round(result.ira * 100) / 100,
+          params: result.params,
+          summary: result.summary,
+          lectura_autor: result.lecturaAutor,
+        }),
       });
     } catch (dbError) {
       console.error('Supabase insert error FULL:', JSON.stringify(dbError, null, 2));
