@@ -1,3 +1,5 @@
+import { createClient } from '@supabase/supabase-js';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -159,10 +161,23 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
       return sum + (parsed.params[key]?.score ?? 0) * w;
     }, 0);
 
-    res.status(200).json({
-      ...parsed,
-      ira: Math.round(ira * 100) / 100,
-    });
+    const result = { ...parsed, ira: Math.round(ira * 100) / 100 };
+
+    // Guardar en Supabase (fallo silencioso — no rompe la respuesta al usuario)
+    try {
+      const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+      await supabase.from('analyses').insert({
+        text,
+        ira: Math.round(result.ira * 100) / 100,
+        params: result.params,
+        summary: result.summary,
+        lectura_autor: result.lecturaAutor,
+      });
+    } catch (dbError) {
+      console.error('Supabase insert error FULL:', JSON.stringify(dbError, null, 2));
+    }
+
+    res.status(200).json(result);
 
   } catch (e) {
     console.error(e);
