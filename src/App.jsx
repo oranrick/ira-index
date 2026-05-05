@@ -1285,11 +1285,15 @@ export default function App() {
     })
       .then(r => r.json())
       .then(rows => {
+        if (!Array.isArray(rows)) {
+          console.error('[Supabase] respuesta inesperada (no es array):', rows);
+          return;
+        }
         const map = {};
         rows.forEach(r => { if (r.speech_id) map[r.speech_id] = r; });
         setSupabaseMap(map);
       })
-      .catch(() => {});
+      .catch(err => console.error('[Supabase] error en fetch de corpus:', err));
   }, []);
 
   useEffect(() => {
