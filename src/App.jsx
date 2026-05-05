@@ -597,7 +597,7 @@ function Badge({ label, color }) {
 
 function EntityCard({ entity, onClick, lang }) {
   const [hov, setHov] = useState(false);
-  const col = scoreColor(entity.score);
+  const col = scoreColor(entity.score ?? 5);
   const T = TEXTS[lang];
   const catLabel = CAT_TRANS[lang][entity.category] || entity.category;
   return (
@@ -629,10 +629,10 @@ function EntityCard({ entity, onClick, lang }) {
           <p style={{ margin:"2px 0 0", fontSize:"10px", color:"rgba(255,255,255,0.3)", letterSpacing:"0.04em" }}>{entity.country}</p>
         </div>
         <div style={{ position:"relative", flexShrink:0 }}>
-          <ScoreRing score={entity.score} size={64} stroke={4} />
+          <ScoreRing score={entity.score ?? 0} size={64} stroke={4} />
           <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
             <span style={{ fontSize:"14px", fontWeight:700, color:col, fontFamily:"'DM Mono',monospace" }}>
-              {entity.score.toFixed(2)}
+              {entity.score != null ? entity.score.toFixed(2) : '—'}
             </span>
           </div>
         </div>
@@ -1284,9 +1284,9 @@ export default function App() {
   const [lang, setLang] = useState("es");
   const [mounted, setMounted] = useState(false);
   const [supabaseMap, setSupabaseMap] = useState({});
+  const [supabaseReady, setSupabaseReady] = useState(false);
 
   useEffect(() => {
-    console.log('[IRA] useEffect Supabase montado');
     fetch(`${SUPABASE_URL}/rest/v1/analyses?select=speech_id,ira,params,summary`, {
       headers: {
         apikey: SUPABASE_KEY,
@@ -1295,17 +1295,14 @@ export default function App() {
     })
       .then(r => r.json())
       .then(rows => {
-        console.log('Supabase data:', rows);
-        if (!Array.isArray(rows)) {
-          console.error('[Supabase] respuesta inesperada (no es array):', rows);
-          return;
+        if (Array.isArray(rows)) {
+          const map = {};
+          rows.forEach(r => { if (r.speech_id) map[r.speech_id] = r; });
+          setSupabaseMap(map);
         }
-        const map = {};
-        rows.forEach(r => { if (r.speech_id) map[r.speech_id] = r; });
-        console.log('Supabase map:', map);
-        setSupabaseMap(map);
       })
-      .catch(err => console.error('[Supabase] error en fetch de corpus:', err));
+      .catch(() => {})
+      .finally(() => setSupabaseReady(true));
   }, []);
 
   useEffect(() => {
@@ -1320,6 +1317,7 @@ export default function App() {
   const cats = ["Todos", "Político", "Medio"];
 
   const enrichedEntities = ENTITIES.map(entity => {
+    if (!supabaseReady) return { ...entity, score: null };
     const iras = getSpeechesByEntity(entity.id)
       .map(s => supabaseMap[s.id]?.ira)
       .filter(v => v != null);
