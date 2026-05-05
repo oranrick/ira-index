@@ -29,8 +29,8 @@ const CARD_TEXTS = {
   },
 };
 
-export function SpeechesSection({ entityId, onSelectSpeech, lang = 'es' }) {
-  const speeches = getSpeechesByEntity(entityId);
+export function SpeechesSection({ entityId, speeches: speechesProp, onSelectSpeech, lang = 'es' }) {
+  const speeches = speechesProp ?? getSpeechesByEntity(entityId);
   if (!speeches.length) return null;
   const T = CARD_TEXTS[lang] || CARD_TEXTS.es;
 

@@ -858,7 +858,12 @@ function Detail({ entity, onClose, lang, supabaseMap = {} }) {
             );
           })}
         </div>
-        <SpeechesSection entityId={entity.id} onSelectSpeech={setActiveSpeechId} lang={lang} />
+        <SpeechesSection
+          entityId={entity.id}
+          speeches={getSpeechesByEntity(entity.id).map(s => mergeSpeech(s, supabaseMap[s.id]))}
+          onSelectSpeech={setActiveSpeechId}
+          lang={lang}
+        />
         <button onClick={onClose} style={{
           marginTop:"20px", width:"100%", padding:"11px",
           background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)",
