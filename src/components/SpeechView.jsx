@@ -29,6 +29,9 @@ const SPEECH_VIEW_TEXTS = {
   },
 };
 
+const SUPABASE_URL = 'https://jsxmlxuzblezwlaxwpuc.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_VRQ9UW5FrRcARTfkmiYI4w_etib_jVA';
+
 const IRA_COLOR = (score) => {
   if (score >= 7.5) return '#2ecc71';
   if (score >= 5) return '#f59e0b';
@@ -59,6 +62,9 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
   const [expandedParam, setExpandedParam] = useState(null);
   const [hoveredParam, setHoveredParam] = useState(null);
   const [barsAnimated, setBarsAnimated] = useState(false);
+  const [transcriptOpen, setTranscriptOpen] = useState(false);
+  const [transcriptText, setTranscriptText] = useState('');
+  const [transcriptLoading, setTranscriptLoading] = useState(false);
   const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 });
   const [showTranslation, setShowTranslation] = useState(false);
   const containerRef = useRef(null);
@@ -85,6 +91,24 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
     const t = setTimeout(() => setBarsAnimated(true), 80);
     return () => clearTimeout(t);
   }, []);
+
+  const openTranscript = async () => {
+    setTranscriptOpen(true);
+    if (transcriptText) return;
+    setTranscriptLoading(true);
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/analyses?select=text&speech_id=eq.${speech.id}`,
+        { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+      );
+      const rows = await res.json();
+      setTranscriptText(rows?.[0]?.text ?? '');
+    } catch {
+      setTranscriptText('');
+    } finally {
+      setTranscriptLoading(false);
+    }
+  };
 
   const handleAnnotationHover = (e, segment) => {
     if (!segment.type || isMobile) return;
@@ -280,7 +304,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
           )}
 
           {/* Ver transcripción completa */}
-          <button style={styles.transcriptBtn} disabled>
+          <button style={{ ...styles.transcriptBtn, cursor: 'pointer', opacity: 1 }} onClick={openTranscript}>
             {lang === 'en' ? 'Full transcript ↗' : 'Ver transcripción completa ↗'}
           </button>
 
@@ -370,6 +394,29 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
         <div style={styles.lecturaBox}>
           <p style={styles.sectionLabel}>{T.lecturaLabel}</p>
           <p style={styles.lecturaText}>{speech.lecturaAutor}</p>
+        </div>
+      )}
+
+      {/* Transcript modal */}
+      {transcriptOpen && (
+        <div style={styles.modalOverlay} onClick={() => setTranscriptOpen(false)}>
+          <div style={styles.modalBox} onClick={e => e.stopPropagation()}>
+            <div style={styles.modalHeader}>
+              <span style={styles.modalTitle}>
+                {speech.entityName} · {speech.title}
+              </span>
+              <button style={styles.modalClose} onClick={() => setTranscriptOpen(false)}>✕</button>
+            </div>
+            <div style={styles.modalBody}>
+              {transcriptLoading ? (
+                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>Cargando…</span>
+              ) : transcriptText ? (
+                <p style={styles.modalText}>{transcriptText}</p>
+              ) : (
+                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>Transcripción no disponible.</span>
+              )}
+            </div>
+          </div>
         </div>
       )}
 
@@ -738,6 +785,68 @@ const styles = {
     color: 'rgba(255,255,255,0.55)',
     lineHeight: 1.85,
     fontStyle: 'italic',
+  },
+  modalOverlay: {
+    position: 'fixed',
+    inset: 0,
+    zIndex: 600,
+    background: 'rgba(4,4,8,0.88)',
+    backdropFilter: 'blur(12px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '1.5rem',
+  },
+  modalBox: {
+    background: '#0e0e14',
+    border: '1px solid rgba(255,102,0,0.2)',
+    borderRadius: '14px',
+    width: '100%',
+    maxWidth: '680px',
+    maxHeight: '80vh',
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
+    boxShadow: '0 24px 64px rgba(0,0,0,0.7)',
+  },
+  modalHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '1rem 1.2rem 0.8rem',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+    flexShrink: 0,
+  },
+  modalTitle: {
+    fontFamily: "'Syne', sans-serif",
+    fontSize: '0.82rem',
+    fontWeight: 700,
+    color: 'rgba(255,255,255,0.7)',
+  },
+  modalClose: {
+    background: 'none',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '6px',
+    color: 'rgba(255,255,255,0.4)',
+    cursor: 'pointer',
+    fontSize: '0.78rem',
+    padding: '3px 8px',
+    lineHeight: 1,
+    transition: 'all 0.15s',
+    flexShrink: 0,
+  },
+  modalBody: {
+    overflowY: 'auto',
+    padding: '1.2rem 1.4rem 1.5rem',
+    flex: 1,
+  },
+  modalText: {
+    margin: 0,
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '0.78rem',
+    color: 'rgba(255,255,255,0.62)',
+    lineHeight: 1.9,
+    whiteSpace: 'pre-wrap',
   },
   transcriptBtn: {
     marginTop: '0.9rem',
