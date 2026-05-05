@@ -279,6 +279,11 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
             </div>
           )}
 
+          {/* Ver transcripción completa */}
+          <button style={styles.transcriptBtn} disabled>
+            {lang === 'en' ? 'Full transcript ↗' : 'Ver transcripción completa ↗'}
+          </button>
+
           {/* Tooltip — desktop only */}
           {activeAnnotation && !isMobile && (
             <div style={{ ...styles.tooltip, top: tooltipPos.top, left: tooltipPos.left }}>
@@ -318,7 +323,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                 >
                   <div style={styles.paramHeader}>
                     <span style={styles.paramName}>{param.name}</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '1rem', flexShrink: 0 }}>
                       <span style={{
                         fontFamily: "'DM Mono', monospace",
                         fontSize: '1.1rem',
@@ -631,7 +636,7 @@ const styles = {
     fontWeight: 700,
   },
   paramBarTrack: {
-    height: '5px',
+    height: '2px',
     background: 'rgba(255,255,255,0.06)',
     borderRadius: '99px',
     overflow: 'hidden',
@@ -733,5 +738,20 @@ const styles = {
     color: 'rgba(255,255,255,0.55)',
     lineHeight: 1.85,
     fontStyle: 'italic',
+  },
+  transcriptBtn: {
+    marginTop: '0.9rem',
+    display: 'block',
+    background: 'transparent',
+    border: '1px solid rgba(255,102,0,0.45)',
+    borderRadius: '6px',
+    color: '#ff6600',
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '0.7rem',
+    letterSpacing: '0.06em',
+    padding: '0.45rem 1rem',
+    cursor: 'not-allowed',
+    opacity: 0.6,
+    transition: 'all 0.2s',
   },
 };
