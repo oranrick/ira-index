@@ -294,17 +294,23 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                     onClick={() => setExpandedParam(open ? null : i)}
                   >
                     <span style={styles.paramName}>{param.name}</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <span style={{ ...styles.paramValue, color: IRA_COLOR(param.value) }}>
                         {param.value.toFixed(1)}
                       </span>
                       <span style={{
-                        fontSize: '0.5rem',
-                        color: 'rgba(255,255,255,0.2)',
-                        transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 0.2s',
-                        lineHeight: 1,
-                      }}>▼</span>
+                        fontSize: '0.58rem',
+                        color: open ? '#ff6600' : 'rgba(255,255,255,0.35)',
+                        border: `1px solid ${open ? 'rgba(255,102,0,0.4)' : 'rgba(255,255,255,0.12)'}`,
+                        borderRadius: '99px',
+                        padding: '1px 7px',
+                        fontFamily: "'DM Mono', monospace",
+                        letterSpacing: '0.04em',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap',
+                      }}>
+                        {open ? 'cerrar ▲' : 'ver ▾'}
+                      </span>
                     </div>
                   </div>
                   <div style={styles.paramBarTrack}>
@@ -606,11 +612,11 @@ const styles = {
     transition: 'width 0.6s ease',
   },
   paramNote: {
-    margin: 0,
+    margin: '0.3rem 0 0',
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.6rem',
-    color: 'rgba(255,255,255,0.26)',
-    lineHeight: 1.5,
+    fontSize: '0.72rem',
+    color: 'rgba(255,255,255,0.52)',
+    lineHeight: 1.65,
   },
   pinnedPanel: {
     position: 'fixed',
