@@ -130,7 +130,7 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
-        max_tokens: 1500,
+        max_tokens: 2500,
         system: SYSTEM,
         messages: [{ role: 'user', content: `Analiza este texto:\n\n${text}` }],
       }),
