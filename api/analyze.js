@@ -163,7 +163,7 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
 
     // Guardar en Supabase via REST API (fallo silencioso — no rompe la respuesta al usuario)
     try {
-      await fetch(`${process.env.SUPABASE_URL}/rest/v1/analyses`, {
+      const dbRes = await fetch(`${process.env.SUPABASE_URL}/rest/v1/analyses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -179,6 +179,10 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
           lectura_autor: result.lecturaAutor,
         }),
       });
+      if (!dbRes.ok) {
+        const errBody = await dbRes.text();
+        console.error('Supabase insert failed:', dbRes.status, errBody);
+      }
     } catch (dbError) {
       console.error('Supabase insert error FULL:', JSON.stringify(dbError, null, 2));
     }
