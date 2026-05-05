@@ -35,6 +35,12 @@ const IRA_COLOR = (score) => {
   return '#ff6600';
 };
 
+const BAR_COLOR = (score) => {
+  if (score >= 7) return '#2ecc71';
+  if (score >= 4) return '#f59e0b';
+  return '#e05252';
+};
+
 function useWindowWidth() {
   const [width, setWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1200
@@ -51,6 +57,8 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
   const [activeAnnotation, setActiveAnnotation] = useState(null);
   const [pinnedAnnotation, setPinnedAnnotation] = useState(null);
   const [expandedParam, setExpandedParam] = useState(null);
+  const [hoveredParam, setHoveredParam] = useState(null);
+  const [barsAnimated, setBarsAnimated] = useState(false);
   const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 });
   const [showTranslation, setShowTranslation] = useState(false);
   const containerRef = useRef(null);
@@ -71,6 +79,11 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setBarsAnimated(true), 80);
+    return () => clearTimeout(t);
   }, []);
 
   const handleAnnotationHover = (e, segment) => {
@@ -287,15 +300,32 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
           <div style={styles.paramsList}>
             {speech.params.map((param, i) => {
               const open = expandedParam === i;
+              const hovered = hoveredParam === i;
               return (
-                <div key={i} style={styles.paramItem}>
-                  <div
-                    style={{ ...styles.paramHeader, cursor: 'pointer' }}
-                    onClick={() => setExpandedParam(open ? null : i)}
-                  >
+                <div
+                  key={i}
+                  style={{
+                    ...styles.paramItem,
+                    background: hovered ? 'rgba(255,255,255,0.04)' : 'transparent',
+                    borderRadius: '6px',
+                    padding: '0.45rem 0.5rem',
+                    transition: 'background 0.15s',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={() => setHoveredParam(i)}
+                  onMouseLeave={() => setHoveredParam(null)}
+                  onClick={() => setExpandedParam(open ? null : i)}
+                >
+                  <div style={styles.paramHeader}>
                     <span style={styles.paramName}>{param.name}</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ ...styles.paramValue, color: IRA_COLOR(param.value) }}>
+                      <span style={{
+                        fontFamily: "'DM Mono', monospace",
+                        fontSize: '1.1rem',
+                        fontWeight: 700,
+                        color: '#ff6600',
+                        lineHeight: 1,
+                      }}>
                         {param.value.toFixed(1)}
                       </span>
                       <span style={{
@@ -316,8 +346,8 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                   <div style={styles.paramBarTrack}>
                     <div style={{
                       ...styles.paramBarFill,
-                      width: `${(param.value / 10) * 100}%`,
-                      background: IRA_COLOR(param.value),
+                      width: barsAnimated ? `${(param.value / 10) * 100}%` : '0%',
+                      background: BAR_COLOR(param.value),
                     }} />
                   </div>
                   {open && param.note && (
@@ -601,15 +631,16 @@ const styles = {
     fontWeight: 700,
   },
   paramBarTrack: {
-    height: '2px',
+    height: '5px',
     background: 'rgba(255,255,255,0.06)',
-    borderRadius: '2px',
+    borderRadius: '99px',
     overflow: 'hidden',
+    margin: '0.3rem 0 0.1rem',
   },
   paramBarFill: {
     height: '100%',
-    borderRadius: '2px',
-    transition: 'width 0.6s ease',
+    borderRadius: '99px',
+    transition: 'width 0.7s cubic-bezier(0.4,0,0.2,1)',
   },
   paramNote: {
     margin: '0.3rem 0 0',
