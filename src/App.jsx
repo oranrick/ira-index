@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
-import { getSpeechById } from "./data/speeches";
+import { getSpeechById, getSpeechesByEntity } from "./data/speeches";
 
 const Comparator = lazy(() => import("./components/Comparator"));
 
@@ -1309,7 +1309,17 @@ export default function App() {
 
   const T = TEXTS[lang];
   const cats = ["Todos", "Político", "Medio"];
-  const filtered = filter === "Todos" ? ENTITIES : ENTITIES.filter(e => e.category === filter);
+
+  const enrichedEntities = ENTITIES.map(entity => {
+    const iras = getSpeechesByEntity(entity.id)
+      .map(s => supabaseMap[s.id]?.ira)
+      .filter(v => v != null);
+    if (iras.length === 0) return entity;
+    const avg = Math.round((iras.reduce((a, b) => a + b, 0) / iras.length) * 100) / 100;
+    return { ...entity, score: avg };
+  });
+
+  const filtered = filter === "Todos" ? enrichedEntities : enrichedEntities.filter(e => e.category === filter);
 
   return (
     <div style={{ minHeight:"100vh", background:"#08080c", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
@@ -1446,7 +1456,7 @@ export default function App() {
               </div>
             }>
               <Comparator
-                politicians={ENTITIES.filter(e => e.category === "Político")}
+                politicians={enrichedEntities.filter(e => e.category === "Político")}
                 paramsEs={PARAMS_TRANS.es}
                 paramShort={lang === "en" ? PARAM_SHORT_EN : PARAM_SHORT}
                 lang={lang}
