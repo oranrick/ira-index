@@ -13,6 +13,7 @@ const SPEECH_VIEW_TEXTS = {
     seeTranslation:   "🌐 ver traducción",
     hideTranslation:  "✕ traducción",
     words:            "palabras",
+    lecturaLabel:     "PARÁMETRO R · LECTURA DEL AUTOR",
   },
   en: {
     back:             "← Back",
@@ -24,6 +25,7 @@ const SPEECH_VIEW_TEXTS = {
     seeTranslation:   "🌐 see translation",
     hideTranslation:  "✕ translation",
     words:            "words",
+    lecturaLabel:     "PARAMETER R · AUTHOR'S READING",
   },
 };
 
@@ -48,6 +50,7 @@ function useWindowWidth() {
 export function SpeechView({ speech, onBack, lang = 'es' }) {
   const [activeAnnotation, setActiveAnnotation] = useState(null);
   const [pinnedAnnotation, setPinnedAnnotation] = useState(null);
+  const [expandedParam, setExpandedParam] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 });
   const [showTranslation, setShowTranslation] = useState(false);
   const containerRef = useRef(null);
@@ -282,27 +285,52 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
         <div style={{ ...styles.paramsColumn, position: isMobile ? 'static' : 'sticky', top: '1rem' }}>
           <p style={styles.sectionLabel}>{T.iraParams}</p>
           <div style={styles.paramsList}>
-            {speech.params.map((param, i) => (
-              <div key={i} style={styles.paramItem}>
-                <div style={styles.paramHeader}>
-                  <span style={styles.paramName}>{param.name}</span>
-                  <span style={{ ...styles.paramValue, color: IRA_COLOR(param.value) }}>
-                    {param.value.toFixed(1)}
-                  </span>
+            {speech.params.map((param, i) => {
+              const open = expandedParam === i;
+              return (
+                <div key={i} style={styles.paramItem}>
+                  <div
+                    style={{ ...styles.paramHeader, cursor: 'pointer' }}
+                    onClick={() => setExpandedParam(open ? null : i)}
+                  >
+                    <span style={styles.paramName}>{param.name}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <span style={{ ...styles.paramValue, color: IRA_COLOR(param.value) }}>
+                        {param.value.toFixed(1)}
+                      </span>
+                      <span style={{
+                        fontSize: '0.5rem',
+                        color: 'rgba(255,255,255,0.2)',
+                        transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s',
+                        lineHeight: 1,
+                      }}>▼</span>
+                    </div>
+                  </div>
+                  <div style={styles.paramBarTrack}>
+                    <div style={{
+                      ...styles.paramBarFill,
+                      width: `${(param.value / 10) * 100}%`,
+                      background: IRA_COLOR(param.value),
+                    }} />
+                  </div>
+                  {open && param.note && (
+                    <p style={styles.paramNote}>{param.note}</p>
+                  )}
                 </div>
-                <div style={styles.paramBarTrack}>
-                  <div style={{
-                    ...styles.paramBarFill,
-                    width: `${(param.value / 10) * 100}%`,
-                    background: IRA_COLOR(param.value),
-                  }} />
-                </div>
-                <p style={styles.paramNote}>{param.note}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
+
+      {/* Parámetro R */}
+      {speech.lecturaAutor && (
+        <div style={styles.lecturaBox}>
+          <p style={styles.sectionLabel}>{T.lecturaLabel}</p>
+          <p style={styles.lecturaText}>{speech.lecturaAutor}</p>
+        </div>
+      )}
 
       {/* Pinned panel */}
       {pinnedAnnotation && (
@@ -652,5 +680,21 @@ const styles = {
     color: 'rgba(255,255,255,0.68)',
     lineHeight: 1.7,
     margin: 0,
+  },
+  lecturaBox: {
+    marginTop: '1.5rem',
+    background: 'rgba(255,102,0,0.03)',
+    border: '1px solid rgba(255,102,0,0.12)',
+    borderLeft: '2px solid rgba(255,102,0,0.4)',
+    borderRadius: '0 8px 8px 0',
+    padding: '1rem 1.2rem',
+  },
+  lecturaText: {
+    margin: 0,
+    fontFamily: 'Georgia, serif',
+    fontSize: '0.82rem',
+    color: 'rgba(255,255,255,0.55)',
+    lineHeight: 1.85,
+    fontStyle: 'italic',
   },
 };
