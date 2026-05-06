@@ -10,6 +10,7 @@ const SPEECH_VIEW_TEXTS = {
     clickFullAnalysis:     "Clic para análisis completo →",
     pinnedNoteTitle:       "Análisis del fragmento",
     translationLabel:      "Traducción al español",
+    translationLabelEn:    "Traducción al inglés",
     seeTranslation:        "🌐 ver traducción",
     hideTranslation:       "✕ traducción",
     words:                 "palabras",
@@ -27,6 +28,7 @@ const SPEECH_VIEW_TEXTS = {
     clickFullAnalysis:     "Click for full analysis →",
     pinnedNoteTitle:       "Fragment analysis",
     translationLabel:      "Spanish translation",
+    translationLabelEn:    "English translation",
     seeTranslation:        "🌐 see translation",
     hideTranslation:       "✕ translation",
     words:                 "words",
@@ -89,9 +91,19 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
   const displaySummary = (isEn && speech.summaryEn)  || speech.summary;
 
   const isEnglishSpeech = speech.speechLang === 'en';
-  const showTranslationToggle = lang === 'es' && isEnglishSpeech;
-  const translationText = isEnglishSpeech
-    ? speech.segments.map((s) => s.textEs != null ? s.textEs : s.text).join('')
+  const isSpanishSpeech = speech.speechLang === 'es';
+  const showTranslationToggle =
+    (lang === 'es' && isEnglishSpeech) ||
+    (lang === 'en' && isSpanishSpeech);
+  const translationLabel = (lang === 'en' && isSpanishSpeech)
+    ? T.translationLabelEn
+    : T.translationLabel;
+  const translationText = showTranslationToggle
+    ? speech.segments.map(s =>
+        isEnglishSpeech
+          ? (s.textEs ?? s.text)
+          : (s.textEn ?? s.text)
+      ).join('')
     : '';
 
   useEffect(() => {
@@ -306,7 +318,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                 letterSpacing: '0.14em',
                 color: 'rgba(255,102,0,0.6)',
                 textTransform: 'uppercase',
-              }}>{T.translationLabel}</p>
+              }}>{translationLabel}</p>
               <p style={{
                 margin: 0,
                 fontFamily: 'Georgia, serif',
