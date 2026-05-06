@@ -691,9 +691,10 @@ function mergeSpeech(speech, row) {
   if (!row) return speech;
   return {
     ...speech,
-    iraScore:     row.ira          ?? speech.iraScore,
-    summary:      row.summary      ?? speech.summary,
-    lecturaAutor: row.lectura_autor ?? speech.lecturaAutor,
+    iraScore:      row.ira              ?? speech.iraScore,
+    summary:       row.summary          ?? speech.summary,
+    lecturaAutor:  row.lectura_autor    ?? speech.lecturaAutor,
+    lecturaAutorEn: row.lectura_autor_en ?? speech.lecturaAutorEn,
     params: speech.params.map(p => {
       const sup = row.params?.[PARAM_KEY_MAP[p.name]];
       return {
@@ -1292,7 +1293,7 @@ export default function App() {
   const [supabaseReady, setSupabaseReady] = useState(false);
 
   useEffect(() => {
-    fetch(`${SUPABASE_URL}/rest/v1/analyses?select=speech_id,ira,params,summary,lectura_autor`, {
+    fetch(`${SUPABASE_URL}/rest/v1/analyses?select=speech_id,ira,params,summary,lectura_autor,lectura_autor_en`, {
       headers: {
         apikey: SUPABASE_KEY,
         Authorization: `Bearer ${SUPABASE_KEY}`,

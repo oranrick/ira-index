@@ -407,10 +407,12 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
       </div>
 
       {/* Parámetro R */}
-      {speech.lecturaAutor && (
+      {(speech.lecturaAutor || speech.lecturaAutorEn) && (
         <div style={styles.lecturaBox}>
           <p style={styles.sectionLabel}>{T.lecturaLabel}</p>
-          <p style={styles.lecturaText}>{speech.lecturaAutor}</p>
+          <p style={styles.lecturaText}>
+            {(isEn && speech.lecturaAutorEn) || speech.lecturaAutor}
+          </p>
         </div>
       )}
 
