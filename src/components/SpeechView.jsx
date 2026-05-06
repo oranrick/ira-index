@@ -82,6 +82,11 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
   const isMobile = width < 768;
   const scoreColor = IRA_COLOR(speech.iraScore);
   const T = SPEECH_VIEW_TEXTS[lang] || SPEECH_VIEW_TEXTS.es;
+  const isEn = lang === 'en';
+  const displayTitle   = (isEn && speech.titleEn)   || speech.title;
+  const displayContext = (isEn && speech.contextEn)  || speech.context;
+  const displayIraLabel = (isEn && speech.iraLabelEn) || speech.iraLabel;
+  const displaySummary = (isEn && speech.summaryEn)  || speech.summary;
 
   const isEnglishSpeech = speech.speechLang === 'en';
   const showTranslationToggle = lang === 'es' && isEnglishSpeech;
@@ -168,7 +173,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
         <div style={styles.headerLeft}>
           <div style={styles.entityChip}>{speech.entityName}</div>
           <h1 style={{ ...styles.title, fontSize: isMobile ? '1.2rem' : 'clamp(1.3rem, 3vw, 1.8rem)' }}>
-            {speech.title}
+            {displayTitle}
           </h1>
           <div style={styles.meta}>
             <span style={styles.metaItem}>📅 {speech.date}</span>
@@ -181,7 +186,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
               </>
             )}
           </div>
-          {!isMobile && <p style={styles.context}>{speech.context}</p>}
+          {!isMobile && <p style={styles.context}>{displayContext}</p>}
         </div>
 
         {/* Score */}
@@ -202,14 +207,14 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
             marginLeft: isMobile ? '0.5rem' : 0,
           }}>
             <span style={styles.scoreLabel}>IRA Score</span>
-            <span style={{ ...styles.scoreClassification, color: scoreColor }}>{speech.iraLabel}</span>
+            <span style={{ ...styles.scoreClassification, color: scoreColor }}>{displayIraLabel}</span>
           </div>
         </div>
       </div>
 
       {/* Summary */}
       <div style={styles.summaryBox}>
-        <p style={styles.summaryText}>{speech.summary}</p>
+        <p style={styles.summaryText}>{displaySummary}</p>
       </div>
 
       {/* Legend */}
@@ -389,8 +394,10 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                       background: BAR_COLOR(param.value),
                     }} />
                   </div>
-                  {open && param.note && (
-                    <p style={styles.paramNote}>{param.note}</p>
+                  {open && (param.note || param.noteEn) && (
+                    <p style={styles.paramNote}>
+                      {(isEn && param.noteEn) || param.note}
+                    </p>
                   )}
                 </div>
               );
@@ -414,7 +421,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
             <div style={styles.modalHeader}>
               <div>
                 <p style={styles.modalSupertitle}>{speech.entityName}</p>
-                <span style={styles.modalTitle}>{speech.title}</span>
+                <span style={styles.modalTitle}>{displayTitle}</span>
               </div>
               <button style={styles.modalClose} onClick={() => setTranscriptOpen(false)}>✕</button>
             </div>
