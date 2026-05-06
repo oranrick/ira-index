@@ -91,7 +91,7 @@ function SpeechCard({ speech, onClick, lang = 'es' }) {
       </div>
 
       {/* Title */}
-      <h4 style={styles.cardTitle}>{speech.title}</h4>
+      <h4 style={styles.cardTitle}>{lang === 'en' && speech.titleEn ? speech.titleEn : speech.title}</h4>
 
       {/* Context */}
       <p style={styles.cardContext}>{speech.context}</p>
