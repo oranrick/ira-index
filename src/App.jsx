@@ -1317,6 +1317,29 @@ export default function App() {
     link.rel = "stylesheet";
     link.href = "https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500;700&display=swap";
     document.head.appendChild(link);
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes blob1 {
+        0%   { transform: translate(0, 0) scale(1); }
+        25%  { transform: translate(40px, -28px) scale(1.04); }
+        50%  { transform: translate(-30px, 22px) scale(0.97); }
+        75%  { transform: translate(20px, -14px) scale(1.02); }
+        100% { transform: translate(0, 0) scale(1); }
+      }
+      @keyframes blob2 {
+        0%   { transform: translate(0, 0) scale(1); }
+        30%  { transform: translate(-38px, -24px) scale(1.06); }
+        60%  { transform: translate(20px, 34px) scale(0.93); }
+        100% { transform: translate(0, 0) scale(1); }
+      }
+      @keyframes blob3 {
+        0%   { transform: translate(0, 0) scale(1); }
+        40%  { transform: translate(28px, 42px) scale(1.07); }
+        70%  { transform: translate(-18px, 14px) scale(0.96); }
+        100% { transform: translate(0, 0) scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
   }, []);
 
   const T = TEXTS[lang];
