@@ -5,6 +5,7 @@ import { SpeechView } from "./components/SpeechView";
 import { getSpeechById, getSpeechesByEntity } from "./data/speeches";
 import { useAuth } from "./hooks/useAuth";
 import { AuthModal } from "./components/AuthModal";
+import { supabase } from "./supabaseClient";
 
 const Comparator = lazy(() => import("./components/Comparator"));
 
@@ -972,7 +973,39 @@ function countWords(str) {
   return str.trim() ? str.trim().split(/\s+/).length : 0;
 }
 
+function HistoryCard({ row, lang }) {
+  const col = scoreColor(row.ira_score);
+  const date = new Date(row.created_at).toLocaleDateString(lang === "es" ? "es-ES" : "en-US", { day:"numeric", month:"short", year:"numeric" });
+  return (
+    <div style={{
+      display:"flex", alignItems:"center", gap:"14px",
+      padding:"12px 16px", borderRadius:"10px",
+      background:"rgba(255,255,255,0.03)",
+      border:"1px solid rgba(255,255,255,0.06)",
+    }}>
+      <div style={{
+        width:"40px", height:"40px", borderRadius:"50%", flexShrink:0,
+        border:`1.5px solid ${col}`, display:"flex", flexDirection:"column",
+        alignItems:"center", justifyContent:"center", background:`${col}14`,
+      }}>
+        <span style={{ fontSize:"11px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1 }}>
+          {row.ira_score.toFixed(1)}
+        </span>
+      </div>
+      <div style={{ flex:1, minWidth:0 }}>
+        <p style={{ margin:"0 0 2px", fontSize:"12px", fontWeight:700, color:"rgba(255,255,255,0.8)", fontFamily:"'Syne',sans-serif", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+          {row.name}
+        </p>
+        <p style={{ margin:0, fontSize:"9px", color:"rgba(255,255,255,0.25)", fontFamily:"'DM Mono',monospace", letterSpacing:"0.06em" }}>
+          {CAT_TRANS[lang][row.category] || row.category} · {date}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function Analyzer({ lang }) {
+  const { user } = useAuth();
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Político");
@@ -983,9 +1016,23 @@ function Analyzer({ lang }) {
     return share ? decodeShareResult(share) : null;
   });
   const [error, setError] = useState("");
+  const [history, setHistory] = useState([]);
   const T = TEXTS[lang];
   const wordCount = countWords(text);
   const overLimit = wordCount > WORD_LIMIT;
+
+  const fetchHistory = async () => {
+    if (!user) return;
+    const { data } = await supabase
+      .from('user_analyses')
+      .select('id,name,category,ira_score,created_at')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(5);
+    if (data) setHistory(data);
+  };
+
+  useEffect(() => { fetchHistory(); }, [user]);
 
   async function analyze() {
     if (!text.trim() || text.trim().length < 50) { setError(T.errorShort); return; }
@@ -999,7 +1046,18 @@ function Analyzer({ lang }) {
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-      setResult({ ...data, name: name || T.defaultName, category });
+      const resultData = { ...data, name: name || T.defaultName, category };
+      setResult(resultData);
+      if (user) {
+        supabase.from('user_analyses').insert({
+          user_id: user.id,
+          name: resultData.name,
+          category: resultData.category,
+          ira_score: resultData.ira,
+          summary: resultData.summary,
+          params: resultData.params,
+        }).then(() => fetchHistory());
+      }
     } catch(e) {
       setError(e.message || T.errorGeneral);
     }
@@ -1078,6 +1136,17 @@ function Analyzer({ lang }) {
       }}>
         {overLimit ? T.wordLimitMsg : loading ? T.analyzing : T.calcBtn}
       </button>
+
+      {user && history.length > 0 && (
+        <div style={{ marginTop:"40px" }}>
+          <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.16em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
+            {lang === "es" ? "Mis últimos análisis" : "My recent analyses"}
+          </p>
+          <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
+            {history.map(row => <HistoryCard key={row.id} row={row} lang={lang} />)}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
