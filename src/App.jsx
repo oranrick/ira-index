@@ -1341,20 +1341,20 @@ export default function App() {
       <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
         <div style={{
           position:"absolute", top:"-20%", left:"15%",
-          width:"780px", height:"640px", borderRadius:"50%",
-          background:"radial-gradient(ellipse at center, rgba(255,102,0,0.07) 0%, rgba(255,102,0,0.03) 40%, transparent 68%)",
+          width:"70vw", height:"70vh", borderRadius:"50%",
+          background:"radial-gradient(ellipse at center, rgba(255,102,0,0.12) 0%, rgba(255,102,0,0.06) 40%, transparent 68%)",
           animation:"blob1 28s ease-in-out infinite",
         }} />
         <div style={{
           position:"absolute", bottom:"-25%", right:"-10%",
-          width:"620px", height:"520px", borderRadius:"50%",
-          background:"radial-gradient(ellipse at center, rgba(180,50,0,0.06) 0%, rgba(26,10,0,0.04) 45%, transparent 70%)",
+          width:"70vw", height:"70vh", borderRadius:"50%",
+          background:"radial-gradient(ellipse at center, rgba(180,50,0,0.12) 0%, rgba(26,10,0,0.07) 45%, transparent 70%)",
           animation:"blob2 35s ease-in-out infinite",
         }} />
         <div style={{
           position:"absolute", top:"25%", left:"-18%",
-          width:"500px", height:"460px", borderRadius:"50%",
-          background:"radial-gradient(ellipse at center, rgba(255,80,0,0.05) 0%, transparent 68%)",
+          width:"70vw", height:"70vh", borderRadius:"50%",
+          background:"radial-gradient(ellipse at center, rgba(255,80,0,0.12) 0%, transparent 68%)",
           animation:"blob3 22s ease-in-out infinite",
         }} />
       </div>
