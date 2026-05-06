@@ -22,7 +22,7 @@ const TEXTS = {
     loadingLogin:      'Entrando...',
     loadingRegister:   'Creando cuenta...',
     hasAccount:        '¿Ya tienes cuenta? ',
-    noAccount:         '¿No tienes cuenta? ',
+    noAccount:         '¿No tienes una cuenta? ',
     switchLogin:       'Inicia sesión',
     switchRegister:    'Regístrate',
     captchaRequired:   'Completa el captcha antes de continuar.',
@@ -315,7 +315,7 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
           textAlign: 'center',
         }}>
           <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>
-            {isLogin ? T.hasAccount : T.noAccount}
+            {isLogin ? T.noAccount : T.hasAccount}
           </span>
           <button
             onClick={() => switchMode(isLogin ? 'register' : 'login')}

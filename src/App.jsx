@@ -1473,8 +1473,49 @@ export default function App() {
       {/* ── Contenido (siempre encima del fondo) ── */}
       <div style={{ position:"relative", zIndex:1 }}>
 
-      {/* Botón EN/ES */}
-      <div style={{ position:"fixed", top:"20px", right:"24px", zIndex:400 }}>
+      {/* Barra fija superior derecha: auth + lang */}
+      <div style={{ position:"fixed", top:"20px", right:"24px", zIndex:400, display:"flex", alignItems:"center", gap:"10px" }}>
+        {user ? (
+          <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+            <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.3)", fontFamily:"'DM Mono',monospace", maxWidth:"160px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+              {user.email}
+            </span>
+            <button
+              onClick={() => signOut()}
+              style={{
+                padding:"7px 14px", borderRadius:"20px",
+                background:"transparent",
+                border:"1px solid rgba(255,255,255,0.1)",
+                color:"rgba(255,255,255,0.3)", fontSize:"10px",
+                letterSpacing:"0.1em", cursor:"pointer",
+                fontFamily:"'DM Mono',monospace",
+                transition:"all 0.2s ease",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.25)"; e.currentTarget.style.color="rgba(255,255,255,0.6)"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; e.currentTarget.style.color="rgba(255,255,255,0.3)"; }}
+            >
+              {lang === "es" ? "Salir" : "Sign out"}
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={openLogin}
+            style={{
+              padding:"7px 14px", borderRadius:"20px",
+              background:"rgba(255,102,0,0.08)",
+              border:"1px solid rgba(255,102,0,0.35)",
+              color:"#ff6600", fontSize:"10px",
+              letterSpacing:"0.12em", cursor:"pointer",
+              fontFamily:"'DM Mono',monospace", fontWeight:700,
+              transition:"all 0.2s ease",
+              boxShadow:"0 0 12px rgba(255,102,0,0.12)",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background="rgba(255,102,0,0.16)"; e.currentTarget.style.borderColor="rgba(255,102,0,0.6)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background="rgba(255,102,0,0.08)"; e.currentTarget.style.borderColor="rgba(255,102,0,0.35)"; }}
+          >
+            {lang === "es" ? "Iniciar sesión" : "Sign in"}
+          </button>
+        )}
         <button
           onClick={() => setLang(l => {
             const next = l === "es" ? "en" : "es";
@@ -1512,53 +1553,11 @@ export default function App() {
 
       <div style={{ maxWidth:"960px", margin:"0 auto", padding:"48px 24px 80px" }}>
         <div style={{ marginBottom:"44px", opacity: mounted?1:0, transform: mounted?"none":"translateY(16px)", transition:"all 0.6s ease" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"12px", justifyContent:"space-between" }}>
-            <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
-              <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#ff6600", boxShadow:"0 0 10px #ff6600" }} />
-              <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
-                {T.headerTag}
-              </span>
-            </div>
-            {user ? (
-              <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
-                <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.3)", fontFamily:"'DM Mono',monospace", maxWidth:"160px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
-                  {user.email}
-                </span>
-                <button
-                  onClick={() => signOut()}
-                  style={{
-                    padding:"4px 10px", borderRadius:"20px",
-                    background:"transparent",
-                    border:"1px solid rgba(255,255,255,0.1)",
-                    color:"rgba(255,255,255,0.3)", fontSize:"9px",
-                    letterSpacing:"0.1em", cursor:"pointer",
-                    fontFamily:"'DM Mono',monospace",
-                    transition:"all 0.2s ease",
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.25)"; e.currentTarget.style.color="rgba(255,255,255,0.6)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; e.currentTarget.style.color="rgba(255,255,255,0.3)"; }}
-                >
-                  {lang === "es" ? "Salir" : "Sign out"}
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={openLogin}
-                style={{
-                  padding:"10px 20px", borderRadius:"20px",
-                  background:"rgba(255,102,0,0.08)",
-                  border:"1px solid rgba(255,102,0,0.35)",
-                  color:"#ff6600", fontSize:"12px",
-                  letterSpacing:"0.12em", cursor:"pointer",
-                  fontFamily:"'DM Mono',monospace", fontWeight:700,
-                  transition:"all 0.2s ease",
-                }}
-                onMouseEnter={e => { e.currentTarget.style.background="rgba(255,102,0,0.16)"; e.currentTarget.style.borderColor="rgba(255,102,0,0.6)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background="rgba(255,102,0,0.08)"; e.currentTarget.style.borderColor="rgba(255,102,0,0.35)"; }}
-              >
-                {lang === "es" ? "Iniciar sesión" : "Sign in"}
-              </button>
-            )}
+          <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"12px" }}>
+            <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#ff6600", boxShadow:"0 0 10px #ff6600" }} />
+            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
+              {T.headerTag}
+            </span>
           </div>
           <h1 style={{ margin:"0 0 8px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"'Syne',sans-serif", color:"#fff", letterSpacing:"-0.04em", lineHeight:1.05 }}>
             IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
