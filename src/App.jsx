@@ -1336,11 +1336,38 @@ export default function App() {
 
   return (
     <div style={{ minHeight:"100vh", background:"#08080c", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
+      {/* Mesh gradient animado — blob 1: top-center, naranja tenue */}
       <div style={{
-        position:"fixed", top:"-15%", left:"50%", transform:"translateX(-50%)",
-        width:"700px", height:"500px",
-        background:"radial-gradient(ellipse, rgba(255,102,0,0.06) 0%, transparent 70%)",
-        pointerEvents:"none",
+        position:"fixed", top:"-20%", left:"50%",
+        width:"820px", height:"620px",
+        background:"radial-gradient(ellipse, rgba(255,102,0,0.055) 0%, transparent 68%)",
+        filter:"blur(90px)",
+        borderRadius:"50%",
+        pointerEvents:"none", zIndex:0,
+        animation:"blob1 28s ease-in-out infinite",
+        willChange:"transform",
+      }} />
+      {/* Mesh gradient animado — blob 2: bottom-right, naranja oscuro */}
+      <div style={{
+        position:"fixed", bottom:"-18%", right:"-8%",
+        width:"560px", height:"440px",
+        background:"radial-gradient(ellipse, rgba(180,50,0,0.04) 0%, transparent 70%)",
+        filter:"blur(80px)",
+        borderRadius:"50%",
+        pointerEvents:"none", zIndex:0,
+        animation:"blob2 35s ease-in-out infinite",
+        willChange:"transform",
+      }} />
+      {/* Mesh gradient animado — blob 3: top-left, naranja muy suave */}
+      <div style={{
+        position:"fixed", top:"15%", left:"-12%",
+        width:"440px", height:"380px",
+        background:"radial-gradient(ellipse, rgba(255,80,0,0.03) 0%, transparent 72%)",
+        filter:"blur(70px)",
+        borderRadius:"50%",
+        pointerEvents:"none", zIndex:0,
+        animation:"blob3 22s ease-in-out infinite",
+        willChange:"transform",
       }} />
 
       {/* Botón EN/ES */}
