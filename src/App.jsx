@@ -1282,7 +1282,11 @@ export default function App() {
   const [filter, setFilter] = useState("Todos");
   const [selected, setSelected] = useState(null);
   const [showIRA, setShowIRA] = useState(false);
-  const [lang, setLang] = useState("es");
+  const [lang, setLang] = useState(() => {
+    const saved = localStorage.getItem('ira-lang');
+    if (saved === 'es' || saved === 'en') return saved;
+    return navigator.language?.startsWith('es') ? 'es' : 'en';
+  });
   const [mounted, setMounted] = useState(false);
   const [supabaseMap, setSupabaseMap] = useState({});
   const [supabaseReady, setSupabaseReady] = useState(false);
@@ -1341,7 +1345,11 @@ export default function App() {
       {/* Botón EN/ES */}
       <div style={{ position:"fixed", top:"20px", right:"24px", zIndex:400 }}>
         <button
-          onClick={() => setLang(l => l === "es" ? "en" : "es")}
+          onClick={() => setLang(l => {
+            const next = l === "es" ? "en" : "es";
+            localStorage.setItem('ira-lang', next);
+            return next;
+          })}
           style={{
             display:"flex", alignItems:"center", gap:"5px",
             padding:"7px 14px", borderRadius:"20px",
