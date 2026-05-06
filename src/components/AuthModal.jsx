@@ -27,6 +27,8 @@ const TEXTS = {
     switchRegister:    'Regístrate',
     captchaRequired:   'Completa el captcha antes de continuar.',
     confirmEmail:      'Cuenta creada. Revisa tu email para confirmarla antes de iniciar sesión.',
+    usernameLabel:     'Nombre de usuario',
+    usernameTaken:     'Este nombre de usuario ya está en uso.',
   },
   en: {
     tagLogin:          'Sign in',
@@ -48,6 +50,8 @@ const TEXTS = {
     switchRegister:    'Sign up',
     captchaRequired:   'Please complete the captcha.',
     confirmEmail:      'Account created. Check your email to confirm it before signing in.',
+    usernameLabel:     'Username',
+    usernameTaken:     'This username is already taken.',
   },
 }
 
@@ -70,6 +74,7 @@ const labelStyle = {
 export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'register' }) {
   const { signIn, signUp } = useAuth()
   const [mode, setMode] = useState(defaultMode)
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [birthDate, setBirthDate] = useState('')
@@ -117,18 +122,38 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
         if (authError) { setError(authError.message); resetCaptcha(); return }
         onSuccess?.()
       } else {
-        const { data, error: authError } = await signUp(email, password, { captchaToken })
+        // Pre-check username único antes de crear el usuario en auth
+        const { data: existing } = await supabase
+          .from('profiles')
+          .select('user_id')
+          .eq('username', username.trim())
+          .maybeSingle()
+        if (existing) {
+          setError(T.usernameTaken)
+          return
+        }
+
+        const { data, error: authError } = await signUp(email, password, {
+          captchaToken,
+          emailRedirectTo: 'https://ira-index.vercel.app',
+        })
         if (authError) {
           setError(authError.message)
           resetCaptcha()
           return
         }
         if (data?.user) {
-          supabase.from('profiles').insert({
+          const { error: profileError } = await supabase.from('profiles').insert({
             user_id: data.user.id,
+            username: username.trim(),
             birth_date: birthDate || null,
             gender: gender || T.genderOptions[0],
-          }).then(() => {})
+          })
+          if (profileError?.code === '23505') {
+            setError(T.usernameTaken)
+            resetCaptcha()
+            return
+          }
         }
         // Si hay sesión activa el usuario ya está logueado; si no, necesita confirmar email
         if (data?.session) {
@@ -199,6 +224,19 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
 
         {/* Form */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {/* Username — solo registro */}
+          {!isLogin && (
+            <div>
+              <label style={labelStyle}>{T.usernameLabel}</label>
+              <input
+                type="text" value={username}
+                onChange={e => setUsername(e.target.value)}
+                required autoComplete="username"
+                style={inputStyle}
+              />
+            </div>
+          )}
+
           {/* Email */}
           <div>
             <label style={labelStyle}>{T.email}</label>

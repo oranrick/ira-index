@@ -1347,7 +1347,7 @@ function AnalysisResult({ result, onReset, lang }) {
 // ── App ───────────────────────────────────────────────────────────────────────
 
 export default function App() {
-  const { user, signOut } = useAuth();
+  const { user, profile, signOut } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
   const [authDefaultMode, setAuthDefaultMode] = useState('register');
@@ -1477,22 +1477,30 @@ export default function App() {
       <div style={{ position:"fixed", top:"20px", right:"24px", zIndex:400, display:"flex", alignItems:"center", gap:"10px" }}>
         {user ? (
           <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
-            <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.3)", fontFamily:"'DM Mono',monospace", maxWidth:"160px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
-              {user.email}
+            <span style={{
+              fontSize:"11px", color:"#ff6600",
+              fontFamily:"'DM Mono',monospace", fontWeight:700,
+              border:"1.5px solid rgba(255,102,0,0.6)",
+              borderRadius:"20px", padding:"5px 13px",
+              maxWidth:"150px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap",
+              background:"rgba(255,102,0,0.08)",
+              letterSpacing:"0.04em",
+            }}>
+              {profile?.username ?? user.email?.split('@')[0]}
             </span>
             <button
               onClick={() => signOut()}
               style={{
-                padding:"7px 14px", borderRadius:"20px",
-                background:"transparent",
-                border:"1px solid rgba(255,255,255,0.1)",
-                color:"rgba(255,255,255,0.3)", fontSize:"10px",
+                padding:"6px 14px", borderRadius:"20px",
+                background:"rgba(255,102,0,0.08)",
+                border:"1.5px solid rgba(255,102,0,0.45)",
+                color:"#ff6600", fontSize:"10px",
                 letterSpacing:"0.1em", cursor:"pointer",
-                fontFamily:"'DM Mono',monospace",
+                fontFamily:"'DM Mono',monospace", fontWeight:700,
                 transition:"all 0.2s ease",
               }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.25)"; e.currentTarget.style.color="rgba(255,255,255,0.6)"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; e.currentTarget.style.color="rgba(255,255,255,0.3)"; }}
+              onMouseEnter={e => { e.currentTarget.style.background="rgba(255,102,0,0.18)"; e.currentTarget.style.borderColor="rgba(255,102,0,0.8)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background="rgba(255,102,0,0.08)"; e.currentTarget.style.borderColor="rgba(255,102,0,0.45)"; }}
             >
               {lang === "es" ? "Salir" : "Sign out"}
             </button>
