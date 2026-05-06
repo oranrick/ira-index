@@ -1,18 +1,95 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import HCaptcha from '@hcaptcha/react-hcaptcha'
 import { useAuth } from '../hooks/useAuth'
+import { supabase } from '../supabaseClient'
 
-export function AuthModal({ onSuccess, onClose }) {
+// Sitekey from Supabase dashboard → Authentication → Settings → Enable Captcha
+const HCAPTCHA_SITE_KEY = '10000000-ffff-ffff-ffff-000000000001'
+
+const TEXTS = {
+  es: {
+    tagLogin:          'Acceso',
+    tagRegister:       'Registro',
+    titleLogin:        'Inicia sesión',
+    titleRegister:     'Crea tu cuenta',
+    email:             'Email',
+    password:          'Contraseña',
+    birthDate:         'Fecha de nacimiento',
+    gender:            'Sexo',
+    genderOptions:     ['Prefiero no decirlo', 'Hombre', 'Mujer', 'No binario'],
+    btnLogin:          'Entrar →',
+    btnRegister:       'Crear cuenta →',
+    loadingLogin:      'Entrando...',
+    loadingRegister:   'Creando cuenta...',
+    hasAccount:        '¿Ya tienes cuenta? ',
+    noAccount:         '¿No tienes cuenta? ',
+    switchLogin:       'Inicia sesión',
+    switchRegister:    'Regístrate',
+    captchaRequired:   'Completa el captcha antes de continuar.',
+  },
+  en: {
+    tagLogin:          'Sign in',
+    tagRegister:       'Register',
+    titleLogin:        'Sign in',
+    titleRegister:     'Create your account',
+    email:             'Email',
+    password:          'Password',
+    birthDate:         'Date of birth',
+    gender:            'Gender',
+    genderOptions:     ['Prefer not to say', 'Male', 'Female', 'Non-binary'],
+    btnLogin:          'Sign in →',
+    btnRegister:       'Create account →',
+    loadingLogin:      'Signing in...',
+    loadingRegister:   'Creating account...',
+    hasAccount:        'Already have an account? ',
+    noAccount:         "Don't have an account? ",
+    switchLogin:       'Sign in',
+    switchRegister:    'Sign up',
+    captchaRequired:   'Please complete the captcha.',
+  },
+}
+
+const inputStyle = {
+  width: '100%', boxSizing: 'border-box',
+  background: 'rgba(255,255,255,0.04)',
+  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: '10px', padding: '11px 14px',
+  color: '#fff', fontSize: '13px',
+  outline: 'none', fontFamily: "'DM Mono',monospace",
+}
+
+const labelStyle = {
+  display: 'block', marginBottom: '6px',
+  fontSize: '10px', letterSpacing: '0.1em',
+  color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase',
+  fontFamily: "'DM Mono',monospace",
+}
+
+export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'register' }) {
   const { signIn, signUp } = useAuth()
-  const [mode, setMode] = useState('login')
+  const [mode, setMode] = useState(defaultMode)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [birthDate, setBirthDate] = useState('')
+  const [gender, setGender] = useState('')
+  const [captchaToken, setCaptchaToken] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [mounted, setMounted] = useState(false)
+  const captchaRef = useRef(null)
+  const T = TEXTS[lang] ?? TEXTS.es
+  const isLogin = mode === 'login'
 
   useEffect(() => {
     requestAnimationFrame(() => setMounted(true))
   }, [])
+
+  const switchMode = (next) => {
+    setMode(next)
+    setError(null)
+    setCaptchaToken(null)
+    captchaRef.current?.resetCaptcha()
+  }
 
   const handleClose = () => {
     setMounted(false)
@@ -21,26 +98,42 @@ export function AuthModal({ onSuccess, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!isLogin && !captchaToken) {
+      setError(T.captchaRequired)
+      return
+    }
     setError(null)
     setLoading(true)
     try {
-      const { error: authError } =
-        mode === 'login'
-          ? await signIn(email, password)
-          : await signUp(email, password)
-      if (authError) {
-        setError(authError.message)
+      if (isLogin) {
+        const { error: authError } = await signIn(email, password)
+        if (authError) { setError(authError.message); return }
+        onSuccess?.()
       } else {
+        const { data, error: authError } = await signUp(email, password, { captchaToken })
+        if (authError) {
+          setError(authError.message)
+          captchaRef.current?.resetCaptcha()
+          setCaptchaToken(null)
+          return
+        }
+        if (data?.user) {
+          supabase.from('profiles').insert({
+            user_id: data.user.id,
+            birth_date: birthDate || null,
+            gender: gender || T.genderOptions[0],
+          }).then(() => {})
+        }
         onSuccess?.()
       }
     } catch (err) {
       setError(err.message ?? 'Error inesperado')
+      captchaRef.current?.resetCaptcha()
+      setCaptchaToken(null)
     } finally {
       setLoading(false)
     }
   }
-
-  const isLogin = mode === 'login'
 
   return (
     <div
@@ -57,12 +150,15 @@ export function AuthModal({ onSuccess, onClose }) {
       <div
         onClick={e => e.stopPropagation()}
         style={{
+          position: 'relative',
           background: '#0e0e14',
           border: '1px solid rgba(255,255,255,0.09)',
           borderRadius: '20px',
           padding: '36px 32px',
           width: '100%',
           maxWidth: '400px',
+          maxHeight: '90vh',
+          overflowY: 'auto',
           transform: mounted ? 'translateY(0)' : 'translateY(18px)',
           transition: 'transform 0.22s ease',
         }}
@@ -78,7 +174,7 @@ export function AuthModal({ onSuccess, onClose }) {
               fontSize: '9px', letterSpacing: '0.18em',
               color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase',
             }}>
-              {isLogin ? 'Acceso' : 'Registro'}
+              {isLogin ? T.tagLogin : T.tagRegister}
             </span>
           </div>
           <h2 style={{
@@ -86,64 +182,84 @@ export function AuthModal({ onSuccess, onClose }) {
             color: '#fff', fontFamily: "'Syne',sans-serif",
             letterSpacing: '-0.03em',
           }}>
-            {isLogin ? 'Inicia sesión' : 'Crea tu cuenta'}
+            {isLogin ? T.titleLogin : T.titleRegister}
           </h2>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {/* Email */}
           <div>
-            <label style={{
-              display: 'block', marginBottom: '6px',
-              fontSize: '10px', letterSpacing: '0.1em',
-              color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase',
-              fontFamily: "'DM Mono',monospace",
-            }}>
-              Email
-            </label>
+            <label style={labelStyle}>{T.email}</label>
             <input
-              type="email"
-              value={email}
+              type="email" value={email}
               onChange={e => setEmail(e.target.value)}
-              required
-              autoComplete="email"
-              style={{
-                width: '100%', boxSizing: 'border-box',
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: '10px', padding: '11px 14px',
-                color: '#fff', fontSize: '13px',
-                outline: 'none', fontFamily: "'DM Mono',monospace",
-              }}
+              required autoComplete="email"
+              style={inputStyle}
             />
           </div>
 
+          {/* Password */}
           <div>
-            <label style={{
-              display: 'block', marginBottom: '6px',
-              fontSize: '10px', letterSpacing: '0.1em',
-              color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase',
-              fontFamily: "'DM Mono',monospace",
-            }}>
-              Contraseña
-            </label>
+            <label style={labelStyle}>{T.password}</label>
             <input
-              type="password"
-              value={password}
+              type="password" value={password}
               onChange={e => setPassword(e.target.value)}
-              required
-              autoComplete={isLogin ? 'current-password' : 'new-password'}
-              style={{
-                width: '100%', boxSizing: 'border-box',
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: '10px', padding: '11px 14px',
-                color: '#fff', fontSize: '13px',
-                outline: 'none', fontFamily: "'DM Mono',monospace",
-              }}
+              required autoComplete={isLogin ? 'current-password' : 'new-password'}
+              style={inputStyle}
             />
           </div>
 
+          {/* Register-only fields */}
+          {!isLogin && (
+            <>
+              <div>
+                <label style={labelStyle}>{T.birthDate}</label>
+                <input
+                  type="date" value={birthDate}
+                  onChange={e => setBirthDate(e.target.value)}
+                  style={{
+                    ...inputStyle,
+                    colorScheme: 'dark',
+                  }}
+                />
+              </div>
+
+              <div>
+                <label style={labelStyle}>{T.gender}</label>
+                <select
+                  value={gender}
+                  onChange={e => setGender(e.target.value)}
+                  style={{
+                    ...inputStyle,
+                    cursor: 'pointer',
+                    appearance: 'none',
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='rgba(255,255,255,0.3)' d='M6 8L0 0h12z'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 14px center',
+                    paddingRight: '36px',
+                  }}
+                >
+                  {T.genderOptions.map(opt => (
+                    <option key={opt} value={opt} style={{ background: '#0e0e14' }}>{opt}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* hCaptcha */}
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4px' }}>
+                <HCaptcha
+                  ref={captchaRef}
+                  sitekey={HCAPTCHA_SITE_KEY}
+                  onVerify={token => setCaptchaToken(token)}
+                  onExpire={() => setCaptchaToken(null)}
+                  theme="dark"
+                />
+              </div>
+            </>
+          )}
+
+          {/* Error */}
           {error && (
             <p style={{
               margin: 0, padding: '10px 14px',
@@ -158,6 +274,7 @@ export function AuthModal({ onSuccess, onClose }) {
             </p>
           )}
 
+          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
@@ -186,8 +303,8 @@ export function AuthModal({ onSuccess, onClose }) {
             }}
           >
             {loading
-              ? (isLogin ? 'Entrando...' : 'Creando cuenta...')
-              : (isLogin ? 'Entrar →' : 'Crear cuenta →')}
+              ? (isLogin ? T.loadingLogin : T.loadingRegister)
+              : (isLogin ? T.btnLogin : T.btnRegister)}
           </button>
         </form>
 
@@ -198,10 +315,10 @@ export function AuthModal({ onSuccess, onClose }) {
           textAlign: 'center',
         }}>
           <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>
-            {isLogin ? '¿No tienes cuenta? ' : '¿Ya tienes cuenta? '}
+            {isLogin ? T.hasAccount : T.noAccount}
           </span>
           <button
-            onClick={() => { setMode(isLogin ? 'register' : 'login'); setError(null) }}
+            onClick={() => switchMode(isLogin ? 'register' : 'login')}
             style={{
               background: 'none', border: 'none', padding: 0,
               color: '#ff6600', fontSize: '12px', cursor: 'pointer',
@@ -209,7 +326,7 @@ export function AuthModal({ onSuccess, onClose }) {
               letterSpacing: '0.04em',
             }}
           >
-            {isLogin ? 'Regístrate' : 'Inicia sesión'}
+            {isLogin ? T.switchRegister : T.switchLogin}
           </button>
         </div>
 

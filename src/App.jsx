@@ -1350,10 +1350,17 @@ export default function App() {
   const { user, signOut } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
+  const [authDefaultMode, setAuthDefaultMode] = useState('register');
 
   const requireAuth = (action) => {
     if (user) { action(); return; }
     setPendingAction(() => action);
+    setAuthDefaultMode('register');
+    setShowAuth(true);
+  };
+
+  const openLogin = () => {
+    setAuthDefaultMode('login');
     setShowAuth(true);
   };
 
@@ -1536,12 +1543,12 @@ export default function App() {
               </div>
             ) : (
               <button
-                onClick={() => setShowAuth(true)}
+                onClick={openLogin}
                 style={{
-                  padding:"5px 12px", borderRadius:"20px",
+                  padding:"10px 20px", borderRadius:"20px",
                   background:"rgba(255,102,0,0.08)",
                   border:"1px solid rgba(255,102,0,0.35)",
-                  color:"#ff6600", fontSize:"9px",
+                  color:"#ff6600", fontSize:"12px",
                   letterSpacing:"0.12em", cursor:"pointer",
                   fontFamily:"'DM Mono',monospace", fontWeight:700,
                   transition:"all 0.2s ease",
@@ -1658,6 +1665,8 @@ export default function App() {
       {showIRA && <IRAModal onClose={() => setShowIRA(false)} lang={lang} />}
       {showAuth && (
         <AuthModal
+          lang={lang}
+          defaultMode={authDefaultMode}
           onClose={() => { setShowAuth(false); setPendingAction(null); }}
           onSuccess={() => {
             setShowAuth(false);
