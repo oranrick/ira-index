@@ -4,28 +4,38 @@ import { ANNOTATION_TYPES } from '../data/speeches';
 
 const SPEECH_VIEW_TEXTS = {
   es: {
-    back:             "← Volver",
-    annotatedFragment:"FRAGMENTO ANOTADO",
-    iraParams:        "PARÁMETROS IRA",
-    clickFullAnalysis:"Clic para análisis completo →",
-    pinnedNoteTitle:  "Análisis del fragmento",
-    translationLabel: "Traducción al español",
-    seeTranslation:   "🌐 ver traducción",
-    hideTranslation:  "✕ traducción",
-    words:            "palabras",
-    lecturaLabel:     "PARÁMETRO R · LECTURA DEL AUTOR",
+    back:                  "← Volver",
+    annotatedFragment:     "FRAGMENTO ANOTADO",
+    iraParams:             "PARÁMETROS IRA",
+    clickFullAnalysis:     "Clic para análisis completo →",
+    pinnedNoteTitle:       "Análisis del fragmento",
+    translationLabel:      "Traducción al español",
+    seeTranslation:        "🌐 ver traducción",
+    hideTranslation:       "✕ traducción",
+    words:                 "palabras",
+    lecturaLabel:          "PARÁMETRO R · LECTURA DEL AUTOR",
+    paramViewTxt:          "ver ▾",
+    paramCloseTxt:         "cerrar ▲",
+    transcriptLoading:     "Cargando…",
+    transcriptUnavailable: "Transcripción no disponible.",
+    transcriptBtn:         "Ver transcripción completa ↗",
   },
   en: {
-    back:             "← Back",
-    annotatedFragment:"ANNOTATED FRAGMENT",
-    iraParams:        "IRA PARAMETERS",
-    clickFullAnalysis:"Click for full analysis →",
-    pinnedNoteTitle:  "Fragment analysis",
-    translationLabel: "Spanish translation",
-    seeTranslation:   "🌐 see translation",
-    hideTranslation:  "✕ translation",
-    words:            "words",
-    lecturaLabel:     "PARAMETER R · AUTHOR'S READING",
+    back:                  "← Back",
+    annotatedFragment:     "ANNOTATED FRAGMENT",
+    iraParams:             "IRA PARAMETERS",
+    clickFullAnalysis:     "Click for full analysis →",
+    pinnedNoteTitle:       "Fragment analysis",
+    translationLabel:      "Spanish translation",
+    seeTranslation:        "🌐 see translation",
+    hideTranslation:       "✕ translation",
+    words:                 "words",
+    lecturaLabel:          "PARAMETER R · AUTHOR'S READING",
+    paramViewTxt:          "view ▾",
+    paramCloseTxt:         "close ▲",
+    transcriptLoading:     "Loading…",
+    transcriptUnavailable: "Transcript unavailable.",
+    transcriptBtn:         "Full transcript ↗",
   },
 };
 
@@ -305,7 +315,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
 
           {/* Ver transcripción completa */}
           <button style={{ ...styles.transcriptBtn, cursor: 'pointer', opacity: 1 }} onClick={openTranscript}>
-            {lang === 'en' ? 'Full transcript ↗' : 'Ver transcripción completa ↗'}
+            {T.transcriptBtn}
           </button>
 
           {/* Tooltip — desktop only */}
@@ -368,7 +378,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                         transition: 'all 0.2s',
                         whiteSpace: 'nowrap',
                       }}>
-                        {open ? 'cerrar ▲' : 'ver ▾'}
+                        {open ? T.paramCloseTxt : T.paramViewTxt}
                       </span>
                     </div>
                   </div>
@@ -410,7 +420,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
             </div>
             <div style={styles.modalBody}>
               {transcriptLoading ? (
-                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>Cargando…</span>
+                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>{T.transcriptLoading}</span>
               ) : transcriptText ? (
                 transcriptText
                   .split(/\n\n+/)
@@ -419,7 +429,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                     <p key={i} style={styles.modalParagraph}>{para.trim()}</p>
                   ))
               ) : (
-                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>Transcripción no disponible.</span>
+                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>{T.transcriptUnavailable}</span>
               )}
             </div>
           </div>

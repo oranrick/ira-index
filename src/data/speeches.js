@@ -698,13 +698,15 @@ export const speeches = [
       },
       { text: ' ' },
       {
-        text: 'Nos corresponde cuidarnos unos a otros.',
+        text: 'It falls to us to be the caretakers of each other.',
+        textEs: 'Nos corresponde cuidarnos unos a otros.',
         type: 'CUIDADO',
         note: 'Metáfora de cuidado recíproco. La responsabilidad política redefinida como ética del cuidado. El deber es la ternura.',
       },
       { text: ' ' },
       {
-        text: 'Podemos pensar distinto y aun así caminar juntos.',
+        text: 'We can think differently and still walk together.',
+        textEs: 'Podemos pensar distinto y aun así caminar juntos.',
         type: 'DISENSO',
         note: 'Reconocimiento del disenso en su forma más generosa. La pluralidad no como problema a gestionar sino como condición de la comunidad.',
       },
