@@ -402,16 +402,22 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
         <div style={styles.modalOverlay} onClick={() => setTranscriptOpen(false)}>
           <div style={styles.modalBox} onClick={e => e.stopPropagation()}>
             <div style={styles.modalHeader}>
-              <span style={styles.modalTitle}>
-                {speech.entityName} · {speech.title}
-              </span>
+              <div>
+                <p style={styles.modalSupertitle}>{speech.entityName}</p>
+                <span style={styles.modalTitle}>{speech.title}</span>
+              </div>
               <button style={styles.modalClose} onClick={() => setTranscriptOpen(false)}>✕</button>
             </div>
             <div style={styles.modalBody}>
               {transcriptLoading ? (
                 <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>Cargando…</span>
               ) : transcriptText ? (
-                <p style={styles.modalText}>{transcriptText}</p>
+                transcriptText
+                  .split(/\n\n+/)
+                  .filter(p => p.trim())
+                  .map((para, i) => (
+                    <p key={i} style={styles.modalParagraph}>{para.trim()}</p>
+                  ))
               ) : (
                 <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>Transcripción no disponible.</span>
               )}
@@ -790,38 +796,49 @@ const styles = {
     position: 'fixed',
     inset: 0,
     zIndex: 600,
-    background: 'rgba(4,4,8,0.88)',
-    backdropFilter: 'blur(12px)',
+    background: 'rgba(4,4,8,0.9)',
+    backdropFilter: 'blur(14px)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '1.5rem',
+    animation: 'fadeIn 0.2s ease',
   },
   modalBox: {
     background: '#0e0e14',
     border: '1px solid rgba(255,102,0,0.2)',
-    borderRadius: '14px',
+    borderRadius: '16px',
     width: '100%',
-    maxWidth: '680px',
-    maxHeight: '80vh',
+    maxWidth: '720px',
+    maxHeight: '82vh',
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
-    boxShadow: '0 24px 64px rgba(0,0,0,0.7)',
+    boxShadow: '0 32px 80px rgba(0,0,0,0.75)',
+    animation: 'slideUp 0.22s cubic-bezier(0.4,0,0.2,1)',
   },
   modalHeader: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    padding: '1rem 1.2rem 0.8rem',
+    gap: '1rem',
+    padding: '1.3rem 1.5rem 1rem',
     borderBottom: '1px solid rgba(255,255,255,0.06)',
     flexShrink: 0,
   },
+  modalSupertitle: {
+    margin: '0 0 2px',
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '0.62rem',
+    color: '#ff6600',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+  },
   modalTitle: {
     fontFamily: "'Syne', sans-serif",
-    fontSize: '0.82rem',
+    fontSize: '0.95rem',
     fontWeight: 700,
-    color: 'rgba(255,255,255,0.7)',
+    color: 'rgba(255,255,255,0.85)',
   },
   modalClose: {
     background: 'none',
@@ -829,24 +846,25 @@ const styles = {
     borderRadius: '6px',
     color: 'rgba(255,255,255,0.4)',
     cursor: 'pointer',
-    fontSize: '0.78rem',
-    padding: '3px 8px',
+    fontSize: '0.8rem',
+    padding: '4px 10px',
     lineHeight: 1,
     transition: 'all 0.15s',
     flexShrink: 0,
+    marginTop: '2px',
   },
   modalBody: {
     overflowY: 'auto',
-    padding: '1.2rem 1.4rem 1.5rem',
+    padding: '2rem',
     flex: 1,
   },
-  modalText: {
-    margin: 0,
+  modalParagraph: {
+    margin: '0 0 1.2rem',
     fontFamily: "'DM Mono', monospace",
-    fontSize: '0.78rem',
-    color: 'rgba(255,255,255,0.62)',
-    lineHeight: 1.9,
-    whiteSpace: 'pre-wrap',
+    fontSize: '0.8rem',
+    color: 'rgba(255,255,255,0.65)',
+    lineHeight: 1.8,
+    textAlign: 'left',
   },
   transcriptBtn: {
     marginTop: '0.9rem',
