@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../supabaseClient'
 
 // Sitekey from Supabase dashboard → Authentication → Settings → Enable Captcha
-const HCAPTCHA_SITE_KEY = '10000000-ffff-ffff-ffff-000000000001'
+const HCAPTCHA_SITE_KEY = '8a5e3198-e466-46b4-a548-e85ab842e988'
 
 const TEXTS = {
   es: {
