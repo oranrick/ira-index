@@ -31,6 +31,8 @@ async function handleAuthCallback() {
       // pero llamamos getSession para asegurarnos de que la sesión quede activa.
       await supabase.auth.getSession()
     }
+    // Marca para que App muestre el toast de éxito
+    sessionStorage.setItem('ira-email-confirmed', '1')
   } catch (e) {
     console.error('Auth callback error:', e)
   }

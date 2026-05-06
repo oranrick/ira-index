@@ -1344,6 +1344,51 @@ function AnalysisResult({ result, onReset, lang }) {
   );
 }
 
+// ── Toast confirmación email ──────────────────────────────────────────────────
+
+function ConfirmedToast({ lang, onDone }) {
+  const [visible, setVisible] = useState(true);
+  const msg = lang === "en"
+    ? "Account created successfully. Welcome to IRA."
+    : "Cuenta creada con éxito. Bienvenido/a al IRA.";
+
+  useEffect(() => {
+    const hide = setTimeout(() => setVisible(false), 4000);
+    const remove = setTimeout(onDone, 4500);
+    return () => { clearTimeout(hide); clearTimeout(remove); };
+  }, []);
+
+  return (
+    <div style={{
+      position: "fixed", bottom: "28px", left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 1000,
+      opacity: visible ? 1 : 0,
+      transition: "opacity 0.5s ease",
+      pointerEvents: "none",
+    }}>
+      <div style={{
+        display: "flex", alignItems: "center", gap: "10px",
+        background: "#0e0e14",
+        border: "1px solid rgba(255,102,0,0.45)",
+        borderRadius: "12px",
+        padding: "12px 20px",
+        boxShadow: "0 0 24px rgba(255,102,0,0.2)",
+      }}>
+        <div style={{
+          width: "6px", height: "6px", borderRadius: "50%",
+          background: "#ff6600", boxShadow: "0 0 8px #ff6600", flexShrink: 0,
+        }} />
+        <span style={{
+          fontSize: "12px", color: "#fff",
+          fontFamily: "'DM Mono',monospace",
+          whiteSpace: "nowrap",
+        }}>{msg}</span>
+      </div>
+    </div>
+  );
+}
+
 // ── App ───────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -1351,6 +1396,11 @@ export default function App() {
   const [showAuth, setShowAuth] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
   const [authDefaultMode, setAuthDefaultMode] = useState('register');
+  const [confirmedToast, setConfirmedToast] = useState(() =>
+    sessionStorage.getItem('ira-email-confirmed') === '1'
+      ? (sessionStorage.removeItem('ira-email-confirmed'), true)
+      : false
+  );
 
   const requireAuth = (action) => {
     if (user) { action(); return; }
@@ -1681,6 +1731,9 @@ export default function App() {
             setPendingAction(null);
           }}
         />
+      )}
+      {confirmedToast && (
+        <ConfirmedToast lang={lang} onDone={() => setConfirmedToast(false)} />
       )}
       </div>{/* fin contenido z-index:1 */}
     </div>
