@@ -50,6 +50,17 @@ const IRA_COLOR = (score) => {
   return '#ff6600';
 };
 
+const PARAM_NAME_EN = {
+  'Uso pronominal inclusivo':   'Inclusive Pronominal Use',
+  'Tipo de metáfora dominante': 'Dominant Metaphor Type',
+  'Carga dicotómica':           'Dichotomous Load',
+  'Tono emocional dominante':   'Dominant Emotional Tone',
+  'Reconocimiento del disenso': 'Recognition of Dissent',
+  'Vector de acción':           'Action Vector',
+  'Coherencia afectiva':        'Affective Coherence',
+  'Proyección de futuro':       'Future Projection',
+};
+
 const BAR_COLOR = (score) => {
   if (score >= 7) return '#2ecc71';
   if (score >= 4) return '#f59e0b';
@@ -373,7 +384,9 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                   onClick={() => setExpandedParam(open ? null : i)}
                 >
                   <div style={styles.paramHeader}>
-                    <span style={styles.paramName}>{param.name}</span>
+                    <span style={styles.paramName}>
+                      {(isEn && PARAM_NAME_EN[param.name]) || param.name}
+                    </span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '1rem', flexShrink: 0 }}>
                       <span style={{
                         fontFamily: "'DM Mono', monospace",
