@@ -3,6 +3,8 @@ import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip,
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
 import { getSpeechById, getSpeechesByEntity } from "./data/speeches";
+import { useAuth } from "./hooks/useAuth";
+import { AuthModal } from "./components/AuthModal";
 
 const Comparator = lazy(() => import("./components/Comparator"));
 
@@ -1276,6 +1278,16 @@ function AnalysisResult({ result, onReset, lang }) {
 // ── App ───────────────────────────────────────────────────────────────────────
 
 export default function App() {
+  const { user, signOut } = useAuth();
+  const [showAuth, setShowAuth] = useState(false);
+  const [pendingAction, setPendingAction] = useState(null);
+
+  const requireAuth = (action) => {
+    if (user) { action(); return; }
+    setPendingAction(() => action);
+    setShowAuth(true);
+  };
+
   const [tab, setTab] = useState(() => {
     const p = new URLSearchParams(window.location.search);
     return p.get('share') ? 'analyze' : 'explore';
@@ -1424,11 +1436,53 @@ export default function App() {
 
       <div style={{ maxWidth:"960px", margin:"0 auto", padding:"48px 24px 80px" }}>
         <div style={{ marginBottom:"44px", opacity: mounted?1:0, transform: mounted?"none":"translateY(16px)", transition:"all 0.6s ease" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"12px" }}>
-            <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#ff6600", boxShadow:"0 0 10px #ff6600" }} />
-            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
-              {T.headerTag}
-            </span>
+          <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"12px", justifyContent:"space-between" }}>
+            <div style={{ display:"flex", alignItems:"center", gap:"10px" }}>
+              <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#ff6600", boxShadow:"0 0 10px #ff6600" }} />
+              <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
+                {T.headerTag}
+              </span>
+            </div>
+            {user ? (
+              <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+                <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.3)", fontFamily:"'DM Mono',monospace", maxWidth:"160px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+                  {user.email}
+                </span>
+                <button
+                  onClick={() => signOut()}
+                  style={{
+                    padding:"4px 10px", borderRadius:"20px",
+                    background:"transparent",
+                    border:"1px solid rgba(255,255,255,0.1)",
+                    color:"rgba(255,255,255,0.3)", fontSize:"9px",
+                    letterSpacing:"0.1em", cursor:"pointer",
+                    fontFamily:"'DM Mono',monospace",
+                    transition:"all 0.2s ease",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.25)"; e.currentTarget.style.color="rgba(255,255,255,0.6)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; e.currentTarget.style.color="rgba(255,255,255,0.3)"; }}
+                >
+                  {lang === "es" ? "Salir" : "Sign out"}
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowAuth(true)}
+                style={{
+                  padding:"5px 12px", borderRadius:"20px",
+                  background:"rgba(255,102,0,0.08)",
+                  border:"1px solid rgba(255,102,0,0.35)",
+                  color:"#ff6600", fontSize:"9px",
+                  letterSpacing:"0.12em", cursor:"pointer",
+                  fontFamily:"'DM Mono',monospace", fontWeight:700,
+                  transition:"all 0.2s ease",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background="rgba(255,102,0,0.16)"; e.currentTarget.style.borderColor="rgba(255,102,0,0.6)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background="rgba(255,102,0,0.08)"; e.currentTarget.style.borderColor="rgba(255,102,0,0.35)"; }}
+              >
+                {lang === "es" ? "Iniciar sesión" : "Sign in"}
+              </button>
+            )}
           </div>
           <h1 style={{ margin:"0 0 8px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"'Syne',sans-serif", color:"#fff", letterSpacing:"-0.04em", lineHeight:1.05 }}>
             IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
@@ -1453,7 +1507,13 @@ export default function App() {
 
         <div style={{ display:"flex", gap:"4px", marginBottom:"32px", background:"rgba(255,255,255,0.03)", borderRadius:"12px", padding:"4px", width:"fit-content", opacity: mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
           {[["explore", T.tabExplore],["analyze", T.tabAnalyze],["compare", T.tabCompare]].map(([id,label]) => (
-            <button key={id} onClick={() => setTab(id)} style={{
+            <button key={id} onClick={() => {
+              if ((id === "analyze" || id === "compare") && !user) {
+                requireAuth(() => setTab(id));
+              } else {
+                setTab(id);
+              }
+            }} style={{
               padding:"8px 18px", borderRadius:"9px",
               background: tab===id ? "rgba(255,102,0,0.18)" : "transparent",
               border: tab===id ? "1px solid rgba(255,102,0,0.4)" : "1px solid transparent",
@@ -1481,7 +1541,7 @@ export default function App() {
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))", gap:"14px" }}>
               {filtered.map((entity, i) => (
                 <div key={entity.id} style={{ opacity: mounted?1:0, transform: mounted?"none":"translateY(20px)", transition:`all 0.5s ease ${0.1+i*0.06}s` }}>
-                  <EntityCard entity={entity} onClick={setSelected} lang={lang} />
+                  <EntityCard entity={entity} onClick={(e) => requireAuth(() => setSelected(e))} lang={lang} />
                 </div>
               ))}
             </div>
@@ -1527,6 +1587,16 @@ export default function App() {
       </div>
       {selected && <Detail entity={selected} onClose={() => setSelected(null)} lang={lang} supabaseMap={supabaseMap} />}
       {showIRA && <IRAModal onClose={() => setShowIRA(false)} lang={lang} />}
+      {showAuth && (
+        <AuthModal
+          onClose={() => { setShowAuth(false); setPendingAction(null); }}
+          onSuccess={() => {
+            setShowAuth(false);
+            pendingAction?.();
+            setPendingAction(null);
+          }}
+        />
+      )}
       </div>{/* fin contenido z-index:1 */}
     </div>
   );
