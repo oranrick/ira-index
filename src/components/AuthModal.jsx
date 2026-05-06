@@ -26,6 +26,7 @@ const TEXTS = {
     switchLogin:       'Inicia sesión',
     switchRegister:    'Regístrate',
     captchaRequired:   'Completa el captcha antes de continuar.',
+    confirmEmail:      'Cuenta creada. Revisa tu email para confirmarla antes de iniciar sesión.',
   },
   en: {
     tagLogin:          'Sign in',
@@ -46,6 +47,7 @@ const TEXTS = {
     switchLogin:       'Sign in',
     switchRegister:    'Sign up',
     captchaRequired:   'Please complete the captcha.',
+    confirmEmail:      'Account created. Check your email to confirm it before signing in.',
   },
 }
 
@@ -96,9 +98,14 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
     setTimeout(onClose, 220)
   }
 
+  const resetCaptcha = () => {
+    captchaRef.current?.resetCaptcha()
+    setCaptchaToken(null)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!isLogin && !captchaToken) {
+    if (!captchaToken) {
       setError(T.captchaRequired)
       return
     }
@@ -106,15 +113,14 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
     setLoading(true)
     try {
       if (isLogin) {
-        const { error: authError } = await signIn(email, password)
-        if (authError) { setError(authError.message); return }
+        const { error: authError } = await signIn(email, password, { captchaToken })
+        if (authError) { setError(authError.message); resetCaptcha(); return }
         onSuccess?.()
       } else {
         const { data, error: authError } = await signUp(email, password, { captchaToken })
         if (authError) {
           setError(authError.message)
-          captchaRef.current?.resetCaptcha()
-          setCaptchaToken(null)
+          resetCaptcha()
           return
         }
         if (data?.user) {
@@ -124,12 +130,17 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
             gender: gender || T.genderOptions[0],
           }).then(() => {})
         }
-        onSuccess?.()
+        // Si hay sesión activa el usuario ya está logueado; si no, necesita confirmar email
+        if (data?.session) {
+          onSuccess?.()
+        } else {
+          setError(T.confirmEmail)
+          resetCaptcha()
+        }
       }
     } catch (err) {
       setError(err.message ?? 'Error inesperado')
-      captchaRef.current?.resetCaptcha()
-      setCaptchaToken(null)
+      resetCaptcha()
     } finally {
       setLoading(false)
     }
@@ -246,18 +257,19 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
                 </select>
               </div>
 
-              {/* hCaptcha */}
-              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4px' }}>
-                <HCaptcha
-                  ref={captchaRef}
-                  sitekey={HCAPTCHA_SITE_KEY}
-                  onVerify={token => setCaptchaToken(token)}
-                  onExpire={() => setCaptchaToken(null)}
-                  theme="dark"
-                />
-              </div>
             </>
           )}
+
+          {/* hCaptcha — siempre visible (Supabase lo exige en login y registro) */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4px' }}>
+            <HCaptcha
+              ref={captchaRef}
+              sitekey={HCAPTCHA_SITE_KEY}
+              onVerify={token => setCaptchaToken(token)}
+              onExpire={() => setCaptchaToken(null)}
+              theme="dark"
+            />
+          </div>
 
           {/* Error */}
           {error && (
