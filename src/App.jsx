@@ -1335,7 +1335,32 @@ export default function App() {
   const filtered = filter === "Todos" ? enrichedEntities : enrichedEntities.filter(e => e.category === filter);
 
   return (
-    <div style={{ minHeight:"100vh", background:"transparent", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
+    <div style={{ minHeight:"100vh", background:"#08080c", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
+
+      {/* ── Fondo animado ── */}
+      <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
+        <div style={{
+          position:"absolute", top:"-20%", left:"15%",
+          width:"780px", height:"640px", borderRadius:"50%",
+          background:"radial-gradient(ellipse at center, rgba(255,102,0,0.07) 0%, rgba(255,102,0,0.03) 40%, transparent 68%)",
+          animation:"blob1 28s ease-in-out infinite",
+        }} />
+        <div style={{
+          position:"absolute", bottom:"-25%", right:"-10%",
+          width:"620px", height:"520px", borderRadius:"50%",
+          background:"radial-gradient(ellipse at center, rgba(180,50,0,0.06) 0%, rgba(26,10,0,0.04) 45%, transparent 70%)",
+          animation:"blob2 35s ease-in-out infinite",
+        }} />
+        <div style={{
+          position:"absolute", top:"25%", left:"-18%",
+          width:"500px", height:"460px", borderRadius:"50%",
+          background:"radial-gradient(ellipse at center, rgba(255,80,0,0.05) 0%, transparent 68%)",
+          animation:"blob3 22s ease-in-out infinite",
+        }} />
+      </div>
+
+      {/* ── Contenido (siempre encima del fondo) ── */}
+      <div style={{ position:"relative", zIndex:1 }}>
 
       {/* Botón EN/ES */}
       <div style={{ position:"fixed", top:"20px", right:"24px", zIndex:400 }}>
@@ -1479,6 +1504,7 @@ export default function App() {
       </div>
       {selected && <Detail entity={selected} onClose={() => setSelected(null)} lang={lang} supabaseMap={supabaseMap} />}
       {showIRA && <IRAModal onClose={() => setShowIRA(false)} lang={lang} />}
+      </div>{/* fin contenido z-index:1 */}
     </div>
   );
 }
