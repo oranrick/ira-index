@@ -1573,10 +1573,6 @@ export default function App() {
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 60);
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500;700&display=swap";
-    document.head.appendChild(link);
     const style = document.createElement("style");
     style.textContent = `
       @keyframes blob1 {
