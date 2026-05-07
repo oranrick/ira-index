@@ -1216,7 +1216,7 @@ function ShareCard({ result, cardRef }) {
       {/* header */}
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'20px' }}>
         <span style={{ color:'#ff6600', fontWeight:800, fontSize:'20px', fontFamily:'Syne,sans-serif', letterSpacing:'-0.02em' }}>IRA</span>
-        <span style={{ color:'rgba(255,255,255,0.18)', fontSize:'8px', letterSpacing:'0.14em', textTransform:'uppercase' }}>Índice de Retórica Afectiva</span>
+        <span style={{ color:'rgba(255,255,255,0.18)', fontSize:'8px', letterSpacing:'0.14em', textTransform:'uppercase' }}>Índice de Resonancia Afectiva</span>
       </div>
       {/* score + name */}
       <div style={{ display:'flex', alignItems:'center', gap:'20px', marginBottom:'20px' }}>
