@@ -1065,12 +1065,13 @@ function Analyzer({ lang }) {
 
   const fetchHistory = async () => {
     if (!user) return;
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('user_analyses')
       .select('id,name,category,ira_score,summary,params,created_at')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(10);
+    if (error) console.error('[user_analyses] select error:', error);
     if (data) setHistory(data);
   };
 
@@ -1098,7 +1099,10 @@ function Analyzer({ lang }) {
           ira_score: resultData.ira,
           summary: resultData.summary,
           params: resultData.params,
-        }).then(() => fetchHistory());
+        }).then(({ error }) => {
+          if (error) console.error('[user_analyses] insert error:', error);
+          fetchHistory();
+        });
       }
     } catch(e) {
       setError(e.message || T.errorGeneral);
