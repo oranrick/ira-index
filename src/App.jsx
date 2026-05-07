@@ -974,32 +974,73 @@ function countWords(str) {
 }
 
 function HistoryCard({ row, lang }) {
+  const [expanded, setExpanded] = useState(false);
   const col = scoreColor(row.ira_score);
   const date = new Date(row.created_at).toLocaleDateString(lang === "es" ? "es-ES" : "en-US", { day:"numeric", month:"short", year:"numeric" });
+  const params = PARAMS_TRANS[lang];
   return (
-    <div style={{
-      display:"flex", alignItems:"center", gap:"14px",
-      padding:"12px 16px", borderRadius:"10px",
-      background:"rgba(255,255,255,0.03)",
-      border:"1px solid rgba(255,255,255,0.06)",
-    }}>
-      <div style={{
-        width:"40px", height:"40px", borderRadius:"50%", flexShrink:0,
-        border:`1.5px solid ${col}`, display:"flex", flexDirection:"column",
-        alignItems:"center", justifyContent:"center", background:`${col}14`,
-      }}>
-        <span style={{ fontSize:"11px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1 }}>
-          {row.ira_score.toFixed(1)}
-        </span>
+    <div
+      onClick={() => setExpanded(e => !e)}
+      style={{
+        borderRadius:"12px",
+        background:"rgba(255,255,255,0.03)",
+        border:`1px solid ${expanded ? "rgba(255,102,0,0.2)" : "rgba(255,255,255,0.06)"}`,
+        overflow:"hidden", cursor:"pointer", transition:"border-color 0.2s",
+      }}
+    >
+      <div style={{ display:"flex", alignItems:"center", gap:"14px", padding:"12px 16px" }}>
+        <div style={{
+          width:"42px", height:"42px", borderRadius:"50%", flexShrink:0,
+          border:`1.5px solid ${col}`, display:"flex", flexDirection:"column",
+          alignItems:"center", justifyContent:"center", background:`${col}14`,
+        }}>
+          <span style={{ fontSize:"12px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1 }}>
+            {row.ira_score.toFixed(1)}
+          </span>
+        </div>
+        <div style={{ flex:1, minWidth:0 }}>
+          <p style={{ margin:"0 0 2px", fontSize:"12px", fontWeight:700, color:"rgba(255,255,255,0.8)", fontFamily:"'Syne',sans-serif", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+            {row.name}
+          </p>
+          <p style={{ margin:0, fontSize:"9px", color:"rgba(255,255,255,0.25)", fontFamily:"'DM Mono',monospace", letterSpacing:"0.06em" }}>
+            {CAT_TRANS[lang][row.category] || row.category} · {date}
+          </p>
+        </div>
+        <span style={{
+          fontSize:"10px", color:"rgba(255,255,255,0.2)", flexShrink:0,
+          display:"block", transition:"transform 0.2s",
+          transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+        }}>▾</span>
       </div>
-      <div style={{ flex:1, minWidth:0 }}>
-        <p style={{ margin:"0 0 2px", fontSize:"12px", fontWeight:700, color:"rgba(255,255,255,0.8)", fontFamily:"'Syne',sans-serif", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
-          {row.name}
-        </p>
-        <p style={{ margin:0, fontSize:"9px", color:"rgba(255,255,255,0.25)", fontFamily:"'DM Mono',monospace", letterSpacing:"0.06em" }}>
-          {CAT_TRANS[lang][row.category] || row.category} · {date}
-        </p>
-      </div>
+      {expanded && (
+        <div style={{ padding:"0 16px 16px", borderTop:"1px solid rgba(255,255,255,0.05)" }}>
+          {row.summary && (
+            <p style={{ margin:"14px 0 14px", fontSize:"11px", color:"rgba(255,255,255,0.4)", lineHeight:1.65 }}>
+              {row.summary}
+            </p>
+          )}
+          {row.params && params.map((p, i) => {
+            const val = +(row.params[p.id]?.score ?? 0);
+            return (
+              <div key={i} style={{ marginBottom:"10px" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"4px" }}>
+                  <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.4)" }}>{p.label}</span>
+                  <span style={{ fontSize:"10px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"'DM Mono',monospace" }}>
+                    {val.toFixed(1)}
+                  </span>
+                </div>
+                <div style={{ background:"rgba(255,255,255,0.06)", borderRadius:"4px", height:"3px", overflow:"hidden" }}>
+                  <div style={{
+                    height:"100%", width:`${(val/10)*100}%`,
+                    background:`linear-gradient(90deg,${PARAM_COLORS[i]}80,${PARAM_COLORS[i]})`,
+                    borderRadius:"4px",
+                  }} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -1026,10 +1067,10 @@ function Analyzer({ lang }) {
     if (!user) return;
     const { data } = await supabase
       .from('user_analyses')
-      .select('id,name,category,ira_score,created_at')
+      .select('id,name,category,ira_score,summary,params,created_at')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
-      .limit(5);
+      .limit(10);
     if (data) setHistory(data);
   };
 
@@ -1138,14 +1179,20 @@ function Analyzer({ lang }) {
         {overLimit ? T.wordLimitMsg : loading ? T.analyzing : T.calcBtn}
       </button>
 
-      {user && history.length > 0 && (
+      {user && (
         <div style={{ marginTop:"40px" }}>
           <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.16em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
             {lang === "es" ? "Mis últimos análisis" : "My recent analyses"}
           </p>
-          <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
-            {history.map(row => <HistoryCard key={row.id} row={row} lang={lang} />)}
-          </div>
+          {history.length === 0 ? (
+            <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.15)", fontFamily:"'DM Mono',monospace", textAlign:"center", padding:"24px 0" }}>
+              {lang === "es" ? "Tus análisis aparecerán aquí" : "Your analyses will appear here"}
+            </p>
+          ) : (
+            <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
+              {history.map(row => <HistoryCard key={row.id} row={row} lang={lang} />)}
+            </div>
+          )}
         </div>
       )}
     </div>
