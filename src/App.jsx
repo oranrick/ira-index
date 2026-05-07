@@ -1437,6 +1437,65 @@ function ConfirmedToast({ lang, onDone }) {
   );
 }
 
+// ── WelcomeModal ─────────────────────────────────────────────────────────────
+
+function WelcomeModal({ lang, onClose }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setTimeout(() => setMounted(true), 30); }, []);
+  return (
+    <div style={{
+      position:"fixed", inset:0, zIndex:600,
+      background:"rgba(8,8,12,0.85)", backdropFilter:"blur(6px)",
+      display:"flex", alignItems:"center", justifyContent:"center",
+      padding:"24px",
+      opacity: mounted ? 1 : 0, transition:"opacity 0.35s ease",
+    }}>
+      <div style={{
+        background:"#0e0e14",
+        border:"1px solid rgba(255,102,0,0.2)",
+        borderRadius:"20px",
+        padding:"36px 32px 28px",
+        maxWidth:"400px", width:"100%",
+        boxShadow:"0 0 60px rgba(255,102,0,0.08)",
+        transform: mounted ? "translateY(0)" : "translateY(12px)",
+        transition:"transform 0.35s ease",
+      }}>
+        <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"20px" }}>
+          <div style={{
+            width:"6px", height:"6px", borderRadius:"50%",
+            background:"#ff6600", boxShadow:"0 0 8px #ff6600",
+            animation:"wcPulse 2s ease-in-out infinite",
+          }} />
+          <span style={{ fontSize:"9px", letterSpacing:"0.16em", color:"rgba(255,102,0,0.7)", textTransform:"uppercase", fontFamily:"'DM Mono',monospace" }}>
+            {lang === "es" ? "Bienvenido/a al IRA" : "Welcome to IRA"}
+          </span>
+        </div>
+        <h2 style={{ margin:"0 0 14px", fontSize:"26px", fontWeight:800, color:"#fff", fontFamily:"'Syne',sans-serif", letterSpacing:"-0.03em", lineHeight:1.1 }}>
+          {lang === "es" ? "Las palabras tienen peso." : "Words carry weight."}
+        </h2>
+        <p style={{ margin:"0 0 28px", fontSize:"12px", color:"rgba(255,255,255,0.45)", lineHeight:1.75, fontFamily:"'DM Mono',monospace" }}>
+          {lang === "es"
+            ? "Aquí puedes explorar cómo hablan los políticos y los medios, o pegar cualquier texto y medirlo tú mismo."
+            : "Explore how politicians and media speak, or paste any text and measure it yourself."}
+        </p>
+        <button onClick={onClose} style={{
+          width:"100%", padding:"13px",
+          background:"rgba(255,102,0,0.18)", border:"1px solid rgba(255,102,0,0.45)",
+          borderRadius:"12px", color:"#ff6600",
+          fontSize:"12px", letterSpacing:"0.1em", textTransform:"uppercase",
+          cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+          transition:"background 0.2s",
+        }}>
+          {lang === "es" ? "Empezar a explorar →" : "Start exploring →"}
+        </button>
+        <p style={{ margin:"16px 0 0", fontSize:"10px", color:"rgba(255,255,255,0.2)", fontFamily:"'DM Mono',monospace", textAlign:"right", fontStyle:"italic" }}>
+          — Rick Grisales, creador del IRA
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ── App ───────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -1449,6 +1508,13 @@ export default function App() {
       ? (sessionStorage.removeItem('ira-email-confirmed'), true)
       : false
   );
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  useEffect(() => {
+    if (user && !localStorage.getItem('ira-welcomed')) {
+      setShowWelcome(true);
+    }
+  }, [user]);
 
   const requireAuth = (action) => {
     if (user) { action(); return; }
@@ -1549,6 +1615,7 @@ export default function App() {
         @keyframes b1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,-40px) scale(1.15); } }
         @keyframes b2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,60px) scale(1.2); } }
         @keyframes b3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,50px) scale(1.1); } }
+        @keyframes wcPulse { 0%,100% { opacity:1; box-shadow:0 0 8px #ff6600; } 50% { opacity:0.5; box-shadow:0 0 16px #ff6600; } }
       `}</style>
 
       {/* ── Fondo animado ── */}
@@ -1787,6 +1854,12 @@ export default function App() {
       )}
       {confirmedToast && (
         <ConfirmedToast lang={lang} onDone={() => setConfirmedToast(false)} />
+      )}
+      {showWelcome && (
+        <WelcomeModal lang={lang} onClose={() => {
+          localStorage.setItem('ira-welcomed', 'true');
+          setShowWelcome(false);
+        }} />
       )}
       </div>{/* fin contenido z-index:1 */}
     </div>
