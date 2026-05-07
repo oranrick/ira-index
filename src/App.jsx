@@ -1498,26 +1498,31 @@ export default function App() {
 
   return (
     <div style={{ minHeight:"100vh", background:"#08080c", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
+      <style>{`
+        @keyframes b1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,-40px) scale(1.15); } }
+        @keyframes b2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,60px) scale(1.2); } }
+        @keyframes b3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,50px) scale(1.1); } }
+      `}</style>
 
       {/* ── Fondo animado ── */}
       <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
         <div style={{
           position:"absolute", top:"-20%", left:"15%",
           width:"70vw", height:"70vh", borderRadius:"50%",
-          background:"radial-gradient(ellipse at center, rgba(255,102,0,0.12) 0%, rgba(255,102,0,0.06) 40%, transparent 68%)",
-          animation:"blob1 28s ease-in-out infinite",
+          background:"radial-gradient(ellipse at center, rgba(255,102,0,0.15) 0%, rgba(255,102,0,0.08) 40%, transparent 68%)",
+          animation:"b1 20s ease-in-out infinite",
         }} />
         <div style={{
           position:"absolute", bottom:"-25%", right:"-10%",
           width:"70vw", height:"70vh", borderRadius:"50%",
-          background:"radial-gradient(ellipse at center, rgba(180,50,0,0.12) 0%, rgba(26,10,0,0.07) 45%, transparent 70%)",
-          animation:"blob2 35s ease-in-out infinite",
+          background:"radial-gradient(ellipse at center, rgba(180,50,0,0.15) 0%, rgba(26,10,0,0.09) 45%, transparent 70%)",
+          animation:"b2 28s ease-in-out infinite",
         }} />
         <div style={{
           position:"absolute", top:"25%", left:"-18%",
           width:"70vw", height:"70vh", borderRadius:"50%",
-          background:"radial-gradient(ellipse at center, rgba(255,80,0,0.12) 0%, transparent 68%)",
-          animation:"blob3 22s ease-in-out infinite",
+          background:"radial-gradient(ellipse at center, rgba(255,80,0,0.15) 0%, transparent 68%)",
+          animation:"b3 16s ease-in-out infinite",
         }} />
       </div>
 
