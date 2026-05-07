@@ -1087,6 +1087,10 @@ function Analyzer({ lang }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text }),
       });
+      const ct = res.headers.get("content-type") || "";
+      if (!res.ok && !ct.includes("json")) {
+        throw new Error(`Error del servidor (${res.status}). Intenta de nuevo.`);
+      }
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       const resultData = { ...data, name: name || T.defaultName, category };
