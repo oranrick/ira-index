@@ -1005,7 +1005,8 @@ function HistoryCard({ row, lang }) {
 }
 
 function Analyzer({ lang }) {
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
+  const isAdmin = profile?.role === 'admin';
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Político");
@@ -1019,7 +1020,7 @@ function Analyzer({ lang }) {
   const [history, setHistory] = useState([]);
   const T = TEXTS[lang];
   const wordCount = countWords(text);
-  const overLimit = wordCount > WORD_LIMIT;
+  const overLimit = !isAdmin && wordCount > WORD_LIMIT;
 
   const fetchHistory = async () => {
     if (!user) return;
@@ -1116,10 +1117,10 @@ function Analyzer({ lang }) {
             {text.length} {T.chars}
           </span>
           <span style={{ fontSize:"10px", fontFamily:"'DM Mono',monospace",
-            color: overLimit ? "#e05252" : wordCount > WORD_LIMIT * 0.85 ? "#e8a838" : "rgba(255,255,255,0.2)",
+            color: overLimit ? "#e05252" : !isAdmin && wordCount > WORD_LIMIT * 0.85 ? "#e8a838" : "rgba(255,255,255,0.2)",
             fontWeight: overLimit ? 700 : 400,
           }}>
-            {wordCount} / {WORD_LIMIT} {T.words}
+            {isAdmin ? `${wordCount} ${T.words}` : `${wordCount} / ${WORD_LIMIT} ${T.words}`}
           </span>
         </div>
       </div>
