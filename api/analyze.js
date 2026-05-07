@@ -161,7 +161,9 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
 
     const result = { ...parsed, ira: Math.round(ira * 100) / 100 };
 
-    // Guardar en Supabase via REST API (fallo silencioso — no rompe la respuesta al usuario)
+    // Responde al usuario primero; luego persiste en Supabase (fallo silencioso)
+    res.status(200).json(result);
+
     try {
       const dbRes = await fetch(`${process.env.SUPABASE_URL}/rest/v1/analyses`, {
         method: 'POST',
@@ -186,8 +188,6 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
     } catch (dbError) {
       console.error('Supabase insert error FULL:', JSON.stringify(dbError, null, 2));
     }
-
-    res.status(200).json(result);
 
   } catch (e) {
     console.error(e);

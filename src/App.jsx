@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
-import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
 import { getSpeechById, getSpeechesByEntity } from "./data/speeches";
 import { useAuth } from "./hooks/useAuth";
-import { AuthModal } from "./components/AuthModal";
 import { supabase } from "./supabaseClient";
 
-const Comparator = lazy(() => import("./components/Comparator"));
+const Comparator   = lazy(() => import("./components/Comparator"));
+const RadarSection = lazy(() => import("./components/RadarSection"));
+const AuthModal    = lazy(() => import("./components/AuthModal").then(m => ({ default: m.AuthModal })));
 
 // ── Traducciones ─────────────────────────────────────────────────────────────
 
@@ -772,18 +772,13 @@ function Detail({ entity, onClose, lang, supabaseMap = {} }) {
           {context}
         </p>
         <div style={{ marginBottom:"24px" }}>
-          <ResponsiveContainer width="100%" height={260}>
-            <RadarChart data={PARAMS_TRANS.es.map(p => ({ param: (lang === "en" ? PARAM_SHORT_EN : PARAM_SHORT)[p.id], label: p.label, value: entity.params[p.id] }))} margin={{ top:12, right:44, bottom:12, left:44 }}>
-              <PolarGrid stroke="rgba(255,255,255,0.08)" gridType="polygon" />
-              <PolarAngleAxis dataKey="param" tick={{ fill:"rgba(255,255,255,0.45)", fontFamily:"'DM Mono',monospace", fontSize:9.5 }} />
-              <PolarRadiusAxis domain={[0,10]} tick={false} axisLine={false} />
-              <Tooltip content={<RadarTooltip />} cursor={false} />
-              <Radar dataKey="value" stroke="#ff6600" strokeWidth={1.5} fill="#ff6600" fillOpacity={0.4}
-                dot={{ r:3, fill:"#ff6600", strokeWidth:0 }}
-                activeDot={{ r:5, fill:"#ff6600", stroke:"rgba(255,255,255,0.25)", strokeWidth:1 }}
-              />
-            </RadarChart>
-          </ResponsiveContainer>
+          <Suspense fallback={null}>
+            <RadarSection
+              data={PARAMS_TRANS.es.map(p => ({ param: (lang === "en" ? PARAM_SHORT_EN : PARAM_SHORT)[p.id], label: p.label, value: entity.params[p.id] }))}
+              colors={["#ff6600"]}
+              CustomTooltip={RadarTooltip}
+            />
+          </Suspense>
         </div>
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"20px" }}>
           <p style={{ fontSize:"9px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase", marginBottom:"16px" }}>
