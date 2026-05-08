@@ -1017,7 +1017,7 @@ export const speeches = [
     iraLabel: 'Mixto, tendencia empática',
     iraLabelEn: 'Mixed, empathic tendency',
     classification: 'mixto',
-    wordCount: 3200,
+    wordCount: 2490,
     summary: 'Discurso de estadista multilateralista ante la Asamblea General de la ONU. El registro oscila entre la esperanza racional y la indignación justa ante las guerras y el retroceso democrático. El «nosotros» aspira a abrazar a la humanidad entera, pero la dicotomía entre democracia y «agenda reaccionaria» introduce una falla en la apertura dialógica.',
     summaryEn: 'A multilateralist statesman\'s address to the UN General Assembly. The register oscillates between rational hope and righteous indignation at wars and democratic backsliding. The "we" aspires to embrace all of humanity, but the dichotomy between democracy and the "reactionary agenda" introduces a fault line in the dialogic openness.',
     params: [
