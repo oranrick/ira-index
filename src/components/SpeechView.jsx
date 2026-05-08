@@ -133,6 +133,10 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
   const openTranscript = async () => {
     setTranscriptOpen(true);
     if (transcriptText) return;
+    if (speech.transcript) {
+      setTranscriptText(speech.transcript);
+      return;
+    }
     setTranscriptLoading(true);
     try {
       const res = await fetch(
@@ -260,7 +264,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
         {/* Annotated text */}
         <div style={styles.textColumn} ref={containerRef}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-            <p style={{ ...styles.sectionLabel, margin: 0 }}>{T.annotatedFragment}</p>
+            <p style={{ ...styles.sectionLabel, margin: 0, color: 'rgba(255,102,0,0.75)', letterSpacing: '0.18em' }}>{T.annotatedFragment}</p>
             {showTranslationToggle && (
               <button
                 onClick={() => setShowTranslation((v) => !v)}
