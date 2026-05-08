@@ -1840,16 +1840,18 @@ export default function App() {
       {selected && <Detail entity={selected} onClose={() => setSelected(null)} lang={lang} supabaseMap={supabaseMap} />}
       {showIRA && <IRAModal onClose={() => setShowIRA(false)} lang={lang} />}
       {showAuth && (
-        <AuthModal
-          lang={lang}
-          defaultMode={authDefaultMode}
-          onClose={() => { setShowAuth(false); setPendingAction(null); }}
-          onSuccess={() => {
-            setShowAuth(false);
-            pendingAction?.();
-            setPendingAction(null);
-          }}
-        />
+        <Suspense fallback={null}>
+          <AuthModal
+            lang={lang}
+            defaultMode={authDefaultMode}
+            onClose={() => { setShowAuth(false); setPendingAction(null); }}
+            onSuccess={() => {
+              setShowAuth(false);
+              pendingAction?.();
+              setPendingAction(null);
+            }}
+          />
+        </Suspense>
       )}
       {confirmedToast && (
         <ConfirmedToast lang={lang} onDone={() => setConfirmedToast(false)} />
