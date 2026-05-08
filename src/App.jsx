@@ -353,7 +353,7 @@ const ENTITIES = [
     },
   },
   {
-    id: "ardern", name: "Jacinda Ardern", category: "Político", country: "Nueva Zelanda", flag: "🇳🇿",
+    id: "ardern", name: "Jacinda Ardern", breakName: true, category: "Político", country: "Nueva Zelanda", flag: "🇳🇿",
     photo: "/images/ardern.jpg",
     photoCredit: "Gobierno de Nueva Zelanda",
     score: 8.75,
@@ -666,7 +666,9 @@ function EntityCard({ entity, onClick, lang }) {
             <Badge label={catLabel} color={catColor(entity.category)} />
           </div>
           <h3 style={{ margin:0, fontSize:"16px", fontWeight:700, color:"#fff", fontFamily:"'Syne',sans-serif", letterSpacing:"-0.02em" }}>
-            {entity.name}
+            {entity.breakName && entity.name.includes(' ')
+              ? <>{entity.name.split(' ')[0]}<br/>{entity.name.split(' ').slice(1).join(' ')}</>
+              : entity.name}
           </h3>
           <p style={{ margin:"2px 0 0", fontSize:"10px", color:"rgba(255,255,255,0.3)", letterSpacing:"0.04em" }}>{entity.country}</p>
         </div>
