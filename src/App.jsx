@@ -13,7 +13,7 @@ const AuthModal    = lazy(() => import("./components/AuthModal").then(m => ({ de
 
 const TEXTS = {
   es: {
-    subtitle:        "Medición del lenguaje empático y polarizador en políticos, medios y países. Escala 0–10. Analiza cualquier texto con IA.",
+    subtitle:        "Medición del lenguaje empático y polarizador en políticos y medios. Escala 0–10. Analiza cualquier texto con IA.",
     btnWhat:         "¿QUÉ ES EL IRA?",
     tabExplore:      "Explorar",
     tabAnalyze:      "Analizar texto",
@@ -91,7 +91,7 @@ const TEXTS = {
     modalOriginPost: ", de Ricardo Grisales Ramírez, Trabajo Fin de Grado en Periodismo, Universidad Complutense de Madrid, junio de 2024. La metodología analiza discursos de Donald Trump, Gustavo Petro, Claudia Sheinbaum y Jacinda Ardern aplicando el Análisis Crítico del Discurso desde una perspectiva emocional y retórica.",
   },
   en: {
-    subtitle:        "Measuring empathic and polarizing language in politicians, media and countries. Scale 0–10. Analyze any text with AI.",
+    subtitle:        "Measuring empathic and polarizing language in politicians and media. Scale 0–10. Analyze any text with AI.",
     btnWhat:         "WHAT IS THE IRA?",
     tabExplore:      "Explore",
     tabAnalyze:      "Analyze text",
