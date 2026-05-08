@@ -906,6 +906,7 @@ function Detail({ entity, onClose, lang, supabaseMap = {} }) {
           speeches={getSpeechesByEntity(entity.id).map(s => mergeSpeech(s, supabaseMap[s.id]))}
           onSelectSpeech={setActiveSpeechId}
           lang={lang}
+          fromTFG={['trump','petro','sheinbaum','ardern'].includes(entity.id)}
         />
         <button onClick={onClose} style={{
           marginTop:"20px", width:"100%", padding:"11px",

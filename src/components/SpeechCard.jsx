@@ -29,7 +29,7 @@ const CARD_TEXTS = {
   },
 };
 
-export function SpeechesSection({ entityId, speeches: speechesProp, onSelectSpeech, lang = 'es' }) {
+export function SpeechesSection({ entityId, speeches: speechesProp, onSelectSpeech, lang = 'es', fromTFG = false }) {
   const speeches = speechesProp ?? getSpeechesByEntity(entityId);
   if (!speeches.length) return null;
   const T = CARD_TEXTS[lang] || CARD_TEXTS.es;
@@ -41,9 +41,11 @@ export function SpeechesSection({ entityId, speeches: speechesProp, onSelectSpee
         <h3 style={styles.sectionTitle}>{T.speechesTitle}</h3>
         <span style={styles.sectionBadge}>{speeches.length}</span>
       </div>
-      <p style={styles.sectionDesc}>
-        {T.speechesDesc} <em>El contagio de las palabras</em> (UCM, 2024)
-      </p>
+      {fromTFG && (
+        <p style={styles.sectionDesc}>
+          {T.speechesDesc} <em>El contagio de las palabras</em> (UCM, 2024)
+        </p>
+      )}
       <div style={styles.grid}>
         {speeches.map((speech) => (
           <SpeechCard key={speech.id} speech={speech} onClick={() => onSelectSpeech(speech.id)} lang={lang} />
