@@ -628,11 +628,11 @@ function FlagEmoji({ emoji, size = 18 }) {
   );
 }
 
-function ScoreRing({ score, size = 80, stroke = 5 }) {
+function ScoreRing({ score, size = 80, stroke = 5, color }) {
   const r = (size - stroke * 2) / 2;
   const circ = 2 * Math.PI * r;
   const offset = circ - (score / 10) * circ;
-  const col = scoreColor(score);
+  const col = color ?? scoreColor(score);
   return (
     <svg width={size} height={size} style={{ transform: "rotate(-90deg)", flexShrink: 0 }}>
       <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={stroke} />
@@ -656,7 +656,6 @@ function Badge({ label, color }) {
 function EntityCard({ entity, onClick, lang }) {
   const { accent } = useContext(AccentContext);
   const [hov, setHov] = useState(false);
-  const col = scoreColor(entity.score ?? 5);
   const T = TEXTS[lang];
   const catLabel = CAT_TRANS[lang][entity.category] || entity.category;
   return (
@@ -690,9 +689,9 @@ function EntityCard({ entity, onClick, lang }) {
           <p style={{ margin:"2px 0 0", fontSize:"10px", color:"rgba(255,255,255,0.3)", letterSpacing:"0.04em" }}>{entity.country}</p>
         </div>
         <div style={{ position:"relative", flexShrink:0 }}>
-          <ScoreRing score={entity.score ?? 0} size={64} stroke={4} />
+          <ScoreRing score={entity.score ?? 0} size={64} stroke={4} color={accent} />
           <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-            <span style={{ fontSize:"14px", fontWeight:700, color:col, fontFamily:"'DM Mono',monospace" }}>
+            <span style={{ fontSize:"14px", fontWeight:700, color:accent, fontFamily:"'DM Mono',monospace" }}>
               {entity.score != null ? entity.score.toFixed(2) : '—'}
             </span>
           </div>
@@ -775,7 +774,6 @@ function Detail({ entity, onClose, lang, supabaseMap = {} }) {
   const [activeSpeechId, setActiveSpeechId] = useState(null);
   useEffect(() => { setTimeout(() => setMounted(true), 20); }, []);
   const activeSpeech = mergeSpeech(activeSpeechId ? getSpeechById(activeSpeechId) : null, supabaseMap[activeSpeechId]);
-  const col = scoreColor(entity.score);
   const T = TEXTS[lang];
   const params = PARAMS_TRANS[lang];
   const details = PARAM_DETAILS_TRANS[lang];
@@ -807,9 +805,9 @@ function Detail({ entity, onClose, lang, supabaseMap = {} }) {
             <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.3)" }}>{entity.country}</p>
           </div>
           <div style={{ position:"relative" }}>
-            <ScoreRing score={entity.score} size={88} stroke={5} />
+            <ScoreRing score={entity.score} size={88} stroke={5} color={accent} />
             <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-              <span style={{ fontSize:"20px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", display:"block" }}>
+              <span style={{ fontSize:"20px", fontWeight:800, color:accent, fontFamily:"'DM Mono',monospace", display:"block" }}>
                 {entity.score.toFixed(2)}
               </span>
               <span style={{ fontSize:"8px", color:"rgba(255,255,255,0.25)", letterSpacing:"0.08em" }}>IRA</span>
