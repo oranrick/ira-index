@@ -689,9 +689,9 @@ function EntityCard({ entity, onClick, lang }) {
           <p style={{ margin:"2px 0 0", fontSize:"10px", color:"rgba(255,255,255,0.3)", letterSpacing:"0.04em" }}>{entity.country}</p>
         </div>
         <div style={{ position:"relative", flexShrink:0 }}>
-          <ScoreRing score={entity.score ?? 0} size={64} stroke={4} color={accent} />
+          <ScoreRing score={entity.score ?? 0} size={64} stroke={4} color={scoreColor(entity.score ?? 0)} />
           <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-            <span style={{ fontSize:"14px", fontWeight:700, color:accent, fontFamily:"'DM Mono',monospace" }}>
+            <span style={{ fontSize:"14px", fontWeight:700, color:scoreColor(entity.score ?? 0), fontFamily:"'DM Mono',monospace" }}>
               {entity.score != null ? entity.score.toFixed(2) : '—'}
             </span>
           </div>
@@ -782,7 +782,7 @@ function Detail({ entity, onClose, lang, supabaseMap = {} }) {
   return (<>
     <div onClick={onClose} style={{
       position:"fixed", inset:0, zIndex:200,
-      background:"rgba(8,8,12,0.88)", backdropFilter:"blur(20px)",
+      background:"rgba(14,14,20,0.88)", backdropFilter:"blur(20px)",
       display:"flex", alignItems:"center", justifyContent:"center",
       opacity: mounted ? 1 : 0, transition:"opacity 0.3s ease", padding:"20px",
     }}>
@@ -805,9 +805,9 @@ function Detail({ entity, onClose, lang, supabaseMap = {} }) {
             <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.3)" }}>{entity.country}</p>
           </div>
           <div style={{ position:"relative" }}>
-            <ScoreRing score={entity.score} size={88} stroke={5} color={accent} />
+            <ScoreRing score={entity.score} size={88} stroke={5} color={scoreColor(entity.score)} />
             <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-              <span style={{ fontSize:"20px", fontWeight:800, color:accent, fontFamily:"'DM Mono',monospace", display:"block" }}>
+              <span style={{ fontSize:"20px", fontWeight:800, color:scoreColor(entity.score), fontFamily:"'DM Mono',monospace", display:"block" }}>
                 {entity.score.toFixed(2)}
               </span>
               <span style={{ fontSize:"8px", color:"rgba(255,255,255,0.25)", letterSpacing:"0.08em" }}>IRA</span>
@@ -938,7 +938,7 @@ function Detail({ entity, onClose, lang, supabaseMap = {} }) {
     {activeSpeech && (
       <div style={{
         position:"fixed", inset:0, zIndex:250,
-        background:"#08080c", overflowY:"auto",
+        background:"#0e0e14", overflowY:"auto",
       }}>
         <SpeechView speech={activeSpeech} onBack={() => setActiveSpeechId(null)} lang={lang} />
       </div>
@@ -1274,7 +1274,7 @@ function ShareCard({ result, cardRef }) {
   return (
     <div ref={cardRef} style={{
       position:'fixed', left:'-9999px', top:0,
-      width:'480px', background:'#08080c',
+      width:'480px', background:'#0e0e14',
       padding:'28px 32px 24px', boxSizing:'border-box',
       fontFamily:'DM Mono,monospace',
       border:`1px solid ${accent === '#0066ff' ? 'rgba(0,102,255,0.25)' : 'rgba(255,102,0,0.25)'}`, borderRadius:'16px',
@@ -1334,7 +1334,7 @@ function AnalysisResult({ result, onReset, lang }) {
     try {
       const { default: html2canvas } = await import('html2canvas');
       const canvas = await html2canvas(cardRef.current, {
-        backgroundColor: '#08080c', scale: 2, logging: false,
+        backgroundColor: '#0e0e14', scale: 2, logging: false,
         useCORS: true, allowTaint: true,
       });
       const link = document.createElement('a');
@@ -1688,7 +1688,7 @@ export default function App() {
 
   return (
     <AccentContext.Provider value={{ accent, accentA, mode }}>
-    <div style={{ minHeight:"100vh", background:"#08080c", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
+    <div style={{ minHeight:"100vh", background:"#0e0e14", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
       <style>{`
         @keyframes b1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,-40px) scale(1.15); } }
         @keyframes b2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,60px) scale(1.2); } }
@@ -1722,6 +1722,18 @@ export default function App() {
 
       {/* ── Contenido (siempre encima del fondo) ── */}
       <div style={{ position:"relative", zIndex:1 }}>
+
+      {/* Enlace fijo superior izquierda: volver a oranrick.com */}
+      <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" style={{
+        position:"fixed", top:"20px", left:"24px", zIndex:400,
+        fontFamily:"'DM Mono',monospace", fontSize:"11px", fontWeight:700,
+        color:accent, letterSpacing:"0.04em",
+        border:`1.5px solid ${accentA(0.45)}`,
+        borderRadius:"20px", padding:"5px 13px",
+        background:accentA(0.08),
+        textDecoration:"none",
+        transition:"background 0.2s",
+      }}>← oranrick.com</a>
 
       {/* Barra fija superior derecha: auth + lang */}
       <div style={{ position:"fixed", top:"20px", right:"24px", zIndex:400, display:"flex", alignItems:"center", gap:"10px" }}>
@@ -1890,7 +1902,7 @@ export default function App() {
               </p>
               <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.15)", letterSpacing:"0.04em" }}>
                 {lang === "es" ? "Desarrollado por" : "Developed by"}{" "}
-                <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" style={{ color:"rgba(255,102,0,0.55)", textDecoration:"none" }}>
+                <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" style={{ color:"rgba(255,102,0,0.9)", textDecoration:"none" }}>
                   Rick Grisales — oranrick.com
                 </a>
               </p>
