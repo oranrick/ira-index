@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="g1" cx="25%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#ff6600" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#08080c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="80%" cy="70%" r="45%">
+      <stop offset="0%" stop-color="#5ba8d4" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#08080c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#08080c"/>
+  <rect width="1200" height="630" fill="url(#g1)"/>
+  <rect width="1200" height="630" fill="url(#g2)"/>
+  <!-- Top tag -->
+  <rect x="80" y="80" width="220" height="36" rx="6" fill="rgba(255,102,0,0.12)" stroke="rgba(255,102,0,0.35)" stroke-width="1"/>
+  <text x="190" y="103" font-family="'DM Mono', monospace, sans-serif" font-size="13" fill="rgba(255,102,0,0.9)" text-anchor="middle" letter-spacing="2">HERRAMIENTA · IA</text>
+  <!-- IRA acronym -->
+  <text x="80" y="230" font-family="'Syne', sans-serif" font-size="130" font-weight="800" fill="#ff6600" letter-spacing="-4" opacity="0.95">IRA</text>
+  <!-- Full title -->
+  <text x="80" y="285" font-family="'Syne', sans-serif" font-size="28" font-weight="700" fill="rgba(255,255,255,0.85)" letter-spacing="0.5">Índice de Resonancia Afectiva</text>
+  <!-- Divider -->
+  <rect x="80" y="310" width="80" height="2" rx="1" fill="#ff6600" opacity="0.6"/>
+  <!-- Subtitle -->
+  <text x="80" y="360" font-family="'DM Mono', monospace, sans-serif" font-size="17" fill="rgba(255,255,255,0.45)" letter-spacing="0.2">Medición del lenguaje empático y polarizador</text>
+  <text x="80" y="385" font-family="'DM Mono', monospace, sans-serif" font-size="17" fill="rgba(255,255,255,0.45)" letter-spacing="0.2">en políticos y medios. Escala 0–10.</text>
+  <!-- Score bar visual -->
+  <rect x="80" y="445" width="600" height="8" rx="4" fill="rgba(255,255,255,0.06)"/>
+  <rect x="80" y="445" width="187" height="8" rx="4" fill="#e05252"/>
+  <rect x="267" y="445" width="163" height="8" rx="4" fill="#e8a838"/>
+  <rect x="430" y="445" width="250" height="8" rx="4" fill="#6ec6a0"/>
+  <text x="80" y="470" font-family="'DM Mono', monospace, sans-serif" font-size="11" fill="rgba(255,255,255,0.2)" letter-spacing="1">0 — POLARIZADOR</text>
+  <text x="680" y="470" font-family="'DM Mono', monospace, sans-serif" font-size="11" fill="rgba(255,255,255,0.2)" letter-spacing="1" text-anchor="end">10 — EMPÁTICO</text>
+  <!-- Attribution -->
+  <text x="80" y="570" font-family="'DM Mono', monospace, sans-serif" font-size="14" fill="rgba(255,255,255,0.22)" letter-spacing="0.3">Desarrollado por Rick Grisales — oranrick.com</text>
+  <!-- Right decoration: rings -->
+  <circle cx="980" cy="315" r="160" fill="none" stroke="rgba(255,102,0,0.07)" stroke-width="40"/>
+  <circle cx="980" cy="315" r="100" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <text x="980" y="295" font-family="'Syne', sans-serif" font-size="56" font-weight="800" fill="rgba(255,102,0,0.2)" text-anchor="middle">8.75</text>
+  <text x="980" y="340" font-family="'DM Mono', monospace, sans-serif" font-size="12" fill="rgba(255,255,255,0.15)" text-anchor="middle" letter-spacing="1">ARDERN · 🇳🇿</text>
+</svg>

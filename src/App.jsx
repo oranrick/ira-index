@@ -1883,10 +1883,16 @@ export default function App() {
               ))}
             </div>
             <div style={{ marginTop:"40px", padding:"20px", background:"rgba(255,255,255,0.02)", borderRadius:"12px", border:"1px solid rgba(255,255,255,0.05)" }}>
-              <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.18)", lineHeight:1.7, letterSpacing:"0.04em" }}>
+              <p style={{ margin:"0 0 10px", fontSize:"10px", color:"rgba(255,255,255,0.18)", lineHeight:1.7, letterSpacing:"0.04em" }}>
                 {T.footerBasedOn}{" "}
                 <em style={{ color:"rgba(255,255,255,0.3)" }}>{T.footerText}</em>{" "}
                 {T.footerSub}
+              </p>
+              <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.15)", letterSpacing:"0.04em" }}>
+                {lang === "es" ? "Desarrollado por" : "Developed by"}{" "}
+                <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" style={{ color:"rgba(255,102,0,0.55)", textDecoration:"none" }}>
+                  Rick Grisales — oranrick.com
+                </a>
               </p>
             </div>
           </>
