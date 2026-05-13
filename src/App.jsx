@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense, createContext, useContext } from "react";
+import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
 import { getSpeechById, getSpeechesByEntity } from "./data/speeches";
@@ -13,6 +14,14 @@ const AccentContext = createContext({
   accent: '#ff6600',
   accentA: (a) => `rgba(255,102,0,${a})`,
   mode: 'politico',
+});
+
+const AppContext = createContext({
+  lang: 'es', setLang: () => {},
+  supabaseMap: {}, supabaseReady: false,
+  enrichedEntities: [],
+  requireAuth: () => {}, openLogin: () => {},
+  user: null, profile: null, signOut: () => {},
 });
 
 // ── Traducciones ─────────────────────────────────────────────────────────────
@@ -653,13 +662,14 @@ function Badge({ label, color }) {
   );
 }
 
-function EntityCard({ entity, onClick, lang }) {
+function EntityCard({ entity, lang }) {
+  const navigate = useNavigate();
   const { accent } = useContext(AccentContext);
   const [hov, setHov] = useState(false);
   const T = TEXTS[lang];
   const catLabel = CAT_TRANS[lang][entity.category] || entity.category;
   return (
-    <div onClick={() => onClick(entity)}
+    <div onClick={() => navigate(`/entity/${entity.id}`)}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{
         background: hov ? "rgba(255,255,255,0.055)" : "rgba(255,255,255,0.025)",
@@ -767,31 +777,62 @@ function mergeSpeech(speech, row) {
   };
 }
 
-function Detail({ entity, onClose, lang, supabaseMap = {} }) {
-  const { accent, accentA } = useContext(AccentContext);
+function EntityDetailPage() {
+  const { entityId } = useParams();
+  const navigate = useNavigate();
+  const { lang, supabaseMap } = useContext(AppContext);
   const [mounted, setMounted] = useState(false);
   const [expanded, setExpanded] = useState(null);
   const [activeSpeechId, setActiveSpeechId] = useState(null);
+
+  const entity = ENTITIES.find(e => e.id === entityId);
   useEffect(() => { setTimeout(() => setMounted(true), 20); }, []);
+
+  if (!entity) return <Navigate to="/" replace />;
+
+  const accent = entity.category === 'Medio' ? '#0066ff' : '#ff6600';
+  const accentA = (a) => entity.category === 'Medio' ? `rgba(0,102,255,${a})` : `rgba(255,102,0,${a})`;
+
   const activeSpeech = mergeSpeech(activeSpeechId ? getSpeechById(activeSpeechId) : null, supabaseMap[activeSpeechId]);
   const T = TEXTS[lang];
   const params = PARAMS_TRANS[lang];
   const details = PARAM_DETAILS_TRANS[lang];
   const catLabel = CAT_TRANS[lang][entity.category] || entity.category;
   const context = lang === "en" && entity.contextEn ? entity.contextEn : entity.context;
-  return (<>
-    <div onClick={onClose} style={{
-      position:"fixed", inset:0, zIndex:200,
-      background:"rgba(14,14,20,0.88)", backdropFilter:"blur(20px)",
-      display:"flex", alignItems:"center", justifyContent:"center",
-      opacity: mounted ? 1 : 0, transition:"opacity 0.3s ease", padding:"20px",
-    }}>
-      <div onClick={e => e.stopPropagation()} style={{
-        background:"#0e0e14", border:"1px solid rgba(255,255,255,0.09)",
-        borderRadius:"20px", padding:"32px", maxWidth:"520px", width:"100%",
-        maxHeight:"88vh", overflowY:"auto",
-        transform: mounted ? "translateY(0)" : "translateY(20px)",
-        transition:"transform 0.35s cubic-bezier(0.4,0,0.2,1)",
+  return (
+    <AccentContext.Provider value={{ accent, accentA, mode: entity.category === 'Medio' ? 'medios' : 'politico' }}>
+    <div style={{ minHeight:"100vh", background:"#0e0e14", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
+      <style>{`
+        @keyframes b1dp { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(60px,-40px) scale(1.15); } }
+        @keyframes b2dp { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(-50px,60px) scale(1.2); } }
+        @keyframes b3dp { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(40px,50px) scale(1.1); } }
+      `}</style>
+      <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
+        <div style={{ position:"absolute", top:"-20%", left:"15%", width:"70vw", height:"70vh", borderRadius:"50%",
+          background:`radial-gradient(ellipse at center, ${accentA(0.15)} 0%, ${accentA(0.08)} 40%, transparent 68%)`,
+          animation:"b1dp 20s ease-in-out infinite" }} />
+        <div style={{ position:"absolute", bottom:"-25%", right:"-10%", width:"70vw", height:"70vh", borderRadius:"50%",
+          background:`radial-gradient(ellipse at center, ${accentA(0.1)} 0%, transparent 68%)`,
+          animation:"b2dp 28s ease-in-out infinite" }} />
+        <div style={{ position:"absolute", top:"25%", left:"-18%", width:"70vw", height:"70vh", borderRadius:"50%",
+          background:`radial-gradient(ellipse at center, ${accentA(0.08)} 0%, transparent 68%)`,
+          animation:"b3dp 16s ease-in-out infinite" }} />
+      </div>
+      <button onClick={() => { if (window.history.length > 1) navigate(-1); else navigate('/'); }}
+        className="top-nav-left"
+        style={{
+          fontFamily:"'DM Mono',monospace", fontSize:"11px", fontWeight:700,
+          color:accent, letterSpacing:"0.04em",
+          border:`1.5px solid ${accentA(0.45)}`,
+          borderRadius:"20px", padding:"5px 13px",
+          background:accentA(0.08), cursor:"pointer",
+          transition:"background 0.2s",
+        }}>← {T.back}</button>
+      <div style={{ position:"relative", zIndex:1 }}>
+      <div className="detail-page" style={{
+        opacity: mounted ? 1 : 0,
+        transform: mounted ? "none" : "translateY(20px)",
+        transition:"all 0.4s ease",
       }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"24px" }}>
           <div>
@@ -927,23 +968,18 @@ function Detail({ entity, onClose, lang, supabaseMap = {} }) {
           lang={lang}
           fromTFG={['trump','petro','sheinbaum','ardern'].includes(entity.id)}
         />
-        <button onClick={onClose} style={{
-          marginTop:"20px", width:"100%", padding:"11px",
-          background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)",
-          borderRadius:"10px", color:"rgba(255,255,255,0.4)", fontSize:"11px",
-          cursor:"pointer", letterSpacing:"0.08em",
-        }}>{T.close}</button>
-      </div>
-    </div>
-    {activeSpeech && (
-      <div style={{
-        position:"fixed", inset:0, zIndex:250,
-        background:"#0e0e14", overflowY:"auto",
-      }}>
-        <SpeechView speech={activeSpeech} onBack={() => setActiveSpeechId(null)} lang={lang} />
-      </div>
-    )}
-  </>
+      </div>{/* fin detail-page */}
+      </div>{/* fin zIndex:1 */}
+      {activeSpeech && (
+        <div style={{
+          position:"fixed", inset:0, zIndex:250,
+          background:"#0e0e14", overflowY:"auto",
+        }}>
+          <SpeechView speech={activeSpeech} onBack={() => setActiveSpeechId(null)} lang={lang} />
+        </div>
+      )}
+    </div>{/* fin page */}
+    </AccentContext.Provider>
   );
 }
 
@@ -1565,6 +1601,231 @@ function WelcomeModal({ lang, onClose }) {
   );
 }
 
+// ── MainView ─────────────────────────────────────────────────────────────────
+
+function MainView({ mode = 'politico', tab = 'explore' }) {
+  const navigate = useNavigate();
+  const { lang, setLang, enrichedEntities, requireAuth, openLogin, user, profile, signOut } = useContext(AppContext);
+  const [showIRA, setShowIRA] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  const accent = mode === 'medios' ? '#0066ff' : '#ff6600';
+  const accentA = (a) => mode === 'medios' ? `rgba(0,102,255,${a})` : `rgba(255,102,0,${a})`;
+
+  useEffect(() => {
+    setTimeout(() => setMounted(true), 60);
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes blob1 { 0% { transform:translate(0,0) scale(1); } 25% { transform:translate(40px,-28px) scale(1.04); } 50% { transform:translate(-30px,22px) scale(0.97); } 75% { transform:translate(20px,-14px) scale(1.02); } 100% { transform:translate(0,0) scale(1); } }
+      @keyframes blob2 { 0% { transform:translate(0,0) scale(1); } 30% { transform:translate(-38px,-24px) scale(1.06); } 60% { transform:translate(20px,34px) scale(0.93); } 100% { transform:translate(0,0) scale(1); } }
+      @keyframes blob3 { 0% { transform:translate(0,0) scale(1); } 40% { transform:translate(28px,42px) scale(1.07); } 70% { transform:translate(-18px,14px) scale(0.96); } 100% { transform:translate(0,0) scale(1); } }
+    `;
+    document.head.appendChild(style);
+    return () => { try { document.head.removeChild(style); } catch {} };
+  }, []);
+
+  const T = TEXTS[lang];
+  const filtered = enrichedEntities.filter(e => e.category === (mode === 'medios' ? 'Medio' : 'Político'));
+
+  return (
+    <AccentContext.Provider value={{ accent, accentA, mode }}>
+    <div style={{ minHeight:"100vh", background:"#0e0e14", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
+      <style>{`
+        @keyframes b1 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(60px,-40px) scale(1.15); } }
+        @keyframes b2 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(-50px,60px) scale(1.2); } }
+        @keyframes b3 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(40px,50px) scale(1.1); } }
+        @keyframes wcPulse { 0%,100% { opacity:1; box-shadow:0 0 8px ${accent}; } 50% { opacity:0.5; box-shadow:0 0 16px ${accent}; } }
+      `}</style>
+
+      <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
+        <div style={{ position:"absolute", top:"-20%", left:"15%", width:"70vw", height:"70vh", borderRadius:"50%",
+          background:`radial-gradient(ellipse at center, ${accentA(0.15)} 0%, ${accentA(0.08)} 40%, transparent 68%)`,
+          animation:"b1 20s ease-in-out infinite" }} />
+        <div style={{ position:"absolute", bottom:"-25%", right:"-10%", width:"70vw", height:"70vh", borderRadius:"50%",
+          background: mode === 'medios'
+            ? `radial-gradient(ellipse at center, rgba(0,50,180,0.15) 0%, rgba(0,10,26,0.09) 45%, transparent 70%)`
+            : `radial-gradient(ellipse at center, rgba(180,50,0,0.15) 0%, rgba(26,10,0,0.09) 45%, transparent 70%)`,
+          animation:"b2 28s ease-in-out infinite" }} />
+        <div style={{ position:"absolute", top:"25%", left:"-18%", width:"70vw", height:"70vh", borderRadius:"50%",
+          background:`radial-gradient(ellipse at center, ${accentA(0.15)} 0%, transparent 68%)`,
+          animation:"b3 16s ease-in-out infinite" }} />
+      </div>
+
+      <div style={{ position:"relative", zIndex:1 }}>
+
+      <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" className="top-nav-left" style={{
+        fontFamily:"'DM Mono',monospace", fontSize:"11px", fontWeight:700,
+        color:accent, letterSpacing:"0.04em",
+        border:`1.5px solid ${accentA(0.45)}`,
+        borderRadius:"20px", padding:"5px 13px",
+        background:accentA(0.08), textDecoration:"none",
+        transition:"background 0.2s",
+      }}>← oranrick.com</a>
+
+      <div className="top-nav-right">
+        {user ? (
+          <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+            <span style={{
+              fontSize:"11px", color:accent, fontFamily:"'DM Mono',monospace", fontWeight:700,
+              border:`1.5px solid ${accentA(0.6)}`, borderRadius:"20px", padding:"5px 13px",
+              maxWidth:"150px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap",
+              background:accentA(0.08), letterSpacing:"0.04em",
+            }}>
+              {profile?.username ?? user.email?.split('@')[0]}
+            </span>
+            <button onClick={() => signOut()}
+              style={{ padding:"6px 14px", borderRadius:"20px", background:accentA(0.08),
+                border:`1.5px solid ${accentA(0.45)}`, color:accent, fontSize:"10px",
+                letterSpacing:"0.1em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700, transition:"all 0.2s ease" }}
+              onMouseEnter={e => { e.currentTarget.style.background=accentA(0.18); e.currentTarget.style.borderColor=accentA(0.8); }}
+              onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.45); }}
+            >{lang === "es" ? "Salir" : "Sign out"}</button>
+          </div>
+        ) : (
+          <button onClick={openLogin}
+            style={{ padding:"7px 14px", borderRadius:"20px", background:accentA(0.08),
+              border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
+              letterSpacing:"0.12em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+              transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
+            onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); }}
+            onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); }}
+          >{lang === "es" ? "Iniciar sesión" : "Sign in"}</button>
+        )}
+        <button
+          onClick={() => setLang(l => { const next = l==="es"?"en":"es"; localStorage.setItem('ira-lang',next); return next; })}
+          style={{ display:"flex", alignItems:"center", gap:"5px", padding:"7px 14px", borderRadius:"20px",
+            background:accentA(0.08), border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
+            letterSpacing:"0.18em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+            transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
+          onMouseEnter={e => { e.currentTarget.style.background=accentA(0.18); e.currentTarget.style.borderColor=accentA(0.7); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
+          onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
+        >
+          <span style={{ opacity:0.45, fontSize:"9px" }}>{lang==="es"?"ES":"EN"}</span>
+          <span style={{ color:accentA(0.3) }}>·</span>
+          <span>{lang==="es"?"EN":"ES"}</span>
+        </button>
+      </div>
+
+      <div className="main-container">
+        <div style={{ marginBottom:"44px", opacity:mounted?1:0, transform:mounted?"none":"translateY(16px)", transition:"all 0.6s ease" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"12px" }}>
+            <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:accent, boxShadow:`0 0 10px ${accent}` }} />
+            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>{T.headerTag}</span>
+          </div>
+          <h1 style={{ margin:"0 0 8px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"'Syne',sans-serif", color:"#fff", letterSpacing:"-0.04em", lineHeight:1.05 }}>
+            IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
+            <span style={{ color:accent }}>Resonancia</span>
+          </h1>
+          <p style={{ margin:"0 0 20px", fontSize:"12px", color:"rgba(255,255,255,0.3)", lineHeight:1.65, maxWidth:"500px" }}>
+            {mode === 'medios' ? T.subtitleMedios : T.subtitle}
+          </p>
+          <button onClick={() => setShowIRA(true)} style={{
+            padding:"13px 28px", borderRadius:"12px", background:accent, border:"none",
+            color:"#000", fontSize:"13px", fontWeight:700, letterSpacing:"0.04em", cursor:"pointer",
+            fontFamily:"'DM Mono',monospace", boxShadow:`0 0 24px ${accentA(0.35)}`, transition:"all 0.2s ease" }}
+            onMouseEnter={e => { e.currentTarget.style.background=mode==='medios'?"#3385ff":"#ff8533"; e.currentTarget.style.boxShadow=`0 0 32px ${accentA(0.55)}`; }}
+            onMouseLeave={e => { e.currentTarget.style.background=accent; e.currentTarget.style.boxShadow=`0 0 24px ${accentA(0.35)}`; }}
+          >{T.btnWhat}</button>
+        </div>
+
+        <div className="mode-toggle-row" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease 0.1s" }}>
+          {[
+            ['politico', T.modeTogglePolitico, '#ff6600', (a) => `rgba(255,102,0,${a})`, '/politicos'],
+            ['medios',   T.modeToggleMedios,   '#0066ff', (a) => `rgba(0,102,255,${a})`, '/medios'],
+          ].map(([id, label, col, colA, path]) => (
+            <button key={id} onClick={() => navigate(path)} style={{
+              padding:"10px 28px", borderRadius:"11px",
+              background: mode===id ? colA(0.18) : "transparent",
+              border: mode===id ? `1px solid ${colA(0.5)}` : "1px solid transparent",
+              color: mode===id ? col : "rgba(255,255,255,0.35)",
+              fontSize:"11px", letterSpacing:"0.1em", textTransform:"uppercase",
+              cursor:"pointer", transition:"all 0.25s ease",
+              fontFamily:"'DM Mono',monospace", fontWeight:700,
+            }}>{label}</button>
+          ))}
+        </div>
+
+        <div className="tabs-row" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
+          {[
+            ["explore", T.tabExplore, mode === 'medios' ? '/medios' : '/politicos', false],
+            ["analyze", T.tabAnalyze, '/analyze', true],
+            ["compare", T.tabCompare, '/compare', true],
+          ].map(([id, label, path, needsAuth]) => (
+            <button key={id} onClick={() => {
+              if (needsAuth && !user) { requireAuth(() => navigate(path)); }
+              else { navigate(path); }
+            }} style={{
+              padding:"8px 18px", borderRadius:"9px",
+              background: tab===id ? accentA(0.18) : "transparent",
+              border: tab===id ? `1px solid ${accentA(0.4)}` : "1px solid transparent",
+              color: tab===id ? accent : "rgba(255,255,255,0.35)",
+              fontSize:"10px", letterSpacing:"0.1em", textTransform:"uppercase",
+              cursor:"pointer", transition:"all 0.2s ease", fontFamily:"'DM Mono',monospace",
+            }}>{label}</button>
+          ))}
+        </div>
+
+        {tab === "explore" && (
+          <>
+            <div className="entity-grid">
+              {filtered.map((entity, i) => (
+                <div key={entity.id} style={{ opacity:mounted?1:0, transform:mounted?"none":"translateY(20px)", transition:`all 0.5s ease ${0.1+i*0.06}s` }}>
+                  <EntityCard entity={entity} lang={lang} />
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop:"40px", padding:"20px", background:"rgba(255,255,255,0.02)", borderRadius:"12px", border:"1px solid rgba(255,255,255,0.05)" }}>
+              <p style={{ margin:"0 0 10px", fontSize:"10px", color:"rgba(255,255,255,0.18)", lineHeight:1.7, letterSpacing:"0.04em" }}>
+                {T.footerBasedOn}{" "}<em style={{ color:"rgba(255,255,255,0.3)" }}>{T.footerText}</em>{" "}{T.footerSub}
+              </p>
+              <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.15)", letterSpacing:"0.04em" }}>
+                {lang === "es" ? "Desarrollado por" : "Developed by"}{" "}
+                <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer"
+                  style={{ color:"rgba(255,102,0,0.9)", textDecoration:"none", transition:"color 0.2s" }}
+                  onMouseEnter={e => e.currentTarget.style.color='#ff6600'}
+                  onMouseLeave={e => e.currentTarget.style.color='rgba(255,102,0,0.9)'}
+                >Rick Grisales — oranrick.com</a>
+              </p>
+            </div>
+          </>
+        )}
+
+        {tab === "analyze" && (
+          <div style={{ opacity:mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
+            <div style={{ marginBottom:"28px" }}>
+              <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase", marginBottom:"6px" }}>{T.howWorks}</p>
+              <p style={{ fontSize:"12px", color:"rgba(255,255,255,0.4)", lineHeight:1.65, margin:0, maxWidth:"520px" }}>{T.howWorksDesc}</p>
+            </div>
+            <Analyzer lang={lang} />
+          </div>
+        )}
+
+        {tab === "compare" && (
+          <div style={{ opacity:mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
+            <Suspense fallback={
+              <div style={{ height:"160px", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.2)", fontFamily:"'DM Mono',monospace" }}>{T.loading}</span>
+              </div>
+            }>
+              <Comparator
+                politicians={enrichedEntities.filter(e => e.category === "Político")}
+                paramsEs={PARAMS_TRANS.es}
+                paramShort={lang === "en" ? PARAM_SHORT_EN : PARAM_SHORT}
+                lang={lang}
+                T={T}
+              />
+            </Suspense>
+          </div>
+        )}
+      </div>
+      </div>{/* fin z-index:1 */}
+
+      {showIRA && <IRAModal onClose={() => setShowIRA(false)} lang={lang} />}
+    </div>
+    </AccentContext.Provider>
+  );
+}
+
 // ── App ───────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -1578,50 +1839,11 @@ export default function App() {
       : false
   );
   const [showWelcome, setShowWelcome] = useState(false);
-
-  useEffect(() => {
-    if (user && !localStorage.getItem('ira-welcomed')) {
-      setShowWelcome(true);
-    }
-  }, [user]);
-
-  const requireAuth = (action) => {
-    if (user) { action(); return; }
-    setPendingAction(() => action);
-    setAuthDefaultMode('register');
-    setShowAuth(true);
-  };
-
-  const openLogin = () => {
-    setAuthDefaultMode('login');
-    setShowAuth(true);
-  };
-
-  const [mode, setMode] = useState(() => {
-    const path = window.location.pathname;
-    return path === '/medios' ? 'medios' : 'politico';
-  });
-  const accent = mode === 'medios' ? '#0066ff' : '#ff6600';
-  const accentA = (a) => mode === 'medios' ? `rgba(0,102,255,${a})` : `rgba(255,102,0,${a})`;
-
-  useEffect(() => {
-    const path = mode === 'medios' ? '/medios' : '/politicos';
-    if (window.location.pathname !== path) window.history.pushState({}, '', path);
-  }, [mode]);
-
-  const [tab, setTab] = useState(() => {
-    const p = new URLSearchParams(window.location.search);
-    return p.get('share') ? 'analyze' : 'explore';
-  });
-  const [filter, setFilter] = useState("Todos");
-  const [selected, setSelected] = useState(null);
-  const [showIRA, setShowIRA] = useState(false);
   const [lang, setLang] = useState(() => {
     const saved = localStorage.getItem('ira-lang');
     if (saved === 'es' || saved === 'en') return saved;
     return navigator.language?.startsWith('es') ? 'es' : 'en';
   });
-  const [mounted, setMounted] = useState(false);
   const [supabaseMap, setSupabaseMap] = useState({});
   const [supabaseReady, setSupabaseReady] = useState(false);
 
@@ -1645,33 +1867,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => setMounted(true), 60);
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes blob1 {
-        0%   { transform: translate(0, 0) scale(1); }
-        25%  { transform: translate(40px, -28px) scale(1.04); }
-        50%  { transform: translate(-30px, 22px) scale(0.97); }
-        75%  { transform: translate(20px, -14px) scale(1.02); }
-        100% { transform: translate(0, 0) scale(1); }
-      }
-      @keyframes blob2 {
-        0%   { transform: translate(0, 0) scale(1); }
-        30%  { transform: translate(-38px, -24px) scale(1.06); }
-        60%  { transform: translate(20px, 34px) scale(0.93); }
-        100% { transform: translate(0, 0) scale(1); }
-      }
-      @keyframes blob3 {
-        0%   { transform: translate(0, 0) scale(1); }
-        40%  { transform: translate(28px, 42px) scale(1.07); }
-        70%  { transform: translate(-18px, 14px) scale(0.96); }
-        100% { transform: translate(0, 0) scale(1); }
-      }
-    `;
-    document.head.appendChild(style);
-  }, []);
-
-  const T = TEXTS[lang];
+    if (user && !localStorage.getItem('ira-welcomed')) setShowWelcome(true);
+  }, [user]);
 
   const enrichedEntities = ENTITIES.map(entity => {
     if (!supabaseReady) return { ...entity, score: null };
@@ -1683,297 +1880,44 @@ export default function App() {
     return { ...entity, score: avg };
   });
 
-  const modeCategory = mode === 'medios' ? 'Medio' : 'Político';
-  const filtered = enrichedEntities.filter(e => e.category === modeCategory);
+  const requireAuth = (action) => {
+    if (user) { action(); return; }
+    setPendingAction(() => action);
+    setAuthDefaultMode('register');
+    setShowAuth(true);
+  };
+
+  const openLogin = () => {
+    setAuthDefaultMode('login');
+    setShowAuth(true);
+  };
 
   return (
-    <AccentContext.Provider value={{ accent, accentA, mode }}>
-    <div style={{ minHeight:"100vh", background:"#0e0e14", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
-      <style>{`
-        @keyframes b1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,-40px) scale(1.15); } }
-        @keyframes b2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,60px) scale(1.2); } }
-        @keyframes b3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,50px) scale(1.1); } }
-        @keyframes wcPulse { 0%,100% { opacity:1; box-shadow:0 0 8px ${accent}; } 50% { opacity:0.5; box-shadow:0 0 16px ${accent}; } }
-      `}</style>
-
-      {/* ── Fondo animado ── */}
-      <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
-        <div style={{
-          position:"absolute", top:"-20%", left:"15%",
-          width:"70vw", height:"70vh", borderRadius:"50%",
-          background:`radial-gradient(ellipse at center, ${accentA(0.15)} 0%, ${accentA(0.08)} 40%, transparent 68%)`,
-          animation:"b1 20s ease-in-out infinite",
-        }} />
-        <div style={{
-          position:"absolute", bottom:"-25%", right:"-10%",
-          width:"70vw", height:"70vh", borderRadius:"50%",
-          background: mode === 'medios'
-            ? `radial-gradient(ellipse at center, rgba(0,50,180,0.15) 0%, rgba(0,10,26,0.09) 45%, transparent 70%)`
-            : `radial-gradient(ellipse at center, rgba(180,50,0,0.15) 0%, rgba(26,10,0,0.09) 45%, transparent 70%)`,
-          animation:"b2 28s ease-in-out infinite",
-        }} />
-        <div style={{
-          position:"absolute", top:"25%", left:"-18%",
-          width:"70vw", height:"70vh", borderRadius:"50%",
-          background:`radial-gradient(ellipse at center, ${accentA(0.15)} 0%, transparent 68%)`,
-          animation:"b3 16s ease-in-out infinite",
-        }} />
-      </div>
-
-      {/* ── Contenido (siempre encima del fondo) ── */}
-      <div style={{ position:"relative", zIndex:1 }}>
-
-      {/* Enlace fijo superior izquierda: volver a oranrick.com */}
-      <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" style={{
-        position:"fixed", top:"20px", left:"24px", zIndex:400,
-        fontFamily:"'DM Mono',monospace", fontSize:"11px", fontWeight:700,
-        color:accent, letterSpacing:"0.04em",
-        border:`1.5px solid ${accentA(0.45)}`,
-        borderRadius:"20px", padding:"5px 13px",
-        background:accentA(0.08),
-        textDecoration:"none",
-        transition:"background 0.2s",
-      }}>← oranrick.com</a>
-
-      {/* Barra fija superior derecha: auth + lang */}
-      <div style={{ position:"fixed", top:"20px", right:"24px", zIndex:400, display:"flex", alignItems:"center", gap:"10px" }}>
-        {user ? (
-          <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
-            <span style={{
-              fontSize:"11px", color:accent,
-              fontFamily:"'DM Mono',monospace", fontWeight:700,
-              border:`1.5px solid ${accentA(0.6)}`,
-              borderRadius:"20px", padding:"5px 13px",
-              maxWidth:"150px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap",
-              background: accentA(0.08),
-              letterSpacing:"0.04em",
-            }}>
-              {profile?.username ?? user.email?.split('@')[0]}
-            </span>
-            <button
-              onClick={() => signOut()}
-              style={{
-                padding:"6px 14px", borderRadius:"20px",
-                background: accentA(0.08),
-                border:`1.5px solid ${accentA(0.45)}`,
-                color:accent, fontSize:"10px",
-                letterSpacing:"0.1em", cursor:"pointer",
-                fontFamily:"'DM Mono',monospace", fontWeight:700,
-                transition:"all 0.2s ease",
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background=accentA(0.18); e.currentTarget.style.borderColor=accentA(0.8); }}
-              onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.45); }}
-            >
-              {lang === "es" ? "Salir" : "Sign out"}
-            </button>
-          </div>
-        ) : (
-          <button
-            onClick={openLogin}
-            style={{
-              padding:"7px 14px", borderRadius:"20px",
-              background: accentA(0.08),
-              border:`1px solid ${accentA(0.35)}`,
-              color:accent, fontSize:"10px",
-              letterSpacing:"0.12em", cursor:"pointer",
-              fontFamily:"'DM Mono',monospace", fontWeight:700,
-              transition:"all 0.2s ease",
-              boxShadow:`0 0 12px ${accentA(0.12)}`,
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); }}
-            onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); }}
-          >
-            {lang === "es" ? "Iniciar sesión" : "Sign in"}
-          </button>
-        )}
-        <button
-          onClick={() => setLang(l => {
-            const next = l === "es" ? "en" : "es";
-            localStorage.setItem('ira-lang', next);
-            return next;
-          })}
-          style={{
-            display:"flex", alignItems:"center", gap:"5px",
-            padding:"7px 14px", borderRadius:"20px",
-            background: accentA(0.08),
-            border:`1px solid ${accentA(0.35)}`,
-            color:accent, fontSize:"10px",
-            letterSpacing:"0.18em", cursor:"pointer",
-            fontFamily:"'DM Mono',monospace",
-            fontWeight:700,
-            transition:"all 0.2s ease",
-            boxShadow:`0 0 12px ${accentA(0.12)}`,
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.background=accentA(0.18);
-            e.currentTarget.style.borderColor=accentA(0.7);
-            e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`;
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.background=accentA(0.08);
-            e.currentTarget.style.borderColor=accentA(0.35);
-            e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`;
-          }}
-        >
-          <span style={{ opacity:0.45, fontSize:"9px" }}>{lang === "es" ? "ES" : "EN"}</span>
-          <span style={{ color: accentA(0.3) }}>·</span>
-          <span>{lang === "es" ? "EN" : "ES"}</span>
-        </button>
-      </div>
-
-      <div style={{ maxWidth:"960px", margin:"0 auto", padding:"48px 24px 80px" }}>
-        <div style={{ marginBottom:"44px", opacity: mounted?1:0, transform: mounted?"none":"translateY(16px)", transition:"all 0.6s ease" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"12px" }}>
-            <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:accent, boxShadow:`0 0 10px ${accent}` }} />
-            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
-              {T.headerTag}
-            </span>
-          </div>
-          <h1 style={{ margin:"0 0 8px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"'Syne',sans-serif", color:"#fff", letterSpacing:"-0.04em", lineHeight:1.05 }}>
-            IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
-            <span style={{ color:accent }}>Resonancia</span>
-          </h1>
-          <p style={{ margin:"0 0 20px", fontSize:"12px", color:"rgba(255,255,255,0.3)", lineHeight:1.65, maxWidth:"500px" }}>
-            {mode === 'medios' ? T.subtitleMedios : T.subtitle}
-          </p>
-          <button onClick={() => setShowIRA(true)} style={{
-            padding:"13px 28px", borderRadius:"12px",
-            background:accent, border:"none",
-            color:"#000", fontSize:"13px", fontWeight:700,
-            letterSpacing:"0.04em", cursor:"pointer",
-            fontFamily:"'DM Mono',monospace",
-            boxShadow:`0 0 24px ${accentA(0.35)}`,
-            transition:"all 0.2s ease",
-          }}
-            onMouseEnter={e => { e.currentTarget.style.background= mode==='medios'?"#3385ff":"#ff8533"; e.currentTarget.style.boxShadow=`0 0 32px ${accentA(0.55)}`; }}
-            onMouseLeave={e => { e.currentTarget.style.background=accent; e.currentTarget.style.boxShadow=`0 0 24px ${accentA(0.35)}`; }}
-          >{T.btnWhat}</button>
-        </div>
-
-        {/* ── Toggle de modo ── */}
-        <div style={{ display:"flex", gap:"0", marginBottom:"28px", background:"rgba(255,255,255,0.04)", borderRadius:"14px", padding:"4px", width:"fit-content", border:"1px solid rgba(255,255,255,0.06)", opacity: mounted?1:0, transition:"opacity 0.5s ease 0.1s" }}>
-          {[['politico', T.modeTogglePolitico, '#ff6600', (a) => `rgba(255,102,0,${a})`],
-            ['medios',   T.modeToggleMedios,   '#0066ff', (a) => `rgba(0,102,255,${a})`]].map(([id, label, col, colA]) => (
-            <button key={id} onClick={() => setMode(id)} style={{
-              padding:"10px 28px", borderRadius:"11px",
-              background: mode===id ? colA(0.18) : "transparent",
-              border: mode===id ? `1px solid ${colA(0.5)}` : "1px solid transparent",
-              color: mode===id ? col : "rgba(255,255,255,0.35)",
-              fontSize:"11px", letterSpacing:"0.1em", textTransform:"uppercase",
-              cursor:"pointer", transition:"all 0.25s ease",
-              fontFamily:"'DM Mono',monospace", fontWeight:700,
-            }}>{label}</button>
-          ))}
-        </div>
-
-        <div style={{ display:"flex", gap:"4px", marginBottom:"32px", background:"rgba(255,255,255,0.03)", borderRadius:"12px", padding:"4px", width:"fit-content", opacity: mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
-          {[["explore", T.tabExplore],["analyze", T.tabAnalyze],["compare", T.tabCompare]].map(([id,label]) => (
-            <button key={id} onClick={() => {
-              if ((id === "analyze" || id === "compare") && !user) {
-                requireAuth(() => setTab(id));
-              } else {
-                setTab(id);
-              }
-            }} style={{
-              padding:"8px 18px", borderRadius:"9px",
-              background: tab===id ? accentA(0.18) : "transparent",
-              border: tab===id ? `1px solid ${accentA(0.4)}` : "1px solid transparent",
-              color: tab===id ? accent : "rgba(255,255,255,0.35)",
-              fontSize:"10px", letterSpacing:"0.1em", textTransform:"uppercase",
-              cursor:"pointer", transition:"all 0.2s ease",
-            }}>{label}</button>
-          ))}
-        </div>
-
-        {tab === "explore" && (
-          <>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))", gap:"14px" }}>
-              {filtered.map((entity, i) => (
-                <div key={entity.id} style={{ opacity: mounted?1:0, transform: mounted?"none":"translateY(20px)", transition:`all 0.5s ease ${0.1+i*0.06}s` }}>
-                  <EntityCard entity={entity} onClick={(e) => setSelected(e)} lang={lang} />
-                </div>
-              ))}
-            </div>
-            <div style={{ marginTop:"40px", padding:"20px", background:"rgba(255,255,255,0.02)", borderRadius:"12px", border:"1px solid rgba(255,255,255,0.05)" }}>
-              <p style={{ margin:"0 0 10px", fontSize:"10px", color:"rgba(255,255,255,0.18)", lineHeight:1.7, letterSpacing:"0.04em" }}>
-                {T.footerBasedOn}{" "}
-                <em style={{ color:"rgba(255,255,255,0.3)" }}>{T.footerText}</em>{" "}
-                {T.footerSub}
-              </p>
-              <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.15)", letterSpacing:"0.04em" }}>
-                {lang === "es" ? "Desarrollado por" : "Developed by"}{" "}
-                <a
-                  href="https://oranrick.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color:"rgba(255,102,0,0.9)", textDecoration:"none", transition:"color 0.2s" }}
-                  onMouseEnter={e => e.currentTarget.style.color='#ff6600'}
-                  onMouseLeave={e => e.currentTarget.style.color='rgba(255,102,0,0.9)'}
-                >
-                  Rick Grisales — oranrick.com
-                </a>
-              </p>
-            </div>
-          </>
-        )}
-
-        {tab === "analyze" && (
-          <div style={{ opacity: mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
-            <div style={{ marginBottom:"28px" }}>
-              <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase", marginBottom:"6px" }}>{T.howWorks}</p>
-              <p style={{ fontSize:"12px", color:"rgba(255,255,255,0.4)", lineHeight:1.65, margin:0, maxWidth:"520px" }}>
-                {T.howWorksDesc}
-              </p>
-            </div>
-            <Analyzer lang={lang} />
-          </div>
-        )}
-
-        {tab === "compare" && (
-          <div style={{ opacity: mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
-            <Suspense fallback={
-              <div style={{ height:"160px", display:"flex", alignItems:"center", justifyContent:"center" }}>
-                <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.2)", fontFamily:"'DM Mono',monospace" }}>{T.loading}</span>
-              </div>
-            }>
-              <Comparator
-                politicians={enrichedEntities.filter(e => e.category === "Político")}
-                paramsEs={PARAMS_TRANS.es}
-                paramShort={lang === "en" ? PARAM_SHORT_EN : PARAM_SHORT}
-                lang={lang}
-                T={T}
-              />
-            </Suspense>
-          </div>
-        )}
-      </div>
-      {selected && <Detail entity={selected} onClose={() => setSelected(null)} lang={lang} supabaseMap={supabaseMap} />}
-      {showIRA && <IRAModal onClose={() => setShowIRA(false)} lang={lang} />}
+    <AppContext.Provider value={{ lang, setLang, supabaseMap, supabaseReady, enrichedEntities, requireAuth, openLogin, user, profile, signOut }}>
+      <Routes>
+        <Route path="/" element={<Navigate to="/politicos" replace />} />
+        <Route path="/politicos" element={<MainView mode="politico" tab="explore" />} />
+        <Route path="/medios" element={<MainView mode="medios" tab="explore" />} />
+        <Route path="/analyze" element={<MainView mode="politico" tab="analyze" />} />
+        <Route path="/compare" element={<MainView mode="politico" tab="compare" />} />
+        <Route path="/entity/:entityId" element={<EntityDetailPage />} />
+        <Route path="*" element={<Navigate to="/politicos" replace />} />
+      </Routes>
       {showAuth && (
         <Suspense fallback={null}>
           <AuthModal
             lang={lang}
             defaultMode={authDefaultMode}
             onClose={() => { setShowAuth(false); setPendingAction(null); }}
-            onSuccess={() => {
-              setShowAuth(false);
-              pendingAction?.();
-              setPendingAction(null);
-            }}
+            onSuccess={() => { setShowAuth(false); pendingAction?.(); setPendingAction(null); }}
           />
         </Suspense>
       )}
-      {confirmedToast && (
-        <ConfirmedToast lang={lang} onDone={() => setConfirmedToast(false)} />
-      )}
+      {confirmedToast && <ConfirmedToast lang={lang} onDone={() => setConfirmedToast(false)} />}
       {showWelcome && (
-        <WelcomeModal lang={lang} onClose={() => {
-          localStorage.setItem('ira-welcomed', 'true');
-          setShowWelcome(false);
-        }} />
+        <WelcomeModal lang={lang} onClose={() => { localStorage.setItem('ira-welcomed','true'); setShowWelcome(false); }} />
       )}
-      </div>{/* fin contenido z-index:1 */}
-    </div>
-    </AccentContext.Provider>
+    </AppContext.Provider>
   );
+
 }

@@ -46,7 +46,7 @@ export function SpeechesSection({ entityId, speeches: speechesProp, onSelectSpee
           {T.speechesDesc} <em>El contagio de las palabras</em> (UCM, 2024)
         </p>
       )}
-      <div style={styles.grid}>
+      <div className="speeches-grid">
         {speeches.map((speech) => (
           <SpeechCard key={speech.id} speech={speech} onClick={() => onSelectSpeech(speech.id)} lang={lang} />
         ))}

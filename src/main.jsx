@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import { supabase } from './supabaseClient.js'
+import './styles/global.css'
 
 // Procesa el callback de confirmación de email de Supabase.
 // Supabase puede enviar el token de dos formas:
@@ -44,7 +46,9 @@ async function handleAuthCallback() {
 handleAuthCallback().then(() => {
   ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
   )
 })

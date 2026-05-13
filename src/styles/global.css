@@ -1,0 +1,149 @@
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Top Nav ────────────────────────────────────────────────────────────────── */
+.top-nav-left {
+  position: fixed;
+  top: 20px;
+  left: 24px;
+  z-index: 400;
+  display: inline-block;
+}
+
+.top-nav-right {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Main container ─────────────────────────────────────────────────────────── */
+.main-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 96px 24px 80px;
+}
+
+/* ── Entity Grid ─────────────────────────────────────────────────────────────── */
+.entity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+/* ── Tabs ────────────────────────────────────────────────────────────────────── */
+.tabs-row {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 32px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 4px;
+  width: fit-content;
+}
+
+.mode-toggle-row {
+  display: flex;
+  gap: 0;
+  margin-bottom: 28px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 4px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Entity Detail Page ──────────────────────────────────────────────────────── */
+.detail-page {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 80px 24px 80px;
+}
+
+/* ── Speech cards grid ───────────────────────────────────────────────────────── */
+.speeches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.8rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 88px 20px 60px;
+  }
+  .detail-page {
+    padding: 80px 20px 60px;
+  }
+}
+
+/* Mobile ≤ 600px */
+@media (max-width: 600px) {
+  .main-container {
+    padding: 80px 14px 48px;
+  }
+  .detail-page {
+    padding: 72px 14px 48px;
+  }
+  .entity-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .tabs-row {
+    width: 100%;
+  }
+  .tabs-row button {
+    flex: 1;
+    padding: 8px 10px !important;
+    font-size: 9px !important;
+    letter-spacing: 0.06em !important;
+  }
+  .mode-toggle-row {
+    width: 100%;
+  }
+  .mode-toggle-row button {
+    flex: 1;
+    padding: 10px 14px !important;
+  }
+  .top-nav-right {
+    gap: 6px;
+  }
+  .speeches-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile mínimo: 390px */
+@media (max-width: 480px) {
+  .entity-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .top-nav-left {
+    top: 12px;
+    left: 12px;
+  }
+  .top-nav-right {
+    top: 12px;
+    right: 12px;
+  }
+  .main-container {
+    padding-top: 68px;
+  }
+  .detail-page {
+    padding-top: 64px;
+  }
+}
