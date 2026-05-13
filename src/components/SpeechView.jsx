@@ -47,7 +47,7 @@ const SUPABASE_KEY = 'sb_publishable_VRQ9UW5FrRcARTfkmiYI4w_etib_jVA';
 const IRA_COLOR = (score) => {
   if (score >= 7.5) return '#2ecc71';
   if (score >= 5) return '#f59e0b';
-  return '#ff6600';
+  return '#e05252';
 };
 
 const PARAM_NAME_EN = {

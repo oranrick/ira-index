@@ -956,7 +956,7 @@ function IRAModal({ onClose, lang }) {
   return (
     <div onClick={onClose} style={{
       position:"fixed", inset:0, zIndex:300,
-      background:"rgba(8,8,12,0.92)", backdropFilter:"blur(20px)",
+      background:"rgba(14,14,20,0.92)", backdropFilter:"blur(20px)",
       display:"flex", alignItems:"center", justifyContent:"center",
       opacity: mounted?1:0, transition:"opacity 0.3s ease", padding:"20px",
     }}>
@@ -1902,7 +1902,14 @@ export default function App() {
               </p>
               <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.15)", letterSpacing:"0.04em" }}>
                 {lang === "es" ? "Desarrollado por" : "Developed by"}{" "}
-                <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" style={{ color:"rgba(255,102,0,0.9)", textDecoration:"none" }}>
+                <a
+                  href="https://oranrick.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color:"rgba(255,102,0,0.9)", textDecoration:"none", transition:"color 0.2s" }}
+                  onMouseEnter={e => e.currentTarget.style.color='#ff6600'}
+                  onMouseLeave={e => e.currentTarget.style.color='rgba(255,102,0,0.9)'}
+                >
                   Rick Grisales — oranrick.com
                 </a>
               </p>
