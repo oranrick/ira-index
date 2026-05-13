@@ -1873,20 +1873,11 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             {mode === 'medios' ? T.subtitleMedios : T.subtitle}
           </p>
           <button onClick={() => setShowIRA(true)} style={{
-            padding:"13px 28px", borderRadius:"12px", border:"none",
-            background:"linear-gradient(135deg, #c8174d 0%, #ff5c80 100%)",
-            color:"#fff", fontSize:"13px", fontWeight:700, letterSpacing:"0.04em", cursor:"pointer",
-            fontFamily:"'DM Mono',monospace",
-            boxShadow:"0 0 24px rgba(200,23,77,0.45), 0 0 8px rgba(255,92,128,0.25)",
-            transition:"all 0.2s ease" }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background="linear-gradient(135deg, #de1f5a 0%, #ff7096 100%)";
-              e.currentTarget.style.boxShadow="0 0 36px rgba(200,23,77,0.65), 0 0 14px rgba(255,92,128,0.4)";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background="linear-gradient(135deg, #c8174d 0%, #ff5c80 100%)";
-              e.currentTarget.style.boxShadow="0 0 24px rgba(200,23,77,0.45), 0 0 8px rgba(255,92,128,0.25)";
-            }}
+            padding:"13px 28px", borderRadius:"12px", background:accent, border:"none",
+            color:"#000", fontSize:"13px", fontWeight:700, letterSpacing:"0.04em", cursor:"pointer",
+            fontFamily:"'DM Mono',monospace", boxShadow:`0 0 24px ${accentA(0.35)}`, transition:"all 0.2s ease" }}
+            onMouseEnter={e => { e.currentTarget.style.background=mode==='medios'?"#3385ff":"#ff8533"; e.currentTarget.style.boxShadow=`0 0 32px ${accentA(0.55)}`; }}
+            onMouseLeave={e => { e.currentTarget.style.background=accent; e.currentTarget.style.boxShadow=`0 0 24px ${accentA(0.35)}`; }}
           >{T.btnWhat}</button>
         </div>
 
