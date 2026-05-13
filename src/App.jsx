@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, lazy, Suspense, createContext, useContext } from "react";
 import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
+import AboutPage from './components/AboutPage.jsx';
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
 import { getSpeechById, getSpeechesByEntity } from "./data/speeches";
@@ -16,7 +17,7 @@ const AccentContext = createContext({
   mode: 'politico',
 });
 
-const AppContext = createContext({
+export const AppContext = createContext({
   lang: 'es', setLang: () => {},
   supabaseMap: {}, supabaseReady: false,
   enrichedEntities: [],
@@ -1963,6 +1964,15 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
                   onMouseEnter={e => e.currentTarget.style.color='#ff6600'}
                   onMouseLeave={e => e.currentTarget.style.color='rgba(255,102,0,0.9)'}
                 >Rick Grisales — oranrick.com</a>
+                {" · "}
+                <button onClick={() => navigate('/about')} style={{
+                  background:"none", border:"none", padding:0, cursor:"pointer",
+                  color:"rgba(255,102,0,0.7)", fontSize:"10px", letterSpacing:"0.04em",
+                  fontFamily:"'DM Mono',monospace", textDecoration:"none", transition:"color 0.2s",
+                }}
+                  onMouseEnter={e => e.currentTarget.style.color='#ff6600'}
+                  onMouseLeave={e => e.currentTarget.style.color='rgba(255,102,0,0.7)'}
+                >{lang === "es" ? "Sobre el proyecto →" : "About this project →"}</button>
               </p>
             </div>
           </>
@@ -2079,6 +2089,7 @@ export default function App() {
         <Route path="/analyze" element={<MainView mode="politico" tab="analyze" />} />
         <Route path="/compare" element={<MainView mode="politico" tab="compare" />} />
         <Route path="/entity/:entityId" element={<EntityDetailPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<Navigate to="/politicos" replace />} />
       </Routes>
       {showAuth && (
