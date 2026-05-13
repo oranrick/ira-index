@@ -1838,9 +1838,35 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:accent, boxShadow:`0 0 10px ${accent}` }} />
             <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>{T.headerTag}</span>
           </div>
-          <h1 style={{ margin:"0 0 8px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"'Syne',sans-serif", color:"#fff", letterSpacing:"-0.04em", lineHeight:1.05 }}>
-            IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
-            <span style={{ color:accent }}>Resonancia</span>
+          <h1 style={{ margin:"0 0 10px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"'Syne',sans-serif", color:"#fff", letterSpacing:"-0.04em", lineHeight:1.05, display:"flex", alignItems:"center", gap:"12px", flexWrap:"wrap" }}>
+            <span>
+              IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
+              <span style={{ color:accent }}>
+                {mode === 'medios' ? (lang==='en'?'Media':'Medios') : (lang==='en'?'Political':'Político')}
+              </span>
+            </span>
+            <span style={{
+              display:"inline-flex", alignItems:"center",
+              background:"rgba(255,255,255,0.04)",
+              border:"1px solid rgba(255,255,255,0.09)",
+              borderRadius:"20px", padding:"3px",
+              fontSize:"clamp(9px,1.1vw,11px)",
+            }}>
+              {[
+                ['politico', lang==='en'?'Political':'Político', '#ff6600', (a)=>`rgba(255,102,0,${a})`, '/politicos'],
+                ['medios',   lang==='en'?'Media':'Medios',       '#0066ff', (a)=>`rgba(0,102,255,${a})`, '/medios'],
+              ].map(([id, label, col, colA, path]) => (
+                <button key={id} onClick={() => navigate(path)} style={{
+                  padding:"4px 12px", borderRadius:"16px",
+                  background: mode===id ? colA(0.2) : "transparent",
+                  border: mode===id ? `1px solid ${colA(0.45)}` : "1px solid transparent",
+                  color: mode===id ? col : "rgba(255,255,255,0.3)",
+                  fontSize:"inherit", letterSpacing:"0.1em", textTransform:"uppercase",
+                  cursor:"pointer", transition:"all 0.2s ease",
+                  fontFamily:"'DM Mono',monospace", fontWeight: mode===id ? 700 : 400,
+                }}>{label}</button>
+              ))}
+            </span>
           </h1>
           <p style={{ margin:"0 0 20px", fontSize:"12px", color:"rgba(255,255,255,0.3)", lineHeight:1.65, maxWidth:"500px" }}>
             {mode === 'medios' ? T.subtitleMedios : T.subtitle}
@@ -1854,21 +1880,47 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           >{T.btnWhat}</button>
         </div>
 
-        <div className="mode-toggle-row" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease 0.1s" }}>
-          {[
-            ['politico', T.modeTogglePolitico, '#ff6600', (a) => `rgba(255,102,0,${a})`, '/politicos'],
-            ['medios',   T.modeToggleMedios,   '#0066ff', (a) => `rgba(0,102,255,${a})`, '/medios'],
-          ].map(([id, label, col, colA, path]) => (
-            <button key={id} onClick={() => navigate(path)} style={{
-              padding:"10px 28px", borderRadius:"11px",
-              background: mode===id ? colA(0.18) : "transparent",
-              border: mode===id ? `1px solid ${colA(0.5)}` : "1px solid transparent",
-              color: mode===id ? col : "rgba(255,255,255,0.35)",
-              fontSize:"11px", letterSpacing:"0.1em", textTransform:"uppercase",
-              cursor:"pointer", transition:"all 0.25s ease",
-              fontFamily:"'DM Mono',monospace", fontWeight:700,
-            }}>{label}</button>
-          ))}
+        {/* ── Casos de uso ── */}
+        <div style={{ marginBottom:"28px", opacity:mounted?1:0, transition:"opacity 0.6s ease 0.25s" }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(210px, 1fr))", gap:"10px" }}>
+            {[
+              {
+                icon: "📰",
+                role: lang==='en' ? "Journalists" : "Periodistas",
+                desc: lang==='en'
+                  ? "Compare two candidates on the same topic. Detect whether an editorial activates fear frames before publishing."
+                  : "Compara el lenguaje de dos candidatos en el mismo tema. Detecta si un editorial activa marcos de miedo antes de publicarlo.",
+              },
+              {
+                icon: "🔬",
+                role: lang==='en' ? "Researchers" : "Investigadores/as",
+                desc: lang==='en'
+                  ? "Quantify a leader's polarizing language across their mandate. Reproducible, citable methodology."
+                  : "Cuantifica la evolución del lenguaje polarizador de un líder a lo largo de su mandato. Metodología reproducible y citable.",
+              },
+              {
+                icon: "📣",
+                role: lang==='en' ? "Communicators" : "Comunicadores/as",
+                desc: lang==='en'
+                  ? "Audit your own message before publishing. Does your communication build community or symbolic trenches?"
+                  : "Audita tu propio mensaje antes de publicarlo. ¿Tu comunicación construye comunidad o trincheras simbólicas?",
+              },
+            ].map((c, i) => (
+              <div key={i} style={{
+                background:"rgba(255,255,255,0.025)",
+                border:"1px solid rgba(255,255,255,0.07)",
+                borderRadius:"12px",
+                padding:"14px 16px",
+                display:"flex", gap:"12px", alignItems:"flex-start",
+              }}>
+                <span style={{ fontSize:"18px", lineHeight:1, flexShrink:0, marginTop:"1px" }}>{c.icon}</span>
+                <div>
+                  <p style={{ margin:"0 0 4px", fontSize:"9px", fontWeight:700, letterSpacing:"0.14em", color:accent, textTransform:"uppercase", fontFamily:"'DM Mono',monospace" }}>{c.role}</p>
+                  <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.4)", lineHeight:1.6, fontFamily:"'DM Mono',monospace" }}>{c.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="tabs-row" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
