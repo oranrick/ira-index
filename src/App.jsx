@@ -1890,7 +1890,7 @@ export default function App() {
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))", gap:"14px" }}>
               {filtered.map((entity, i) => (
                 <div key={entity.id} style={{ opacity: mounted?1:0, transform: mounted?"none":"translateY(20px)", transition:`all 0.5s ease ${0.1+i*0.06}s` }}>
-                  <EntityCard entity={entity} onClick={(e) => requireAuth(() => setSelected(e))} lang={lang} />
+                  <EntityCard entity={entity} onClick={(e) => setSelected(e)} lang={lang} />
                 </div>
               ))}
             </div>
