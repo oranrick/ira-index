@@ -1514,7 +1514,7 @@ function WelcomeModal({ lang, onClose }) {
   return (
     <div style={{
       position:"fixed", inset:0, zIndex:600,
-      background:"rgba(8,8,12,0.85)", backdropFilter:"blur(6px)",
+      background:"rgba(14,14,20,0.85)", backdropFilter:"blur(6px)",
       display:"flex", alignItems:"center", justifyContent:"center",
       padding:"24px",
       opacity: mounted ? 1 : 0, transition:"opacity 0.35s ease",

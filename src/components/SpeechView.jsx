@@ -45,8 +45,8 @@ const SUPABASE_URL = 'https://jsxmlxuzblezwlaxwpuc.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_VRQ9UW5FrRcARTfkmiYI4w_etib_jVA';
 
 const IRA_COLOR = (score) => {
-  if (score >= 7.5) return '#2ecc71';
-  if (score >= 5) return '#f59e0b';
+  if (score >= 7) return '#6ec6a0';
+  if (score >= 4.5) return '#e8a838';
   return '#e05252';
 };
 
