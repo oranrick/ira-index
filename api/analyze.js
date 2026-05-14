@@ -94,11 +94,11 @@ Qué medir: si la acción convocada es cooperativa/deliberativa o coercitiva/con
 ─────────────────────────────────────────
 PARÁMETRO 7 · ENGAGEMENT DIALÓGICO · peso 10%
 ─────────────────────────────────────────
-Base teórica: Martin & White (2005) — sistema Appraisal, subsistema Engagement. Heteroglosia expansiva (Entertain, Acknowledge) vs. monoglosia y heteroglosia contractiva (Deny, Counter, Proclaim). Habermas — sinceridad discursiva. Wodak (2009) — coherencia frontstage/backstage.
-Qué medir: el grado en que el texto reconoce y entreteje voces alternativas, en lugar de clausurarlas.
-- ALTO (8-10): alta presencia de marcadores Entertain ("creo que", "es posible que", "quizás"), Acknowledge ("según X", "como señalan algunos"), concesiones reales, preguntas genuinas no retóricas.
+Base teórica: Damasio — marcadores somáticos e inautenticidad afectiva percibida corporalmente. Wodak (2009) — coherencia entre el discurso público y el retórico. El cuerpo del receptor detecta la incoherencia entre lo que se dice y lo que se hace discursivamente antes de que la mente lo articule.
+Qué medir: el grado en que el texto reconoce y entreteje voces alternativas, en lugar de clausurarlas. La diferencia con el parámetro 5: aquí se mide la textura del discurso (cómo dice las cosas), no solo si valida el disenso (qué dice sobre el desacuerdo).
+- ALTO (8-10): marcadores de apertura epistémica ("creo que", "es posible que", "quizás"), reconocimiento de otras voces, concesiones reales, preguntas genuinas no retóricas. Coherencia entre el léxico empático y la estructura argumental.
 - MEDIO (4-7): mezcla de apertura y cierre dialógico.
-- BAJO (0-3): monoglosia dominante (aserciones categóricas sin matiz). Counter + Deny como estrategia principal. Preguntas retóricas que no buscan respuesta sino alineación emocional.
+- BAJO (0-3): aserciones categóricas sin matiz que cierran el espacio al otro. Preguntas retóricas que buscan alineación emocional, no respuesta. Incoherencia detectable: dice "escuchar" pero no deja espacio retórico para el otro.
 
 ─────────────────────────────────────────
 PARÁMETRO 8 · HORIZONTE DE FUTURO · peso 5%
