@@ -310,20 +310,43 @@ function MiniAnalyzer({ lang, accent, accentA }) {
         </div>
 
         {result && (
-          <div style={{ marginTop:"16px", borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"16px",
-            display:"flex", alignItems:"center", gap:"16px", flexWrap:"wrap" }}>
-            <div style={{ display:"flex", flexDirection:"column", alignItems:"center", flexShrink:0 }}>
-              <span style={{ fontSize:"32px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1 }}>
-                {result.score?.toFixed(1)}
-              </span>
-              <span style={{ fontSize:"9px", color:col, letterSpacing:"0.1em", marginTop:"2px" }}>
-                {result.label || scoreLabel(result.score, es)}
-              </span>
-            </div>
-            <p style={{ margin:0, flex:1, fontSize:"11.5px", color:"rgba(255,255,255,0.5)", lineHeight:1.6, fontStyle:"italic" }}>
-              {result.insight}
-            </p>
-          </div>
+          <ResultBlock result={result} es={es} col={col} accentA={accentA} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── RESULT BLOCK ─────────────────────────────────────────────────────────────
+function ResultBlock({ result, es, col, accentA }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ marginTop:"16px", borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"16px",
+      display:"flex", alignItems:"center", gap:"16px", flexWrap:"wrap" }}>
+      <div style={{ display:"flex", flexDirection:"column", alignItems:"center", flexShrink:0, minWidth:"70px" }}>
+        <span style={{ fontSize:"36px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1 }}>
+          {result.score?.toFixed(1)}
+        </span>
+        <span style={{ fontSize:"9px", color:col, letterSpacing:"0.1em", marginTop:"4px", textTransform:"uppercase" }}>
+          {result.label || (result.score >= 7 ? (es?"Empático":"Empathic") : result.score >= 4.5 ? "Mixto" : (es?"Polarizante":"Polarizing"))}
+        </span>
+      </div>
+      <div style={{ flex:1 }}>
+        <button onClick={() => setOpen(o => !o)} style={{
+          padding:"5px 12px", borderRadius:"20px",
+          background: open ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0.03)",
+          border:"1px solid rgba(255,255,255,0.12)",
+          color:"rgba(255,255,255,0.45)", fontSize:"10px",
+          cursor:"pointer", fontFamily:"'DM Mono',monospace",
+          transition:"all 0.2s",
+        }}>
+          {open ? (es?"Cerrar ▲":"Close ▲") : (es?"¿Por qué? ▾":"Why? ▾")}
+        </button>
+        {open && result.reason && (
+          <p style={{ margin:"10px 0 0", fontSize:"11.5px", color:"rgba(255,255,255,0.45)",
+            lineHeight:1.65, fontStyle:"italic" }}>
+            {result.reason}
+          </p>
         )}
       </div>
     </div>

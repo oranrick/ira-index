@@ -26,7 +26,7 @@ Para calcular el IRA evalúa internamente estos 8 parámetros con sus pesos:
 IRA = (P1×0.20)+(P2×0.20)+(P3×0.15)+(P4×0.15)+(P5×0.10)+(P6×0.05)+(P7×0.10)+(P8×0.05)
 
 Responde ÚNICAMENTE con JSON válido, sin texto adicional:
-{"score": 0.0, "label": "Empático|Mixto|Polarizante", "insight": "Una sola oración directa (máx 18 palabras) que identifica el rasgo retórico más determinante del fragmento."}
+{"score": 0.0, "label": "Empático|Mixto|Polarizante", "reason": "Dos frases. Primera: el rasgo retórico más determinante. Segunda: el efecto afectivo probable sobre quien lo recibe. Directas, sin tecnicismos, máx 30 palabras en total."}
 
 Regla para label: 7–10 → "Empático", 4.5–6.9 → "Mixto", 0–4.4 → "Polarizante".`;
 
