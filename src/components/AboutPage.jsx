@@ -135,22 +135,27 @@ export default function AboutPage() {
         <section style={{ marginBottom:"56px" }}>
           <SectionLabel es={es} label_es="El origen" label_en="The origin" />
           <h2 style={h2Style}>
-            {es ? "Una pregunta que nació en la redacción" : "A question born in the newsroom"}
+            {es ? "¿De dónde viene tanta ira?" : "Where does all this rage come from?"}
           </h2>
           <Prose>
             {es
-              ? "El fact-checking funciona para los hechos. Pero los discursos más peligrosos de nuestro tiempo no mienten sobre los hechos: construyen un mundo emocional que precede al argumento lógico. Activan el miedo, trazan trincheras, convocan a la tribu — y eso no se mide con una verificación de datos."
-              : "Fact-checking works for facts. But the most dangerous discourses of our time don't lie about facts: they build an emotional world that precedes the logical argument. They activate fear, draw trenches, summon the tribe — and none of that is measured by a fact-check."}
+              ? "La pregunta que dio origen al IRA no nació en una biblioteca. Nació de escuchar, una y otra vez, a personas decir cosas como «yo mataría a toda esa gente» — refiriéndose a políticos, a votantes del bando contrario, a desconocidos. No como amenaza real, sino como expresión cotidiana de un odio que se había normalizado hasta volverse invisible."
+              : "The question that gave rise to the IRA was not born in a library. It was born from hearing, again and again, people say things like 'I would kill all those people' — referring to politicians, to voters on the other side, to strangers. Not as a real threat, but as an everyday expression of a hatred that had become so normalized it had turned invisible."}
           </Prose>
           <Prose>
             {es
-              ? "En 2024, Ricardo Grisales Ramírez presentó en la Facultad de Periodismo de la Universidad Complutense de Madrid su Trabajo de Fin de Grado: «El contagio de las palabras: Metáforas, empatía y polarización en el discurso político contemporáneo». El trabajo analizaba cuatro líderes — Donald Trump, Gustavo Petro, Claudia Sheinbaum y Jacinda Ardern — aplicando el Análisis Crítico del Discurso desde una perspectiva emocional y retórica."
-              : "In 2024, Ricardo Grisales Ramírez presented his Bachelor's Thesis at the School of Journalism at the Complutense University of Madrid: «The Contagion of Words: Metaphors, Empathy and Polarization in Contemporary Political Discourse». The thesis analyzed four leaders — Donald Trump, Gustavo Petro, Claudia Sheinbaum and Jacinda Ardern — applying Critical Discourse Analysis from an emotional and rhetorical perspective."}
+              ? "¿Cómo es posible que alguien desee genuinamente el mal de otro ser humano? ¿De dónde viene esa ira? La respuesta que fue tomando forma es esta: somos una sociedad herida. Y las heridas se infectan cuando el lenguaje las toca todos los días — con metáforas de guerra, con enemigos fabricados, con miedo dosificado como combustible electoral."
+              : "How is it possible for someone to genuinely wish harm on another human being? Where does that rage come from? The answer that began to take shape is this: we are a wounded society. And wounds become infected when language touches them every day — with war metaphors, manufactured enemies, fear dispensed as electoral fuel."}
           </Prose>
           <Prose>
             {es
-              ? "De esa investigación emergió el Índice de Resonancia Afectiva: ocho parámetros para medir algo que el periodismo de datos convencional no captura — la arquitectura emocional del discurso político."
-              : "From that research emerged the Affective Resonance Index: eight parameters to measure something that conventional data journalism doesn't capture — the emotional architecture of political discourse."}
+              ? "Si la empatía tiene una base biológica — las neuronas espejo de Gallese, el sistema límbico que Damasio estudió, la inteligencia emocional como capacidad real y entrenable — entonces la polarización también la tiene. No es solo ideología: es contagio. Y si el odio se contagia a través del lenguaje, la empatía también puede contagiarse. Esa intuición es el fundamento del IRA."
+              : "If empathy has a biological basis — Gallese's mirror neurons, the limbic system Damasio studied, emotional intelligence as a real and trainable capacity — then polarization has one too. It is not just ideology: it is contagion. And if hatred spreads through language, empathy can spread through language too. That intuition is the foundation of the IRA."}
+          </Prose>
+          <Prose>
+            {es
+              ? "En 2024, Ricardo Grisales Ramírez presentó en la Facultad de Periodismo de la Universidad Complutense de Madrid su Trabajo de Fin de Grado: «El contagio de las palabras: Metáforas, empatía y polarización en el discurso político contemporáneo». Cuatro líderes — Trump, Petro, Sheinbaum, Ardern — analizados a través de ocho parámetros diseñados para medir lo que el periodismo de datos no captura: la arquitectura emocional del discurso."
+              : "In 2024, Ricardo Grisales Ramírez presented his Bachelor's Thesis at the School of Journalism at the Complutense University of Madrid: «The Contagion of Words: Metaphors, Empathy and Polarization in Contemporary Political Discourse». Four leaders — Trump, Petro, Sheinbaum, Ardern — analyzed through eight parameters designed to measure what data journalism doesn't capture: the emotional architecture of discourse."}
           </Prose>
         </section>
 
