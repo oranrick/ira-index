@@ -3,11 +3,31 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { text } = req.body;
+  const { text, name, category, context: discourseContext } = req.body;
 
   if (!text || text.trim().length < 50) {
     return res.status(400).json({ error: 'Texto demasiado corto.' });
   }
+
+  // Corpus de referencia para comparación contextualizada
+  const CORPUS_REFERENCE = `
+CORPUS IRA DE REFERENCIA (para calibrar el análisis comparativo):
+- José Mujica (político, Uruguay): IRA 8.93 — pronominal 9.2, metafora 9.0, dicotomia 6.8, tono 9.1, disenso 8.5, vector 8.8, coherencia 9.3, proyeccion 8.9
+- Jacinda Ardern (político, Nueva Zelanda): IRA 8.75 — pronominal 9.1, metafora 9.0, dicotomia 8.2, tono 9.0, disenso 8.8, vector 9.0, coherencia 8.9, proyeccion 8.0
+- Claudia Sheinbaum (político, México): IRA 7.92 — pronominal 8.1, metafora 8.0, dicotomia 7.5, tono 8.2, disenso 7.8, vector 8.0, coherencia 7.9, proyeccion 7.8
+- Pedro Sánchez (político, España): IRA 5.97 — pronominal 6.5, metafora 6.0, dicotomia 4.8, tono 6.8, disenso 4.3, vector 6.5, coherencia 6.3, proyeccion 7.3
+- Gustavo Petro (político, Colombia): IRA 5.60 — pronominal 6.8, metafora 5.2, dicotomia 4.5, tono 6.0, disenso 5.1, vector 5.8, coherencia 5.2, proyeccion 6.2
+- Donald Trump (político, EE.UU.): IRA 2.48 — pronominal 2.5, metafora 1.8, dicotomia 2.0, tono 2.1, disenso 1.5, vector 2.0, coherencia 2.8, proyeccion 3.1
+- Público (medio, España): IRA 6.69 — pronominal 6.8, metafora 6.8, dicotomia 5.3, tono 6.8, disenso 7.5, vector 6.5, coherencia 7.3, proyeccion 6.8
+- El País (medio, España/Colombia): IRA 6.22 — pronominal 5.5, metafora 7.0, dicotomia 5.3, tono 6.5, disenso 6.3, vector 5.5, coherencia 7.5, proyeccion 6.3
+- Telemundo (medio, EE.UU.): IRA 6.29 — pronominal 6.3, metafora 6.5, dicotomia 4.8, tono 6.3, disenso 7.0, vector 6.0, coherencia 7.5, proyeccion 6.0
+- Fox News (medio, EE.UU.): IRA 3.94 — pronominal 3.8, metafora 3.0, dicotomia 3.0, tono 4.3, disenso 4.0, vector 3.8, coherencia 5.3, proyeccion 4.5
+- RT Russia Today (medio, Rusia): IRA 3.56 — pronominal 2.8, metafora 3.3, dicotomia 2.8, tono 3.3, disenso 3.3, vector 3.3, coherencia 5.8, proyeccion 4.3
+`;
+
+  const contextBlock = discourseContext
+    ? `\nCONTEXTO DEL DISCURSO (incorpora esta información en el análisis para mayor precisión):\n- Fuente/orador: ${name || 'No especificado'}\n- Tipo: ${category || 'No especificado'}\n- Contexto situacional: ${discourseContext}\n\nSegún Van Dijk (Discourse and Context, 2008), el modelo de contexto — quién habla, ante quién, en qué situación y con qué propósito — es determinante para interpretar correctamente los parámetros. Úsalo para calibrar especialmente el tono emocional (¿qué audiencia recibe este discurso?), la llamada a la acción (¿qué tipo de acción es posible en este contexto?) y el engagement dialógico (¿qué convenciones discursivas rigen esta situación?).\n`
+    : '';
 
   const SYSTEM = `Eres el motor analítico del IRA (Índice de Resonancia Afectiva), una herramienta académica que mide la capacidad empática o polarizadora de un discurso político, mediático o institucional en una escala de 0 a 10.
 
@@ -75,19 +95,19 @@ Qué medir: si la acción convocada es cooperativa/deliberativa o coercitiva/con
 PARÁMETRO 7 · ENGAGEMENT DIALÓGICO · peso 10%
 ─────────────────────────────────────────
 Base teórica: Martin & White (2005) — sistema Appraisal, subsistema Engagement. Heteroglosia expansiva (Entertain, Acknowledge) vs. monoglosia y heteroglosia contractiva (Deny, Counter, Proclaim). Habermas — sinceridad discursiva. Wodak (2009) — coherencia frontstage/backstage.
-Qué medir: el grado en que el texto reconoce y entreteje voces alternativas, en lugar de clausurarlas. Diferencia con el parámetro 5: aquí se mide la textura dialógica del discurso (cómo dice las cosas), no solo si valida el disenso (qué dice sobre el desacuerdo).
-- ALTO (8-10): alta presencia de marcadores Entertain ("creo que", "es posible que", "quizás"), Acknowledge ("según X", "como señalan algunos"), concesiones reales, preguntas genuinas no retóricas. Coherencia entre lo que se dice y cómo se dice retóricamente.
+Qué medir: el grado en que el texto reconoce y entreteje voces alternativas, en lugar de clausurarlas.
+- ALTO (8-10): alta presencia de marcadores Entertain ("creo que", "es posible que", "quizás"), Acknowledge ("según X", "como señalan algunos"), concesiones reales, preguntas genuinas no retóricas.
 - MEDIO (4-7): mezcla de apertura y cierre dialógico.
-- BAJO (0-3): monoglosia dominante (aserciones categóricas sin matiz). Counter + Deny como estrategia principal. Preguntas retóricas que no buscan respuesta sino alineación emocional. Incoherencia: dice "escuchar" pero no deja espacio retórico para el otro.
+- BAJO (0-3): monoglosia dominante (aserciones categóricas sin matiz). Counter + Deny como estrategia principal. Preguntas retóricas que no buscan respuesta sino alineación emocional.
 
 ─────────────────────────────────────────
 PARÁMETRO 8 · HORIZONTE DE FUTURO · peso 5%
 ─────────────────────────────────────────
-Base teórica: Dunmire (2005) — preempting the future, retórica de la futuridad. Cap (2013) — proximización temporal. Nussbaum — esperanza cívica articulada.
-Qué medir: cómo se construye el futuro: como proyecto colectivo modalizado o como destino determinista (amenazante o utópico).
-- ALTO (8-10): futuro proyectado con modalidad epistémica abierta ("podríamos", "si actuamos juntos", "es posible que"). Agencia colectiva explícita. Horizonte alcanzable y no excluyente. La memoria histórica se usa para aprender, no para esencializar.
+Base teórica: Dunmire (2005) — preempting the future. Cap (2013) — proximización temporal. Nussbaum — esperanza cívica articulada.
+Qué medir: cómo se construye el futuro: como proyecto colectivo modalizado o como destino determinista.
+- ALTO (8-10): futuro proyectado con modalidad epistémica abierta ("podríamos", "si actuamos juntos"). Agencia colectiva explícita. Horizonte alcanzable y no excluyente.
 - MEDIO (4-7): futuro mixto, con esperanza pero también con cierre.
-- BAJO (0-3): futuro determinista categórico ("sucederá", "vendrán a por nosotros", "si ellos ganan todo se perderá"). Nominalización de amenazas futuras que oculta la agencia ("el colapso es inevitable"). Pasado idealizado como único horizonte posible (nostalgia esencializadora).
+- BAJO (0-3): futuro determinista categórico ("sucederá", "vendrán a por nosotros"). Nominalización de amenazas futuras. Pasado idealizado como único horizonte posible.
 
 ─────────────────────────────────────────
 CÁLCULO DEL IRA
@@ -99,6 +119,12 @@ Resultado en escala 0.0 – 10.0.
 PARÁMETRO R · LECTURA DEL AUTOR
 ─────────────────────────────────────────
 Genera una lectura crítica sintética de 3-4 oraciones con voz académica pero personal, inspirada en el estilo analítico de Ricardo Grisales Ramírez en "El contagio de las palabras" (UCM, 2024). Esta lectura debe: (1) identificar el dispositivo retórico central del discurso con precisión lingüística; (2) señalar la tensión más relevante entre forma y contenido; (3) nombrar el efecto afectivo probable sobre el receptor. No repitas los scores. Escribe como quien ha leído el discurso con atención clínica y sensibilidad política. Este parámetro NO suma al IRA.
+
+─────────────────────────────────────────
+COMPARACIÓN CON EL CORPUS
+─────────────────────────────────────────
+${CORPUS_REFERENCE}
+Tras calcular los scores, identifica los 2 actores del corpus con perfil más similar al texto analizado. Menciónalos en el campo "comparacion" con una frase concisa que explique la similitud (ej: "Su perfil metafórico se acerca al de Petro (5.2) y su apertura al disenso recuerda a Sheinbaum (7.8)"). Si el texto es de un medio, compara preferentemente con medios del corpus.
 
 ─────────────────────────────────────────
 FORMATO DE RESPUESTA
@@ -117,6 +143,7 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
     "proyeccion": { "score": 0.0, "desc": "..." }
   },
   "lecturaAutor": "...",
+  "comparacion": "...",
   "summary": "Síntesis interpretativa de 2-3 oraciones sobre el perfil afectivo global del discurso."
 }`;
 
@@ -127,12 +154,22 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
         'Content-Type': 'application/json',
         'x-api-key': process.env.ANTHROPIC_API_KEY,
         'anthropic-version': '2023-06-01',
+        'anthropic-beta': 'prompt-caching-2024-07-31',
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
-        max_tokens: 2500,
-        system: SYSTEM,
-        messages: [{ role: 'user', content: `Analiza este texto:\n\n${text}` }],
+        max_tokens: 2800,
+        system: [
+          {
+            type: 'text',
+            text: SYSTEM,
+            cache_control: { type: 'ephemeral' },
+          },
+        ],
+        messages: [{
+          role: 'user',
+          content: `${contextBlock}Analiza este texto:\n\n${text}`,
+        }],
       }),
     });
 
@@ -161,9 +198,9 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
 
     const result = { ...parsed, ira: Math.round(ira * 100) / 100 };
 
-    // Responde al usuario primero; luego persiste en Supabase (fallo silencioso)
     res.status(200).json(result);
 
+    // Persist to Supabase (silent fail)
     try {
       const dbRes = await fetch(`${process.env.SUPABASE_URL}/rest/v1/analyses`, {
         method: 'POST',
@@ -186,7 +223,7 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
         console.error('Supabase insert failed:', dbRes.status, errBody);
       }
     } catch (dbError) {
-      console.error('Supabase insert error FULL:', JSON.stringify(dbError, null, 2));
+      console.error('Supabase insert error:', dbError);
     }
 
   } catch (e) {

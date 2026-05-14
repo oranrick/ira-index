@@ -1270,6 +1270,7 @@ function Analyzer({ lang }) {
   const isAdmin = profile?.role === 'admin';
   const [text, setText] = useState("");
   const [name, setName] = useState("");
+  const [context, setContext] = useState("");
   const [category, setCategory] = useState(() => mode === 'medios' ? "Medio" : "Político");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(() => {
@@ -1305,7 +1306,7 @@ function Analyzer({ lang }) {
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, name: name || T.defaultName, category, context: context.trim() || undefined }),
       });
       const ct = res.headers.get("content-type") || "";
       if (!res.ok && !ct.includes("json")) {
@@ -1349,6 +1350,25 @@ function Analyzer({ lang }) {
             borderRadius:"10px", padding:"10px 14px", color:"#fff", fontSize:"13px",
             outline:"none", boxSizing:"border-box", fontFamily:"'DM Mono',monospace",
           }} />
+      </div>
+      <div style={{ marginBottom:"20px" }}>
+        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.3)", textTransform:"uppercase", marginBottom:"6px" }}>
+          {lang === 'en' ? "Context (optional)" : "Contexto (opcional)"}
+        </p>
+        <input value={context} onChange={e => setContext(e.target.value)}
+          placeholder={lang === 'en'
+            ? "e.g. Campaign rally, 50,000 attendees, 3 days before election"
+            : "ej. Mitin electoral, 50.000 asistentes, 3 días antes de las elecciones"}
+          style={{
+            width:"100%", background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)",
+            borderRadius:"10px", padding:"10px 14px", color:"#fff", fontSize:"13px",
+            outline:"none", boxSizing:"border-box", fontFamily:"'DM Mono',monospace",
+          }} />
+        <p style={{ margin:"5px 0 0", fontSize:"9.5px", color:"rgba(255,255,255,0.2)", lineHeight:1.5 }}>
+          {lang === 'en'
+            ? "Who spoke, to whom, when and where. Improves accuracy (Van Dijk, 2008)."
+            : "Quién habló, ante quién, cuándo y dónde. Mejora la precisión del análisis (Van Dijk, 2008)."}
+        </p>
       </div>
       <div style={{ marginBottom:"20px" }}>
         <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.3)", textTransform:"uppercase", marginBottom:"6px" }}>
@@ -1563,6 +1583,17 @@ function AnalysisResult({ result, onReset, lang }) {
           </div>
         );
       })}
+      {/* Comparación con el corpus */}
+      {result.comparacion && (
+        <div style={{ marginTop:"20px", padding:"14px 16px", background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:"10px" }}>
+          <p style={{ margin:"0 0 5px", fontSize:"9px", fontWeight:700, letterSpacing:"0.14em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
+            {lang === 'en' ? "Corpus comparison" : "Comparación con el corpus"}
+          </p>
+          <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.45)", lineHeight:1.6, fontStyle:"italic" }}>
+            {result.comparacion}
+          </p>
+        </div>
+      )}
       {/* Lectura del autor */}
       {result.lecturaAutor && (
         <div style={{ marginTop:"24px" }}>
