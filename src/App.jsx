@@ -1929,6 +1929,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             ["explore", T.tabExplore, mode === 'medios' ? '/medios' : '/politicos', false],
             ["analyze", T.tabAnalyze, '/analyze', true],
             ["compare", T.tabCompare, '/compare', true],
+            ["about", lang === 'en' ? "Project" : "Proyecto", '/about', false],
           ].map(([id, label, path, needsAuth]) => (
             <button key={id} onClick={() => {
               if (needsAuth && !user) { requireAuth(() => navigate(path)); }
