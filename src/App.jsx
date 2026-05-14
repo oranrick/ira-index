@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, lazy, Suspense, createContext, useContext } from "react";
 import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
 import AboutPage from './components/AboutPage.jsx';
+import IndexInteractive from './components/IndexInteractive.jsx';
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
 import { getSpeechById, getSpeechesByEntity } from "./data/speeches";
@@ -1997,6 +1998,8 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
                 </div>
               ))}
             </div>
+            <IndexInteractive entities={filtered} lang={lang} accent={accent} accentA={accentA} />
+
             <div style={{ marginTop:"40px", padding:"20px", background:"rgba(255,255,255,0.02)", borderRadius:"12px", border:"1px solid rgba(255,255,255,0.05)" }}>
               <p style={{ margin:"0 0 10px", fontSize:"10px", color:"rgba(255,255,255,0.18)", lineHeight:1.7, letterSpacing:"0.04em" }}>
                 {T.footerBasedOn}{" "}<em style={{ color:"rgba(255,255,255,0.3)" }}>{T.footerText}</em>{" "}{T.footerSub}
