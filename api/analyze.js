@@ -67,11 +67,13 @@ Qué medir: la rigidez de las categorías morales aplicadas a los actores polít
 ─────────────────────────────────────────
 PARÁMETRO 4 · TONO EMOCIONAL · peso 15%
 ─────────────────────────────────────────
-Base teórica: Nussbaum (2014) — emociones políticas cultivables vs. aversivas. Illouz (2025) — batería moral de emociones. Marcus — Affective Intelligence Theory. Charaudeau — pathos legítimo vs. demagógico. Damasio — marcadores somáticos.
+Base teórica: Nussbaum (2014) — emociones políticas cultivables vs. aversivas. Illouz (2025) — batería moral de emociones. Marcus — Affective Intelligence Theory. Charaudeau — pathos legítimo vs. demagógico. Damasio — marcadores somáticos. Gallese — simulación encarnada: las palabras activan las mismas redes neuronales que la experiencia directa.
 Qué medir: el tipo y la función de las emociones movilizadas por el discurso.
-- ALTO (8-10): léxico de compasión, esperanza argumentada, indignación justificada ante hechos concretos, orgullo cívico inclusivo. Meta-emoción presente ("comprendo que esto genera miedo/frustración"). Goleman: reconocimiento y gestión emocional.
+NOTA METODOLÓGICA CRÍTICA: El IRA mide la función retórica y afectiva del discurso, NO la veracidad de su contenido. Las afirmaciones científicas o empíricas no penalizan este parámetro en sí mismas — el IRA no es un fact-checker. La verificación del contenido científico es responsabilidad del periodista o investigador que use la herramienta. Lo que sí se evalúa es si la ciencia se usa para cohesionar o para excluir, para argumentar o para cerrar el debate.
+REGISTRO PEDAGÓGICO: Explicar la empatía con convicción y claridad es en sí mismo un acto empático. Un discurso que enseña el cuidado al que nunca lo vio modelado no puntúa menos por ser explicativo — puntúa por el efecto afectivo que produce en el receptor (Gallese: simulación encarnada de lo que se describe).
+- ALTO (8-10): léxico de compasión, esperanza argumentada, indignación justificada, orgullo cívico inclusivo. Registro pedagógico que enseña la empatía con convicción. Meta-emoción presente ("comprendo que esto genera miedo/frustración"). Afirmaciones científicas al servicio de la cohesión. Goleman: reconocimiento y gestión emocional.
 - MEDIO (4-7): mezcla de emociones, o emociones intensas pero sin target excluyente claro.
-- BAJO (0-3): miedo difuso sin causa específica, asco social, desprecio, resentimiento, envidia estigmatizante. Urgencia apocalíptica ("todo se perderá", "es nuestra última oportunidad"). Activación del sistema de vigilancia/aversión sin reflexión deliberativa.
+- BAJO (0-3): miedo difuso sin causa específica, asco social, desprecio, resentimiento, envidia estigmatizante. Urgencia apocalíptica ("todo se perderá", "es nuestra última oportunidad"). Ciencia usada para excluir o para cerrar el debate en vez de abrirlo. Activación del sistema de vigilancia/aversión sin reflexión deliberativa.
 
 ─────────────────────────────────────────
 PARÁMETRO 5 · APERTURA AL DISENSO · peso 10%
@@ -95,10 +97,11 @@ Qué medir: si la acción convocada es cooperativa/deliberativa o coercitiva/con
 PARÁMETRO 7 · ENGAGEMENT DIALÓGICO · peso 10%
 ─────────────────────────────────────────
 Base teórica: Damasio — marcadores somáticos e inautenticidad afectiva percibida corporalmente. Wodak (2009) — coherencia entre el discurso público y el retórico. El cuerpo del receptor detecta la incoherencia entre lo que se dice y lo que se hace discursivamente antes de que la mente lo articule.
-Qué medir: el grado en que el texto reconoce y entreteje voces alternativas, en lugar de clausurarlas. La diferencia con el parámetro 5: aquí se mide la textura del discurso (cómo dice las cosas), no solo si valida el disenso (qué dice sobre el desacuerdo).
-- ALTO (8-10): marcadores de apertura epistémica ("creo que", "es posible que", "quizás"), reconocimiento de otras voces, concesiones reales, preguntas genuinas no retóricas. Coherencia entre el léxico empático y la estructura argumental.
-- MEDIO (4-7): mezcla de apertura y cierre dialógico.
-- BAJO (0-3): aserciones categóricas sin matiz que cierran el espacio al otro. Preguntas retóricas que buscan alineación emocional, no respuesta. Incoherencia detectable: dice "escuchar" pero no deja espacio retórico para el otro.
+Qué medir: la coherencia afectiva del discurso — si lo que dice y lo que hace retóricamente coinciden. La diferencia con el parámetro 5: aquí se mide la textura del discurso (cómo dice las cosas), no solo si valida el disenso (qué dice sobre el desacuerdo).
+ATENCIÓN: Una aserción categórica emocionalmente auténtica (como "derrotados son solo aquellos que bajan los brazos" de Mujica) NO penaliza este parámetro. La ausencia de hedging lingüístico no implica incoherencia afectiva. Lo que se mide es si el registro emocional del discurso es coherente de principio a fin y si existe correspondencia entre el léxico empático y la función estructural real del discurso.
+- ALTO (8-10): coherencia total entre lo que el discurso dice y lo que hace retóricamente. Autenticidad afectiva que el receptor puede detectar somaticamente. Puede incluir aserciones categóricas si la vida o el contexto del hablante las respaldan. Sin bait-and-switch: no usa la empatía como trampa para profundizar la exclusión.
+- MEDIO (4-7): coherencia parcial, o momentos de apertura genuina alternados con cierres retóricos.
+- BAJO (0-3): incoherencia afectiva detectable: léxico empático al servicio de la exclusión ("te escucho, pero nuestros enemigos..."). Preguntas retóricas que simulan apertura pero buscan alineación emocional. Bait-and-switch estructural. El cuerpo del receptor lo detecta aunque la mente no lo articule.
 
 ─────────────────────────────────────────
 PARÁMETRO 8 · HORIZONTE DE FUTURO · peso 5%
