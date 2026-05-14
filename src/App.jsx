@@ -1879,6 +1879,19 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             onMouseEnter={e => { e.currentTarget.style.background=mode==='medios'?"#3385ff":"#ff8533"; e.currentTarget.style.boxShadow=`0 0 32px ${accentA(0.55)}`; }}
             onMouseLeave={e => { e.currentTarget.style.background=accent; e.currentTarget.style.boxShadow=`0 0 24px ${accentA(0.35)}`; }}
           >{T.btnWhat}</button>
+          <button onClick={() => navigate('/about')} style={{
+            display:"block", marginTop:"12px",
+            padding:"7px 18px", borderRadius:"20px",
+            background:"rgba(220,60,160,0.07)",
+            border:"1px solid rgba(220,60,160,0.25)",
+            color:"rgba(230,80,170,0.65)",
+            fontSize:"10px", letterSpacing:"0.1em", cursor:"pointer",
+            fontFamily:"'DM Mono',monospace", fontWeight:600,
+            transition:"all 0.2s ease",
+          }}
+            onMouseEnter={e => { e.currentTarget.style.color="rgba(240,100,185,0.9)"; e.currentTarget.style.borderColor="rgba(220,60,160,0.5)"; e.currentTarget.style.background="rgba(220,60,160,0.12)"; }}
+            onMouseLeave={e => { e.currentTarget.style.color="rgba(230,80,170,0.65)"; e.currentTarget.style.borderColor="rgba(220,60,160,0.25)"; e.currentTarget.style.background="rgba(220,60,160,0.07)"; }}
+          >{lang === 'en' ? "About this project →" : "Sobre el proyecto →"}</button>
         </div>
 
         {/* ── Casos de uso ── */}
@@ -1929,7 +1942,6 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             ["explore", T.tabExplore, mode === 'medios' ? '/medios' : '/politicos', false],
             ["analyze", T.tabAnalyze, '/analyze', true],
             ["compare", T.tabCompare, '/compare', true],
-            ["about", lang === 'en' ? "Project" : "Proyecto", '/about', false],
           ].map(([id, label, path, needsAuth]) => (
             <button key={id} onClick={() => {
               if (needsAuth && !user) { requireAuth(() => navigate(path)); }
