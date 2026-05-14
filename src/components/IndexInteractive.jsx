@@ -5,18 +5,30 @@ const scoreColor = s => s >= 7 ? '#6ec6a0' : s >= 4.5 ? '#e8a838' : '#e05252';
 const scoreLabel = (s, es) => s >= 7 ? (es?'Empático':'Empathic') : s >= 4.5 ? (es?'Mixto':'Mixed') : (es?'Polarizante':'Polarizing');
 
 // ─── A · QUIZ ─────────────────────────────────────────────────────────────────
-const QUIZ = [
+const QUIZ_RAW = [
   {
     quote: { es: "«Luchamos con toda nuestra fuerza y si no luchas con toda tu fuerza, ya no vas a tener país.»", en: "«We fight like hell and if you don't fight like hell, you're not going to have a country anymore.»" },
-    options: ["Donald Trump","Gustavo Petro","Claudia Sheinbaum","Pedro Sánchez"],
+    options: ["Donald Trump","Gustavo Petro","Pedro Sánchez","José Mujica"],
     answer: "Donald Trump", entityId:"trump", score:2.48,
     why: { es:"Lenguaje bélico con urgencia apocalíptica. El país como bien que se pierde si no se combate.", en:"Martial language with apocalyptic urgency. The country as something lost if you don't fight." },
   },
   {
+    quote: { es: "«Nunca concederemos. No concedes cuando hay un robo de por medio.»", en: "«We will never concede. You don't concede when there's theft involved.»" },
+    options: ["Donald Trump","Jair Bolsonaro","Pedro Sánchez","Gustavo Petro"],
+    answer: "Donald Trump", entityId:"trump", score:1.20,
+    why: { es:"La concesión democrática reencuadrada como complicidad con el crimen. La derrota electoral como robo. IRA 1.2.", en:"Democratic concession reframed as complicity with crime. Electoral defeat as theft. IRA 1.2." },
+  },
+  {
     quote: { es: "«No pronunciaré su nombre. Es un terrorista. Pero no recibirá el regalo de la fama.»", en: "«I will not speak his name. He is a terrorist. But he will not be given the gift of fame.»" },
-    options: ["Jacinda Ardern","Claudia Sheinbaum","Donald Trump","José Mujica"],
+    options: ["Jacinda Ardern","Claudia Sheinbaum","Hillary Clinton","Angela Merkel"],
     answer: "Jacinda Ardern", entityId:"ardern", score:8.75,
     why: { es:"Empatía radical con las víctimas: negarle protagonismo al agresor es un acto de cuidado.", en:"Radical empathy for victims: denying the aggressor fame is itself an act of care." },
+  },
+  {
+    quote: { es: "«No somos el último gobierno que hará esto. No somos las últimas personas que se enfrentarán a esto.»", en: "«We are not the last government that will face this. We will not be the last people to do so.»" },
+    options: ["Jacinda Ardern","Claudia Sheinbaum","Kamala Harris","Michelle Obama"],
+    answer: "Jacinda Ardern", entityId:"ardern", score:8.75,
+    why: { es:"Horizonte colectivo intergeneracional: el problema se proyecta hacia un «nosotros» que trasciende el mandato.", en:"Intergenerational collective horizon: the problem is projected toward a 'we' that transcends the term." },
   },
   {
     quote: { es: "«Lo imposible cuesta un poco más. Derrotados son solo aquellos que bajan los brazos.»", en: "«The impossible just costs a little more. Defeated are only those who give up.»" },
@@ -25,10 +37,22 @@ const QUIZ = [
     why: { es:"Esperanza sobria sin utopía. El futuro como posibilidad alcanzable, no como promesa vacía.", en:"Sober hope without utopia. The future as achievable possibility, not empty promise." },
   },
   {
+    quote: { es: "«Me faltó velocidad. No soy ningún fenómeno. La historia dirá lo que corresponda.»", en: "«I lacked speed. I am no phenomenon. History will render its proper judgment.»" },
+    options: ["José Mujica","Pedro Sánchez","Gustavo Petro","Jacinda Ardern"],
+    answer: "José Mujica", entityId:"mujica", score:8.93,
+    why: { es:"Reconocimiento del error en primera persona. Quien admite sus límites no necesita defensa retórica.", en:"First-person acknowledgment of failure. Whoever admits their limits needs no rhetorical defense." },
+  },
+  {
     quote: { es: "«No llego sola, llegamos todas. Después de 503 años, por primera vez llegamos las mujeres.»", en: "«I do not arrive alone — we all arrive. After 503 years, for the first time we women have arrived.»" },
-    options: ["Claudia Sheinbaum","Jacinda Ardern","Pedro Sánchez","Gustavo Petro"],
+    options: ["Claudia Sheinbaum","Jacinda Ardern","Kamala Harris","Michelle Obama"],
     answer: "Claudia Sheinbaum", entityId:"sheinbaum", score:7.92,
     why: { es:"El «nosotros» extiende el sujeto político a toda la historia de las mujeres en 10 palabras.", en:"The 'we' extends the political subject to all of women's history in 10 words." },
+  },
+  {
+    quote: { es: "«Aunque muchas mexicanas y mexicanos no coincidan con nuestro proyecto, habremos de caminar en paz y en armonía.»", en: "«Even if many Mexicans don't fully share our project, we shall walk in peace and harmony.»" },
+    options: ["Claudia Sheinbaum","Pedro Sánchez","Jacinda Ardern","Gustavo Petro"],
+    answer: "Claudia Sheinbaum", entityId:"sheinbaum", score:7.92,
+    why: { es:"Incluye explícitamente a quienes no votaron por ella. Uno de los gestos de apertura al disenso más claros del corpus.", en:"Explicitly includes those who didn't vote for her. One of the clearest openness-to-dissent gestures in the corpus." },
   },
   {
     quote: { es: "«La vergüenza cambia de bando. La vergüenza para ellos; para nosotros el orgullo.»", en: "«Shame changes sides. Shame for them; for us, pride.»" },
@@ -37,23 +61,45 @@ const QUIZ = [
     why: { es:"Inversión simbólica del estigma: convierte el insulto en medalla. Alta dicotomía, alta retórica.", en:"Symbolic inversion of stigma: turns the insult into a medal. High dichotomy, high rhetoric." },
   },
   {
+    quote: { es: "«Decir lo mismo en Ucrania, en Gaza y en cualquier otro lugar. Eso es coherencia.»", en: "«Saying the same thing in Ukraine, in Gaza, and everywhere else. That is coherence.»" },
+    options: ["Pedro Sánchez","Gustavo Petro","Jacinda Ardern","José Mujica"],
+    answer: "Pedro Sánchez", entityId:"sanchez", score:5.97,
+    why: { es:"La coherencia como valor explícito y eje del discurso. Construye autoridad mediante la promesa de consistencia verificable.", en:"Coherence as an explicit value and axis of the speech. Builds authority through the promise of verifiable consistency." },
+  },
+  {
     quote: { es: "«Nos han robado no solo recursos: nos han robado la posibilidad de soñar.»", en: "«They have robbed us not only of resources: they have robbed us of the possibility of dreaming.»" },
-    options: ["Gustavo Petro","Donald Trump","Jacinda Ardern","Pedro Sánchez"],
+    options: ["Gustavo Petro","Pedro Sánchez","José Mujica","Donald Trump"],
     answer: "Gustavo Petro", entityId:"petro", score:5.60,
-    why: { es:"El robo como metáfora total: escala del dato material al horizonte existencial. Potente y dicotómico.", en:"Theft as a total metaphor: from the material datum to the existential horizon. Powerful and dichotomous." },
+    why: { es:"El robo como metáfora total: del dato material al horizonte existencial. Potente y estructuralmente dicotómico.", en:"Theft as a total metaphor: from the material to the existential horizon. Powerful and structurally dichotomous." },
+  },
+  {
+    quote: { es: "«Cooperar o perecer. Esa es la única disyuntiva que nos deja el siglo XXI.»", en: "«Cooperate or perish. That is the only dilemma the 21st century leaves us.»" },
+    options: ["Gustavo Petro","José Mujica","Pedro Sánchez","Jacinda Ardern"],
+    answer: "Gustavo Petro", entityId:"petro", score:5.60,
+    why: { es:"Futuro de esperanza condicionada: la cooperación como única salida, pero enmarcada en la urgencia del colapso.", en:"Future of conditional hope: cooperation as the only exit, but framed within the urgency of collapse." },
   },
 ];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 function QuizSection({ lang, accent, accentA }) {
   const navigate = useNavigate();
   const es = lang !== 'en';
-  const [idx, setIdx] = useState(() => Math.floor(Math.random() * QUIZ.length));
+  const [questions] = useState(() => shuffle(QUIZ_RAW));
+  const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState(null);
-  const q = QUIZ[idx];
+  const q = questions[idx];
 
   const next = () => {
     setSelected(null);
-    setIdx(i => (i + 1) % QUIZ.length);
+    setIdx(i => (i + 1) % questions.length);
   };
 
   const col = selected ? scoreColor(q.score) : 'rgba(255,255,255,0.06)';
