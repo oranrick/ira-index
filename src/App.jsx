@@ -1839,26 +1839,36 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:accent, boxShadow:`0 0 10px ${accent}` }} />
             <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>{T.headerTag}</span>
           </div>
-          <h1 style={{ margin:"0 0 10px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"'Syne',sans-serif", color:"#fff", letterSpacing:"-0.04em", lineHeight:1.05, display:"flex", alignItems:"center", gap:"12px", flexWrap:"wrap" }}>
-            <span>
-              IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
-              <span style={{ color:accent }}>
-                {mode === 'medios' ? (lang==='en'?'Media':'Medios') : (lang==='en'?'Political':'Político')}
-              </span>
+          <h1 style={{ margin:"0 0 10px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"'Syne',sans-serif", color:"#fff", letterSpacing:"-0.04em", lineHeight:1.05 }}>
+            IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
+            <span style={{ color:accent }}>
+              {mode === 'medios' ? (lang==='en'?'Media':'Medios') : (lang==='en'?'Political':'Político')}
             </span>
+          </h1>
+          <p style={{ margin:"0 0 20px", fontSize:"12px", color:"rgba(255,255,255,0.3)", lineHeight:1.65, maxWidth:"500px" }}>
+            {mode === 'medios' ? T.subtitleMedios : T.subtitle}
+          </p>
+          <div style={{ display:"flex", alignItems:"center", gap:"12px", flexWrap:"wrap" }}>
+            <button onClick={() => setShowIRA(true)} style={{
+              padding:"13px 28px", borderRadius:"12px", background:accent, border:"none",
+              color:"#000", fontSize:"13px", fontWeight:700, letterSpacing:"0.04em", cursor:"pointer",
+              fontFamily:"'DM Mono',monospace", boxShadow:`0 0 24px ${accentA(0.35)}`, transition:"all 0.2s ease" }}
+              onMouseEnter={e => { e.currentTarget.style.background=mode==='medios'?"#3385ff":"#ff8533"; e.currentTarget.style.boxShadow=`0 0 32px ${accentA(0.55)}`; }}
+              onMouseLeave={e => { e.currentTarget.style.background=accent; e.currentTarget.style.boxShadow=`0 0 24px ${accentA(0.35)}`; }}
+            >{T.btnWhat}</button>
             <span style={{
               display:"inline-flex", alignItems:"center",
               background:"rgba(255,255,255,0.04)",
               border:"1px solid rgba(255,255,255,0.09)",
               borderRadius:"20px", padding:"3px",
-              fontSize:"clamp(9px,1.1vw,11px)",
+              fontSize:"11px",
             }}>
               {[
                 ['politico', lang==='en'?'Political':'Político', '#ff6600', (a)=>`rgba(255,102,0,${a})`, '/politicos'],
                 ['medios',   lang==='en'?'Media':'Medios',       '#0066ff', (a)=>`rgba(0,102,255,${a})`, '/medios'],
               ].map(([id, label, col, colA, path]) => (
                 <button key={id} onClick={() => navigate(path)} style={{
-                  padding:"4px 12px", borderRadius:"16px",
+                  padding:"5px 14px", borderRadius:"16px",
                   background: mode===id ? colA(0.2) : "transparent",
                   border: mode===id ? `1px solid ${colA(0.45)}` : "1px solid transparent",
                   color: mode===id ? col : "rgba(255,255,255,0.3)",
@@ -1868,17 +1878,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
                 }}>{label}</button>
               ))}
             </span>
-          </h1>
-          <p style={{ margin:"0 0 20px", fontSize:"12px", color:"rgba(255,255,255,0.3)", lineHeight:1.65, maxWidth:"500px" }}>
-            {mode === 'medios' ? T.subtitleMedios : T.subtitle}
-          </p>
-          <button onClick={() => setShowIRA(true)} style={{
-            padding:"13px 28px", borderRadius:"12px", background:accent, border:"none",
-            color:"#000", fontSize:"13px", fontWeight:700, letterSpacing:"0.04em", cursor:"pointer",
-            fontFamily:"'DM Mono',monospace", boxShadow:`0 0 24px ${accentA(0.35)}`, transition:"all 0.2s ease" }}
-            onMouseEnter={e => { e.currentTarget.style.background=mode==='medios'?"#3385ff":"#ff8533"; e.currentTarget.style.boxShadow=`0 0 32px ${accentA(0.55)}`; }}
-            onMouseLeave={e => { e.currentTarget.style.background=accent; e.currentTarget.style.boxShadow=`0 0 24px ${accentA(0.35)}`; }}
-          >{T.btnWhat}</button>
+          </div>
           <button onClick={() => navigate('/about')} style={{
             display:"block", marginTop:"12px",
             padding:"7px 18px", borderRadius:"20px",
