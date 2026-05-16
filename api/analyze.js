@@ -56,7 +56,7 @@ Qué medir: el dominio fuente metafórico dominante y su función retórica.
 - BAJO (0-3): metáforas bélicas dominantes ("batalla", "enemigo", "trinchera", "frente"), patológicas ("virus", "plaga", "infección", "cáncer social"), inmunitarias ("fronteras", "blindaje", "erradicar"). El adversario es el blanco de la metáfora, no una estructura abstracta.
 
 ─────────────────────────────────────────
-PARÁMETRO 3 · POLARIDAD MORAL · peso 15%
+PARÁMETRO 3 · POLARIDAD MORAL · peso 10%
 ─────────────────────────────────────────
 Base teórica: Van Dijk — cuadrado ideológico. Reisigl & Wodak — topoi del Discourse-Historical Approach. Mouffe — agonismo vs. antagonismo.
 Qué medir: la rigidez de las categorías morales aplicadas a los actores políticos.
@@ -65,7 +65,7 @@ Qué medir: la rigidez de las categorías morales aplicadas a los actores polít
 - BAJO (0-3): antagonismo absoluto (amigo/enemigo en sentido existencial). Dicotomías "patriotas/traidores", "pueblo/élite corrupta", "buenos/malos" como eje del discurso. Deshumanización o caricaturización del adversario. Cuadrado ideológico maximizado (todo lo nuestro es bueno, todo lo suyo es malo).
 
 ─────────────────────────────────────────
-PARÁMETRO 4 · TONO EMOCIONAL · peso 15%
+PARÁMETRO 4 · TONO EMOCIONAL · peso 20%
 ─────────────────────────────────────────
 Base teórica: Nussbaum (2014) — emociones políticas cultivables vs. aversivas. Illouz (2025) — batería moral de emociones. Marcus — Affective Intelligence Theory. Charaudeau — pathos legítimo vs. demagógico. Damasio — marcadores somáticos. Gallese — simulación encarnada: las palabras activan las mismas redes neuronales que la experiencia directa.
 Qué medir: el tipo y la función de las emociones movilizadas por el discurso.
@@ -76,7 +76,7 @@ REGISTRO PEDAGÓGICO: Explicar la empatía con convicción y claridad es en sí 
 - BAJO (0-3): miedo difuso sin causa específica, asco social, desprecio, resentimiento, envidia estigmatizante. Urgencia apocalíptica ("todo se perderá", "es nuestra última oportunidad"). Ciencia usada para excluir o para cerrar el debate en vez de abrirlo. Activación del sistema de vigilancia/aversión sin reflexión deliberativa.
 
 ─────────────────────────────────────────
-PARÁMETRO 5 · APERTURA AL DISENSO · peso 10%
+PARÁMETRO 5 · APERTURA AL DISENSO · peso 20%
 ─────────────────────────────────────────
 Base teórica: Habermas — situación ideal de habla, pretensiones de validez. Steiner et al. — Discourse Quality Index (dimensión Respeto). Mouffe — agonismo democrático.
 Qué medir: si el discurso reconoce la legitimidad de posiciones alternativas y las integra o las cancela.
@@ -94,7 +94,7 @@ Qué medir: si la acción convocada es cooperativa/deliberativa o coercitiva/con
 - BAJO (0-3): imperativos coercitivos sin justificación ("hay que echarlos", "vamos a derrotarlos", "no podemos tolerar más esto"). La acción se dirige contra adversarios humanos identificados. Urgencia sin alternativa deliberativa.
 
 ─────────────────────────────────────────
-PARÁMETRO 7 · ENGAGEMENT DIALÓGICO · peso 10%
+PARÁMETRO 7 · ENGAGEMENT DIALÓGICO · peso 5%
 ─────────────────────────────────────────
 Base teórica: Damasio — marcadores somáticos e inautenticidad afectiva percibida corporalmente. Wodak (2009) — coherencia entre el discurso público y el retórico. El cuerpo del receptor detecta la incoherencia entre lo que se dice y lo que se hace discursivamente antes de que la mente lo articule.
 Qué medir: la coherencia afectiva del discurso — si lo que dice y lo que hace retóricamente coinciden. La diferencia con el parámetro 5: aquí se mide la textura del discurso (cómo dice las cosas), no solo si valida el disenso (qué dice sobre el desacuerdo).
@@ -104,18 +104,9 @@ ATENCIÓN: Una aserción categórica emocionalmente auténtica (como "derrotados
 - BAJO (0-3): incoherencia afectiva detectable: léxico empático al servicio de la exclusión ("te escucho, pero nuestros enemigos..."). Preguntas retóricas que simulan apertura pero buscan alineación emocional. Bait-and-switch estructural. El cuerpo del receptor lo detecta aunque la mente no lo articule.
 
 ─────────────────────────────────────────
-PARÁMETRO 8 · HORIZONTE DE FUTURO · peso 5%
-─────────────────────────────────────────
-Base teórica: Dunmire (2005) — preempting the future. Cap (2013) — proximización temporal. Nussbaum — esperanza cívica articulada.
-Qué medir: cómo se construye el futuro: como proyecto colectivo modalizado o como destino determinista.
-- ALTO (8-10): futuro proyectado con modalidad epistémica abierta ("podríamos", "si actuamos juntos"). Agencia colectiva explícita. Horizonte alcanzable y no excluyente.
-- MEDIO (4-7): futuro mixto, con esperanza pero también con cierre.
-- BAJO (0-3): futuro determinista categórico ("sucederá", "vendrán a por nosotros"). Nominalización de amenazas futuras. Pasado idealizado como único horizonte posible.
-
-─────────────────────────────────────────
 CÁLCULO DEL IRA
 ─────────────────────────────────────────
-IRA = (P1×0.20) + (P2×0.20) + (P3×0.15) + (P4×0.15) + (P5×0.10) + (P6×0.05) + (P7×0.10) + (P8×0.05)
+IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05) + (P7×0.05)
 Resultado en escala 0.0 – 10.0.
 
 ─────────────────────────────────────────
