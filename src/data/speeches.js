@@ -110,7 +110,7 @@ export const speeches = [
     context: 'Palm Beach, Florida. Tras confirmar su victoria en las elecciones presidenciales de EE.UU.',
     contextEn: 'Palm Beach, Florida. Following confirmation of his victory in the U.S. presidential election.',
     duration: '30\'18"',
-    iraScore: 2.48,
+    iraScore: 2.6,
     iraLabel: 'Principalmente polarizante',
     iraLabelEn: 'Primarily polarizing',
     classification: 'polarizante',
@@ -125,7 +125,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 2.0, note: 'Prácticamente nulo. No hay reconocimiento de la mitad del país que no votó por él, ni de perspectivas legítimas distintas. El adversario es un enemigo, no un conciudadano con otra visión.', noteEn: 'Virtually absent. There is no acknowledgment of the half of the country that did not vote for him, nor of distinct legitimate perspectives. The adversary is an enemy, not a fellow citizen with a different vision.' },
       { name: 'Vector de acción', value: 3.0, quote: 'al mundo le digo: más vale que encuentren a nuestros rehenes antes de que yo tome posesión, o pagarán un precio muy alto', note: 'Los llamados a la acción son unilaterales y amenazantes. La acción es imposición, no cooperación.', noteEn: 'The calls to action are unilateral and threatening. Action is imposition, not cooperation.' },
       { name: 'Coherencia afectiva', value: 3.5, note: 'El discurso es coherente en su registro de triunfo, pero el tono relativamente más sobrio que en mítines anteriores genera cierta disonancia con su retórica habitual. La grandiosidad es constante pero el ataque frontal está más contenido que de costumbre.', noteEn: 'The speech is internally consistent in its register of triumph, but the relatively more subdued tone compared to previous rallies generates a certain dissonance with his habitual rhetoric. The grandiosity is constant, but the frontal attack is more restrained than usual.' },
-      { name: 'Proyección de futuro', value: 2.8, quote: 'hacer que Estados Unidos vuelva a ser grande', note: 'El futuro es restauración de una grandeza pasada, no un futuro compartido sino una promesa a los suyos. Agenda sin adversarios nombrados pero sin inclusión real.', noteEn: 'The future is the restoration of a past greatness — not a shared future but a promise to his own. An agenda without named adversaries but without genuine inclusion.' },
     ],
     segments: [
       {
@@ -186,7 +185,7 @@ export const speeches = [
     context: 'Mitin en la Explanada Nacional, Washington D.C. Horas antes del asalto al Capitolio.',
     contextEn: 'Rally on the National Mall, Washington D.C. Hours before the assault on the Capitol.',
     duration: '71\'00"',
-    iraScore: 1.2,
+    iraScore: 1.3,
     iraLabel: 'Fuertemente polarizante',
     iraLabelEn: 'Strongly polarizing',
     classification: 'polarizante',
@@ -201,7 +200,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 1.0, quote: 'The media is the biggest problem we have, single biggest problem, the fake news', note: 'Nulo. Cualquier voz distinta es enemiga o cómplice del fraude. Los medios, los jueces, los funcionarios electorales — todos son parte del mismo sistema corrupto.', noteEn: 'Nonexistent. Any dissenting voice is either an enemy or an accomplice of the fraud. The media, the judges, the electoral officials — all are part of the same corrupt system.' },
       { name: 'Vector de acción', value: 1.2, quote: 'We will never give up. We will never concede, it doesn\'t happen. You don\'t concede when there\'s theft involved', note: 'El llamado a la acción es de resistencia sin límites. El vector apunta directamente al Capitolio — con consecuencias históricas conocidas.', noteEn: 'The call to action is one of resistance without limits. The vector points directly at the Capitol — with well-known historical consequences.' },
       { name: 'Coherencia afectiva', value: 2.0, note: 'El discurso es brutalmente coherente en su registro de agravio y conspiración. No hay saltos de tono — la indignación es total y sostenida. Esa coherencia es precisamente lo que lo hace más peligroso retóricamente.', noteEn: 'The speech is brutally coherent in its register of grievance and conspiracy. There are no tonal shifts — the indignation is total and sustained. That very coherence is precisely what makes it more dangerous rhetorically.' },
-      { name: 'Proyección de futuro', value: 1.5, quote: 'We won this election and we won it by a landslide', note: 'No hay futuro compartido — solo recuperación de lo robado. El futuro es revertir el presente, no construir algo nuevo. Un horizonte de restauración por la fuerza, no de proyecto colectivo.', noteEn: 'There is no shared future — only the recovery of what was stolen. The future means reversing the present, not building something new. A horizon of restoration by force, not of collective project.' },
     ],
     segments: [
       {
@@ -262,7 +260,7 @@ export const speeches = [
     context: 'Honduras. Discurso ante líderes latinoamericanos en el marco de la Cumbre de la CELAC.',
     contextEn: 'Honduras. Address before Latin American leaders at the CELAC Summit.',
     duration: '45\'00"',
-    iraScore: 5.94,
+    iraScore: 5.92,
     iraLabel: 'Mixto — empático en propuesta, polarizador en diagnóstico',
     iraLabelEn: 'Mixed — empathic in proposal, polarizing in diagnosis',
     classification: 'mixto',
@@ -277,7 +275,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 5.5, note: '"Hablamos mucho de unirnos pero lo hacemos poco": autocrítica hacia el bloque. Sin embargo, no abre espacio real a voces disidentes dentro de la CELAC.', noteEn: '\'We talk a great deal about uniting but do it very little\': self-criticism directed at the bloc. However, no real space is opened for dissenting voices within CELAC.' },
       { name: 'Vector de acción',           value: 7.0, note: 'Llamados concretos y cooperativos: red eléctrica americana, soberanía alimentaria, agencia de medicinas. "De la retórica tenemos que pasar a la realidad."', noteEn: 'Concrete and cooperative calls to action: an inter-American electrical grid, food sovereignty, a medicines agency. \'We must move from rhetoric to reality.\'' },
       { name: 'Coherencia afectiva',        value: 5.2, note: 'Tensión entre el Petro esperanzador ("faro de luz") y el Petro apocalíptico ("el mundo de hoy es un mundo de peligro para la vida"). El discurso no respira desde un solo registro.', noteEn: 'Tension between the hopeful Petro (\'beacon of light\') and the apocalyptic Petro (\'the world today is a world of danger for life\'). The speech does not breathe from a single register.' },
-      { name: 'Proyección de futuro',       value: 6.5, note: '"Cooperar o perecer": futuro ambicioso pero enmarcado en urgencia del colapso. Esperanza condicionada a la acción inmediata.', noteEn: '\'Cooperate or perish\': an ambitious future framed within the urgency of collapse. Hope conditioned on immediate action.' },
     ],
     segments: [
       {
@@ -338,7 +335,7 @@ export const speeches = [
     context: 'Bogotá. Discurso ante una multitud horas antes de la votación de la Consulta Popular.',
     contextEn: 'Bogotá. Speech before a crowd hours before the Popular Referendum vote.',
     duration: '59\'47"',
-    iraScore: 4.2,
+    iraScore: 4.97,
     iraLabel: 'Mixto con tensión interna',
     iraLabelEn: 'Mixed with internal tension',
     classification: 'mixto',
@@ -353,7 +350,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 4.2, note: 'Presente pero más débil que en CELAC.', noteEn: 'Present but weaker than in the CELAC speech.' },
       { name: 'Vector de acción', value: 5.5, note: 'Acción cívica directa: el voto como transformación.', noteEn: 'Direct civic action: the vote as transformation.' },
       { name: 'Coherencia afectiva', value: 6.0, note: 'Coherente pero con picos de tensión.', noteEn: 'Coherent overall, but with peaks of tension.' },
-      { name: 'Proyección de futuro', value: 6.8, note: 'El cambio como posibilidad histórica inminente.', noteEn: 'Change as an imminent historical possibility.' },
     ],
     quotes: {
       pronominal: "Aquí llegamos con el ejército de Colombia, hoy ejército libertador",
@@ -434,7 +430,7 @@ export const speeches = [
     context: 'Ciudad de México. Discurso la noche de las elecciones presidenciales de México, al confirmarse su victoria.',
     contextEn: 'Mexico City. Speech delivered on the night of the Mexican presidential elections, upon confirmation of her victory.',
     duration: '38\'00"',
-    iraScore: 7.88,
+    iraScore: 8.08,
     iraLabel: 'Fuertemente empático',
     iraLabelEn: 'Strongly empathic',
     classification: 'empatico',
@@ -449,7 +445,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 7.5, note: 'Interpelación explícita a quienes no votaron por ella: "habremos de caminar en paz y en armonía". Los incluye en el proyecto sin borrar la diferencia.', noteEn: 'Explicit address to those who did not vote for her: "habremos de caminar en paz y en armonía". They are included in the project without erasing the difference.' },
       { name: 'Vector de acción',           value: 7.8, note: 'Cooperativo y de continuidad: construir, ampliar, garantizar, defender. Sin exhortaciones confrontacionales. Política exterior de no intervención.', noteEn: 'Cooperative and continuity-oriented: to build, expand, guarantee, defend. No confrontational exhortations. Foreign policy of non-intervention.' },
       { name: 'Coherencia afectiva',        value: 8.2, note: 'Un único registro emocional: dignidad histórica femenina y proyecto colectivo. Sin saltos de tono ni disonancias entre emoción y programa.', noteEn: 'A single emotional register: historical feminine dignity and collective project. No tonal shifts or dissonances between emotion and program.' },
-      { name: 'Proyección de futuro',       value: 8.0, note: 'Futuro concreto y programático: libertades, soberanía energética, desarrollo científico. Sin utopía ni apocalipsis — hay programa.', noteEn: 'Concrete and programmatic future: freedoms, energy sovereignty, scientific development. Neither utopia nor apocalypse — there is a program.' },
     ],
     quotes: {
       pronominal: "No llego sola, llegamos todas",
@@ -521,7 +516,7 @@ export const speeches = [
     context: 'Ciudad de México. Conferencia de prensa tras el anuncio de Trump de imponer aranceles del 25% a México.',
     contextEn: 'Mexico City. Press conference following Trump\'s announcement of 25% tariffs on Mexico.',
     duration: '22\'00"',
-    iraScore: 7.1,
+    iraScore: 7.23,
     iraLabel: 'Empático con firmeza diplomática',
     iraLabelEn: 'Empathic with diplomatic firmness',
     classification: 'empatico',
@@ -536,7 +531,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 6.8, quote: 'las incautaciones de fentanilo en Estados Unidos provenientes de México se redujeron en 50%', note: 'No invalida la preocupación de Estados Unidos por el fentanilo — la reconoce y responde con datos. Argumenta, no descalifica.', noteEn: 'She does not invalidate the United States\' concern over fentanyl — she acknowledges it and responds with data. She argues rather than dismisses.' },
       { name: 'Vector de acción', value: 7.5, quote: 'nosotros siempre buscaremos una solución negociada, en el marco de respeto a nuestra soberanía', note: 'El llamado es a la unidad nacional y la negociación. La respuesta arancelaria se presenta como último recurso, no como primera opción.', noteEn: 'The call is to national unity and negotiation. The tariff response is presented as a last resort, not as a first option.' },
       { name: 'Coherencia afectiva', value: 7.8, quote: 'Estamos preparados', note: 'El discurso es notable por su consistencia emocional: firmeza sin agresividad, indignación sin pánico. El tono no cambia aunque el contexto es de crisis.', noteEn: 'The speech is remarkable for its emotional consistency: firmness without aggression, indignation without panic. The tone does not shift even though the context is one of crisis.' },
-      { name: 'Proyección de futuro', value: 7.0, quote: 'Quiero dejar claro que nosotros siempre buscaremos una solución negociada', note: 'El futuro es de resistencia ordenada: plan económico de cinco pasos, fortalecer el mercado interno, soberanía energética. Horizonte de diálogo, no de ruptura.', noteEn: 'The future is one of orderly resistance: a five-step economic plan, strengthening the domestic market, energy sovereignty. A horizon of dialogue, not of rupture.' },
     ],
     segments: [
       { text: 'México es un país soberano. ',
@@ -603,7 +597,7 @@ export const speeches = [
     context: 'Parlamento de Nueva Zelanda. Cuatro días después del ataque terrorista a dos mezquitas que dejó 51 muertos.',
     contextEn: 'New Zealand Parliament. Four days after the terrorist attack on two mosques that left 51 people dead.',
     duration: '20\'00"',
-    iraScore: 9.1,
+    iraScore: 9.07,
     iraLabel: 'Máxima empatía',
     iraLabelEn: 'Maximum empathy',
     classification: 'empatico',
@@ -618,7 +612,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 8.5, quote: 'we have so much we feel the need to say and to do', note: 'Ardern valida la complejidad del momento sin imponer una narrativa única. La incertidumbre se reconoce como legítima. No hay respuestas fáciles impuestas desde el poder.', noteEn: 'Ardern validates the complexity of the moment without imposing a single narrative. Uncertainty is acknowledged as legitimate. No easy answers are handed down from power.' },
       { name: 'Vector de acción', value: 9.0, quote: 'we, as a nation, we mourn them. We feel a huge duty of care to them', note: 'El llamado es a cuidar, a proteger, a acompañar. La acción es de reparación, no de represalia. "Peace be upon you. And peace be upon all of us" abre y cierra el discurso.', noteEn: 'The call is to care, to protect, to accompany. The action is one of repair, not retaliation. "Peace be upon you. And peace be upon all of us" opens and closes the speech.' },
       { name: 'Coherencia afectiva', value: 9.5, note: 'Discurso de una coherencia emocional extraordinaria. No hay saltos de tono, no hay instrumentalización del dolor. La primera ministra habla como ser humano antes que como líder política, y esa elección es en sí misma un acto político profundamente empático.', noteEn: 'A speech of extraordinary emotional coherence. There are no tonal shifts, no instrumentalization of pain. The Prime Minister speaks as a human being before speaking as a political leader, and that choice is itself a profoundly empathic political act.' },
-      { name: 'Proyección de futuro', value: 8.8, quote: 'let us be the nation we believe ourselves to be', note: 'El futuro es de pertenencia y reconocimiento. No promete venganza ni seguridad absoluta — propone una identidad colectiva más generosa. Un futuro que se construye desde el dolor, no a pesar de él.', noteEn: 'The future envisioned is one of belonging and recognition. It promises neither vengeance nor absolute security — it proposes a more generous collective identity. A future built from within grief, not in spite of it.' },
     ],
     segments: [
       {
@@ -701,7 +694,7 @@ export const speeches = [
     context: 'Nueva York. Intervención ante la Asamblea General de la ONU.',
     contextEn: 'New York. Address before the UN General Assembly.',
     duration: '15\'00"',
-    iraScore: 8.75,
+    iraScore: 8.9,
     iraLabel: 'Fuertemente empático',
     iraLabelEn: 'Strongly empathic',
     classification: 'empatico',
@@ -716,7 +709,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 8.8, note: 'Ardern reconoce las tensiones dentro del sistema multilateral y no las oculta: propone reformar el Consejo de Seguridad, critica el uso del veto. Habla desde adentro del sistema cuestionándolo — eso es reconocimiento del disenso en su forma más institucional.', noteEn: 'Ardern acknowledges tensions within the multilateral system without concealing them: she proposes reforming the Security Council and criticizes the use of the veto. She speaks from within the system while questioning it — this is recognition of dissent in its most institutional form.' },
       { name: 'Vector de acción', value: 9.0, quote: 'We encourage him to be ambitious and we stand with him in that ambition', note: 'Los llamados son a la cooperación global concreta: reformar la ONU, actuar sobre el clima, proteger a los países vulnerables del Pacífico. El vector es de alianza, no de imposición.', noteEn: 'The calls are for concrete global cooperation: reforming the UN, acting on climate, protecting vulnerable Pacific nations. The vector is one of alliance, not imposition.' },
       { name: 'Coherencia afectiva', value: 8.9, note: 'El discurso es coherente desde la apertura en maorí hasta el cierre. La identidad neozelandesa — pequeña, remota, autodependiente — se usa para legitimar una visión global generosa. No hay disonancias entre el tono personal y el mensaje político.', noteEn: 'The address is coherent from its opening in Māori to its close. New Zealand\'s identity — small, remote, self-reliant — is deployed to legitimize a generous global vision. There are no dissonances between the personal tone and the political message.' },
-      { name: 'Proyección de futuro', value: 8.5, quote: 'Any disintegration of multilateralism aren\'t interesting footnotes in geopolitical history. They are catastrophic', note: 'El futuro es de multilateralismo activo y responsabilidad intergeneracional. La urgencia no paraliza — moviliza hacia la construcción colectiva.', noteEn: 'The future is one of active multilateralism and intergenerational responsibility. Urgency does not paralyze — it mobilizes toward collective construction.' },
     ],
     segments: [
       {
@@ -763,7 +755,7 @@ export const speeches = [
     context: 'Montevideo, Uruguay. Discurso ante la Asamblea General al concluir su mandato presidencial.',
     contextEn: 'Montevideo, Uruguay. Address before the General Assembly upon the conclusion of his presidential term.',
     duration: '~28\'00"',
-    iraScore: 8.93,
+    iraScore: 8.74,
     iraLabel: 'Fuertemente empático',
     iraLabelEn: 'Strongly empathic',
     classification: 'empatico',
@@ -778,7 +770,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 8.5, note: '"Me faltó velocidad", "no soy ningún fenómeno". Reconoce contradicciones propias y ajenas. Propone, no impone.', noteEn: '\'I lacked speed,\' \'I am no phenomenon.\' Acknowledges his own contradictions and those of others. Proposes rather than imposes.' },
       { name: 'Vector de acción',           value: 8.8, note: 'Imperativo de cuidado: "luchen por la felicidad", "dale contenido a la vida". No convoca a enfrentarse a nadie.', noteEn: 'Imperative of care: \'fight for happiness,\' \'give content to life.\' Does not call on anyone to confront anyone else.' },
       { name: 'Coherencia afectiva',        value: 9.3, note: 'Coherencia máxima entre lo que dice y cómo lo dice. La vulnerabilidad es real, el tono no cambia para manipular.', noteEn: 'Maximum coherence between what is said and how it is said. The vulnerability is genuine; the tone does not shift to manipulate.' },
-      { name: 'Proyección de futuro',       value: 8.9, note: '"Un pequeño aliento rodando en las colinas". Futuro alcanzable e intergeneracional. "Lo imposible cuesta un poco más."', noteEn: '\'A small breath rolling through the hills.\' An achievable, intergenerational future. \'The impossible just costs a little more.\'' },
     ],
     segments: [
       {
@@ -847,7 +838,7 @@ export const speeches = [
     context: 'Nueva York. Intervención ante la Asamblea General de la ONU. Aborda la paz (Ucrania, Gaza), el retroceso democrático y la agenda de desarrollo sostenible.',
     contextEn: 'New York. Address before the UN General Assembly. Covers peace (Ukraine, Gaza), democratic backsliding, and the sustainable development agenda.',
     duration: '22\'00"',
-    iraScore: 6.63,
+    iraScore: 6.55,
     iraLabel: 'Mixto, tendencia empática',
     iraLabelEn: 'Mixed, empathic tendency',
     classification: 'mixto',
@@ -906,13 +897,6 @@ export const speeches = [
         quote: 'decir lo mismo en Ucrania, en Gaza y en cualquier otro lugar',
         note: 'La coherencia es el valor que el propio discurso proclama como central. El registro se mantiene relativamente estable: diplomático, esperanzador, con momentos de indignación controlada. Hay cierta disonancia entre el tono dialogante general y la dureza con que se deslegitima a los adversarios ideológicos («delirantes», «sin escrúpulos»), lo que introduce una fractura menor en el registro.',
         noteEn: 'Coherence is the value the speech itself proclaims as central. The register remains relatively stable: diplomatic, hopeful, with moments of controlled indignation. There is some dissonance between the generally dialogic tone and the harshness with which ideological adversaries are delegitimized ("delusional", "unscrupulous"), introducing a minor fracture in the register.',
-      },
-      {
-        name: 'Proyección de futuro',
-        value: 7.5,
-        quote: 'el futuro es una conquista relativamente reciente para la humanidad',
-        note: 'La proyección es colectiva, alcanzable y respaldada en evidencia histórica. No hay utopía ni apocalipsis —hay datos: mortalidad infantil, energía renovable, representación femenina. El futuro se construye en modo subjuntivo: «apostemos», «que nos permita dejar». La agencia colectiva es explícita y la memoria histórica se usa para aprender, no para esencializar el pasado.',
-        noteEn: 'The projection is collective, attainable, and grounded in historical evidence. There is no utopia or apocalypse — there is data: child mortality, renewable energy, female representation. The future is built in the subjunctive mood: "let us bet", "that allows us to leave". Collective agency is explicit, and historical memory is used to learn, not to essentialize the past.',
       },
     ],
     segments: [
@@ -1004,7 +988,7 @@ export const speeches = [
     context: 'Barcelona. Discurso ante 5.000 delegados progresistas internacionales en la Cumbre Progresista Internacional, junto a Lula, Tim Walz y otros líderes.',
     contextEn: 'Barcelona. Address before 5,000 international progressive delegates at the International Progressive Summit, alongside Lula, Tim Walz and other leaders.',
     duration: '~18\'00"',
-    iraScore: 5.30,
+    iraScore: 5.08,
     iraLabel: 'Mixto — orgullo colectivo con antagonismo estructural',
     iraLabelEn: 'Mixed — collective pride with structural antagonism',
     classification: 'mixto',
@@ -1063,13 +1047,6 @@ export const speeches = [
         quote: 'Si no, ¿por qué estamos en política? Y por cierto, si no somos nosotros, ¿quién lo va a hacer?',
         note: 'El registro es consistente de principio a fin: celebración, orgullo, combate. La cita a Mujica al inicio y al final crea una estructura retórica de cierre que refuerza la coherencia. Las referencias a Tim Walz, Lula y otros líderes funcionan como heteroglosia expansiva (Acknowledge, Martin & White), incorporando voces que legitiman el mensaje sin contraponerlo. No hay saltos de tono que generen disonancia.',
         noteEn: 'The register is consistent from beginning to end: celebration, pride, combat. The reference to Mujica at the opening and close creates a rhetorical closing structure that reinforces coherence. References to Tim Walz, Lula and other leaders function as expansive heteroglossia (Acknowledge, Martin & White), incorporating voices that legitimise the message without counterposing it. There are no tonal shifts that generate dissonance.',
-      },
-      {
-        name: 'Proyección de futuro',
-        value: 7.0,
-        quote: 'Para que dentro de unos años la gente pueda mirar atrás y decir: en Barcelona empezó todo',
-        note: 'El futuro es positivo, colectivo y con agencia: «el futuro puede ser mejor», «una nueva era de progreso», «millones dispuestas a unirse». La imagen «en Barcelona empezó todo» proyecta una temporalidad histórica que da al presente un peso fundacional. Sin embargo, predominan los futuros categóricos («vamos a lograrlo», «vamos a reconstruir») sobre los modalizados («podríamos»), lo que da al horizonte un carácter más determinista que en el discurso ONU. La agencia colectiva es explícita pero la victoria se presenta como dada.',
-        noteEn: 'The future is positive, collective and agentic: "the future can be better", "a new era of progress", "millions ready to join us". The image "in Barcelona it all began" projects a historical temporality that gives the present a foundational weight. However, categorical futures ("we are going to achieve it", "we are going to rebuild") predominate over modalised ones ("we could"), giving the horizon a more deterministic character than the UN speech. Collective agency is explicit but victory is presented as given.',
       },
     ],
     segments: [
@@ -1159,7 +1136,7 @@ export const speeches = [
     context: 'Columna de opinión. El País (Cali). Sobre el encuentro Trump-Putin en Anchorage y el fracaso diplomático frente a Rusia.',
     contextEn: 'Opinion column. El País (Cali). On the Trump-Putin meeting in Anchorage and the diplomatic failure vis-à-vis Russia.',
     duration: 'Columna',
-    iraScore: 6.38,
+    iraScore: 6.43,
     iraLabel: 'Mixto — analítico con posicionamiento democrático',
     iraLabelEn: 'Mixed — analytical with democratic positioning',
     classification: 'mixto',
@@ -1174,7 +1151,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 6.5, quote: 'Estados Unidos, bajo esta administración, tiene una reputación como un aliado poco confiable', note: 'El autor cita a Stephen Walt (crítico externo) y articula los argumentos de Putin para luego refutarlos. Hay apertura argumental real. La referencia al memorando de Budapest admite complejidad histórica antes de concluir.', noteEn: 'The author cites Stephen Walt (external critic) and articulates Putin\'s own arguments before rebutting them. There is genuine argumentative openness. The Budapest Memorandum reference acknowledges historical complexity before concluding.' },
       { name: 'Vector de acción', value: 5.5, note: 'No hay llamada explícita a la acción política. El vector es epistémico: "apaciguar a dictadores puede salir mucho más caro". La advertencia histórica es el acto retórico; el texto convoca a la lucidez, no a la movilización.', noteEn: 'No explicit call to political action. The vector is epistemic: "appeasing dictators can prove much more costly." Historical warning is the rhetorical act; the text calls for lucidity, not mobilization.' },
       { name: 'Coherencia afectiva', value: 8.0, note: 'La analogía Chamberlain/Churchill se mantiene perfectamente desde la entrada hasta el cierre. No hay saltos de tono ni disonancia entre diagnóstico intelectual y estilo. Es el texto más coherente afectivamente del corpus de medios.', noteEn: 'The Chamberlain/Churchill analogy holds perfectly from opening to close. No tonal shifts, no dissonance between intellectual diagnosis and style. It is the most affectively coherent text in the media corpus.' },
-      { name: 'Proyección de futuro', value: 6.0, quote: 'El futuro geopolítico mundial depende de que esta realidad cambie', note: 'Futuro contingente: puede cambiar si las democracias aprenden la lección histórica. No apocalíptico ni utópico — advertencia con agencia colectiva posible. El Donbás como precio bajo frente al coste potencial de la capitulación.', noteEn: 'Contingent future: can change if democracies learn the historical lesson. Neither apocalyptic nor utopian — a warning with possible collective agency. The Donbas as a low price compared to the potential cost of capitulation.' },
     ],
     segments: [
       {
@@ -1219,7 +1195,7 @@ export const speeches = [
     context: 'Columna de opinión. El País (Cali). Sobre la estrategia de Trump hacia América Latina y la cumbre de Mar-a-Lago.',
     contextEn: 'Opinion column. El País (Cali). On Trump\'s Latin America strategy and the Mar-a-Lago summit.',
     duration: 'Columna',
-    iraScore: 6.06,
+    iraScore: 6.03,
     iraLabel: 'Mixto — realismo crítico con apertura dialéctica',
     iraLabelEn: 'Mixed — critical realism with dialectical openness',
     classification: 'mixto',
@@ -1234,7 +1210,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 6.0, note: 'Reconoce múltiples posiciones: Bukele/Noboa/Milei, Lula/Sheinbaum, Colombia "irrelevante", Cuba como objetivo de Rubio. El mapa político es complejo y el texto lo respeta sin forzar alineamiento.', noteEn: 'Acknowledges multiple positions: Bukele/Noboa/Milei, Lula/Sheinbaum, "irrelevant" Colombia, Cuba as Rubio\'s target. The political map is complex and the text respects it without forcing alignment.' },
       { name: 'Vector de acción', value: 5.5, note: '"Los más astutos de la región intentarán aprovechar el momento." El vector no moviliza políticamente: recomienda estrategia adaptativa. Cooperación instrumental, no ideológica.', noteEn: '"The savviest in the region will try to capitalize on the moment." The vector does not mobilize politically: it recommends adaptive strategy. Instrumental, not ideological, cooperation.' },
       { name: 'Coherencia afectiva', value: 7.0, note: 'El tono irónico-analítico se mantiene de principio a fin. Sin saltos entre alarma y esperanza. El realismo escéptico es el registro constante. La columna pretende iluminar, no movilizar.', noteEn: 'The ironic-analytical tone is maintained throughout. No shifts between alarm and hope. Skeptical realism is the constant register. The column seeks to illuminate, not mobilize.' },
-      { name: 'Proyección de futuro', value: 6.5, note: '"Tal vez realmente quiera acabar con el narcotráfico." El condicional es clave: el futuro es posible pero no garantizado. La oportunidad existe — si la región actúa con inteligencia estratégica.', noteEn: '"Perhaps he really does want to end drug trafficking." The conditional is key: the future is possible but not guaranteed. The opportunity exists — if the region acts with strategic intelligence.' },
     ],
     segments: [
       {
@@ -1279,7 +1254,7 @@ export const speeches = [
     context: 'Análisis de opinión. RT World News. Fyodor Lukyanov, director de Russia in Global Affairs y presidente del Consejo de Política Exterior y de Defensa de Rusia.',
     contextEn: 'Opinion analysis. RT World News. Fyodor Lukyanov, editor-in-chief of Russia in Global Affairs and chairman of the Council on Foreign and Defense Policy.',
     duration: 'Análisis',
-    iraScore: 3.81,
+    iraScore: 3.48,
     iraLabel: 'Principalmente polarizante — análisis pro-multipolar',
     iraLabelEn: 'Primarily polarizing — pro-multipolar analysis',
     classification: 'polarizante',
@@ -1294,7 +1269,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 3.5, quote: 'A world organized around spheres of influence cannot be stable', note: 'Concesión estratégica: reconoce la inestabilidad del nuevo orden. Pero no valida voces críticas del imperialismo ruso; la inestabilidad es un hecho técnico, no un problema ético. El disenso existe como reconocimiento intelectual, no como apertura genuina.', noteEn: 'Strategic concession: acknowledges the instability of the new order. But does not validate voices critical of Russian imperialism; instability is a technical fact, not an ethical problem. Dissent exists as intellectual acknowledgment, not genuine openness.' },
       { name: 'Vector de acción', value: 3.5, note: '"Moscow must again learn how to operate within a competitive framework." El vector apunta al fortalecimiento de la esfera de influencia rusa. Acción geopolítica asertiva presentada como pragmatismo racional.', noteEn: '"Moscow must again learn how to operate within a competitive framework." The vector points to strengthening the Russian sphere of influence. Assertive geopolitical action presented as rational pragmatism.' },
       { name: 'Coherencia afectiva', value: 6.0, note: 'El marco Valdai Club — realismo geopolítico pro-ruso — se mantiene consistente de principio a fin. No hay disonancia entre el análisis del mundo y el posicionamiento implícito de Rusia como actor legítimo y racional.', noteEn: 'The Valdai Club framework — pro-Russian geopolitical realism — remains consistent throughout. No dissonance between the world analysis and the implicit positioning of Russia as a legitimate and rational actor.' },
-      { name: 'Proyección de futuro', value: 4.5, note: '"A qualitatively new phase will begin" para Rusia tras Ucrania. El futuro implica victoria rusa y gestión regional competitiva. Horizonte de estabilidad para Rusia; inestabilidad para el orden liberal como costo aceptado.', noteEn: '"A qualitatively new phase will begin" for Russia after Ukraine. The future implies Russian victory and competitive regional management. Horizon of stability for Russia; instability for the liberal order as an accepted cost.' },
     ],
     segments: [
       {
@@ -1339,7 +1313,7 @@ export const speeches = [
     context: 'Análisis de opinión. RT World News. Ivan Timofeev, director de programas del Valdai Club.',
     contextEn: 'Opinion analysis. RT World News. Ivan Timofeev, programme director of the Valdai Club.',
     duration: 'Análisis',
-    iraScore: 3.31,
+    iraScore: 2.98,
     iraLabel: 'Polarizante — análisis pro-ruso encuadrado como realpolitik',
     iraLabelEn: 'Polarizing — pro-Russian analysis framed as realpolitik',
     classification: 'polarizante',
@@ -1354,7 +1328,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 3.0, note: '"Las contradicciones dentro del bloque occidental no deben exagerarse." Concede la existencia de la fricción pero la enmarca como gestionable. El disenso ucraniano o de los aliados europeos no se valida como perspectiva legítima.', noteEn: '"Contradictions inside the Western bloc should not be exaggerated." Concedes the existence of friction but frames it as manageable. Ukrainian dissent or that of European allies is not validated as a legitimate perspective.' },
       { name: 'Vector de acción', value: 3.0, note: 'Implícitamente: Rusia debe mantener su posición hasta la "conclusión del conflicto ucraniano". El vector apunta a continuación de la guerra y posterior gestión regional. Presentado como inevitable, no como elección.', noteEn: 'Implicitly: Russia must maintain its position until the "conclusion of the Ukraine conflict". The vector points to continued war and subsequent regional management. Presented as inevitable, not as a choice.' },
       { name: 'Coherencia afectiva', value: 5.5, note: 'Marco Valdai perfectamente consistente: el mundo se reorganiza en esferas de influencia y Rusia actúa racionalmente dentro de esa lógica. Ni alarma ni euforia. La coherencia es la del realismo calculado.', noteEn: 'Perfectly consistent Valdai framework: the world reorganizes into spheres of influence and Russia acts rationally within that logic. Neither alarm nor euphoria. The coherence is that of calculated realism.' },
-      { name: 'Proyección de futuro', value: 4.0, quote: 'With the conclusion of the Ukraine conflict, a qualitatively new phase will begin', note: '"Conclusión del conflicto ucraniano" implica victoria rusa. El futuro es la gestión regional post-victoria. No hay horizonte compartido para Ucrania — solo para Rusia en su nuevo papel de potencia regional consolidada.', noteEn: '"Conclusion of the Ukraine conflict" implies Russian victory. The future is post-victory regional management. No shared horizon for Ukraine — only for Russia in its new role as a consolidated regional power.' },
     ],
     segments: [
       {
@@ -1399,7 +1372,7 @@ export const speeches = [
     context: 'Reportaje de investigación. Telemundo / NBC News. Sobre disfunciones internas en el Departamento de Seguridad Nacional ante las metas de deportación de la administración Trump.',
     contextEn: 'Investigative report. Telemundo / NBC News. On internal dysfunction in the Department of Homeland Security amid Trump administration deportation targets.',
     duration: 'Reportaje',
-    iraScore: 5.88,
+    iraScore: 5.9,
     iraLabel: 'Mixto — periodismo de rendición de cuentas',
     iraLabelEn: 'Mixed — accountability journalism',
     classification: 'mixto',
@@ -1414,7 +1387,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 7.5, quote: 'Todos los líderes están muy preocupados por lo que dicen en sus correos electrónicos', note: 'Incluye portavoz de la Casa Blanca (defensa oficial) + directores de ICE y CBP (disidentes internos) + datos verificables (menos de 1.000 deportaciones vs. meta de 3.000). El disenso no es externo sino institucional, lo que lo hace más creíble.', noteEn: 'Includes White House spokesperson (official defense) + ICE and CBP directors (internal dissenters) + verifiable data (fewer than 1,000 deportations vs. target of 3,000). Dissent is not external but institutional, making it more credible.' },
       { name: 'Vector de acción', value: 5.5, note: 'No prescriptivo. El texto documenta la disfunción sin llamar a una acción específica. El vector está en la visibilidad: hacer pública la brecha entre retórica y realidad es el acto político implícito.', noteEn: 'Not prescriptive. The text documents dysfunction without calling for specific action. The vector is in visibility: making public the gap between rhetoric and reality is the implicit political act.' },
       { name: 'Coherencia afectiva', value: 7.5, note: 'Consistentemente investigativo de principio a fin. El tono no cambia ni se contamina con la opinión. La selección de hechos (metas incumplidas, vigilancia de emails, amenazas de renuncia) construye una narrativa coherente de disfunción sin adjetivación editorial.', noteEn: 'Consistently investigative throughout. The tone does not change or become contaminated by opinion. The selection of facts (unmet targets, email surveillance, resignation threats) builds a coherent narrative of dysfunction without editorial adjectives.' },
-      { name: 'Proyección de futuro', value: 5.5, note: 'Sin proyección explícita. El artículo documenta el presente disfuncional; el futuro se infiere: si las metas siguen sin cumplirse y las tensiones internas persisten, la agenda de deportaciones masivas puede fracasar. Futuro como consecuencia lógica, no como esperanza.', noteEn: 'No explicit projection. The article documents the dysfunctional present; the future is inferred: if targets continue to go unmet and internal tensions persist, the mass deportation agenda may fail. Future as logical consequence, not as hope.' },
     ],
     segments: [
       {
@@ -1452,7 +1424,7 @@ export const speeches = [
     context: 'Crónica periodística. Telemundo Noticias. El caso de José Contreras Díaz: deportado a Honduras, autorizado a regresar y re-detenido a su llegada al aeropuerto.',
     contextEn: 'Journalistic chronicle. Telemundo Noticias. The case of José Contreras Díaz: deported to Honduras, authorized to return, then re-detained upon arrival at the airport.',
     duration: 'Crónica',
-    iraScore: 6.69,
+    iraScore: 6.8,
     iraLabel: 'Mixto-empático — periodismo humano con preocupación sistémica',
     iraLabelEn: 'Mixed-empathic — human-centered journalism with systemic concern',
     classification: 'mixto',
@@ -1467,7 +1439,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 6.5, note: 'Incluye: testimonio de José y su hermana + datos oficiales del DHS + cita del senador Padilla + datos de USCIS sobre tiempos de espera. El equilibrio es auténtico porque los datos contradicen la narrativa oficial sin necesitar editorializarla.', noteEn: 'Includes: José\'s testimony and his sister\'s + official DHS data + Senator Padilla quote + USCIS data on processing times. The balance is authentic because the data contradicts the official narrative without needing to editorialize.' },
       { name: 'Vector de acción', value: 6.5, note: 'Implícitamente convoca a la atención sobre los tiempos de procesamiento (122 días promedio, 183 días en algunos casos) y sobre la vulnerabilidad de los beneficiarios DACA. El vector está en la documentación del agravio, no en el llamado explícito.', noteEn: 'Implicitly calls attention to processing times (122-day average, 183 days in some cases) and to the vulnerability of DACA beneficiaries. The vector is in documenting the grievance, not in an explicit call.' },
       { name: 'Coherencia afectiva', value: 7.5, note: 'El arco narrativo — detención, deportación, regreso autorizado, re-detención, liberación, reunión con el bebé — es perfectamente coherente. El tono de acompañamiento se mantiene constante. No hay saltos editoriales.', noteEn: 'The narrative arc — detention, deportation, authorized return, re-detention, release, reunion with baby — is perfectly coherent. The accompaniment tone is maintained consistently. No editorial shifts.' },
-      { name: 'Proyección de futuro', value: 6.5, quote: 'la ilusión de abrazar a su hijo recién nacido y reunirse con su familia fue lo que lo mantuvo fuerte', note: 'La esperanza encarnada en el bebé Mateo. El futuro es el de la familia reunida, condicional pero presente. Los tiempos de procesamiento en aumento introducen la preocupación sistémica: la historia de José puede repetirse para 261 personas más.', noteEn: 'Hope embodied in baby Mateo. The future is that of the reunited family, conditional but present. Rising processing times introduce systemic concern: José\'s story may repeat for 261 more people.' },
     ],
     segments: [
       {
@@ -1512,7 +1483,7 @@ export const speeches = [
     context: 'Análisis político. Fox News. Sobre la nueva Estrategia de Seguridad Nacional de la administración Trump que designa la migración masiva como principal amenaza.',
     contextEn: 'Political analysis. Fox News. On the Trump administration\'s new National Security Strategy designating mass migration as the primary threat.',
     duration: 'Análisis',
-    iraScore: 4.38,
+    iraScore: 4.23,
     iraLabel: 'Mixto-polarizante — encuadre de seguridad con balance limitado',
     iraLabelEn: 'Mixed-polarizing — security frame with limited balance',
     classification: 'polarizante',
@@ -1527,7 +1498,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 4.5, note: 'Incluye a Plitsas ("terrorism is not done with us") y Harding ("the region sucks you back in"). Las voces críticas son reales pero se presentan como preocupaciones residuales dentro de un cambio que el texto da por correcto.', noteEn: 'Includes Plitsas ("terrorism is not done with us") and Harding ("the region sucks you back in"). Critical voices are real but presented as residual concerns within a change the text frames as correct.' },
       { name: 'Vector de acción', value: 4.0, note: 'Apoya implícitamente el giro hacia el enforcement hemisférico y el fin del enfoque en Oriente Medio. El vector es de validación política: la NSS Trump es presentada como respuesta racional a amenazas reales.', noteEn: 'Implicitly supports the shift toward hemispheric enforcement and away from Middle East focus. The vector is political validation: Trump\'s NSS is presented as a rational response to real threats.' },
       { name: 'Coherencia afectiva', value: 5.5, note: 'Consistentemente alineado con el encuadre de seguridad nacional conservador. Sin disonancia entre el análisis y la valoración implícita. El periodismo político de Fox mantiene su registro de defensa de la agenda.', noteEn: 'Consistently aligned with the conservative national security frame. No dissonance between analysis and implicit valuation. Fox\'s political journalism maintains its agenda-defense register.' },
-      { name: 'Proyección de futuro', value: 5.0, note: '"Whether the administration will translate rhetoric into actual force posture changes remains unclear." Futuro incierto pero esperanzador: la nueva NSS como promesa de seguridad hemisférica. La duda se presenta como técnica, no como cuestionamiento del objetivo.', noteEn: '"Whether the administration will translate rhetoric into actual force posture changes remains unclear." Uncertain but hopeful future: the new NSS as a promise of hemispheric security. The doubt is presented as technical, not as a challenge to the goal.' },
     ],
     segments: [
       {
@@ -1565,7 +1535,7 @@ export const speeches = [
     context: 'Columna de opinión. Fox News Opinion. Lora Ries, ex-subsecretaria en funciones del DHS. Sobre el declive histórico de la inmigración neta en EE.UU.',
     contextEn: 'Opinion column. Fox News Opinion. Lora Ries, former acting DHS deputy chief of staff. On the historic decline in net US immigration.',
     duration: 'Columna',
-    iraScore: 3.50,
+    iraScore: 3.28,
     iraLabel: 'Polarizante — triunfalismo ante el declive migratorio',
     iraLabelEn: 'Polarizing — triumphalism over migration decline',
     classification: 'polarizante',
@@ -1580,7 +1550,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 3.5, note: 'Usa datos de Pew Research y Brookings pero solo para la parte que confirma el declive. No cita estudios sobre beneficios económicos de la inmigración ni perspectivas de los afectados. Los datos como argumento unilateral.', noteEn: 'Uses Pew Research and Brookings data but only the part confirming the decline. Does not cite studies on immigration\'s economic benefits or the perspectives of those affected. Data as a one-sided argument.' },
       { name: 'Vector de acción', value: 3.5, note: 'Endorses continued enforcement to maintain the "correction." El vector implícito: lo que comenzó con Trump debe continuar. La acción es el mantenimiento de la presión, no la confrontación directa.', noteEn: 'Endorses continued enforcement to maintain the "correction." The implicit vector: what Trump started must continue. The action is maintaining pressure, not direct confrontation.' },
       { name: 'Coherencia afectiva', value: 5.0, note: 'Consistentemente pro-enforcement de principio a fin. Sin disonancia interna. La coherencia es la del ideólogo convencido: el marco no se pone en duda, solo se acumulan evidencias a favor.', noteEn: 'Consistently pro-enforcement throughout. No internal dissonance. The coherence is that of the convinced ideologue: the frame is not questioned, only supporting evidence is accumulated.' },
-      { name: 'Proyección de futuro', value: 4.0, note: '"A long-overdue return to a sustainable equilibrium that protects American workers and communities." Futuro de restauración: regresar a un equilibrio que existía antes de 1965. El tiempo es regresivo, no constructivo.', noteEn: '"A long-overdue return to a sustainable equilibrium that protects American workers and communities." Future of restoration: returning to an equilibrium that existed before 1965. Time is regressive, not constructive.' },
     ],
     segments: [
       {
@@ -1618,7 +1587,7 @@ export const speeches = [
     context: 'Reportaje. Público (España). Emilia G. Morales. Análisis del informe anual de Human Rights Watch 2026 sobre las políticas de Trump en su primer año completo.',
     contextEn: 'Feature report. Público (Spain). Emilia G. Morales. Analysis of Human Rights Watch\'s 2026 World Report on Trump\'s policies in his first full year.',
     duration: 'Reportaje',
-    iraScore: 6.69,
+    iraScore: 6.83,
     iraLabel: 'Mixto-empático — periodismo de derechos humanos',
     iraLabelEn: 'Mixed-empathic — human rights journalism',
     classification: 'mixto',
@@ -1633,7 +1602,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 7.5, note: 'Cita la respuesta del gobierno ("no comentó"), incluye la distinción legal clave de Bolopion (autoridad vs. derecho), y reconoce que "EE.UU. y otras democracias históricas tienen sus propios antecedentes de crímenes coloniales" — autocrítica del propio marco democrático.', noteEn: 'Cites government response ("no comment"), includes Bolopion\'s key legal distinction (authority vs. right), and acknowledges that "the US and other historic democracies have their own track records of colonial crimes" — self-criticism of the democratic framework itself.' },
       { name: 'Vector de acción', value: 6.5, note: 'Implícitamente llama a la rendición de cuentas democrática e internacional. El vector de Público no es la movilización callejera sino la exigencia de cumplimiento del Estado de derecho. Acción a través del conocimiento y la presión institucional.', noteEn: 'Implicitly calls for democratic and international accountability. Público\'s vector is not street mobilization but the demand for rule-of-law compliance. Action through knowledge and institutional pressure.' },
       { name: 'Coherencia afectiva', value: 7.0, note: 'El marco de derechos humanos se mantiene consistente a lo largo del texto. No hay saltos entre indignación y análisis frío — hay una temperatura constante: la de la preocupación documentada. La fuente (HRW) y el medio (Público) comparten el mismo registro ético.', noteEn: 'The human rights framework is maintained consistently throughout. No shifts between indignation and cold analysis — there is a constant temperature: that of documented concern. The source (HRW) and the outlet (Público) share the same ethical register.' },
-      { name: 'Proyección de futuro', value: 6.5, note: '"Ha envalentonado a autócratas y debilitado a aliados democráticos." El futuro es la erosión de las alianzas democráticas globales si la tendencia continúa. No apocalíptico — prospectivo. La advertencia tiene agencia: si se documenta y se denuncia, puede revertirse.', noteEn: '"Has emboldened autocrats and weakened democratic allies." The future is the erosion of global democratic alliances if the trend continues. Not apocalyptic — prospective. The warning has agency: if documented and condemned, it can be reversed.' },
     ],
     segments: [
       {
@@ -1678,7 +1646,7 @@ export const speeches = [
     context: 'Análisis político. Público (España). Antònia Crespí Ferrer. Sobre el declive en los sondeos de la política migratoria de Trump tras las operaciones de ICE en Minnesota.',
     contextEn: 'Political analysis. Público (Spain). Antònia Crespí Ferrer. On the polling decline of Trump\'s immigration policy following ICE operations in Minnesota.',
     duration: 'Análisis',
-    iraScore: 6.69,
+    iraScore: 6.7,
     iraLabel: 'Mixto-empático — análisis de rendición de cuentas democrática',
     iraLabelEn: 'Mixed-empathic — democratic accountability analysis',
     classification: 'mixto',
@@ -1693,7 +1661,6 @@ export const speeches = [
       { name: 'Reconocimiento del disenso', value: 7.5, note: 'El dato más poderoso del texto: el 19% de los propios votantes de Trump consideran las deportaciones "demasiado agresivas". El disenso no es externo (la oposición) sino interno (los suyos). Hace visible la complejidad del electorado conservador.', noteEn: 'The most powerful data in the text: 19% of Trump\'s own voters consider deportations "too aggressive." Dissent is not external (the opposition) but internal (his own). Makes visible the complexity of the conservative electorate.' },
       { name: 'Vector de acción', value: 6.5, note: '"La desescalada en Minnesota responde a esta necesidad de contener la caída." El vector implícito: la democracia corrige a través de las encuestas y la presión del electorado. La accountability opera desde abajo, no desde las instituciones.', noteEn: '"De-escalation in Minnesota responds to this need to contain the fall." The implicit vector: democracy corrects itself through polls and electoral pressure. Accountability operates from below, not from institutions.' },
       { name: 'Coherencia afectiva', value: 7.5, note: 'El análisis de promesa → crisis → desescalada es perfectamente coherente. El marco periodístico de rendición de cuentas democrática se mantiene de principio a fin. Sin saltos editoriales ni cambios de registro.', noteEn: 'The analysis of promise → crisis → de-escalation is perfectly coherent. The journalistic framework of democratic accountability holds throughout. No editorial shifts or register changes.' },
-      { name: 'Proyección de futuro', value: 7.0, note: '"La desescalada en Minnesota" como señal de que la opinión pública puede torcer la política. El futuro es contingente y con agencia ciudadana: si el coste electoral sube, la política cambia. Optimismo democrático basado en evidencia, no en esperanza abstracta.', noteEn: '"De-escalation in Minnesota" as a signal that public opinion can bend policy. The future is contingent with citizen agency: if the electoral cost rises, policy changes. Democratic optimism based on evidence, not abstract hope.' },
     ],
     segments: [
       {
