@@ -1794,6 +1794,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
         @keyframes b2 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(-50px,60px) scale(1.2); } }
         @keyframes b3 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(40px,50px) scale(1.1); } }
         @keyframes wcPulse { 0%,100% { opacity:1; box-shadow:0 0 8px ${accent}; } 50% { opacity:0.5; box-shadow:0 0 16px ${accent}; } }
+        @keyframes aboutPulse { 0%,100% { box-shadow:0 0 18px rgba(220,60,160,0.22), inset 0 0 12px rgba(220,60,160,0.06); } 50% { box-shadow:0 0 28px rgba(220,60,160,0.38), inset 0 0 16px rgba(220,60,160,0.1); } }
       `}</style>
 
       <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
@@ -1912,18 +1913,37 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             </span>
           </div>
           <button onClick={() => navigate('/about')} style={{
-            display:"block", marginTop:"12px",
-            padding:"7px 18px", borderRadius:"20px",
-            background:"rgba(220,60,160,0.07)",
-            border:"1px solid rgba(220,60,160,0.25)",
-            color:"rgba(230,80,170,0.65)",
-            fontSize:"10px", letterSpacing:"0.1em", cursor:"pointer",
-            fontFamily:"'DM Mono',monospace", fontWeight:600,
-            transition:"all 0.2s ease",
+            display:"inline-flex", alignItems:"center", gap:"7px",
+            marginTop:"14px",
+            padding:"10px 22px", borderRadius:"12px",
+            background:"linear-gradient(135deg, rgba(220,60,160,0.18) 0%, rgba(150,30,120,0.12) 100%)",
+            border:"1.5px solid rgba(220,60,160,0.5)",
+            color:"rgba(245,110,190,0.95)",
+            fontSize:"11px", letterSpacing:"0.1em", cursor:"pointer",
+            fontFamily:"'DM Mono',monospace", fontWeight:700,
+            transition:"all 0.25s ease",
+            boxShadow:"0 0 18px rgba(220,60,160,0.22), inset 0 0 12px rgba(220,60,160,0.06)",
+            animation:"aboutPulse 3s ease-in-out infinite",
           }}
-            onMouseEnter={e => { e.currentTarget.style.color="rgba(240,100,185,0.9)"; e.currentTarget.style.borderColor="rgba(220,60,160,0.5)"; e.currentTarget.style.background="rgba(220,60,160,0.12)"; }}
-            onMouseLeave={e => { e.currentTarget.style.color="rgba(230,80,170,0.65)"; e.currentTarget.style.borderColor="rgba(220,60,160,0.25)"; e.currentTarget.style.background="rgba(220,60,160,0.07)"; }}
-          >{lang === 'en' ? "About this project →" : "Sobre el proyecto →"}</button>
+            onMouseEnter={e => {
+              e.currentTarget.style.color="#fff";
+              e.currentTarget.style.borderColor="rgba(240,80,180,0.85)";
+              e.currentTarget.style.background="linear-gradient(135deg, rgba(220,60,160,0.32) 0%, rgba(180,40,140,0.22) 100%)";
+              e.currentTarget.style.boxShadow="0 0 32px rgba(220,60,160,0.5), 0 0 8px rgba(220,60,160,0.3), inset 0 0 16px rgba(220,60,160,0.1)";
+              e.currentTarget.style.transform="translateY(-2px) scale(1.02)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color="rgba(245,110,190,0.95)";
+              e.currentTarget.style.borderColor="rgba(220,60,160,0.5)";
+              e.currentTarget.style.background="linear-gradient(135deg, rgba(220,60,160,0.18) 0%, rgba(150,30,120,0.12) 100%)";
+              e.currentTarget.style.boxShadow="0 0 18px rgba(220,60,160,0.22), inset 0 0 12px rgba(220,60,160,0.06)";
+              e.currentTarget.style.transform="translateY(0) scale(1)";
+            }}
+          >
+            <span style={{ fontSize:"13px" }}>✦</span>
+            {lang === 'en' ? "About this project" : "Sobre el proyecto"}
+            <span style={{ opacity:0.7 }}>→</span>
+          </button>
         </div>
 
         {/* ── Casos de uso ── */}
