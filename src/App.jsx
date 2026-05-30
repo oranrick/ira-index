@@ -1267,6 +1267,7 @@ function HistoryCard({ row, lang }) {
 
 function Analyzer({ lang }) {
   const { accent, accentA, mode } = useContext(AccentContext);
+  const { openLogin } = useContext(AppContext);
   const { user, profile } = useAuth();
   const isAdmin = profile?.role === 'admin';
   const [text, setText] = useState("");
@@ -1340,6 +1341,23 @@ function Analyzer({ lang }) {
 
   return (
     <div style={{ maxWidth:"640px", margin:"0 auto" }}>
+      {!user && (
+        <div style={{
+          display:"flex", alignItems:"center", gap:"10px",
+          marginBottom:"20px", padding:"11px 16px",
+          background:"rgba(255,102,0,0.06)",
+          border:"1px solid rgba(255,102,0,0.2)",
+          borderRadius:"10px",
+        }}>
+          <span style={{ fontSize:"14px", flexShrink:0 }}>💾</span>
+          <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.45)", lineHeight:1.5, fontFamily:"'DM Mono',monospace" }}>
+            {lang === "en"
+              ? <>{"Analyzing is free. "}<button onClick={openLogin} style={{ background:"none", border:"none", padding:0, color:"rgba(255,102,0,0.9)", fontSize:"11px", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700 }}>Sign in</button>{" to save your results."}</>
+              : <>{"Analizar es gratis. "}<button onClick={openLogin} style={{ background:"none", border:"none", padding:0, color:"rgba(255,102,0,0.9)", fontSize:"11px", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700 }}>Inicia sesión</button>{" para guardar tus análisis."}</>
+            }
+          </p>
+        </div>
+      )}
       <div style={{ marginBottom:"20px" }}>
         <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.3)", textTransform:"uppercase", marginBottom:"6px" }}>
           {T.nameLabel}
@@ -1992,8 +2010,8 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
         <div className="tabs-row" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
           {[
             ["explore", T.tabExplore, mode === 'medios' ? '/medios' : '/politicos', false],
-            ["analyze", T.tabAnalyze, '/analyze', true],
-            ["compare", T.tabCompare, '/compare', true],
+            ["analyze", T.tabAnalyze, '/analyze', false],
+            ["compare", T.tabCompare, '/compare', false],
           ].map(([id, label, path, needsAuth]) => (
             <button key={id} onClick={() => {
               if (needsAuth && !user) { requireAuth(() => navigate(path)); }
