@@ -399,6 +399,280 @@ function ResultBlock({ result, es, col, accentA }) {
   );
 }
 
+// ─── D · SLIDER DE PARÁMETROS ─────────────────────────────────────────────────
+
+const SLIDER_PARAMS = {
+  es: [
+    {
+      id: "pronominal",
+      label: "Pronombres y vínculo",
+      examples: [
+        "«Nosotros somos los verdaderos patriotas. Ellos son una amenaza que hay que expulsar.»",
+        "«Tenemos diferencias, pero podemos encontrar puntos en común si hay voluntad.»",
+        "«Caminemos juntos. Lo que le pase a uno nos pasa a todos.»",
+      ],
+    },
+    {
+      id: "metafora",
+      label: "Marco metafórico",
+      examples: [
+        "«Estamos en guerra. El enemigo ha infectado nuestras instituciones desde dentro.»",
+        "«El camino tiene obstáculos, pero podemos avanzar si los superamos juntos.»",
+        "«La democracia es un jardín que cultivamos entre todos, con paciencia y cuidado.»",
+      ],
+    },
+    {
+      id: "dicotomia",
+      label: "Polaridad moral",
+      examples: [
+        "«O eres de los nuestros o eres un traidor. No hay término medio posible.»",
+        "«Hay diferencias profundas, aunque reconozco que no todas son de mala fe.»",
+        "«Quien piensa distinto no es mi enemigo — es mi interlocutor legítimo.»",
+      ],
+    },
+    {
+      id: "tono",
+      label: "Tono emocional",
+      examples: [
+        "«Deberían tener miedo. Lo que viene si no actuamos será peor de lo imaginado.»",
+        "«Hay preocupaciones legítimas, aunque también razones reales para mantener la esperanza.»",
+        "«Siento genuina esperanza cuando veo la capacidad de nuestra gente para superar adversidades.»",
+      ],
+    },
+    {
+      id: "disenso",
+      label: "Apertura al disenso",
+      examples: [
+        "«Los que nos critican forman parte del problema. No perderé tiempo escuchándolos.»",
+        "«Puedo escuchar algunas críticas, aunque no comparto la mayoría de sus argumentos.»",
+        "«Podemos pensar distinto y construir juntos. El disenso es motor de la democracia.»",
+      ],
+    },
+    {
+      id: "vector",
+      label: "Llamada a la acción",
+      examples: [
+        "«Hay que salir a echarlos. Que tiemblen quienes nos han traicionado.»",
+        "«Tenemos que actuar, aunque el cómo todavía está por definir entre todos.»",
+        "«Trabajemos juntos en lo que nos une. La solución vendrá de cada comunidad.»",
+      ],
+    },
+    {
+      id: "coherencia",
+      label: "Engagement dialógico",
+      examples: [
+        "«Te escucho... pero quienes te engañaron son nuestros verdaderos enemigos.»",
+        "«Entiendo tu posición, aunque a veces el discurso no acompaña del todo a los hechos.»",
+        "«Lo que digo es lo que hago. No uso el lenguaje de la empatía para excluir.»",
+      ],
+    },
+  ],
+  en: [
+    {
+      id: "pronominal",
+      label: "Pronouns & Bond",
+      examples: [
+        "«We are the true patriots. They are a threat that must be expelled.»",
+        "«We have differences, but we can find common ground if there's willingness.»",
+        "«Let's walk together. What happens to one of us happens to all of us.»",
+      ],
+    },
+    {
+      id: "metafora",
+      label: "Metaphorical Frame",
+      examples: [
+        "«We are at war. The enemy has infected our institutions from within.»",
+        "«The road has obstacles, but we can move forward if we face them together.»",
+        "«Democracy is a garden we all cultivate together, with patience and care.»",
+      ],
+    },
+    {
+      id: "dicotomia",
+      label: "Moral Polarity",
+      examples: [
+        "«Either you're with us or you're a traitor. There is no middle ground.»",
+        "«There are deep differences, though I acknowledge not all opposition is in bad faith.»",
+        "«Those who think differently are not my enemies — they are my legitimate interlocutors.»",
+      ],
+    },
+    {
+      id: "tono",
+      label: "Emotional Tone",
+      examples: [
+        "«They should be afraid. What's coming if we don't act will be worse than imagined.»",
+        "«There are legitimate concerns, though there are also real reasons to maintain hope.»",
+        "«I feel genuine hope when I see our people's capacity to overcome adversity.»",
+      ],
+    },
+    {
+      id: "disenso",
+      label: "Openness to Dissent",
+      examples: [
+        "«Those who criticize us are part of the problem. I won't waste time listening to them.»",
+        "«I can hear some criticism, though I don't agree with most of their arguments.»",
+        "«We can think differently and build together. Dissent is the engine of democracy.»",
+      ],
+    },
+    {
+      id: "vector",
+      label: "Call to Action",
+      examples: [
+        "«We need to throw them out. Let those who betrayed us tremble.»",
+        "«We need to act, though how is still something we must define together.»",
+        "«Let's work together on what unites us. The solution will come from each community.»",
+      ],
+    },
+    {
+      id: "coherencia",
+      label: "Dialogic Engagement",
+      examples: [
+        "«I hear you... but those who deceived you are our real enemies.»",
+        "«I understand your position, though sometimes the discourse doesn't fully match the actions.»",
+        "«What I say is what I do. I don't use the language of empathy to exclude.»",
+      ],
+    },
+  ],
+};
+
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+function sliderColor(val) {
+  if (val <= 5) {
+    const t = val / 5;
+    const r = Math.round(lerp(224, 232, t));
+    const g = Math.round(lerp(82, 168, t));
+    const b = Math.round(lerp(82, 56, t));
+    return `rgb(${r},${g},${b})`;
+  } else {
+    const t = (val - 5) / 5;
+    const r = Math.round(lerp(232, 110, t));
+    const g = Math.round(lerp(168, 198, t));
+    const b2 = Math.round(lerp(56, 160, t));
+    return `rgb(${r},${g},${b2})`;
+  }
+}
+
+function exampleIndex(val) {
+  if (val < 3.5) return 0;
+  if (val < 6.5) return 1;
+  return 2;
+}
+
+function ParameterSliderSection({ lang, accent, accentA }) {
+  const es = lang !== 'en';
+  const [val, setVal] = useState(5);
+  const [prevVal, setPrevVal] = useState(5);
+  const [fading, setFading] = useState(false);
+  const fadeTimer = useRef(null);
+
+  const params = es ? SLIDER_PARAMS.es : SLIDER_PARAMS.en;
+  const col = sliderColor(val);
+  const exIdx = exampleIndex(val);
+  const prevExIdx = exampleIndex(prevVal);
+
+  function handleChange(e) {
+    const newVal = parseFloat(e.target.value);
+    if (exampleIndex(newVal) !== exampleIndex(val)) {
+      setPrevVal(val);
+      setFading(true);
+      clearTimeout(fadeTimer.current);
+      fadeTimer.current = setTimeout(() => setFading(false), 300);
+    }
+    setVal(newVal);
+  }
+
+  const iraLabel = val >= 7 ? (es ? "Empático" : "Empathic")
+    : val >= 4.5 ? (es ? "Mixto" : "Mixed")
+    : (es ? "Polarizante" : "Polarizing");
+
+  return (
+    <div style={{ marginBottom:"40px" }}>
+      <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.18em", color:accent, textTransform:"uppercase" }}>
+        {es ? "Así suena el discurso a cada nivel" : "This is what discourse sounds like at each level"}
+      </p>
+
+      <div style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)",
+        borderRadius:"14px", padding:"24px" }}>
+
+        {/* Slider + badge */}
+        <div style={{ marginBottom:"28px" }}>
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"12px" }}>
+            <span style={{ fontSize:"9px", color:"#e05252", fontFamily:"'DM Mono',monospace" }}>
+              0 — {es ? "Polarizante" : "Polarizing"}
+            </span>
+            <div style={{ display:"flex", flexDirection:"column", alignItems:"center" }}>
+              <span style={{ fontSize:"28px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1, transition:"color 0.3s" }}>
+                {val.toFixed(1)}
+              </span>
+              <span style={{ fontSize:"8px", color:col, letterSpacing:"0.1em", textTransform:"uppercase", transition:"color 0.3s" }}>
+                {iraLabel}
+              </span>
+            </div>
+            <span style={{ fontSize:"9px", color:"#6ec6a0", fontFamily:"'DM Mono',monospace" }}>
+              10 — {es ? "Empático" : "Empathic"}
+            </span>
+          </div>
+
+          <div style={{ position:"relative", height:"6px", borderRadius:"6px",
+            background:"linear-gradient(90deg,#e05252,#e8a838 45%,#6ec6a0)" }}>
+            <input
+              type="range" min={0} max={10} step={0.1}
+              value={val}
+              onChange={handleChange}
+              style={{
+                position:"absolute", inset:0, width:"100%", height:"100%",
+                opacity:0, cursor:"pointer", margin:0,
+              }}
+            />
+            <div style={{
+              position:"absolute", top:"50%", left:`${val * 10}%`,
+              transform:"translate(-50%,-50%)",
+              width:"18px", height:"18px", borderRadius:"50%",
+              background:col, border:"2px solid #0e0e14",
+              boxShadow:`0 0 8px ${col}88`,
+              transition:"left 0.05s, background 0.3s, box-shadow 0.3s",
+              pointerEvents:"none",
+            }} />
+          </div>
+        </div>
+
+        {/* Parámetros */}
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
+          {params.map((p, i) => (
+            <div key={p.id} style={{
+              background:"rgba(255,255,255,0.025)", borderRadius:"10px",
+              padding:"14px", border:"1px solid rgba(255,255,255,0.05)",
+            }}>
+              <p style={{ margin:"0 0 8px", fontSize:"8.5px", letterSpacing:"0.12em",
+                color:col, textTransform:"uppercase", fontFamily:"'DM Mono',monospace",
+                transition:"color 0.3s" }}>
+                {p.label}
+              </p>
+              <p style={{
+                margin:0, fontSize:"11.5px", fontStyle:"italic",
+                fontFamily:"Georgia,serif", lineHeight:1.6,
+                color:"rgba(255,255,255,0.65)",
+                opacity: fading ? 0.3 : 1,
+                transition:"opacity 0.25s",
+              }}>
+                {p.examples[exIdx]}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <p style={{ margin:"16px 0 0", fontSize:"9.5px", color:"rgba(255,255,255,0.2)", lineHeight:1.5, textAlign:"center" }}>
+          {es
+            ? "Los ejemplos son ilustrativos. Tres niveles: polarizante (0–3.4), mixto (3.5–6.4), empático (6.5–10)."
+            : "Examples are illustrative. Three levels: polarizing (0–3.4), mixed (3.5–6.4), empathic (6.5–10)."}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ─── EXPORT PRINCIPAL ─────────────────────────────────────────────────────────
 export default function IndexInteractive({ entities, lang, accent, accentA }) {
   const es = lang !== 'en';
@@ -414,6 +688,7 @@ export default function IndexInteractive({ entities, lang, accent, accentA }) {
       </div>
 
       <SpectrumSection entities={entities} lang={lang} accent={accent} />
+      <ParameterSliderSection lang={lang} accent={accent} accentA={accentA} />
       <QuizSection lang={lang} accent={accent} accentA={accentA} />
       <MiniAnalyzer lang={lang} accent={accent} accentA={accentA} />
     </div>
