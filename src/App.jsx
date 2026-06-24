@@ -11,6 +11,7 @@ import { supabase } from "./supabaseClient";
 const Comparator   = lazy(() => import("./components/Comparator"));
 const RadarSection = lazy(() => import("./components/RadarSection"));
 const AuthModal    = lazy(() => import("./components/AuthModal").then(m => ({ default: m.AuthModal })));
+const DailyAnalysis = lazy(() => import("./components/DailyAnalysis"));
 
 const AccentContext = createContext({
   accent: '#ff6600',
@@ -1924,6 +1925,19 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             onMouseEnter={e => { e.currentTarget.style.color="rgba(240,100,185,0.9)"; e.currentTarget.style.borderColor="rgba(220,60,160,0.5)"; e.currentTarget.style.background="rgba(220,60,160,0.12)"; }}
             onMouseLeave={e => { e.currentTarget.style.color="rgba(230,80,170,0.65)"; e.currentTarget.style.borderColor="rgba(220,60,160,0.25)"; e.currentTarget.style.background="rgba(220,60,160,0.07)"; }}
           >{lang === 'en' ? "About this project →" : "Sobre el proyecto →"}</button>
+          <button onClick={() => navigate('/analisis-del-dia')} style={{
+            display:"block", marginTop:"8px",
+            padding:"7px 18px", borderRadius:"20px",
+            background:"rgba(110,198,160,0.07)",
+            border:"1px solid rgba(110,198,160,0.25)",
+            color:"rgba(110,198,160,0.75)",
+            fontSize:"10px", letterSpacing:"0.1em", cursor:"pointer",
+            fontFamily:"'DM Mono',monospace", fontWeight:600,
+            transition:"all 0.2s ease",
+          }}
+            onMouseEnter={e => { e.currentTarget.style.color="rgba(120,215,175,0.95)"; e.currentTarget.style.borderColor="rgba(110,198,160,0.5)"; e.currentTarget.style.background="rgba(110,198,160,0.12)"; }}
+            onMouseLeave={e => { e.currentTarget.style.color="rgba(110,198,160,0.75)"; e.currentTarget.style.borderColor="rgba(110,198,160,0.25)"; e.currentTarget.style.background="rgba(110,198,160,0.07)"; }}
+          >{lang === 'en' ? "Daily analysis →" : "Análisis del día →"}</button>
         </div>
 
         {/* ── Casos de uso ── */}
@@ -2061,6 +2075,17 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
   );
 }
 
+// ── Análisis del día ────────────────────────────────────────────────────────
+
+function DailyAnalysisPage() {
+  const { lang } = useContext(AppContext);
+  return (
+    <Suspense fallback={null}>
+      <DailyAnalysis lang={lang} />
+    </Suspense>
+  );
+}
+
 // ── App ───────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -2137,6 +2162,7 @@ export default function App() {
         <Route path="/compare" element={<MainView mode="politico" tab="compare" />} />
         <Route path="/entity/:entityId" element={<EntityDetailPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/analisis-del-dia" element={<DailyAnalysisPage />} />
         <Route path="*" element={<Navigate to="/politicos" replace />} />
       </Routes>
       {showAuth && (
