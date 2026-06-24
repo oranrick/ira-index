@@ -399,6 +399,390 @@ function ResultBlock({ result, es, col, accentA }) {
   );
 }
 
+// ─── D · SLIDER DE PARÁMETROS ─────────────────────────────────────────────────
+
+const SLIDER_PARAMS = {
+  es: [
+    {
+      id: "pronominal",
+      label: "Pronombres y vínculo",
+      examples: [
+        "«Ellos son la escoria de este país. Nosotros somos los únicos verdaderos.»",
+        "«Esa gente no es como nosotros. Nunca lo será.»",
+        "«Yo lo hice todo. Ellos solo pusieron obstáculos.»",
+        "«Nosotros ganamos. Los que votaron distinto tendrán que aceptarlo.»",
+        "«Hay quienes no comparten nuestro camino. Eso complica las cosas.»",
+        "«Tenemos diferencias, pero seguimos siendo ciudadanos del mismo país.»",
+        "«Podemos no estar de acuerdo y aun así trabajar en lo que nos une.»",
+        "«Juntos podemos más que separados, aunque pensemos diferente.»",
+        "«Nuestro 'nosotros' incluye también a quienes hoy votan distinto.»",
+        "«Lo que nos une es más grande que lo que nos separa. Caminemos.»",
+        "«Caminemos juntos. Lo que te pase a ti me pasa a mí.»",
+      ],
+    },
+    {
+      id: "metafora",
+      label: "Marco metafórico",
+      examples: [
+        "«Esta plaga ideológica está destruyendo el tejido de la nación.»",
+        "«El enemigo está dentro. Hay que extirparlo antes de que se extienda.»",
+        "«Estamos en guerra. O ganamos o lo perdemos todo.»",
+        "«El país es una fortaleza asediada. Hay que levantar los muros.»",
+        "«El camino está lleno de obstáculos que otros pusieron a propósito.»",
+        "«Navegamos aguas difíciles, pero el rumbo puede corregirse.»",
+        "«Hay fisuras en el edificio, pero los cimientos siguen en pie.»",
+        "«Estamos construyendo algo nuevo. No siempre es fácil, pero avanza.»",
+        "«La democracia es un tejido que entre todos zurcimos cuando se rompe.»",
+        "«Cultivamos un jardín común. Cada voz es una semilla necesaria.»",
+        "«La democracia es un jardín que cuidamos juntos, con paciencia y amor.»",
+      ],
+    },
+    {
+      id: "dicotomia",
+      label: "Polaridad moral",
+      examples: [
+        "«Ellos son el mal absoluto. No hay nada que entender ni negociar.»",
+        "«Son traidores. La historia los juzgará como merecen.»",
+        "«O estás con el pueblo o estás en su contra. No hay grises.»",
+        "«Los que nos critican tienen motivos oscuros. No hay buena fe en ellos.»",
+        "«Hay quienes están equivocados, aunque quizás no por mala intención.»",
+        "«Tenemos posiciones opuestas, pero ambas parten de preocupaciones reales.»",
+        "«Entiendo que hay razones para pensar distinto, aunque no las comparta.»",
+        "«El adversario tiene argumentos que merecen escucharse antes de rebatirse.»",
+        "«Puedo estar en desacuerdo contigo y reconocer que actúas de buena fe.»",
+        "«El conflicto no es entre buenos y malos, sino entre visiones distintas del bien.»",
+        "«Quien piensa distinto no es mi enemigo. Es mi interlocutor necesario.»",
+      ],
+    },
+    {
+      id: "tono",
+      label: "Tono emocional",
+      examples: [
+        "«Deberían tener miedo. Lo que les espera si no actuamos será devastador.»",
+        "«Esto es una vergüenza. El asco que siento no tiene palabras.»",
+        "«Estamos al borde del abismo. Si no reaccionamos ahora, todo se perderá.»",
+        "«La indignación es lo único racional ante lo que estamos viviendo.»",
+        "«Hay razones para preocuparse, aunque no para perder la cabeza.»",
+        "«Las cosas no están bien, pero tampoco es el fin del mundo.»",
+        "«Hay motivos de preocupación y también de esperanza. Ambos son reales.»",
+        "«Confío en que podemos superar esto si lo enfrentamos juntos.»",
+        "«Siento esperanza real cuando veo la resiliencia de nuestra gente.»",
+        "«La compasión y la determinación pueden coexistir. Eso es lo que siento.»",
+        "«Siento genuina esperanza. No como retórica — como convicción profunda.»",
+      ],
+    },
+    {
+      id: "disenso",
+      label: "Apertura al disenso",
+      examples: [
+        "«Los que nos critican son parte del problema. No los escucharé.»",
+        "«Quienes disienten están infiltrados o mal informados. No hay debate posible.»",
+        "«No voy a perder el tiempo con quienes actúan de mala fe.»",
+        "«Puedo escuchar críticas, pero solo las que son de verdad, no las interesadas.»",
+        "«Hay voces críticas que merecen alguna atención, aunque son pocas.»",
+        "«El desacuerdo existe y no lo voy a negar, aunque no lo comparta.»",
+        "«Escucho las críticas y respondo con argumentos, no con descalificaciones.»",
+        "«El disenso me obliga a afinar mis propias ideas. Es valioso tenerlo.»",
+        "«Podemos pensar distinto y seguir construyendo juntos sin problema.»",
+        "«La diferencia de opinión es el motor de la democracia, no su amenaza.»",
+        "«El disenso no es traición. Es la forma más honesta de participar.»",
+      ],
+    },
+    {
+      id: "vector",
+      label: "Llamada a la acción",
+      examples: [
+        "«Hay que echarlos. Que tiemblen quienes nos traicionaron.»",
+        "«Salid a las calles. Que nos vean y que sientan quién tiene el poder.»",
+        "«Hay que pararlos como sea. No podemos permitirnos dudar.»",
+        "«Movilizaos. No podemos dejar que esto siga ni un día más.»",
+        "«Tenemos que actuar, aunque aún no tengamos claro exactamente cómo.»",
+        "«Hay que hacer algo. Qué exactamente, lo decidimos entre todos.»",
+        "«Os invito a sumarse a un proceso que todavía estamos construyendo.»",
+        "«Trabajemos en lo que nos une. Las soluciones vendrán de cada comunidad.»",
+        "«La acción más poderosa empieza por escucharse. Después, actuamos.»",
+        "«Construyamos juntos. Cada voz cuenta, también la que no coincide con la mía.»",
+        "«Cuidemos esto entre todos. No desde arriba — desde cada uno de nosotros.»",
+      ],
+    },
+    {
+      id: "coherencia",
+      label: "Engagement dialógico",
+      examples: [
+        "«Te escucho... pero quienes te engañaron son nuestros verdaderos enemigos.»",
+        "«Entiendo tu preocupación. Por eso hay que acabar con ellos de una vez.»",
+        "«Hablamos de diálogo, sí. Pero solo con quienes realmente quieren dialogar.»",
+        "«La apertura tiene un límite. No dialogamos con la mala fe organizada.»",
+        "«Intento ser coherente, aunque a veces el discurso no acompaña a los hechos.»",
+        "«Lo que digo y lo que hago no siempre coinciden del todo. Trabajo en ello.»",
+        "«Trato de que mi discurso y mis acciones vayan en la misma dirección.»",
+        "«No uso palabras empáticas para llegar a conclusiones excluyentes.»",
+        "«La coherencia entre lo que digo y lo que hago no es negociable para mí.»",
+        "«Mi apertura al diálogo no es retórica. La demuestro con hechos concretos.»",
+        "«Lo que digo es lo que hago. La autenticidad no es un recurso retórico.»",
+      ],
+    },
+  ],
+  en: [
+    {
+      id: "pronominal",
+      label: "Pronouns & Bond",
+      examples: [
+        "«They are the scum of this country. We are the only real ones.»",
+        "«Those people are not like us. They never will be.»",
+        "«I did everything. They only put up obstacles.»",
+        "«We won. Those who voted differently will have to accept it.»",
+        "«Some don't share our path. That complicates things.»",
+        "«We have differences, but we are still citizens of the same country.»",
+        "«We can disagree and still work together on what we share.»",
+        "«Together we can do more than apart, even if we think differently.»",
+        "«Our 'we' includes even those who vote differently today.»",
+        "«What unites us is greater than what divides us. Let's walk forward.»",
+        "«Let's walk together. What happens to you happens to me.»",
+      ],
+    },
+    {
+      id: "metafora",
+      label: "Metaphorical Frame",
+      examples: [
+        "«This ideological plague is destroying the fabric of our nation.»",
+        "«The enemy is within. We must extirpate it before it spreads.»",
+        "«We are at war. Either we win or we lose everything.»",
+        "«The country is a besieged fortress. We must raise the walls.»",
+        "«The road is full of obstacles others deliberately placed in the way.»",
+        "«We're navigating rough waters, but the course can be corrected.»",
+        "«There are cracks in the building, but the foundations still hold.»",
+        "«We're building something new. It's not always easy, but it's moving forward.»",
+        "«Democracy is a fabric we mend together whenever it tears.»",
+        "«We tend a common garden. Every voice is a necessary seed.»",
+        "«Democracy is a garden we care for together, with patience and love.»",
+      ],
+    },
+    {
+      id: "dicotomia",
+      label: "Moral Polarity",
+      examples: [
+        "«They are absolute evil. There is nothing to understand or negotiate.»",
+        "«They are traitors. History will judge them as they deserve.»",
+        "«Either you're with the people or you're against them. No gray areas.»",
+        "«Those who criticize us have dark motives. There is no good faith in them.»",
+        "«Some are wrong, though perhaps not out of malicious intent.»",
+        "«We hold opposing positions, but both stem from genuine concerns.»",
+        "«I understand there are reasons to think differently, even if I don't share them.»",
+        "«The adversary has arguments worth hearing before being rebutted.»",
+        "«I can disagree with you and still recognize you act in good faith.»",
+        "«The conflict isn't between good and evil, but between different visions of the good.»",
+        "«Those who think differently are not my enemies. They are my necessary interlocutors.»",
+      ],
+    },
+    {
+      id: "tono",
+      label: "Emotional Tone",
+      examples: [
+        "«They should be afraid. What awaits us if we don't act will be devastating.»",
+        "«This is a disgrace. The disgust I feel has no words.»",
+        "«We are on the edge of the abyss. If we don't react now, everything will be lost.»",
+        "«Outrage is the only rational response to what we are living through.»",
+        "«There are reasons to worry, though not to lose our heads.»",
+        "«Things aren't good, but it's not the end of the world either.»",
+        "«There are reasons for concern and also for hope. Both are real.»",
+        "«I trust we can overcome this if we face it together.»",
+        "«I feel real hope when I see the resilience of our people.»",
+        "«Compassion and determination can coexist. That is what I feel.»",
+        "«I feel genuine hope. Not as rhetoric — as deep conviction.»",
+      ],
+    },
+    {
+      id: "disenso",
+      label: "Openness to Dissent",
+      examples: [
+        "«Those who criticize us are part of the problem. I won't listen to them.»",
+        "«Dissenters are infiltrated or misinformed. There is no possible debate.»",
+        "«I won't waste time with those who act in bad faith.»",
+        "«I can hear real criticism — but not the kind driven by self-interest.»",
+        "«Some critical voices deserve attention, though very few.»",
+        "«Disagreement exists and I won't deny it, even if I don't share it.»",
+        "«I listen to criticism and respond with arguments, not dismissal.»",
+        "«Dissent forces me to sharpen my own thinking. It has value.»",
+        "«We can think differently and keep building together without a problem.»",
+        "«Difference of opinion is the engine of democracy, not its threat.»",
+        "«Dissent is not betrayal. It's the most honest way to participate.»",
+      ],
+    },
+    {
+      id: "vector",
+      label: "Call to Action",
+      examples: [
+        "«We need to throw them out. Let those who betrayed us tremble.»",
+        "«Take to the streets. Let them see us and feel who holds the power.»",
+        "«We have to stop them by any means. We can't afford to hesitate.»",
+        "«Mobilize. We can't let this continue a single day longer.»",
+        "«We need to act, though we don't yet know exactly how.»",
+        "«Something has to be done. What exactly, we'll decide together.»",
+        "«I invite you to join a process we are still building together.»",
+        "«Let's work on what unites us. Solutions will come from each community.»",
+        "«The most powerful action starts with listening. Then we act.»",
+        "«Let's build together. Every voice counts, including those that differ from mine.»",
+        "«Let's take care of this together. Not from above — from each one of us.»",
+      ],
+    },
+    {
+      id: "coherencia",
+      label: "Dialogic Engagement",
+      examples: [
+        "«I hear you... but those who deceived you are our real enemies.»",
+        "«I understand your concern. That's why we need to finish them off.»",
+        "«We talk about dialogue, yes. But only with those who genuinely want it.»",
+        "«Openness has a limit. We don't dialogue with organized bad faith.»",
+        "«I try to be coherent, though sometimes my discourse doesn't match my actions.»",
+        "«What I say and what I do don't always fully align. I'm working on it.»",
+        "«I try to keep my discourse and my actions pointing in the same direction.»",
+        "«I don't use empathic language to arrive at exclusionary conclusions.»",
+        "«Coherence between what I say and what I do is non-negotiable for me.»",
+        "«My openness to dialogue isn't rhetorical. I demonstrate it with concrete facts.»",
+        "«What I say is what I do. Authenticity is not a rhetorical device.»",
+      ],
+    },
+  ],
+};
+
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+function sliderColor(val) {
+  if (val <= 5) {
+    const t = val / 5;
+    const r = Math.round(lerp(224, 232, t));
+    const g = Math.round(lerp(82, 168, t));
+    const b = Math.round(lerp(82, 56, t));
+    return `rgb(${r},${g},${b})`;
+  } else {
+    const t = (val - 5) / 5;
+    const r = Math.round(lerp(232, 110, t));
+    const g = Math.round(lerp(168, 198, t));
+    const b2 = Math.round(lerp(56, 160, t));
+    return `rgb(${r},${g},${b2})`;
+  }
+}
+
+function exampleIndex(val) {
+  return Math.min(10, Math.max(0, Math.round(val)));
+}
+
+function ParameterSliderSection({ lang, accent, accentA }) {
+  const es = lang !== 'en';
+  const [val, setVal] = useState(5);
+  const [prevVal, setPrevVal] = useState(5);
+  const [fading, setFading] = useState(false);
+  const fadeTimer = useRef(null);
+
+  const params = es ? SLIDER_PARAMS.es : SLIDER_PARAMS.en;
+  const col = sliderColor(val);
+  const exIdx = exampleIndex(val);
+  const prevExIdx = exampleIndex(prevVal);
+
+  function handleChange(e) {
+    const newVal = parseFloat(e.target.value);
+    if (exampleIndex(newVal) !== exampleIndex(val)) {
+      setPrevVal(val);
+      setFading(true);
+      clearTimeout(fadeTimer.current);
+      fadeTimer.current = setTimeout(() => setFading(false), 300);
+    }
+    setVal(newVal);
+  }
+
+  const iraLabel = val >= 7 ? (es ? "Empático" : "Empathic")
+    : val >= 4.5 ? (es ? "Mixto" : "Mixed")
+    : (es ? "Polarizante" : "Polarizing");
+
+  return (
+    <div style={{ marginBottom:"40px" }}>
+      <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.18em", color:accent, textTransform:"uppercase" }}>
+        {es ? "Así suena el discurso a cada nivel" : "This is what discourse sounds like at each level"}
+      </p>
+
+      <div style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)",
+        borderRadius:"14px", padding:"24px" }}>
+
+        {/* Slider + badge */}
+        <div style={{ marginBottom:"28px" }}>
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"12px" }}>
+            <span style={{ fontSize:"9px", color:"#e05252", fontFamily:"'DM Mono',monospace" }}>
+              0 — {es ? "Polarizante" : "Polarizing"}
+            </span>
+            <div style={{ display:"flex", flexDirection:"column", alignItems:"center" }}>
+              <span style={{ fontSize:"28px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1, transition:"color 0.3s" }}>
+                {val.toFixed(1)}
+              </span>
+              <span style={{ fontSize:"8px", color:col, letterSpacing:"0.1em", textTransform:"uppercase", transition:"color 0.3s" }}>
+                {iraLabel}
+              </span>
+            </div>
+            <span style={{ fontSize:"9px", color:"#6ec6a0", fontFamily:"'DM Mono',monospace" }}>
+              10 — {es ? "Empático" : "Empathic"}
+            </span>
+          </div>
+
+          <div style={{ position:"relative", height:"6px", borderRadius:"6px",
+            background:"linear-gradient(90deg,#e05252,#e8a838 45%,#6ec6a0)" }}>
+            <input
+              type="range" min={0} max={10} step={0.1}
+              value={val}
+              onChange={handleChange}
+              style={{
+                position:"absolute", inset:0, width:"100%", height:"100%",
+                opacity:0, cursor:"pointer", margin:0,
+              }}
+            />
+            <div style={{
+              position:"absolute", top:"50%", left:`${val * 10}%`,
+              transform:"translate(-50%,-50%)",
+              width:"18px", height:"18px", borderRadius:"50%",
+              background:col, border:"2px solid #0e0e14",
+              boxShadow:`0 0 8px ${col}88`,
+              transition:"left 0.05s, background 0.3s, box-shadow 0.3s",
+              pointerEvents:"none",
+            }} />
+          </div>
+        </div>
+
+        {/* Parámetros */}
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
+          {params.map((p, i) => (
+            <div key={p.id} style={{
+              background:"rgba(255,255,255,0.025)", borderRadius:"10px",
+              padding:"14px", border:"1px solid rgba(255,255,255,0.05)",
+            }}>
+              <p style={{ margin:"0 0 8px", fontSize:"8.5px", letterSpacing:"0.12em",
+                color:col, textTransform:"uppercase", fontFamily:"'DM Mono',monospace",
+                transition:"color 0.3s" }}>
+                {p.label}
+              </p>
+              <p style={{
+                margin:0, fontSize:"11.5px", fontStyle:"italic",
+                fontFamily:"Georgia,serif", lineHeight:1.6,
+                color:"rgba(255,255,255,0.65)",
+                opacity: fading ? 0.3 : 1,
+                transition:"opacity 0.25s",
+              }}>
+                {p.examples[exIdx]}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <p style={{ margin:"16px 0 0", fontSize:"9.5px", color:"rgba(255,255,255,0.2)", lineHeight:1.5, textAlign:"center" }}>
+          {es
+            ? "Los ejemplos son ilustrativos. Un registro distinto por cada punto entero de la escala."
+            : "Examples are illustrative. A distinct register for each integer point on the scale."}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ─── EXPORT PRINCIPAL ─────────────────────────────────────────────────────────
 export default function IndexInteractive({ entities, lang, accent, accentA }) {
   const es = lang !== 'en';
@@ -414,6 +798,7 @@ export default function IndexInteractive({ entities, lang, accent, accentA }) {
       </div>
 
       <SpectrumSection entities={entities} lang={lang} accent={accent} />
+      <ParameterSliderSection lang={lang} accent={accent} accentA={accentA} />
       <QuizSection lang={lang} accent={accent} accentA={accentA} />
       <MiniAnalyzer lang={lang} accent={accent} accentA={accentA} />
     </div>
