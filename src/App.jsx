@@ -886,6 +886,59 @@ const PARAM_KEY_MAP = {
   'Proyección de futuro':       'proyeccion',
 };
 
+// Inversa de PARAM_KEY_MAP — para reconstruir el array de params desde una fila de daily_analyses
+const REVERSE_PARAM_MAP = {
+  pronominal: 'Uso pronominal inclusivo',
+  metafora:   'Tipo de metáfora dominante',
+  dicotomia:  'Carga dicotómica',
+  tono:       'Tono emocional dominante',
+  disenso:    'Reconocimiento del disenso',
+  vector:     'Vector de acción',
+  coherencia: 'Coherencia afectiva',
+  proyeccion: 'Proyección de futuro',
+};
+
+const MONTHS_ES_ROW = ['enero','febrero','marzo','abril','mayo','junio',
+                       'julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+/** Convierte una fila de daily_analyses al shape que esperan SpeechCard / SpeechView */
+function rowToSpeech(row) {
+  let dateStr = row.published_date ?? '';
+  if (row.published_date) {
+    const d = new Date(row.published_date + 'T00:00:00Z');
+    dateStr = `${d.getUTCDate()} de ${MONTHS_ES_ROW[d.getUTCMonth()]} de ${d.getUTCFullYear()}`;
+  }
+  const domain = (() => {
+    try { return new URL(row.source_url).hostname.replace(/^www\./, ''); } catch { return ''; }
+  })();
+  const wc  = row.text ? row.text.split(/\s+/).filter(Boolean).length : 0;
+  const ira = row.ira ?? 0;
+  const iraLabel   = ira >= 7.5 ? 'Empático'  : ira >= 5 ? 'Mixto'  : 'Polarizante';
+  const iraLabelEn = ira >= 7.5 ? 'Empathic'  : ira >= 5 ? 'Mixed'  : 'Polarizing';
+  const params = Object.entries(REVERSE_PARAM_MAP).map(([key, name]) => {
+    const p = row.params?.[key] ?? {};
+    return { name, value: p.score ?? 0, quote: p.quote ?? null, note: p.desc ?? '' };
+  });
+  return {
+    id:           `daily-${row.id}`,
+    entityId:     row.entity_id,
+    entityName:   row.entity_name,
+    title:        row.title ?? 'Conferencia de prensa',
+    date:         dateStr,
+    context:      domain ? `Fuente: ${domain}` : '',
+    wordCount:    wc,
+    duration:     null,
+    iraScore:     ira,
+    iraLabel,
+    iraLabelEn,
+    summary:      row.summary ?? '',
+    lecturaAutor: row.lectura_autor ?? '',
+    params,
+    segments:     row.segments ?? [],
+    transcript:   row.text ?? '',
+  };
+}
+
 function mergeSpeech(speech, row) {
   if (!speech) return null;
   if (!row) return speech;
@@ -913,16 +966,31 @@ function EntityDetailPage() {
   const [mounted, setMounted] = useState(false);
   const [expanded, setExpanded] = useState(null);
   const [activeSpeechId, setActiveSpeechId] = useState(null);
+  const [dailySpeeches, setDailySpeeches] = useState([]);
 
   const entity = ENTITIES.find(e => e.id === entityId);
   useEffect(() => { setTimeout(() => setMounted(true), 20); }, []);
+
+  useEffect(() => {
+    if (!entityId) return;
+    fetch(
+      `${SUPABASE_URL}/rest/v1/daily_analyses?entity_id=eq.${entityId}&order=published_date.desc&select=*`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    )
+      .then(r => r.json())
+      .then(rows => { if (Array.isArray(rows)) setDailySpeeches(rows.map(rowToSpeech)); })
+      .catch(() => {});
+  }, [entityId]);
 
   if (!entity) return <Navigate to="/" replace />;
 
   const accent = entity.category === 'Medio' ? '#0066ff' : '#ff6600';
   const accentA = (a) => entity.category === 'Medio' ? `rgba(0,102,255,${a})` : `rgba(255,102,0,${a})`;
 
-  const activeSpeech = mergeSpeech(activeSpeechId ? getSpeechById(activeSpeechId) : null, supabaseMap[activeSpeechId]);
+  const activeSpeech = activeSpeechId
+    ? (mergeSpeech(getSpeechById(activeSpeechId), supabaseMap[activeSpeechId])
+       ?? dailySpeeches.find(s => s.id === activeSpeechId))
+    : null;
   const T = TEXTS[lang];
   const params = PARAMS_TRANS[lang];
   const details = PARAM_DETAILS_TRANS[lang];
@@ -1092,7 +1160,10 @@ function EntityDetailPage() {
         </div>
         <SpeechesSection
           entityId={entity.id}
-          speeches={getSpeechesByEntity(entity.id).map(s => mergeSpeech(s, supabaseMap[s.id]))}
+          speeches={[
+            ...dailySpeeches,
+            ...getSpeechesByEntity(entity.id).map(s => mergeSpeech(s, supabaseMap[s.id])),
+          ]}
           onSelectSpeech={setActiveSpeechId}
           lang={lang}
           fromTFG={['trump','petro','sheinbaum','ardern'].includes(entity.id)}
@@ -1842,6 +1913,14 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
       }}>← oranrick.com</a>
 
       <div className="top-nav-right">
+        <button onClick={() => navigate('/analisis-del-dia')}
+          style={{ padding:"7px 14px", borderRadius:"20px", background:accentA(0.08),
+            border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
+            letterSpacing:"0.12em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+            transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
+          onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
+          onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
+        >{lang === 'en' ? 'Daily' : 'Hoy'}</button>
         {user ? (
           <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
             <span style={{
@@ -1963,19 +2042,6 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             {lang === 'en' ? "About this project" : "Sobre el proyecto"}
             <span style={{ opacity:0.7 }}>→</span>
           </button>
-          <button onClick={() => navigate('/analisis-del-dia')} style={{
-            display:"block", marginTop:"8px",
-            padding:"7px 18px", borderRadius:"20px",
-            background:"rgba(110,198,160,0.07)",
-            border:"1px solid rgba(110,198,160,0.25)",
-            color:"rgba(110,198,160,0.75)",
-            fontSize:"10px", letterSpacing:"0.1em", cursor:"pointer",
-            fontFamily:"'DM Mono',monospace", fontWeight:600,
-            transition:"all 0.2s ease",
-          }}
-            onMouseEnter={e => { e.currentTarget.style.color="rgba(120,215,175,0.95)"; e.currentTarget.style.borderColor="rgba(110,198,160,0.5)"; e.currentTarget.style.background="rgba(110,198,160,0.12)"; }}
-            onMouseLeave={e => { e.currentTarget.style.color="rgba(110,198,160,0.75)"; e.currentTarget.style.borderColor="rgba(110,198,160,0.25)"; e.currentTarget.style.background="rgba(110,198,160,0.07)"; }}
-          >{lang === 'en' ? "Daily analysis →" : "Análisis del día →"}</button>
         </div>
 
         {/* ── Casos de uso ── */}

@@ -121,21 +121,42 @@ ${CORPUS_REFERENCE}
 Tras calcular los scores, identifica los 2 actores del corpus con perfil más similar al texto analizado. Menciónalos en el campo "comparacion" con una frase concisa que explique la similitud (ej: "Su perfil metafórico se acerca al de Petro (5.2) y su apertura al disenso recuerda a Sheinbaum (7.8)"). Si el texto es de un medio, compara preferentemente con medios del corpus.
 
 ─────────────────────────────────────────
+SEGMENTOS ANOTADOS
+─────────────────────────────────────────
+Identifica entre 6 y 10 fragmentos retóricamente significativos del texto analizado y devuélvelos como un array "segments" de fragmentos ORDENADOS tal como aparecen en el texto.
+
+Reglas estrictas:
+1. Cada fragmento anotado tiene: "text" (cita literal), "type" (tipo de anotación), "note" (análisis breve).
+2. El valor de "text" en cada fragmento anotado DEBE SER un substring literal y verbatim del texto de entrada — no parafrasear, no resumir, no recortar palabras a medias.
+3. Los tipos disponibles son exactamente (usar en MAYÚSCULAS):
+   BELICA · PRONOMINAL · PRONOMINAL_EX · CUIDADO · DICOTOMIA · MIEDO · DISENSO · FUTURO · SANITARIA
+4. Entre fragmentos anotados, intercalar un espaciador plano: { "text": " " }
+5. Los espaciadores planos NO necesitan reproducir el texto intermedio — son solo separadores visuales.
+6. Distribuir los fragmentos a lo largo del texto (inicio, medio, final), no solo al principio.
+7. La "note" de cada fragmento: 1-3 oraciones de análisis retórico preciso, sin repetir el texto.
+
+─────────────────────────────────────────
 FORMATO DE RESPUESTA
 ─────────────────────────────────────────
 Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicional, sin comentarios:
 
 {
   "params": {
-    "pronominal": { "score": 0.0, "desc": "..." },
-    "metafora": { "score": 0.0, "desc": "..." },
-    "dicotomia": { "score": 0.0, "desc": "..." },
-    "tono": { "score": 0.0, "desc": "..." },
-    "disenso": { "score": 0.0, "desc": "..." },
-    "vector": { "score": 0.0, "desc": "..." },
-    "coherencia": { "score": 0.0, "desc": "..." },
-    "proyeccion": { "score": 0.0, "desc": "..." }
+    "pronominal": { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
+    "metafora":   { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
+    "dicotomia":  { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
+    "tono":       { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
+    "disenso":    { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
+    "vector":     { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
+    "coherencia": { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
+    "proyeccion": { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" }
   },
+  "segments": [
+    { "text": "fragmento literal del texto", "type": "PRONOMINAL", "note": "análisis retórico..." },
+    { "text": " " },
+    { "text": "otro fragmento literal", "type": "BELICA", "note": "análisis..." },
+    { "text": " " }
+  ],
   "lecturaAutor": "...",
   "comparacion": "...",
   "summary": "Síntesis interpretativa de 2-3 oraciones sobre el perfil afectivo global del discurso."
@@ -148,7 +169,7 @@ function buildContextBlock(context) {
   return `\nCONTEXTO DEL DISCURSO (incorpora esta información en el análisis para mayor precisión):\n- Fuente/orador: ${name || 'No especificado'}\n- Tipo: ${category || 'No especificado'}\n- Contexto situacional: ${situational || 'No especificado'}\n\nSegún Van Dijk (Discourse and Context, 2008), el modelo de contexto — quién habla, ante quién, en qué situación y con qué propósito — es determinante para interpretar correctamente los parámetros. Úsalo para calibrar especialmente el tono emocional (¿qué audiencia recibe este discurso?), la llamada a la acción (¿qué tipo de acción es posible en este contexto?) y el engagement dialógico (¿qué convenciones discursivas rigen esta situación?).\n`;
 }
 
-// Llama a Claude con el prompt IRA y devuelve { params, lecturaAutor, comparacion, summary, ira }.
+// Llama a Claude con el prompt IRA y devuelve { params, segments, lecturaAutor, comparacion, summary, ira }.
 // context: { name, category, situational } — opcional, mejora el calibrado del análisis.
 export async function runIraAnalysis(text, context) {
   const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -161,7 +182,7 @@ export async function runIraAnalysis(text, context) {
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
-      max_tokens: 2800,
+      max_tokens: 6000,
       system: [
         {
           type: 'text',
@@ -188,5 +209,9 @@ export async function runIraAnalysis(text, context) {
     return sum + (parsed.params[key]?.score ?? 0) * w;
   }, 0);
 
-  return { ...parsed, ira: Math.round(ira * 100) / 100 };
+  return {
+    ...parsed,
+    segments: parsed.segments ?? [],
+    ira: Math.round(ira * 100) / 100,
+  };
 }

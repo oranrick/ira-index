@@ -100,7 +100,7 @@ function SpeechCard({ speech, onClick, lang = 'es' }) {
 
       {/* Footer */}
       <div style={styles.cardFooter}>
-        <span style={styles.cardDuration}>⏱ {speech.duration}</span>
+        {speech.duration && <span style={styles.cardDuration}>⏱ {speech.duration}</span>}
         <span style={styles.cardWords}>{speech.wordCount.toLocaleString()} {T.words}</span>
         <span style={{ ...styles.cardCta, color: hovered ? '#ff6600' : 'rgba(255,255,255,0.4)' }}>
           {T.seeAnalysis}

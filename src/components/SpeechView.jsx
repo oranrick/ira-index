@@ -110,7 +110,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
     ? T.translationLabelEn
     : T.translationLabel;
   const translationText = showTranslationToggle
-    ? speech.segments.map(s =>
+    ? (speech.segments ?? []).map(s =>
         isEnglishSpeech
           ? (s.textEs ?? s.text)
           : (s.textEn ?? s.text)
@@ -178,7 +178,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
     setActiveAnnotation(null);
   };
 
-  const annotationCounts = speech.segments
+  const annotationCounts = (speech.segments ?? [])
     .filter((s) => s.type)
     .reduce((acc, s) => {
       acc[s.type] = (acc[s.type] || 0) + 1;
@@ -205,7 +205,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
           <div style={styles.meta}>
             <span style={styles.metaItem}>📅 {speech.date}</span>
             <span style={styles.metaDot}>·</span>
-            <span style={styles.metaItem}>⏱ {speech.duration}</span>
+            {speech.duration && <span style={styles.metaItem}>⏱ {speech.duration}</span>}
             {!isMobile && (
               <>
                 <span style={styles.metaDot}>·</span>
@@ -286,7 +286,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
             )}
           </div>
           <div style={{ ...styles.textBlock, fontSize: isMobile ? '0.9rem' : '0.98rem' }}>
-            {speech.segments.map((segment, i) => {
+            {(speech.segments ?? []).map((segment, i) => {
               if (!segment.type) {
                 return <span key={i} style={styles.plainText}>{segment.text}</span>;
               }

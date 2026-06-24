@@ -120,6 +120,7 @@ export default async function handler(req, res) {
         text,
         ira: result.ira,
         params: result.params,
+        segments: result.segments,
         summary: result.summary,
         lectura_autor: result.lecturaAutor,
         origin: 'cron',
