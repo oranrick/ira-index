@@ -1,6 +1,9 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
-  "crons": [{ "path": "/api/cron/daily-milei", "schedule": "0 13 * * *" }],
+  "crons": [
+    { "path": "/api/cron/daily-milei",     "schedule": "0 13 * * *" },
+    { "path": "/api/cron/daily-sheinbaum", "schedule": "0 14 * * *" }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

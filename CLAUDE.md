@@ -124,3 +124,30 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 **Estado: peso cambiado de 10% a 5% (esos 5% fueron a P5).**
 
 ## P8 — ELIMINADO. Sus 5% fueron a P5. Pendiente de reemplazar por nuevo parámetro.
+
+---
+
+## Crons diarios — estructura técnica
+
+### Milei — `api/cron/daily-milei.js`
+- **Fuente:** `https://www.casarosada.gob.ar/informacion/discursos`
+- **Estrategia:** scraping del índice (HTML estático, regex `class="panel"` sobre el primer `<a>`)
+- **Extracción de fecha:** regex en el HTML del artículo (`\d{1,2}\s+de\s+[mes]\s+de\s+\d{4}`)
+- **Cron:** `0 13 * * *` UTC
+
+### Sheinbaum — `api/cron/daily-sheinbaum.js`
+- **Fuente:** `https://www.gob.mx/presidencia/articulos/`
+- **Estrategia:** construcción directa de URL desde la fecha (el índice de gob.mx requiere JS y
+  devuelve vacío a fetch nativo). URL patrón:
+  ```
+  https://www.gob.mx/presidencia/articulos/version-estenografica-conferencia-de-prensa-de-la-presidenta-claudia-sheinbaum-pardo-del-{D}-de-{mes}-de-{YYYY}
+  ```
+  Nota: el día **no** lleva cero adelante en el slug (ej. `8-de-junio-de-2026`, no `08-...`).
+  El cron prueba hoy y retrocede hasta 7 días (`MAX_LOOKBACK`) para cubrir fines de semana/feriados.
+- **Extracción de fecha:** calculada directamente desde el objeto `Date` usado para construir la URL
+  (no depende del HTML). `dateToISO()` sí usa cero adelante para la DB (`2026-06-08`).
+- **Extracción de título:** `<title>` tag, recortando el ` | Presidencia...` final.
+- **entity_id:** `'sheinbaum'` — ya existe en `ENTITIES` de `src/App.jsx` (línea 393). No tocar.
+- **Cron:** `0 14 * * *` UTC (≈ 9am CDMX, tras la mañanera)
+- **Verificado:** slugs de fechas 8–22 jun 2026 coinciden exactamente con URLs reales confirmadas
+  por web search. Sintaxis Node OK (`--check`). vercel.json JSON válido.
