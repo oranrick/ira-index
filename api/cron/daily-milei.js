@@ -62,7 +62,7 @@ function findLatestSpeechPath(listHtml) {
 
 function extractTitle(detailHtml) {
   const match = detailHtml.match(/<title>([^<]*)<\/title>/i);
-  return match ? match[1].trim() : null;
+  return match ? decodeEntities(match[1].trim()) : null;
 }
 
 function extractDate(detailHtml) {

@@ -113,7 +113,7 @@ function extractText(html) {
 
 function extractTitle(html) {
   const match = html.match(/<title>([^<]*)<\/title>/i);
-  return match ? match[1].replace(/\s*\|\s*.*$/, '').trim() : null;
+  return match ? decodeEntities(match[1].replace(/\s*\|\s*.*$/, '').trim()) : null;
 }
 
 /** Intenta probar hasta MAX_LOOKBACK fechas comenzando desde hoy hacia atrás.

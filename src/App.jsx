@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, lazy, Suspense, createContext, useContext 
 import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
 import AboutPage from './components/AboutPage.jsx';
 import IndexInteractive from './components/IndexInteractive.jsx';
+import WorldMap from './components/WorldMap.jsx';
 import { SpeechesSection } from "./components/SpeechCard";
 import { SpeechView } from "./components/SpeechView";
 import { getSpeechById, getSpeechesByEntity } from "./data/speeches";
@@ -1878,6 +1879,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
   const { lang, setLang, enrichedEntities, requireAuth, openLogin, user, profile, signOut } = useContext(AppContext);
   const [showIRA, setShowIRA] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [sortOrder, setSortOrder] = useState('default');
 
   const accent = mode === 'medios' ? '#0066ff' : '#ff6600';
   const accentA = (a) => mode === 'medios' ? `rgba(0,102,255,${a})` : `rgba(255,102,0,${a})`;
@@ -1896,6 +1898,11 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
 
   const T = TEXTS[lang];
   const filtered = enrichedEntities.filter(e => e.category === (mode === 'medios' ? 'Medio' : 'Político'));
+  const displayEntities = sortOrder === 'desc'
+    ? [...filtered].sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+    : sortOrder === 'asc'
+    ? [...filtered].sort((a, b) => (a.score ?? 0) - (b.score ?? 0))
+    : filtered;
 
   return (
     <AccentContext.Provider value={{ accent, accentA, mode }}>
@@ -2130,13 +2137,41 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
 
         {tab === "explore" && (
           <>
+            {/* Botones de ordenación */}
+            <div style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'16px', flexWrap:'wrap' }}>
+              <span style={{ fontSize:'9px', letterSpacing:'0.14em', color:'rgba(255,255,255,0.25)', textTransform:'uppercase', fontFamily:"'DM Mono',monospace" }}>
+                {lang==='en' ? 'Sort' : 'Ordenar'}
+              </span>
+              {[
+                ['default', lang==='en' ? 'Default' : 'Defecto'],
+                ['desc',    lang==='en' ? '▲ Highest IRA' : '▲ Mayor IRA'],
+                ['asc',     lang==='en' ? '▼ Lowest IRA'  : '▼ Menor IRA'],
+              ].map(([id, label]) => (
+                <button key={id} onClick={() => setSortOrder(id)} style={{
+                  padding:'4px 12px', borderRadius:'16px',
+                  background: sortOrder===id ? accentA(0.2) : 'transparent',
+                  border:`1px solid ${sortOrder===id ? accentA(0.5) : 'rgba(255,255,255,0.1)'}`,
+                  color: sortOrder===id ? accent : 'rgba(255,255,255,0.35)',
+                  fontSize:'9px', letterSpacing:'0.08em', cursor:'pointer',
+                  fontFamily:"'DM Mono',monospace", fontWeight: sortOrder===id ? 700 : 400,
+                  transition:'all 0.2s ease',
+                }}>{label}</button>
+              ))}
+            </div>
+
             <div className="entity-grid">
-              {filtered.map((entity, i) => (
+              {displayEntities.map((entity, i) => (
                 <div key={entity.id} style={{ opacity:mounted?1:0, transform:mounted?"none":"translateY(20px)", transition:`all 0.5s ease ${0.1+i*0.06}s` }}>
                   <EntityCard entity={entity} lang={lang} />
                 </div>
               ))}
             </div>
+
+            {/* Mapa mundial + sección interactiva */}
+            <div style={{ display:'grid', gridTemplateColumns:'1fr', gap:'20px', marginTop:'8px' }}>
+              <WorldMap entities={displayEntities} lang={lang} accent={accent} />
+            </div>
+
             <IndexInteractive entities={filtered} lang={lang} accent={accent} accentA={accentA} />
 
             <div style={{ marginTop:"40px", padding:"20px", background:"rgba(255,255,255,0.02)", borderRadius:"12px", border:"1px solid rgba(255,255,255,0.05)" }}>
@@ -2231,6 +2266,7 @@ export default function App() {
   });
   const [supabaseMap, setSupabaseMap] = useState({});
   const [supabaseReady, setSupabaseReady] = useState(false);
+  const [dailyEntityScores, setDailyEntityScores] = useState({});
 
   useEffect(() => {
     fetch(`${SUPABASE_URL}/rest/v1/analyses?select=speech_id,ira,params,summary,lectura_autor,lectura_autor_en`, {
@@ -2251,17 +2287,38 @@ export default function App() {
       .finally(() => setSupabaseReady(true));
   }, []);
 
+  // Fetch IRA scores de daily_analyses para actualizar el score de cada entidad en tiempo real
+  useEffect(() => {
+    fetch(`${SUPABASE_URL}/rest/v1/daily_analyses?select=entity_id,ira`, {
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
+    })
+      .then(r => r.json())
+      .then(rows => {
+        if (!Array.isArray(rows)) return;
+        const map = {};
+        rows.forEach(r => {
+          if (!r.entity_id || r.ira == null) return;
+          if (!map[r.entity_id]) map[r.entity_id] = [];
+          map[r.entity_id].push(r.ira);
+        });
+        setDailyEntityScores(map);
+      })
+      .catch(() => {});
+  }, []);
+
   useEffect(() => {
     if (user && !localStorage.getItem('ira-welcomed')) setShowWelcome(true);
   }, [user]);
 
   const enrichedEntities = ENTITIES.map(entity => {
     if (!supabaseReady) return { ...entity, score: null };
-    const iras = getSpeechesByEntity(entity.id)
+    const curatedIras = getSpeechesByEntity(entity.id)
       .map(s => supabaseMap[s.id]?.ira)
       .filter(v => v != null);
-    if (iras.length === 0) return entity;
-    const avg = Math.round((iras.reduce((a, b) => a + b, 0) / iras.length) * 100) / 100;
+    const dailyIras = dailyEntityScores[entity.id] ?? [];
+    const allIras = [...dailyIras, ...curatedIras];
+    if (allIras.length === 0) return entity;
+    const avg = Math.round((allIras.reduce((a, b) => a + b, 0) / allIras.length) * 100) / 100;
     return { ...entity, score: avg };
   });
 
