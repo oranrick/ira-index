@@ -496,6 +496,15 @@ const ENTITIES = [
     contextEn: "US President (2017–2021, 2024–). Analyzed on 2024 victory speech and 'We Will Never Concede' rally (2021).",
   },
   {
+    id: "milei", name: "Javier Milei", category: "Político", country: "Argentina", flag: "🇦🇷",
+    photo: "/images/milei.jpg",
+    photoCredit: "Presidencia de la República Argentina",
+    score: null,   // sin corpus TFG — el IRA se calcula dinámicamente de los análisis diarios
+    params: { pronominal:2.5, metafora:2.0, dicotomia:1.5, tono:2.5, disenso:1.5, vector:2.0, coherencia:2.5, proyeccion:3.0 },
+    context: "Presidente de Argentina (2023–). Análisis basado en discursos diarios extraídos de casarosada.gob.ar. IRA calculado como promedio de análisis acumulados.",
+    contextEn: "President of Argentina (2023–). Analysis based on daily speeches from casarosada.gob.ar. IRA calculated as a rolling average of accumulated analyses.",
+  },
+  {
     id: "elpais", name: "El País", category: "Medio", country: "España / Colombia", flag: "🇪🇸",
     photo: "https://www.google.com/s2/favicons?domain=elpais.com&sz=128",
     score: 6.22,
@@ -991,6 +1000,18 @@ function EntityDetailPage() {
     ? (mergeSpeech(getSpeechById(activeSpeechId), supabaseMap[activeSpeechId])
        ?? dailySpeeches.find(s => s.id === activeSpeechId))
     : null;
+
+  // IRA dinámico: promedio de todos los discursos disponibles (diarios + corpus)
+  const curatedScores = getSpeechesByEntity(entity.id).map(s => {
+    const merged = mergeSpeech(s, supabaseMap[s.id]);
+    return merged?.iraScore ?? s.iraScore;
+  }).filter(v => typeof v === 'number');
+  const dailyScores = dailySpeeches.map(s => s.iraScore).filter(v => typeof v === 'number');
+  const allScores = [...dailyScores, ...curatedScores];
+  const liveScore = allScores.length > 0
+    ? allScores.reduce((sum, v) => sum + v, 0) / allScores.length
+    : (entity.score ?? 0);
+
   const T = TEXTS[lang];
   const params = PARAMS_TRANS[lang];
   const details = PARAM_DETAILS_TRANS[lang];
@@ -1043,10 +1064,10 @@ function EntityDetailPage() {
             <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.3)" }}>{entity.country}</p>
           </div>
           <div style={{ position:"relative" }}>
-            <ScoreRing score={entity.score} size={88} stroke={5} color={scoreColor(entity.score)} />
+            <ScoreRing score={liveScore} size={88} stroke={5} color={scoreColor(liveScore)} />
             <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-              <span style={{ fontSize:"20px", fontWeight:800, color:scoreColor(entity.score), fontFamily:"'DM Mono',monospace", display:"block" }}>
-                {entity.score.toFixed(2)}
+              <span style={{ fontSize:"20px", fontWeight:800, color:scoreColor(liveScore), fontFamily:"'DM Mono',monospace", display:"block" }}>
+                {liveScore.toFixed(2)}
               </span>
               <span style={{ fontSize:"8px", color:"rgba(255,255,255,0.25)", letterSpacing:"0.08em" }}>IRA</span>
             </div>

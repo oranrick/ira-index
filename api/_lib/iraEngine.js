@@ -134,6 +134,8 @@ Reglas estrictas:
 5. Los espaciadores planos NO necesitan reproducir el texto intermedio — son solo separadores visuales.
 6. Distribuir los fragmentos a lo largo del texto (inicio, medio, final), no solo al principio.
 7. La "note" de cada fragmento: 1-3 oraciones de análisis retórico preciso, sin repetir el texto.
+8. LÍMITE DE ORACIÓN: cada fragmento debe comenzar exactamente en el inicio de una oración o de un turno de habla (después de punto, signo de exclamación, interrogación, o en el inicio de una intervención marcada por un nombre o un guion). NUNCA empezar a mitad de una frase. Si el candidato óptimo empieza en mitad de oración, avanza hasta el siguiente inicio de oración.
+9. COMPLETITUD: cada fragmento debe contener al menos una oración completa y cerrada. No cortar antes del punto final de la oración.
 
 ─────────────────────────────────────────
 FORMATO DE RESPUESTA

@@ -21,18 +21,38 @@ const MAX_CHARS = 8000;
 
 const UA = 'Mozilla/5.0 (compatible; IRA-Index-Bot/1.0)';
 
+function decodeEntities(text) {
+  return text
+    .replace(/&aacute;/gi, 'á').replace(/&Aacute;/gi, 'Á')
+    .replace(/&eacute;/gi, 'é').replace(/&Eacute;/gi, 'É')
+    .replace(/&iacute;/gi, 'í').replace(/&Iacute;/gi, 'Í')
+    .replace(/&oacute;/gi, 'ó').replace(/&Oacute;/gi, 'Ó')
+    .replace(/&uacute;/gi, 'ú').replace(/&Uacute;/gi, 'Ú')
+    .replace(/&ntilde;/gi, 'ñ').replace(/&Ntilde;/gi, 'Ñ')
+    .replace(/&iquest;/gi, '¿').replace(/&iexcl;/gi, '¡')
+    .replace(/&ldquo;/gi, '"').replace(/&rdquo;/gi, '"')
+    .replace(/&lsquo;/gi, ''').replace(/&rsquo;/gi, ''')
+    .replace(/&ndash;/gi, '–').replace(/&mdash;/gi, '—')
+    .replace(/&#(\d+);/g,    (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
+    .replace(/&quot;/gi, '"')
+    .replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&');
+}
+
 function stripTags(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<nav[\s\S]*?<\/nav>/gi, ' ')
-    .replace(/<header[\s\S]*?<\/header>/gi, ' ')
-    .replace(/<footer[\s\S]*?<\/footer>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return decodeEntities(
+    html
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<nav[\s\S]*?<\/nav>/gi, ' ')
+      .replace(/<header[\s\S]*?<\/header>/gi, ' ')
+      .replace(/<footer[\s\S]*?<\/footer>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+  );
 }
 
 function findLatestSpeechPath(listHtml) {

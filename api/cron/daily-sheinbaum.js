@@ -44,6 +44,28 @@ function dateToISO(date) {
   return `${date.getUTCFullYear()}-${mm}-${dd}`;
 }
 
+/** Decodifica entidades HTML comunes (español + básicas) */
+function decodeEntities(text) {
+  return text
+    .replace(/&aacute;/gi, 'á').replace(/&Aacute;/gi, 'Á')
+    .replace(/&eacute;/gi, 'é').replace(/&Eacute;/gi, 'É')
+    .replace(/&iacute;/gi, 'í').replace(/&Iacute;/gi, 'Í')
+    .replace(/&oacute;/gi, 'ó').replace(/&Oacute;/gi, 'Ó')
+    .replace(/&uacute;/gi, 'ú').replace(/&Uacute;/gi, 'Ú')
+    .replace(/&ntilde;/gi, 'ñ').replace(/&Ntilde;/gi, 'Ñ')
+    .replace(/&uuml;/gi,   'ü').replace(/&Uuml;/gi,   'Ü')
+    .replace(/&iquest;/gi, '¿').replace(/&iexcl;/gi, '¡')
+    .replace(/&ldquo;/gi, '“').replace(/&rdquo;/gi, '”')
+    .replace(/&lsquo;/gi, '‘').replace(/&rsquo;/gi, '’')
+    .replace(/&ndash;/gi, '–').replace(/&mdash;/gi, '—')
+    .replace(/&#(\d+);/g,    (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
+    .replace(/&quot;/gi, '"')
+    .replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&');   // último para no interferir con los anteriores
+}
+
 function stripTags(html) {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
@@ -52,10 +74,41 @@ function stripTags(html) {
     .replace(/<header[\s\S]*?<\/header>/gi, ' ')
     .replace(/<footer[\s\S]*?<\/footer>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+/**
+ * Extrae el texto útil de la página de gob.mx:
+ * 1. Intenta aislar el contenedor del artículo (evita nav/breadcrumbs).
+ * 2. Si no lo encuentra, toma el texto completo y recorta desde el primer
+ *    marcador reconocible de inicio de mañanera.
+ */
+function extractText(html) {
+  // Intentar extraer el cuerpo del artículo directamente del HTML
+  const containerPatterns = [
+    /<div[^>]+class="[^"]*article-body[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+    /<div[^>]+class="[^"]*content-body[^"]*"[^>]*>([\s\S]*?)<\/div>/i,
+    /<article[^>]*>([\s\S]*?)<\/article>/i,
+    /<main[^>]*>([\s\S]*?)<\/main>/i,
+  ];
+  for (const re of containerPatterns) {
+    const m = html.match(re);
+    if (m && m[1].length > 1000) {
+      return decodeEntities(stripTags(m[1]));
+    }
+  }
+
+  // Fallback: strip todo el HTML y recortar boilerplate de navegación de gob.mx
+  const full = decodeEntities(stripTags(html));
+
+  // Las versiones estenográficas siempre empiezan con alguno de estos patrones
+  const speechStart = /PRESIDENTA\s+DE\s+MÉ?XICO|PRESIDENTE\s+DE\s+MÉ?XICO|Muy\s+buenos\s|Buenos\s+d[íi]as|Buenas\s+tardes|Buenas\s+noches/i;
+  const idx = full.search(speechStart);
+  if (idx > 50 && idx < full.length * 0.6) {
+    return full.slice(idx).trim();
+  }
+  return full;
 }
 
 function extractTitle(html) {
@@ -119,10 +172,15 @@ export default async function handler(req, res) {
 
     const title         = extractTitle(detailHtml);
     const publishedDate = dateToISO(articleDate);
-    const text          = stripTags(detailHtml).slice(0, MAX_CHARS);
+    const text          = extractText(detailHtml).slice(0, MAX_CHARS);
 
-    if (text.length < 200) {
-      throw new Error('Texto extraído demasiado corto, posible fallo de parseo');
+    if (text.length < 2000) {
+      // Menos de ~350 palabras → no es una mañanera real, probablemente aviso/error de CDN
+      return res.status(200).json({
+        skipped: true,
+        reason: `Texto demasiado corto (${text.length} chars), no parece una conferencia`,
+        sourceUrl,
+      });
     }
 
     const result = await runIraAnalysis(text, {
