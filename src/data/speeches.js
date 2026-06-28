@@ -1692,6 +1692,110 @@ export const speeches = [
       },
     ],
   },
+
+  // ─────────────────────────────────────────────────────────────────────
+  // PUTIN 1: Declaración sobre el misil Oreshnik (21 nov 2024)
+  // Fuente: en.kremlin.ru — traducción oficial inglés, licencia CC BY 4.0
+  // https://en.kremlin.ru/events/president/transcripts/75614
+  // ─────────────────────────────────────────────────────────────────────
+  {
+    id: 'putin-oreshnik-2024',
+    entityId: 'putin',
+    entityName: 'Vladimir Putin',
+    speechLang: 'en',
+    title: 'Declaración sobre el misil Oreshnik',
+    titleEn: 'Statement on the Oreshnik Missile',
+    date: '21 de noviembre de 2024',
+    context: 'Kremlin, Moscú. Declaración televisada tras el primer uso en combate del misil hipersónico Oreshnik contra Ucrania, en respuesta al uso —autorizado por EE.UU. y el Reino Unido— de misiles de largo alcance dentro de Rusia.',
+    contextEn: 'The Kremlin, Moscow. Televised statement following the first combat use of the Oreshnik hypersonic missile against Ukraine, in response to US- and UK-authorised long-range missile strikes inside Russian territory.',
+    duration: '8\'00"',
+    iraScore: 1.58,
+    iraLabel: 'Altamente polarizante — retórica de amenaza estratégica',
+    iraLabelEn: 'Highly polarizing — strategic threat rhetoric',
+    classification: 'polarizante',
+    wordCount: 810,
+    summary: 'Declaración de respuesta a la escalada occidental. El discurso construye a Rusia como actor racional y defensivo frente a una agresión sistémica de EE.UU./OTAN. El Oreshnik se enmarca como "prueba de combate" necesaria y proporcional. El gesto "humanitario" de avisar a los civiles antes de futuros ataques —mientras se describe un misil que no puede ser interceptado— es el bait-and-switch estructural del texto: la paloma de la paz con garra de halcón.',
+    summaryEn: 'A response statement to Western escalation. The speech constructs Russia as a rational, defensive actor against systematic US/NATO aggression. The Oreshnik is framed as a necessary and proportional "combat test." The "humanitarian" gesture of warning civilians before future strikes — while describing a missile that cannot be intercepted — is the text\'s structural bait-and-switch: the dove of peace with a hawk\'s claw.',
+    params: [
+      {
+        name: 'Uso pronominal inclusivo', value: 1.5,
+        quote: 'I would like to inform the military personnel of the Russian Federation Armed Forces, citizens of our country, our friends across the globe',
+        note: 'El "nosotros" es nacional-militar, no cívico universal. "Nuestro país", "nuestras fuerzas" delimitan un espacio cerrado. La referencia a "amigos en el mundo" simula inclusividad pero excluye a todo Occidente como adversario explícito. No hay pronombre de segunda persona que invite al diálogo real.',
+        noteEn: 'The "we" is national-military, not universal civic. "Our country", "our forces" define a closed space. The reference to "friends around the globe" simulates inclusivity but explicitly excludes all of the West as adversary. No second-person pronoun inviting real dialogue appears.',
+      },
+      {
+        name: 'Tipo de metáfora dominante', value: 1.5,
+        quote: 'regional conflict in Ukraine… has assumed elements of a global nature',
+        note: 'El repertorio metafórico es bélico-armamentístico en su totalidad: "zona de operación especial", "escalada", "asalto combinado de misiles". La "naturaleza global" del conflicto es la metáfora de expansión más inquietante: convierte una guerra regional en preludio de confrontación mundial, activando el sistema de vigilancia máxima sin ofrecer salida deliberativa.',
+        noteEn: 'The metaphorical repertoire is exclusively military-armament: "special military operation zone", "escalation", "combined missile assault". The "global nature" of the conflict is the most disturbing expansion metaphor: it turns a regional war into a prelude to global confrontation, activating maximum vigilance with no deliberative exit.',
+      },
+      {
+        name: 'Carga dicotómica', value: 1.5,
+        quote: 'it was not Russia, but the United States that destroyed the international security system',
+        note: 'Cuadrado ideológico maximizado: Rusia = víctima racional/defensiva; EE.UU./OTAN = agresor sistémico. El giro de inversión culpabilizadora ("no fue Rusia, sino EE.UU.") es el dispositivo dicotómico más explícito. La complejidad moral desaparece. Ucrania, como actor soberano, no existe en este relato.',
+        noteEn: 'Maximized ideological square: Russia = rational/defensive victim; US/NATO = systemic aggressor. The blame-reversal twist ("not Russia, but the United States") is the most explicit dichotomous device. Moral complexity disappears. Ukraine as a sovereign actor does not exist in this account.',
+      },
+      {
+        name: 'Tono emocional dominante', value: 2.0,
+        quote: 'there will always be a response',
+        note: 'Frialdad calculada como emoción dominante. No hay indignación ni pánico: hay la serenidad del que cree tener superioridad tecnológica y voluntad. La amenaza final —"siempre habrá respuesta"— es más inquietante precisamente por su laconismo. Damasio diría que los marcadores somáticos se activan no con el grito, sino con el susurro amenazante.',
+        noteEn: 'Calculated coldness as the dominant emotion. No indignation or panic: the serenity of someone who believes they have technological superiority and will. The final threat — "there will always be a response" — is more disturbing precisely for its terseness. Damasio would say somatic markers activate not with a shout, but with a menacing whisper.',
+      },
+      {
+        name: 'Reconocimiento del disenso', value: 1.0,
+        note: 'Nulo. La declaración es unilateral por definición y diseño. No existe reformulación ni concesión de ningún punto al adversario. La perspectiva ucraniana, occidental o civil no se reconoce como legítima. El "nosotros" racional y el "ellos" desestabilizador no dejan espacio para ningún agonismo democrático.',
+        noteEn: 'Zero. The statement is unilateral by definition and design. There is no reformulation or concession of any point to the adversary. The Ukrainian, Western, or civilian perspective is simply not recognized as legitimate. The rational "us" and the destabilizing "them" leave no room for any democratic agonism.',
+      },
+      {
+        name: 'Vector de acción', value: 1.5,
+        quote: 'We will determine the targets during further tests of our advanced missile systems based on the threats to the security of the Russian Federation',
+        note: 'Vector coercitivo unilateral: la acción es amenaza diferida. "Determinaremos los objetivos" convierte el futuro en instrumento de terror estratégico. La lógica de espejo —"quien nos ataque puede ser atacado"— disuelve la frontera entre el conflicto ucraniano y una guerra de la OTAN contra Rusia.',
+        noteEn: 'Unilateral coercive vector: the action is deferred threat. "We will determine the targets" turns the future into an instrument of strategic terror. The mirror logic — "whoever attacks us can be attacked" — dissolves the boundary between the Ukrainian conflict and a NATO-Russia war.',
+      },
+      {
+        name: 'Coherencia afectiva', value: 2.0,
+        quote: 'we will in advance suggest that civilians and citizens of friendly countries residing in those areas leave danger zones. We will do so for humanitarian reasons',
+        note: 'Bait-and-switch estructural: el párrafo "humanitario" aparece justo después de describir un misil que no puede ser interceptado y viaja a Mach 10. La promesa de aviso previo no reduce el horror — lo amplifica, porque presupone el ataque como inevitable. La coherencia retórica del texto es alta; la coherencia ética, nula.',
+        noteEn: 'Structural bait-and-switch: the "humanitarian" paragraph appears right after describing a missile that cannot be intercepted and travels at Mach 10. The promise of prior warning does not reduce the horror — it amplifies it, because it presupposes the strike as inevitable. Rhetorical coherence is high; ethical coherence, zero.',
+      },
+    ],
+    segments: [
+      {
+        text: 'The escalation of the conflict in Ukraine, instigated by the West, continues with the United States and its NATO allies previously announcing that they authorise the use of their long-range high-precision weapons for strikes inside the Russian Federation.',
+        textEs: 'La escalada del conflicto en Ucrania, instigada por Occidente, continúa con Estados Unidos y sus aliados de la OTAN anunciando que autorizan el uso de sus armas de largo alcance de alta precisión para atacar dentro de la Federación Rusa.',
+        type: 'PRONOMINAL_EX',
+        note: '"Instigada por Occidente" convierte a EE.UU./OTAN en sujeto activo y culpable de la escalada. Rusia queda como objeto reactivo. El marco causal borra la invasión rusa de 2022 como evento inaugural del conflicto.',
+      },
+      { text: ' ' },
+      {
+        text: 'In field conditions, we also carried out tests of one of Russia\'s latest medium-range missile systems – in this case, carrying a non-nuclear hypersonic ballistic missile that our engineers named Oreshnik.',
+        textEs: 'En condiciones de campo, también llevamos a cabo pruebas de uno de los últimos sistemas de misiles de alcance medio de Rusia, portando un misil balístico hipersónico no nuclear que nuestros ingenieros denominaron Oreshnik.',
+        type: 'BELICA',
+        note: 'Eufemismo bélico máximo: el primer uso en combate de un arma sobre una ciudad habitada se llama "prueba en condiciones de campo". La tecnicidad del lenguaje —"balístico hipersónico no nuclear"— anestesia la violencia real. El arsenal se presenta como proeza de ingeniería.',
+      },
+      { text: ' ' },
+      {
+        text: 'We will determine the targets during further tests of our advanced missile systems based on the threats to the security of the Russian Federation. We consider ourselves entitled to use our weapons against military facilities of those countries that allow to use their weapons against our facilities.',
+        textEs: 'Determinaremos los objetivos durante las pruebas adicionales de nuestros sistemas de misiles avanzados en función de las amenazas a la seguridad de la Federación Rusa. Nos consideramos con derecho a usar nuestras armas contra instalaciones militares de aquellos países que permitan usar sus armas contra nuestras instalaciones.',
+        type: 'MIEDO',
+        note: 'El vector de acción se convierte en amenaza existencial diferida. "Determinaremos los objetivos" es la frase más aterradora del texto en su laconismo. La lógica de espejo disuelve la frontera entre el conflicto ucraniano y una guerra directa contra los países de la OTAN.',
+      },
+      { text: ' ' },
+      {
+        text: 'we will in advance suggest that civilians and citizens of friendly countries residing in those areas leave danger zones. We will do so for humanitarian reasons, openly and publicly, without fear of counter-moves coming from the enemy',
+        textEs: 'con antelación sugeriremos a los civiles y ciudadanos de países amigos que residan en esas zonas que abandonen las zonas de peligro. Lo haremos por razones humanitarias, abierta y públicamente, sin temor a contramovidas del enemigo',
+        type: 'PRONOMINAL',
+        note: 'El bait-and-switch humanitario: se promete avisar a los civiles justo después de describir un misil indetectable e ininterceptable. La "humanidad" de avisar presupone el ataque como inevitable. Es la paloma de la paz con garra de halcón: el gesto empático al servicio de la amenaza.',
+      },
+      { text: ' ' },
+      {
+        text: 'it was not Russia, but the United States that destroyed the international security system and, by continuing to fight, cling to its hegemony, they are pushing the whole world into a global conflict. We have always preferred and are ready now to resolve all disputes by peaceful means. But we are also ready for any turn of events.',
+        textEs: 'No fue Rusia, sino Estados Unidos quien destruyó el sistema internacional de seguridad y, al seguir luchando aferrados a su hegemonía, están empujando al mundo hacia un conflicto global. Siempre hemos preferido y estamos listos para resolver todas las disputas por medios pacíficos. Pero también estamos preparados para cualquier giro de los acontecimientos.',
+        type: 'DICOTOMIA',
+        note: 'La inversión culpabilizadora y el doble mensaje final son el dispositivo retórico central del discurso: "preferimos la paz" inmediatamente seguido de "preparados para todo". La dicotomía es el mundo que quiere paz (Rusia) frente al que empuja al conflicto global (EE.UU.). El cuadrado ideológico de Van Dijk en su expresión más limpia.',
+      },
+    ],
+  },
 ];
 
 export function getSpeechesByEntity(entityId) {

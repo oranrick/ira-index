@@ -31,7 +31,7 @@ function decodeEntities(text) {
     .replace(/&ntilde;/gi, 'ñ').replace(/&Ntilde;/gi, 'Ñ')
     .replace(/&iquest;/gi, '¿').replace(/&iexcl;/gi, '¡')
     .replace(/&ldquo;/gi, '"').replace(/&rdquo;/gi, '"')
-    .replace(/&lsquo;/gi, ''').replace(/&rsquo;/gi, ''')
+    .replace(/&lsquo;/gi, '‘').replace(/&rsquo;/gi, '’')
     .replace(/&ndash;/gi, '–').replace(/&mdash;/gi, '—')
     .replace(/&#(\d+);/g,    (_, n) => String.fromCharCode(Number(n)))
     .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
@@ -41,18 +41,90 @@ function decodeEntities(text) {
     .replace(/&amp;/gi, '&');
 }
 
-function stripTags(html) {
-  return decodeEntities(
-    html
-      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-      .replace(/<nav[\s\S]*?<\/nav>/gi, ' ')
-      .replace(/<header[\s\S]*?<\/header>/gi, ' ')
-      .replace(/<footer[\s\S]*?<\/footer>/gi, ' ')
-      .replace(/<[^>]+>/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim()
+function stripTagsRaw(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<nav[\s\S]*?<\/nav>/gi, ' ')
+    .replace(/<header[\s\S]*?<\/header>/gi, ' ')
+    .replace(/<footer[\s\S]*?<\/footer>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Extrae el texto útil de la página de casarosada.gob.ar:
+ * 1. Intenta aislar el cuerpo del artículo (article-body, main, article).
+ * 2. Si no, toma el texto completo y recorta desde el inicio reconocible del discurso,
+ *    eliminando el boilerplate de navegación ("Compartilo en redes", "Tweet -->", "Detalles -->").
+ */
+function extractContent(html) {
+  const containers = [
+    /<div[^>]+class="[^"]*article-body[^"]*"[^>]*>([\s\S]*?)<\/div\s*>/i,
+    /<div[^>]+class="[^"]*desc[^"]*"[^>]*>([\s\S]*?)<\/div\s*>/i,
+    /<article[^>]*>([\s\S]*?)<\/article>/i,
+    /<main[^>]*>([\s\S]*?)<\/main>/i,
+  ];
+  for (const re of containers) {
+    const m = html.match(re);
+    if (m && m[1].length > 1000) {
+      return decodeEntities(stripTagsRaw(m[1]));
+    }
+  }
+
+  const full = decodeEntities(stripTagsRaw(html));
+  const speechStart = /Buenos\s+d[íi]as|Buenas\s+tardes|Buenas\s+noches|Javier\s+Milei:|PRESIDENTE\s+DE\s+LA\s+NACI[ÓO]N/i;
+  const idx = full.search(speechStart);
+  if (idx > 50 && idx < full.length * 0.6) {
+    return full.slice(idx).trim();
+  }
+
+  return full
+    .replace(/^.*?Detalles\s*[-–—>]+\s*/i, '')
+    .replace(/Compartilo en redes[\s\S]*?Tweet\s*[-–—>]+\s*/gi, '')
+    .trim();
+}
+
+/**
+ * Limpia filas antiguas de Milei que todavía tengan entidades HTML sin decodificar
+ * o boilerplate de navegación de Casa Rosada en el texto almacenado.
+ * Se ejecuta al inicio de cada cron; si todo ya está limpio, termina en microsegundos.
+ */
+async function cleanExistingRows(SUPABASE_URL, SERVICE_KEY) {
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/daily_analyses?entity_id=eq.milei&select=id,title,text`,
+    { headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` } }
   );
+  const rows = await res.json();
+  if (!Array.isArray(rows)) return;
+
+  const speechStart = /Buenos\s+d[íi]as|Buenas\s+tardes|Buenas\s+noches|Javier\s+Milei:|PRESIDENTE\s+DE\s+LA\s+NACI[ÓO]N/i;
+
+  for (const row of rows) {
+    const needsDecode = (row.text || '').includes('&') || (row.title || '').includes('&');
+    const hasBoilerplate = /Compartilo en redes|Tweet\s*[-–—>]/i.test(row.text || '');
+    if (!needsDecode && !hasBoilerplate) continue;
+
+    let newText = decodeEntities(row.text || '');
+    newText = newText.replace(/^.*?Detalles\s*[-–—>]+\s*/i, '').trim();
+    newText = newText.replace(/Compartilo en redes[\s\S]*?Tweet\s*[-–—>]+\s*/gi, '').trim();
+    const idx = newText.search(speechStart);
+    if (idx > 50 && idx < newText.length * 0.7) newText = newText.slice(idx).trim();
+
+    const newTitle = decodeEntities(row.title || '');
+
+    await fetch(`${SUPABASE_URL}/rest/v1/daily_analyses?id=eq.${row.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: SERVICE_KEY,
+        Authorization: `Bearer ${SERVICE_KEY}`,
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ title: newTitle, text: newText }),
+    });
+  }
 }
 
 function findLatestSpeechPath(listHtml) {
@@ -90,6 +162,9 @@ export default async function handler(req, res) {
   const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   try {
+    // Autocorrección: limpiar filas antiguas con entidades HTML o boilerplate
+    await cleanExistingRows(SUPABASE_URL, SERVICE_KEY);
+
     const listRes = await fetch(LIST_URL, { headers: { 'User-Agent': UA } });
     if (!listRes.ok) throw new Error(`No se pudo listar discursos (${listRes.status})`);
     const listHtml = await listRes.text();
@@ -114,9 +189,15 @@ export default async function handler(req, res) {
 
     const title = extractTitle(detailHtml);
     const publishedDate = extractDate(detailHtml);
-    const text = stripTags(detailHtml).slice(0, MAX_CHARS);
+    const text = extractContent(detailHtml).slice(0, MAX_CHARS);
 
-    if (text.length < 200) throw new Error('Texto extraído demasiado corto, posible fallo de parseo');
+    if (text.length < 2000) {
+      return res.status(200).json({
+        skipped: true,
+        reason: `Texto demasiado corto (${text.length} chars), no parece un discurso`,
+        sourceUrl,
+      });
+    }
 
     const result = await runIraAnalysis(text, {
       name: ENTITY.entity_name,

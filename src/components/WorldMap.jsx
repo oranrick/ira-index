@@ -15,18 +15,22 @@ const IRA_COLOR = (score) => {
 // Coordenadas lon/lat aproximadas para la proyección equirectangular.
 // Entidades en el mismo país están ligeramente desplazadas para no solaparse.
 const COORDS = {
-  mujica:    { lon: -56.3, lat: -32.5 },
-  ardern:    { lon: 174.9, lat: -40.9 },
-  sheinbaum: { lon: -99.1, lat:  19.4 },
-  sanchez:   { lon:  -3.7, lat:  40.4 },
-  petro:     { lon: -74.1, lat:   4.6 },
-  trump:     { lon: -77.0, lat:  38.9 },
-  milei:     { lon: -64.2, lat: -31.4 },
-  elpais:    { lon:  -3.7, lat:  41.8 },  // ES, ligeramente al norte de Sánchez
-  telemundo: { lon: -80.2, lat:  25.8 },  // Miami
-  fox:       { lon: -87.6, lat:  41.9 },  // Chicago aprox.
-  publico:   { lon:  -3.7, lat:  38.8 },  // ES, ligeramente al sur de Sánchez
-  rt:        { lon: 105.0, lat:  52.0 },  // Rusia central
+  mujica:    { lon: -56.3,  lat: -32.5 },   // Montevideo
+  ardern:    { lon: 174.9,  lat: -40.9 },   // Wellington
+  sheinbaum: { lon: -99.1,  lat:  19.4 },   // Ciudad de México
+  sanchez:   { lon:  -3.7,  lat:  40.4 },   // Madrid
+  petro:     { lon: -74.1,  lat:   4.6 },   // Bogotá
+  trump:     { lon: -98.0,  lat:  36.0 },   // Centro continental USA (Kansas)
+  milei:     { lon: -64.2,  lat: -33.0 },   // Córdoba, Argentina
+  putin:     { lon:  37.6,  lat:  55.7 },   // Moscú
+  rufian:    { lon:  -2.2,  lat:  41.0 },   // España (Barcelona/Madrid offset)
+  bukele:    { lon: -88.9,  lat:  13.7 },   // San Salvador
+  kast:      { lon: -70.7,  lat: -33.5 },   // Santiago de Chile
+  elpais:    { lon:  -3.7,  lat:  41.8 },   // ES, ligeramente al norte de Sánchez
+  telemundo: { lon: -80.2,  lat:  25.8 },   // Miami
+  fox:       { lon: -87.6,  lat:  41.9 },   // Chicago aprox.
+  publico:   { lon:  -4.5,  lat:  38.8 },   // ES, ligeramente al sur-oeste de Sánchez
+  rt:        { lon:  37.6,  lat:  58.5 },   // Rusia, offset norte de Moscú
 };
 
 const MAP_W = 800;
@@ -65,7 +69,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
           src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg"
           alt=""
           draggable={false}
-          style={{ width: '100%', display: 'block', opacity: 0.09, filter: 'invert(1)', userSelect: 'none' }}
+          style={{ width: '100%', display: 'block', opacity: 0.18, filter: 'invert(1)', userSelect: 'none' }}
         />
 
         {/* Overlay SVG con los indicadores de entidades */}
@@ -80,7 +84,10 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
             const cy = latToY(coords.lat);
             const color = IRA_COLOR(entity.score);
             const isHov = hovered === entity.id;
-            const r = isHov ? 18 : 14;
+            const r = isHov ? 20 : 16;
+            // etiqueta corta: segundo token del nombre (apellido), sin paréntesis
+            const _parts = entity.name.split(' ');
+            const shortName = (_parts.length > 1 ? _parts[1] : _parts[0]).replace(/[()]/g, '');
 
             return (
               <g
@@ -95,7 +102,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                   cx={cx} cy={cy}
                   r={r + 6}
                   fill={color}
-                  fillOpacity={isHov ? 0.15 : 0.06}
+                  fillOpacity={isHov ? 0.20 : 0.09}
                   style={{ transition: 'all 0.2s ease' }}
                 />
                 {/* Círculo principal */}
@@ -103,9 +110,9 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                   cx={cx} cy={cy}
                   r={r}
                   fill={color}
-                  fillOpacity={isHov ? 0.9 : 0.75}
-                  stroke={color}
-                  strokeWidth={isHov ? 2 : 1.5}
+                  fillOpacity={isHov ? 0.95 : 0.82}
+                  stroke="rgba(0,0,0,0.35)"
+                  strokeWidth={1}
                   style={{ transition: 'all 0.2s ease' }}
                 />
                 {/* Score text */}
@@ -114,7 +121,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                   textAnchor="middle"
                   dominantBaseline="middle"
                   style={{
-                    fontSize: isHov ? '9px' : '8px',
+                    fontSize: isHov ? '9.5px' : '8.5px',
                     fontWeight: 700,
                     fill: '#000',
                     fontFamily: "'DM Mono', monospace",
@@ -125,19 +132,36 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                   {entity.score != null ? entity.score.toFixed(1) : '?'}
                 </text>
 
-                {/* Tooltip con nombre */}
+                {/* Etiqueta siempre visible: bandera + apellido */}
+                <text
+                  x={cx} y={cy + r + 9}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  style={{
+                    fontSize: '7px',
+                    fontWeight: 600,
+                    fill: 'rgba(255,255,255,0.80)',
+                    fontFamily: "'DM Mono', monospace",
+                    pointerEvents: 'none',
+                    letterSpacing: '0.02em',
+                  }}
+                >
+                  {entity.flag} {shortName}
+                </text>
+
+                {/* Tooltip completo al hacer hover */}
                 {isHov && (
                   <g>
                     <rect
-                      x={cx - 52} y={cy - 36}
-                      width={104} height={20}
+                      x={cx - 58} y={cy - 42}
+                      width={116} height={22}
                       rx={5}
-                      fill="rgba(14,14,20,0.92)"
+                      fill="rgba(10,10,18,0.94)"
                       stroke={color}
                       strokeWidth={0.8}
                     />
                     <text
-                      x={cx} y={cy - 25}
+                      x={cx} y={cy - 30}
                       textAnchor="middle"
                       dominantBaseline="middle"
                       style={{
@@ -148,7 +172,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                         pointerEvents: 'none',
                       }}
                     >
-                      {entity.name}
+                      {entity.flag} {entity.name}
                     </text>
                   </g>
                 )}
