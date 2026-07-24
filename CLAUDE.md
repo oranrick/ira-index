@@ -129,25 +129,33 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 ## Crons diarios — estructura técnica
 
-### Milei — `api/cron/daily-milei.js`
-- **Fuente:** `https://www.casarosada.gob.ar/informacion/discursos`
-- **Estrategia:** scraping del índice (HTML estático, regex `class="panel"` sobre el primer `<a>`)
-- **Extracción de fecha:** regex en el HTML del artículo (`\d{1,2}\s+de\s+[mes]\s+de\s+\d{4}`)
-- **Cron:** `0 13 * * *` UTC
+### Arquitectura consolidada (jul 2026)
+- **`api/cron/daily-all.js`** — dispatcher único que reemplaza a los antiguos
+  `daily-milei.js` / `daily-sheinbaum.js`. Recorre los adaptadores de
+  `api/_lib/dailySources.js`, hace dedup por `source_url`, analiza con
+  `api/_lib/iraEngine.js` e inserta en `daily_analyses`.
+- **`api/_lib/dailySources.js`** — un adaptador por figura: `{ id, entity, category,
+  findLatest() }`. Para añadir una figura nueva basta un adaptador; no se crean
+  archivos de cron ni entradas extra en vercel.json.
+- **`api/_lib/scrapeUtils.js`** — utilidades compartidas (decodeEntities, stripTags,
+  fetchHtml con UA de navegador, fechas en español).
+- **Crons:** `0 13 * * *` y `0 20 * * *` UTC — dos pasadas del mismo endpoint
+  (límite de 2 crons del plan Hobby). El dedup hace la doble pasada inocua.
+  `maxDuration: 300` en vercel.json; el dispatcher corta análisis nuevos a los 240s.
+- **Test local:** `node --env-file=.env.local scripts/test-daily-all.mjs`
+  (ejecuta el pipeline real: scraping + Claude + inserción).
 
-### Sheinbaum — `api/cron/daily-sheinbaum.js`
-- **Fuente:** `https://www.gob.mx/presidencia/articulos/`
-- **Estrategia:** construcción directa de URL desde la fecha (el índice de gob.mx requiere JS y
-  devuelve vacío a fetch nativo). URL patrón:
-  ```
-  https://www.gob.mx/presidencia/articulos/version-estenografica-conferencia-de-prensa-de-la-presidenta-claudia-sheinbaum-pardo-del-{D}-de-{mes}-de-{YYYY}
-  ```
-  Nota: el día **no** lleva cero adelante en el slug (ej. `8-de-junio-de-2026`, no `08-...`).
-  El cron prueba hoy y retrocede hasta 7 días (`MAX_LOOKBACK`) para cubrir fines de semana/feriados.
-- **Extracción de fecha:** calculada directamente desde el objeto `Date` usado para construir la URL
-  (no depende del HTML). `dateToISO()` sí usa cero adelante para la DB (`2026-06-08`).
-- **Extracción de título:** `<title>` tag, recortando el ` | Presidencia...` final.
-- **entity_id:** `'sheinbaum'` — ya existe en `ENTITIES` de `src/App.jsx` (línea 393). No tocar.
-- **Cron:** `0 14 * * *` UTC (≈ 9am CDMX, tras la mañanera)
-- **Verificado:** slugs de fechas 8–22 jun 2026 coinciden exactamente con URLs reales confirmadas
-  por web search. Sintaxis Node OK (`--check`). vercel.json JSON válido.
+### Fuentes por figura
+- **milei** — índice de `casarosada.gob.ar/informacion/discursos` (HTML estático,
+  regex `class="panel"`). Fecha por regex en el HTML del artículo.
+- **sheinbaum** — URL construida desde la fecha (el índice de gob.mx requiere JS).
+  Patrón `.../version-estenografica-conferencia-de-prensa-de-la-presidenta-claudia-sheinbaum-pardo-del-{D}-de-{mes}-de-{YYYY}`
+  — el día **sin** cero adelante; lookback de 7 días para fines de semana/feriados.
+- **sanchez** — índice de `lamoncloa.gob.es/presidente/intervenciones` (HTML estático).
+  Fecha `YYYYMMDD` en el slug; transcripciones completas; extracción vía `<main>`.
+- **cepeda** — `presidenteivancepeda.com/noticias` (Next.js SSR). Solo acepta piezas
+  en primera persona (filtro por slug/título `mensaje|alocucion|discurso|...` o
+  marcadores léxicos): los comunicados de campaña en tercera persona NO son discurso
+  de Cepeda. Sitio intermitente tras la derrota electoral (jun 2026) — el cron
+  tolera el fallo y reintenta a diario. `entity_id 'cepeda'` aún NO tiene ficha en
+  `ENTITIES` de `src/App.jsx` (pendiente de decisión del autor).

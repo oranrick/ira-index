@@ -4,38 +4,40 @@
 
 const CORPUS_REFERENCE = `
 CORPUS IRA DE REFERENCIA (para calibrar el análisis comparativo):
-- José Mujica (político, Uruguay): IRA 8.93 — pronominal 9.2, metafora 9.0, dicotomia 6.8, tono 9.1, disenso 8.5, vector 8.8, coherencia 9.3, proyeccion 8.9
-- Jacinda Ardern (político, Nueva Zelanda): IRA 8.75 — pronominal 9.1, metafora 9.0, dicotomia 8.2, tono 9.0, disenso 8.8, vector 9.0, coherencia 8.9, proyeccion 8.0
-- Claudia Sheinbaum (político, México): IRA 7.92 — pronominal 8.1, metafora 8.0, dicotomia 7.5, tono 8.2, disenso 7.8, vector 8.0, coherencia 7.9, proyeccion 7.8
-- Pedro Sánchez (político, España): IRA 5.97 — pronominal 6.5, metafora 6.0, dicotomia 4.8, tono 6.8, disenso 4.3, vector 6.5, coherencia 6.3, proyeccion 7.3
-- Gustavo Petro (político, Colombia): IRA 5.60 — pronominal 6.8, metafora 5.2, dicotomia 4.5, tono 6.0, disenso 5.1, vector 5.8, coherencia 5.2, proyeccion 6.2
-- Donald Trump (político, EE.UU.): IRA 2.48 — pronominal 2.5, metafora 1.8, dicotomia 2.0, tono 2.1, disenso 1.5, vector 2.0, coherencia 2.8, proyeccion 3.1
-- Público (medio, España): IRA 6.69 — pronominal 6.8, metafora 6.8, dicotomia 5.3, tono 6.8, disenso 7.5, vector 6.5, coherencia 7.3, proyeccion 6.8
-- El País (medio, España/Colombia): IRA 6.22 — pronominal 5.5, metafora 7.0, dicotomia 5.3, tono 6.5, disenso 6.3, vector 5.5, coherencia 7.5, proyeccion 6.3
-- Telemundo (medio, EE.UU.): IRA 6.29 — pronominal 6.3, metafora 6.5, dicotomia 4.8, tono 6.3, disenso 7.0, vector 6.0, coherencia 7.5, proyeccion 6.0
-- Fox News (medio, EE.UU.): IRA 3.94 — pronominal 3.8, metafora 3.0, dicotomia 3.0, tono 4.3, disenso 4.0, vector 3.8, coherencia 5.3, proyeccion 4.5
-- RT Russia Today (medio, Rusia): IRA 3.56 — pronominal 2.8, metafora 3.3, dicotomia 2.8, tono 3.3, disenso 3.3, vector 3.3, coherencia 5.8, proyeccion 4.3
+- Jacinda Ardern (político, Nueva Zelanda): IRA 8.99 — pronominal 9.3, metafora 9.1, dicotomia 8.1, tono 9.3, disenso 8.7, vector 9.0, coherencia 9.2
+- José Mujica (político, Uruguay): IRA 8.74 — pronominal 9.2, metafora 9.0, dicotomia 6.8, tono 9.1, disenso 8.5, vector 8.8, coherencia 9.3
+- Claudia Sheinbaum (político, México): IRA 7.66 — pronominal 8.2, metafora 7.6, dicotomia 6.6, tono 8.2, disenso 7.2, vector 7.7, coherencia 8.0
+- Pedro Sánchez (político, España): IRA 5.82 — pronominal 6.5, metafora 6.0, dicotomia 4.8, tono 6.8, disenso 4.3, vector 6.5, coherencia 6.3
+- Gustavo Petro (político, Colombia): IRA 5.45 — pronominal 6.2, metafora 5.8, dicotomia 4.0, tono 5.4, disenso 4.9, vector 6.3, coherencia 5.6
+- Donald Trump (político, EE.UU.): IRA 1.95 — pronominal 2.4, metafora 1.9, dicotomia 1.4, tono 2.2, disenso 1.5, vector 2.1, coherencia 2.8
+- Vladimir Putin (político, Rusia): IRA 1.58 — pronominal 1.5, metafora 1.5, dicotomia 1.5, tono 2.0, disenso 1.0, vector 1.5, coherencia 2.0
+- Público (medio, España): IRA 6.77 — pronominal 6.8, metafora 6.8, dicotomia 5.3, tono 6.8, disenso 7.5, vector 6.5, coherencia 7.3
+- Telemundo (medio, EE.UU.): IRA 6.35 — pronominal 6.3, metafora 6.5, dicotomia 4.8, tono 6.3, disenso 7.0, vector 6.0, coherencia 7.5
+- El País (medio, España/Colombia): IRA 6.23 — pronominal 5.5, metafora 7.0, dicotomia 5.3, tono 6.5, disenso 6.3, vector 5.5, coherencia 7.5
+- Fox News (medio, EE.UU.): IRA 3.76 — pronominal 3.8, metafora 3.0, dicotomia 3.0, tono 4.3, disenso 4.0, vector 3.8, coherencia 5.3
+- RT Russia Today (medio, Rusia): IRA 3.23 — pronominal 2.8, metafora 3.3, dicotomia 2.8, tono 3.3, disenso 3.3, vector 3.3, coherencia 5.8
 `;
 
+// Fórmula vigente (P8 eliminado — ver CLAUDE.md):
+// IRA = P1×0.20 + P2×0.20 + P3×0.10 + P4×0.20 + P5×0.20 + P6×0.05 + P7×0.05
 const WEIGHTS = {
   pronominal: 0.20,
   metafora:   0.20,
-  dicotomia:  0.15,
-  tono:       0.15,
-  disenso:    0.10,
+  dicotomia:  0.10,
+  tono:       0.20,
+  disenso:    0.20,
   vector:     0.05,
-  coherencia: 0.10,
-  proyeccion: 0.05,
+  coherencia: 0.05,
 };
 
 function buildSystem() {
   return `Eres el motor analítico del IRA (Índice de Resonancia Afectiva), una herramienta académica que mide la capacidad empática o polarizadora de un discurso político, mediático o institucional en una escala de 0 a 10.
 
-El IRA fue desarrollado por Ricardo Grisales Ramírez en su TFG "El contagio de las palabras" (UCM, Periodismo, 2024), bajo la tutela de la Dra. Raquel Taranilla García. Se fundamenta en el Análisis Crítico del Discurso (Fairclough, Van Dijk, Wodak), la lingüística cognitiva (Lakoff & Johnson), la teoría de la valoración (Martin & White 2005), la proximización discursiva (Cap 2013), las emociones políticas (Nussbaum 2014) y el paradigma inmunitario (Esposito 2002).
+El IRA fue desarrollado por Ricardo Grisales Ramírez en su TFG "El contagio de las palabras" (UCM, Periodismo, 2024), bajo la tutela de la Dra. Raquel Taranilla García. Se fundamenta en el Análisis Crítico del Discurso (Fairclough, Van Dijk, Wodak), la lingüística cognitiva (Lakoff & Johnson), la proximización discursiva (Cap 2013), las emociones políticas (Nussbaum 2014), el paradigma inmunitario (Esposito 2002), los marcadores somáticos (Damasio) y la simulación encarnada (Gallese).
 
 ESCALA: 10 = máxima empatía / resonancia afectiva positiva. 0 = máxima polarización / resonancia afectiva negativa.
 
-Evalúa los siguientes 8 parámetros con sus pesos ponderados. La puntuación IRA final es la suma ponderada, no el promedio simple.
+Evalúa los siguientes 7 parámetros con sus pesos ponderados. La puntuación IRA final es la suma ponderada, no el promedio simple.
 
 ─────────────────────────────────────────
 PARÁMETRO 1 · PRONOMBRES Y VÍNCULO · peso 20%
@@ -150,8 +152,7 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin backticks, sin texto adicio
     "tono":       { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
     "disenso":    { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
     "vector":     { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
-    "coherencia": { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" },
-    "proyeccion": { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" }
+    "coherencia": { "score": 0.0, "desc": "...", "quote": "cita literal breve del texto o null" }
   },
   "segments": [
     { "text": "fragmento literal del texto", "type": "PRONOMINAL", "note": "análisis retórico..." },
