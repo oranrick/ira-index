@@ -12,25 +12,26 @@ const IRA_COLOR = (score) => {
   return '#e05252';
 };
 
-// Coordenadas lon/lat aproximadas para la proyección equirectangular.
-// Entidades en el mismo país están ligeramente desplazadas para no solaparse.
+// Coordenadas lon/lat reales para la proyección equirectangular (base
+// -180..180 / -90..90, lineal). Entidades que comparten ciudad llevan un
+// offset dentro de su país para no solaparse (comentado en cada caso).
 const COORDS = {
-  mujica:    { lon: -56.3,  lat: -32.5 },   // Montevideo
-  ardern:    { lon: 174.9,  lat: -40.9 },   // Wellington
+  mujica:    { lon: -56.2,  lat: -34.9 },   // Montevideo
+  ardern:    { lon: 174.8,  lat: -41.3 },   // Wellington
   sheinbaum: { lon: -99.1,  lat:  19.4 },   // Ciudad de México
   sanchez:   { lon:  -3.7,  lat:  40.4 },   // Madrid
   petro:     { lon: -74.1,  lat:   4.6 },   // Bogotá
-  trump:     { lon: -98.0,  lat:  36.0 },   // Centro continental USA (Kansas)
-  milei:     { lon: -64.2,  lat: -33.0 },   // Córdoba, Argentina
-  putin:     { lon:  37.6,  lat:  55.7 },   // Moscú
-  rufian:    { lon:  -2.2,  lat:  41.0 },   // España (Barcelona/Madrid offset)
-  bukele:    { lon: -88.9,  lat:  13.7 },   // San Salvador
+  trump:     { lon: -98.0,  lat:  39.0 },   // centro EE.UU. (Kansas) — deja NY libre para Fox
+  milei:     { lon: -64.2,  lat: -31.4 },   // Córdoba (Buenos Aires solaparía con Montevideo)
+  putin:     { lon:  37.6,  lat:  55.8 },   // Moscú
+  rufian:    { lon:   2.15, lat:  41.4 },   // Barcelona
+  bukele:    { lon: -89.2,  lat:  13.7 },   // San Salvador
   kast:      { lon: -70.7,  lat: -33.5 },   // Santiago de Chile
-  elpais:    { lon:  -3.7,  lat:  41.8 },   // ES, ligeramente al norte de Sánchez
+  elpais:    { lon:  -6.0,  lat:  42.8 },   // sede Madrid — offset NO para no solapar Sánchez
   telemundo: { lon: -80.2,  lat:  25.8 },   // Miami
-  fox:       { lon: -87.6,  lat:  41.9 },   // Chicago aprox.
-  publico:   { lon:  -4.5,  lat:  38.8 },   // ES, ligeramente al sur-oeste de Sánchez
-  rt:        { lon:  37.6,  lat:  58.5 },   // Rusia, offset norte de Moscú
+  foxnews:   { lon: -74.0,  lat:  40.7 },   // Nueva York
+  publico:   { lon:  -5.8,  lat:  37.4 },   // sede Madrid — offset SO para no solapar Sánchez
+  rt:        { lon:  37.6,  lat:  61.0 },   // sede Moscú — offset norte para no solapar Putin
 };
 
 const MAP_W = 800;
@@ -64,17 +65,22 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
       </div>
 
       <div style={{ position: 'relative', width: '100%', borderRadius: '8px', overflow: 'hidden', background: 'rgba(0,0,0,0.3)' }}>
-        {/* Fondo: mapa del mundo en dominio público (Wikipedia) */}
+        {/* Fondo: proyección equirectangular completa (-180..180 / -90..90),
+            dominio público (Wikimedia "World location map"). Debe ser
+            equirectangular: la conversión lon/lat → x/y es lineal. */}
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/World_location_map_%28equirectangular_180%29.svg/1280px-World_location_map_%28equirectangular_180%29.svg.png"
           alt=""
           draggable={false}
-          style={{ width: '100%', display: 'block', opacity: 0.18, filter: 'invert(1)', userSelect: 'none' }}
+          style={{ width: '100%', display: 'block', opacity: 0.18, filter: 'invert(1) grayscale(1)', userSelect: 'none' }}
         />
 
-        {/* Overlay SVG con los indicadores de entidades */}
+        {/* Overlay SVG con los indicadores de entidades.
+            preserveAspectRatio="none" fija el viewBox 2:1 al box del <img>
+            (también 2:1) sin letterboxing por redondeos. */}
         <svg
           viewBox={`0 0 ${MAP_W} ${MAP_H}`}
+          preserveAspectRatio="none"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible' }}
         >
           {entities.map((entity) => {
@@ -85,9 +91,11 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
             const color = IRA_COLOR(entity.score);
             const isHov = hovered === entity.id;
             const r = isHov ? 20 : 16;
-            // etiqueta corta: segundo token del nombre (apellido), sin paréntesis
-            const _parts = entity.name.split(' ');
-            const shortName = (_parts.length > 1 ? _parts[1] : _parts[0]).replace(/[()]/g, '');
+            // etiqueta corta: apellido (último token) para personas;
+            // nombre sin paréntesis para medios ("RT (Russia Today)" → "RT")
+            const shortName = entity.category === 'Medio'
+              ? entity.name.replace(/\s*\([^)]*\)/g, '').trim()
+              : entity.name.split(' ').pop();
 
             return (
               <g

@@ -705,7 +705,10 @@ const PARAM_SHORT_EN = {
   proyeccion: 'Projection',
 };
 
-const PARAMS_ORDER = ['pronominal','metafora','dicotomia','tono','disenso','vector','coherencia','proyeccion'];
+// Orden de parámetros de un RESULTADO de análisis (fórmula vigente, sin P8).
+// Los share-links antiguos con 8 scores siguen decodificando bien: el orden se
+// conserva y el octavo valor simplemente se ignora.
+const PARAMS_ORDER = ['pronominal','metafora','dicotomia','tono','disenso','vector','coherencia'];
 
 function encodeShareResult(result) {
   const scores = PARAMS_ORDER.map(id => result.params[id]?.score ?? 0);
@@ -728,7 +731,7 @@ function drawRadar(canvas, result, accent = '#ff6600') {
   const W = canvas.width, H = canvas.height;
   const cx = W / 2, cy = H / 2;
   const R = Math.min(cx, cy) - 28;
-  const N = 8;
+  const N = PARAMS_ORDER.length;
   ctx.clearRect(0, 0, W, H);
   // grid rings
   for (let lvl = 1; lvl <= 5; lvl++) {
@@ -959,10 +962,14 @@ function rowToSpeech(row) {
   const ira = row.ira ?? 0;
   const iraLabel   = ira >= 7.5 ? 'Empático'  : ira >= 5 ? 'Mixto'  : 'Polarizante';
   const iraLabelEn = ira >= 7.5 ? 'Empathic'  : ira >= 5 ? 'Mixed'  : 'Polarizing';
-  const params = Object.entries(REVERSE_PARAM_MAP).map(([key, name]) => {
-    const p = row.params?.[key] ?? {};
-    return { name, value: p.score ?? 0, quote: p.quote ?? null, note: p.desc ?? '' };
-  });
+  // Solo los parámetros presentes en la fila: las filas nuevas ya no traen P8
+  // (proyeccion) y no deben renderizar una barra en 0.0.
+  const params = Object.entries(REVERSE_PARAM_MAP)
+    .filter(([key]) => row.params?.[key] != null)
+    .map(([key, name]) => {
+      const p = row.params[key];
+      return { name, value: p.score ?? 0, quote: p.quote ?? null, note: p.desc ?? '' };
+    });
   return {
     id:           `daily-${row.id}`,
     entityId:     row.entity_id,
@@ -1367,7 +1374,7 @@ function HistoryCard({ row, lang }) {
               {row.summary}
             </p>
           )}
-          {row.params && params.map((p, i) => {
+          {row.params && params.filter(p => row.params[p.id] != null).map((p, i) => {
             const val = +(row.params[p.id]?.score ?? 0);
             return (
               <div key={i} style={{ marginBottom:"10px" }}>
@@ -1708,7 +1715,7 @@ function AnalysisResult({ result, onReset, lang }) {
           </p>
         </div>
       </div>
-      {params.map((p, i) => {
+      {params.filter(p => result.params[p.id] != null).map((p, i) => {
         const val = +(result.params[p.id]?.score ?? 0);
         const desc = result.params[p.id]?.desc ?? '';
         return (
