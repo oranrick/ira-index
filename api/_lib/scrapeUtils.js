@@ -4,6 +4,10 @@
 // daily-sheinbaum.js para no duplicar lógica entre figuras.
 
 export const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
+// gob.mx acepta el UA de bot honesto desde IPs de datacenter pero rechaza el
+// UA de navegador (verificado: el cron viejo con este UA insertaba a diario
+// desde Vercel; con UA Chrome devuelve vacío en producción).
+export const UA_BOT = 'Mozilla/5.0 (compatible; IRA-Index-Bot/1.0)';
 
 export const MONTHS_ES = [
   'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
@@ -45,8 +49,8 @@ export function stripTags(html) {
     .trim();
 }
 
-export async function fetchHtml(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': UA } });
+export async function fetchHtml(url, ua = UA) {
+  const res = await fetch(url, { headers: { 'User-Agent': ua } });
   if (!res.ok) throw new Error(`fetch ${url} → ${res.status}`);
   return res.text();
 }

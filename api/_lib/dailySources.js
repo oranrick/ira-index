@@ -7,7 +7,7 @@
 // El dispatcher se encarga de dedup (source_url), longitud mínima, análisis IRA
 // e inserción en daily_analyses — aquí solo vive lo específico de cada sitio.
 
-import { decodeEntities, stripTags, fetchHtml, MONTHS_ES, spanishDateToISO, extractTitleTag } from './scrapeUtils.js';
+import { decodeEntities, stripTags, fetchHtml, MONTHS_ES, spanishDateToISO, extractTitleTag, UA_BOT } from './scrapeUtils.js';
 
 // ─────────────────────────────────────────────
 // MILEI — casarosada.gob.ar (índice HTML estático)
@@ -101,7 +101,7 @@ const sheinbaum = {
       const url = `${SHEINBAUM_BASE}${SHEINBAUM_SLUG}${slug}`;
       let html;
       try {
-        html = await fetchHtml(url);
+        html = await fetchHtml(url, UA_BOT); // gob.mx: ver nota en scrapeUtils
       } catch {
         continue; // 404 esperado en fines de semana/feriados
       }
