@@ -2,20 +2,23 @@
 // Motor de análisis IRA compartido — extraído de api/analyze.js para que
 // /api/analyze, /api/add-speech y /api/cron/* usen la misma lógica de scoring.
 
+// Perfiles del corpus curado tal como los muestra la app: valores de la tabla
+// `analyses` (re-análisis con la metodología vigente) cuando existen, y
+// speeches.js en su defecto. Regenerables con scripts/audit-methodology.mjs.
 const CORPUS_REFERENCE = `
 CORPUS IRA DE REFERENCIA (para calibrar el análisis comparativo):
-- Jacinda Ardern (político, Nueva Zelanda): IRA 8.99 — pronominal 9.3, metafora 9.1, dicotomia 8.1, tono 9.3, disenso 8.7, vector 9.0, coherencia 9.2
-- José Mujica (político, Uruguay): IRA 8.74 — pronominal 9.2, metafora 9.0, dicotomia 6.8, tono 9.1, disenso 8.5, vector 8.8, coherencia 9.3
-- Claudia Sheinbaum (político, México): IRA 7.66 — pronominal 8.2, metafora 7.6, dicotomia 6.6, tono 8.2, disenso 7.2, vector 7.7, coherencia 8.0
-- Pedro Sánchez (político, España): IRA 5.82 — pronominal 6.5, metafora 6.0, dicotomia 4.8, tono 6.8, disenso 4.3, vector 6.5, coherencia 6.3
-- Gustavo Petro (político, Colombia): IRA 5.45 — pronominal 6.2, metafora 5.8, dicotomia 4.0, tono 5.4, disenso 4.9, vector 6.3, coherencia 5.6
-- Donald Trump (político, EE.UU.): IRA 1.95 — pronominal 2.4, metafora 1.9, dicotomia 1.4, tono 2.2, disenso 1.5, vector 2.1, coherencia 2.8
-- Vladimir Putin (político, Rusia): IRA 1.58 — pronominal 1.5, metafora 1.5, dicotomia 1.5, tono 2.0, disenso 1.0, vector 1.5, coherencia 2.0
+- Jacinda Ardern (político, Nueva Zelanda): IRA 7.77 — pronominal 8.9, metafora 7.2, dicotomia 7.8, tono 8.5, disenso 6.3, vector 8.3, coherencia 8.4
+- José Mujica (político, Uruguay): IRA 7.43 — pronominal 8.2, metafora 7.6, dicotomia 6.1, tono 8.5, disenso 5.8, vector 8.0, coherencia 7.9
 - Público (medio, España): IRA 6.77 — pronominal 6.8, metafora 6.8, dicotomia 5.3, tono 6.8, disenso 7.5, vector 6.5, coherencia 7.3
 - Telemundo (medio, EE.UU.): IRA 6.35 — pronominal 6.3, metafora 6.5, dicotomia 4.8, tono 6.3, disenso 7.0, vector 6.0, coherencia 7.5
+- Claudia Sheinbaum (político, México): IRA 6.24 — pronominal 7.0, metafora 6.0, dicotomia 5.8, tono 6.5, disenso 5.5, vector 7.3, coherencia 6.0
 - El País (medio, España/Colombia): IRA 6.23 — pronominal 5.5, metafora 7.0, dicotomia 5.3, tono 6.5, disenso 6.3, vector 5.5, coherencia 7.5
+- Pedro Sánchez (político, España): IRA 5.82 — pronominal 6.5, metafora 6.0, dicotomia 4.8, tono 6.8, disenso 4.3, vector 6.5, coherencia 6.3
+- Gustavo Petro (político, Colombia): IRA 4.92 — pronominal 6.0, metafora 5.0, dicotomia 4.5, tono 5.3, disenso 3.8, vector 4.8, coherencia 4.5
 - Fox News (medio, EE.UU.): IRA 3.76 — pronominal 3.8, metafora 3.0, dicotomia 3.0, tono 4.3, disenso 4.0, vector 3.8, coherencia 5.3
 - RT Russia Today (medio, Rusia): IRA 3.23 — pronominal 2.8, metafora 3.3, dicotomia 2.8, tono 3.3, disenso 3.3, vector 3.3, coherencia 5.8
+- Donald Trump (político, EE.UU.): IRA 2.36 — pronominal 3.0, metafora 2.3, dicotomia 2.3, tono 3.0, disenso 1.3, vector 2.3, coherencia 2.3
+- Vladimir Putin (político, Rusia): IRA 1.58 — pronominal 1.5, metafora 1.5, dicotomia 1.5, tono 2.0, disenso 1.0, vector 1.5, coherencia 2.0
 `;
 
 // Fórmula vigente (P8 eliminado — ver CLAUDE.md):

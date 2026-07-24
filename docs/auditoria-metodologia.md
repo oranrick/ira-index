@@ -14,6 +14,16 @@
 | `daily_analyses` (Supabase, cron) | 21 | Sheinbaum 15 · Milei 5 · Sánchez 1 |
 | **Total** | **43** | |
 
+**Procedencia (dos generaciones de análisis).** 9 de los 22 discursos estáticos
+tienen una fila en la tabla `analyses` de Supabase producto de un **re-análisis
+posterior** con la metodología vigente (script `reanalyze-updated.js`), con
+scores sistemáticamente distintos de los de `speeches.js` (ej. Ardern
+Christchurch: 9.07 estático vs 7.78 re-analizado; Mujica: 8.74 vs 7.43). **La
+app muestra los valores re-analizados** (los prefiere vía `supabaseMap`), así
+que esta auditoría hace lo mismo. `speeches.js` conserva la generación anterior
+como fallback — la decisión sobre cuál es el corpus canónico está pendiente
+(ver §7).
+
 **Advertencia de solidez.** n=43 está justo en el umbral mínimo (~30–40) para
 conclusiones estadísticas. Dos limitaciones estructurales adicionales:
 
@@ -31,25 +41,25 @@ Cada hallazgo se marca como **[SÓLIDO]** (robusto a estas limitaciones) o
 
 ## 2. Distribución por parámetro (n=43)
 
-| Parámetro | Peso | Media | SD | Min | Q25 | Mediana | Q75 | Max | CV |
-|---|---|---|---|---|---|---|---|---|---|
-| P1 pronominal | 20% | 6.32 | 2.10 | 1.5 | 5.50 | 7.2 | 7.80 | 9.5 | 0.33 |
-| P2 metafora | 20% | 5.96 | 2.19 | 1.2 | 4.65 | 6.8 | 7.50 | 9.2 | 0.37 |
-| P3 dicotomia | 10% | 5.29 | 2.09 | 1.0 | 3.90 | 5.5 | 7.10 | 8.2 | 0.40 |
-| P4 tono | 20% | 6.28 | 2.10 | 1.5 | 5.25 | 7.0 | 7.60 | 9.5 | 0.33 |
-| P5 disenso | 20% | 5.44 | 2.13 | 1.0 | 3.85 | 6.0 | 6.80 | 8.8 | 0.39 |
-| P6 vector | 5% | 6.15 | 2.09 | 1.2 | 5.25 | 7.0 | 7.65 | 9.0 | 0.34 |
-| P7 coherencia | 5% | 6.79 | 1.67 | 2.0 | 5.75 | 7.4 | 7.85 | 9.5 | 0.25 |
+| Parámetro | Peso | Media | SD | CV |
+|---|---|---|---|---|
+| P1 pronominal | 20% | 6.24 | 1.97 | 0.32 |
+| P2 metafora | 20% | 5.74 | 2.00 | 0.35 |
+| P3 dicotomia | 10% | 5.28 | 2.01 | 0.38 |
+| P4 tono | 20% | 6.18 | 1.97 | 0.32 |
+| P5 disenso | 20% | 5.13 | 2.02 | 0.40 |
+| P6 vector | 5% | 6.01 | 2.05 | 0.34 |
+| P7 coherencia | 5% | 6.55 | 1.71 | 0.26 |
 
 **Lecturas:**
 
 - **[SÓLIDO]** Ningún parámetro es "plano": todos recorren casi la escala completa
-  (rangos de 7–8 puntos) con SD ≈ 2. No hay parámetros muertos por falta de varianza.
-- **[SÓLIDO]** `dicotomia` y `disenso` son los más discriminantes (CV 0.40 y 0.39) y
-  los más "duros" (medias más bajas: 5.29 y 5.44): el motor concede menos puntos por
-  defecto en polaridad moral y apertura al disenso.
-- **[SÓLIDO]** `coherencia` es el más comprimido (SD 1.67, CV 0.25) y el más
-  "generoso" (media 6.79, máximo Q25). El motor rara vez castiga la coherencia
+  con SD ≈ 2. No hay parámetros muertos por falta de varianza.
+- **[SÓLIDO]** `disenso` y `dicotomia` son los más discriminantes (CV 0.40 y 0.38) y
+  los más "duros" (medias más bajas: 5.13 y 5.28): el motor concede menos puntos por
+  defecto en apertura al disenso y polaridad moral.
+- **[SÓLIDO]** `coherencia` es el más comprimido (SD 1.71, CV 0.26) y el más
+  "generoso" (media 6.55). El motor rara vez castiga la coherencia
   afectiva — ver §4 antes de concluir que sobra.
 
 ---
@@ -60,21 +70,21 @@ Matriz de correlaciones de Pearson (n=43), resumen:
 
 | | P1 | P2 | P3 | P4 | P5 | P6 | P7 |
 |---|---|---|---|---|---|---|---|
-| P1 pronominal | — | .94 | .92 | .97 | .87 | .98 | .88 |
-| P2 metafora | | — | .92 | .97 | .91 | .95 | .89 |
-| P3 dicotomia | | | — | .96 | .88 | .95 | .86 |
-| P4 tono | | | | — | .90 | .98 | .89 |
-| P5 disenso | | | | | — | .90 | .90 |
-| P6 vector | | | | | | — | .89 |
+| P1 pronominal | — | .92 | .93 | .96 | .81 | .97 | .81 |
+| P2 metafora | | — | .92 | .96 | .89 | .93 | .85 |
+| P3 dicotomia | | | — | .95 | .84 | .95 | .81 |
+| P4 tono | | | | — | .85 | .97 | .85 |
+| P5 disenso | | | | | — | .86 | .86 |
+| P6 vector | | | | | | — | .86 |
 | P7 coherencia | | | | | | | — |
 
-- Correlación media inter-parámetro: **r̄ = 0.92** (rango 0.86–0.98)
-- α de Cronbach: **0.988**
-- Primer componente principal (estimado desde r̄): **≈ 93% de la varianza**
+- Correlación media inter-parámetro: **r̄ = 0.89** (rango 0.81–0.98)
+- α de Cronbach: **0.983**
+- Primer componente principal (estimado desde r̄): **≈ 91% de la varianza**
 
 **[SÓLIDO]** A nivel de corpus completo, los 7 parámetros se comportan como **una
 sola dimensión latente** medida siete veces. Como *escala* el IRA es
-extraordinariamente consistente (α=0.99); como *batería de dimensiones
+extraordinariamente consistente (α=0.98); como *batería de dimensiones
 independientes*, no lo es: conocer un parámetro predice casi por completo los otros
 seis.
 
@@ -93,7 +103,7 @@ figura. No ocurre. Correlaciones inter-parámetro **dentro de Sheinbaum**
 
 | Estadístico | Global (n=43) | Intra-Sheinbaum (n=15) |
 |---|---|---|
-| r̄ inter-parámetro | 0.92 | **0.57** |
+| r̄ inter-parámetro | 0.89 | **0.57** |
 | Par mínimo | .86 (P3×P7) | **.28 (P5×P7)** |
 | Par máximo | .98 (P1×P6) | .87 (P2×P4) |
 
@@ -128,13 +138,13 @@ normalizado) y correlación con el IRA final:
 
 | Parámetro | Peso nominal | Peso efectivo | r con IRA |
 |---|---|---|---|
-| P1 pronominal | 0.20 | 0.200 | .97 |
-| P2 metafora | 0.20 | 0.208 | .98 |
-| P3 dicotomia | 0.10 | 0.100 | .96 |
-| P4 tono | 0.20 | 0.200 | .99 |
-| P5 disenso | 0.20 | 0.203 | .94 |
-| P6 vector | 0.05 | 0.050 | .98 |
-| P7 coherencia | 0.05 | 0.040 | .92 |
+| P1 pronominal | 0.20 | 0.199 | .96 |
+| P2 metafora | 0.20 | 0.202 | .98 |
+| P3 dicotomia | 0.10 | 0.101 | .96 |
+| P4 tono | 0.20 | 0.199 | .98 |
+| P5 disenso | 0.20 | 0.204 | .92 |
+| P6 vector | 0.05 | 0.051 | .98 |
+| P7 coherencia | 0.05 | 0.043 | .89 |
 
 **[SÓLIDO]** Los pesos efectivos coinciden casi exactamente con los nominales
 (las SD son casi idénticas entre parámetros): la ponderación decidida en la
@@ -145,20 +155,22 @@ domina en la sombra. `tono` es el mejor proxy individual del IRA completo (r=.99
 
 ## 6. Perfiles por figura
 
+Valores como los muestra la app (generación re-analizada donde existe):
+
 | Figura | n | IRA medio | SD | Observación |
 |---|---|---|---|---|
-| Ardern | 2 | 8.99 | — | techo del corpus |
-| Mujica | 1 | 8.74 | — | |
-| Sheinbaum | 17 | 7.30 | 0.45 | serie diaria estable |
+| Ardern | 2 | 7.77 | — | techo del corpus |
+| Mujica | 1 | 7.43 | — | |
+| Sheinbaum | 17 | 7.13 | 0.58 | serie diaria estable |
 | Público | 2 | 6.77 | — | |
 | Telemundo | 2 | 6.35 | — | |
 | El País | 2 | 6.23 | — | |
 | Sánchez | 3 | 6.05 | 0.84 | ONU 6.55 vs Barcelona 5.08: sensible al auditorio |
-| Petro | 2 | 5.45 | — | |
+| Petro | 2 | 4.92 | — | |
 | Milei | 5 | 3.81 | 1.43 | serie diaria volátil (2.20–5.34) |
 | Fox News | 2 | 3.76 | — | |
 | RT | 2 | 3.23 | — | |
-| Trump | 2 | 1.95 | — | |
+| Trump | 2 | 2.36 | — | |
 | Putin | 1 | 1.58 | — | suelo del corpus |
 
 **[PRELIMINAR]** Contraste Sheinbaum/Milei en las series diarias: la mañanera
@@ -169,7 +181,7 @@ condicionar tanto el nivel como la estabilidad del IRA. Con más figuras en el
 pipeline diario (Sánchez desde hoy), esto será contrastable.
 
 **[PRELIMINAR]** Medios vs. políticos: los medios ocupan la franja media
-(3.2–6.8) sin tocar los extremos que sí alcanzan los políticos (1.6–9.0),
+(3.2–6.8) sin tocar los extremos que sí alcanzan los políticos (1.6–7.8),
 consistente con la mediación editorial del género periodístico.
 
 ---
@@ -197,3 +209,8 @@ consistente con la mediación editorial del género periodístico.
    Sánchez ya activo y el pipeline consolidado, la serie se equilibrará; hasta
    entonces, cualquier estadístico "global diario" es esencialmente un
    estadístico de Sheinbaum.
+5. **[Decisión del autor — pendiente] Corpus canónico**: conviven dos
+   generaciones de scores para los 9 discursos re-analizados (`speeches.js`
+   vs tabla `analyses`; la app y esta auditoría usan la segunda). Hay que
+   decidir cuál es la canónica y sincronizar la otra — o re-analizar los 13
+   discursos restantes para unificar la generación en todo el corpus.

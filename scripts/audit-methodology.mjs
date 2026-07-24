@@ -40,6 +40,23 @@ function loadStatic() {
   return out;
 }
 
+// ── 1b. Overrides desde `analyses` (re-análisis con la metodología vigente) ──
+// La app prefiere estos valores sobre speeches.js (supabaseMap en App.jsx);
+// la auditoría debe reflejar lo que el producto muestra.
+async function loadAnalysesOverrides() {
+  const res = await fetch(
+    `${process.env.SUPABASE_URL}/rest/v1/analyses?select=speech_id,ira,params&speech_id=not.is.null`,
+    { headers: { apikey: process.env.SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}` } },
+  );
+  const rows = await res.json();
+  const map = {};
+  for (const r of rows) {
+    const params = Object.fromEntries(KEYS.map(k => [k, r.params[k]?.score ?? null]));
+    if (KEYS.every(k => typeof params[k] === 'number')) map[r.speech_id] = { ira: r.ira, params };
+  }
+  return map;
+}
+
 // ── 2. daily_analyses ───────────────────────────────────────────────
 async function loadDaily() {
   const res = await fetch(
@@ -71,8 +88,17 @@ const r2 = x => Math.round(x * 100) / 100;
 const r3 = x => Math.round(x * 1000) / 1000;
 
 async function main() {
-  const all = [...loadStatic(), ...await loadDaily()];
-  const result = { n_total: all.length, n_static: all.filter(x => x.source === 'static').length, n_daily: all.filter(x => x.source === 'daily').length };
+  const overrides = await loadAnalysesOverrides();
+  const statics = loadStatic().map(s => overrides[s.id]
+    ? { ...s, ira: overrides[s.id].ira, params: overrides[s.id].params, source: 'static-db' }
+    : s);
+  const all = [...statics, ...await loadDaily()];
+  const result = {
+    n_total: all.length,
+    n_static: all.filter(x => x.source.startsWith('static')).length,
+    n_static_db_override: all.filter(x => x.source === 'static-db').length,
+    n_daily: all.filter(x => x.source === 'daily').length,
+  };
 
   // Distribución por parámetro
   result.distribucion = {};
