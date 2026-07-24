@@ -13,6 +13,7 @@ const Comparator   = lazy(() => import("./components/Comparator"));
 const RadarSection = lazy(() => import("./components/RadarSection"));
 const AuthModal    = lazy(() => import("./components/AuthModal").then(m => ({ default: m.AuthModal })));
 const DailyAnalysis = lazy(() => import("./components/DailyAnalysis"));
+const PatternsPage = lazy(() => import("./components/PatternsPage"));
 
 const AccentContext = createContext({
   accent: '#ff6600',
@@ -1982,6 +1983,14 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
           onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
         >{lang === 'en' ? 'Daily' : 'Hoy'}</button>
+        <button onClick={() => navigate('/patrones')}
+          style={{ padding:"7px 14px", borderRadius:"20px", background:accentA(0.08),
+            border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
+            letterSpacing:"0.12em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+            transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
+          onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
+          onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
+        >{lang === 'en' ? 'Patterns' : 'Patrones'}</button>
         {user ? (
           <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
             <span style={{
@@ -2279,6 +2288,15 @@ function DailyAnalysisPage() {
   );
 }
 
+function PatternsPageRoute() {
+  const { lang } = useContext(AppContext);
+  return (
+    <Suspense fallback={null}>
+      <PatternsPage lang={lang} />
+    </Suspense>
+  );
+}
+
 // ── App ───────────────────────────────────────────────────────────────────────
 
 export default function App() {
@@ -2378,6 +2396,7 @@ export default function App() {
         <Route path="/entity/:entityId" element={<EntityDetailPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/analisis-del-dia" element={<DailyAnalysisPage />} />
+        <Route path="/patrones" element={<PatternsPageRoute />} />
         <Route path="*" element={<Navigate to="/politicos" replace />} />
       </Routes>
       {showAuth && (

@@ -1,11 +1,12 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "crons": [
-    { "path": "/api/cron/daily-all", "schedule": "0 13 * * *" },
-    { "path": "/api/cron/daily-all", "schedule": "0 20 * * *" }
+    { "path": "/api/cron/daily-all",    "schedule": "0 13 * * *" },
+    { "path": "/api/cron/daily-all-pm", "schedule": "0 20 * * *" }
   ],
   "functions": {
-    "api/cron/daily-all.js": { "maxDuration": 300 }
+    "api/cron/daily-all.js":    { "maxDuration": 300 },
+    "api/cron/daily-all-pm.js": { "maxDuration": 300 }
   },
   "headers": [
     {
