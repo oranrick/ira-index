@@ -69,7 +69,7 @@ const PARAMS_BRIEF = [
   { es: "Apertura al disenso",   en: "Openness to Dissent",    desc_es: "¿Valida la diferencia o la clausura?",           desc_en: "Does it validate difference or shut it down?" },
   { es: "Llamada a la acción",   en: "Call to Action",         desc_es: "¿Convoca a cooperar o a confrontar?",            desc_en: "Does it call for cooperation or confrontation?" },
   { es: "Engagement dialógico",  en: "Dialogic Engagement",    desc_es: "¿Lo que dice coincide con lo que hace?",         desc_en: "Does what it says match what it does rhetorically?" },
-  { es: "Horizonte de futuro",   en: "Future Horizon",         desc_es: "¿Abre un horizonte compartido o lo cierra?",     desc_en: "Does it open a shared horizon or close it?" },
+  // P8 (Horizonte de futuro) eliminado de la fórmula — retirado por decisión del autor (jul 2026)
 ];
 
 export default function AboutPage() {
@@ -139,7 +139,7 @@ export default function AboutPage() {
           {/* Stats strip */}
           <div style={{ display:"flex", gap:"0", borderTop:"1px solid rgba(255,255,255,0.06)", borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
             {[
-              { num:"8",    label: es?"parámetros":"parameters" },
+              { num:"7",    label: es?"parámetros":"parameters" },
               { num:"0—10", label: es?"escala IRA":"IRA scale" },
               { num:"6",    label: es?"autores clave":"key authors" },
               { num:"2024", label: es?"UCM Madrid":"UCM Madrid" },
@@ -282,7 +282,7 @@ export default function AboutPage() {
             <div style={{ display:"flex", alignItems:"baseline", gap:"16px", marginBottom:"40px", flexWrap:"wrap" }}>
               <h2 style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
                 color:"#fff", letterSpacing:"-0.03em" }}>
-                {es ? "8 dimensiones." : "8 dimensions."}
+                {es ? "7 dimensiones." : "7 dimensions."}
               </h2>
               <span style={{ fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
                 color:"rgba(255,255,255,0.15)", letterSpacing:"-0.03em" }}>

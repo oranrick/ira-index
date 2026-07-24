@@ -45,7 +45,7 @@ const TEXTS = {
     tabCompare:      "Comparar",
     filterAll:       "Todos",
     seeAnalysis:     "Ver análisis →",
-    paramsTitle:     "8 Parámetros IRA",
+    paramsTitle:     "7 Parámetros IRA",
     empatico:        "Empático",
     polarizador:     "Polarizador",
     close:           "Cerrar",
@@ -128,7 +128,7 @@ const TEXTS = {
     tabCompare:      "Compare",
     filterAll:       "All",
     seeAnalysis:     "See analysis →",
-    paramsTitle:     "8 IRA Parameters",
+    paramsTitle:     "7 IRA Parameters",
     empatico:        "Empathic",
     polarizador:     "Polarizing",
     close:           "Close",
@@ -216,7 +216,9 @@ const PARAMS_TRANS = {
     { id: "disenso",    label: "Apertura al disenso",   desc: "¿Valida la diferencia o la clausura?" },
     { id: "vector",     label: "Llamada a la acción",   desc: "¿Convoca a cooperar o a confrontar?" },
     { id: "coherencia", label: "Engagement dialógico",  desc: "¿Hay distancia entre lo que dice y lo que hace?" },
-    { id: "proyeccion", label: "Horizonte de futuro",   desc: "¿Abre un horizonte compartido o lo clausura?" },
+    // P8 (proyeccion) eliminado de la fórmula — retirado de la UI por decisión
+    // del autor (jul 2026). La prosa curada de las fichas se conserva en
+    // paramTexts.proyeccion por si se diseña un P8 nuevo.
   ],
   en: [
     { id: "pronominal", label: "Pronouns & Bond",        desc: "Which pronouns are used and which verbs they're paired with." },
@@ -226,7 +228,6 @@ const PARAMS_TRANS = {
     { id: "disenso",    label: "Openness to Dissent",    desc: "Does it validate difference or shut it down?" },
     { id: "vector",     label: "Call to Action",         desc: "Does it call for cooperation or confrontation?" },
     { id: "coherencia", label: "Dialogic Engagement",    desc: "Is there a gap between what is said and what is done?" },
-    { id: "proyeccion", label: "Future Horizon",         desc: "Does it open a shared horizon or close it?" },
   ],
 };
 
@@ -1440,9 +1441,14 @@ function Analyzer({ lang }) {
     if (overLimit) { setError(T.errorLong); return; }
     setError(""); setLoading(true); setResult(null);
     try {
+      // El endpoint exige sesión: enviar el access token del usuario
+      const { data: { session } } = await supabase.auth.getSession();
       const res = await fetch("/api/analyze", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+        },
         body: JSON.stringify({ text, name: name || T.defaultName, category, context: context.trim() || undefined }),
       });
       const ct = res.headers.get("content-type") || "";

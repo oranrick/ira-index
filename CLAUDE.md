@@ -157,5 +157,10 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
   en primera persona (filtro por slug/título `mensaje|alocucion|discurso|...` o
   marcadores léxicos): los comunicados de campaña en tercera persona NO son discurso
   de Cepeda. Sitio intermitente tras la derrota electoral (jun 2026) — el cron
-  tolera el fallo y reintenta a diario. `entity_id 'cepeda'` aún NO tiene ficha en
-  `ENTITIES` de `src/App.jsx` (pendiente de decisión del autor).
+  tolera el fallo y reintenta a diario.
+  **Decisión del autor (jul 2026):** cobertura de Colombia pragmática — "del que
+  se pueda conseguir discurso fácilmente". El adaptador de Cepeda se mantiene
+  (coste cero); su ficha en `ENTITIES` se creará cuando el cron capture su primer
+  discurso real. Cuando De la Espriella asuma (7-ago-2026), evaluar si
+  presidencia.gov.co se vuelve scrapeable (hoy es SharePoint solo-JS) y añadir
+  su adaptador si lo es.

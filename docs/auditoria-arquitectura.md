@@ -140,5 +140,24 @@ Sugerencia: `scripts/migrations/` (histórico) vs `scripts/` (vigente).
 | P2-3 | Rate limit en quick-analyze; retry de JSON; select de columnas en EntityDetail | 2 h | Robustez/coste |
 | P3 | Higiene de scripts, lazy-load del corpus, fotos propias | según hueco | Calidad de vida |
 
-Ninguno de estos cambios está implementado (mandato de la fase: solo
-diagnóstico). P0-1 y P0-2 son los únicos que recomendaría no posponer.
+**Actualización (mismo día, tras confirmación del autor):**
+- **P0-2 implementado**: `analyze.js` exige sesión (patrón add-speech), ya no
+  persiste en `analyses`; las 2 filas huérfanas fueron eliminadas (la tabla
+  queda con 9 filas, una por discurso re-analizado).
+- **P0-1 pendiente de un paso manual**: las policies solo pueden cambiarse
+  desde el dashboard de Supabase. SQL exacto (SQL Editor):
+  ```sql
+  -- Ver las policies actuales de analyses:
+  select policyname, cmd, roles from pg_policies where tablename = 'analyses';
+  -- Eliminar las que permitan INSERT/UPDATE/DELETE al rol anon
+  -- (el nombre exacto aparece en la consulta anterior):
+  drop policy "<nombre_policy_insert>" on public.analyses;
+  drop policy "<nombre_policy_update>" on public.analyses;
+  -- Debe quedar solo SELECT para anon. El service role no usa policies.
+  ```
+  Nota: `scripts/reweight-params.js` (migración histórica ya ejecutada) usaba
+  la clave pública para escribir; si se reutiliza, cambiarla por
+  `SUPABASE_SERVICE_ROLE_KEY`.
+- P8 retirado de las fichas y grandes divergencias del corpus sincronizadas
+  (ver auditoria-metodologia.md).
+- El resto (P1-2, P2-*, P3) sigue como propuesta.
