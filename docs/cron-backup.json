@@ -1,0 +1,7 @@
+{
+  "_comment": "Backup de la configuración 'crons' de vercel.json, pausada manualmente el 2026-08-05. Este archivo no lo lee Vercel (no es vercel.json); es solo respaldo para poder restaurar la clave 'crons' tal cual estaba antes de la pausa. Para reactivar, copiar el array 'crons' de aquí de vuelta a vercel.json bajo la clave 'crons'.",
+  "crons": [
+    { "path": "/api/cron/daily-all",    "schedule": "0 13 * * *" },
+    { "path": "/api/cron/daily-all-pm", "schedule": "0 20 * * *" }
+  ]
+}
