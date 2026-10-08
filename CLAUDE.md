@@ -129,6 +129,16 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 ## Crons diarios — estructura técnica
 
+### ⏸ Crons DESACTIVADOS desde el 8-oct-2026
+Decisión del autor: IRA se queda solo con los discursos analizados a mano (corpus de
+`src/data/speeches.js`). Se quitó el bloque `"crons"` de vercel.json y se borraron las
+40 filas `origin = 'cron'` de `daily_analyses` (copia en
+`backups/daily_analyses_cron_2026-10-08.json`, fuera de git). El código (`api/cron/`,
+`dailySources.js`, `iraEngine.js`) se conserva: para reactivarlo basta con volver a
+añadir el bloque `"crons"` a vercel.json (`/api/cron/daily-all` a las `0 13 * * *` y
+`/api/cron/daily-all-pm` a las `0 20 * * *`). El frontend oculta las secciones diarias
+cuando la tabla está vacía.
+
 ### Arquitectura consolidada (jul 2026)
 - **`api/cron/daily-all.js`** — dispatcher único que reemplaza a los antiguos
   `daily-milei.js` / `daily-sheinbaum.js`. Recorre los adaptadores de

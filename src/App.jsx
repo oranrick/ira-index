@@ -514,10 +514,10 @@ const ENTITIES = [
     id: "milei", name: "Javier Milei", category: "Político", country: "Argentina", flag: "🇦🇷",
     photo: "/images/milei.jpg",
     photoCredit: "Presidencia de la República Argentina",
-    score: null,   // sin corpus TFG — el IRA se calcula dinámicamente de los análisis diarios
+    score: null,   // sin corpus propio todavía (los análisis del cron se borraron en oct-2026)
     params: { pronominal:2.5, metafora:2.0, dicotomia:1.5, tono:2.5, disenso:1.5, vector:2.0, coherencia:2.5, proyeccion:3.0 },
-    context: "Presidente de Argentina (2023–). Análisis basado en discursos diarios extraídos de casarosada.gob.ar. IRA calculado como promedio de análisis acumulados.",
-    contextEn: "President of Argentina (2023–). Analysis based on daily speeches from casarosada.gob.ar. IRA calculated as a rolling average of accumulated analyses.",
+    context: "Presidente de Argentina (2023–). Corpus en construcción a partir de discursos de casarosada.gob.ar.",
+    contextEn: "President of Argentina (2023–). Corpus under construction from casarosada.gob.ar speeches.",
   },
   {
     id: "putin", name: "Vladimir Putin", category: "Político", country: "Rusia", flag: "🇷🇺",
@@ -1690,7 +1690,7 @@ function WelcomeModal({ lang, onClose }) {
 
 function MainView({ mode = 'politico', tab = 'explore' }) {
   const navigate = useNavigate();
-  const { lang, setLang, enrichedEntities, requireAuth, openLogin, user, profile, signOut } = useContext(AppContext);
+  const { lang, setLang, enrichedEntities, requireAuth, openLogin, user, profile, signOut, hasDaily } = useContext(AppContext);
   const [showIRA, setShowIRA] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [sortOrder, setSortOrder] = useState('default');
@@ -1735,8 +1735,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           </div>
           <p className="ira-cabecera__extra">
             {lang === 'en' ? 'Also: ' : 'También: '}
-            <Link to="/analisis-del-dia">{lang === 'en' ? 'Daily analysis' : 'Análisis del día'}</Link>
-            {' · '}
+            {hasDaily && <><Link to="/analisis-del-dia">{lang === 'en' ? 'Daily analysis' : 'Análisis del día'}</Link>{' · '}</>}
             <Link to="/patrones">{lang === 'en' ? 'Patterns' : 'Patrones'}</Link>
           </p>
         </div>
@@ -1978,7 +1977,7 @@ export default function App() {
   };
 
   return (
-    <AppContext.Provider value={{ lang, setLang, supabaseMap, supabaseReady, enrichedEntities, requireAuth, openLogin, openRegister, user, profile, signOut }}>
+    <AppContext.Provider value={{ lang, setLang, supabaseMap, supabaseReady, enrichedEntities, hasDaily: Object.keys(dailyEntityScores).length > 0, requireAuth, openLogin, openRegister, user, profile, signOut }}>
       <Destellos cantidad={typeof window !== "undefined" && window.innerWidth < 600 ? 50 : 90} />
       <div className="ira-app">
       <a href="#contenido" className="ira-saltar">{lang === "en" ? "Skip to content" : "Saltar al contenido"}</a>

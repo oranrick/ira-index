@@ -9,12 +9,12 @@ const TXT = {
 };
 
 export default function Footer() {
-  const { lang } = useContext(AppContext);
+  const { lang, hasDaily } = useContext(AppContext);
   const t = TXT[lang] ?? TXT.es;
   return (
     <footer className="ira-pie">
       <nav className="ira-pie__enlaces" aria-label={lang === 'en' ? 'More sections' : 'Más secciones'}>
-        <Link to="/analisis-del-dia">{t.dia}</Link>
+        {hasDaily && <Link to="/analisis-del-dia">{t.dia}</Link>}
         <Link to="/patrones">{t.patrones}</Link>
         <Link to="/medios">{t.medios}</Link>
       </nav>

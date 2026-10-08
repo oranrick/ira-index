@@ -11,14 +11,14 @@ import { fechaCorta, fechaOrden, citaDestacada } from '../lib/discursos';
 const TXT = {
   es: {
     titulo: 'Discursos',
-    intro: 'Discursos políticos ya analizados con la metodología IRA: el corpus del TFG «El contagio de las palabras» y los discursos que se analizan cada día. Cada tarjeta muestra un fragmento destacado y la puntuación global, de 0 (polarizante) a 10 (empático).',
+    intro: 'Discursos políticos ya analizados con la metodología IRA: el corpus del TFG «El contagio de las palabras» y los que se van añadiendo. Cada tarjeta muestra un fragmento destacado y la puntuación global, de 0 (polarizante) a 10 (empático).',
     todas: 'Todas las figuras', ordenar: 'Ordenar', recientes: 'Más recientes', emp: 'Más empático', pol: 'Más polarizante',
     cargando: 'Cargando discursos…', vacio: 'No hay discursos para este filtro.', figura: 'Figura',
     palabras: 'palabras', diario: 'Análisis diario', corpus: 'Corpus del TFG', total: (n) => `${n} discursos`,
   },
   en: {
     titulo: 'Speeches',
-    intro: 'Political speeches already analyzed with the IRA methodology: the corpus from the thesis “The contagion of words” and the speeches analyzed every day. Each card shows a highlighted fragment and the overall score, from 0 (polarizing) to 10 (empathic).',
+    intro: 'Political speeches already analyzed with the IRA methodology: the corpus from the thesis “The contagion of words” and those added since. Each card shows a highlighted fragment and the overall score, from 0 (polarizing) to 10 (empathic).',
     todas: 'All figures', ordenar: 'Sort', recientes: 'Most recent', emp: 'Most empathic', pol: 'Most polarizing',
     cargando: 'Loading speeches…', vacio: 'No speeches match this filter.', figura: 'Figure',
     palabras: 'words', diario: 'Daily analysis', corpus: 'Thesis corpus', total: (n) => `${n} speeches`,

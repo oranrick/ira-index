@@ -3,6 +3,7 @@
 // en daily_analyses (vía cron diario o /api/add-speech), sin tocar el corpus curado.
 
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import TarjetaDiscurso from './ui/TarjetaDiscurso.jsx';
 import { fechaCorta, citaDestacada } from '../lib/discursos';
@@ -62,9 +63,8 @@ export default function DailyAnalysis({ lang = 'es' }) {
   if (loading) {
     return <div style={styles.wrap}>{cabecera}<p style={styles.muted} role="status">{T.loading}</p></div>;
   }
-  if (!row) {
-    return <div style={styles.wrap}>{cabecera}<p style={styles.muted}>{T.empty}</p></div>;
-  }
+  // Sin análisis diarios (crons desactivados): no se muestra una página vacía.
+  if (!row) return <Navigate to="/" replace />;
 
   return (
     <div style={styles.wrap}>

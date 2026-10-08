@@ -102,7 +102,7 @@ export default function PatternsPage({ lang = 'es' }) {
   const [entityFilter, setEntityFilter] = useState('all');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
-  const [compareSel, setCompareSel] = useState(['sheinbaum', 'milei', 'sanchez']);
+  const [compareSel, setCompareSel] = useState(['sheinbaum', 'sanchez', 'trump']);
   const [metric, setMetric] = useState('ira');
   // Diferir el montaje del chart un tick: ResponsiveContainer mide 0px si monta
   // antes de que el layout exista (mismo patrón que EntityDetailPage).
@@ -179,8 +179,11 @@ export default function PatternsPage({ lang = 'es' }) {
   }).filter(Boolean), [all, compareSel]);
 
   const timeline = useMemo(() => {
-    // Con "Todas": solo series con ≥3 puntos fechados (las de 2 puntos convierten el chart en spaghetti)
-    const sel = entityFilter === 'all' ? entities.filter(e => all.filter(x => x.entity === e.id && x.date).length >= 3).map(e => e.id) : [entityFilter];
+    // Con "Todas": solo series con ≥3 puntos fechados (las de 2 puntos convierten el chart en spaghetti).
+    // Si ninguna figura llega a 3 (corpus solo manual, sin crons), se baja a ≥2.
+    const datedCount = id => all.filter(x => x.entity === id && x.date).length;
+    const minPts = entities.some(e => datedCount(e.id) >= 3) ? 3 : 2;
+    const sel = entityFilter === 'all' ? entities.filter(e => datedCount(e.id) >= minPts).map(e => e.id) : [entityFilter];
     const dated = filtered.filter(x => x.date && sel.includes(x.entity));
     const dates = [...new Set(dated.map(x => x.date))].sort();
     const rows = dates.map(d => {
@@ -193,6 +196,9 @@ export default function PatternsPage({ lang = 'es' }) {
     });
     return { rows, series: sel.filter(id => rows.some(r => r[id] != null)) };
   }, [filtered, entityFilter, entities, all, metric]);
+
+  // Sin ninguna figura con ≥2 análisis fechados no hay evolución posible: se oculta la sección.
+  const hasTimeline = useMemo(() => entities.some(e => all.filter(x => x.entity === e.id && x.date).length >= 2), [entities, all]);
 
   const dateInput = {
     background: 'var(--ira-superficie)', border: '1px solid var(--ira-linea-fuerte)', borderRadius: '10px',
@@ -326,7 +332,7 @@ export default function PatternsPage({ lang = 'es' }) {
         </div>
 
         {/* ── Evolución temporal ── */}
-        <div style={card}>
+        {hasTimeline && <div style={card}>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
             <div>
               <h2 style={h2}>{t.timeline}</h2>
@@ -365,7 +371,7 @@ export default function PatternsPage({ lang = 'es' }) {
               </LineChart>
             </ResponsiveContainer>
           )}
-        </div>
+        </div>}
       </div>
     </div>
   );
