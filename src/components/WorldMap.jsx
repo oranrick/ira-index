@@ -24,8 +24,8 @@ const TXT = {
     alt: 'Mapa mundial con los países que tienen discursos analizados, coloreados por su puntuación IRA',
     lideres: 'Líderes políticos analizados:', ultimo: 'Último análisis:', verPais: 'Ver país',
     todo: 'Ver todo el mundo', sinDiscursos: 'Sin discursos analizados', elige: 'Elige un país',
-    eligeTexto: 'Haz clic en un país con ondas para fijarlo: aquí verás su resumen y los botones para entrar a sus discursos y a cada figura analizada. El ritmo de las ondas refleja la puntuación: rápido y nervioso cuando el lenguaje polariza, lento y amplio cuando es empático.',
-    paises: 'Países con análisis', todos: 'Todos los discursos', sinAnalisis: 'Sin análisis aún',
+    eligeTexto: 'Haz clic en un país con ondas para fijarlo: aquí verás su resumen y los botones para entrar a la página del país y a los discursos de cada figura. El ritmo de las ondas refleja la puntuación: rápido y nervioso cuando el lenguaje polariza, lento y amplio cuando es empático.',
+    paises: 'Países con análisis', sinAnalisis: 'Sin análisis aún',
     figuras: (n) => `${n} ${n === 1 ? 'figura analizada' : 'figuras analizadas'}`,
     discursos: (n) => `${n} ${n === 1 ? 'discurso' : 'discursos'}`,
     detalle: 'Detalle del país', de: 'de 10',
@@ -36,8 +36,8 @@ const TXT = {
     alt: 'World map of the countries with analyzed speeches, colored by their IRA score',
     lideres: 'Political leaders analyzed:', ultimo: 'Latest analysis:', verPais: 'See country',
     todo: 'Show the whole world', sinDiscursos: 'No analyzed speeches', elige: 'Choose a country',
-    eligeTexto: 'Click a country with ripples to pin it: you will see its summary and buttons to its speeches and each analyzed figure. The pulse rate reflects the score: fast and jittery when the language polarizes, slow and wide when it is empathic.',
-    paises: 'Countries analyzed', todos: 'All speeches', sinAnalisis: 'Not analyzed yet',
+    eligeTexto: 'Click a country with ripples to pin it: you will see its summary and buttons to the country page and to the speeches of each figure. The pulse rate reflects the score: fast and jittery when the language polarizes, slow and wide when it is empathic.',
+    paises: 'Countries analyzed', sinAnalisis: 'Not analyzed yet',
     figuras: (n) => `${n} ${n === 1 ? 'figure analyzed' : 'figures analyzed'}`,
     discursos: (n) => `${n} ${n === 1 ? 'speech' : 'speeches'}`,
     detalle: 'Country detail', de: 'out of 10',
@@ -228,7 +228,7 @@ export default function WorldMap({ entities, lang = 'es' }) {
                 {seleccion.ultimo && <> {t.ultimo} «{(lang === 'en' && seleccion.ultimo.titleEn) || seleccion.ultimo.title}» ({fechaCorta(seleccion.ultimo.date)}).</>}
               </p>
               <div className="ira-mapa__botones">
-                <Link to={`/pais/${seleccion.slug}#discursos`} className="ira-boton ira-boton--principal ira-mapa__boton-todos">{t.todos}<Flecha /></Link>
+                <Link to={`/pais/${seleccion.slug}`} className="ira-boton ira-boton--principal ira-mapa__boton-todos">{t.verPais}<Flecha /></Link>
                 {seleccion.figuras.map((f) => (
                   <Link key={f.id} to={`/politicos?figura=${f.id}`} className="ira-boton ira-boton--secundario ira-mapa__boton-persona">
                     <span className="ira-mapa__persona"><span>{f.name}</span>{POLITICOS[f.id] && <small>{POLITICOS[f.id].rol[lang] ?? POLITICOS[f.id].rol.es}</small>}</span>
