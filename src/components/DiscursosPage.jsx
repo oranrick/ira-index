@@ -2,7 +2,7 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AppContext, mergeSpeech, rowToSpeech } from '../App.jsx';
 import { supabase } from '../supabaseClient';
-import { speeches } from '../data/speeches';
+import { politicalSpeeches as speeches } from '../data/speeches';
 import TarjetaDiscurso from './ui/TarjetaDiscurso.jsx';
 import { SpeechView } from './SpeechView.jsx';
 import { useAtraparFoco } from './ui/Ventana.jsx';

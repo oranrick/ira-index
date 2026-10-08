@@ -3,7 +3,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppContext, mergeSpeech } from '../App.jsx';
 import { supabase } from '../supabaseClient';
-import { speeches } from '../data/speeches';
+import { politicalSpeeches as speeches } from '../data/speeches';
 import IndicadorEscala from './ui/IndicadorEscala.jsx';
 import PanelEjemplos from './PanelEjemplos.jsx';
 import ModalCiencia from './ModalCiencia.jsx';

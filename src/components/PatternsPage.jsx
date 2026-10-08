@@ -12,7 +12,7 @@ import {
   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend,
 } from 'recharts';
 import { supabase } from '../supabaseClient';
-import { speeches } from '../data/speeches';
+import { politicalSpeeches as speeches } from '../data/speeches';
 
 // ── Constantes de parámetros (fórmula vigente, 7 params — ver CLAUDE.md) ──
 const KEYS = ['pronominal', 'metafora', 'dicotomia', 'tono', 'disenso', 'vector', 'coherencia'];

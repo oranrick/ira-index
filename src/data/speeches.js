@@ -1805,3 +1805,8 @@ export function getSpeechesByEntity(entityId) {
 export function getSpeechById(id) {
   return speeches.find((s) => s.id === id);
 }
+
+// Medios: tienen su propia sección (/medios). Discursos, Portada y Patrones
+// muestran solo discursos políticos.
+export const MEDIA_ENTITY_IDS = ['elpais', 'rt', 'telemundo', 'foxnews', 'publico'];
+export const politicalSpeeches = speeches.filter((s) => !MEDIA_ENTITY_IDS.includes(s.entityId));
