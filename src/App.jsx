@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense, createContext, useContext } from "react";
-import { Routes, Route, Navigate, Link, useNavigate, useParams } from 'react-router-dom';
+import { Routes, Route, Navigate, Link, useNavigate, useParams, useSearchParams, useLocation } from 'react-router-dom';
 import AboutPage from './components/AboutPage.jsx';
 import IndexInteractive from './components/IndexInteractive.jsx';
 import WorldMap from './components/WorldMap.jsx';
@@ -25,7 +25,7 @@ const AuthModal    = lazy(() => import("./components/AuthModal").then(m => ({ de
 const DailyAnalysis = lazy(() => import("./components/DailyAnalysis"));
 const PatternsPage = lazy(() => import("./components/PatternsPage"));
 const Portada = lazy(() => import("./components/Portada.jsx"));
-const DiscursosPage = lazy(() => import("./components/DiscursosPage.jsx"));
+const DiscursosFigura = lazy(() => import("./components/DiscursosPage.jsx"));
 const PaisPage = lazy(() => import("./components/PaisPage.jsx"));
 
 const AccentContext = createContext({
@@ -833,7 +833,7 @@ function EntityCard({ entity, lang }) {
   const catLabel = CAT_TRANS[lang][entity.category] || entity.category;
   const hasScore = entity.score != null;
   return (
-    <Link to={`/entity/${entity.id}`} className="ira-figura">
+    <Link to={entity.category === 'Político' ? `/politicos?figura=${entity.id}` : `/entity/${entity.id}`} className="ira-figura">
       <div className="ira-figura__cabecera">
         {entity.photo && <img src={entity.photo} alt="" className="ira-figura__foto" />}
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -1689,12 +1689,21 @@ function WelcomeModal({ lang, onClose }) {
 
 // ── MainView ─────────────────────────────────────────────────────────────────
 
+// /discursos se unió a Clasificación: /discursos?figura=ID → /politicos?figura=ID
+function RedirigirDiscursos() {
+  const { search } = useLocation();
+  return <Navigate to={`/politicos${search}`} replace />;
+}
+
 function MainView({ mode = 'politico', tab = 'explore' }) {
   const navigate = useNavigate();
   const { lang, setLang, enrichedEntities, requireAuth, openLogin, user, profile, signOut, hasDaily } = useContext(AppContext);
   const [showIRA, setShowIRA] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [sortOrder, setSortOrder] = useState('default');
+  const [searchParams] = useSearchParams();
+  // Clasificación > político: sus discursos (antes página /discursos)
+  const figura = mode === 'politico' && tab === 'explore' ? searchParams.get('figura') : null;
 
   const accent = mode === 'medios' ? '#DCB149' : '#DCB149';
   const accentA = (a) => mode === 'medios' ? `rgba(220,177,73,${a})` : `rgba(220,177,73,${a})`;
@@ -1722,6 +1731,9 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
 
       <div style={{ position:"relative", zIndex:1 }}>
 
+      {figura ? (
+        <Suspense fallback={null}><DiscursosFigura figuraId={figura} /></Suspense>
+      ) : (
       <div className="main-container">
         <div className="ira-cabecera" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease" }}>
           <h1 className="ira-cabecera__titulo">
@@ -1856,6 +1868,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           </div>
         )}
       </div>
+      )}
       </div>{/* fin z-index:1 */}
 
       {showIRA && <IRAModal onClose={() => setShowIRA(false)} lang={lang} />}
@@ -1990,7 +2003,7 @@ export default function App() {
       <main id="contenido" tabIndex={-1}>
       <Routes>
         <Route path="/" element={<Suspense fallback={null}><Portada /></Suspense>} />
-        <Route path="/discursos" element={<Suspense fallback={null}><DiscursosPage /></Suspense>} />
+        <Route path="/discursos" element={<RedirigirDiscursos />} />
         <Route path="/pais/:slug" element={<Suspense fallback={null}><PaisPage /></Suspense>} />
         <Route path="/politicos" element={<MainView mode="politico" tab="explore" />} />
         <Route path="/medios" element={<MainView mode="medios" tab="explore" />} />

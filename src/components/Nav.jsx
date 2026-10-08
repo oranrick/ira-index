@@ -1,5 +1,6 @@
 // IRA · barra de navegación global
-// Logo con nombre · Clasificación · Discursos · Metodología · | · Iniciar sesión · Crear cuenta
+// Logo con nombre · Clasificación · Metodología · | · Iniciar sesión · Crear cuenta
+// (Discursos se unió a Clasificación: cada político abre sus discursos)
 import { useContext, useEffect, useId, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import IraLogo from './IraLogo.jsx';
@@ -10,7 +11,6 @@ const TXT = {
     nombre: 'Índice de Resonancia Afectiva',
     principal: 'Principal',
     clasificacion: 'Clasificación',
-    discursos: 'Discursos',
     metodologia: 'Metodología',
     entrar: 'Iniciar sesión',
     crear: 'Crear cuenta',
@@ -23,7 +23,6 @@ const TXT = {
     nombre: 'Affective Resonance Index',
     principal: 'Main',
     clasificacion: 'Leaderboard',
-    discursos: 'Speeches',
     metodologia: 'Methodology',
     entrar: 'Sign in',
     crear: 'Create account',
@@ -34,10 +33,9 @@ const TXT = {
   },
 };
 
-// Clasificación cubre también las fichas de cada figura y el modo medios
+// Clasificación cubre también las fichas, los discursos de cada figura y el modo medios
 const ACTIVA = {
-  clasificacion: (p) => /^\/(politicos|medios|entity\/)/.test(p),
-  discursos: (p) => p.startsWith('/discursos'),
+  clasificacion: (p) => /^\/(politicos|medios|entity\/|discursos)/.test(p),
   metodologia: (p) => p.startsWith('/about'),
 };
 
@@ -95,7 +93,6 @@ export default function Nav() {
 
         <nav id={panelId} className={'ira-nav__panel' + (abierto ? ' is-abierto' : '')} aria-label={t.principal}>
           {enlace('clasificacion', '/politicos')}
-          {enlace('discursos', '/discursos')}
           {enlace('metodologia', '/about')}
           <span className="ira-nav__sep" aria-hidden="true" />
           {user ? (
