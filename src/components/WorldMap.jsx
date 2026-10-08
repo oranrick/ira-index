@@ -230,7 +230,7 @@ export default function WorldMap({ entities, lang = 'es' }) {
               <div className="ira-mapa__botones">
                 <Link to={`/pais/${seleccion.slug}#discursos`} className="ira-boton ira-boton--principal ira-mapa__boton-todos">{t.todos}<Flecha /></Link>
                 {seleccion.figuras.map((f) => (
-                  <Link key={f.id} to={`/discursos?figura=${f.id}`} className="ira-boton ira-boton--secundario ira-mapa__boton-persona">
+                  <Link key={f.id} to={`/politicos?figura=${f.id}`} className="ira-boton ira-boton--secundario ira-mapa__boton-persona">
                     <span className="ira-mapa__persona"><span>{f.name}</span>{POLITICOS[f.id] && <small>{POLITICOS[f.id].rol[lang] ?? POLITICOS[f.id].rol.es}</small>}</span>
                     <EtiquetaPuntuacion puntuacion={f.puntuacion} variante="punto" lang={lang} />
                   </Link>

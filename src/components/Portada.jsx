@@ -81,7 +81,7 @@ export default function Portada() {
           {t.intro((x) => <Link to="/about">{x}</Link>, boton('neuro'), boton('ling'), boton('psico'))}
         </p>
         <div className="ira-portada__acciones">
-          <Link to="/discursos" className="ira-boton ira-boton--principal">{t.ver}</Link>
+          <Link to="/politicos" className="ira-boton ira-boton--principal">{t.ver}</Link>
           {user
             ? <Link to="/analyze" className="ira-boton ira-boton--secundario">{t.analizar}</Link>
             : <button type="button" className="ira-boton ira-boton--secundario" onClick={openRegister}>{t.crear}</button>}

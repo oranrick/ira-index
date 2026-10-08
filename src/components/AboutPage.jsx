@@ -343,7 +343,7 @@ export default function AboutPage() {
 
           {/* CTAs */}
           <div style={{ display:"flex", gap:"12px", flexWrap:"wrap", marginTop:"32px" }}>
-            <Link to="/discursos" className="ira-boton ira-boton--principal">{es ? "Ver discursos analizados" : "See analyzed speeches"}</Link>
+            <Link to="/politicos" className="ira-boton ira-boton--principal">{es ? "Ver discursos analizados" : "See analyzed speeches"}</Link>
             <Link to="/analyze" className="ira-boton ira-boton--secundario">{es ? "Analizar un texto" : "Analyze a text"}</Link>
           </div>
         </div>
