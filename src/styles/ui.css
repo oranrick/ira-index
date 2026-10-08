@@ -332,20 +332,15 @@ a.ira-chip { text-decoration: none; }
   .ira-ventana__titulo { font-size: 24px; }
 }
 
-/* ── Estrella y palabras marcadas ─────────────────────────────────────────── */
+/* ── Estrella y destellos de los fragmentos ───────────────────────────────── */
 .ira-estrella--titila { animation: ira-brillo 2.4s ease-in-out infinite; }
 @keyframes ira-brillo {
   0%, 100% { opacity: 0.55; transform: scale(0.8) rotate(0deg); }
   50% { opacity: 1; transform: scale(1.1) rotate(45deg); }
 }
-.ira-marca { position: relative; }
-.ira-marca--polarizante { color: var(--ira-marca-polarizante); text-shadow: var(--ira-halo-polarizante); }
-.ira-marca--empatico { color: var(--ira-marca-empatica); text-shadow: var(--ira-halo-empatico); }
-/* Cuando lo marcado es una frase entera, el halo se suaviza para no perder legibilidad */
-.ira-marca--larga.ira-marca--polarizante { text-shadow: 0 0 12px rgba(190, 40, 26, 0.55); }
-.ira-marca--larga.ira-marca--empatico { text-shadow: 0 0 12px rgba(141, 170, 126, 0.55); }
-/* La estrella va al final de lo marcado, levantada como un superíndice */
-.ira-marca .ira-estrella { display: inline-block; vertical-align: top; margin: -2px -6px 0 2px; }
+/* Destellos dispersos alrededor del fragmento, sin marcar palabras concretas */
+.ira-panel-ej__cita { position: relative; flex: 1; min-width: 0; }
+.ira-panel-ej__destello { position: absolute; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) {
   .ira-estrella--titila { animation: none; }
 }
@@ -371,7 +366,6 @@ a.ira-chip { text-decoration: none; }
 .ira-panel-ej__fragmentos { display: flex; flex-direction: column; gap: 18px; min-height: 340px; }
 .ira-panel-ej__fragmento { display: flex; gap: 14px; align-items: flex-start; }
 .ira-panel-ej__fragmento p { margin: 0; font-size: 16px; line-height: 28px; color: var(--ira-texto-cita); }
-.ira-panel-ej__fragmento mark { background: none; }
 .ira-panel-ej__etiqueta.ira-etiqueta--pastilla { height: 26px; padding: 0 8px; font-size: 13px; margin-top: 1px; }
 .ira-panel-ej__resumen {
   display: flex; justify-content: space-between; align-items: flex-end; gap: 16px;

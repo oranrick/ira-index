@@ -1,9 +1,9 @@
 // IRA · ejemplos del panel de la portada, construidos con discursos ya analizados.
-// Solo lectura: usa los fragmentos anotados (segments) y las citas de cada parámetro
-// (params.*.quote) que ya devuelve el análisis. No modifica datos ni llama a la API.
+// Solo lectura: usa los fragmentos anotados (segments) y las puntuaciones de los
+// parámetros que ya devuelve el análisis. No modifica datos ni llama a la API.
 //
 // Cada ejemplo: { id, pais, fecha, persona, discurso, puntuacion,
-//                 fragmentos: [{ texto, marca: { inicio, fin }, polaridad, puntuacion }] }
+//                 fragmentos: [{ texto, polaridad, puntuacion }] }
 
 import { fechaCorta, textoFragmento } from './discursos';
 import { polaridadFragmento, puntuacionFragmento, puntuacionesPorClave } from './anotaciones';
@@ -12,49 +12,16 @@ const MAX_CARACTERES = 130;
 // Un fragmento muy corto no basta para entender el ejemplo
 const MIN_CARACTERES = 20;
 
-const limpiarCita = (c) => String(c ?? '')
-  .trim()
-  .replace(/^[«"“'‘]+|[»"”'’]+$/g, '')
-  .replace(/[.,;:…]+$/, '')
-  .trim();
-
-/** Busca dentro del fragmento alguna de las citas del análisis (sin distinguir mayúsculas). */
-function buscarCita(texto, citas) {
-  const bajo = texto.toLowerCase();
-  for (const c of citas) {
-    const limpia = limpiarCita(c);
-    if (limpia.length < 4) continue;
-    const i = bajo.indexOf(limpia.toLowerCase());
-    if (i >= 0) return { inicio: i, fin: i + limpia.length };
-  }
-  return null;
-}
-
-/** Recorta un fragmento largo alrededor de la parte marcada, en límites de palabra. */
-function recortar(texto, marca) {
-  if (texto.length <= MAX_CARACTERES) return { texto, marca };
-  const largoMarca = marca.fin - marca.inicio;
-  if (largoMarca >= MAX_CARACTERES - 20) {
-    // La marca ocupa casi todo: cortar el final
-    let fin = texto.lastIndexOf(' ', MAX_CARACTERES);
-    if (fin < 40) fin = MAX_CARACTERES;
-    return { texto: texto.slice(0, fin) + '…', marca: { inicio: Math.min(marca.inicio, fin), fin: Math.min(marca.fin, fin) } };
-  }
-  const margen = Math.floor((MAX_CARACTERES - largoMarca) / 2);
-  let ini = Math.max(0, marca.inicio - margen);
-  let fin = Math.min(texto.length, marca.fin + margen);
-  if (ini > 0) { const e = texto.indexOf(' ', ini); if (e >= 0 && e < marca.inicio) ini = e + 1; }
-  if (fin < texto.length) { const e = texto.lastIndexOf(' ', fin); if (e > marca.fin) fin = e; }
-  const pre = ini > 0 ? '…' : '';
-  const post = fin < texto.length ? '…' : '';
-  return {
-    texto: pre + texto.slice(ini, fin) + post,
-    marca: { inicio: marca.inicio - ini + pre.length, fin: marca.fin - ini + pre.length },
-  };
+/** Recorta un fragmento largo en un límite de palabra. */
+function recortar(texto) {
+  if (texto.length <= MAX_CARACTERES) return texto;
+  let fin = texto.lastIndexOf(' ', MAX_CARACTERES);
+  if (fin < 40) fin = MAX_CARACTERES;
+  return texto.slice(0, fin) + '…';
 }
 
 /** Elige hasta 3 fragmentos, mezclando polarizantes y empáticos cuando los hay. */
-export function construirFragmentos(segmentos, puntuaciones, citas, lang = 'es') {
+export function construirFragmentos(segmentos, puntuaciones, lang = 'es') {
   const candidatos = (segmentos ?? [])
     .map((seg, orden) => {
       if (!seg?.type) return null;
@@ -62,15 +29,13 @@ export function construirFragmentos(segmentos, puntuaciones, citas, lang = 'es')
       const polaridad = polaridadFragmento(seg.type, puntuaciones);
       const puntuacion = puntuacionFragmento(seg.type, puntuaciones);
       if (texto.length < MIN_CARACTERES || !polaridad || puntuacion == null) return null;
-      // Solo fragmentos coherentes: la etiqueta de color no puede contradecir la marca
+      // Solo fragmentos coherentes: los destellos no pueden contradecir la cifra
       if ((polaridad === 'polarizante') !== (puntuacion < 5)) return null;
-      const cita = buscarCita(texto, citas);
-      const { texto: t, marca } = recortar(texto, cita ?? { inicio: 0, fin: texto.length });
-      return { texto: t, marca, polaridad, puntuacion, orden, conCita: !!cita };
+      return { texto: recortar(texto), polaridad, puntuacion, orden };
     })
     .filter(Boolean)
     .filter((c, i, l) => l.findIndex((o) => o.texto === c.texto) === i)
-    .sort((a, b) => (b.conCita - a.conCita) || (a.orden - b.orden));
+    .sort((a, b) => a.orden - b.orden);
 
   const elegidos = [];
   for (const pol of ['polarizante', 'empatico']) {
@@ -82,13 +47,12 @@ export function construirFragmentos(segmentos, puntuaciones, citas, lang = 'es')
     if (!elegidos.includes(c)) elegidos.push(c);
   }
   return elegidos.slice(0, 3).sort((a, b) => a.orden - b.orden)
-    .map(({ texto, marca, polaridad, puntuacion }) => ({ texto, marca, polaridad, puntuacion }));
+    .map(({ texto, polaridad, puntuacion }) => ({ texto, polaridad, puntuacion }));
 }
 
 /** Discurso del corpus (speeches.js, con la puntuación de la tabla analyses ya fusionada). */
 export function ejemploDesdeCorpus(speech, entidad, lang = 'es') {
   const puntuaciones = puntuacionesPorClave(speech.params);
-  const citas = (speech.params ?? []).map((p) => p.quote).filter(Boolean);
   return {
     id: speech.id,
     reciente: false,
@@ -97,14 +61,13 @@ export function ejemploDesdeCorpus(speech, entidad, lang = 'es') {
     persona: speech.entityName,
     discurso: (lang === 'en' && speech.titleEn) || speech.title,
     puntuacion: speech.iraScore,
-    fragmentos: construirFragmentos(speech.segments, puntuaciones, citas, lang),
+    fragmentos: construirFragmentos(speech.segments, puntuaciones, lang),
   };
 }
 
 /** Fila de daily_analyses (discursos que el cron analiza a diario). */
 export function ejemploDesdeDiario(row, lang = 'es') {
   const puntuaciones = puntuacionesPorClave(row.params);
-  const citas = Object.values(row.params ?? {}).map((p) => p?.quote).filter(Boolean);
   return {
     id: `daily-${row.id}`,
     reciente: true,
@@ -114,7 +77,7 @@ export function ejemploDesdeDiario(row, lang = 'es') {
     persona: row.entity_name,
     discurso: row.title ?? '',
     puntuacion: Number(row.ira),
-    fragmentos: construirFragmentos(row.segments, puntuaciones, citas, lang),
+    fragmentos: construirFragmentos(row.segments, puntuaciones, lang),
   };
 }
 

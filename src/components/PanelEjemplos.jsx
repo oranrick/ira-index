@@ -13,13 +13,13 @@ const TXT = {
     region: 'Fragmentos de un discurso analizado', pais: 'País', fecha: 'Fecha', persona: 'Persona', discurso: 'Discurso',
     puntuacion: 'Puntuación del discurso', pol: 'Elemento polarizador', emp: 'Elemento empático',
     ant: 'Ejemplo anterior', sig: 'Ejemplo siguiente', ejemplo: (n) => `Ejemplo ${n}`, cargando: 'Cargando discursos analizados…',
-    marcaPol: 'polarizante', marcaEmp: 'empático',
+    marcaPol: 'fragmento polarizante', marcaEmp: 'fragmento empático',
   },
   en: {
     region: 'Fragments of an analyzed speech', pais: 'Country', fecha: 'Date', persona: 'Speaker', discurso: 'Speech',
     puntuacion: 'Speech score', pol: 'Polarizing element', emp: 'Empathic element',
     ant: 'Previous example', sig: 'Next example', ejemplo: (n) => `Example ${n}`, cargando: 'Loading analyzed speeches…',
-    marcaPol: 'polarizing', marcaEmp: 'empathic',
+    marcaPol: 'polarizing fragment', marcaEmp: 'empathic fragment',
   },
 };
 
@@ -32,21 +32,35 @@ function prefiereQuieto() {
   return typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 }
 
+// Posiciones de los destellos alrededor de un fragmento: fijas para cada texto
+// (no cambian en cada render) y repartidas por los bordes, sin señalar palabras.
+function destellosPara(texto) {
+  let h = 0;
+  for (let k = 0; k < texto.length; k++) h = (h * 31 + texto.charCodeAt(k)) >>> 0;
+  const azar = () => { h = (h * 1103515245 + 12345) >>> 0; return h / 4294967296; };
+  return Array.from({ length: 3 }, (_, k) => ({
+    left: `${Math.round(8 + azar() * 84)}%`,
+    top: k === 1 ? `${Math.round(azar() * 100)}%` : (k === 0 ? '-6px' : 'calc(100% - 4px)'),
+    tamano: 7 + Math.round(azar() * 5),
+    retraso: `${(-azar() * 2.4).toFixed(2)}s`,
+  }));
+}
+
 function Fragmento({ f, lang, t }) {
-  const { inicio, fin } = f.marca;
   const est = ESTRELLA[f.polaridad];
   return (
     <div className="ira-panel-ej__fragmento">
       <EtiquetaPuntuacion puntuacion={f.puntuacion} lang={lang} className="ira-panel-ej__etiqueta" />
-      <p>
-        «{f.texto.slice(0, inicio)}
-        <mark className={`ira-marca ira-marca--${f.polaridad}${fin - inicio > 60 ? ' ira-marca--larga' : ''}`}>
-          {f.texto.slice(inicio, fin)}
-          <Estrella color={est.color} brillo={est.brillo} titila />
+      <div className={`ira-panel-ej__cita ira-panel-ej__cita--${f.polaridad}`}>
+        <p>
+          «{f.texto}»
           <span className="ira-sr"> ({f.polaridad === 'polarizante' ? t.marcaPol : t.marcaEmp})</span>
-        </mark>
-        {f.texto.slice(fin)}»
-      </p>
+        </p>
+        {destellosPara(f.texto).map((d, k) => (
+          <Estrella key={k} color={est.color} brillo={est.brillo} titila tamano={d.tamano}
+            className="ira-panel-ej__destello" style={{ left: d.left, top: d.top, animationDelay: d.retraso }} />
+        ))}
+      </div>
     </div>
   );
 }
