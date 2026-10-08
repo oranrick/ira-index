@@ -88,12 +88,6 @@ export default function AboutPage() {
       `}</style>
 
 
-      {/* Back */}
-      <button onClick={() => navigate(-1)} className="top-nav-left" style={{
-        fontFamily:"var(--ira-font-texto)", fontSize:"11px", fontWeight:700,
-        color:"#DCB149", letterSpacing:"0.04em", border:"1.5px solid rgba(220,177,73,0.4)",
-        borderRadius:"20px", padding:"5px 13px", background:"rgba(220,177,73,0.07)", cursor:"pointer",
-      }}>{es ? "← Volver" : "← Back"}</button>
 
       <div style={{ position:"relative", zIndex:1 }}>
 

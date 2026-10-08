@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { supabase } from './supabaseClient.js'
 import './styles/tokens.css'
 import './styles/global.css'
+import './styles/ui.css'
 
 // Procesa el callback de confirmación de email de Supabase.
 // Supabase puede enviar el token de dos formas:

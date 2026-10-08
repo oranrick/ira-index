@@ -8,6 +8,8 @@ import { SpeechView } from "./components/SpeechView";
 import { getSpeechById, getSpeechesByEntity } from "./data/speeches";
 import { useAuth } from "./hooks/useAuth";
 import { supabase } from "./supabaseClient";
+import Nav from "./components/Nav.jsx";
+import Footer from "./components/Footer.jsx";
 
 const Comparator   = lazy(() => import("./components/Comparator"));
 const RadarSection = lazy(() => import("./components/RadarSection"));
@@ -25,7 +27,7 @@ export const AppContext = createContext({
   lang: 'es', setLang: () => {},
   supabaseMap: {}, supabaseReady: false,
   enrichedEntities: [],
-  requireAuth: () => {}, openLogin: () => {},
+  requireAuth: () => {}, openLogin: () => {}, openRegister: () => {},
   user: null, profile: null, signOut: () => {},
 });
 
@@ -1064,7 +1066,7 @@ function EntityDetailPage() {
     <AccentContext.Provider value={{ accent, accentA, mode: entity.category === 'Medio' ? 'medios' : 'politico' }}>
     <div style={{ minHeight:"100vh", background:"#041414", fontFamily:"var(--ira-font-texto)", position:"relative", overflow:"hidden" }}>
       <button onClick={() => { if (window.history.length > 1) navigate(-1); else navigate('/'); }}
-        className="top-nav-left"
+        className="ira-volver"
         style={{
           fontFamily:"var(--ira-font-texto)", fontSize:"11px", fontWeight:700,
           color:accent, letterSpacing:"0.04em",
@@ -1938,75 +1940,6 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
 
       <div style={{ position:"relative", zIndex:1 }}>
 
-      <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" className="top-nav-left" style={{
-        fontFamily:"var(--ira-font-texto)", fontSize:"11px", fontWeight:700,
-        color:accent, letterSpacing:"0.04em",
-        border:`1.5px solid ${accentA(0.45)}`,
-        borderRadius:"20px", padding:"5px 13px",
-        background:accentA(0.08), textDecoration:"none",
-        transition:"background 0.2s",
-      }}>← oranrick.com</a>
-
-      <div className="top-nav-right">
-        <button onClick={() => navigate('/analisis-del-dia')}
-          style={{ padding:"7px 14px", borderRadius:"20px", background:accentA(0.08),
-            border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
-            letterSpacing:"0.12em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
-            transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
-          onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
-          onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
-        >{lang === 'en' ? 'Daily' : 'Hoy'}</button>
-        <button onClick={() => navigate('/patrones')}
-          style={{ padding:"7px 14px", borderRadius:"20px", background:accentA(0.08),
-            border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
-            letterSpacing:"0.12em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
-            transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
-          onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
-          onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
-        >{lang === 'en' ? 'Patterns' : 'Patrones'}</button>
-        {user ? (
-          <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
-            <span style={{
-              fontSize:"11px", color:accent, fontFamily:"var(--ira-font-texto)", fontWeight:700,
-              border:`1.5px solid ${accentA(0.6)}`, borderRadius:"20px", padding:"5px 13px",
-              maxWidth:"150px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap",
-              background:accentA(0.08), letterSpacing:"0.04em",
-            }}>
-              {profile?.username ?? user.email?.split('@')[0]}
-            </span>
-            <button onClick={() => signOut()}
-              style={{ padding:"6px 14px", borderRadius:"20px", background:accentA(0.08),
-                border:`1.5px solid ${accentA(0.45)}`, color:accent, fontSize:"10px",
-                letterSpacing:"0.1em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700, transition:"all 0.2s ease" }}
-              onMouseEnter={e => { e.currentTarget.style.background=accentA(0.18); e.currentTarget.style.borderColor=accentA(0.8); }}
-              onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.45); }}
-            >{lang === "es" ? "Salir" : "Sign out"}</button>
-          </div>
-        ) : (
-          <button onClick={openLogin}
-            style={{ padding:"7px 14px", borderRadius:"20px", background:accentA(0.08),
-              border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
-              letterSpacing:"0.12em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
-              transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
-            onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); }}
-            onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); }}
-          >{lang === "es" ? "Iniciar sesión" : "Sign in"}</button>
-        )}
-        <button
-          onClick={() => setLang(l => { const next = l==="es"?"en":"es"; localStorage.setItem('ira-lang',next); return next; })}
-          style={{ display:"flex", alignItems:"center", gap:"5px", padding:"7px 14px", borderRadius:"20px",
-            background:accentA(0.08), border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
-            letterSpacing:"0.18em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
-            transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
-          onMouseEnter={e => { e.currentTarget.style.background=accentA(0.18); e.currentTarget.style.borderColor=accentA(0.7); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
-          onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
-        >
-          <span style={{ opacity:0.45, fontSize:"9px" }}>{lang==="es"?"ES":"EN"}</span>
-          <span style={{ color:accentA(0.3) }}>·</span>
-          <span>{lang==="es"?"EN":"ES"}</span>
-        </button>
-      </div>
-
       <div className="main-container">
         <div style={{ marginBottom:"44px", opacity:mounted?1:0, transform:mounted?"none":"translateY(16px)", transition:"all 0.6s ease" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"12px" }}>
@@ -2358,8 +2291,16 @@ export default function App() {
     setShowAuth(true);
   };
 
+  const openRegister = () => {
+    setAuthDefaultMode('register');
+    setShowAuth(true);
+  };
+
   return (
-    <AppContext.Provider value={{ lang, setLang, supabaseMap, supabaseReady, enrichedEntities, requireAuth, openLogin, user, profile, signOut }}>
+    <AppContext.Provider value={{ lang, setLang, supabaseMap, supabaseReady, enrichedEntities, requireAuth, openLogin, openRegister, user, profile, signOut }}>
+      <div className="ira-app">
+      <Nav />
+      <main id="contenido">
       <Routes>
         <Route path="/" element={<Navigate to="/politicos" replace />} />
         <Route path="/politicos" element={<MainView mode="politico" tab="explore" />} />
@@ -2372,6 +2313,9 @@ export default function App() {
         <Route path="/patrones" element={<PatternsPageRoute />} />
         <Route path="*" element={<Navigate to="/politicos" replace />} />
       </Routes>
+      </main>
+      <Footer />
+      </div>
       {showAuth && (
         <Suspense fallback={null}>
           <AuthModal

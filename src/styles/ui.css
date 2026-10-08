@@ -1,0 +1,111 @@
+/* IRA · componentes de interfaz compartidos (usa tokens.css) */
+
+/* Solo para lectores de pantalla */
+.ira-sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ── Logo ─────────────────────────────────────────────────────────────────── */
+.ira-logo {
+  display: inline-flex; align-items: flex-end; gap: 14px;
+  text-decoration: none; min-height: 44px; padding-top: 6px;
+}
+.ira-logo__nombre {
+  font-family: var(--ira-font-texto); font-size: 14px; line-height: 1;
+  color: var(--ira-texto-2); white-space: nowrap; text-align: left;
+}
+
+/* ── Botones ──────────────────────────────────────────────────────────────── */
+.ira-boton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 48px; min-height: 44px; padding: 0 22px;
+  border-radius: var(--ira-radio-m); border: 1px solid transparent;
+  font-family: var(--ira-font-texto); font-weight: 500; font-size: 15px; line-height: 1;
+  color: var(--ira-nieve); text-decoration: none; white-space: nowrap;
+  cursor: pointer; transition: background-color 150ms ease, border-color 150ms ease;
+}
+.ira-boton:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 3px; }
+.ira-boton:disabled { opacity: 0.5; cursor: not-allowed; }
+.ira-boton--principal { background: var(--ira-brasa); }
+.ira-boton--principal:hover:not(:disabled) { background: #A8451F; color: var(--ira-nieve); }
+.ira-boton--principal:active:not(:disabled) { background: var(--ira-lacre); }
+.ira-boton--secundario { background: rgba(10, 30, 30, 0.7); border-color: var(--ira-linea-fuerte); }
+.ira-boton--secundario:hover:not(:disabled) { background: var(--ira-elevada); color: var(--ira-nieve); }
+.ira-boton--secundario:active:not(:disabled) { background: var(--ira-superficie); }
+.ira-boton--compacto { height: 44px; padding: 0 16px; font-size: 14px; }
+.ira-boton--icono { width: 44px; height: 44px; padding: 0; }
+
+/* Botón con aspecto de enlace (abre algo, no navega) */
+.ira-enlace-boton {
+  background: none; border: none; padding: 0; margin: 0; font: inherit;
+  color: var(--ira-nieve); cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--ira-oro);
+  text-decoration-thickness: 1px; text-underline-offset: 4px;
+}
+.ira-enlace-boton:hover { text-decoration-color: var(--ira-oro-hover); }
+
+/* ── Navegación ───────────────────────────────────────────────────────────── */
+.ira-nav { position: relative; z-index: 100; }
+.ira-nav__barra {
+  max-width: 1440px; margin: 0 auto; height: 96px; padding: 0 clamp(16px, 6.6vw, 96px);
+  display: flex; align-items: center; justify-content: space-between; gap: 32px;
+}
+.ira-nav__panel { display: flex; align-items: center; gap: 28px; font-size: 14px; }
+.ira-nav__enlace {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0;
+  background: none; border: none; font: inherit; cursor: pointer;
+  color: var(--ira-texto-2); text-decoration: none; white-space: nowrap;
+}
+.ira-nav__enlace:hover, .ira-nav__enlace.is-activa { color: var(--ira-nieve); }
+.ira-nav__enlace.is-activa { text-decoration: underline; text-decoration-color: var(--ira-oro); text-underline-offset: 8px; }
+.ira-nav__enlace--fuerte { color: var(--ira-nieve); }
+.ira-nav__sep { width: 1px; height: 20px; background: var(--ira-linea); }
+.ira-nav__usuario {
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  color: var(--ira-texto-2);
+}
+.ira-nav__idioma {
+  min-width: 44px; height: 44px; padding: 0 8px; border-radius: var(--ira-radio-m);
+  background: transparent; border: 1px solid transparent; cursor: pointer;
+  font-family: var(--ira-font-cifra); font-size: 12px; letter-spacing: 0.04em; color: var(--ira-texto-2);
+}
+.ira-nav__idioma:hover { color: var(--ira-nieve); border-color: var(--ira-linea); }
+.ira-nav__menu {
+  display: none; width: 44px; height: 44px; padding: 0; border-radius: var(--ira-radio-m);
+  background: transparent; border: 1px solid var(--ira-linea-fuerte); color: var(--ira-nieve);
+  align-items: center; justify-content: center; cursor: pointer;
+}
+.ira-nav__menu svg { fill: none; stroke: currentColor; stroke-width: 1.75px; stroke-linecap: round; }
+
+@media (max-width: 960px) {
+  .ira-nav__barra { height: 72px; }
+  .ira-nav__menu { display: inline-flex; }
+  .ira-nav__panel {
+    display: none; position: absolute; top: 72px; left: 16px; right: 16px;
+    flex-direction: column; align-items: stretch; gap: 0; padding: 8px 16px 16px;
+    background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); font-size: 16px;
+  }
+  .ira-nav__panel.is-abierto { display: flex; }
+  .ira-nav__enlace, .ira-nav__usuario { min-height: 48px; }
+  .ira-nav__usuario { display: flex; align-items: center; max-width: none; }
+  .ira-nav__sep { width: auto; height: 1px; margin: 8px 0; }
+  .ira-nav__panel .ira-boton { margin-top: 8px; }
+  .ira-nav__idioma { align-self: flex-start; margin-top: 8px; border-color: var(--ira-linea); }
+}
+@media (max-width: 520px) {
+  .ira-nav .ira-logo__nombre { display: none; }
+}
+
+/* ── Pie ──────────────────────────────────────────────────────────────────── */
+.ira-pie {
+  max-width: 1440px; margin: 0 auto; padding: 40px clamp(16px, 6.6vw, 96px) 32px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;
+  border-top: 1px solid var(--ira-linea); font-size: 13px; line-height: 20px; color: var(--ira-texto-3);
+}
+.ira-pie__enlaces { display: flex; flex-wrap: wrap; gap: 0 20px; }
+.ira-pie a { color: var(--ira-texto-2); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+.ira-pie a:hover { color: var(--ira-nieve); }
+.ira-pie__autoria { margin: 0; }
+.ira-pie__autoria a { color: var(--ira-texto-3); min-height: 0; }
