@@ -10,6 +10,8 @@ import { useAuth } from "./hooks/useAuth";
 import { supabase } from "./supabaseClient";
 import Nav from "./components/Nav.jsx";
 import Footer from "./components/Footer.jsx";
+import Destellos from "./components/Destellos.jsx";
+import { useAtraparFoco } from "./components/ui/Ventana.jsx";
 import EtiquetaPuntuacion from "./components/ui/EtiquetaPuntuacion.jsx";
 import IndicadorEscala from "./components/ui/IndicadorEscala.jsx";
 import BarraEscala from "./components/ui/BarraEscala.jsx";
@@ -866,7 +868,7 @@ function RadarTooltip({ active, payload }) {
       borderRadius: "8px", padding: "7px 12px",
       fontFamily: "var(--ira-font-texto)", pointerEvents: "none",
     }}>
-      <span style={{ color: "var(--ira-texto-2)", fontSize: "10px" }}>{label}</span>
+      <span style={{ color: "var(--ira-texto-2)", fontSize: "13px" }}>{label}</span>
       <span style={{ color: accent, fontSize: "12px", fontWeight: 700, marginLeft: "8px" }}>
         — {Number(value).toFixed(1)}
       </span>
@@ -965,6 +967,20 @@ export function mergeSpeech(speech, row) {
   };
 }
 
+// Vista de un discurso a pantalla completa sobre la ficha (Escape o "Volver" la cierran)
+function SuperposicionDiscurso({ speech, lang, onCerrar }) {
+  const ref = useRef(null);
+  useAtraparFoco(true, ref, onCerrar);
+  return (
+    <div ref={ref} role="dialog" aria-modal="true" aria-label={speech.title} tabIndex={-1} style={{
+      position:"fixed", inset:0, zIndex:250, outline:"none",
+      background:"var(--ira-noche)", overflowY:"auto",
+    }}>
+      <SpeechView speech={speech} onBack={onCerrar} lang={lang} />
+    </div>
+  );
+}
+
 function EntityDetailPage() {
   const { entityId } = useParams();
   const navigate = useNavigate();
@@ -1016,7 +1032,7 @@ function EntityDetailPage() {
   const context = lang === "en" && entity.contextEn ? entity.contextEn : entity.context;
   return (
     <AccentContext.Provider value={{ accent, accentA, mode: entity.category === 'Medio' ? 'medios' : 'politico' }}>
-    <div style={{ minHeight:"100vh", background:"#041414", fontFamily:"var(--ira-font-texto)", position:"relative", overflow:"hidden" }}>
+    <div style={{ fontFamily:"var(--ira-font-texto)", position:"relative", overflow:"hidden" }}>
       <button onClick={() => { if (window.history.length > 1) navigate(-1); else navigate('/'); }}
         className="ira-volver ira-boton ira-boton--secundario ira-boton--compacto"
         type="button"
@@ -1054,12 +1070,12 @@ function EntityDetailPage() {
               objectPosition: "center top", border: `3px solid ${accent}`,
               boxShadow: `0 0 16px ${accentA(0.35)}`,
             }} />
-            <p style={{ margin: "6px 0 0", fontSize: "9px", color: "var(--ira-texto-3)", letterSpacing: "0.05em" }}>
+            <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--ira-texto-3)", letterSpacing: "0.05em" }}>
               {entity.photoCredit}
             </p>
           </div>
         )}
-        <p style={{ fontSize:"11.5px", color:"var(--ira-texto-3)", lineHeight:1.6, marginBottom:"24px", borderLeft:`2px solid ${accentA(0.4)}`, paddingLeft:"12px" }}>
+        <p style={{ fontSize:"14px", color:"var(--ira-texto-3)", lineHeight:1.6, marginBottom:"24px", borderLeft:`2px solid ${accentA(0.4)}`, paddingLeft:"12px" }}>
           {context}
         </p>
         <div style={{ marginBottom:"24px" }}>
@@ -1072,7 +1088,7 @@ function EntityDetailPage() {
           </Suspense>
         </div>
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"20px" }}>
-          <p style={{ fontSize:"9px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"16px" }}>
+          <p style={{ fontSize:"12px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"16px" }}>
             {T.paramsTitle}
           </p>
           {params.map((p, i) => {
@@ -1103,21 +1119,21 @@ function EntityDetailPage() {
                         border: `1px solid ${accentA(0.2)}`,
                         borderRadius:"8px", padding:"10px 12px", marginBottom:"12px",
                       }}>
-                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color: accentA(0.8), textTransform:"uppercase" }}>{T.analysisLabel}</p>
-                        <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-2)", lineHeight:1.65 }}>{lang === "en" ? entity.paramTextsEn[p.id] : entity.paramTexts[p.id]}</p>
+                        <p style={{ margin:"0 0 5px", fontSize:"12px", letterSpacing:"0.14em", color: accentA(0.8), textTransform:"uppercase" }}>{T.analysisLabel}</p>
+                        <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.65 }}>{lang === "en" ? entity.paramTextsEn[p.id] : entity.paramTexts[p.id]}</p>
                       </div>
                     )}
-                    <p style={{ margin:"0 0 12px", fontSize:"11px", color:"var(--ira-texto-2)", lineHeight:1.65 }}>
+                    <p style={{ margin:"0 0 12px", fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.65 }}>
                       {det.detail}
                     </p>
                     <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
                       <div style={{ background:"rgba(141,170,126,0.08)", border:"1px solid rgba(141,170,126,0.3)", borderRadius:"8px", padding:"10px 12px" }}>
-                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"var(--ira-salvia)", textTransform:"uppercase" }}>{T.empatico}</p>
-                        <p style={{ margin:0, fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.empatico}</p>
+                        <p style={{ margin:"0 0 5px", fontSize:"12px", letterSpacing:"0.14em", color:"var(--ira-salvia)", textTransform:"uppercase" }}>{T.empatico}</p>
+                        <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.empatico}</p>
                       </div>
                       <div style={{ background:"rgba(190,40,26,0.08)", border:"1px solid rgba(190,40,26,0.35)", borderRadius:"8px", padding:"10px 12px" }}>
-                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"var(--ira-estrella-polarizante)", textTransform:"uppercase" }}>{T.polarizador}</p>
-                        <p style={{ margin:0, fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.polarizador}</p>
+                        <p style={{ margin:"0 0 5px", fontSize:"12px", letterSpacing:"0.14em", color:"var(--ira-estrella-polarizante)", textTransform:"uppercase" }}>{T.polarizador}</p>
+                        <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.polarizador}</p>
                       </div>
                     </div>
               </FilaParametro>
@@ -1137,12 +1153,7 @@ function EntityDetailPage() {
       </div>{/* fin detail-page */}
       </div>{/* fin zIndex:1 */}
       {activeSpeech && (
-        <div style={{
-          position:"fixed", inset:0, zIndex:250,
-          background:"#041414", overflowY:"auto",
-        }}>
-          <SpeechView speech={activeSpeech} onBack={() => setActiveSpeechId(null)} lang={lang} />
-        </div>
+        <SuperposicionDiscurso speech={activeSpeech} lang={lang} onCerrar={() => setActiveSpeechId(null)} />
       )}
     </div>{/* fin page */}
     </AccentContext.Provider>
@@ -1152,6 +1163,8 @@ function EntityDetailPage() {
 function IRAModal({ onClose, lang }) {
   const { accent } = useContext(AccentContext);
   const [mounted, setMounted] = useState(false);
+  const ventanaRef = useRef(null);
+  useAtraparFoco(true, ventanaRef, onClose);
   useEffect(() => { setTimeout(() => setMounted(true), 20); }, []);
   const T = TEXTS[lang];
   const paramsInfo = IRA_PARAMS_INFO_TRANS[lang];
@@ -1162,8 +1175,9 @@ function IRAModal({ onClose, lang }) {
       display:"flex", alignItems:"center", justifyContent:"center",
       opacity: mounted?1:0, transition:"opacity 0.3s ease", padding:"20px",
     }}>
-      <div onClick={e => e.stopPropagation()} style={{
-        background:"var(--ira-superficie)", border:"1px solid var(--ira-linea)",
+      <div ref={ventanaRef} role="dialog" aria-modal="true" aria-labelledby="ira-modal-que-es" tabIndex={-1}
+        onClick={e => e.stopPropagation()} style={{
+        background:"var(--ira-superficie)", border:"1px solid var(--ira-linea)", outline:"none",
         borderRadius:"var(--ira-radio-xl)", padding:"36px 32px", maxWidth:"580px", width:"100%",
         maxHeight:"88vh", overflowY:"auto",
         transform: mounted?"translateY(0)":"translateY(20px)",
@@ -1172,19 +1186,19 @@ function IRAModal({ onClose, lang }) {
         <div style={{ marginBottom:"24px" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px" }}>
             <div style={{ width:"5px", height:"5px", borderRadius:"50%", background:accent, boxShadow:`0 0 8px ${accent}` }} />
-            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>{T.modalTag}</span>
+            <span style={{ fontSize:"12px", letterSpacing:"0.18em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>{T.modalTag}</span>
           </div>
-          <h2 style={{ margin:"0 0 16px", fontSize:"30px", fontWeight:500, lineHeight:1.15, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em" }}>
+          <h2 id="ira-modal-que-es" style={{ margin:"0 0 16px", fontSize:"30px", fontWeight:500, lineHeight:1.15, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em" }}>
             {T.modalTitle}
           </h2>
-          <p style={{ margin:0, fontSize:"12.5px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
+          <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
             {T.modalIntro}
           </p>
         </div>
 
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"24px" }}>
-          <p style={{ margin:"0 0 10px", fontSize:"9px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalWhatTitle}</p>
-          <p style={{ margin:0, fontSize:"12.5px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
+          <p style={{ margin:"0 0 10px", fontSize:"12px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalWhatTitle}</p>
+          <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
             {T.modalWhatPre}
             <span style={{ color:"var(--ira-estrella-polarizante)", fontWeight:600 }}>{T.modalWhatPol}</span>
             {", "}
@@ -1194,20 +1208,20 @@ function IRAModal({ onClose, lang }) {
         </div>
 
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"24px" }}>
-          <p style={{ margin:"0 0 16px", fontSize:"9px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalParamsTitle}</p>
+          <p style={{ margin:"0 0 16px", fontSize:"12px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalParamsTitle}</p>
           <div style={{ display:"flex", flexDirection:"column", gap:"14px" }}>
             {paramsInfo.map((p, i) => (
               <div key={i} style={{ borderLeft:`2px solid ${PARAM_COLORS[i]}50`, paddingLeft:"14px" }}>
-                <p style={{ margin:"0 0 4px", fontSize:"11px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-texto)", letterSpacing:"0.03em" }}>{p.name}</p>
-                <p style={{ margin:0, fontSize:"11.5px", color:"var(--ira-texto-3)", lineHeight:1.7 }}>{p.desc}</p>
+                <p style={{ margin:"0 0 4px", fontSize:"14px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-texto)", letterSpacing:"0.03em" }}>{p.name}</p>
+                <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-3)", lineHeight:1.7 }}>{p.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"28px" }}>
-          <p style={{ margin:"0 0 10px", fontSize:"9px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalOriginTitle}</p>
-          <p style={{ margin:0, fontSize:"12.5px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
+          <p style={{ margin:"0 0 10px", fontSize:"12px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalOriginTitle}</p>
+          <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
             {T.modalOriginPre}
             <em style={{ color:"var(--ira-texto-2)" }}>{T.modalOriginBook}</em>
             {T.modalOriginPost}
@@ -1251,7 +1265,7 @@ function HistoryCard({ row, lang }) {
           </p>
         </div>
         <span style={{
-          fontSize:"10px", color:"var(--ira-texto-3)", flexShrink:0,
+          fontSize:"13px", color:"var(--ira-texto-3)", flexShrink:0,
           display:"block", transition:"transform 0.2s",
           transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
         }} aria-hidden="true">▾</span>
@@ -1259,7 +1273,7 @@ function HistoryCard({ row, lang }) {
       {expanded && (
         <div style={{ padding:"0 16px 16px", borderTop:"1px solid rgba(255,255,255,0.05)" }}>
           {row.summary && (
-            <p style={{ margin:"14px 0 14px", fontSize:"11px", color:"var(--ira-texto-3)", lineHeight:1.65 }}>
+            <p style={{ margin:"14px 0 14px", fontSize:"14px", color:"var(--ira-texto-3)", lineHeight:1.65 }}>
               {row.summary}
             </p>
           )}
@@ -1452,7 +1466,7 @@ function ShareCard({ result, cardRef }) {
       {/* header */}
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-end', marginBottom:'22px' }}>
         <img src="/brand/ira-logo-sobre-oscuro.svg" alt="ira" style={{ height:'30px', width:'auto', display:'block' }} />
-        <span style={{ color:"var(--ira-texto-2)", fontSize:'11px' }}>Índice de Resonancia Afectiva</span>
+        <span style={{ color:"var(--ira-texto-2)", fontSize:'14px' }}>Índice de Resonancia Afectiva</span>
       </div>
       {/* score + name */}
       <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', gap:'20px', marginBottom:'14px' }}>
@@ -1473,7 +1487,7 @@ function ShareCard({ result, cardRef }) {
         {result.summary}
       </p>
       {/* footer */}
-      <div style={{ marginTop:'16px', paddingTop:'12px', borderTop:'1px solid var(--ira-linea)', display:'flex', justifyContent:'space-between', fontSize:'11px', color:"var(--ira-texto-3)" }}>
+      <div style={{ marginTop:'16px', paddingTop:'12px', borderTop:'1px solid var(--ira-linea)', display:'flex', justifyContent:'space-between', fontSize:'14px', color:"var(--ira-texto-3)" }}>
         <span>0 Polarizante · Empático 10</span>
         <span>ira-index.vercel.app</span>
       </div>
@@ -1532,10 +1546,10 @@ function AnalysisResult({ result, onReset, lang }) {
       {/* Comparación con el corpus */}
       {result.comparacion && (
         <div style={{ marginTop:"20px", padding:"14px 16px", background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:"10px" }}>
-          <p style={{ margin:"0 0 5px", fontSize:"9px", fontWeight:700, letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
+          <p style={{ margin:"0 0 5px", fontSize:"12px", fontWeight:700, letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
             {lang === 'en' ? "Corpus comparison" : "Comparación con el corpus"}
           </p>
-          <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-2)", lineHeight:1.6, fontStyle:"italic" }}>
+          <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.6, fontStyle:"italic" }}>
             {result.comparacion}
           </p>
         </div>
@@ -1546,11 +1560,11 @@ function AnalysisResult({ result, onReset, lang }) {
           <div style={{ height:"1px", background:"rgba(255,255,255,0.07)", marginBottom:"18px" }} />
           <div style={{ display:"flex", alignItems:"baseline", gap:"8px", marginBottom:"10px" }}>
             <span style={{
-              fontFamily:"var(--ira-font-texto)", fontSize:"9px", fontWeight:600,
+              fontFamily:"var(--ira-font-texto)", fontSize:"12px", fontWeight:600,
               color: accentA(0.7), letterSpacing:"0.14em", textTransform:"uppercase",
             }}>{T.lecturaAutorLabel}</span>
             <span style={{
-              fontFamily:"var(--ira-font-texto)", fontSize:"8.5px",
+              fontFamily:"var(--ira-font-texto)", fontSize:"12px",
               color:"var(--ira-texto-3)", letterSpacing:"0.06em",
             }}>{T.lecturaAutorBadge}</span>
           </div>
@@ -1625,8 +1639,10 @@ function ConfirmedToast({ lang, onDone }) {
 // ── WelcomeModal ─────────────────────────────────────────────────────────────
 
 function WelcomeModal({ lang, onClose }) {
-  const { accent, accentA } = useContext(AccentContext);
+  const { accentA } = useContext(AccentContext);
   const [mounted, setMounted] = useState(false);
+  const ventanaRef = useRef(null);
+  useAtraparFoco(true, ventanaRef, onClose);
   useEffect(() => { setTimeout(() => setMounted(true), 30); }, []);
   return (
     <div style={{
@@ -1636,8 +1652,8 @@ function WelcomeModal({ lang, onClose }) {
       padding:"24px",
       opacity: mounted ? 1 : 0, transition:"opacity 0.35s ease",
     }}>
-      <div style={{
-        background:"var(--ira-superficie)",
+      <div ref={ventanaRef} role="dialog" aria-modal="true" aria-labelledby="ira-bienvenida" tabIndex={-1} style={{
+        background:"var(--ira-superficie)", outline:"none",
         border:"1px solid var(--ira-linea)",
         borderRadius:"var(--ira-radio-xl)",
         padding:"36px 32px 28px",
@@ -1651,7 +1667,7 @@ function WelcomeModal({ lang, onClose }) {
             {lang === "es" ? "Bienvenido/a al IRA" : "Welcome to IRA"}
           </span>
         </div>
-        <h2 style={{ margin:"0 0 14px", fontSize:"30px", fontWeight:500, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em", lineHeight:1.15 }}>
+        <h2 id="ira-bienvenida" style={{ margin:"0 0 14px", fontSize:"30px", fontWeight:500, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em", lineHeight:1.15 }}>
           {lang === "es" ? "Las palabras tienen peso." : "Words carry weight."}
         </h2>
         <p style={{ margin:"0 0 28px", fontSize:"16px", color:"var(--ira-texto-cita)", lineHeight:1.7 }}>
@@ -1696,7 +1712,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
 
   return (
     <AccentContext.Provider value={{ accent, accentA, mode }}>
-    <div style={{ minHeight:"100vh", background:"#041414", fontFamily:"var(--ira-font-texto)", position:"relative", overflow:"hidden" }}>
+    <div style={{ fontFamily:"var(--ira-font-texto)", position:"relative", overflow:"hidden" }}>
       <style>{`
         @keyframes wcPulse { 0%,100% { opacity:1; box-shadow:0 0 8px ${accent}; } 50% { opacity:0.5; box-shadow:0 0 16px ${accent}; } }
         @keyframes aboutPulse { 0%,100% { box-shadow:0 0 18px rgba(220,60,160,0.22), inset 0 0 12px rgba(220,60,160,0.06); } 50% { box-shadow:0 0 28px rgba(220,60,160,0.38), inset 0 0 16px rgba(220,60,160,0.1); } }
@@ -1826,7 +1842,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           <div style={{ opacity:mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
             <Suspense fallback={
               <div style={{ height:"160px", display:"flex", alignItems:"center", justifyContent:"center" }}>
-                <span style={{ fontSize:"11px", color:"var(--ira-texto-3)", fontFamily:"var(--ira-font-texto)" }}>{T.loading}</span>
+                <span style={{ fontSize:"14px", color:"var(--ira-texto-3)", fontFamily:"var(--ira-font-texto)" }}>{T.loading}</span>
               </div>
             }>
               <Comparator
@@ -1963,9 +1979,11 @@ export default function App() {
 
   return (
     <AppContext.Provider value={{ lang, setLang, supabaseMap, supabaseReady, enrichedEntities, requireAuth, openLogin, openRegister, user, profile, signOut }}>
+      <Destellos cantidad={typeof window !== "undefined" && window.innerWidth < 600 ? 50 : 90} />
       <div className="ira-app">
+      <a href="#contenido" className="ira-saltar">{lang === "en" ? "Skip to content" : "Saltar al contenido"}</a>
       <Nav />
-      <main id="contenido">
+      <main id="contenido" tabIndex={-1}>
       <Routes>
         <Route path="/" element={<Suspense fallback={null}><Portada /></Suspense>} />
         <Route path="/discursos" element={<Suspense fallback={null}><DiscursosPage /></Suspense>} />

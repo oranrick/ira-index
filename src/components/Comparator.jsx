@@ -19,13 +19,13 @@ function CompareTooltip({ active, payload, nameA, nameB }) {
       borderRadius: "8px", padding: "8px 12px", fontFamily: "var(--ira-font-texto)",
       pointerEvents: "none",
     }}>
-      <p style={{ margin: "0 0 6px", fontSize: "9.5px", color: "var(--ira-texto-3)", letterSpacing: "0.04em" }}>{d.label}</p>
-      <p style={{ margin: "2px 0", fontSize: "11px" }}>
+      <p style={{ margin: "0 0 6px", fontSize: "12px", color: "var(--ira-texto-3)", letterSpacing: "0.04em" }}>{d.label}</p>
+      <p style={{ margin: "2px 0", fontSize: "14px" }}>
         <span style={{ color: COLOR_A }}>{nameA}</span>
         <span style={{ color: "var(--ira-texto-3)", margin: "0 6px" }}>—</span>
         <span style={{ color: COLOR_A, fontWeight: 700 }}>{Number(d.a).toFixed(1)}</span>
       </p>
-      <p style={{ margin: "2px 0", fontSize: "11px" }}>
+      <p style={{ margin: "2px 0", fontSize: "14px" }}>
         <span style={{ color: COLOR_B }}>{nameB}</span>
         <span style={{ color: "var(--ira-texto-3)", margin: "0 6px" }}>—</span>
         <span style={{ color: COLOR_B, fontWeight: 700 }}>{Number(d.b).toFixed(1)}</span>
@@ -50,7 +50,7 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color, sea
 
   return (
     <div style={{ position: "relative", flex: "1 1 200px" }}>
-      <p style={{ margin: "0 0 8px", fontSize: "9px", letterSpacing: "0.14em", color: `${color}cc`, textTransform: "uppercase" }}>
+      <p style={{ margin: "0 0 8px", fontSize: "12px", letterSpacing: "0.14em", color: `${color}cc`, textTransform: "uppercase" }}>
         {label}
       </p>
       {selected && !open ? (
@@ -66,25 +66,22 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color, sea
             </span>
           </div>
           <button
+            type="button"
+            aria-label={`Quitar ${selected.name}`}
             onClick={() => { onSelect(null); }}
-            style={{ background: "none", border: "none", cursor: "pointer", color: "var(--ira-texto-3)", fontSize: "16px", padding: "0 2px", lineHeight: 1 }}
+            style={{ background: "none", border: "none", cursor: "pointer", color: "var(--ira-texto-2)", fontSize: "20px", width: "44px", height: "44px", margin: "-10px -10px -10px 0", lineHeight: 1 }}
           >×</button>
         </div>
       ) : (
-        <div>
+        <div onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false); }}>
           <input
+            className="ira-campo"
+            aria-label={`${label}: ${searchPlaceholder}`}
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={e => { setSearch(e.target.value); setOpen(true); }}
             onFocus={() => setOpen(true)}
-            onBlur={() => setTimeout(() => setOpen(false), 150)}
+            onKeyDown={e => { if (e.key === 'Escape') setOpen(false); }}
             placeholder={searchPlaceholder}
-            style={{
-              width: "100%", boxSizing: "border-box",
-              padding: "9px 14px", borderRadius: "10px",
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
-              color: "var(--ira-nieve)", fontSize: "12px", fontFamily: "var(--ira-font-texto)",
-              outline: "none",
-            }}
           />
           {open && filtered.length > 0 && (
             <div style={{
@@ -94,10 +91,11 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color, sea
             }}>
               {filtered.map(p => (
                 <button
+                  type="button"
                   key={p.id}
-                  onMouseDown={() => handleSelect(p)}
+                  onClick={() => handleSelect(p)}
                   style={{
-                    width: "100%", padding: "9px 14px",
+                    width: "100%", minHeight: "44px", padding: "9px 14px",
                     background: "none", border: "none", cursor: "pointer",
                     display: "flex", alignItems: "center", gap: "8px", textAlign: "left",
                   }}
@@ -105,7 +103,7 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color, sea
                   onMouseLeave={e => e.currentTarget.style.background = "none"}
                 >
                   <span style={{ fontSize: "16px" }}>{p.flag}</span>
-                  <span style={{ fontSize: "12px", color: "var(--ira-nieve)", fontFamily: "var(--ira-font-texto)" }}>{p.name}</span>
+                  <span style={{ fontSize: "14px", color: "var(--ira-nieve)", fontFamily: "var(--ira-font-texto)" }}>{p.name}</span>
                 </button>
               ))}
             </div>
@@ -204,7 +202,7 @@ export default function Comparator({ politicians, paramsEs, paramShort, lang = "
               padding: "14px 16px", borderRadius: "12px",
               background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)",
             }}>
-              <p style={{ margin: "0 0 6px", fontSize: "9px", letterSpacing: "0.14em", color: "var(--ira-texto-3)", textTransform: "uppercase" }}>
+              <p style={{ margin: "0 0 6px", fontSize: "12px", letterSpacing: "0.14em", color: "var(--ira-texto-3)", textTransform: "uppercase" }}>
                 {labelSynthesis}
               </p>
               {lang === "en" ? (
@@ -244,7 +242,7 @@ export default function Comparator({ politicians, paramsEs, paramShort, lang = "
           height: "160px", display: "flex", alignItems: "center", justifyContent: "center",
           borderRadius: "14px", border: "1px dashed rgba(255,255,255,0.07)",
         }}>
-          <p style={{ margin: 0, fontSize: "11px", color: "var(--ira-texto-3)", fontFamily: "var(--ira-font-texto)" }}>
+          <p style={{ margin: 0, fontSize: "14px", color: "var(--ira-texto-3)", fontFamily: "var(--ira-font-texto)" }}>
             {labelSelectTwo}
           </p>
         </div>

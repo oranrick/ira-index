@@ -195,12 +195,12 @@ export default function PatternsPage({ lang = 'es' }) {
   }, [filtered, entityFilter, entities, all, metric]);
 
   const dateInput = {
-    background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: '8px',
-    color: "var(--ira-nieve)", fontFamily: "var(--ira-font-texto)", fontSize: '11px', padding: '6px 8px', colorScheme: 'dark',
+    background: 'var(--ira-superficie)', border: '1px solid var(--ira-linea-fuerte)', borderRadius: '10px',
+    color: "var(--ira-nieve)", fontFamily: "var(--ira-font-texto)", fontSize: '14px', minHeight: '44px', padding: '0 10px', colorScheme: 'dark',
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#041414', fontFamily: "var(--ira-font-texto)", position: 'relative', overflow: 'hidden' }}>
+    <div style={{ fontFamily: "var(--ira-font-texto)", position: 'relative', overflow: 'hidden' }}>
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '1060px', margin: '0 auto', padding: '26px 20px 60px' }}>
         <div className="ira-cabecera" style={{ marginBottom: '32px' }}>
@@ -216,10 +216,10 @@ export default function PatternsPage({ lang = 'es' }) {
               {e.name} · {e.n}
             </button>
           ))}
-          <span style={{ marginLeft: 'auto', display: 'flex', gap: '8px', alignItems: 'center', fontSize: '10px', color: "var(--ira-texto-3)" }}>
-            {t.from} <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={dateInput} />
-            {t.to} <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={dateInput} />
-            <span style={{ color: accent, fontWeight: 700 }}>{filtered.length} {t.analyses}</span>
+          <span style={{ marginLeft: 'auto', display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center', fontSize: '13px', color: "var(--ira-texto-2)" }}>
+            <label htmlFor="ira-pat-desde">{t.from}</label> <input id="ira-pat-desde" type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} style={dateInput} />
+            <label htmlFor="ira-pat-hasta">{t.to}</label> <input id="ira-pat-hasta" type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} style={dateInput} />
+            <span style={{ color: 'var(--ira-texto-cita)', fontFamily: 'var(--ira-font-cifra)' }}>{filtered.length} {t.analyses}</span>
           </span>
         </div>
 
@@ -233,8 +233,8 @@ export default function PatternsPage({ lang = 'es' }) {
             return (
               <div key={k} style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '13px' }}>
                 <div style={{ width: '158px', flexShrink: 0, textAlign: 'right' }}>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: c }}>{PARAM_LABEL[lang][k]}</span>
-                  <span style={{ display: 'block', fontSize: '9px', color: "var(--ira-texto-3)" }}>{t.mean_} {r2(s.mean)} · sd {r2(s.sd)}</span>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: c }}>{PARAM_LABEL[lang][k]}</span>
+                  <span style={{ display: 'block', fontSize: '12px', color: "var(--ira-texto-3)" }}>{t.mean_} {r2(s.mean)} · sd {r2(s.sd)}</span>
                 </div>
                 <div style={{ flex: 1, position: 'relative', height: '26px' }}>
                   <div style={{ position: 'absolute', top: '12px', left: 0, right: 0, height: '2px', background: 'rgba(255,255,255,0.07)' }} />
@@ -243,7 +243,7 @@ export default function PatternsPage({ lang = 'es' }) {
                   <div style={{ position: 'absolute', top: '3px', left: pct(s.med), width: '2px', height: '20px', background: c, borderRadius: '1px' }} />
                   <div style={{ position: 'absolute', top: '9px', left: `calc(${pct(s.mean)} - 4px)`, width: '8px', height: '8px', background: '#fff', borderRadius: '50%', border: `2px solid ${c}` }} />
                 </div>
-                <div style={{ width: '30px', fontSize: '9px', color: "var(--ira-texto-3)", flexShrink: 0 }}>0–10</div>
+                <div style={{ width: '30px', fontSize: '12px', color: "var(--ira-texto-3)", flexShrink: 0 }}>0–10</div>
               </div>
             );
           })}
@@ -257,22 +257,22 @@ export default function PatternsPage({ lang = 'es' }) {
             const s = stats[k], c = PARAM_COLORS[k];
             return (
               <div key={k} style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '11px' }}>
-                <div style={{ width: '158px', flexShrink: 0, textAlign: 'right', fontSize: '11px', fontWeight: 700, color: c }}>{PARAM_LABEL[lang][k]}</div>
+                <div style={{ width: '158px', flexShrink: 0, textAlign: 'right', fontSize: '14px', fontWeight: 700, color: c }}>{PARAM_LABEL[lang][k]}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
                     <div style={{ flex: 1, height: '6px', background: 'rgba(255,255,255,0.05)', borderRadius: '3px', overflow: 'hidden' }}>
                       <div style={{ width: `${WEIGHTS[k] * 400}px`, maxWidth: '100%', height: '100%', background: `${c}66`, borderRadius: '3px' }} />
                     </div>
-                    <span style={{ fontSize: '9px', color: "var(--ira-texto-3)", width: '86px' }}>{t.nominal} {Math.round(WEIGHTS[k] * 100)}%</span>
+                    <span style={{ fontSize: '12px', color: "var(--ira-texto-3)", width: '86px' }}>{t.nominal} {Math.round(WEIGHTS[k] * 100)}%</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <div style={{ flex: 1, height: '6px', background: 'rgba(255,255,255,0.05)', borderRadius: '3px', overflow: 'hidden' }}>
                       <div style={{ width: `${s.eff * 400}px`, maxWidth: '100%', height: '100%', background: c, borderRadius: '3px' }} />
                     </div>
-                    <span style={{ fontSize: '9px', color: "var(--ira-texto-3)", width: '86px' }}>{t.effective} {Math.round(s.eff * 100)}%</span>
+                    <span style={{ fontSize: '12px', color: "var(--ira-texto-3)", width: '86px' }}>{t.effective} {Math.round(s.eff * 100)}%</span>
                   </div>
                 </div>
-                <div style={{ width: '82px', flexShrink: 0, textAlign: 'right', fontSize: '10px', color: Math.abs(s.r) > 0.9 ? accent : 'rgba(255,255,255,0.55)', fontWeight: 700 }}>
+                <div style={{ width: '82px', flexShrink: 0, textAlign: 'right', fontSize: '13px', color: Math.abs(s.r) > 0.9 ? accent : 'rgba(255,255,255,0.55)', fontWeight: 700 }}>
                   {t.rIra} {s.r.toFixed(2)}
                 </div>
               </div>
@@ -300,22 +300,22 @@ export default function PatternsPage({ lang = 'es' }) {
               <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginBottom: '18px' }}>
                 {compareData.map(d => (
                   <div key={d.id} style={{ flex: '1 1 150px', background: `${entColor[d.id]}0d`, border: `1px solid ${entColor[d.id]}40`, borderRadius: '12px', padding: '12px 14px' }}>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: entColor[d.id], fontFamily: "var(--ira-font-titulo)" }}>{d.name}</span>
+                    <span style={{ fontSize: '12px', fontWeight:500, color: entColor[d.id], fontFamily: "var(--ira-font-titulo)" }}>{d.name}</span>
                     <span style={{ display: 'block', fontSize: '22px', fontWeight: 800, color: "var(--ira-nieve)", marginTop: '2px' }}>{d.ira.toFixed(2)}</span>
-                    <span style={{ fontSize: '9px', color: "var(--ira-texto-3)" }}>IRA · {t.n}={d.n}</span>
+                    <span style={{ fontSize: '12px', color: "var(--ira-texto-3)" }}>IRA · {t.n}={d.n}</span>
                   </div>
                 ))}
               </div>
               {KEYS.map(k => (
                 <div key={k} style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '10px' }}>
-                  <div style={{ width: '158px', flexShrink: 0, textAlign: 'right', fontSize: '11px', fontWeight: 700, color: PARAM_COLORS[k] }}>{PARAM_LABEL[lang][k]}</div>
+                  <div style={{ width: '158px', flexShrink: 0, textAlign: 'right', fontSize: '14px', fontWeight: 700, color: PARAM_COLORS[k] }}>{PARAM_LABEL[lang][k]}</div>
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '3px' }}>
                     {compareData.map(d => (
                       <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <div style={{ flex: 1, height: '7px', background: 'rgba(255,255,255,0.05)', borderRadius: '3.5px', overflow: 'hidden' }}>
                           <div style={{ width: `${(d.params[k] / 10) * 100}%`, height: '100%', background: `linear-gradient(90deg,${entColor[d.id]}88,${entColor[d.id]})`, borderRadius: '3.5px', transition: 'width 0.4s ease' }} />
                         </div>
-                        <span style={{ width: '32px', fontSize: '10px', fontWeight: 700, color: entColor[d.id] }}>{d.params[k].toFixed(1)}</span>
+                        <span style={{ width: '32px', fontSize: '13px', fontWeight: 700, color: entColor[d.id] }}>{d.params[k].toFixed(1)}</span>
                       </div>
                     ))}
                   </div>
@@ -332,7 +332,7 @@ export default function PatternsPage({ lang = 'es' }) {
               <h2 style={h2}>{t.timeline}</h2>
               <p style={sub}>{t.timelineSub}</p>
             </div>
-            <label style={{ fontSize: '10px', color: "var(--ira-texto-3)" }}>
+            <label style={{ fontSize: '13px', color: "var(--ira-texto-3)" }}>
               {t.metric}{' '}
               <select value={metric} onChange={e => setMetric(e.target.value)}
                 style={{ ...dateInput, cursor: 'pointer' }}>
@@ -350,11 +350,11 @@ export default function PatternsPage({ lang = 'es' }) {
                 <XAxis dataKey="date" tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontFamily: 'JetBrains Mono' }} tickFormatter={d => d?.slice(5)} />
                 <YAxis domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontFamily: 'JetBrains Mono' }} />
                 <Tooltip
-                  contentStyle={{ background: '#112A2A', border: '1px solid #2A4747', borderRadius: '10px', fontFamily: 'JetBrains Mono', fontSize: '11px' }}
+                  contentStyle={{ background: '#112A2A', border: '1px solid #2A4747', borderRadius: '10px', fontFamily: 'JetBrains Mono', fontSize: '14px' }}
                   labelStyle={{ color: "var(--ira-texto-2)" }}
                   formatter={(v, name) => [Number(v).toFixed(2), entities.find(e => e.id === name)?.name ?? name]}
                 />
-                <Legend formatter={id => <span style={{ color: entColor[id], fontSize: '10px', fontFamily: 'JetBrains Mono' }}>{entities.find(e => e.id === id)?.name ?? id}</span>} />
+                <Legend formatter={id => <span style={{ color: entColor[id], fontSize: '13px', fontFamily: 'JetBrains Mono' }}>{entities.find(e => e.id === id)?.name ?? id}</span>} />
                 {[7, 4].map(y => (
                   <Line key={`ref${y}`} dataKey={() => y} stroke="rgba(255,255,255,0.12)" strokeDasharray="4 5" dot={false} activeDot={false} legendType="none" isAnimationActive={false} />
                 ))}

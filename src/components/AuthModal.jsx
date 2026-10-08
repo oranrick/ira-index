@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import HCaptcha from '@hcaptcha/react-hcaptcha'
+import { useAtraparFoco } from './ui/Ventana.jsx'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../supabaseClient'
 
@@ -88,6 +89,9 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
     setTimeout(onClose, 220)
   }
 
+  const ventanaRef = useRef(null)
+  useAtraparFoco(true, ventanaRef, handleClose)
+
   const resetCaptcha = () => {
     captchaRef.current?.resetCaptcha()
     setCaptchaToken(null)
@@ -169,10 +173,11 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
       }}
     >
       <div
+        ref={ventanaRef} tabIndex={-1}
         role="dialog" aria-modal="true" aria-labelledby="ira-auth-titulo"
         onClick={e => e.stopPropagation()}
         style={{
-          position: 'relative',
+          position: 'relative', outline: 'none',
           background: 'var(--ira-superficie)',
           border: '1px solid var(--ira-linea)',
           borderRadius: 'var(--ira-radio-xl)',

@@ -3,7 +3,7 @@
 // y vuelve al elemento que la abrió al cerrarse.
 import { useEffect, useRef } from 'react';
 
-const ENFOCABLES = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const ENFOCABLES = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), iframe';
 
 export function useAtraparFoco(activo, ref, onEscape) {
   useEffect(() => {

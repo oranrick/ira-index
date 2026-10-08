@@ -430,3 +430,15 @@ a.ira-chip { text-decoration: none; }
 .ira-rejilla-discursos > li > .ira-tarjeta { flex: 1; }
 .ira-tarjeta--compacta .ira-tarjeta__pie { margin-top: auto; }
 @media (max-width: 480px) { .ira-rejilla-discursos { grid-template-columns: 1fr; } }
+
+/* El contenido va por encima del fondo con destellos */
+.ira-app { position: relative; z-index: 1; }
+.ira-app > main:focus { outline: none; }
+
+/* Enlace para saltar la navegación con teclado */
+.ira-saltar {
+  position: absolute; left: 16px; top: -100px; z-index: 1000;
+  padding: 12px 16px; border-radius: var(--ira-radio-m);
+  background: var(--ira-oro); color: var(--ira-noche); font-weight: 500; text-decoration: none;
+}
+.ira-saltar:focus { top: 16px; color: var(--ira-noche); }

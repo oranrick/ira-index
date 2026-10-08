@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App.jsx';
 
-import { CATEGORICOS as PARAM_COLORS } from '../lib/escala';
+import { CATEGORICOS, CATEGORICOS as PARAM_COLORS } from '../lib/escala';
 
 const AUTHORS = [
   {
@@ -17,7 +17,7 @@ const AUTHORS = [
   {
     name: "Vittorio Gallese",
     work: { es: "Neuronas espejo (2003–)", en: "Mirror Neurons (2003–)" },
-    color: "#e8a838",
+    color: CATEGORICOS[0],
     contribution: {
       es: "Cuando escuchamos describir una emoción, activamos parcialmente las mismas redes que si la sintiéramos. El contagio de las palabras no es metáfora: es neurociencia.",
       en: "When we hear an emotion described, we partially activate the same networks as if we felt it. The contagion of words is not a metaphor: it is neuroscience.",
@@ -26,7 +26,7 @@ const AUTHORS = [
   {
     name: "George Lakoff",
     work: { es: "Metáforas de la vida cotidiana (1980)", en: "Metaphors We Live By (1980)" },
-    color: "#6ec6a0",
+    color: CATEGORICOS[1],
     contribution: {
       es: "Las metáforas conceptuales no son adornos: estructuran cómo percibimos la realidad. «Drenar el pantano» no es hipérbole — es un marco cognitivo que determina qué preguntas nos parecen posibles.",
       en: "Conceptual metaphors are not ornaments: they structure how we perceive reality. «Drain the swamp» is not hyperbole — it's a cognitive frame that determines which questions seem possible.",
@@ -35,7 +35,7 @@ const AUTHORS = [
   {
     name: "Teun van Dijk",
     work: { es: "Análisis Crítico del Discurso (1993–)", en: "Critical Discourse Analysis (1993–)" },
-    color: "#5ba8d4",
+    color: CATEGORICOS[2],
     contribution: {
       es: "El discurso no es neutro: construye identidades, consolida jerarquías y naturaliza el poder. El IRA hereda esta tradición y la aplica a la dimensión afectiva.",
       en: "Discourse is not neutral: it constructs identities, consolidates hierarchies, and naturalizes power. The IRA inherits this tradition and applies it to the affective dimension.",
@@ -44,7 +44,7 @@ const AUTHORS = [
   {
     name: "Eva Illouz",
     work: { es: "Capitalismo emocional (2007)", en: "Cold Intimacies (2007)" },
-    color: "#a07cd4",
+    color: CATEGORICOS[3],
     contribution: {
       es: "El mercado no solo produce bienes: produce emociones. Los discursos políticos han colonizado el léxico terapéutico. El IRA detecta esos deslizamientos.",
       en: "The market doesn't only produce goods: it produces emotions. Political discourses have colonized therapeutic lexicon. The IRA detects those slippages.",
@@ -53,7 +53,7 @@ const AUTHORS = [
   {
     name: "Roberto Esposito",
     work: { es: "Communitas / Immunitas (1998 / 2002)", en: "Communitas / Immunitas (1998 / 2002)" },
-    color: "#e05890",
+    color: CATEGORICOS[5],
     contribution: {
       es: "Toda comunidad política se define por lo que excluye. La exclusión se construye con metáforas de contaminación y pureza. El parámetro de Carga Dicotómica mide exactamente eso.",
       en: "Every political community defines itself by what it excludes. Exclusion is built with metaphors of contamination and purity. The Dichotomous Load parameter measures exactly that.",
@@ -81,7 +81,7 @@ export default function AboutPage() {
   const es = lang !== 'en';
 
   return (
-    <div style={{ minHeight:"100vh", background:"#041414", fontFamily:"var(--ira-font-texto)", overflowX:"hidden" }}>
+    <div style={{ fontFamily:"var(--ira-font-texto)", overflowX:"hidden" }}>
       <style>{`
         @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
         .about-fade { opacity:0; animation: fadeUp 0.7s ease forwards; }
@@ -96,26 +96,26 @@ export default function AboutPage() {
           opacity:mounted?1:0, transform:mounted?"none":"translateY(20px)", transition:"all 0.6s ease" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"24px" }}>
             <div style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#DCB149", boxShadow:"0 0 8px #DCB149" }} />
-            <span style={{ fontSize:"9px", letterSpacing:"0.22em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
+            <span style={{ fontSize:"12px", letterSpacing:"0.22em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
               {es ? "Sobre el proyecto" : "About the project"}
             </span>
           </div>
 
           {/* Frase grande partido en líneas */}
           <div style={{ marginBottom:"60px" }}>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
+            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
               color:"var(--ira-texto-3)", lineHeight:1, letterSpacing:"-0.04em" }}>
               {es ? "Las palabras" : "Words don't"}
             </p>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
+            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
               color:"var(--ira-texto-3)", lineHeight:1, letterSpacing:"-0.04em" }}>
               {es ? "no solo describen" : "just describe"}
             </p>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
+            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
               color:"var(--ira-nieve)", lineHeight:1, letterSpacing:"-0.04em" }}>
               {es ? "la realidad." : "reality."}
             </p>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
+            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
               color:"#DCB149", lineHeight:1, letterSpacing:"-0.04em" }}>
               {es ? "La configuran." : "They shape it."}
             </p>
@@ -131,9 +131,9 @@ export default function AboutPage() {
             ].map((s, i) => (
               <div key={i} style={{ flex:1, padding:"20px 0", textAlign:"center",
                 borderRight: i < 3 ? "1px solid rgba(255,255,255,0.06)" : "none" }}>
-                <p style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
+                <p style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
                   color:"#DCB149", letterSpacing:"-0.02em" }}>{s.num}</p>
-                <p style={{ margin:"4px 0 0", fontSize:"9px", color:"var(--ira-texto-3)", letterSpacing:"0.12em", textTransform:"uppercase" }}>{s.label}</p>
+                <p style={{ margin:"4px 0 0", fontSize:"12px", color:"var(--ira-texto-3)", letterSpacing:"0.12em", textTransform:"uppercase" }}>{s.label}</p>
               </div>
             ))}
           </div>
@@ -146,12 +146,12 @@ export default function AboutPage() {
 
           {/* Pull quote dramático */}
           <blockquote style={{ margin:"0 0 40px", padding:"0 0 0 20px",
-            borderLeft:"3px solid rgba(224,82,82,0.6)" }}>
-            <p style={{ margin:0, fontSize:"clamp(18px,3vw,24px)", fontWeight:700, fontFamily:"var(--ira-font-titulo)",
-              color:"rgba(224,82,82,0.85)", lineHeight:1.3, letterSpacing:"-0.01em" }}>
+            borderLeft:"3px solid var(--ira-1)" }}>
+            <p style={{ margin:0, fontSize:"clamp(18px,3vw,24px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+              color:"var(--ira-marca-polarizante)", lineHeight:1.3, letterSpacing:"-0.01em" }}>
               {es ? "«Yo mataría a toda esa gente.»" : "«I would kill all those people.»"}
             </p>
-            <p style={{ margin:"10px 0 0", fontSize:"11px", color:"var(--ira-texto-3)", fontStyle:"italic" }}>
+            <p style={{ margin:"10px 0 0", fontSize:"14px", color:"var(--ira-texto-3)", fontStyle:"italic" }}>
               {es ? "— Frase escuchada demasiadas veces. Origen del IRA." : "— A phrase heard too many times. The origin of the IRA."}
             </p>
           </blockquote>
@@ -172,14 +172,14 @@ export default function AboutPage() {
           {/* TFG callout */}
           <div style={{ margin:"32px 0 0", padding:"20px 22px", background:"rgba(220,177,73,0.05)",
             border:"1px solid rgba(220,177,73,0.15)", borderRadius:"14px" }}>
-            <p style={{ margin:"0 0 6px", fontSize:"9px", letterSpacing:"0.14em", color:"rgba(220,177,73,0.6)", textTransform:"uppercase" }}>
+            <p style={{ margin:"0 0 6px", fontSize:"12px", letterSpacing:"0.14em", color:"rgba(220,177,73,0.6)", textTransform:"uppercase" }}>
               {es ? "Trabajo de Fin de Grado" : "Bachelor's Thesis"}
             </p>
-            <p style={{ margin:0, fontSize:"13px", fontWeight:700, fontFamily:"var(--ira-font-titulo)", color:"var(--ira-nieve)", lineHeight:1.35 }}>
+            <p style={{ margin:0, fontSize:"13px", fontWeight:500, fontFamily:"var(--ira-font-titulo)", color:"var(--ira-nieve)", lineHeight:1.35 }}>
               {es ? "«El contagio de las palabras: Metáforas, empatía y polarización en el discurso político contemporáneo»"
                   : "«The Contagion of Words: Metaphors, Empathy and Polarization in Contemporary Political Discourse»"}
             </p>
-            <p style={{ margin:"8px 0 0", fontSize:"10px", color:"var(--ira-texto-3)" }}>
+            <p style={{ margin:"8px 0 0", fontSize:"13px", color:"var(--ira-texto-3)" }}>
               Ricardo Grisales Ramírez · UCM Periodismo · 2024
             </p>
           </div>
@@ -189,7 +189,7 @@ export default function AboutPage() {
         <div style={{ background:"rgba(255,255,255,0.015)", borderTop:"1px solid rgba(255,255,255,0.05)", borderBottom:"1px solid rgba(255,255,255,0.05)", padding:"80px 24px" }}>
           <div style={{ maxWidth:"900px", margin:"0 auto" }}>
             <Label es={es} es_text="El marco teórico" en_text="Theoretical framework" />
-            <h2 style={{ margin:"0 0 12px", fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
+            <h2 style={{ margin:"0 0 12px", fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
               color:"var(--ira-nieve)", letterSpacing:"-0.03em", lineHeight:1.15 }}>
               {es ? "Antes de llegar al cerebro,\npasa por el cuerpo" : "Before it reaches the brain,\nit passes through the body"}
             </h2>
@@ -210,13 +210,13 @@ export default function AboutPage() {
                   onMouseEnter={e => { e.currentTarget.style.borderColor=`${a.color}55`; e.currentTarget.style.background=`${a.color}12`; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor=`${a.color}22`; e.currentTarget.style.background=`${a.color}08`; }}
                 >
-                  <p style={{ margin:"0 0 4px", fontSize:"15px", fontWeight:800, fontFamily:"var(--ira-font-titulo)", color:a.color }}>
+                  <p style={{ margin:"0 0 4px", fontSize:"15px", fontWeight:500, fontFamily:"var(--ira-font-titulo)", color:a.color }}>
                     {a.name}
                   </p>
-                  <p style={{ margin:"0 0 12px", fontSize:"9.5px", color:"var(--ira-texto-3)", fontStyle:"italic" }}>
+                  <p style={{ margin:"0 0 12px", fontSize:"12px", color:"var(--ira-texto-3)", fontStyle:"italic" }}>
                     {es ? a.work.es : a.work.en}
                   </p>
-                  <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-2)", lineHeight:1.7 }}>
+                  <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.7 }}>
                     {es ? a.contribution.es : a.contribution.en}
                   </p>
                 </div>
@@ -247,9 +247,9 @@ export default function AboutPage() {
             ].map((t, i) => (
               <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)",
                 borderRadius:"10px", padding:"14px 12px" }}>
-                <p style={{ margin:"0 0 6px", fontSize:"10px", fontWeight:700, color:"var(--ira-texto-2)", textTransform:"uppercase", letterSpacing:"0.06em" }}>{t.tool}</p>
-                <p style={{ margin:"0 0 8px", fontSize:"11px", color:"var(--ira-texto-2)" }}>{t.does}</p>
-                <p style={{ margin:0, fontSize:"10px", color:"rgba(224,82,82,0.6)", fontStyle:"italic" }}>↳ {t.limit}</p>
+                <p style={{ margin:"0 0 6px", fontSize:"13px", fontWeight:700, color:"var(--ira-texto-2)", textTransform:"uppercase", letterSpacing:"0.06em" }}>{t.tool}</p>
+                <p style={{ margin:"0 0 8px", fontSize:"14px", color:"var(--ira-texto-2)" }}>{t.does}</p>
+                <p style={{ margin:0, fontSize:"13px", color:"var(--ira-marca-polarizante)", fontStyle:"italic" }}>↳ {t.limit}</p>
               </div>
             ))}
           </div>
@@ -265,11 +265,11 @@ export default function AboutPage() {
           <div style={{ maxWidth:"900px", margin:"0 auto" }}>
             <Label es={es} es_text="La metodología" en_text="The methodology" />
             <div style={{ display:"flex", alignItems:"baseline", gap:"16px", marginBottom:"40px", flexWrap:"wrap" }}>
-              <h2 style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
+              <h2 style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
                 color:"var(--ira-nieve)", letterSpacing:"-0.03em" }}>
                 {es ? "7 dimensiones." : "7 dimensions."}
               </h2>
-              <span style={{ fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
+              <span style={{ fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
                 color:"var(--ira-texto-3)", letterSpacing:"-0.03em" }}>
                 {es ? "Una puntuación." : "One score."}
               </span>
@@ -280,10 +280,10 @@ export default function AboutPage() {
                 <div key={i} style={{ padding:"16px", borderRadius:"12px",
                   background:"rgba(255,255,255,0.02)", border:`1px solid ${PARAM_COLORS[i]}22`,
                   borderLeft:`3px solid ${PARAM_COLORS[i]}` }}>
-                  <p style={{ margin:"0 0 6px", fontSize:"12px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-titulo)" }}>
+                  <p style={{ margin:"0 0 6px", fontSize:"12px", fontWeight:500, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-titulo)" }}>
                     {es ? p.es : p.en}
                   </p>
-                  <p style={{ margin:0, fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.55 }}>
+                  <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)", lineHeight:1.55 }}>
                     {es ? p.desc_es : p.desc_en}
                   </p>
                 </div>
@@ -292,12 +292,12 @@ export default function AboutPage() {
 
             {/* Escala visual */}
             <div style={{ marginTop:"40px", display:"flex", alignItems:"center", gap:"12px" }}>
-              <span style={{ fontSize:"10px", color:"var(--ira-estrella-polarizante)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
+              <span style={{ fontSize:"13px", color:"var(--ira-estrella-polarizante)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
                 0 — {es?"Máx. polarización":"Max. polarization"}
               </span>
               <div style={{ flex:1, height:"4px", borderRadius:"4px",
                 background:"linear-gradient(90deg,#8F1C17,#BE281A 10%,#CB4021 20%,#D7662A 30%,#E59236 40%,#EEA73D 50%,#F4BC41 60%,#DAB850 70%,#C1B360 80%,#A7AE6F 90%,#8DAA7E)" }} />
-              <span style={{ fontSize:"10px", color:"var(--ira-salvia)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
+              <span style={{ fontSize:"13px", color:"var(--ira-salvia)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
                 10 — {es?"Máx. empatía":"Max. empathy"}
               </span>
             </div>
@@ -328,18 +328,16 @@ export default function AboutPage() {
             <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
               <div style={{ width:"1px", height:"32px", background:"rgba(220,177,73,0.4)" }} />
               <div>
-                <p style={{ margin:"0 0 2px", fontSize:"11px", fontWeight:700, color:"rgba(220,177,73,0.8)", letterSpacing:"0.06em" }}>
+                <p style={{ margin:"0 0 2px", fontSize:"14px", fontWeight:700, color:"rgba(220,177,73,0.8)", letterSpacing:"0.06em" }}>
                   Ricardo Grisales Ramírez
                 </p>
-                <p style={{ margin:0, fontSize:"10px", color:"var(--ira-texto-3)" }}>
+                <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)" }}>
                   {es ? "Periodista · UCM 2024 · Creador del IRA" : "Journalist · UCM 2024 · Creator of the IRA"}
                 </p>
               </div>
             </div>
             <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer"
-              style={{ display:"inline-block", marginTop:"14px", fontSize:"10px", color:"rgba(220,177,73,0.6)", textDecoration:"none", letterSpacing:"0.06em" }}
-              onMouseEnter={e => e.currentTarget.style.color="#DCB149"}
-              onMouseLeave={e => e.currentTarget.style.color="rgba(220,177,73,0.6)"}
+              style={{ display:"inline-flex", alignItems:"center", minHeight:"44px", marginTop:"6px", fontSize:"14px", textUnderlineOffset:"4px" }}
             >oranrick.com →</a>
           </div>
 
@@ -358,7 +356,7 @@ function Label({ es, es_text, en_text }) {
   return (
     <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
       <div style={{ width:"28px", height:"1px", background:"rgba(220,177,73,0.5)" }} />
-      <span style={{ fontSize:"9px", letterSpacing:"0.2em", color:"rgba(220,177,73,0.55)", textTransform:"uppercase" }}>
+      <span style={{ fontSize:"12px", letterSpacing:"0.2em", color:"rgba(220,177,73,0.55)", textTransform:"uppercase" }}>
         {es ? es_text : en_text}
       </span>
     </div>
@@ -368,7 +366,7 @@ function Label({ es, es_text, en_text }) {
 function Prose({ es, es: _es, en, children }) {
   const text = _es ? es : en;
   return (
-    <p style={{ margin:"0 0 18px", fontSize:"12.5px", color:"var(--ira-texto-2)", lineHeight:1.8 }}>
+    <p style={{ margin:"0 0 18px", fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.8 }}>
       {text || children}
     </p>
   );

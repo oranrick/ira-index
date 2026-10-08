@@ -1,0 +1,35 @@
+.ira-destellos {
+  position: fixed;
+  inset: 0;
+  z-index: 0;            /* el contenido de la página va por encima (position: relative; z-index: 1) */
+  overflow: hidden;
+  pointer-events: none;
+}
+.ira-destello { position: absolute; width: 0; height: 0; }
+.ira-destello__nucleo { position: absolute; border-radius: 50%; }
+.ira-destello__onda {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes ira-titileo {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(0.7); }
+}
+@keyframes ira-onda {
+  0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.4); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.6); }
+}
+/* Estrellita de las palabras marcadas en los fragmentos */
+@keyframes ira-brillo {
+  0%, 100% { opacity: 0.55; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.1) rotate(45deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ira-destellos *, .ira-estrella { animation: none !important; }
+}

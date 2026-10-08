@@ -397,7 +397,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
             </div>
             <div style={styles.modalBody}>
               {transcriptLoading ? (
-                <span style={{ color: "var(--ira-texto-3)", fontSize: '0.75rem' }}>{T.transcriptLoading}</span>
+                <span style={{ color: "var(--ira-texto-3)", fontSize: '15px' }}>{T.transcriptLoading}</span>
               ) : transcriptText ? (
                 transcriptText
                   .split(/\n\n+/)
@@ -406,7 +406,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                     <p key={i} style={styles.modalParagraph}>{para.trim()}</p>
                   ))
               ) : (
-                <span style={{ color: "var(--ira-texto-3)", fontSize: '0.75rem' }}>{T.transcriptUnavailable}</span>
+                <span style={{ color: "var(--ira-texto-3)", fontSize: '15px' }}>{T.transcriptUnavailable}</span>
               )}
             </div>
           </div>

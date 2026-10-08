@@ -138,3 +138,6 @@ button, input, select, textarea { font-family: inherit; }
     gap: 10px;
   }
 }
+
+@media (max-width: 768px) { .ira-volver { margin-left: 20px; } }
+@media (max-width: 600px) { .ira-volver { margin-left: 16px; } }
