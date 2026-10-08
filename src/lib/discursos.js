@@ -36,7 +36,7 @@ export function citaDestacada(speech, lang = 'es', max = 220) {
   const seg = (speech?.segments ?? []).find((s) => s.type && (s.text ?? '').trim().length > 20);
   let t = seg ? textoFragmento(seg, lang) : '';
   if (!t) t = (lang === 'en' && speech?.summaryEn) ? speech.summaryEn : (speech?.summary ?? '');
-  t = t.trim();
+  t = t.trim().replace(/^["“«]+|["”»]+$/g, '').trim();
   if (t.length > max) t = t.slice(0, max).replace(/\s+\S*$/, '') + '…';
   return t;
 }

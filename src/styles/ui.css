@@ -293,3 +293,140 @@ a.ira-chip { text-decoration: none; }
 /* ── Estructura de la app: el pie queda abajo en páginas cortas ───────────── */
 .ira-app { min-height: 100vh; display: flex; flex-direction: column; }
 .ira-app > main { flex: 1 0 auto; }
+
+/* ── Ventana modal ────────────────────────────────────────────────────────── */
+.ira-ventana__fondo {
+  position: fixed; inset: 0; z-index: 700; padding: 24px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(4, 20, 20, 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  animation: ira-entrada 240ms ease-out;
+}
+.ira-ventana {
+  width: 100%; max-height: calc(100vh - 48px); overflow-y: auto; box-sizing: border-box;
+  padding: 36px; display: flex; flex-direction: column; gap: 22px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); color: var(--ira-nieve);
+}
+.ira-ventana:focus { outline: none; }
+.ira-ventana__cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.ira-ventana__antetitulo { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ira-oro); }
+.ira-ventana__titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; }
+.ira-ventana__cuerpo { margin: 0; font-size: 16px; line-height: 27px; color: var(--ira-texto-cita); }
+.ira-ventana__caja {
+  display: flex; flex-direction: column; gap: 10px; padding: 18px 20px;
+  background: var(--ira-noche); border: 1px solid var(--ira-linea); border-radius: 12px;
+}
+.ira-ventana__caja-titulo { margin: 0; font-family: var(--ira-font-texto); font-weight: 400; font-size: 12px; color: var(--ira-texto-3); }
+.ira-ventana__caja ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.ira-ventana__caja li { display: flex; gap: 10px; align-items: baseline; font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
+.ira-ventana__punto { flex-shrink: 0; width: 6px; height: 6px; border-radius: 3px; transform: translateY(-2px); }
+.ira-ventana__pie {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding-top: 18px; border-top: 1px solid var(--ira-linea); font-size: 13px; color: var(--ira-texto-3);
+}
+.ira-ventana__enlace { flex-shrink: 0; font-size: 14px; font-weight: 500; text-underline-offset: 4px; padding: 12px 0; }
+@keyframes ira-entrada { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 600px) {
+  .ira-ventana__fondo { padding: 12px; align-items: flex-end; }
+  .ira-ventana { padding: 24px 20px; }
+  .ira-ventana__titulo { font-size: 24px; }
+}
+
+/* ── Estrella y palabras marcadas ─────────────────────────────────────────── */
+.ira-estrella--titila { animation: ira-brillo 2.4s ease-in-out infinite; }
+@keyframes ira-brillo {
+  0%, 100% { opacity: 0.55; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.1) rotate(45deg); }
+}
+.ira-marca { position: relative; }
+.ira-marca--polarizante { color: var(--ira-marca-polarizante); text-shadow: var(--ira-halo-polarizante); }
+.ira-marca--empatico { color: var(--ira-marca-empatica); text-shadow: var(--ira-halo-empatico); }
+/* Cuando lo marcado es una frase entera, el halo se suaviza para no perder legibilidad */
+.ira-marca--larga.ira-marca--polarizante { text-shadow: 0 0 12px rgba(190, 40, 26, 0.55); }
+.ira-marca--larga.ira-marca--empatico { text-shadow: 0 0 12px rgba(141, 170, 126, 0.55); }
+/* La estrella va al final de lo marcado, levantada como un superíndice */
+.ira-marca .ira-estrella { display: inline-block; vertical-align: top; margin: -2px -6px 0 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .ira-estrella--titila { animation: none; }
+}
+
+/* ── Panel de ejemplos (portada) ──────────────────────────────────────────── */
+.ira-panel-ej {
+  width: 440px; flex-shrink: 0; box-sizing: border-box; padding: 28px;
+  display: flex; flex-direction: column; gap: 22px;
+  background: rgba(10, 30, 30, 0.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl);
+}
+.ira-panel-ej__contenido { display: flex; flex-direction: column; gap: 22px; animation: ira-fundido 500ms ease; }
+@keyframes ira-fundido { from { opacity: 0; } to { opacity: 1; } }
+.ira-panel-ej__vacio { margin: 0; min-height: 420px; display: flex; align-items: center; justify-content: center; color: var(--ira-texto-2); font-size: 14px; }
+.ira-panel-ej__datos {
+  margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--ira-linea);
+}
+.ira-panel-ej__datos > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ira-panel-ej__datos dt { font-size: 12px; color: var(--ira-texto-3); }
+.ira-panel-ej__datos dd { margin: 0; font-size: 14px; line-height: 20px; color: var(--ira-nieve); overflow-wrap: anywhere; }
+.ira-cifra-fecha { font-family: var(--ira-font-cifra); font-variant-numeric: tabular-nums; }
+.ira-panel-ej__fragmentos { display: flex; flex-direction: column; gap: 18px; min-height: 340px; }
+.ira-panel-ej__fragmento { display: flex; gap: 14px; align-items: flex-start; }
+.ira-panel-ej__fragmento p { margin: 0; font-size: 16px; line-height: 28px; color: var(--ira-texto-cita); }
+.ira-panel-ej__fragmento mark { background: none; }
+.ira-panel-ej__etiqueta.ira-etiqueta--pastilla { height: 26px; padding: 0 8px; font-size: 13px; margin-top: 1px; }
+.ira-panel-ej__resumen {
+  display: flex; justify-content: space-between; align-items: flex-end; gap: 16px;
+  padding-top: 20px; border-top: 1px solid var(--ira-linea);
+}
+.ira-panel-ej__rotulo { font-size: 12px; color: var(--ira-texto-3); }
+.ira-panel-ej__cifra { margin: 0; display: flex; align-items: baseline; gap: 6px; font-family: var(--ira-font-cifra); font-weight: 500; line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.ira-panel-ej__cifra > span:first-child { font-size: 40px; }
+.ira-panel-ej__max { font-size: 16px; font-weight: 400; color: var(--ira-texto-3); letter-spacing: 0; }
+.ira-panel-ej__leyenda { display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--ira-texto-2); }
+.ira-panel-ej__leyenda > span { display: inline-flex; align-items: center; gap: 8px; }
+.ira-panel-ej__controles { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.ira-panel-ej__punto { width: 28px; height: 44px; padding: 0; background: transparent; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.ira-panel-ej__punto > span { display: block; height: 6px; border-radius: 3px; transition: width 200ms ease; }
+.ira-panel-ej__contador { font-family: var(--ira-font-cifra); font-size: 12px; color: var(--ira-texto-3); padding-right: 4px; }
+.ira-icono-trazo { fill: none; stroke: currentColor; stroke-width: 1.75px; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── Portada ──────────────────────────────────────────────────────────────── */
+.ira-portada {
+  max-width: 1440px; margin: 0 auto; box-sizing: border-box;
+  padding: 24px clamp(16px, 6.6vw, 96px) 72px;
+  min-height: calc(100vh - 96px);
+  display: flex; align-items: center; justify-content: space-between; gap: 64px;
+}
+.ira-portada__texto { flex: 1 1 0; min-width: 0; max-width: 740px; display: flex; flex-direction: column; gap: 28px; }
+.ira-portada__titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(44px, 5.3vw, 76px); line-height: 1.02; letter-spacing: -0.03em; }
+.ira-portada__intro { margin: 0; max-width: 600px; font-size: 18px; line-height: 1.6; color: var(--ira-texto-2); }
+.ira-portada__intro a { color: var(--ira-nieve); text-decoration-color: var(--ira-oro); text-underline-offset: 4px; }
+.ira-portada__intro a:hover { text-decoration-color: var(--ira-oro-hover); }
+.ira-portada__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.ira-portada__nota { margin: -12px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-3); }
+.ira-portada__nota .ira-enlace-boton { color: var(--ira-oro); text-decoration-color: currentColor; text-underline-offset: 3px; }
+.ira-portada__escala { padding-top: 20px; max-width: 520px; }
+@media (max-width: 1100px) {
+  .ira-portada { flex-direction: column; align-items: stretch; min-height: 0; gap: 48px; padding-top: 32px; }
+  .ira-portada__texto { max-width: none; }
+  .ira-panel-ej { width: 100%; max-width: 560px; }
+}
+@media (max-width: 600px) {
+  .ira-portada__intro { font-size: 17px; line-height: 28px; }
+  .ira-portada__acciones .ira-boton { width: 100%; }
+  .ira-panel-ej { padding: 20px; }
+  .ira-panel-ej__fragmentos { min-height: 0; }
+}
+
+/* ── Página de discursos ──────────────────────────────────────────────────── */
+.ira-filtros { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.ira-filtros__grupo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ira-filtros__rotulo { font-size: 13px; color: var(--ira-texto-2); margin-right: 4px; }
+.ira-filtros__total { margin: 0 0 20px; font-size: 13px; color: var(--ira-texto-2); }
+.ira-rejilla-discursos {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;
+}
+.ira-rejilla-discursos > li { display: flex; }
+.ira-rejilla-discursos > li > .ira-tarjeta { flex: 1; }
+.ira-tarjeta--compacta .ira-tarjeta__pie { margin-top: auto; }
+@media (max-width: 480px) { .ira-rejilla-discursos { grid-template-columns: 1fr; } }

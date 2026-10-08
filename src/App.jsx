@@ -22,6 +22,8 @@ const RadarSection = lazy(() => import("./components/RadarSection"));
 const AuthModal    = lazy(() => import("./components/AuthModal").then(m => ({ default: m.AuthModal })));
 const DailyAnalysis = lazy(() => import("./components/DailyAnalysis"));
 const PatternsPage = lazy(() => import("./components/PatternsPage"));
+const Portada = lazy(() => import("./components/Portada.jsx"));
+const DiscursosPage = lazy(() => import("./components/DiscursosPage.jsx"));
 
 const AccentContext = createContext({
   accent: '#DCB149',
@@ -902,7 +904,7 @@ const MONTHS_ES_ROW = ['enero','febrero','marzo','abril','mayo','junio',
                        'julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
 /** Convierte una fila de daily_analyses al shape que esperan SpeechCard / SpeechView */
-function rowToSpeech(row) {
+export function rowToSpeech(row) {
   let dateStr = row.published_date ?? '';
   if (row.published_date) {
     const d = new Date(row.published_date + 'T00:00:00Z');
@@ -943,7 +945,7 @@ function rowToSpeech(row) {
   };
 }
 
-function mergeSpeech(speech, row) {
+export function mergeSpeech(speech, row) {
   if (!speech) return null;
   if (!row) return speech;
   return {
@@ -1965,7 +1967,8 @@ export default function App() {
       <Nav />
       <main id="contenido">
       <Routes>
-        <Route path="/" element={<Navigate to="/politicos" replace />} />
+        <Route path="/" element={<Suspense fallback={null}><Portada /></Suspense>} />
+        <Route path="/discursos" element={<Suspense fallback={null}><DiscursosPage /></Suspense>} />
         <Route path="/politicos" element={<MainView mode="politico" tab="explore" />} />
         <Route path="/medios" element={<MainView mode="medios" tab="explore" />} />
         <Route path="/analyze" element={<MainView mode="politico" tab="analyze" />} />
