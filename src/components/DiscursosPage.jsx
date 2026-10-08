@@ -32,7 +32,7 @@ const TXT = {
 
 const COLUMNAS = 'id,entity_id,entity_name,title,published_date,source_url,ira,params,segments,summary,lectura_autor';
 
-function Superposicion({ speech, lang, onCerrar }) {
+export function Superposicion({ speech, lang, onCerrar }) {
   const ref = useRef(null);
   useAtraparFoco(true, ref, onCerrar);
   return (

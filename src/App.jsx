@@ -26,6 +26,7 @@ const DailyAnalysis = lazy(() => import("./components/DailyAnalysis"));
 const PatternsPage = lazy(() => import("./components/PatternsPage"));
 const Portada = lazy(() => import("./components/Portada.jsx"));
 const DiscursosPage = lazy(() => import("./components/DiscursosPage.jsx"));
+const PaisPage = lazy(() => import("./components/PaisPage.jsx"));
 
 const AccentContext = createContext({
   accent: '#DCB149',
@@ -1990,6 +1991,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Suspense fallback={null}><Portada /></Suspense>} />
         <Route path="/discursos" element={<Suspense fallback={null}><DiscursosPage /></Suspense>} />
+        <Route path="/pais/:slug" element={<Suspense fallback={null}><PaisPage /></Suspense>} />
         <Route path="/politicos" element={<MainView mode="politico" tab="explore" />} />
         <Route path="/medios" element={<MainView mode="medios" tab="explore" />} />
         <Route path="/analyze" element={<MainView mode="politico" tab="analyze" />} />

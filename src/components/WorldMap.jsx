@@ -1,197 +1,277 @@
-// src/components/WorldMap.jsx
-// Mapa mundial interactivo: muestra entidades como círculos coloreados por IRA
-// sobre un fondo de mapa equirectangular de Wikipedia (dominio público).
+// IRA · mapa mundial interactivo
+// Geometría local (src/data/mapaMundo.js, se carga bajo demanda). Cada país con discursos analizados
+// late con el color de su puntuación (promedio de sus figuras). Pasar el cursor abre un resumen con
+// enlace "Ver país"; hacer clic fija el país, acerca el mapa y muestra su resumen y sus botones.
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { colorPuntuacion, textoSobrePuntuacion, formatearPuntuacion } from '../lib/escala';
+import { AppContext, mergeSpeech } from '../App.jsx';
+import { colorPuntuacion, formatearPuntuacion } from '../lib/escala';
+import { fechaCorta } from '../lib/discursos';
+import {
+  PAISES, POLITICOS, PENDIENTES, nombrePais, urlBandera, etiquetaNivel, agruparPorPais, puntuacionFigura, discursosDelPais,
+} from '../lib/paises';
+import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
+import BarraEscala from './ui/BarraEscala.jsx';
 import IndicadorEscala from './ui/IndicadorEscala.jsx';
 
-const IRA_COLOR = (score) => (score == null ? '#4A5C5C' : colorPuntuacion(score));
+const SIN_DATOS = '#4A5C5C';
 
-// Coordenadas lon/lat reales para la proyección equirectangular (base
-// -180..180 / -90..90, lineal). Entidades que comparten ciudad llevan un
-// offset dentro de su país para no solaparse (comentado en cada caso).
-const COORDS = {
-  mujica:    { lon: -56.2,  lat: -34.9 },   // Montevideo
-  ardern:    { lon: 174.8,  lat: -41.3 },   // Wellington
-  sheinbaum: { lon: -99.1,  lat:  19.4 },   // Ciudad de México
-  sanchez:   { lon:  -3.7,  lat:  40.4 },   // Madrid
-  petro:     { lon: -74.1,  lat:   4.6 },   // Bogotá
-  trump:     { lon: -98.0,  lat:  39.0 },   // centro EE.UU. (Kansas) — deja NY libre para Fox
-  milei:     { lon: -64.2,  lat: -31.4 },   // Córdoba (Buenos Aires solaparía con Montevideo)
-  putin:     { lon:  37.6,  lat:  55.8 },   // Moscú
-  rufian:    { lon:   2.15, lat:  41.4 },   // Barcelona
-  bukele:    { lon: -89.2,  lat:  13.7 },   // San Salvador
-  kast:      { lon: -70.7,  lat: -33.5 },   // Santiago de Chile
-  elpais:    { lon:  -6.0,  lat:  42.8 },   // sede Madrid — offset NO para no solapar Sánchez
-  telemundo: { lon: -80.2,  lat:  25.8 },   // Miami
-  foxnews:   { lon: -74.0,  lat:  40.7 },   // Nueva York
-  publico:   { lon:  -5.8,  lat:  37.4 },   // sede Madrid — offset SO para no solapar Sánchez
-  rt:        { lon:  37.6,  lat:  61.0 },   // sede Moscú — offset norte para no solapar Putin
+const TXT = {
+  es: {
+    titulo: 'Distribución geográfica',
+    sub: 'Cada país con discursos analizados late con el color de su puntuación. Pasa el cursor para ver su resumen y haz clic para acercarlo.',
+    alt: 'Mapa mundial con los países que tienen discursos analizados, coloreados por su puntuación IRA',
+    lideres: 'Líderes políticos analizados:', ultimo: 'Último análisis:', verPais: 'Ver país',
+    todo: 'Ver todo el mundo', sinDiscursos: 'Sin discursos analizados', elige: 'Elige un país',
+    eligeTexto: 'Haz clic en un país con ondas para fijarlo: aquí verás su resumen y los botones para entrar a sus discursos y a cada figura analizada. El ritmo de las ondas refleja la puntuación: rápido y nervioso cuando el lenguaje polariza, lento y amplio cuando es empático.',
+    paises: 'Países con análisis', todos: 'Todos los discursos', sinAnalisis: 'Sin análisis aún',
+    figuras: (n) => `${n} ${n === 1 ? 'figura analizada' : 'figuras analizadas'}`,
+    discursos: (n) => `${n} ${n === 1 ? 'discurso' : 'discursos'}`,
+    detalle: 'Detalle del país', de: 'de 10',
+  },
+  en: {
+    titulo: 'Geographic distribution',
+    sub: 'Each country with analyzed speeches pulses with the color of its score. Hover to see its summary and click to zoom in.',
+    alt: 'World map of the countries with analyzed speeches, colored by their IRA score',
+    lideres: 'Political leaders analyzed:', ultimo: 'Latest analysis:', verPais: 'See country',
+    todo: 'Show the whole world', sinDiscursos: 'No analyzed speeches', elige: 'Choose a country',
+    eligeTexto: 'Click a country with ripples to pin it: you will see its summary and buttons to its speeches and each analyzed figure. The pulse rate reflects the score: fast and jittery when the language polarizes, slow and wide when it is empathic.',
+    paises: 'Countries analyzed', todos: 'All speeches', sinAnalisis: 'Not analyzed yet',
+    figuras: (n) => `${n} ${n === 1 ? 'figure analyzed' : 'figures analyzed'}`,
+    discursos: (n) => `${n} ${n === 1 ? 'speech' : 'speeches'}`,
+    detalle: 'Country detail', de: 'out of 10',
+  },
 };
 
-const MAP_W = 800;
-const MAP_H = 400;
+function Flecha() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" className="ira-mapa__flecha">
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
 
-function lonToX(lon) { return ((lon + 180) / 360) * MAP_W; }
-function latToY(lat) { return ((90 - lat) / 180) * MAP_H; }
+export default function WorldMap({ entities, lang = 'es' }) {
+  const t = TXT[lang] ?? TXT.es;
+  const { supabaseMap } = useContext(AppContext);
+  const [geo, setGeo] = useState(null);
+  const [sel, setSel] = useState(null);
+  const [hov, setHov] = useState(null);
+  const temporizador = useRef(null);
 
-const TEXTS = {
-  es: { title: 'Distribución geográfica', subtitle: 'Haz clic en un país para ver su análisis' },
-  en: { title: 'Geographic distribution', subtitle: 'Click a country to view its analysis' },
-};
+  useEffect(() => {
+    let vivo = true;
+    import('../data/mapaMundo.js').then((m) => { if (vivo) setGeo(m); }).catch(() => {});
+    return () => { vivo = false; clearTimeout(temporizador.current); };
+  }, []);
 
-export default function WorldMap({ entities, lang = 'es', accent = '#DCB149' }) {
-  const navigate = useNavigate();
-  const [hovered, setHovered] = useState(null);
-  const T = TEXTS[lang] || TEXTS.es;
-  const accentA = (a) => accent === '#DCB149'
-    ? `rgba(220,177,73,${a})`
-    : `rgba(220,177,73,${a})`;
+  const paises = useMemo(() => agruparPorPais(entities, puntuacionFigura).map((p) => {
+    const discursos = discursosDelPais(p.figuras, supabaseMap, mergeSpeech);
+    return { ...p, discursos, ultimo: discursos[0] ?? null };
+  }), [entities, supabaseMap]);
+
+  if (paises.length === 0) return null;
+
+  const porSlug = Object.fromEntries(paises.map((p) => [p.slug, p]));
+  const activos = new Set(paises.map((p) => PAISES[p.nombre].atlas));
+  const seleccion = sel ? porSlug[sel] : null;
+  const enfoque = hov ? porSlug[hov] : null;
+
+  const entrar = (slug) => { clearTimeout(temporizador.current); setHov(slug); };
+  const salir = () => { clearTimeout(temporizador.current); temporizador.current = setTimeout(() => setHov(null), 260); };
+  const alternar = (slug) => setSel((s) => (s === slug ? null : slug));
+  const alTeclado = (e, slug) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alternar(slug); } };
+
+  // Zoom hacia el país fijado (mismo cálculo que el prototipo del diseño)
+  let k = 1, tx = 0, ty = 0;
+  if (geo && seleccion) {
+    const bb = geo.PAISES_GEO[PAISES[seleccion.nombre].atlas].bb;
+    const bw = Math.max(bb[2] - bb[0], 8), bh = Math.max(bb[3] - bb[1], 8);
+    k = Math.min((geo.MAPA_W * 0.55) / bw, (geo.MAPA_H * 0.62) / bh, 7);
+    tx = geo.MAPA_W / 2 - (k * (bb[0] + bb[2])) / 2;
+    ty = geo.MAPA_H / 2 - (k * (bb[1] + bb[3])) / 2;
+  }
+
+  // Posición del resumen flotante, en % del lienzo
+  let tip = null;
+  if (geo && enfoque) {
+    const [cx, cy] = geo.PAISES_GEO[PAISES[enfoque.nombre].atlas].c;
+    const x = ((tx + k * cx) / geo.MAPA_W) * 100;
+    const y = ((ty + k * cy) / geo.MAPA_H) * 100;
+    tip = { x, y, izquierda: x > 56 };
+  }
+
+  const pulso = (p) => (1.5 + (p ?? 5) * 0.32).toFixed(2);
 
   return (
-    <div className="ira-panel" style={{ marginTop: '28px' }}>
-      <div style={{ marginBottom: '14px' }}>
-        <h3 className="ira-seccion__titulo" style={{ marginBottom: '4px' }}>
-          {T.title}
-        </h3>
-        <p style={{ margin: 0, fontSize: '14px', color: "var(--ira-texto-2)" }}>
-          {T.subtitle}
-        </p>
+    <section className="ira-panel ira-mapa" aria-labelledby="ira-mapa-titulo" style={{ marginTop: 28 }}>
+      <div style={{ marginBottom: 18 }}>
+        <h3 id="ira-mapa-titulo" className="ira-seccion__titulo" style={{ marginBottom: 6 }}>{t.titulo}</h3>
+        <p style={{ margin: 0, fontSize: 14, color: 'var(--ira-texto-2)', maxWidth: 640 }}>{t.sub}</p>
       </div>
 
-      <div style={{ position: 'relative', width: '100%', borderRadius: '8px', overflow: 'hidden', background: 'rgba(0,0,0,0.3)' }}>
-        {/* Fondo: proyección equirectangular completa (-180..180 / -90..90),
-            dominio público (Wikimedia "World location map"). Debe ser
-            equirectangular: la conversión lon/lat → x/y es lineal. */}
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/World_location_map_%28equirectangular_180%29.svg/1280px-World_location_map_%28equirectangular_180%29.svg.png"
-          alt=""
-          draggable={false}
-          style={{ width: '100%', display: 'block', opacity: 0.18, filter: 'invert(1) grayscale(1)', userSelect: 'none' }}
-        />
+      <div className="ira-mapa__cuerpo">
+        <div className="ira-mapa__marco">
+          <div className="ira-mapa__lienzo">
+            <div className="ira-mapa__barrido" aria-hidden="true" />
+            {geo ? (
+              <svg viewBox={`0 0 ${geo.MAPA_W} ${geo.MAPA_H}`} role="img" aria-label={t.alt} className="ira-mapa__svg">
+                <g className="ira-mapa__grupo" style={{ transform: `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) scale(${k.toFixed(3)})` }}>
+                  <path d={geo.ESFERA} fill="rgba(4,20,20,0.35)" stroke="#1B3636" vectorEffect="non-scaling-stroke" />
+                  <path d={geo.GRATICULA} fill="none" stroke="#143030" strokeWidth="0.6" strokeDasharray="2 4" vectorEffect="non-scaling-stroke" />
+                  {Object.entries(geo.PAISES_GEO).filter(([n]) => !activos.has(n)).map(([n, g]) => (
+                    <path key={n} d={g.d} fill="#0E2323" stroke="#1F4141" strokeWidth="0.6" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+                  ))}
+                  {paises.map((p) => {
+                    const g = geo.PAISES_GEO[PAISES[p.nombre].atlas];
+                    const color = p.puntuacion == null ? SIN_DATOS : colorPuntuacion(p.puntuacion);
+                    const fijado = sel === p.slug;
+                    const activo = hov === p.slug || fijado;
+                    const atenuado = sel && !fijado && hov !== p.slug;
+                    return (
+                      <g key={p.slug}>
+                        <path
+                          d={g.d} fill={color} stroke={activo ? '#FCFDFF' : color} strokeWidth={fijado ? 1.6 : activo ? 1.3 : 0.7}
+                          strokeLinejoin="round" vectorEffect="non-scaling-stroke"
+                          className="ira-mapa__pais" tabIndex={0} role="button" aria-pressed={fijado}
+                          aria-label={`${nombrePais(p, lang)}, ${formatearPuntuacion(p.puntuacion, lang)} ${t.de}`}
+                          style={{ opacity: atenuado ? 0.5 : 0.92, filter: `drop-shadow(0 0 ${activo ? 14 : 7}px ${color})` }}
+                          onClick={() => alternar(p.slug)} onKeyDown={(e) => alTeclado(e, p.slug)}
+                          onMouseEnter={() => entrar(p.slug)} onMouseLeave={salir} onFocus={() => entrar(p.slug)} onBlur={salir}
+                        />
+                      </g>
+                    );
+                  })}
+                  {paises.map((p) => {
+                    const g = geo.PAISES_GEO[PAISES[p.nombre].atlas];
+                    const color = p.puntuacion == null ? SIN_DATOS : colorPuntuacion(p.puntuacion);
+                    const dur = `${pulso(p.puntuacion)}s`;
+                    return (
+                      <g key={p.slug} transform={`translate(${g.c[0]} ${g.c[1]}) scale(${(1 / Math.pow(k, 0.7)).toFixed(3)})`}>
+                        <circle r="3" fill="none" stroke={color} vectorEffect="non-scaling-stroke" className="ira-mapa__onda" style={{ animationDuration: dur }} />
+                        <circle r="3" fill="none" stroke={color} vectorEffect="non-scaling-stroke" className="ira-mapa__onda" style={{ animationDuration: dur, animationDelay: `${(pulso(p.puntuacion) / 2).toFixed(2)}s` }} />
+                        <circle r="2.6" fill={color} style={{ pointerEvents: 'none' }} />
+                        <circle r="1" fill="#FCFDFF" style={{ pointerEvents: 'none' }} />
+                        <circle r={9 / k} fill="transparent" style={{ cursor: 'pointer' }} onClick={() => alternar(p.slug)} onMouseEnter={() => entrar(p.slug)} onMouseLeave={salir} />
+                      </g>
+                    );
+                  })}
+                </g>
+              </svg>
+            ) : (
+              <p className="ira-mapa__cargando" role="status">…</p>
+            )}
 
-        {/* Overlay SVG con los indicadores de entidades.
-            preserveAspectRatio="none" fija el viewBox 2:1 al box del <img>
-            (también 2:1) sin letterboxing por redondeos. */}
-        <svg
-          viewBox={`0 0 ${MAP_W} ${MAP_H}`}
-          preserveAspectRatio="none"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible' }}
-        >
-          {entities.map((entity) => {
-            const coords = COORDS[entity.id];
-            if (!coords) return null;
-            const cx = lonToX(coords.lon);
-            const cy = latToY(coords.lat);
-            const color = IRA_COLOR(entity.score);
-            const isHov = hovered === entity.id;
-            const r = isHov ? 20 : 16;
-            // etiqueta corta: apellido (último token) para personas;
-            // nombre sin paréntesis para medios ("RT (Russia Today)" → "RT")
-            const shortName = entity.category === 'Medio'
-              ? entity.name.replace(/\s*\([^)]*\)/g, '').trim()
-              : entity.name.split(' ').pop();
+            {sel && (
+              <button type="button" className="ira-mapa__reset ira-boton ira-boton--secundario ira-boton--compacto" onClick={() => setSel(null)}>{t.todo}</button>
+            )}
+            <span className="ira-mapa__nota"><span className="ira-mapa__muestra" aria-hidden="true" />{t.sinDiscursos}</span>
+          </div>
 
-            return (
-              <g
-                key={entity.id}
-                style={{ cursor: 'pointer' }}
-                onClick={() => navigate(`/entity/${entity.id}`)}
-                onMouseEnter={() => setHovered(entity.id)}
-                onMouseLeave={() => setHovered(null)}
-              >
-                {/* Halo exterior */}
-                <circle
-                  cx={cx} cy={cy}
-                  r={r + 6}
-                  fill={color}
-                  fillOpacity={isHov ? 0.20 : 0.09}
-                  style={{ transition: 'all 0.2s ease' }}
-                />
-                {/* Círculo principal */}
-                <circle
-                  cx={cx} cy={cy}
-                  r={r}
-                  fill={color}
-                  fillOpacity={isHov ? 0.95 : 0.82}
-                  stroke="rgba(0,0,0,0.35)"
-                  strokeWidth={1}
-                  style={{ transition: 'all 0.2s ease' }}
-                />
-                {/* Score text */}
-                <text
-                  x={cx} y={cy + 0.5}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  style={{
-                    fontSize: isHov ? '9.5px' : '8.5px',
-                    fontWeight: 500,
-                    fill: entity.score != null ? textoSobrePuntuacion(entity.score) : '#FCFDFF',
-                    fontFamily: "var(--ira-font-cifra)",
-                    pointerEvents: 'none',
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  {entity.score != null ? formatearPuntuacion(entity.score, lang) : '?'}
-                </text>
+          {tip && enfoque && (
+            <div
+              className="ira-mapa__tip" role="group" aria-label={nombrePais(enfoque, lang)}
+              style={{
+                left: `${tip.x}%`, top: `clamp(8px, calc(${tip.y}% - 110px), calc(100% - 350px))`,
+                transform: `translateX(${tip.izquierda ? 'calc(-100% - 24px)' : '24px'})`,
+              }}
+              onMouseEnter={() => entrar(enfoque.slug)} onMouseLeave={salir}
+            >
+              <div className="ira-mapa__tip-cab">
+                <img src={urlBandera(enfoque.iso)} alt="" width="52" height="39" className="ira-mapa__tip-bandera" />
+                <div>
+                  <p className="ira-mapa__tip-pais">{nombrePais(enfoque, lang)}</p>
+                  <p className="ira-mapa__tip-nivel"><EtiquetaPuntuacion puntuacion={enfoque.puntuacion} lang={lang} />{etiquetaNivel(enfoque.puntuacion, lang)}</p>
+                </div>
+              </div>
+              <div>
+                <p className="ira-mapa__tip-rotulo">{t.lideres}</p>
+                <ul className="ira-mapa__tip-lista">
+                  {enfoque.figuras.map((f) => (
+                    <li key={f.id}><span>{f.name}</span><EtiquetaPuntuacion puntuacion={f.puntuacion} variante="punto" lang={lang} /></li>
+                  ))}
+                </ul>
+              </div>
+              {enfoque.ultimo && (
+                <div className="ira-mapa__tip-ultimo">
+                  <p className="ira-mapa__tip-rotulo">{t.ultimo}</p>
+                  <p className="ira-mapa__tip-titulo">{(lang === 'en' && enfoque.ultimo.titleEn) || enfoque.ultimo.title}</p>
+                  <p className="ira-mapa__tip-meta">{enfoque.ultimo.entityName} · {fechaCorta(enfoque.ultimo.date)} · <EtiquetaPuntuacion puntuacion={enfoque.ultimo.iraScore} variante="punto" lang={lang} /></p>
+                </div>
+              )}
+              <Link to={`/pais/${enfoque.slug}`} className="ira-mapa__tip-enlace">{t.verPais}<Flecha /></Link>
+            </div>
+          )}
+        </div>
 
-                {/* Etiqueta siempre visible: bandera + apellido */}
-                <text
-                  x={cx} y={cy + r + 9}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  style={{
-                    fontSize: '7px',
-                    fontWeight: 600,
-                    fill: 'rgba(255,255,255,0.80)',
-                    fontFamily: "var(--ira-font-texto)",
-                    pointerEvents: 'none',
-                    letterSpacing: '0.02em',
-                  }}
-                >
-                  {entity.flag} {shortName}
-                </text>
-
-                {/* Tooltip completo al hacer hover */}
-                {isHov && (
-                  <g>
-                    <rect
-                      x={cx - 58} y={cy - 42}
-                      width={116} height={22}
-                      rx={5}
-                      fill="#112A2A"
-                      stroke={color}
-                      strokeWidth={0.8}
-                    />
-                    <text
-                      x={cx} y={cy - 30}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      style={{
-                        fontSize: '8.5px',
-                        fontWeight: 700,
-                        fill: '#fff',
-                        fontFamily: "var(--ira-font-texto)",
-                        pointerEvents: 'none',
-                      }}
-                    >
-                      {entity.flag} {entity.name}
-                    </text>
-                  </g>
-                )}
-              </g>
-            );
-          })}
-        </svg>
+        <aside className={`ira-mapa__panel${seleccion ? '' : ' ira-mapa__panel--vacio'}`} aria-label={t.detalle} aria-live="polite">
+          {seleccion ? (
+            <>
+              <div className="ira-mapa__panel-col">
+              <div className="ira-mapa__panel-cab">
+                <img src={urlBandera(seleccion.iso)} alt="" width="64" height="48" className="ira-mapa__panel-bandera" />
+                <h4 className="ira-mapa__panel-pais">{nombrePais(seleccion, lang)}</h4>
+              </div>
+              <div>
+                <p className="ira-mapa__panel-cifra">
+                  <span style={{ color: seleccion.puntuacion == null ? 'var(--ira-texto-3)' : colorPuntuacion(seleccion.puntuacion) }}>{formatearPuntuacion(seleccion.puntuacion, lang)}</span>
+                  <span className="ira-mapa__panel-max">/10</span>
+                  <EtiquetaPuntuacion puntuacion={seleccion.puntuacion} lang={lang} />
+                  <span className="ira-mapa__panel-nivel">{etiquetaNivel(seleccion.puntuacion, lang)}</span>
+                </p>
+                <div style={{ marginTop: 12 }}><BarraEscala puntuacion={seleccion.puntuacion} grosor={7} /></div>
+              </div>
+              </div>
+              <p className="ira-mapa__panel-texto">
+                {t.figuras(seleccion.figuras.length)} · {t.discursos(seleccion.discursos.length)}.
+                {seleccion.ultimo && <> {t.ultimo} «{(lang === 'en' && seleccion.ultimo.titleEn) || seleccion.ultimo.title}» ({fechaCorta(seleccion.ultimo.date)}).</>}
+              </p>
+              <div className="ira-mapa__botones">
+                <Link to={`/pais/${seleccion.slug}#discursos`} className="ira-boton ira-boton--principal ira-mapa__boton-todos">{t.todos}<Flecha /></Link>
+                {seleccion.figuras.map((f) => (
+                  <Link key={f.id} to={`/discursos?figura=${f.id}`} className="ira-boton ira-boton--secundario ira-mapa__boton-persona">
+                    <span className="ira-mapa__persona"><span>{f.name}</span>{POLITICOS[f.id] && <small>{POLITICOS[f.id].rol[lang] ?? POLITICOS[f.id].rol.es}</small>}</span>
+                    <EtiquetaPuntuacion puntuacion={f.puntuacion} variante="punto" lang={lang} />
+                  </Link>
+                ))}
+                {(PENDIENTES[seleccion.nombre] ?? []).map((f) => (
+                  <div key={f.id} className="ira-mapa__boton-persona ira-mapa__boton-persona--pendiente">
+                    <span className="ira-mapa__persona"><span>{f.name}</span><small>{f.rol[lang] ?? f.rol.es}</small></span>
+                    <span>{t.sinAnalisis}</span>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <h4 className="ira-mapa__panel-pais" style={{ fontSize: 28 }}>{t.elige}</h4>
+                <p className="ira-mapa__panel-texto" style={{ marginTop: 14 }}>{t.eligeTexto}</p>
+              </div>
+              <div className="ira-mapa__total">
+                <span className="ira-mapa__total-rotulo">{t.paises}</span>
+                <span className="ira-mapa__total-cifra">{paises.length}</span>
+              </div>
+            </>
+          )}
+        </aside>
       </div>
 
-      {/* Leyenda: cada color con su cifra */}
-      <div style={{ marginTop: '16px', maxWidth: '420px' }}>
+      <div className="ira-mapa__chips">
+        {paises.map((p) => (
+          <button key={p.slug} type="button" className="ira-chip ira-mapa__chip" aria-pressed={sel === p.slug}
+            onClick={() => alternar(p.slug)} onMouseEnter={() => entrar(p.slug)} onMouseLeave={salir}>
+            <img src={urlBandera(p.iso)} alt="" width="22" height="16" />
+            {nombrePais(p, lang)}
+            <EtiquetaPuntuacion puntuacion={p.puntuacion} variante="punto" lang={lang} />
+          </button>
+        ))}
+      </div>
+
+      <div style={{ marginTop: 18, maxWidth: 420 }}>
         <IndicadorEscala compacto lang={lang} />
       </div>
-    </div>
+    </section>
   );
 }

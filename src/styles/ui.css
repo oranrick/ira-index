@@ -436,3 +436,152 @@ a.ira-chip { text-decoration: none; }
   background: var(--ira-oro); color: var(--ira-noche); font-weight: 500; text-decoration: none;
 }
 .ira-saltar:focus { top: 16px; color: var(--ira-noche); }
+
+/* ── Mapa interactivo ─────────────────────────────────────────────────────── */
+@keyframes ira-onda-mapa { 0% { transform: scale(0.4); opacity: 0.85; } 100% { transform: scale(4.4); opacity: 0; } }
+@keyframes ira-barrido { 0% { transform: translateX(-12%); opacity: 0; } 15%, 85% { opacity: 0.5; } 100% { transform: translateX(560%); opacity: 0; } }
+.ira-mapa__cuerpo { display: flex; flex-direction: column; gap: 20px; }
+.ira-mapa__marco { position: relative; min-width: 0; }
+.ira-mapa__lienzo {
+  position: relative; width: 100%; aspect-ratio: 960 / 500; overflow: hidden;
+  background: radial-gradient(ellipse at 50% 45%, #0C2424 0%, #071A1A 55%, #051616 100%);
+  border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl);
+}
+.ira-mapa__barrido { position: absolute; top: 0; bottom: 0; left: 0; width: 18%; background: linear-gradient(90deg, rgba(141,170,126,0), rgba(141,170,126,0.07), rgba(141,170,126,0)); animation: ira-barrido 9s linear infinite; pointer-events: none; }
+.ira-mapa__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ira-mapa__grupo { transition: transform 950ms cubic-bezier(0.22, 0.8, 0.2, 1); }
+.ira-mapa__pais { cursor: pointer; transition: opacity 300ms ease, filter 300ms ease; outline: none; }
+.ira-mapa__pais:focus-visible { stroke: var(--ira-oro); stroke-width: 2px; }
+.ira-mapa__onda { animation: ira-onda-mapa 3s ease-out infinite; transform-box: fill-box; transform-origin: center; pointer-events: none; }
+.ira-mapa__cargando { position: absolute; inset: 0; margin: 0; display: flex; align-items: center; justify-content: center; color: var(--ira-texto-3); }
+.ira-mapa__reset { position: absolute; top: 14px; left: 14px; }
+.ira-mapa__nota { position: absolute; left: 18px; bottom: 12px; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--ira-texto-3); }
+.ira-mapa__muestra { width: 14px; height: 10px; border-radius: 3px; background: #0E2323; border: 1px solid #1F4141; }
+
+.ira-mapa__tip {
+  position: absolute; z-index: 5; width: 320px; box-sizing: border-box; padding: 18px;
+  display: flex; flex-direction: column; gap: 14px;
+  background: rgba(10, 30, 30, 0.94); border: 1px solid var(--ira-linea-fuerte); border-radius: var(--ira-radio-l);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5); animation: ira-fundido 160ms ease;
+}
+.ira-mapa__tip-cab { display: flex; align-items: center; gap: 14px; }
+.ira-mapa__tip-bandera, .ira-mapa__panel-bandera { object-fit: cover; border-radius: 6px; border: 1px solid var(--ira-linea-fuerte); display: block; flex-shrink: 0; }
+.ira-mapa__tip-pais { margin: 0 0 6px; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 22px; line-height: 1.1; letter-spacing: -0.02em; }
+.ira-mapa__tip-nivel { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ira-texto-2); }
+.ira-mapa__tip-rotulo { margin: 0 0 8px; font-size: 12px; color: var(--ira-texto-3); }
+.ira-mapa__tip-lista { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.ira-mapa__tip-lista li { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px; color: var(--ira-texto-cita); }
+.ira-mapa__tip-ultimo { padding-top: 12px; border-top: 1px solid var(--ira-linea); }
+.ira-mapa__tip-titulo { margin: 0 0 4px; font-size: 14px; line-height: 1.4; }
+.ira-mapa__tip-meta { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-size: 12px; color: var(--ira-texto-2); }
+.ira-mapa__tip-enlace { align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 15px; color: var(--ira-oro); text-decoration: none; }
+.ira-mapa__tip-enlace:hover { color: var(--ira-oro-hover); }
+.ira-mapa__tip-enlace:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 3px; border-radius: 4px; }
+.ira-mapa__flecha { fill: none; stroke: currentColor; stroke-width: 1.75px; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+.ira-mapa__panel { box-sizing: border-box; padding: 28px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: 28px; background: rgba(10, 30, 30, 0.78); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl); }
+.ira-mapa__panel--vacio { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.ira-mapa__panel-col { display: flex; flex-direction: column; gap: 20px; }
+.ira-mapa__panel-cab { display: flex; align-items: center; gap: 14px; }
+.ira-mapa__panel-pais { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 32px; line-height: 1.1; letter-spacing: -0.02em; }
+.ira-mapa__panel-cifra { margin: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; font-family: var(--ira-font-cifra); font-weight: 500; font-size: 64px; line-height: 1; letter-spacing: -0.05em; }
+.ira-mapa__panel-max { font-size: 20px; letter-spacing: 0; color: var(--ira-texto-3); }
+.ira-mapa__panel-nivel { font-family: var(--ira-font-texto); font-size: 14px; letter-spacing: 0; color: var(--ira-texto-cita); }
+.ira-mapa__panel-texto { margin: 0; font-size: 14px; line-height: 1.65; color: var(--ira-texto-cita); }
+.ira-mapa__botones { display: flex; flex-direction: column; gap: 8px; }
+.ira-mapa__boton-todos { text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px; }
+.ira-mapa__boton-persona { min-height: 52px; height: auto; padding: 8px 14px; justify-content: space-between; text-align: left; white-space: normal; }
+.ira-mapa__persona { display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+.ira-mapa__persona small { font-size: 12px; font-weight: 400; color: var(--ira-texto-2); }
+.ira-mapa__boton-persona--pendiente { display: flex; align-items: center; gap: 10px; box-sizing: border-box; border: 1px dashed var(--ira-linea-fuerte); border-radius: var(--ira-radio-m); color: var(--ira-texto-2); font-size: 12px; }
+.ira-mapa__total { display: flex; flex-direction: column; gap: 8px; }
+.ira-mapa__total-rotulo { font-size: 13px; color: var(--ira-texto-3); }
+.ira-mapa__total-cifra { font-family: var(--ira-font-cifra); font-weight: 500; font-size: 52px; line-height: 1; letter-spacing: -0.04em; }
+.ira-mapa__chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.ira-mapa__chip { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; }
+.ira-mapa__chip img { width: 22px; height: 16px; object-fit: cover; border-radius: 3px; }
+.ira-mapa__chip[aria-pressed="true"] { background: var(--ira-elevada); border-color: var(--ira-nieve); color: var(--ira-nieve); }
+
+@media (max-width: 900px) {
+  .ira-mapa__panel, .ira-mapa__panel--vacio { grid-template-columns: 1fr; padding: 22px; gap: 20px; }
+}
+@media (max-width: 700px) {
+  .ira-mapa__tip { display: none; }
+  .ira-mapa__lienzo { aspect-ratio: 960 / 560; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ira-mapa__onda, .ira-mapa__barrido { animation: none; }
+  .ira-mapa__onda { opacity: 0.4; }
+  .ira-mapa__grupo, .ira-mapa__pais { transition: none; }
+  .ira-mapa__tip { animation: none; }
+}
+
+/* ── Página de país ───────────────────────────────────────────────────────── */
+.ira-pais { display: flex; flex-direction: column; gap: 56px; }
+.ira-pais__volver { align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; font-size: 14px; color: var(--ira-texto-2); text-decoration: none; margin-bottom: -28px; }
+.ira-pais__volver:hover { color: var(--ira-nieve); }
+.ira-pais__cabecera { display: flex; align-items: center; gap: 56px; }
+.ira-pais__bandera { width: 440px; max-width: 36%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 22px; border: 1px solid var(--ira-linea-fuerte); flex-shrink: 0; display: block; }
+.ira-pais__titulos { display: flex; flex-direction: column; gap: 20px; flex: 1; min-width: 0; }
+.ira-pais__rotulo { margin: 0; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ira-texto-3); }
+.ira-pais__nombre { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(44px, 7vw, 100px); line-height: 1; letter-spacing: -0.04em; overflow-wrap: break-word; }
+.ira-pais__datos { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 20px; }
+.ira-pais__cifra { margin: 0; display: flex; align-items: baseline; gap: 6px; font-family: var(--ira-font-cifra); font-weight: 500; font-size: 56px; line-height: 1; letter-spacing: -0.04em; }
+.ira-pais__cifra--grande { font-size: 96px; letter-spacing: -0.05em; }
+.ira-pais__cifra--media { font-size: 36px; }
+.ira-pais__max { font-size: 0.32em; letter-spacing: 0; color: var(--ira-texto-3); }
+.ira-pais__nivel { font-size: 14px; color: var(--ira-texto-cita); }
+.ira-pais__conteo { font-size: 15px; color: var(--ira-texto-2); }
+.ira-pais__silueta { width: 150px; height: 200px; flex-shrink: 0; overflow: visible; }
+.ira-pais__seccion { display: flex; flex-direction: column; gap: 20px; scroll-margin-top: 88px; }
+.ira-pais__h2 { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 30px; letter-spacing: -0.02em; }
+.ira-pais__h3 { margin: 0; font-size: 14px; font-weight: 400; color: var(--ira-texto-3); }
+.ira-pais__ultimo { display: flex; gap: 48px; padding: 40px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: 22px; }
+.ira-pais__ultimo-texto { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+.ira-pais__orador { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 16px; }
+.ira-pais__orador span { height: 24px; padding: 0 10px; display: inline-flex; align-items: center; border: 1px solid var(--ira-linea-fuerte); border-radius: 12px; font-size: 12px; color: var(--ira-texto-cita); }
+.ira-pais__orador time, .ira-pais__fila-fecha { font-family: var(--ira-font-cifra); font-size: 13px; color: var(--ira-texto-2); }
+.ira-pais__ultimo-titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(26px, 3.2vw, 38px); line-height: 1.12; letter-spacing: -0.02em; }
+.ira-pais__cita { margin: 0; padding-left: 20px; border-left: 2px solid var(--ira-linea-fuerte); font-size: 20px; line-height: 1.6; color: var(--ira-texto-cita); }
+.ira-pais__ultimo-cifra { width: 320px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding-left: 48px; border-left: 1px solid var(--ira-linea); }
+.ira-pais__personas, .ira-pais__lista { list-style: none; margin: 0; padding: 0; }
+.ira-pais__personas { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+.ira-pais__persona { height: 100%; box-sizing: border-box; display: flex; align-items: center; gap: 18px; padding: 24px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl); color: var(--ira-nieve); text-decoration: none; }
+a.ira-pais__persona:hover { background: var(--ira-elevada); color: var(--ira-nieve); }
+a.ira-pais__persona:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 3px; }
+.ira-pais__persona--pendiente { background: transparent; border-style: dashed; border-color: var(--ira-linea-fuerte); color: var(--ira-texto-2); }
+.ira-pais__foto { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 1px solid var(--ira-linea-fuerte); flex-shrink: 0; }
+.ira-pais__foto--inicial { display: flex; align-items: center; justify-content: center; background: var(--ira-elevada); font-family: var(--ira-font-titulo); font-weight: 500; font-size: 22px; }
+.ira-pais__persona--pendiente .ira-pais__foto--inicial { background: transparent; border-style: dashed; color: var(--ira-texto-3); }
+.ira-pais__persona-texto { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.ira-pais__persona-nombre { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 19px; font-weight: 500; }
+.ira-pais__rol { height: 22px; padding: 0 9px; display: inline-flex; align-items: center; border: 1px solid var(--ira-linea-fuerte); border-radius: 11px; font-size: 12px; font-weight: 400; color: var(--ira-texto-cita); }
+.ira-pais__persona-resumen { margin: 0; font-size: 14px; line-height: 1.55; color: var(--ira-texto-2); }
+.ira-pais__persona-meta { margin: 0; font-size: 13px; color: var(--ira-texto-3); }
+.ira-pais__lista { display: flex; flex-direction: column; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl); overflow: hidden; }
+.ira-pais__lista li + li { border-top: 1px solid var(--ira-linea); }
+.ira-pais__fila { width: 100%; min-height: 76px; display: flex; align-items: center; gap: 24px; padding: 12px 28px; background: transparent; border: 0; color: var(--ira-nieve); font: inherit; text-align: left; cursor: pointer; }
+.ira-pais__fila:hover { background: var(--ira-elevada); }
+.ira-pais__fila:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: -2px; }
+.ira-pais__fila-fecha { width: 90px; flex-shrink: 0; }
+.ira-pais__fila-titulo { flex: 1; min-width: 0; font-size: 16px; }
+.ira-pais__fila-orador { font-size: 14px; color: var(--ira-texto-2); }
+
+@media (max-width: 1000px) {
+  .ira-pais__cabecera { flex-wrap: wrap; gap: 32px; }
+  .ira-pais__bandera { max-width: 100%; width: 360px; }
+  .ira-pais__silueta { display: none; }
+  .ira-pais__ultimo { flex-direction: column; padding: 28px; gap: 32px; }
+  .ira-pais__ultimo-cifra { width: auto; padding: 28px 0 0; border-left: 0; border-top: 1px solid var(--ira-linea); }
+}
+@media (max-width: 600px) {
+  .ira-pais { gap: 44px; }
+  .ira-pais__cifra { font-size: 44px; }
+  .ira-pais__cifra--grande { font-size: 76px; }
+  .ira-pais__personas { grid-template-columns: 1fr; }
+  .ira-pais__persona { padding: 18px; flex-wrap: wrap; }
+  .ira-pais__persona-texto { flex: 1 1 200px; }
+  .ira-pais__cifra--media { flex-basis: 100%; }
+  .ira-pais__fila { flex-wrap: wrap; gap: 4px 14px; padding: 14px 18px; }
+  .ira-pais__fila-titulo { flex-basis: 100%; order: 3; }
+}
