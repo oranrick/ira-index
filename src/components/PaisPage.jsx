@@ -132,7 +132,7 @@ export default function PaisPage() {
         <ul className="ira-pais__personas">
           {pais.figuras.map((f) => (
             <li key={f.id}>
-              <Link to={`/politicos?figura=${f.id}`} className="ira-pais__persona">
+              <Link to={`/entity/${f.id}`} className="ira-pais__persona">
                 {f.photo ? <img src={f.photo} alt="" className="ira-pais__foto" /> : <span className="ira-pais__foto ira-pais__foto--inicial" aria-hidden="true">{f.name.split(' ').map((w) => w[0]).slice(0, 2).join('')}</span>}
                 <div className="ira-pais__persona-texto">
                   <p className="ira-pais__persona-nombre">{f.name}{rol(f.id) && <span className="ira-pais__rol">{rol(f.id)}</span>}</p>

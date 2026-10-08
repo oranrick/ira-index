@@ -25,7 +25,6 @@ const AuthModal    = lazy(() => import("./components/AuthModal").then(m => ({ de
 const DailyAnalysis = lazy(() => import("./components/DailyAnalysis"));
 const PatternsPage = lazy(() => import("./components/PatternsPage"));
 const Portada = lazy(() => import("./components/Portada.jsx"));
-const DiscursosFigura = lazy(() => import("./components/DiscursosPage.jsx"));
 const PaisPage = lazy(() => import("./components/PaisPage.jsx"));
 
 const AccentContext = createContext({
@@ -833,7 +832,7 @@ function EntityCard({ entity, lang }) {
   const catLabel = CAT_TRANS[lang][entity.category] || entity.category;
   const hasScore = entity.score != null;
   return (
-    <Link to={entity.category === 'Político' ? `/politicos?figura=${entity.id}` : `/entity/${entity.id}`} className="ira-figura">
+    <Link to={`/entity/${entity.id}`} className="ira-figura">
       <div className="ira-figura__cabecera">
         {entity.photo && <img src={entity.photo} alt="" className="ira-figura__foto" />}
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -1689,10 +1688,11 @@ function WelcomeModal({ lang, onClose }) {
 
 // ── MainView ─────────────────────────────────────────────────────────────────
 
-// /discursos se unió a Clasificación: /discursos?figura=ID → /politicos?figura=ID
+// /discursos se unió a Clasificación: cada político se ve en su ficha (perfil, radar y
+// discursos). /discursos?figura=ID → /entity/ID; /discursos → /politicos.
 function RedirigirDiscursos() {
-  const { search } = useLocation();
-  return <Navigate to={`/politicos${search}`} replace />;
+  const figura = new URLSearchParams(useLocation().search).get('figura');
+  return <Navigate to={figura ? `/entity/${figura}` : '/politicos'} replace />;
 }
 
 function MainView({ mode = 'politico', tab = 'explore' }) {
@@ -1702,7 +1702,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
   const [mounted, setMounted] = useState(false);
   const [sortOrder, setSortOrder] = useState('default');
   const [searchParams] = useSearchParams();
-  // Clasificación > político: sus discursos (antes página /discursos)
+  // Enlaces antiguos /politicos?figura=ID → ficha del político
   const figura = mode === 'politico' && tab === 'explore' ? searchParams.get('figura') : null;
 
   const accent = mode === 'medios' ? '#DCB149' : '#DCB149';
@@ -1720,6 +1720,8 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
     ? [...filtered].sort((a, b) => (a.score ?? 0) - (b.score ?? 0))
     : filtered;
 
+  if (figura) return <Navigate to={`/entity/${figura}`} replace />;
+
   return (
     <AccentContext.Provider value={{ accent, accentA, mode }}>
     <div style={{ fontFamily:"var(--ira-font-texto)", position:"relative", overflow:"hidden" }}>
@@ -1731,9 +1733,6 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
 
       <div style={{ position:"relative", zIndex:1 }}>
 
-      {figura ? (
-        <Suspense fallback={null}><DiscursosFigura figuraId={figura} /></Suspense>
-      ) : (
       <div className="main-container">
         <div className="ira-cabecera" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease" }}>
           <h1 className="ira-cabecera__titulo">
@@ -1868,7 +1867,6 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           </div>
         )}
       </div>
-      )}
       </div>{/* fin z-index:1 */}
 
       {showIRA && <IRAModal onClose={() => setShowIRA(false)} lang={lang} />}
