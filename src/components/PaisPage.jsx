@@ -7,7 +7,7 @@ import { AppContext, mergeSpeech } from '../App.jsx';
 import { Superposicion } from './DiscursosPage.jsx';
 import BarraEscala from './ui/BarraEscala.jsx';
 import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
-import { colorPuntuacion, formatearPuntuacion } from '../lib/escala';
+import { colorPuntuacion, colorCifra, formatearPuntuacion } from '../lib/escala';
 import { citaDestacada, fechaCorta } from '../lib/discursos';
 import {
   PAISES, POLITICOS, PENDIENTES, nombrePais, urlBandera, etiquetaNivel, agruparPorPais, puntuacionFigura, discursosDelPais,
@@ -117,7 +117,7 @@ export default function PaisPage() {
             </div>
             <div className="ira-pais__ultimo-cifra">
               <p className="ira-pais__cifra ira-pais__cifra--grande">
-                <span style={{ color: colorPuntuacion(ultimo.iraScore) }}>{formatearPuntuacion(ultimo.iraScore, lang)}</span>
+                <span style={{ color: colorCifra(ultimo.iraScore) }}>{formatearPuntuacion(ultimo.iraScore, lang)}</span>
                 <span className="ira-pais__max">/10<span className="ira-sr"> {t.de}</span></span>
               </p>
               <BarraEscala puntuacion={ultimo.iraScore} grosor={8} />
@@ -140,7 +140,7 @@ export default function PaisPage() {
                   <p className="ira-pais__persona-meta">{t.discursos(nDe(f.id))} · {t.verPol} →</p>
                 </div>
                 <p className="ira-pais__cifra ira-pais__cifra--media">
-                  <span style={{ color: colorPuntuacion(f.puntuacion) }}>{formatearPuntuacion(f.puntuacion, lang)}</span><span className="ira-pais__max">/10</span>
+                  <span style={{ color: colorCifra(f.puntuacion) }}>{formatearPuntuacion(f.puntuacion, lang)}</span><span className="ira-pais__max">/10</span>
                 </p>
               </Link>
             </li>

@@ -28,6 +28,17 @@ export function colorPuntuacion(puntuacion) {
   return ESCALA[nivel(puntuacion)];
 }
 
+// Color de la escala cuando la cifra se escribe con él sobre el fondo oscuro.
+// 0 y 1 no llegan a 3:1 (AA para cifra grande) sobre superficie/elevada: se usa
+// el mismo tono aclarado lo justo. El resto de la escala ya cumple.
+const CIFRA = { 0: '#AC5753', 1: '#C64235' };
+
+/** Color para escribir la cifra de una puntuación sobre fondo oscuro. */
+export function colorCifra(puntuacion) {
+  const n = nivel(puntuacion);
+  return CIFRA[n] ?? ESCALA[n];
+}
+
 /** Color de texto para poner encima de colorPuntuacion(puntuacion). */
 export function textoSobrePuntuacion(puntuacion) {
   return TEXTO_SOBRE[nivel(puntuacion)];

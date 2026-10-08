@@ -9,7 +9,7 @@ import { SpeechView } from './SpeechView.jsx';
 import { useAtraparFoco } from './ui/Ventana.jsx';
 import BarraEscala from './ui/BarraEscala.jsx';
 import { fechaCorta, fechaOrden, citaDestacada } from '../lib/discursos';
-import { colorPuntuacion, formatearPuntuacion } from '../lib/escala';
+import { colorCifra, formatearPuntuacion } from '../lib/escala';
 
 const TXT = {
   es: {
@@ -112,7 +112,7 @@ export default function DiscursosPage() {
                 </div>
                 <div>
                   <p className="ira-figura__cifra">
-                    <span style={{ color: e.score != null ? colorPuntuacion(e.score) : 'var(--ira-texto-3)' }}>{formatearPuntuacion(e.score, lang)}</span>
+                    <span style={{ color: e.score != null ? colorCifra(e.score) : 'var(--ira-texto-3)' }}>{formatearPuntuacion(e.score, lang)}</span>
                     <span className="ira-figura__max">/10 · {t.iraMedio}</span>
                   </p>
                   <div style={{ marginTop: 10 }}><BarraEscala puntuacion={e.score} grosor={6} /></div>

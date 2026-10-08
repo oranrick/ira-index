@@ -17,7 +17,7 @@ import IndicadorEscala from "./components/ui/IndicadorEscala.jsx";
 import BarraEscala from "./components/ui/BarraEscala.jsx";
 import TarjetaDiscurso from "./components/ui/TarjetaDiscurso.jsx";
 import FilaParametro from "./components/ui/FilaParametro.jsx";
-import { colorPuntuacion, formatearPuntuacion, CATEGORICOS } from "./lib/escala";
+import { colorPuntuacion, colorCifra, formatearPuntuacion, CATEGORICOS } from "./lib/escala";
 
 const Comparator   = lazy(() => import("./components/Comparator"));
 const RadarSection = lazy(() => import("./components/RadarSection"));
@@ -847,7 +847,7 @@ function EntityCard({ entity, lang }) {
       </div>
       <div className="ira-figura__puntuacion">
         <p className="ira-figura__cifra">
-          <span style={{ color: hasScore ? colorPuntuacion(entity.score) : "var(--ira-texto-3)" }}>
+          <span style={{ color: hasScore ? colorCifra(entity.score) : "var(--ira-texto-3)" }}>
             {formatearPuntuacion(entity.score, lang)}
           </span>
           <span className="ira-figura__max">/10</span>

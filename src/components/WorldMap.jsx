@@ -6,7 +6,7 @@ import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppContext, mergeSpeech } from '../App.jsx';
-import { colorPuntuacion, formatearPuntuacion } from '../lib/escala';
+import { colorPuntuacion, colorCifra, formatearPuntuacion } from '../lib/escala';
 import { fechaCorta } from '../lib/discursos';
 import {
   PAISES, POLITICOS, PENDIENTES, nombrePais, urlBandera, etiquetaNivel, agruparPorPais, puntuacionFigura, discursosDelPais,
@@ -215,7 +215,7 @@ export default function WorldMap({ entities, lang = 'es' }) {
               </div>
               <div>
                 <p className="ira-mapa__panel-cifra">
-                  <span style={{ color: seleccion.puntuacion == null ? 'var(--ira-texto-3)' : colorPuntuacion(seleccion.puntuacion) }}>{formatearPuntuacion(seleccion.puntuacion, lang)}</span>
+                  <span style={{ color: seleccion.puntuacion == null ? 'var(--ira-texto-3)' : colorCifra(seleccion.puntuacion) }}>{formatearPuntuacion(seleccion.puntuacion, lang)}</span>
                   <span className="ira-mapa__panel-max">/10</span>
                   <EtiquetaPuntuacion puntuacion={seleccion.puntuacion} lang={lang} />
                   <span className="ira-mapa__panel-nivel">{etiquetaNivel(seleccion.puntuacion, lang)}</span>

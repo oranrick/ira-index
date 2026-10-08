@@ -1,7 +1,7 @@
 // IRA · tarjeta de discurso
 // Orador y cargo, fecha en mono, cita, puntuación grande con el color de la escala y "/10",
 // barra de 11 segmentos con "0 Polarizante" / "Empático 10" y botón "Ver desglose".
-import { colorPuntuacion, formatearPuntuacion } from '../../lib/escala';
+import { colorCifra, formatearPuntuacion } from '../../lib/escala';
 import BarraEscala from './BarraEscala.jsx';
 
 const TXT = {
@@ -26,7 +26,7 @@ export default function TarjetaDiscurso({
       {cita && <blockquote className="ira-tarjeta__cita">«{cita}»</blockquote>}
       <div className="ira-tarjeta__puntuacion">
         <p className="ira-tarjeta__cifra">
-          <span style={{ color: colorPuntuacion(puntuacion) }}>{cifra}</span>
+          <span style={{ color: colorCifra(puntuacion) }}>{cifra}</span>
           <span className="ira-tarjeta__max">/10</span>
           <span className="ira-sr"> {t.de}</span>
         </p>

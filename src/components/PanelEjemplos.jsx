@@ -2,7 +2,7 @@
 // Rota cada 7 s con fundido; flechas, puntos y contador. Al pulsar se reinicia el temporizador.
 // Se detiene con el puntero encima o el foco dentro, y no rota con "reducir movimiento".
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { colorPuntuacion, formatearPuntuacion } from '../lib/escala';
+import { colorCifra, formatearPuntuacion } from '../lib/escala';
 import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
 import Estrella from './ui/Estrella.jsx';
 
@@ -119,7 +119,7 @@ export default function PanelEjemplos({ ejemplos, lang = 'es' }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               <span className="ira-panel-ej__rotulo">{t.puntuacion}</span>
               <p className="ira-panel-ej__cifra">
-                <span style={{ color: colorPuntuacion(actual.puntuacion) }}>{formatearPuntuacion(actual.puntuacion, lang)}</span>
+                <span style={{ color: colorCifra(actual.puntuacion) }}>{formatearPuntuacion(actual.puntuacion, lang)}</span>
                 <span className="ira-panel-ej__max">/10</span>
               </p>
             </div>

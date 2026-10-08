@@ -1,7 +1,7 @@
 // src/components/SpeechView.jsx
 import { useState, useRef, useEffect } from 'react';
 import { ANNOTATION_TYPES } from '../data/speeches';
-import { colorPuntuacion, formatearPuntuacion } from '../lib/escala';
+import { colorCifra, formatearPuntuacion } from '../lib/escala';
 import { polaridadFragmento, puntuacionesPorClave } from '../lib/anotaciones';
 import BarraEscala from './ui/BarraEscala.jsx';
 import FilaParametro from './ui/FilaParametro.jsx';
@@ -56,7 +56,6 @@ const SPEECH_VIEW_TEXTS = {
 const SUPABASE_URL = 'https://jsxmlxuzblezwlaxwpuc.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_VRQ9UW5FrRcARTfkmiYI4w_etib_jVA';
 
-const IRA_COLOR = colorPuntuacion;
 
 const PARAM_NAME_EN = {
   'Uso pronominal inclusivo':   'Inclusive Pronominal Use',
@@ -94,7 +93,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
   const containerRef = useRef(null);
   const width = useWindowWidth();
   const isMobile = width < 768;
-  const scoreColor = IRA_COLOR(speech.iraScore);
+  const scoreColor = colorCifra(speech.iraScore);
   const T = SPEECH_VIEW_TEXTS[lang] || SPEECH_VIEW_TEXTS.es;
   const puntuaciones = puntuacionesPorClave(speech.params);
   const familia = (tipo) => FAMILIA[polaridadFragmento(tipo, puntuaciones) ?? 'neutro'];
