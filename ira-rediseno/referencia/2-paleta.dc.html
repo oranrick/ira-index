@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>IRA, paleta y escala</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Sora:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#041414}
+a{color:#DCB149}a:hover{color:#F4CF7A}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1240px; box-sizing: border-box; padding: 72px; background: #041414; color: #FCFDFF; font-family: 'Sora', system-ui, sans-serif; display: flex; flex-direction: column; gap: 56px">
+
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 760px">
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 44px; line-height: 1.1; letter-spacing: -0.02em">Paleta</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #A9B8B8">Dark Sunset sostiene la interfaz: fondo casi negro, texto blanco, brasa como color de marca y oro como acento. Salvia es el polo empático y el punto de la i.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 20px; letter-spacing: -0.01em">Base</h2>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 200px; border-radius: 14px; background: #041414; border: 1px solid #1B3636"></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 18px">Noche</span><span style="font-size: 13px; color: #A9B8B8">Fondo</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #FCFDFF">#041414</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 200px; border-radius: 14px; background: #FCFDFF"></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 18px">Nieve</span><span style="font-size: 13px; color: #A9B8B8">Texto principal</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #FCFDFF">#FCFDFF</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 200px; border-radius: 14px; background: #953A1B"></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 18px">Brasa</span><span style="font-size: 13px; color: #A9B8B8">Color de marca</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #FCFDFF">#953A1B</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 200px; border-radius: 14px; background: #62130C"></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 18px">Lacre</span><span style="font-size: 13px; color: #A9B8B8">Marca presionada</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #FCFDFF">#62130C</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 200px; border-radius: 14px; background: #DCB149"></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 18px">Oro</span><span style="font-size: 13px; color: #A9B8B8">Acento, foco, enlaces</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #FCFDFF">#DCB149</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="height: 200px; border-radius: 14px; background: #8DAA7E"></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 18px">Salvia</span><span style="font-size: 13px; color: #A9B8B8">Empatía, punto de la i</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #FCFDFF">#8DAA7E</span></div>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 20px; letter-spacing: -0.01em">Neutros de interfaz</h2>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+<div style="display: flex; align-items: center; gap: 14px"><div style="width: 72px; height: 72px; flex-shrink: 0; border-radius: 12px; background: #0A1E1E; border: 1px solid #1B3636"></div><div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px">Superficie</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #A9B8B8">#0A1E1E</span></div></div>
+<div style="display: flex; align-items: center; gap: 14px"><div style="width: 72px; height: 72px; flex-shrink: 0; border-radius: 12px; background: #112A2A; border: 1px solid #1B3636"></div><div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px">Elevada</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #A9B8B8">#112A2A</span></div></div>
+<div style="display: flex; align-items: center; gap: 14px"><div style="width: 72px; height: 72px; flex-shrink: 0; border-radius: 12px; background: #1B3636"></div><div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px">Línea</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #A9B8B8">#1B3636</span></div></div>
+<div style="display: flex; align-items: center; gap: 14px"><div style="width: 72px; height: 72px; flex-shrink: 0; border-radius: 12px; background: #A9B8B8"></div><div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px">Texto secundario</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #A9B8B8">#A9B8B8</span></div></div>
+<div style="display: flex; align-items: center; gap: 14px"><div style="width: 72px; height: 72px; flex-shrink: 0; border-radius: 12px; background: #7C8F8F"></div><div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px">Texto tenue</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #A9B8B8">#7C8F8F</span></div></div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 24px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 20px; letter-spacing: -0.01em">Escala IRA, de 0 a 10</h2>
+<p style="margin: 0; font-size: 13px; color: #A9B8B8">El color nunca va solo: siempre acompaña a la cifra.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 8px">
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #8F1C17; color: #FCFDFF; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">0</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#8F1C17</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #BE281A; color: #FCFDFF; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">1</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#BE281A</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #CB4021; color: #FCFDFF; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">2</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#CB4021</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #D7662A; color: #041414; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">3</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#D7662A</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #E59236; color: #041414; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">4</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#E59236</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #EEA73D; color: #041414; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">5</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#EEA73D</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #F4BC41; color: #041414; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">6</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#F4BC41</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #DAB850; color: #041414; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">7</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#DAB850</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #C1B360; color: #041414; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">8</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#C1B360</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #A7AE6F; color: #041414; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">9</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#A7AE6F</span></div>
+<div style="height: 160px; box-sizing: border-box; padding: 14px; border-radius: 12px; background: #8DAA7E; color: #041414; display: flex; flex-direction: column; justify-content: space-between"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.04em">10</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">#8DAA7E</span></div>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 24px">
+<span style="font-size: 14px; color: #FCFDFF">Polarizante</span>
+<span style="font-size: 14px; color: #FCFDFF">Empático</span>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

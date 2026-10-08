@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const scoreColor = s => s >= 7 ? '#6ec6a0' : s >= 4.5 ? '#e8a838' : '#e05252';
+import { colorPuntuacion as scoreColor, formatearPuntuacion } from '../lib/escala';
+import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
+import IndicadorEscala from './ui/IndicadorEscala.jsx';
 const scoreLabel = (s, es) => s >= 7 ? (es?'Empático':'Empathic') : s >= 4.5 ? (es?'Mixto':'Mixed') : (es?'Polarizante':'Polarizing');
 
 // ─── A · QUIZ ─────────────────────────────────────────────────────────────────
@@ -102,18 +104,16 @@ function QuizSection({ lang, accent, accentA }) {
     setIdx(i => (i + 1) % questions.length);
   };
 
-  const col = selected ? scoreColor(q.score) : 'rgba(255,255,255,0.06)';
+  const col = 'var(--ira-linea)';
 
   return (
     <div style={{ marginBottom:"40px" }}>
-      <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.18em", color:accent, textTransform:"uppercase" }}>
+      <h3 className="ira-seccion__titulo">
         {es ? "¿Quién lo dijo?" : "Who said it?"}
-      </p>
+      </h3>
 
-      <div style={{ background:"rgba(255,255,255,0.025)", border:`1px solid ${col}`,
-        borderRadius:"14px", padding:"20px", transition:"border-color 0.4s" }}>
-        <p style={{ margin:"0 0 20px", fontSize:"14px", fontStyle:"italic", fontFamily:"Georgia,serif",
-          color:"rgba(255,255,255,0.75)", lineHeight:1.55 }}>
+      <div className="ira-panel">
+        <p style={{ margin:"0 0 20px", fontSize:"20px", lineHeight:"32px", color:"var(--ira-texto-cita)" }}>
           {es ? q.quote.es : q.quote.en}
         </p>
 
@@ -121,18 +121,18 @@ function QuizSection({ lang, accent, accentA }) {
           {q.options.map(opt => {
             const isCorrect = opt === q.answer;
             const isSelected = opt === selected;
-            let bg = "rgba(255,255,255,0.03)";
-            let border = "rgba(255,255,255,0.08)";
-            let color = "rgba(255,255,255,0.55)";
+            let bg = "transparent";
+            let border = "var(--ira-linea-fuerte)";
+            let color = "var(--ira-nieve)";
             if (selected) {
-              if (isCorrect) { bg="rgba(110,198,160,0.1)"; border="#6ec6a0"; color="#6ec6a0"; }
-              else if (isSelected) { bg="rgba(224,82,82,0.1)"; border="#e05252"; color="#e05252"; }
-              else { color="rgba(255,255,255,0.2)"; }
+              if (isCorrect) { bg="rgba(141,170,126,0.14)"; border="var(--ira-salvia)"; color="var(--ira-marca-empatica)"; }
+              else if (isSelected) { bg="rgba(190,40,26,0.14)"; border="var(--ira-1)"; color="var(--ira-marca-polarizante)"; }
+              else { color="var(--ira-texto-3)"; }
             }
             return (
-              <button key={opt} disabled={!!selected} onClick={() => setSelected(opt)} style={{
-                padding:"10px 14px", borderRadius:"10px", border:`1px solid ${border}`,
-                background:bg, color, fontSize:"11px", fontFamily:"'DM Mono',monospace",
+              <button type="button" key={opt} disabled={!!selected} onClick={() => setSelected(opt)} style={{
+                minHeight:"48px", padding:"10px 14px", borderRadius:"10px", border:`1px solid ${border}`,
+                background:bg, color, fontSize:"15px", fontFamily:"var(--ira-font-texto)",
                 cursor:selected?"default":"pointer", transition:"all 0.2s", textAlign:"left",
               }}>{opt}</button>
             );
@@ -140,25 +140,17 @@ function QuizSection({ lang, accent, accentA }) {
         </div>
 
         {selected && (
-          <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"16px" }}>
+          <div aria-live="polite" style={{ borderTop:"1px solid var(--ira-linea)", paddingTop:"16px" }}>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"10px", flexWrap:"wrap", gap:"8px" }}>
-              <span style={{ fontSize:"11px", color:scoreColor(q.score), fontWeight:700, fontFamily:"'DM Mono',monospace" }}>
-                IRA {q.score.toFixed(2)} — {scoreLabel(q.score, es)}
+              <span style={{ display:"inline-flex", alignItems:"center", gap:"10px", fontSize:"14px", color:"var(--ira-texto-cita)" }}>
+                <EtiquetaPuntuacion puntuacion={q.score} lang={es ? 'es' : 'en'} /> {scoreLabel(q.score, es)}
               </span>
               <div style={{ display:"flex", gap:"8px" }}>
-                <button onClick={() => navigate(`/entity/${q.entityId}`)} style={{
-                  padding:"5px 12px", borderRadius:"20px", background:accentA(0.12),
-                  border:`1px solid ${accentA(0.4)}`, color:accent, fontSize:"10px",
-                  cursor:"pointer", fontFamily:"'DM Mono',monospace",
-                }}>{es?"Ver análisis →":"See analysis →"}</button>
-                <button onClick={next} style={{
-                  padding:"5px 12px", borderRadius:"20px", background:"rgba(255,255,255,0.05)",
-                  border:"1px solid rgba(255,255,255,0.12)", color:"rgba(255,255,255,0.5)", fontSize:"10px",
-                  cursor:"pointer", fontFamily:"'DM Mono',monospace",
-                }}>{es?"Otra →":"Next →"}</button>
+                <button type="button" className="ira-boton ira-boton--secundario ira-boton--compacto" onClick={() => navigate(`/entity/${q.entityId}`)}>{es?"Ver análisis":"See analysis"}</button>
+                <button type="button" className="ira-boton ira-boton--principal ira-boton--compacto" onClick={next}>{es?"Otra frase":"Next quote"}</button>
               </div>
             </div>
-            <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.4)", lineHeight:1.6 }}>
+            <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.6 }}>
               {es ? q.why.es : q.why.en}
             </p>
           </div>
@@ -179,17 +171,14 @@ function SpectrumSection({ entities, lang, accent }) {
 
   return (
     <div style={{ marginBottom:"40px" }}>
-      <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.18em", color:accent, textTransform:"uppercase" }}>
+      <h3 className="ira-seccion__titulo">
         {es ? "El espectro IRA — corpus completo" : "The IRA spectrum — full corpus"}
-      </p>
+      </h3>
 
-      <div style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)",
-        borderRadius:"14px", padding:"28px 24px 20px" }}>
+      <div className="ira-panel" style={{ padding:"28px 24px 20px" }}>
 
-        {/* Barra gradiente */}
-        <div style={{ position:"relative", marginBottom:"32px" }} ref={containerRef}>
-          <div style={{ height:"4px", borderRadius:"4px",
-            background:"linear-gradient(90deg,#e05252,#e8a838 45%,#6ec6a0)" }} />
+        {/* Eje: escala con sus cifras; las figuras se marcan encima */}
+        <div style={{ position:"relative", marginBottom:"28px", paddingTop:"26px" }} ref={containerRef}>
 
           {/* Dots */}
           {sorted.map(e => {
@@ -201,28 +190,28 @@ function SpectrumSection({ entities, lang, accent }) {
                 onMouseEnter={() => setHoverId(e.id)}
                 onMouseLeave={() => setHoverId(null)}
                 onClick={() => navigate(`/entity/${e.id}`)}
+                aria-hidden="true"
                 style={{
-                  position:"absolute", top:"-8px", left:`${pct}%`,
+                  position:"absolute", top: isHov ? "0px" : "3px", left:`calc(${pct}% * 0.91 + 4.5%)`,
                   transform:"translateX(-50%)",
-                  width: isHov ? 20 : 14, height: isHov ? 20 : 14,
-                  borderRadius:"50%", background:col,
-                  border: isHov ? "2px solid #fff" : "2px solid #0e0e14",
+                  width: isHov ? 18 : 12, height: isHov ? 18 : 12,
+                  borderRadius:"50%", background:"var(--ira-nieve)",
+                  border: isHov ? "2px solid var(--ira-oro)" : "2px solid var(--ira-noche)",
                   cursor:"pointer", transition:"all 0.18s ease", zIndex: isHov ? 10 : 1,
-                  boxShadow: isHov ? `0 0 12px ${col}` : "none",
                 }}
               >
                 {isHov && (
                   <div style={{
                     position:"absolute", bottom:"calc(100% + 8px)", left:"50%",
                     transform:"translateX(-50%)",
-                    background:"#0e0e14", border:`1px solid ${col}40`,
+                    background:"var(--ira-elevada)", border:"1px solid var(--ira-linea-fuerte)",
                     borderRadius:"8px", padding:"8px 10px", whiteSpace:"nowrap",
                     pointerEvents:"none", zIndex:20,
                     boxShadow:"0 4px 20px rgba(0,0,0,0.4)",
                   }}>
-                    <p style={{ margin:"0 0 2px", fontSize:"11px", fontWeight:700, color:"#fff", fontFamily:"'Syne',sans-serif" }}>{e.name}</p>
-                    <p style={{ margin:0, fontSize:"10px", color:col, fontFamily:"'DM Mono',monospace" }}>
-                      IRA {e.score?.toFixed(2)} — {scoreLabel(e.score, es)}
+                    <p style={{ margin:"0 0 6px", fontSize:"14px", fontWeight:500, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)" }}>{e.name}</p>
+                    <p style={{ margin:0, display:"flex", alignItems:"center", gap:"8px", fontSize:"13px", color:"var(--ira-texto-cita)" }}>
+                      <EtiquetaPuntuacion puntuacion={e.score} lang={es ? 'es' : 'en'} /> {scoreLabel(e.score, es)}
                     </p>
                   </div>
                 )}
@@ -230,32 +219,19 @@ function SpectrumSection({ entities, lang, accent }) {
             );
           })}
 
-          {/* Labels extremos */}
-          <div style={{ display:"flex", justifyContent:"space-between", marginTop:"10px" }}>
-            <span style={{ fontSize:"9px", color:"#e05252", fontFamily:"'DM Mono',monospace" }}>
-              0 — {es?"Polarizante":"Polarizing"}
-            </span>
-            <span style={{ fontSize:"9px", color:"#6ec6a0", fontFamily:"'DM Mono',monospace" }}>
-              10 — {es?"Empático":"Empathic"}
-            </span>
-          </div>
+          <IndicadorEscala compacto lang={es ? 'es' : 'en'} />
         </div>
 
         {/* Lista compacta ordenada */}
         <div style={{ display:"flex", flexWrap:"wrap", gap:"6px" }}>
           {sorted.map(e => (
-            <button key={e.id} onClick={() => navigate(`/entity/${e.id}`)}
+            <button type="button" key={e.id} onClick={() => navigate(`/entity/${e.id}`)}
               onMouseEnter={() => setHoverId(e.id)}
               onMouseLeave={() => setHoverId(null)}
-              style={{
-                padding:"4px 10px", borderRadius:"20px", cursor:"pointer",
-                background: hoverId===e.id ? `${scoreColor(e.score)}18` : "rgba(255,255,255,0.03)",
-                border:`1px solid ${hoverId===e.id ? scoreColor(e.score)+'55' : 'rgba(255,255,255,0.07)'}`,
-                color: hoverId===e.id ? scoreColor(e.score) : "rgba(255,255,255,0.4)",
-                fontSize:"10px", fontFamily:"'DM Mono',monospace",
-                transition:"all 0.15s ease",
-              }}>
-              {e.name} <span style={{ opacity:0.6 }}>{e.score?.toFixed(1)}</span>
+              onFocus={() => setHoverId(e.id)}
+              onBlur={() => setHoverId(null)}
+              className="ira-chip" style={{ gap:"10px" }}>
+              {e.name} <EtiquetaPuntuacion puntuacion={e.score} variante="punto" lang={es ? 'es' : 'en'} />
             </button>
           ))}
         </div>
@@ -311,47 +287,35 @@ function MiniAnalyzer({ lang, accent, accentA }) {
 
   return (
     <div style={{ marginBottom:"8px" }}>
-      <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.18em", color:accent, textTransform:"uppercase" }}>
+      <h3 className="ira-seccion__titulo">
         {es ? "Mide una frase" : "Measure a phrase"}
-      </p>
+      </h3>
 
-      <div style={{ background:"rgba(255,255,255,0.02)", border:`1px solid ${result ? col+'40' : 'rgba(255,255,255,0.06)'}`,
-        borderRadius:"14px", padding:"20px", transition:"border-color 0.4s" }}>
+      <div className="ira-panel">
 
         {/* Hint rotatorio */}
-        <p style={{ margin:"0 0 10px", fontSize:"9.5px", color:"rgba(255,255,255,0.2)", fontStyle:"italic",
-          transition:"opacity 0.3s", lineHeight:1.5 }}>
+        <p id="ira-mini-ej" style={{ margin:"0 0 10px", fontSize:"14px", color:"var(--ira-texto-2)", fontStyle:"italic", lineHeight:1.5 }}>
           {es ? "ej." : "e.g."}{" "}{examples[tipIdx]}
         </p>
 
+        <label htmlFor="ira-mini-texto" className="ira-sr">{es ? "Frase política" : "Political phrase"}</label>
         <textarea
+          id="ira-mini-texto" className="ira-campo" aria-describedby="ira-mini-ej"
           value={text}
           onChange={e => { setText(e.target.value); setResult(null); }}
           placeholder={es ? "Escribe o pega una frase política..." : "Write or paste a political phrase..."}
           maxLength={400}
           rows={2}
           onKeyDown={e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); analyze(); } }}
-          style={{
-            width:"100%", background:"rgba(255,255,255,0.04)",
-            border:"1px solid rgba(255,255,255,0.08)", borderRadius:"10px",
-            padding:"10px 14px", color:"rgba(255,255,255,0.8)", fontSize:"12px",
-            outline:"none", resize:"none", boxSizing:"border-box",
-            fontFamily:"'DM Mono',monospace", lineHeight:1.5,
-          }}
+          style={{ resize:"none" }}
         />
 
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:"10px" }}>
-          <span style={{ fontSize:"9px", color:"rgba(255,255,255,0.18)" }}>
+          <span style={{ fontSize:"12px", color:"var(--ira-texto-3)" }}>
             {text.length}/400 · {es?"Enter para analizar":"Enter to analyze"}
           </span>
-          <button onClick={analyze} disabled={loading || text.trim().length < 8} style={{
-            padding:"7px 18px", borderRadius:"20px", background:accentA(0.15),
-            border:`1px solid ${accentA(0.45)}`, color:accent,
-            fontSize:"10px", letterSpacing:"0.08em", cursor: loading || text.trim().length < 8 ? "not-allowed" : "pointer",
-            fontFamily:"'DM Mono',monospace", fontWeight:700, transition:"all 0.2s",
-            opacity: loading || text.trim().length < 8 ? 0.5 : 1,
-          }}>
-            {loading ? (es?"Analizando...":"Analyzing...") : (es?"Calcular IRA →":"Calculate IRA →")}
+          <button type="button" className="ira-boton ira-boton--principal ira-boton--compacto" onClick={analyze} disabled={loading || text.trim().length < 8}>
+            {loading ? (es?"Analizando...":"Analyzing...") : (es?"Calcular IRA":"Calculate IRA")}
           </button>
         </div>
 
@@ -367,29 +331,23 @@ function MiniAnalyzer({ lang, accent, accentA }) {
 function ResultBlock({ result, es, col, accentA }) {
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ marginTop:"16px", borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"16px",
+    <div aria-live="polite" style={{ marginTop:"16px", borderTop:"1px solid var(--ira-linea)", paddingTop:"16px",
       display:"flex", alignItems:"center", gap:"16px", flexWrap:"wrap" }}>
-      <div style={{ display:"flex", flexDirection:"column", alignItems:"center", flexShrink:0, minWidth:"70px" }}>
-        <span style={{ fontSize:"36px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1 }}>
-          {result.score?.toFixed(1)}
+      <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", flexShrink:0, minWidth:"90px" }}>
+        <span style={{ display:"flex", alignItems:"baseline", gap:"4px", fontFamily:"var(--ira-font-cifra)", fontWeight:500, letterSpacing:"-0.04em", lineHeight:1 }}>
+          <span style={{ fontSize:"40px", color:col }}>{formatearPuntuacion(result.score, es ? 'es' : 'en')}</span>
+          <span style={{ fontSize:"14px", color:"var(--ira-texto-3)", letterSpacing:0 }}>/10</span>
         </span>
-        <span style={{ fontSize:"9px", color:col, letterSpacing:"0.1em", marginTop:"4px", textTransform:"uppercase" }}>
+        <span style={{ fontSize:"13px", color:"var(--ira-texto-cita)", marginTop:"6px" }}>
           {result.label || (result.score >= 7 ? (es?"Empático":"Empathic") : result.score >= 4.5 ? "Mixto" : (es?"Polarizante":"Polarizing"))}
         </span>
       </div>
       <div style={{ flex:1 }}>
-        <button onClick={() => setOpen(o => !o)} style={{
-          padding:"5px 12px", borderRadius:"20px",
-          background: open ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0.03)",
-          border:"1px solid rgba(255,255,255,0.12)",
-          color:"rgba(255,255,255,0.45)", fontSize:"10px",
-          cursor:"pointer", fontFamily:"'DM Mono',monospace",
-          transition:"all 0.2s",
-        }}>
+        <button type="button" aria-expanded={open} className="ira-boton ira-boton--secundario ira-boton--compacto" onClick={() => setOpen(o => !o)}>
           {open ? (es?"Cerrar ▲":"Close ▲") : (es?"¿Por qué? ▾":"Why? ▾")}
         </button>
         {open && result.reason && (
-          <p style={{ margin:"10px 0 0", fontSize:"11.5px", color:"rgba(255,255,255,0.45)",
+          <p style={{ margin:"10px 0 0", fontSize:"14px", color:"var(--ira-texto-2)",
             lineHeight:1.65, fontStyle:"italic" }}>
             {result.reason}
           </p>
@@ -650,21 +608,7 @@ function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-function sliderColor(val) {
-  if (val <= 5) {
-    const t = val / 5;
-    const r = Math.round(lerp(224, 232, t));
-    const g = Math.round(lerp(82, 168, t));
-    const b = Math.round(lerp(82, 56, t));
-    return `rgb(${r},${g},${b})`;
-  } else {
-    const t = (val - 5) / 5;
-    const r = Math.round(lerp(232, 110, t));
-    const g = Math.round(lerp(168, 198, t));
-    const b2 = Math.round(lerp(56, 160, t));
-    return `rgb(${r},${g},${b2})`;
-  }
-}
+const sliderColor = scoreColor;
 
 function exampleIndex(val) {
   return Math.min(10, Math.max(0, Math.round(val)));
@@ -699,71 +643,49 @@ function ParameterSliderSection({ lang, accent, accentA }) {
 
   return (
     <div style={{ marginBottom:"40px" }}>
-      <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.18em", color:accent, textTransform:"uppercase" }}>
+      <h3 className="ira-seccion__titulo">
         {es ? "Así suena el discurso a cada nivel" : "This is what discourse sounds like at each level"}
-      </p>
+      </h3>
 
-      <div style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)",
-        borderRadius:"14px", padding:"24px" }}>
+      <div className="ira-panel">
 
-        {/* Slider + badge */}
-        <div style={{ marginBottom:"28px" }}>
-          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"12px" }}>
-            <span style={{ fontSize:"9px", color:"#e05252", fontFamily:"'DM Mono',monospace" }}>
-              0 — {es ? "Polarizante" : "Polarizing"}
+        {/* Puntuación elegida + escala */}
+        <div style={{ marginBottom:"28px", display:"flex", flexDirection:"column", gap:"16px" }}>
+          <div style={{ display:"flex", alignItems:"baseline", gap:"12px", flexWrap:"wrap" }}>
+            <span style={{ display:"flex", alignItems:"baseline", gap:"4px", fontFamily:"var(--ira-font-cifra)", fontWeight:500, letterSpacing:"-0.04em", lineHeight:1 }}>
+              <span style={{ fontSize:"48px", color:col, transition:"color 0.3s" }}>{formatearPuntuacion(val, es ? 'es' : 'en')}</span>
+              <span style={{ fontSize:"16px", color:"var(--ira-texto-3)", letterSpacing:0 }}>/10</span>
             </span>
-            <div style={{ display:"flex", flexDirection:"column", alignItems:"center" }}>
-              <span style={{ fontSize:"28px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1, transition:"color 0.3s" }}>
-                {val.toFixed(1)}
-              </span>
-              <span style={{ fontSize:"8px", color:col, letterSpacing:"0.1em", textTransform:"uppercase", transition:"color 0.3s" }}>
-                {iraLabel}
-              </span>
-            </div>
-            <span style={{ fontSize:"9px", color:"#6ec6a0", fontFamily:"'DM Mono',monospace" }}>
-              10 — {es ? "Empático" : "Empathic"}
-            </span>
+            <span style={{ fontSize:"15px", color:"var(--ira-texto-cita)" }}>{iraLabel}</span>
           </div>
-
-          <div style={{ position:"relative", height:"6px", borderRadius:"6px",
-            background:"linear-gradient(90deg,#e05252,#e8a838 45%,#6ec6a0)" }}>
-            <input
-              type="range" min={0} max={10} step={0.1}
-              value={val}
-              onChange={handleChange}
-              style={{
-                position:"absolute", inset:0, width:"100%", height:"100%",
-                opacity:0, cursor:"pointer", margin:0,
-              }}
-            />
-            <div style={{
-              position:"absolute", top:"50%", left:`${val * 10}%`,
-              transform:"translate(-50%,-50%)",
-              width:"18px", height:"18px", borderRadius:"50%",
-              background:col, border:"2px solid #0e0e14",
-              boxShadow:`0 0 8px ${col}88`,
-              transition:"left 0.05s, background 0.3s, box-shadow 0.3s",
-              pointerEvents:"none",
-            }} />
+          <IndicadorEscala puntuacion={val} lang={es ? 'es' : 'en'} etiquetas={false} />
+          <label htmlFor="ira-rango-nivel" className="ira-sr">{es ? "Nivel de la escala" : "Scale level"}</label>
+          <input
+            id="ira-rango-nivel" className="ira-rango"
+            type="range" min={0} max={10} step={0.1}
+            value={val}
+            onChange={handleChange}
+            aria-valuetext={`${formatearPuntuacion(val, es ? 'es' : 'en')} — ${iraLabel}`}
+          />
+          <div className="ira-indicador__extremos" aria-hidden="true">
+            <span>0 · {es ? "Polarizante" : "Polarizing"}</span><span>{es ? "Empático" : "Empathic"} · 10</span>
           </div>
         </div>
 
         {/* Parámetros */}
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(240px, 1fr))", gap:"10px" }}>
           {params.map((p, i) => (
             <div key={p.id} style={{
-              background:"rgba(255,255,255,0.025)", borderRadius:"10px",
-              padding:"14px", border:"1px solid rgba(255,255,255,0.05)",
+              background:"var(--ira-noche)", borderRadius:"12px",
+              padding:"16px", border:"1px solid var(--ira-linea)",
             }}>
-              <p style={{ margin:"0 0 8px", fontSize:"8.5px", letterSpacing:"0.12em",
-                color:col, textTransform:"uppercase", fontFamily:"'DM Mono',monospace",
-                transition:"color 0.3s" }}>
+              <p style={{ margin:"0 0 8px", fontSize:"13px", color:"var(--ira-texto-2)" }}>
                 {p.label}
               </p>
               <p style={{
-                margin:0, fontSize:"11.5px", fontStyle:"italic",
-                fontFamily:"Georgia,serif", lineHeight:1.6,
-                color:"rgba(255,255,255,0.65)",
+                margin:0, fontSize:"15px",
+                lineHeight:1.6,
+                color:"var(--ira-texto-cita)",
                 opacity: fading ? 0.3 : 1,
                 transition:"opacity 0.25s",
               }}>
@@ -773,7 +695,7 @@ function ParameterSliderSection({ lang, accent, accentA }) {
           ))}
         </div>
 
-        <p style={{ margin:"16px 0 0", fontSize:"9.5px", color:"rgba(255,255,255,0.2)", lineHeight:1.5, textAlign:"center" }}>
+        <p style={{ margin:"16px 0 0", fontSize:"13px", color:"var(--ira-texto-2)", lineHeight:1.5, textAlign:"center" }}>
           {es
             ? "Los ejemplos son ilustrativos. Un registro distinto por cada punto entero de la escala."
             : "Examples are illustrative. A distinct register for each integer point on the scale."}
@@ -789,13 +711,9 @@ export default function IndexInteractive({ entities, lang, accent, accentA }) {
 
   return (
     <div style={{ marginTop:"48px" }}>
-      <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"24px" }}>
-        <div style={{ flex:1, height:"1px", background:"rgba(255,255,255,0.06)" }} />
-        <span style={{ fontSize:"9px", letterSpacing:"0.16em", color:"rgba(255,255,255,0.2)", textTransform:"uppercase", whiteSpace:"nowrap" }}>
-          {es ? "Explora e interactúa" : "Explore & interact"}
-        </span>
-        <div style={{ flex:1, height:"1px", background:"rgba(255,255,255,0.06)" }} />
-      </div>
+      <h2 style={{ margin:"0 0 28px", paddingTop:"40px", borderTop:"1px solid var(--ira-linea)", fontFamily:"var(--ira-font-titulo)", fontWeight:500, fontSize:"32px", letterSpacing:"-0.02em" }}>
+        {es ? "Explora e interactúa" : "Explore & interact"}
+      </h2>
 
       <SpectrumSection entities={entities} lang={lang} accent={accent} />
       <ParameterSliderSection lang={lang} accent={accent} accentA={accentA} />

@@ -1,0 +1,438 @@
+/* IRA · componentes de interfaz compartidos (usa tokens.css) */
+
+/* Solo para lectores de pantalla */
+.ira-sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ── Logo ─────────────────────────────────────────────────────────────────── */
+.ira-logo {
+  display: inline-flex; align-items: flex-end; gap: 14px;
+  text-decoration: none; min-height: 44px; padding-top: 6px;
+}
+.ira-logo__nombre {
+  font-family: var(--ira-font-texto); font-size: 14px; line-height: 1;
+  color: var(--ira-texto-2); white-space: nowrap; text-align: left;
+}
+
+/* ── Botones ──────────────────────────────────────────────────────────────── */
+.ira-boton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 48px; min-height: 44px; padding: 0 22px;
+  border-radius: var(--ira-radio-m); border: 1px solid transparent;
+  font-family: var(--ira-font-texto); font-weight: 500; font-size: 15px; line-height: 1;
+  color: var(--ira-nieve); text-decoration: none; white-space: nowrap;
+  cursor: pointer; transition: background-color 150ms ease, border-color 150ms ease;
+}
+.ira-boton:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 3px; }
+.ira-boton:disabled { opacity: 0.5; cursor: not-allowed; }
+.ira-boton--principal { background: var(--ira-brasa); }
+.ira-boton--principal:hover:not(:disabled) { background: #A8451F; color: var(--ira-nieve); }
+.ira-boton--principal:active:not(:disabled) { background: var(--ira-lacre); }
+.ira-boton--secundario { background: rgba(10, 30, 30, 0.7); border-color: var(--ira-linea-fuerte); }
+.ira-boton--secundario:hover:not(:disabled) { background: var(--ira-elevada); color: var(--ira-nieve); }
+.ira-boton--secundario:active:not(:disabled) { background: var(--ira-superficie); }
+.ira-boton--compacto { height: 44px; padding: 0 16px; font-size: 14px; }
+.ira-boton--icono { width: 44px; height: 44px; padding: 0; }
+
+/* Botón con aspecto de enlace (abre algo, no navega) */
+.ira-enlace-boton {
+  background: none; border: none; padding: 0; margin: 0; font: inherit;
+  color: var(--ira-nieve); cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--ira-oro);
+  text-decoration-thickness: 1px; text-underline-offset: 4px;
+}
+.ira-enlace-boton:hover { text-decoration-color: var(--ira-oro-hover); }
+
+/* ── Navegación ───────────────────────────────────────────────────────────── */
+.ira-nav { position: relative; z-index: 100; }
+.ira-nav__barra {
+  max-width: 1440px; margin: 0 auto; height: 96px; padding: 0 clamp(16px, 6.6vw, 96px);
+  display: flex; align-items: center; justify-content: space-between; gap: 32px;
+}
+.ira-nav__panel { display: flex; align-items: center; gap: 28px; font-size: 14px; }
+.ira-nav__enlace {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0;
+  background: none; border: none; font: inherit; cursor: pointer;
+  color: var(--ira-texto-2); text-decoration: none; white-space: nowrap;
+}
+.ira-nav__enlace:hover, .ira-nav__enlace.is-activa { color: var(--ira-nieve); }
+.ira-nav__enlace.is-activa { text-decoration: underline; text-decoration-color: var(--ira-oro); text-underline-offset: 8px; }
+.ira-nav__enlace--fuerte { color: var(--ira-nieve); }
+.ira-nav__sep { width: 1px; height: 20px; background: var(--ira-linea); }
+.ira-nav__usuario {
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  color: var(--ira-texto-2);
+}
+.ira-nav__idioma {
+  min-width: 44px; height: 44px; padding: 0 8px; border-radius: var(--ira-radio-m);
+  background: transparent; border: 1px solid transparent; cursor: pointer;
+  font-family: var(--ira-font-cifra); font-size: 12px; letter-spacing: 0.04em; color: var(--ira-texto-2);
+}
+.ira-nav__idioma:hover { color: var(--ira-nieve); border-color: var(--ira-linea); }
+.ira-nav__menu {
+  display: none; width: 44px; height: 44px; padding: 0; border-radius: var(--ira-radio-m);
+  background: transparent; border: 1px solid var(--ira-linea-fuerte); color: var(--ira-nieve);
+  align-items: center; justify-content: center; cursor: pointer;
+}
+.ira-nav__menu svg { fill: none; stroke: currentColor; stroke-width: 1.75px; stroke-linecap: round; }
+
+@media (max-width: 960px) {
+  .ira-nav__barra { height: 72px; }
+  .ira-nav__menu { display: inline-flex; }
+  .ira-nav__panel {
+    display: none; position: absolute; top: 72px; left: 16px; right: 16px;
+    flex-direction: column; align-items: stretch; gap: 0; padding: 8px 16px 16px;
+    background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); font-size: 16px;
+  }
+  .ira-nav__panel.is-abierto { display: flex; }
+  .ira-nav__enlace, .ira-nav__usuario { min-height: 48px; }
+  .ira-nav__usuario { display: flex; align-items: center; max-width: none; }
+  .ira-nav__sep { width: auto; height: 1px; margin: 8px 0; }
+  .ira-nav__panel .ira-boton { margin-top: 8px; }
+  .ira-nav__idioma { align-self: flex-start; margin-top: 8px; border-color: var(--ira-linea); }
+}
+@media (max-width: 520px) {
+  .ira-nav .ira-logo__nombre { display: none; }
+}
+
+/* ── Pie ──────────────────────────────────────────────────────────────────── */
+.ira-pie {
+  max-width: 1440px; margin: 0 auto; padding: 40px clamp(16px, 6.6vw, 96px) 32px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;
+  border-top: 1px solid var(--ira-linea); font-size: 13px; line-height: 20px; color: var(--ira-texto-3);
+}
+.ira-pie__enlaces { display: flex; flex-wrap: wrap; gap: 0 20px; }
+.ira-pie a { color: var(--ira-texto-2); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+.ira-pie a:hover { color: var(--ira-nieve); }
+.ira-pie__autoria { margin: 0; }
+.ira-pie__autoria a { color: var(--ira-texto-3); min-height: 0; }
+
+/* ── Cifras ───────────────────────────────────────────────────────────────── */
+.ira-cifra { font-family: var(--ira-font-cifra); font-weight: 500; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+
+/* ── Etiqueta de puntuación ───────────────────────────────────────────────── */
+.ira-etiqueta {
+  display: inline-flex; align-items: center; flex-shrink: 0;
+  font-family: var(--ira-font-cifra); font-weight: 500; font-size: 14px; line-height: 1;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.ira-etiqueta--pastilla { height: 28px; padding: 0 10px; border-radius: var(--ira-radio-s); }
+.ira-etiqueta--punto { gap: 8px; color: var(--ira-nieve); }
+.ira-etiqueta__punto { width: 10px; height: 10px; border-radius: 5px; flex-shrink: 0; }
+.ira-etiqueta--vacia { color: var(--ira-texto-3); }
+
+/* ── Barra de 11 segmentos ────────────────────────────────────────────────── */
+.ira-barra { display: flex; gap: 4px; }
+.ira-barra > span { flex: 1 1 0; }
+
+/* ── Indicador de escala ──────────────────────────────────────────────────── */
+.ira-indicador { display: flex; flex-direction: column; gap: 10px; }
+.ira-indicador__casillas { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 6px; padding-top: 6px; }
+.ira-indicador__casillas > span {
+  height: 52px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-family: var(--ira-font-cifra); font-weight: 500; font-size: 17px; font-variant-numeric: tabular-nums;
+}
+.ira-indicador__casillas > span.is-actual {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 2px var(--ira-noche), 0 0 0 4px var(--ira-nieve);
+}
+.ira-indicador--compacto .ira-indicador__casillas { gap: 4px; padding-top: 0; }
+.ira-indicador--compacto .ira-indicador__casillas > span { height: 30px; border-radius: var(--ira-radio-s); font-size: 13px; font-weight: 400; }
+.ira-indicador--compacto .ira-indicador__casillas > span.is-actual { transform: translateY(-3px); }
+.ira-indicador__extremos { display: flex; justify-content: space-between; font-size: 12px; line-height: 16px; color: var(--ira-texto-2); }
+@media (max-width: 480px) {
+  .ira-indicador__casillas > span { height: 40px; font-size: 14px; }
+  .ira-indicador__casillas { gap: 3px; }
+}
+
+/* ── Tarjeta de discurso ──────────────────────────────────────────────────── */
+.ira-tarjeta {
+  margin: 0; padding: 36px; display: flex; flex-direction: column; gap: 32px; text-align: left;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl);
+  color: var(--ira-nieve); font-family: var(--ira-font-texto);
+}
+.ira-tarjeta__cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.ira-tarjeta__orador { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ira-tarjeta__nombre { font-size: 16px; line-height: 22px; font-weight: 500; }
+.ira-tarjeta__cargo { font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+.ira-tarjeta__fecha { font-family: var(--ira-font-cifra); font-size: 13px; color: var(--ira-texto-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ira-tarjeta__cita { margin: 0; font-size: 20px; line-height: 32px; color: var(--ira-texto-cita); }
+.ira-tarjeta__puntuacion { display: flex; flex-direction: column; gap: 16px; }
+.ira-tarjeta__cifra { margin: 0; display: flex; align-items: baseline; gap: 8px; font-family: var(--ira-font-cifra); font-weight: 500; line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.ira-tarjeta__cifra > span:first-child { font-size: 88px; }
+.ira-tarjeta__max { font-size: 26px; font-weight: 400; color: var(--ira-texto-3); letter-spacing: 0; }
+.ira-tarjeta__extremos { display: flex; justify-content: space-between; font-size: 12px; color: var(--ira-texto-2); }
+.ira-tarjeta__pie { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 24px; border-top: 1px solid var(--ira-linea); }
+.ira-tarjeta__nota { font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+
+/* Compacta: para rejillas de varias tarjetas */
+.ira-tarjeta--compacta { padding: 24px; gap: 20px; border-radius: var(--ira-radio-l); }
+.ira-tarjeta--compacta .ira-tarjeta__cita {
+  font-size: 16px; line-height: 26px;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
+.ira-tarjeta--compacta .ira-tarjeta__puntuacion { gap: 12px; }
+.ira-tarjeta--compacta .ira-tarjeta__cifra > span:first-child { font-size: 48px; }
+.ira-tarjeta--compacta .ira-tarjeta__max { font-size: 18px; }
+.ira-tarjeta--compacta .ira-tarjeta__pie { padding-top: 16px; flex-wrap: wrap; }
+@media (max-width: 600px) {
+  .ira-tarjeta { padding: 24px; gap: 24px; }
+  .ira-tarjeta__cifra > span:first-child { font-size: 64px; }
+}
+
+/* ── Fila de parámetro ────────────────────────────────────────────────────── */
+.ira-param { margin-bottom: 18px; }
+.ira-param__cabecera {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  width: 100%; min-height: 44px; padding: 0; margin: 0;
+  background: none; border: none; font: inherit; color: inherit; text-align: left;
+}
+.ira-param__cabecera--boton { cursor: pointer; border-radius: var(--ira-radio-s); }
+.ira-param__cabecera--boton:hover .ira-param__nombre { color: var(--ira-nieve); }
+.ira-param__nombre { font-size: 14px; line-height: 20px; color: var(--ira-texto-cita); }
+.ira-param__lado { display: inline-flex; align-items: center; gap: 10px; }
+.ira-param__chevron { fill: none; stroke: var(--ira-texto-2); stroke-width: 1.75px; stroke-linecap: round; stroke-linejoin: round; transition: transform 150ms ease; }
+.ira-param__pista { height: 4px; border-radius: 2px; background: var(--ira-linea); overflow: hidden; margin-top: 4px; }
+.ira-param__pista > div { height: 100%; border-radius: 2px; transition: width 600ms ease; }
+.ira-param__desc { margin: 6px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+.ira-param__detalle {
+  margin-top: 12px; padding: 16px; border-radius: 12px;
+  background: var(--ira-noche); border: 1px solid var(--ira-linea);
+}
+
+/* ── Tarjeta de figura (clasificación) ────────────────────────────────────── */
+.ira-figura {
+  display: flex; flex-direction: column; gap: 16px; padding: 20px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l);
+  color: var(--ira-nieve); text-decoration: none; transition: background-color 150ms ease, border-color 150ms ease;
+}
+.ira-figura:hover { background: var(--ira-elevada); border-color: var(--ira-linea-fuerte); color: var(--ira-nieve); }
+.ira-figura__cabecera { display: flex; align-items: flex-start; gap: 12px; }
+.ira-figura__foto {
+  width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: center top;
+  flex-shrink: 0; border: 1px solid var(--ira-linea-fuerte);
+}
+.ira-figura__nombre { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 18px; line-height: 1.2; letter-spacing: -0.01em; }
+.ira-figura__pais { margin: 2px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+.ira-figura__cifra { margin: 0; display: flex; align-items: baseline; gap: 4px; font-family: var(--ira-font-cifra); font-weight: 500; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.ira-figura__cifra > span:first-child { font-size: 32px; }
+.ira-figura__max { font-size: 14px; color: var(--ira-texto-3); letter-spacing: 0; }
+.ira-figura__cta { font-size: 13px; color: var(--ira-texto-2); }
+.ira-figura:hover .ira-figura__cta { color: var(--ira-oro); }
+.ira-ficha__indicador { margin: 8px 0 32px; }
+
+/* ── Formularios ──────────────────────────────────────────────────────────── */
+.ira-grupo { margin-bottom: 20px; }
+.ira-rotulo { display: block; margin: 0 0 8px; padding: 0; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ira-texto-cita); }
+.ira-campo {
+  width: 100%; box-sizing: border-box; min-height: 48px; padding: 12px 14px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea-fuerte); border-radius: var(--ira-radio-m);
+  color: var(--ira-nieve); font-family: var(--ira-font-texto); font-size: 15px; line-height: 22px;
+}
+.ira-campo::placeholder { color: var(--ira-texto-3); }
+.ira-campo:hover { border-color: #3A5A5A; }
+.ira-campo:focus { outline: none; border-color: var(--ira-oro); box-shadow: 0 0 0 1px var(--ira-oro); }
+.ira-ayuda { margin: 6px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+.ira-aviso {
+  margin-bottom: 24px; padding: 14px 16px; border-radius: var(--ira-radio-m);
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea);
+  font-size: 14px; line-height: 22px; color: var(--ira-texto-2);
+}
+
+/* Fichas seleccionables (filtros, categorías) */
+.ira-chip {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+  border-radius: 99px; border: 1px solid var(--ira-linea-fuerte); background: transparent;
+  color: var(--ira-texto-2); font-family: var(--ira-font-texto); font-size: 14px; cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+.ira-chip:hover { color: var(--ira-nieve); background: var(--ira-elevada); }
+.ira-chip[aria-pressed="true"], .ira-chip.is-activa { color: var(--ira-noche); background: var(--ira-oro); border-color: var(--ira-oro); }
+
+/* ── Cabecera de página ───────────────────────────────────────────────────── */
+.ira-cabecera { margin-bottom: 40px; display: flex; flex-direction: column; gap: 20px; }
+.ira-cabecera__titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(40px, 6vw, 64px); line-height: 1.04; letter-spacing: -0.03em; }
+.ira-cabecera__texto { margin: 0; max-width: 600px; font-size: 17px; line-height: 28px; color: var(--ira-texto-2); }
+.ira-cabecera__acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+.ira-cabecera__extra { margin: 0; font-size: 14px; color: var(--ira-texto-2); }
+.ira-cabecera__extra a { text-underline-offset: 3px; }
+
+.ira-caso { padding: 18px 20px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); }
+.ira-caso__rol { margin: 0 0 6px; font-size: 14px; font-weight: 500; color: var(--ira-oro); }
+.ira-caso__texto { margin: 0; font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+
+/* Selector segmentado (pestañas que navegan) */
+.ira-segmentos {
+  display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 32px; max-width: 100%;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: 12px;
+}
+.ira-segmentos__opcion {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px;
+  border-radius: 9px; font-size: 14px; color: var(--ira-texto-2); text-decoration: none; white-space: nowrap;
+}
+.ira-segmentos__opcion:hover { color: var(--ira-nieve); background: var(--ira-elevada); }
+.ira-segmentos__opcion.is-activa { color: var(--ira-nieve); background: var(--ira-elevada); box-shadow: inset 0 0 0 1px var(--ira-linea-fuerte); }
+a.ira-chip { text-decoration: none; }
+@media (max-width: 600px) {
+  .ira-segmentos { display: flex; }
+  .ira-segmentos__opcion { flex: 1; padding: 0 10px; font-size: 13px; }
+}
+.ira-figura__puntuacion { display: flex; flex-direction: column; gap: 10px; }
+
+/* ── Secciones y paneles genéricos ────────────────────────────────────────── */
+.ira-seccion__titulo { margin: 0 0 16px; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; color: var(--ira-nieve); }
+.ira-panel { padding: 24px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl); }
+
+/* Control deslizante */
+.ira-rango { width: 100%; height: 44px; margin: 0; accent-color: var(--ira-oro); cursor: pointer; background: transparent; }
+.ira-rango:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 2px; border-radius: 6px; }
+
+/* ── Estructura de la app: el pie queda abajo en páginas cortas ───────────── */
+.ira-app { min-height: 100vh; display: flex; flex-direction: column; }
+.ira-app > main { flex: 1 0 auto; }
+
+/* ── Ventana modal ────────────────────────────────────────────────────────── */
+.ira-ventana__fondo {
+  position: fixed; inset: 0; z-index: 700; padding: 24px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(4, 20, 20, 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  animation: ira-entrada 240ms ease-out;
+}
+.ira-ventana {
+  width: 100%; max-height: calc(100vh - 48px); overflow-y: auto; box-sizing: border-box;
+  padding: 36px; display: flex; flex-direction: column; gap: 22px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); color: var(--ira-nieve);
+}
+.ira-ventana:focus { outline: none; }
+.ira-ventana__cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.ira-ventana__antetitulo { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ira-oro); }
+.ira-ventana__titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; }
+.ira-ventana__cuerpo { margin: 0; font-size: 16px; line-height: 27px; color: var(--ira-texto-cita); }
+.ira-ventana__caja {
+  display: flex; flex-direction: column; gap: 10px; padding: 18px 20px;
+  background: var(--ira-noche); border: 1px solid var(--ira-linea); border-radius: 12px;
+}
+.ira-ventana__caja-titulo { margin: 0; font-family: var(--ira-font-texto); font-weight: 400; font-size: 12px; color: var(--ira-texto-3); }
+.ira-ventana__caja ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.ira-ventana__caja li { display: flex; gap: 10px; align-items: baseline; font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
+.ira-ventana__punto { flex-shrink: 0; width: 6px; height: 6px; border-radius: 3px; transform: translateY(-2px); }
+.ira-ventana__pie {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding-top: 18px; border-top: 1px solid var(--ira-linea); font-size: 13px; color: var(--ira-texto-3);
+}
+.ira-ventana__enlace { flex-shrink: 0; font-size: 14px; font-weight: 500; text-underline-offset: 4px; padding: 12px 0; }
+@keyframes ira-entrada { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 600px) {
+  .ira-ventana__fondo { padding: 12px; align-items: flex-end; }
+  .ira-ventana { padding: 24px 20px; }
+  .ira-ventana__titulo { font-size: 24px; }
+}
+
+/* ── Estrella y destellos de los fragmentos ───────────────────────────────── */
+.ira-estrella--titila { animation: ira-brillo 2.4s ease-in-out infinite; }
+@keyframes ira-brillo {
+  0%, 100% { opacity: 0.55; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.1) rotate(45deg); }
+}
+/* Destellos dispersos alrededor del fragmento, sin marcar palabras concretas */
+.ira-panel-ej__cita { position: relative; flex: 1; min-width: 0; }
+.ira-panel-ej__destello { position: absolute; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ira-estrella--titila { animation: none; }
+}
+
+/* ── Panel de ejemplos (portada) ──────────────────────────────────────────── */
+.ira-panel-ej {
+  width: 440px; flex-shrink: 0; box-sizing: border-box; padding: 28px;
+  display: flex; flex-direction: column; gap: 22px;
+  background: rgba(10, 30, 30, 0.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl);
+}
+.ira-panel-ej__contenido { display: flex; flex-direction: column; gap: 22px; animation: ira-fundido 500ms ease; }
+@keyframes ira-fundido { from { opacity: 0; } to { opacity: 1; } }
+.ira-panel-ej__vacio { margin: 0; min-height: 420px; display: flex; align-items: center; justify-content: center; color: var(--ira-texto-2); font-size: 14px; }
+.ira-panel-ej__datos {
+  margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--ira-linea);
+}
+.ira-panel-ej__datos > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ira-panel-ej__datos dt { font-size: 12px; color: var(--ira-texto-3); }
+.ira-panel-ej__datos dd { margin: 0; font-size: 14px; line-height: 20px; color: var(--ira-nieve); overflow-wrap: anywhere; }
+.ira-cifra-fecha { font-family: var(--ira-font-cifra); font-variant-numeric: tabular-nums; }
+.ira-panel-ej__fragmentos { display: flex; flex-direction: column; gap: 18px; min-height: 340px; }
+.ira-panel-ej__fragmento { display: flex; gap: 14px; align-items: flex-start; }
+.ira-panel-ej__fragmento p { margin: 0; font-size: 16px; line-height: 28px; color: var(--ira-texto-cita); }
+.ira-panel-ej__etiqueta.ira-etiqueta--pastilla { height: 26px; padding: 0 8px; font-size: 13px; margin-top: 1px; }
+.ira-panel-ej__resumen {
+  display: flex; justify-content: space-between; align-items: flex-end; gap: 16px;
+  padding-top: 20px; border-top: 1px solid var(--ira-linea);
+}
+.ira-panel-ej__rotulo { font-size: 12px; color: var(--ira-texto-3); }
+.ira-panel-ej__cifra { margin: 0; display: flex; align-items: baseline; gap: 6px; font-family: var(--ira-font-cifra); font-weight: 500; line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.ira-panel-ej__cifra > span:first-child { font-size: 40px; }
+.ira-panel-ej__max { font-size: 16px; font-weight: 400; color: var(--ira-texto-3); letter-spacing: 0; }
+.ira-panel-ej__leyenda { display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--ira-texto-2); }
+.ira-panel-ej__leyenda > span { display: inline-flex; align-items: center; gap: 8px; }
+.ira-panel-ej__controles { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.ira-panel-ej__punto { width: 28px; height: 44px; padding: 0; background: transparent; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.ira-panel-ej__punto > span { display: block; height: 6px; border-radius: 3px; transition: width 200ms ease; }
+.ira-panel-ej__contador { font-family: var(--ira-font-cifra); font-size: 12px; color: var(--ira-texto-3); padding-right: 4px; }
+.ira-icono-trazo { fill: none; stroke: currentColor; stroke-width: 1.75px; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── Portada ──────────────────────────────────────────────────────────────── */
+.ira-portada {
+  max-width: 1440px; margin: 0 auto; box-sizing: border-box;
+  padding: 24px clamp(16px, 6.6vw, 96px) 72px;
+  min-height: calc(100vh - 96px);
+  display: flex; align-items: center; justify-content: space-between; gap: 64px;
+}
+.ira-portada__texto { flex: 1 1 0; min-width: 0; max-width: 740px; display: flex; flex-direction: column; gap: 28px; }
+.ira-portada__titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(44px, 5.3vw, 76px); line-height: 1.02; letter-spacing: -0.03em; }
+.ira-portada__intro { margin: 0; max-width: 600px; font-size: 18px; line-height: 1.6; color: var(--ira-texto-2); }
+.ira-portada__intro a { color: var(--ira-nieve); text-decoration-color: var(--ira-oro); text-underline-offset: 4px; }
+.ira-portada__intro a:hover { text-decoration-color: var(--ira-oro-hover); }
+.ira-portada__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.ira-portada__nota { margin: -12px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-3); }
+.ira-portada__nota .ira-enlace-boton { color: var(--ira-oro); text-decoration-color: currentColor; text-underline-offset: 3px; }
+.ira-portada__escala { padding-top: 20px; max-width: 520px; }
+@media (max-width: 1100px) {
+  .ira-portada { flex-direction: column; align-items: stretch; min-height: 0; gap: 48px; padding-top: 32px; }
+  .ira-portada__texto { max-width: none; }
+  .ira-panel-ej { width: 100%; max-width: 560px; }
+}
+@media (max-width: 600px) {
+  .ira-portada__intro { font-size: 17px; line-height: 28px; }
+  .ira-portada__acciones .ira-boton { width: 100%; }
+  .ira-panel-ej { padding: 20px; }
+  .ira-panel-ej__fragmentos { min-height: 0; }
+}
+
+/* ── Página de discursos ──────────────────────────────────────────────────── */
+.ira-filtros { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.ira-filtros__grupo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ira-filtros__rotulo { font-size: 13px; color: var(--ira-texto-2); margin-right: 4px; }
+.ira-filtros__total { margin: 0 0 20px; font-size: 13px; color: var(--ira-texto-2); }
+.ira-rejilla-discursos {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;
+}
+.ira-rejilla-discursos > li { display: flex; }
+.ira-rejilla-discursos > li > .ira-tarjeta { flex: 1; }
+.ira-tarjeta--compacta .ira-tarjeta__pie { margin-top: auto; }
+@media (max-width: 480px) { .ira-rejilla-discursos { grid-template-columns: 1fr; } }
+
+/* El contenido va por encima del fondo con destellos */
+.ira-app { position: relative; z-index: 1; }
+.ira-app > main:focus { outline: none; }
+
+/* Enlace para saltar la navegación con teclado */
+.ira-saltar {
+  position: absolute; left: 16px; top: -100px; z-index: 1000;
+  padding: 12px 16px; border-radius: var(--ira-radio-m);
+  background: var(--ira-oro); color: var(--ira-noche); font-weight: 500; text-decoration: none;
+}
+.ira-saltar:focus { top: 16px; color: var(--ira-noche); }

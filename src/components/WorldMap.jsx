@@ -5,12 +5,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const IRA_COLOR = (score) => {
-  if (score == null) return '#555';
-  if (score >= 7)   return '#6ec6a0';
-  if (score >= 4.5) return '#e8a838';
-  return '#e05252';
-};
+import { colorPuntuacion, textoSobrePuntuacion, formatearPuntuacion } from '../lib/escala';
+import IndicadorEscala from './ui/IndicadorEscala.jsx';
+
+const IRA_COLOR = (score) => (score == null ? '#4A5C5C' : colorPuntuacion(score));
 
 // Coordenadas lon/lat reales para la proyección equirectangular (base
 // -180..180 / -90..90, lineal). Entidades que comparten ciudad llevan un
@@ -45,21 +43,21 @@ const TEXTS = {
   en: { title: 'Geographic distribution', subtitle: 'Click a country to view its analysis' },
 };
 
-export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) {
+export default function WorldMap({ entities, lang = 'es', accent = '#DCB149' }) {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(null);
   const T = TEXTS[lang] || TEXTS.es;
-  const accentA = (a) => accent === '#ff6600'
-    ? `rgba(255,102,0,${a})`
-    : `rgba(0,102,255,${a})`;
+  const accentA = (a) => accent === '#DCB149'
+    ? `rgba(220,177,73,${a})`
+    : `rgba(220,177,73,${a})`;
 
   return (
-    <div style={{ marginTop: '28px', padding: '20px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '12px' }}>
+    <div className="ira-panel" style={{ marginTop: '28px' }}>
       <div style={{ marginBottom: '14px' }}>
-        <span style={{ fontSize: '9px', letterSpacing: '0.16em', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase' }}>
-          🌍 {T.title}
-        </span>
-        <p style={{ margin: '4px 0 0', fontSize: '11px', color: 'rgba(255,255,255,0.3)', fontFamily: "'DM Mono', monospace" }}>
+        <h3 className="ira-seccion__titulo" style={{ marginBottom: '4px' }}>
+          {T.title}
+        </h3>
+        <p style={{ margin: 0, fontSize: '14px', color: "var(--ira-texto-2)" }}>
           {T.subtitle}
         </p>
       </div>
@@ -130,14 +128,14 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                   dominantBaseline="middle"
                   style={{
                     fontSize: isHov ? '9.5px' : '8.5px',
-                    fontWeight: 700,
-                    fill: '#000',
-                    fontFamily: "'DM Mono', monospace",
+                    fontWeight: 500,
+                    fill: entity.score != null ? textoSobrePuntuacion(entity.score) : '#FCFDFF',
+                    fontFamily: "var(--ira-font-cifra)",
                     pointerEvents: 'none',
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  {entity.score != null ? entity.score.toFixed(1) : '?'}
+                  {entity.score != null ? formatearPuntuacion(entity.score, lang) : '?'}
                 </text>
 
                 {/* Etiqueta siempre visible: bandera + apellido */}
@@ -149,7 +147,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                     fontSize: '7px',
                     fontWeight: 600,
                     fill: 'rgba(255,255,255,0.80)',
-                    fontFamily: "'DM Mono', monospace",
+                    fontFamily: "var(--ira-font-texto)",
                     pointerEvents: 'none',
                     letterSpacing: '0.02em',
                   }}
@@ -164,7 +162,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                       x={cx - 58} y={cy - 42}
                       width={116} height={22}
                       rx={5}
-                      fill="rgba(10,10,18,0.94)"
+                      fill="#112A2A"
                       stroke={color}
                       strokeWidth={0.8}
                     />
@@ -176,7 +174,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                         fontSize: '8.5px',
                         fontWeight: 700,
                         fill: '#fff',
-                        fontFamily: "'DM Mono', monospace",
+                        fontFamily: "var(--ira-font-texto)",
                         pointerEvents: 'none',
                       }}
                     >
@@ -190,20 +188,9 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
         </svg>
       </div>
 
-      {/* Leyenda */}
-      <div style={{ display: 'flex', gap: '20px', marginTop: '12px', flexWrap: 'wrap' }}>
-        {[
-          ['#6ec6a0', '≥ 7.0', 'Empático'],
-          ['#e8a838', '4.5 – 7.0', 'Mixto'],
-          ['#e05252', '< 4.5', 'Polarizante'],
-        ].map(([color, range, label]) => (
-          <div key={color} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <div style={{ width: 10, height: 10, borderRadius: '50%', background: color }} />
-            <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', fontFamily: "'DM Mono', monospace" }}>
-              {lang === 'en' ? range : range} · {lang === 'en' ? label : label}
-            </span>
-          </div>
-        ))}
+      {/* Leyenda: cada color con su cifra */}
+      <div style={{ marginTop: '16px', maxWidth: '420px' }}>
+        <IndicadorEscala compacto lang={lang} />
       </div>
     </div>
   );

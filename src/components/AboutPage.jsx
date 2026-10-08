@@ -1,14 +1,14 @@
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App.jsx';
 
-const PARAM_COLORS = ["#ff6600","#e8a838","#6ec6a0","#5ba8d4","#a07cd4","#e05890","#50c8b4","#c8a050"];
+import { CATEGORICOS, CATEGORICOS as PARAM_COLORS } from '../lib/escala';
 
 const AUTHORS = [
   {
     name: "Antonio Damasio",
     work: { es: "El error de Descartes (1994)", en: "Descartes' Error (1994)" },
-    color: "#ff6600",
+    color: "#DCB149",
     contribution: {
       es: "Las emociones no son el ruido de la razón — son su substrato. Pacientes con daño límbico no se vuelven más racionales: se vuelven incapaces de decidir.",
       en: "Emotions are not the noise of reason — they are its substrate. Patients with limbic damage don't become more rational: they become incapable of deciding.",
@@ -17,7 +17,7 @@ const AUTHORS = [
   {
     name: "Vittorio Gallese",
     work: { es: "Neuronas espejo (2003–)", en: "Mirror Neurons (2003–)" },
-    color: "#e8a838",
+    color: CATEGORICOS[0],
     contribution: {
       es: "Cuando escuchamos describir una emoción, activamos parcialmente las mismas redes que si la sintiéramos. El contagio de las palabras no es metáfora: es neurociencia.",
       en: "When we hear an emotion described, we partially activate the same networks as if we felt it. The contagion of words is not a metaphor: it is neuroscience.",
@@ -26,7 +26,7 @@ const AUTHORS = [
   {
     name: "George Lakoff",
     work: { es: "Metáforas de la vida cotidiana (1980)", en: "Metaphors We Live By (1980)" },
-    color: "#6ec6a0",
+    color: CATEGORICOS[1],
     contribution: {
       es: "Las metáforas conceptuales no son adornos: estructuran cómo percibimos la realidad. «Drenar el pantano» no es hipérbole — es un marco cognitivo que determina qué preguntas nos parecen posibles.",
       en: "Conceptual metaphors are not ornaments: they structure how we perceive reality. «Drain the swamp» is not hyperbole — it's a cognitive frame that determines which questions seem possible.",
@@ -35,7 +35,7 @@ const AUTHORS = [
   {
     name: "Teun van Dijk",
     work: { es: "Análisis Crítico del Discurso (1993–)", en: "Critical Discourse Analysis (1993–)" },
-    color: "#5ba8d4",
+    color: CATEGORICOS[2],
     contribution: {
       es: "El discurso no es neutro: construye identidades, consolida jerarquías y naturaliza el poder. El IRA hereda esta tradición y la aplica a la dimensión afectiva.",
       en: "Discourse is not neutral: it constructs identities, consolidates hierarchies, and naturalizes power. The IRA inherits this tradition and applies it to the affective dimension.",
@@ -44,7 +44,7 @@ const AUTHORS = [
   {
     name: "Eva Illouz",
     work: { es: "Capitalismo emocional (2007)", en: "Cold Intimacies (2007)" },
-    color: "#a07cd4",
+    color: CATEGORICOS[3],
     contribution: {
       es: "El mercado no solo produce bienes: produce emociones. Los discursos políticos han colonizado el léxico terapéutico. El IRA detecta esos deslizamientos.",
       en: "The market doesn't only produce goods: it produces emotions. Political discourses have colonized therapeutic lexicon. The IRA detects those slippages.",
@@ -53,7 +53,7 @@ const AUTHORS = [
   {
     name: "Roberto Esposito",
     work: { es: "Communitas / Immunitas (1998 / 2002)", en: "Communitas / Immunitas (1998 / 2002)" },
-    color: "#e05890",
+    color: CATEGORICOS[5],
     contribution: {
       es: "Toda comunidad política se define por lo que excluye. La exclusión se construye con metáforas de contaminación y pureza. El parámetro de Carga Dicotómica mide exactamente eso.",
       en: "Every political community defines itself by what it excludes. Exclusion is built with metaphors of contamination and purity. The Dichotomous Load parameter measures exactly that.",
@@ -81,28 +81,13 @@ export default function AboutPage() {
   const es = lang !== 'en';
 
   return (
-    <div style={{ minHeight:"100vh", background:"#0e0e14", fontFamily:"'DM Mono',monospace", overflowX:"hidden" }}>
+    <div style={{ fontFamily:"var(--ira-font-texto)", overflowX:"hidden" }}>
       <style>{`
         @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
-        @keyframes blobA { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(40px,-30px) scale(1.1);} }
-        @keyframes blobB { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-30px,40px) scale(1.08);} }
         .about-fade { opacity:0; animation: fadeUp 0.7s ease forwards; }
       `}</style>
 
-      {/* Blobs */}
-      <div style={{ position:"fixed", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
-        <div style={{ position:"absolute", top:"-10%", left:"5%", width:"55vw", height:"55vh", borderRadius:"50%",
-          background:"radial-gradient(ellipse, rgba(255,102,0,0.08) 0%, transparent 65%)", animation:"blobA 20s ease-in-out infinite" }} />
-        <div style={{ position:"absolute", bottom:"-15%", right:"-5%", width:"50vw", height:"50vh", borderRadius:"50%",
-          background:"radial-gradient(ellipse, rgba(220,60,160,0.06) 0%, transparent 65%)", animation:"blobB 26s ease-in-out infinite" }} />
-      </div>
 
-      {/* Back */}
-      <button onClick={() => navigate(-1)} className="top-nav-left" style={{
-        fontFamily:"'DM Mono',monospace", fontSize:"11px", fontWeight:700,
-        color:"#ff6600", letterSpacing:"0.04em", border:"1.5px solid rgba(255,102,0,0.4)",
-        borderRadius:"20px", padding:"5px 13px", background:"rgba(255,102,0,0.07)", cursor:"pointer",
-      }}>{es ? "← Volver" : "← Back"}</button>
 
       <div style={{ position:"relative", zIndex:1 }}>
 
@@ -110,28 +95,28 @@ export default function AboutPage() {
         <div style={{ maxWidth:"900px", margin:"0 auto", padding:"120px 24px 80px",
           opacity:mounted?1:0, transform:mounted?"none":"translateY(20px)", transition:"all 0.6s ease" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"24px" }}>
-            <div style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#ff6600", boxShadow:"0 0 8px #ff6600" }} />
-            <span style={{ fontSize:"9px", letterSpacing:"0.22em", color:"rgba(255,255,255,0.2)", textTransform:"uppercase" }}>
+            <div style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#DCB149", boxShadow:"0 0 8px #DCB149" }} />
+            <span style={{ fontSize:"12px", letterSpacing:"0.22em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
               {es ? "Sobre el proyecto" : "About the project"}
             </span>
           </div>
 
           {/* Frase grande partido en líneas */}
           <div style={{ marginBottom:"60px" }}>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
-              color:"rgba(255,255,255,0.08)", lineHeight:1, letterSpacing:"-0.04em" }}>
+            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+              color:"var(--ira-texto-3)", lineHeight:1, letterSpacing:"-0.04em" }}>
               {es ? "Las palabras" : "Words don't"}
             </p>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
-              color:"rgba(255,255,255,0.25)", lineHeight:1, letterSpacing:"-0.04em" }}>
+            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+              color:"var(--ira-texto-3)", lineHeight:1, letterSpacing:"-0.04em" }}>
               {es ? "no solo describen" : "just describe"}
             </p>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
-              color:"#fff", lineHeight:1, letterSpacing:"-0.04em" }}>
+            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+              color:"var(--ira-nieve)", lineHeight:1, letterSpacing:"-0.04em" }}>
               {es ? "la realidad." : "reality."}
             </p>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
-              color:"#ff6600", lineHeight:1, letterSpacing:"-0.04em" }}>
+            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+              color:"#DCB149", lineHeight:1, letterSpacing:"-0.04em" }}>
               {es ? "La configuran." : "They shape it."}
             </p>
           </div>
@@ -146,9 +131,9 @@ export default function AboutPage() {
             ].map((s, i) => (
               <div key={i} style={{ flex:1, padding:"20px 0", textAlign:"center",
                 borderRight: i < 3 ? "1px solid rgba(255,255,255,0.06)" : "none" }}>
-                <p style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
-                  color:"#ff6600", letterSpacing:"-0.02em" }}>{s.num}</p>
-                <p style={{ margin:"4px 0 0", fontSize:"9px", color:"rgba(255,255,255,0.2)", letterSpacing:"0.12em", textTransform:"uppercase" }}>{s.label}</p>
+                <p style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+                  color:"#DCB149", letterSpacing:"-0.02em" }}>{s.num}</p>
+                <p style={{ margin:"4px 0 0", fontSize:"12px", color:"var(--ira-texto-3)", letterSpacing:"0.12em", textTransform:"uppercase" }}>{s.label}</p>
               </div>
             ))}
           </div>
@@ -161,12 +146,12 @@ export default function AboutPage() {
 
           {/* Pull quote dramático */}
           <blockquote style={{ margin:"0 0 40px", padding:"0 0 0 20px",
-            borderLeft:"3px solid rgba(224,82,82,0.6)" }}>
-            <p style={{ margin:0, fontSize:"clamp(18px,3vw,24px)", fontWeight:700, fontFamily:"'Syne',sans-serif",
-              color:"rgba(224,82,82,0.85)", lineHeight:1.3, letterSpacing:"-0.01em" }}>
+            borderLeft:"3px solid var(--ira-1)" }}>
+            <p style={{ margin:0, fontSize:"clamp(18px,3vw,24px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+              color:"var(--ira-marca-polarizante)", lineHeight:1.3, letterSpacing:"-0.01em" }}>
               {es ? "«Yo mataría a toda esa gente.»" : "«I would kill all those people.»"}
             </p>
-            <p style={{ margin:"10px 0 0", fontSize:"11px", color:"rgba(255,255,255,0.25)", fontStyle:"italic" }}>
+            <p style={{ margin:"10px 0 0", fontSize:"14px", color:"var(--ira-texto-3)", fontStyle:"italic" }}>
               {es ? "— Frase escuchada demasiadas veces. Origen del IRA." : "— A phrase heard too many times. The origin of the IRA."}
             </p>
           </blockquote>
@@ -185,16 +170,16 @@ export default function AboutPage() {
           />
 
           {/* TFG callout */}
-          <div style={{ margin:"32px 0 0", padding:"20px 22px", background:"rgba(255,102,0,0.05)",
-            border:"1px solid rgba(255,102,0,0.15)", borderRadius:"14px" }}>
-            <p style={{ margin:"0 0 6px", fontSize:"9px", letterSpacing:"0.14em", color:"rgba(255,102,0,0.6)", textTransform:"uppercase" }}>
+          <div style={{ margin:"32px 0 0", padding:"20px 22px", background:"rgba(220,177,73,0.05)",
+            border:"1px solid rgba(220,177,73,0.15)", borderRadius:"14px" }}>
+            <p style={{ margin:"0 0 6px", fontSize:"12px", letterSpacing:"0.14em", color:"rgba(220,177,73,0.6)", textTransform:"uppercase" }}>
               {es ? "Trabajo de Fin de Grado" : "Bachelor's Thesis"}
             </p>
-            <p style={{ margin:0, fontSize:"13px", fontWeight:700, fontFamily:"'Syne',sans-serif", color:"#fff", lineHeight:1.35 }}>
+            <p style={{ margin:0, fontSize:"13px", fontWeight:500, fontFamily:"var(--ira-font-titulo)", color:"var(--ira-nieve)", lineHeight:1.35 }}>
               {es ? "«El contagio de las palabras: Metáforas, empatía y polarización en el discurso político contemporáneo»"
                   : "«The Contagion of Words: Metaphors, Empathy and Polarization in Contemporary Political Discourse»"}
             </p>
-            <p style={{ margin:"8px 0 0", fontSize:"10px", color:"rgba(255,255,255,0.3)" }}>
+            <p style={{ margin:"8px 0 0", fontSize:"13px", color:"var(--ira-texto-3)" }}>
               Ricardo Grisales Ramírez · UCM Periodismo · 2024
             </p>
           </div>
@@ -204,11 +189,11 @@ export default function AboutPage() {
         <div style={{ background:"rgba(255,255,255,0.015)", borderTop:"1px solid rgba(255,255,255,0.05)", borderBottom:"1px solid rgba(255,255,255,0.05)", padding:"80px 24px" }}>
           <div style={{ maxWidth:"900px", margin:"0 auto" }}>
             <Label es={es} es_text="El marco teórico" en_text="Theoretical framework" />
-            <h2 style={{ margin:"0 0 12px", fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
-              color:"#fff", letterSpacing:"-0.03em", lineHeight:1.15 }}>
+            <h2 style={{ margin:"0 0 12px", fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+              color:"var(--ira-nieve)", letterSpacing:"-0.03em", lineHeight:1.15 }}>
               {es ? "Antes de llegar al cerebro,\npasa por el cuerpo" : "Before it reaches the brain,\nit passes through the body"}
             </h2>
-            <p style={{ margin:"0 0 48px", fontSize:"12px", color:"rgba(255,255,255,0.35)", maxWidth:"520px", lineHeight:1.7 }}>
+            <p style={{ margin:"0 0 48px", fontSize:"12px", color:"var(--ira-texto-3)", maxWidth:"520px", lineHeight:1.7 }}>
               {es ? "Seis autores que explican por qué las palabras no son neutras — y por qué medirlas importa."
                   : "Six authors that explain why words are not neutral — and why measuring them matters."}
             </p>
@@ -225,13 +210,13 @@ export default function AboutPage() {
                   onMouseEnter={e => { e.currentTarget.style.borderColor=`${a.color}55`; e.currentTarget.style.background=`${a.color}12`; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor=`${a.color}22`; e.currentTarget.style.background=`${a.color}08`; }}
                 >
-                  <p style={{ margin:"0 0 4px", fontSize:"15px", fontWeight:800, fontFamily:"'Syne',sans-serif", color:a.color }}>
+                  <p style={{ margin:"0 0 4px", fontSize:"15px", fontWeight:500, fontFamily:"var(--ira-font-titulo)", color:a.color }}>
                     {a.name}
                   </p>
-                  <p style={{ margin:"0 0 12px", fontSize:"9.5px", color:"rgba(255,255,255,0.25)", fontStyle:"italic" }}>
+                  <p style={{ margin:"0 0 12px", fontSize:"12px", color:"var(--ira-texto-3)", fontStyle:"italic" }}>
                     {es ? a.work.es : a.work.en}
                   </p>
-                  <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.5)", lineHeight:1.7 }}>
+                  <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.7 }}>
                     {es ? a.contribution.es : a.contribution.en}
                   </p>
                 </div>
@@ -246,8 +231,8 @@ export default function AboutPage() {
 
           {/* Pull quote central */}
           <div style={{ margin:"0 0 40px", textAlign:"center" }}>
-            <p style={{ margin:0, fontSize:"clamp(14px,2.5vw,20px)", fontStyle:"italic", fontFamily:"Georgia, serif",
-              color:"rgba(255,255,255,0.6)", lineHeight:1.6, maxWidth:"520px", marginInline:"auto" }}>
+            <p style={{ margin:0, fontSize:"clamp(14px,2.5vw,20px)", fontStyle:"italic", fontFamily:"var(--ira-font-texto)",
+              color:"var(--ira-texto-2)", lineHeight:1.6, maxWidth:"520px", marginInline:"auto" }}>
               {es ? "«No es una herramienta de verdad o mentira. Es una herramienta de arquitectura emocional.»"
                   : "«It is not a tool of truth or falsehood. It is a tool of emotional architecture.»"}
             </p>
@@ -262,9 +247,9 @@ export default function AboutPage() {
             ].map((t, i) => (
               <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)",
                 borderRadius:"10px", padding:"14px 12px" }}>
-                <p style={{ margin:"0 0 6px", fontSize:"10px", fontWeight:700, color:"rgba(255,255,255,0.45)", textTransform:"uppercase", letterSpacing:"0.06em" }}>{t.tool}</p>
-                <p style={{ margin:"0 0 8px", fontSize:"11px", color:"rgba(255,255,255,0.6)" }}>{t.does}</p>
-                <p style={{ margin:0, fontSize:"10px", color:"rgba(224,82,82,0.6)", fontStyle:"italic" }}>↳ {t.limit}</p>
+                <p style={{ margin:"0 0 6px", fontSize:"13px", fontWeight:700, color:"var(--ira-texto-2)", textTransform:"uppercase", letterSpacing:"0.06em" }}>{t.tool}</p>
+                <p style={{ margin:"0 0 8px", fontSize:"14px", color:"var(--ira-texto-2)" }}>{t.does}</p>
+                <p style={{ margin:0, fontSize:"13px", color:"var(--ira-marca-polarizante)", fontStyle:"italic" }}>↳ {t.limit}</p>
               </div>
             ))}
           </div>
@@ -280,12 +265,12 @@ export default function AboutPage() {
           <div style={{ maxWidth:"900px", margin:"0 auto" }}>
             <Label es={es} es_text="La metodología" en_text="The methodology" />
             <div style={{ display:"flex", alignItems:"baseline", gap:"16px", marginBottom:"40px", flexWrap:"wrap" }}>
-              <h2 style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
-                color:"#fff", letterSpacing:"-0.03em" }}>
+              <h2 style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+                color:"var(--ira-nieve)", letterSpacing:"-0.03em" }}>
                 {es ? "7 dimensiones." : "7 dimensions."}
               </h2>
-              <span style={{ fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"'Syne',sans-serif",
-                color:"rgba(255,255,255,0.15)", letterSpacing:"-0.03em" }}>
+              <span style={{ fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+                color:"var(--ira-texto-3)", letterSpacing:"-0.03em" }}>
                 {es ? "Una puntuación." : "One score."}
               </span>
             </div>
@@ -295,10 +280,10 @@ export default function AboutPage() {
                 <div key={i} style={{ padding:"16px", borderRadius:"12px",
                   background:"rgba(255,255,255,0.02)", border:`1px solid ${PARAM_COLORS[i]}22`,
                   borderLeft:`3px solid ${PARAM_COLORS[i]}` }}>
-                  <p style={{ margin:"0 0 6px", fontSize:"12px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"'Syne',sans-serif" }}>
+                  <p style={{ margin:"0 0 6px", fontSize:"12px", fontWeight:500, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-titulo)" }}>
                     {es ? p.es : p.en}
                   </p>
-                  <p style={{ margin:0, fontSize:"10.5px", color:"rgba(255,255,255,0.35)", lineHeight:1.55 }}>
+                  <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)", lineHeight:1.55 }}>
                     {es ? p.desc_es : p.desc_en}
                   </p>
                 </div>
@@ -307,12 +292,12 @@ export default function AboutPage() {
 
             {/* Escala visual */}
             <div style={{ marginTop:"40px", display:"flex", alignItems:"center", gap:"12px" }}>
-              <span style={{ fontSize:"10px", color:"#e05252", fontFamily:"'DM Mono',monospace", whiteSpace:"nowrap" }}>
+              <span style={{ fontSize:"13px", color:"var(--ira-estrella-polarizante)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
                 0 — {es?"Máx. polarización":"Max. polarization"}
               </span>
               <div style={{ flex:1, height:"4px", borderRadius:"4px",
-                background:"linear-gradient(90deg, #e05252, #e8a838 50%, #6ec6a0)" }} />
-              <span style={{ fontSize:"10px", color:"#6ec6a0", fontFamily:"'DM Mono',monospace", whiteSpace:"nowrap" }}>
+                background:"linear-gradient(90deg,#8F1C17,#BE281A 10%,#CB4021 20%,#D7662A 30%,#E59236 40%,#EEA73D 50%,#F4BC41 60%,#DAB850 70%,#C1B360 80%,#A7AE6F 90%,#8DAA7E)" }} />
+              <span style={{ fontSize:"13px", color:"var(--ira-salvia)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
                 10 — {es?"Máx. empatía":"Max. empathy"}
               </span>
             </div>
@@ -333,48 +318,33 @@ export default function AboutPage() {
           />
 
           {/* Firma */}
-          <div style={{ marginTop:"48px", padding:"28px", background:"rgba(255,102,0,0.04)",
-            border:"1px solid rgba(255,102,0,0.15)", borderRadius:"16px" }}>
+          <div style={{ marginTop:"48px", padding:"28px", background:"rgba(220,177,73,0.04)",
+            border:"1px solid rgba(220,177,73,0.15)", borderRadius:"16px" }}>
             <p style={{ margin:"0 0 16px", fontSize:"clamp(16px,3vw,22px)", fontStyle:"italic",
-              fontFamily:"Georgia, serif", color:"rgba(255,255,255,0.7)", lineHeight:1.45 }}>
+              fontFamily:"var(--ira-font-texto)", color:"var(--ira-texto-cita)", lineHeight:1.45 }}>
               {es ? "«Cambiar el mundo desde el amor y la ciencia dura.»"
                   : "«Changing the world through love and hard science.»"}
             </p>
             <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
-              <div style={{ width:"1px", height:"32px", background:"rgba(255,102,0,0.4)" }} />
+              <div style={{ width:"1px", height:"32px", background:"rgba(220,177,73,0.4)" }} />
               <div>
-                <p style={{ margin:"0 0 2px", fontSize:"11px", fontWeight:700, color:"rgba(255,102,0,0.8)", letterSpacing:"0.06em" }}>
+                <p style={{ margin:"0 0 2px", fontSize:"14px", fontWeight:700, color:"rgba(220,177,73,0.8)", letterSpacing:"0.06em" }}>
                   Ricardo Grisales Ramírez
                 </p>
-                <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.25)" }}>
+                <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)" }}>
                   {es ? "Periodista · UCM 2024 · Creador del IRA" : "Journalist · UCM 2024 · Creator of the IRA"}
                 </p>
               </div>
             </div>
             <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer"
-              style={{ display:"inline-block", marginTop:"14px", fontSize:"10px", color:"rgba(255,102,0,0.6)", textDecoration:"none", letterSpacing:"0.06em" }}
-              onMouseEnter={e => e.currentTarget.style.color="#ff6600"}
-              onMouseLeave={e => e.currentTarget.style.color="rgba(255,102,0,0.6)"}
+              style={{ display:"inline-flex", alignItems:"center", minHeight:"44px", marginTop:"6px", fontSize:"14px", textUnderlineOffset:"4px" }}
             >oranrick.com →</a>
           </div>
 
           {/* CTAs */}
           <div style={{ display:"flex", gap:"12px", flexWrap:"wrap", marginTop:"32px" }}>
-            <button onClick={() => navigate('/politicos')} style={{
-              padding:"12px 24px", borderRadius:"12px", background:"#ff6600", border:"none",
-              color:"#000", fontSize:"12px", fontWeight:700, letterSpacing:"0.06em",
-              cursor:"pointer", fontFamily:"'DM Mono',monospace", transition:"background 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.background="#ff8533"}
-              onMouseLeave={e => e.currentTarget.style.background="#ff6600"}
-            >{es ? "Explorar el índice →" : "Explore the index →"}</button>
-            <button onClick={() => navigate('/analyze')} style={{
-              padding:"12px 24px", borderRadius:"12px",
-              background:"rgba(255,102,0,0.08)", border:"1px solid rgba(255,102,0,0.3)",
-              color:"#ff6600", fontSize:"12px", fontWeight:700, letterSpacing:"0.06em",
-              cursor:"pointer", fontFamily:"'DM Mono',monospace", transition:"all 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.background="rgba(255,102,0,0.15)"}
-              onMouseLeave={e => e.currentTarget.style.background="rgba(255,102,0,0.08)"}
-            >{es ? "Analizar un texto →" : "Analyze a text →"}</button>
+            <Link to="/discursos" className="ira-boton ira-boton--principal">{es ? "Ver discursos analizados" : "See analyzed speeches"}</Link>
+            <Link to="/analyze" className="ira-boton ira-boton--secundario">{es ? "Analizar un texto" : "Analyze a text"}</Link>
           </div>
         </div>
       </div>
@@ -385,8 +355,8 @@ export default function AboutPage() {
 function Label({ es, es_text, en_text }) {
   return (
     <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
-      <div style={{ width:"28px", height:"1px", background:"rgba(255,102,0,0.5)" }} />
-      <span style={{ fontSize:"9px", letterSpacing:"0.2em", color:"rgba(255,102,0,0.55)", textTransform:"uppercase" }}>
+      <div style={{ width:"28px", height:"1px", background:"rgba(220,177,73,0.5)" }} />
+      <span style={{ fontSize:"12px", letterSpacing:"0.2em", color:"rgba(220,177,73,0.55)", textTransform:"uppercase" }}>
         {es ? es_text : en_text}
       </span>
     </div>
@@ -396,7 +366,7 @@ function Label({ es, es_text, en_text }) {
 function Prose({ es, es: _es, en, children }) {
   const text = _es ? es : en;
   return (
-    <p style={{ margin:"0 0 18px", fontSize:"12.5px", color:"rgba(255,255,255,0.45)", lineHeight:1.8 }}>
+    <p style={{ margin:"0 0 18px", fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.8 }}>
       {text || children}
     </p>
   );

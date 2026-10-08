@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import HCaptcha from '@hcaptcha/react-hcaptcha'
+import { useAtraparFoco } from './ui/Ventana.jsx'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../supabaseClient'
 
@@ -55,21 +56,6 @@ const TEXTS = {
   },
 }
 
-const inputStyle = {
-  width: '100%', boxSizing: 'border-box',
-  background: 'rgba(255,255,255,0.04)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '10px', padding: '11px 14px',
-  color: '#fff', fontSize: '13px',
-  outline: 'none', fontFamily: "'DM Mono',monospace",
-}
-
-const labelStyle = {
-  display: 'block', marginBottom: '6px',
-  fontSize: '10px', letterSpacing: '0.1em',
-  color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase',
-  fontFamily: "'DM Mono',monospace",
-}
 
 export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'register' }) {
   const { signIn, signUp } = useAuth()
@@ -102,6 +88,9 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
     setMounted(false)
     setTimeout(onClose, 220)
   }
+
+  const ventanaRef = useRef(null)
+  useAtraparFoco(true, ventanaRef, handleClose)
 
   const resetCaptcha = () => {
     captchaRef.current?.resetCaptcha()
@@ -176,7 +165,7 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
       onClick={handleClose}
       style={{
         position: 'fixed', inset: 0, zIndex: 999,
-        background: 'rgba(0,0,0,0.72)',
+        background: 'rgba(4,20,20,0.72)', backdropFilter: 'blur(6px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: '20px',
         opacity: mounted ? 1 : 0,
@@ -184,12 +173,14 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
       }}
     >
       <div
+        ref={ventanaRef} tabIndex={-1}
+        role="dialog" aria-modal="true" aria-labelledby="ira-auth-titulo"
         onClick={e => e.stopPropagation()}
         style={{
-          position: 'relative',
-          background: '#0e0e14',
-          border: '1px solid rgba(255,255,255,0.09)',
-          borderRadius: '20px',
+          position: 'relative', outline: 'none',
+          background: 'var(--ira-superficie)',
+          border: '1px solid var(--ira-linea)',
+          borderRadius: 'var(--ira-radio-xl)',
           padding: '36px 32px',
           width: '100%',
           maxWidth: '400px',
@@ -202,21 +193,14 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
         {/* Header */}
         <div style={{ marginBottom: '28px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-            <div style={{
-              width: '5px', height: '5px', borderRadius: '50%',
-              background: '#ff6600', boxShadow: '0 0 8px #ff6600',
-            }} />
-            <span style={{
-              fontSize: '9px', letterSpacing: '0.18em',
-              color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase',
-            }}>
+            <span style={{ fontSize: '13px', color: 'var(--ira-oro)' }}>
               {isLogin ? T.tagLogin : T.tagRegister}
             </span>
           </div>
-          <h2 style={{
-            margin: 0, fontSize: '22px', fontWeight: 800,
-            color: '#fff', fontFamily: "'Syne',sans-serif",
-            letterSpacing: '-0.03em',
+          <h2 id="ira-auth-titulo" style={{
+            margin: 0, fontSize: '30px', fontWeight: 500, lineHeight: 1.15,
+            color: "var(--ira-nieve)", fontFamily: "var(--ira-font-titulo)",
+            letterSpacing: '-0.02em', paddingRight: '48px',
           }}>
             {isLogin ? T.titleLogin : T.titleRegister}
           </h2>
@@ -227,35 +211,35 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
           {/* Username — solo registro */}
           {!isLogin && (
             <div>
-              <label style={labelStyle}>{T.usernameLabel}</label>
+              <label htmlFor="ira-auth-username" className="ira-rotulo">{T.usernameLabel}</label>
               <input
+                id="ira-auth-username" className="ira-campo"
                 type="text" value={username}
                 onChange={e => setUsername(e.target.value)}
                 required autoComplete="username"
-                style={inputStyle}
               />
             </div>
           )}
 
           {/* Email */}
           <div>
-            <label style={labelStyle}>{T.email}</label>
+            <label htmlFor="ira-auth-email" className="ira-rotulo">{T.email}</label>
             <input
+              id="ira-auth-email" className="ira-campo"
               type="email" value={email}
               onChange={e => setEmail(e.target.value)}
               required autoComplete="email"
-              style={inputStyle}
             />
           </div>
 
           {/* Password */}
           <div>
-            <label style={labelStyle}>{T.password}</label>
+            <label htmlFor="ira-auth-password" className="ira-rotulo">{T.password}</label>
             <input
+              id="ira-auth-password" className="ira-campo"
               type="password" value={password}
               onChange={e => setPassword(e.target.value)}
               required autoComplete={isLogin ? 'current-password' : 'new-password'}
-              style={inputStyle}
             />
           </div>
 
@@ -263,34 +247,32 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
           {!isLogin && (
             <>
               <div>
-                <label style={labelStyle}>{T.birthDate}</label>
+                <label htmlFor="ira-auth-birthDate" className="ira-rotulo">{T.birthDate}</label>
                 <input
+                  id="ira-auth-birthDate" className="ira-campo"
                   type="date" value={birthDate}
                   onChange={e => setBirthDate(e.target.value)}
-                  style={{
-                    ...inputStyle,
-                    colorScheme: 'dark',
-                  }}
+                  style={{ colorScheme: 'dark' }}
                 />
               </div>
 
               <div>
-                <label style={labelStyle}>{T.gender}</label>
+                <label htmlFor="ira-auth-gender" className="ira-rotulo">{T.gender}</label>
                 <select
+                  id="ira-auth-gender" className="ira-campo"
                   value={gender}
                   onChange={e => setGender(e.target.value)}
                   style={{
-                    ...inputStyle,
                     cursor: 'pointer',
                     appearance: 'none',
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='rgba(255,255,255,0.3)' d='M6 8L0 0h12z'/%3E%3C/svg%3E")`,
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23A9B8B8' d='M6 8L0 0h12z'/%3E%3C/svg%3E")`,
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'right 14px center',
                     paddingRight: '36px',
                   }}
                 >
                   {T.genderOptions.map(opt => (
-                    <option key={opt} value={opt} style={{ background: '#0e0e14' }}>{opt}</option>
+                    <option key={opt} value={opt} style={{ background: '#0A1E1E' }}>{opt}</option>
                   ))}
                 </select>
               </div>
@@ -311,13 +293,13 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
 
           {/* Error */}
           {error && (
-            <p style={{
+            <p role="alert" style={{
               margin: 0, padding: '10px 14px',
-              background: 'rgba(224,82,82,0.1)',
-              border: '1px solid rgba(224,82,82,0.3)',
+              background: 'rgba(190,40,26,0.12)',
+              border: '1px solid rgba(190,40,26,0.45)',
               borderRadius: '8px',
-              fontSize: '12px', color: '#e05252',
-              fontFamily: "'DM Mono',monospace",
+              fontSize: '14px', color: 'var(--ira-marca-polarizante)',
+              fontFamily: "var(--ira-font-texto)",
               lineHeight: 1.5,
             }}>
               {error}
@@ -328,29 +310,8 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
           <button
             type="submit"
             disabled={loading}
-            onMouseEnter={e => {
-              if (!loading) {
-                e.currentTarget.style.background = '#ff8533'
-                e.currentTarget.style.boxShadow = '0 0 32px rgba(255,102,0,0.55)'
-              }
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = loading ? 'rgba(255,102,0,0.4)' : '#ff6600'
-              e.currentTarget.style.boxShadow = loading ? 'none' : '0 0 24px rgba(255,102,0,0.35)'
-            }}
-            style={{
-              marginTop: '4px',
-              padding: '13px 28px', borderRadius: '12px',
-              background: loading ? 'rgba(255,102,0,0.4)' : '#ff6600',
-              border: 'none',
-              color: loading ? 'rgba(0,0,0,0.5)' : '#000',
-              fontSize: '13px', fontWeight: 700,
-              letterSpacing: '0.04em', cursor: loading ? 'not-allowed' : 'pointer',
-              fontFamily: "'DM Mono',monospace",
-              boxShadow: loading ? 'none' : '0 0 24px rgba(255,102,0,0.35)',
-              transition: 'all 0.2s ease',
-              width: '100%',
-            }}
+            className="ira-boton ira-boton--principal"
+            style={{ marginTop: '4px', width: '100%' }}
           >
             {loading
               ? (isLogin ? T.loadingLogin : T.loadingRegister)
@@ -361,19 +322,19 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
         {/* Toggle */}
         <div style={{
           marginTop: '22px', paddingTop: '20px',
-          borderTop: '1px solid rgba(255,255,255,0.06)',
+          borderTop: '1px solid var(--ira-linea)',
           textAlign: 'center',
         }}>
-          <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>
+          <span style={{ fontSize: '14px', color: "var(--ira-texto-2)" }}>
             {isLogin ? T.noAccount : T.hasAccount}
           </span>
           <button
+            type="button"
             onClick={() => switchMode(isLogin ? 'register' : 'login')}
             style={{
-              background: 'none', border: 'none', padding: 0,
-              color: '#ff6600', fontSize: '12px', cursor: 'pointer',
-              fontFamily: "'DM Mono',monospace", fontWeight: 700,
-              letterSpacing: '0.04em',
+              background: 'none', border: 'none', padding: '12px 4px',
+              color: 'var(--ira-oro)', fontSize: '14px', cursor: 'pointer',
+              fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: '3px',
             }}
           >
             {isLogin ? T.switchRegister : T.switchLogin}
@@ -382,13 +343,11 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
 
         {/* Close */}
         <button
+          type="button"
+          aria-label={lang === 'en' ? 'Close' : 'Cerrar'}
           onClick={handleClose}
-          style={{
-            position: 'absolute', top: '20px', right: '20px',
-            background: 'none', border: 'none',
-            color: 'rgba(255,255,255,0.25)', fontSize: '18px',
-            cursor: 'pointer', lineHeight: 1, padding: '4px',
-          }}
+          className="ira-boton ira-boton--secundario ira-boton--icono"
+          style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '14px' }}
         >
           ✕
         </button>

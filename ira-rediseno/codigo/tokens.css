@@ -1,0 +1,82 @@
+/* IRA · tokens de diseño
+   Tema único oscuro. Importar una vez, en la raíz de la app (p. ej. src/main.jsx). */
+
+:root {
+  color-scheme: dark;
+
+  /* Base: Dark Sunset */
+  --ira-noche: #041414;          /* fondo de página */
+  --ira-nieve: #FCFDFF;          /* texto principal */
+  --ira-brasa: #953A1B;          /* color de marca, botón principal */
+  --ira-lacre: #62130C;          /* marca presionada */
+  --ira-oro: #DCB149;            /* acento, foco, enlaces */
+  --ira-oro-hover: #F4CF7A;
+  --ira-salvia: #8DAA7E;         /* polo empático, punto de la i */
+
+  /* Neutros de interfaz */
+  --ira-superficie: #0A1E1E;     /* tarjetas, paneles */
+  --ira-elevada: #112A2A;        /* hover de superficies */
+  --ira-linea: #1B3636;          /* bordes y separadores */
+  --ira-linea-fuerte: #2A4747;   /* borde de botones secundarios */
+  --ira-texto-cita: #D5DEDE;     /* texto largo y citas */
+  --ira-texto-2: #A9B8B8;        /* texto secundario */
+  --ira-texto-3: #7C8F8F;        /* etiquetas y texto tenue */
+
+  /* Escala IRA, 0 (polarizante) a 10 (empático).
+     Regla: el color nunca va solo, siempre acompaña a la cifra. */
+  --ira-0: #8F1C17;
+  --ira-1: #BE281A;
+  --ira-2: #CB4021;
+  --ira-3: #D7662A;
+  --ira-4: #E59236;
+  --ira-5: #EEA73D;
+  --ira-6: #F4BC41;
+  --ira-7: #DAB850;
+  --ira-8: #C1B360;
+  --ira-9: #A7AE6F;
+  --ira-10: #8DAA7E;
+  /* Texto encima de cada color de la escala (contraste AA) */
+  --ira-sobre-0: #FCFDFF;
+  --ira-sobre-1: #FCFDFF;
+  --ira-sobre-2: #FCFDFF;
+  --ira-sobre-3: #041414;
+  --ira-sobre-4: #041414;
+  --ira-sobre-5: #041414;
+  --ira-sobre-6: #041414;
+  --ira-sobre-7: #041414;
+  --ira-sobre-8: #041414;
+  --ira-sobre-9: #041414;
+  --ira-sobre-10: #041414;
+
+  /* Palabras marcadas dentro de un fragmento */
+  --ira-marca-polarizante: #F6B3A6;
+  --ira-halo-polarizante: 0 0 10px #BE281A, 0 0 22px rgba(190, 40, 26, 0.6);
+  --ira-estrella-polarizante: #E8604A;
+  --ira-marca-empatica: #D3E4C8;
+  --ira-halo-empatico: 0 0 10px #8DAA7E, 0 0 22px rgba(141, 170, 126, 0.6);
+  --ira-estrella-empatica: #B9D2AC;
+
+  /* Tipografía */
+  --ira-font-titulo: 'Space Grotesk', system-ui, sans-serif;
+  --ira-font-texto: 'Sora', system-ui, sans-serif;
+  --ira-font-cifra: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Radios */
+  --ira-radio-s: 6px;    /* etiquetas de puntuación */
+  --ira-radio-m: 10px;   /* botones */
+  --ira-radio-l: 16px;   /* tarjetas */
+  --ira-radio-xl: 18px;  /* paneles grandes y ventanas */
+}
+
+/* Jerarquía tipográfica */
+.ira-titulo     { font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(40px, 5.5vw, 76px); line-height: 1.02; letter-spacing: -0.03em; }
+.ira-subtitulo  { font-family: var(--ira-font-titulo); font-weight: 400; font-size: 26px; line-height: 34px; letter-spacing: -0.01em; }
+.ira-texto      { font-family: var(--ira-font-texto); font-weight: 400; font-size: 17px; line-height: 28px; }
+.ira-detalle    { font-family: var(--ira-font-texto); font-weight: 400; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+.ira-cifra      { font-family: var(--ira-font-cifra); font-weight: 500; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+
+/* Base */
+html, body { background: var(--ira-noche); color: var(--ira-nieve); font-family: var(--ira-font-texto); }
+a { color: var(--ira-oro); }
+a:hover { color: var(--ira-oro-hover); }
+:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 3px; }
