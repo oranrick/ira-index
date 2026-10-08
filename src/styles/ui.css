@@ -378,7 +378,7 @@ a.ira-chip { text-decoration: none; }
 .ira-panel-ej__leyenda { display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--ira-texto-2); }
 .ira-panel-ej__leyenda > span { display: inline-flex; align-items: center; gap: 8px; }
 .ira-panel-ej__controles { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.ira-panel-ej__punto { width: 28px; height: 44px; padding: 0; background: transparent; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.ira-panel-ej__punto { width: 44px; height: 44px; padding: 0; background: transparent; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .ira-panel-ej__punto > span { display: block; height: 6px; border-radius: 3px; transition: width 200ms ease; }
 .ira-panel-ej__contador { font-family: var(--ira-font-cifra); font-size: 12px; color: var(--ira-texto-3); padding-right: 4px; }
 .ira-icono-trazo { fill: none; stroke: currentColor; stroke-width: 1.75px; stroke-linecap: round; stroke-linejoin: round; }
