@@ -74,7 +74,7 @@ function SpeechCard({ speech, onClick, lang = 'es' }) {
       style={{
         ...styles.card,
         borderColor: hovered ? scoreColor : 'rgba(255,255,255,0.08)',
-        background: hovered ? 'rgba(255,102,0,0.05)' : 'rgba(255,255,255,0.03)',
+        background: hovered ? 'rgba(220,177,73,0.05)' : 'rgba(255,255,255,0.03)',
         transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
       }}
     >
@@ -102,7 +102,7 @@ function SpeechCard({ speech, onClick, lang = 'es' }) {
       <div style={styles.cardFooter}>
         {speech.duration && <span style={styles.cardDuration}>⏱ {speech.duration}</span>}
         <span style={styles.cardWords}>{speech.wordCount.toLocaleString()} {T.words}</span>
-        <span style={{ ...styles.cardCta, color: hovered ? '#ff6600' : 'rgba(255,255,255,0.4)' }}>
+        <span style={{ ...styles.cardCta, color: hovered ? '#DCB149' : 'rgba(255,255,255,0.4)' }}>
           {T.seeAnalysis}
         </span>
       </div>
@@ -140,26 +140,26 @@ const styles = {
   },
   sectionTitle: {
     margin: 0,
-    fontFamily: "'Syne', sans-serif",
+    fontFamily: "var(--ira-font-titulo)",
     fontSize: '1.1rem',
     fontWeight: 700,
-    color: '#fff',
+    color: "var(--ira-nieve)",
     letterSpacing: '0.02em',
   },
   sectionBadge: {
-    background: 'rgba(255,102,0,0.2)',
-    color: '#ff6600',
+    background: 'rgba(220,177,73,0.2)',
+    color: '#DCB149',
     borderRadius: '99px',
     padding: '2px 8px',
     fontSize: '0.7rem',
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontWeight: 600,
   },
   sectionDesc: {
     margin: '0 0 1.2rem',
-    color: 'rgba(255,255,255,0.4)',
+    color: "var(--ira-texto-3)",
     fontSize: '0.78rem',
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
   },
   grid: {
     display: 'grid',
@@ -189,12 +189,12 @@ const styles = {
     gap: '0.3rem',
   },
   cardDate: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.7rem',
-    color: 'rgba(255,255,255,0.4)',
+    color: "var(--ira-texto-3)",
   },
   cardClassBadge: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.65rem',
     fontWeight: 600,
     border: '1px solid',
@@ -210,29 +210,29 @@ const styles = {
     gap: '1px',
   },
   iraNumber: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '1.4rem',
     fontWeight: 700,
     lineHeight: 1,
   },
   iraMax: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.65rem',
-    color: 'rgba(255,255,255,0.3)',
+    color: "var(--ira-texto-3)",
   },
   cardTitle: {
     margin: 0,
-    fontFamily: "'Syne', sans-serif",
+    fontFamily: "var(--ira-font-titulo)",
     fontSize: '0.9rem',
     fontWeight: 700,
-    color: '#fff',
+    color: "var(--ira-nieve)",
     lineHeight: 1.3,
   },
   cardContext: {
     margin: 0,
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.72rem',
-    color: 'rgba(255,255,255,0.45)',
+    color: "var(--ira-texto-2)",
     lineHeight: 1.5,
     display: '-webkit-box',
     WebkitLineClamp: 2,
@@ -246,17 +246,17 @@ const styles = {
     marginTop: '0.2rem',
   },
   cardDuration: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.68rem',
-    color: 'rgba(255,255,255,0.3)',
+    color: "var(--ira-texto-3)",
   },
   cardWords: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.68rem',
-    color: 'rgba(255,255,255,0.3)',
+    color: "var(--ira-texto-3)",
   },
   cardCta: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.68rem',
     marginLeft: 'auto',
     transition: 'color 0.2s',

@@ -3,8 +3,26 @@
 
 body {
   margin: 0;
+  background: var(--ira-noche);
+  color: var(--ira-nieve);
+  font-family: var(--ira-font-texto);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Los controles no heredan la fuente por defecto */
+button, input, select, textarea { font-family: inherit; }
+
+::selection { background: rgba(220, 177, 73, 0.35); color: var(--ira-nieve); }
+
+/* Movimiento reducido: sin animaciones ni transiciones largas */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ── Top Nav ────────────────────────────────────────────────────────────────── */

@@ -16,8 +16,8 @@ const DailyAnalysis = lazy(() => import("./components/DailyAnalysis"));
 const PatternsPage = lazy(() => import("./components/PatternsPage"));
 
 const AccentContext = createContext({
-  accent: '#ff6600',
-  accentA: (a) => `rgba(255,102,0,${a})`,
+  accent: '#DCB149',
+  accentA: (a) => `rgba(220,177,73,${a})`,
   mode: 'politico',
 });
 
@@ -682,7 +682,7 @@ const ENTITIES = [
   },
 ];
 
-const PARAM_COLORS = ["#ff6600","#e8a838","#6ec6a0","#5ba8d4","#a07cd4","#e05890","#50c8b4","#c8a050"];
+const PARAM_COLORS = ["#DCB149","#e8a838","#6ec6a0","#5ba8d4","#a07cd4","#e05890","#50c8b4","#c8a050"];
 
 const PARAM_SHORT = {
   pronominal: 'Pronominal',
@@ -727,7 +727,7 @@ function decodeShareResult(encoded) {
   } catch { return null; }
 }
 
-function drawRadar(canvas, result, accent = '#ff6600') {
+function drawRadar(canvas, result, accent = '#DCB149') {
   const ctx = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
   const cx = W / 2, cy = H / 2;
@@ -768,7 +768,7 @@ function drawRadar(canvas, result, accent = '#ff6600') {
     i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
   });
   ctx.closePath();
-  ctx.fillStyle = accent === '#0066ff' ? 'rgba(0,102,255,0.38)' : 'rgba(255,102,0,0.38)';
+  ctx.fillStyle = accent === '#DCB149' ? 'rgba(220,177,73,0.38)' : 'rgba(220,177,73,0.38)';
   ctx.fill();
   ctx.strokeStyle = accent;
   ctx.lineWidth = 1.5;
@@ -795,7 +795,7 @@ function scoreColor(s) {
 }
 
 function catColor(cat) {
-  return cat === "Político" ? "#ff6600" : cat === "Medio" ? "#5ba8d4" : "#6ec6a0";
+  return cat === "Político" ? "#DCB149" : cat === "Medio" ? "#5ba8d4" : "#6ec6a0";
 }
 
 // ── Componentes ───────────────────────────────────────────────────────────────
@@ -834,7 +834,7 @@ function Badge({ label, color }) {
     <span style={{
       fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase",
       color, border:`1px solid ${color}40`, padding:"2px 7px", borderRadius:"20px",
-      fontFamily:"'DM Mono',monospace",
+      fontFamily:"var(--ira-font-texto)",
     }}>{label}</span>
   );
 }
@@ -868,17 +868,17 @@ function EntityCard({ entity, lang }) {
             <FlagEmoji emoji={entity.flag} size={18} />
             <Badge label={catLabel} color={catColor(entity.category)} />
           </div>
-          <h3 style={{ margin:0, fontSize:"16px", fontWeight:700, color:"#fff", fontFamily:"'Syne',sans-serif", letterSpacing:"-0.02em" }}>
+          <h3 style={{ margin:0, fontSize:"16px", fontWeight:700, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em" }}>
             {entity.breakName && entity.name.includes(' ')
               ? <>{entity.name.split(' ')[0]}<br/>{entity.name.split(' ').slice(1).join(' ')}</>
               : entity.name}
           </h3>
-          <p style={{ margin:"2px 0 0", fontSize:"10px", color:"rgba(255,255,255,0.3)", letterSpacing:"0.04em" }}>{entity.country}</p>
+          <p style={{ margin:"2px 0 0", fontSize:"10px", color:"var(--ira-texto-3)", letterSpacing:"0.04em" }}>{entity.country}</p>
         </div>
         <div style={{ position:"relative", flexShrink:0 }}>
           <ScoreRing score={entity.score ?? 0} size={64} stroke={4} color={scoreColor(entity.score ?? 0)} />
           <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-            <span style={{ fontSize:"14px", fontWeight:700, color:scoreColor(entity.score ?? 0), fontFamily:"'DM Mono',monospace" }}>
+            <span style={{ fontSize:"14px", fontWeight:700, color:scoreColor(entity.score ?? 0), fontFamily:"var(--ira-font-texto)" }}>
               {entity.score != null ? entity.score.toFixed(2) : '—'}
             </span>
           </div>
@@ -897,7 +897,7 @@ function EntityCard({ entity, lang }) {
           </div>
         );
       })()}
-      <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.25)", letterSpacing:"0.06em" }}>{T.seeAnalysis}</p>
+      <p style={{ margin:0, fontSize:"10px", color:"var(--ira-texto-3)", letterSpacing:"0.06em" }}>{T.seeAnalysis}</p>
     </div>
   );
 }
@@ -910,9 +910,9 @@ function RadarTooltip({ active, payload }) {
     <div style={{
       background: "rgba(10,10,16,0.94)", border: `1px solid ${accentA(0.45)}`,
       borderRadius: "8px", padding: "7px 12px",
-      fontFamily: "'DM Mono',monospace", pointerEvents: "none",
+      fontFamily: "var(--ira-font-texto)", pointerEvents: "none",
     }}>
-      <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "10px" }}>{label}</span>
+      <span style={{ color: "var(--ira-texto-2)", fontSize: "10px" }}>{label}</span>
       <span style={{ color: accent, fontSize: "12px", fontWeight: 700, marginLeft: "8px" }}>
         — {Number(value).toFixed(1)}
       </span>
@@ -1036,8 +1036,8 @@ function EntityDetailPage() {
 
   if (!entity) return <Navigate to="/" replace />;
 
-  const accent = entity.category === 'Medio' ? '#0066ff' : '#ff6600';
-  const accentA = (a) => entity.category === 'Medio' ? `rgba(0,102,255,${a})` : `rgba(255,102,0,${a})`;
+  const accent = entity.category === 'Medio' ? '#DCB149' : '#DCB149';
+  const accentA = (a) => entity.category === 'Medio' ? `rgba(220,177,73,${a})` : `rgba(220,177,73,${a})`;
 
   const activeSpeech = activeSpeechId
     ? (mergeSpeech(getSpeechById(activeSpeechId), supabaseMap[activeSpeechId])
@@ -1062,27 +1062,11 @@ function EntityDetailPage() {
   const context = lang === "en" && entity.contextEn ? entity.contextEn : entity.context;
   return (
     <AccentContext.Provider value={{ accent, accentA, mode: entity.category === 'Medio' ? 'medios' : 'politico' }}>
-    <div style={{ minHeight:"100vh", background:"#0e0e14", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
-      <style>{`
-        @keyframes b1dp { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(60px,-40px) scale(1.15); } }
-        @keyframes b2dp { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(-50px,60px) scale(1.2); } }
-        @keyframes b3dp { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(40px,50px) scale(1.1); } }
-      `}</style>
-      <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
-        <div style={{ position:"absolute", top:"-20%", left:"15%", width:"70vw", height:"70vh", borderRadius:"50%",
-          background:`radial-gradient(ellipse at center, ${accentA(0.15)} 0%, ${accentA(0.08)} 40%, transparent 68%)`,
-          animation:"b1dp 20s ease-in-out infinite" }} />
-        <div style={{ position:"absolute", bottom:"-25%", right:"-10%", width:"70vw", height:"70vh", borderRadius:"50%",
-          background:`radial-gradient(ellipse at center, ${accentA(0.1)} 0%, transparent 68%)`,
-          animation:"b2dp 28s ease-in-out infinite" }} />
-        <div style={{ position:"absolute", top:"25%", left:"-18%", width:"70vw", height:"70vh", borderRadius:"50%",
-          background:`radial-gradient(ellipse at center, ${accentA(0.08)} 0%, transparent 68%)`,
-          animation:"b3dp 16s ease-in-out infinite" }} />
-      </div>
+    <div style={{ minHeight:"100vh", background:"#041414", fontFamily:"var(--ira-font-texto)", position:"relative", overflow:"hidden" }}>
       <button onClick={() => { if (window.history.length > 1) navigate(-1); else navigate('/'); }}
         className="top-nav-left"
         style={{
-          fontFamily:"'DM Mono',monospace", fontSize:"11px", fontWeight:700,
+          fontFamily:"var(--ira-font-texto)", fontSize:"11px", fontWeight:700,
           color:accent, letterSpacing:"0.04em",
           border:`1.5px solid ${accentA(0.45)}`,
           borderRadius:"20px", padding:"5px 13px",
@@ -1101,18 +1085,18 @@ function EntityDetailPage() {
               <FlagEmoji emoji={entity.flag} size={22} />
               <Badge label={catLabel} color={catColor(entity.category)} />
             </div>
-            <h2 style={{ margin:"0 0 2px", fontSize:"24px", fontWeight:800, color:"#fff", fontFamily:"'Syne',sans-serif", letterSpacing:"-0.03em" }}>
+            <h2 style={{ margin:"0 0 2px", fontSize:"24px", fontWeight:800, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.03em" }}>
               {entity.name}
             </h2>
-            <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.3)" }}>{entity.country}</p>
+            <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-3)" }}>{entity.country}</p>
           </div>
           <div style={{ position:"relative" }}>
             <ScoreRing score={liveScore} size={88} stroke={5} color={scoreColor(liveScore)} />
             <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-              <span style={{ fontSize:"20px", fontWeight:800, color:scoreColor(liveScore), fontFamily:"'DM Mono',monospace", display:"block" }}>
+              <span style={{ fontSize:"20px", fontWeight:800, color:scoreColor(liveScore), fontFamily:"var(--ira-font-texto)", display:"block" }}>
                 {liveScore.toFixed(2)}
               </span>
-              <span style={{ fontSize:"8px", color:"rgba(255,255,255,0.25)", letterSpacing:"0.08em" }}>IRA</span>
+              <span style={{ fontSize:"8px", color:"var(--ira-texto-3)", letterSpacing:"0.08em" }}>IRA</span>
             </div>
           </div>
         </div>
@@ -1123,12 +1107,12 @@ function EntityDetailPage() {
               objectPosition: "center top", border: `3px solid ${accent}`,
               boxShadow: `0 0 16px ${accentA(0.35)}`,
             }} />
-            <p style={{ margin: "6px 0 0", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.05em" }}>
+            <p style={{ margin: "6px 0 0", fontSize: "9px", color: "var(--ira-texto-3)", letterSpacing: "0.05em" }}>
               {entity.photoCredit}
             </p>
           </div>
         )}
-        <p style={{ fontSize:"11.5px", color:"rgba(255,255,255,0.4)", lineHeight:1.6, marginBottom:"24px", borderLeft:`2px solid ${accentA(0.4)}`, paddingLeft:"12px" }}>
+        <p style={{ fontSize:"11.5px", color:"var(--ira-texto-3)", lineHeight:1.6, marginBottom:"24px", borderLeft:`2px solid ${accentA(0.4)}`, paddingLeft:"12px" }}>
           {context}
         </p>
         <div style={{ marginBottom:"24px" }}>
@@ -1141,7 +1125,7 @@ function EntityDetailPage() {
           </Suspense>
         </div>
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"20px" }}>
-          <p style={{ fontSize:"9px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase", marginBottom:"16px" }}>
+          <p style={{ fontSize:"9px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"16px" }}>
             {T.paramsTitle}
           </p>
           {params.map((p, i) => {
@@ -1152,7 +1136,7 @@ function EntityDetailPage() {
               <div key={i} style={{ marginBottom:"14px" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"5px" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"7px" }}>
-                    <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.5)", letterSpacing:"0.04em" }}>{p.label}</span>
+                    <span style={{ fontSize:"11px", color:"var(--ira-texto-2)", letterSpacing:"0.04em" }}>{p.label}</span>
                     <button
                       onClick={() => setExpanded(isOpen ? null : p.id)}
                       style={{
@@ -1161,12 +1145,12 @@ function EntityDetailPage() {
                         borderRadius:"4px", padding:"2px 7px",
                         color: isOpen ? "#fff" : accent,
                         fontSize:"9px", cursor:"pointer", lineHeight:"1.5",
-                        transition:"all 0.18s ease", fontFamily:"'DM Mono',monospace",
+                        transition:"all 0.18s ease", fontFamily:"var(--ira-font-texto)",
                         letterSpacing:"0.04em", fontWeight: isOpen ? 700 : 400,
                       }}
                     >{isOpen ? "▲" : "▼"}</button>
                   </div>
-                  <span style={{ fontSize:"12px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"'DM Mono',monospace" }}>
+                  <span style={{ fontSize:"12px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-texto)" }}>
                     {val.toFixed(1)}
                   </span>
                 </div>
@@ -1177,7 +1161,7 @@ function EntityDetailPage() {
                     borderRadius:"4px", transition:"width 0.8s ease",
                   }} />
                 </div>
-                <p style={{ margin:"4px 0 0", fontSize:"10.5px", color:"rgba(255,255,255,0.28)", lineHeight:1.5 }}>{p.desc}</p>
+                <p style={{ margin:"4px 0 0", fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.5 }}>{p.desc}</p>
                 {isOpen && (
                   <div style={{
                     marginTop:"10px",
@@ -1189,8 +1173,8 @@ function EntityDetailPage() {
                       <p style={{
                         margin:"0 0 12px", padding:"0 0 0 10px",
                         borderLeft:`2px solid ${PARAM_COLORS[i]}`,
-                        fontSize:"12px", fontStyle:"italic", fontFamily:"Georgia,serif",
-                        color:"rgba(255,255,255,0.65)", lineHeight:1.55,
+                        fontSize:"12px", fontStyle:"italic", fontFamily:"var(--ira-font-texto)",
+                        color:"var(--ira-texto-2)", lineHeight:1.55,
                       }}>«{entity.quotes[p.id]}»</p>
                     )}
                     {(lang === "en" ? entity.paramTextsEn?.[p.id] : entity.paramTexts?.[p.id]) && (
@@ -1200,20 +1184,20 @@ function EntityDetailPage() {
                         borderRadius:"8px", padding:"10px 12px", marginBottom:"12px",
                       }}>
                         <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color: accentA(0.8), textTransform:"uppercase" }}>{T.analysisLabel}</p>
-                        <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.55)", lineHeight:1.65 }}>{lang === "en" ? entity.paramTextsEn[p.id] : entity.paramTexts[p.id]}</p>
+                        <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-2)", lineHeight:1.65 }}>{lang === "en" ? entity.paramTextsEn[p.id] : entity.paramTexts[p.id]}</p>
                       </div>
                     )}
-                    <p style={{ margin:"0 0 12px", fontSize:"11px", color:"rgba(255,255,255,0.48)", lineHeight:1.65 }}>
+                    <p style={{ margin:"0 0 12px", fontSize:"11px", color:"var(--ira-texto-2)", lineHeight:1.65 }}>
                       {det.detail}
                     </p>
                     <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
                       <div style={{ background:"rgba(110,198,160,0.06)", border:"1px solid rgba(110,198,160,0.18)", borderRadius:"8px", padding:"10px 12px" }}>
                         <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"#6ec6a0", textTransform:"uppercase" }}>{T.empatico}</p>
-                        <p style={{ margin:0, fontSize:"10.5px", color:"rgba(255,255,255,0.42)", lineHeight:1.55, fontStyle:"italic", fontFamily:"Georgia,serif" }}>{det.empatico}</p>
+                        <p style={{ margin:0, fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.empatico}</p>
                       </div>
                       <div style={{ background:"rgba(224,82,82,0.06)", border:"1px solid rgba(224,82,82,0.18)", borderRadius:"8px", padding:"10px 12px" }}>
                         <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"#e05252", textTransform:"uppercase" }}>{T.polarizador}</p>
-                        <p style={{ margin:0, fontSize:"10.5px", color:"rgba(255,255,255,0.42)", lineHeight:1.55, fontStyle:"italic", fontFamily:"Georgia,serif" }}>{det.polarizador}</p>
+                        <p style={{ margin:0, fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.polarizador}</p>
                       </div>
                     </div>
                   </div>
@@ -1237,7 +1221,7 @@ function EntityDetailPage() {
       {activeSpeech && (
         <div style={{
           position:"fixed", inset:0, zIndex:250,
-          background:"#0e0e14", overflowY:"auto",
+          background:"#041414", overflowY:"auto",
         }}>
           <SpeechView speech={activeSpeech} onBack={() => setActiveSpeechId(null)} lang={lang} />
         </div>
@@ -1261,8 +1245,8 @@ function IRAModal({ onClose, lang }) {
       opacity: mounted?1:0, transition:"opacity 0.3s ease", padding:"20px",
     }}>
       <div onClick={e => e.stopPropagation()} style={{
-        background:"#0e0e14", border:"1px solid rgba(255,255,255,0.09)",
-        borderRadius:"20px", padding:"36px 32px", maxWidth:"580px", width:"100%",
+        background:"var(--ira-superficie)", border:"1px solid var(--ira-linea)",
+        borderRadius:"var(--ira-radio-xl)", padding:"36px 32px", maxWidth:"580px", width:"100%",
         maxHeight:"88vh", overflowY:"auto",
         transform: mounted?"translateY(0)":"translateY(20px)",
         transition:"transform 0.35s cubic-bezier(0.4,0,0.2,1)",
@@ -1270,19 +1254,19 @@ function IRAModal({ onClose, lang }) {
         <div style={{ marginBottom:"24px" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px" }}>
             <div style={{ width:"5px", height:"5px", borderRadius:"50%", background:accent, boxShadow:`0 0 8px ${accent}` }} />
-            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>{T.modalTag}</span>
+            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>{T.modalTag}</span>
           </div>
-          <h2 style={{ margin:"0 0 16px", fontSize:"22px", fontWeight:800, color:"#fff", fontFamily:"'Syne',sans-serif", letterSpacing:"-0.03em" }}>
+          <h2 style={{ margin:"0 0 16px", fontSize:"22px", fontWeight:800, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.03em" }}>
             {T.modalTitle}
           </h2>
-          <p style={{ margin:0, fontSize:"12.5px", color:"rgba(255,255,255,0.45)", lineHeight:1.75 }}>
+          <p style={{ margin:0, fontSize:"12.5px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
             {T.modalIntro}
           </p>
         </div>
 
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"24px" }}>
           <p style={{ margin:"0 0 10px", fontSize:"9px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalWhatTitle}</p>
-          <p style={{ margin:0, fontSize:"12.5px", color:"rgba(255,255,255,0.45)", lineHeight:1.75 }}>
+          <p style={{ margin:0, fontSize:"12.5px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
             {T.modalWhatPre}
             <span style={{ color:"#e05252", fontWeight:600 }}>{T.modalWhatPol}</span>
             {", "}
@@ -1296,8 +1280,8 @@ function IRAModal({ onClose, lang }) {
           <div style={{ display:"flex", flexDirection:"column", gap:"14px" }}>
             {paramsInfo.map((p, i) => (
               <div key={i} style={{ borderLeft:`2px solid ${PARAM_COLORS[i]}50`, paddingLeft:"14px" }}>
-                <p style={{ margin:"0 0 4px", fontSize:"11px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"'DM Mono',monospace", letterSpacing:"0.03em" }}>{p.name}</p>
-                <p style={{ margin:0, fontSize:"11.5px", color:"rgba(255,255,255,0.38)", lineHeight:1.7 }}>{p.desc}</p>
+                <p style={{ margin:"0 0 4px", fontSize:"11px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-texto)", letterSpacing:"0.03em" }}>{p.name}</p>
+                <p style={{ margin:0, fontSize:"11.5px", color:"var(--ira-texto-3)", lineHeight:1.7 }}>{p.desc}</p>
               </div>
             ))}
           </div>
@@ -1305,9 +1289,9 @@ function IRAModal({ onClose, lang }) {
 
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"28px" }}>
           <p style={{ margin:"0 0 10px", fontSize:"9px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalOriginTitle}</p>
-          <p style={{ margin:0, fontSize:"12.5px", color:"rgba(255,255,255,0.45)", lineHeight:1.75 }}>
+          <p style={{ margin:0, fontSize:"12.5px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
             {T.modalOriginPre}
-            <em style={{ color:"rgba(255,255,255,0.65)" }}>{T.modalOriginBook}</em>
+            <em style={{ color:"var(--ira-texto-2)" }}>{T.modalOriginBook}</em>
             {T.modalOriginPost}
           </p>
         </div>
@@ -1315,7 +1299,7 @@ function IRAModal({ onClose, lang }) {
         <button onClick={onClose} style={{
           width:"100%", padding:"12px",
           background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)",
-          borderRadius:"10px", color:"rgba(255,255,255,0.4)", fontSize:"11px",
+          borderRadius:"10px", color:"var(--ira-texto-3)", fontSize:"11px",
           cursor:"pointer", letterSpacing:"0.08em",
         }}>{T.close}</button>
       </div>
@@ -1350,20 +1334,20 @@ function HistoryCard({ row, lang }) {
           border:`1.5px solid ${col}`, display:"flex", flexDirection:"column",
           alignItems:"center", justifyContent:"center", background:`${col}14`,
         }}>
-          <span style={{ fontSize:"12px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", lineHeight:1 }}>
+          <span style={{ fontSize:"12px", fontWeight:800, color:col, fontFamily:"var(--ira-font-texto)", lineHeight:1 }}>
             {row.ira_score.toFixed(1)}
           </span>
         </div>
         <div style={{ flex:1, minWidth:0 }}>
-          <p style={{ margin:"0 0 2px", fontSize:"12px", fontWeight:700, color:"rgba(255,255,255,0.8)", fontFamily:"'Syne',sans-serif", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+          <p style={{ margin:"0 0 2px", fontSize:"12px", fontWeight:700, color:"var(--ira-texto-cita)", fontFamily:"var(--ira-font-titulo)", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
             {row.name}
           </p>
-          <p style={{ margin:0, fontSize:"9px", color:"rgba(255,255,255,0.25)", fontFamily:"'DM Mono',monospace", letterSpacing:"0.06em" }}>
+          <p style={{ margin:0, fontSize:"9px", color:"var(--ira-texto-3)", fontFamily:"var(--ira-font-texto)", letterSpacing:"0.06em" }}>
             {CAT_TRANS[lang][row.category] || row.category} · {date}
           </p>
         </div>
         <span style={{
-          fontSize:"10px", color:"rgba(255,255,255,0.2)", flexShrink:0,
+          fontSize:"10px", color:"var(--ira-texto-3)", flexShrink:0,
           display:"block", transition:"transform 0.2s",
           transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
         }}>▾</span>
@@ -1371,7 +1355,7 @@ function HistoryCard({ row, lang }) {
       {expanded && (
         <div style={{ padding:"0 16px 16px", borderTop:"1px solid rgba(255,255,255,0.05)" }}>
           {row.summary && (
-            <p style={{ margin:"14px 0 14px", fontSize:"11px", color:"rgba(255,255,255,0.4)", lineHeight:1.65 }}>
+            <p style={{ margin:"14px 0 14px", fontSize:"11px", color:"var(--ira-texto-3)", lineHeight:1.65 }}>
               {row.summary}
             </p>
           )}
@@ -1380,8 +1364,8 @@ function HistoryCard({ row, lang }) {
             return (
               <div key={i} style={{ marginBottom:"10px" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"4px" }}>
-                  <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.4)" }}>{p.label}</span>
-                  <span style={{ fontSize:"10px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"'DM Mono',monospace" }}>
+                  <span style={{ fontSize:"10px", color:"var(--ira-texto-3)" }}>{p.label}</span>
+                  <span style={{ fontSize:"10px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-texto)" }}>
                     {val.toFixed(1)}
                   </span>
                 </div>
@@ -1486,33 +1470,33 @@ function Analyzer({ lang }) {
         <div style={{
           display:"flex", alignItems:"center", gap:"10px",
           marginBottom:"20px", padding:"11px 16px",
-          background:"rgba(255,102,0,0.06)",
-          border:"1px solid rgba(255,102,0,0.2)",
+          background:"rgba(220,177,73,0.06)",
+          border:"1px solid rgba(220,177,73,0.2)",
           borderRadius:"10px",
         }}>
           <span style={{ fontSize:"14px", flexShrink:0 }}>💾</span>
-          <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.45)", lineHeight:1.5, fontFamily:"'DM Mono',monospace" }}>
+          <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-2)", lineHeight:1.5, fontFamily:"var(--ira-font-texto)" }}>
             {lang === "en"
-              ? <>{"Analyzing is free. "}<button onClick={openLogin} style={{ background:"none", border:"none", padding:0, color:"rgba(255,102,0,0.9)", fontSize:"11px", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700 }}>Sign in</button>{" to save your results."}</>
-              : <>{"Analizar es gratis. "}<button onClick={openLogin} style={{ background:"none", border:"none", padding:0, color:"rgba(255,102,0,0.9)", fontSize:"11px", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700 }}>Inicia sesión</button>{" para guardar tus análisis."}</>
+              ? <>{"Analyzing is free. "}<button onClick={openLogin} style={{ background:"none", border:"none", padding:0, color:"rgba(220,177,73,0.9)", fontSize:"11px", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700 }}>Sign in</button>{" to save your results."}</>
+              : <>{"Analizar es gratis. "}<button onClick={openLogin} style={{ background:"none", border:"none", padding:0, color:"rgba(220,177,73,0.9)", fontSize:"11px", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700 }}>Inicia sesión</button>{" para guardar tus análisis."}</>
             }
           </p>
         </div>
       )}
       <div style={{ marginBottom:"20px" }}>
-        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.3)", textTransform:"uppercase", marginBottom:"6px" }}>
+        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>
           {T.nameLabel}
         </p>
         <input value={name} onChange={e => setName(e.target.value)}
           placeholder={mode === 'medios' ? T.namePlaceholderMedios : T.namePlaceholder}
           style={{
             width:"100%", background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)",
-            borderRadius:"10px", padding:"10px 14px", color:"#fff", fontSize:"13px",
-            outline:"none", boxSizing:"border-box", fontFamily:"'DM Mono',monospace",
+            borderRadius:"10px", padding:"10px 14px", color:"var(--ira-nieve)", fontSize:"13px",
+            outline:"none", boxSizing:"border-box", fontFamily:"var(--ira-font-texto)",
           }} />
       </div>
       <div style={{ marginBottom:"20px" }}>
-        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.3)", textTransform:"uppercase", marginBottom:"6px" }}>
+        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>
           {lang === 'en' ? "Context (optional)" : "Contexto (opcional)"}
         </p>
         <input value={context} onChange={e => setContext(e.target.value)}
@@ -1521,17 +1505,17 @@ function Analyzer({ lang }) {
             : "ej. Mitin electoral, 50.000 asistentes, 3 días antes de las elecciones"}
           style={{
             width:"100%", background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)",
-            borderRadius:"10px", padding:"10px 14px", color:"#fff", fontSize:"13px",
-            outline:"none", boxSizing:"border-box", fontFamily:"'DM Mono',monospace",
+            borderRadius:"10px", padding:"10px 14px", color:"var(--ira-nieve)", fontSize:"13px",
+            outline:"none", boxSizing:"border-box", fontFamily:"var(--ira-font-texto)",
           }} />
-        <p style={{ margin:"5px 0 0", fontSize:"9.5px", color:"rgba(255,255,255,0.2)", lineHeight:1.5 }}>
+        <p style={{ margin:"5px 0 0", fontSize:"9.5px", color:"var(--ira-texto-3)", lineHeight:1.5 }}>
           {lang === 'en'
             ? "Who spoke, to whom, when and where. Improves accuracy (Van Dijk, 2008)."
             : "Quién habló, ante quién, cuándo y dónde. Mejora la precisión del análisis (Van Dijk, 2008)."}
         </p>
       </div>
       <div style={{ marginBottom:"20px" }}>
-        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.3)", textTransform:"uppercase", marginBottom:"6px" }}>
+        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>
           {T.catLabel}
         </p>
         <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
@@ -1548,7 +1532,7 @@ function Analyzer({ lang }) {
         </div>
       </div>
       <div style={{ marginBottom:"20px" }}>
-        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.3)", textTransform:"uppercase", marginBottom:"6px" }}>
+        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>
           {T.textLabel}
         </p>
         <textarea value={text} onChange={e => setText(e.target.value)}
@@ -1557,15 +1541,15 @@ function Analyzer({ lang }) {
           style={{
             width:"100%", background:"rgba(255,255,255,0.04)",
             border:`1px solid ${overLimit ? "rgba(224,82,82,0.5)" : "rgba(255,255,255,0.08)"}`,
-            borderRadius:"12px", padding:"14px", color:"rgba(255,255,255,0.8)", fontSize:"13px",
+            borderRadius:"12px", padding:"14px", color:"var(--ira-texto-cita)", fontSize:"13px",
             outline:"none", resize:"vertical", boxSizing:"border-box", lineHeight:1.6,
-            fontFamily:"'DM Mono',monospace",
+            fontFamily:"var(--ira-font-texto)",
           }} />
         <div style={{ display:"flex", justifyContent:"space-between", margin:"6px 0 0" }}>
-          <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.15)" }}>
+          <span style={{ fontSize:"10px", color:"var(--ira-texto-3)" }}>
             {text.length} {T.chars}
           </span>
-          <span style={{ fontSize:"10px", fontFamily:"'DM Mono',monospace",
+          <span style={{ fontSize:"10px", fontFamily:"var(--ira-font-texto)",
             color: overLimit ? "#e05252" : !isAdmin && wordCount > WORD_LIMIT * 0.85 ? "#e8a838" : "rgba(255,255,255,0.2)",
             fontWeight: overLimit ? 700 : 400,
           }}>
@@ -1582,18 +1566,18 @@ function Analyzer({ lang }) {
         color: overLimit ? "#e05252" : loading ? accentA(0.4) : accent,
         fontSize:"12px", letterSpacing:"0.12em", textTransform:"uppercase",
         cursor: loading || overLimit ? "not-allowed" : "pointer", transition:"all 0.2s ease",
-        fontFamily:"'DM Mono',monospace",
+        fontFamily:"var(--ira-font-texto)",
       }}>
         {overLimit ? T.wordLimitMsg : loading ? T.analyzing : T.calcBtn}
       </button>
 
       {user && (
         <div style={{ marginTop:"40px" }}>
-          <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.16em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
+          <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.16em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
             {lang === "es" ? "Mis últimos análisis" : "My recent analyses"}
           </p>
           {history.length === 0 ? (
-            <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.15)", fontFamily:"'DM Mono',monospace", textAlign:"center", padding:"24px 0" }}>
+            <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-3)", fontFamily:"var(--ira-font-texto)", textAlign:"center", padding:"24px 0" }}>
               {lang === "es" ? "Tus análisis aparecerán aquí" : "Your analyses will appear here"}
             </p>
           ) : (
@@ -1617,15 +1601,15 @@ function ShareCard({ result, cardRef }) {
   return (
     <div ref={cardRef} style={{
       position:'fixed', left:'-9999px', top:0,
-      width:'480px', background:'#0e0e14',
+      width:'480px', background:'#041414',
       padding:'28px 32px 24px', boxSizing:'border-box',
-      fontFamily:'DM Mono,monospace',
-      border:`1px solid ${accent === '#0066ff' ? 'rgba(0,102,255,0.25)' : 'rgba(255,102,0,0.25)'}`, borderRadius:'16px',
+      fontFamily:"var(--ira-font-texto)",
+      border:`1px solid ${accent === '#DCB149' ? 'rgba(220,177,73,0.25)' : 'rgba(220,177,73,0.25)'}`, borderRadius:'16px',
     }}>
       {/* header */}
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'20px' }}>
-        <span style={{ color:accent, fontWeight:800, fontSize:'20px', fontFamily:'Syne,sans-serif', letterSpacing:'-0.02em' }}>IRA</span>
-        <span style={{ color:'rgba(255,255,255,0.18)', fontSize:'8px', letterSpacing:'0.14em', textTransform:'uppercase' }}>Índice de Resonancia Afectiva</span>
+        <span style={{ color:accent, fontWeight:800, fontSize:'20px', fontFamily:"var(--ira-font-titulo)", letterSpacing:'-0.02em' }}>IRA</span>
+        <span style={{ color:"var(--ira-texto-3)", fontSize:'8px', letterSpacing:'0.14em', textTransform:'uppercase' }}>Índice de Resonancia Afectiva</span>
       </div>
       {/* score + name */}
       <div style={{ display:'flex', alignItems:'center', gap:'20px', marginBottom:'20px' }}>
@@ -1635,24 +1619,24 @@ function ShareCard({ result, cardRef }) {
           alignItems:'center', justifyContent:'center', background:`${col}18`,
         }}>
           <span style={{ fontSize:'22px', fontWeight:800, color:col, lineHeight:1 }}>{result.ira.toFixed(2)}</span>
-          <span style={{ fontSize:'7px', color:'rgba(255,255,255,0.2)', letterSpacing:'0.1em' }}>IRA</span>
+          <span style={{ fontSize:'7px', color:"var(--ira-texto-3)", letterSpacing:'0.1em' }}>IRA</span>
         </div>
         <div>
           <p style={{ margin:'0 0 3px', fontSize:'8px', color:accent, letterSpacing:'0.14em', textTransform:'uppercase' }}>{result.category}</p>
-          <p style={{ margin:'0 0 3px', fontSize:'18px', fontWeight:700, color:'#fff', fontFamily:'Syne,sans-serif', lineHeight:1.2 }}>{result.name}</p>
+          <p style={{ margin:'0 0 3px', fontSize:'18px', fontWeight:700, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", lineHeight:1.2 }}>{result.name}</p>
           <p style={{ margin:0, fontSize:'9px', color:col, letterSpacing:'0.06em' }}>{result.iraLabel}</p>
         </div>
       </div>
       {/* radar canvas */}
       <canvas ref={canvasRef} width={416} height={200} style={{ width:'100%', display:'block' }} />
       {/* summary */}
-      <p style={{ margin:'14px 0 0', fontSize:'9px', color:'rgba(255,255,255,0.35)', lineHeight:1.65 }}>
+      <p style={{ margin:'14px 0 0', fontSize:'9px', color:"var(--ira-texto-3)", lineHeight:1.65 }}>
         {result.summary}
       </p>
       {/* footer */}
       <div style={{ marginTop:'16px', paddingTop:'12px', borderTop:'1px solid rgba(255,255,255,0.06)', display:'flex', justifyContent:'space-between' }}>
-        <span style={{ fontSize:'8px', color:'rgba(255,255,255,0.15)' }}>ira-index.vercel.app</span>
-        <span style={{ fontSize:'8px', color: accent === '#0066ff' ? 'rgba(0,102,255,0.35)' : 'rgba(255,102,0,0.35)' }}>ira-index.vercel.app</span>
+        <span style={{ fontSize:'8px', color:"var(--ira-texto-3)" }}>ira-index.vercel.app</span>
+        <span style={{ fontSize:'8px', color: accent === '#DCB149' ? 'rgba(220,177,73,0.35)' : 'rgba(220,177,73,0.35)' }}>ira-index.vercel.app</span>
       </div>
     </div>
   );
@@ -1677,7 +1661,7 @@ function AnalysisResult({ result, onReset, lang }) {
     try {
       const { default: html2canvas } = await import('html2canvas');
       const canvas = await html2canvas(cardRef.current, {
-        backgroundColor: '#0e0e14', scale: 2, logging: false,
+        backgroundColor: '#041414', scale: 2, logging: false,
         useCORS: true, allowTaint: true,
       });
       const link = document.createElement('a');
@@ -1705,18 +1689,18 @@ function AnalysisResult({ result, onReset, lang }) {
         <div style={{ position:"relative", flexShrink:0 }}>
           <ScoreRing score={result.ira} size={88} stroke={5} />
           <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-            <span style={{ fontSize:"20px", fontWeight:800, color:col, fontFamily:"'DM Mono',monospace", display:"block" }}>
+            <span style={{ fontSize:"20px", fontWeight:800, color:col, fontFamily:"var(--ira-font-texto)", display:"block" }}>
               {result.ira.toFixed(2)}
             </span>
-            <span style={{ fontSize:"8px", color:"rgba(255,255,255,0.25)", letterSpacing:"0.08em" }}>IRA</span>
+            <span style={{ fontSize:"8px", color:"var(--ira-texto-3)", letterSpacing:"0.08em" }}>IRA</span>
           </div>
         </div>
         <div>
           <Badge label={catLabel} color={catColor(result.category)} />
-          <h3 style={{ margin:"6px 0 4px", fontSize:"20px", fontWeight:700, color:"#fff", fontFamily:"'Syne',sans-serif" }}>
+          <h3 style={{ margin:"6px 0 4px", fontSize:"20px", fontWeight:700, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)" }}>
             {result.name}
           </h3>
-          <p style={{ margin:0, fontSize:"11.5px", color:"rgba(255,255,255,0.4)", lineHeight:1.55 }}>
+          <p style={{ margin:0, fontSize:"11.5px", color:"var(--ira-texto-3)", lineHeight:1.55 }}>
             {result.summary}
           </p>
         </div>
@@ -1727,8 +1711,8 @@ function AnalysisResult({ result, onReset, lang }) {
         return (
           <div key={i} style={{ marginBottom:"14px" }}>
             <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"5px" }}>
-              <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.5)" }}>{p.label}</span>
-              <span style={{ fontSize:"12px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"'DM Mono',monospace" }}>
+              <span style={{ fontSize:"11px", color:"var(--ira-texto-2)" }}>{p.label}</span>
+              <span style={{ fontSize:"12px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-texto)" }}>
                 {val.toFixed(1)}
               </span>
             </div>
@@ -1739,17 +1723,17 @@ function AnalysisResult({ result, onReset, lang }) {
                 borderRadius:"4px", transition:"width 0.8s ease",
               }} />
             </div>
-            <p style={{ margin:"4px 0 0", fontSize:"10.5px", color:"rgba(255,255,255,0.3)", lineHeight:1.5 }}>{desc}</p>
+            <p style={{ margin:"4px 0 0", fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.5 }}>{desc}</p>
           </div>
         );
       })}
       {/* Comparación con el corpus */}
       {result.comparacion && (
         <div style={{ marginTop:"20px", padding:"14px 16px", background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:"10px" }}>
-          <p style={{ margin:"0 0 5px", fontSize:"9px", fontWeight:700, letterSpacing:"0.14em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>
+          <p style={{ margin:"0 0 5px", fontSize:"9px", fontWeight:700, letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
             {lang === 'en' ? "Corpus comparison" : "Comparación con el corpus"}
           </p>
-          <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.45)", lineHeight:1.6, fontStyle:"italic" }}>
+          <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-2)", lineHeight:1.6, fontStyle:"italic" }}>
             {result.comparacion}
           </p>
         </div>
@@ -1760,18 +1744,18 @@ function AnalysisResult({ result, onReset, lang }) {
           <div style={{ height:"1px", background:"rgba(255,255,255,0.07)", marginBottom:"18px" }} />
           <div style={{ display:"flex", alignItems:"baseline", gap:"8px", marginBottom:"10px" }}>
             <span style={{
-              fontFamily:"'DM Mono',monospace", fontSize:"9px", fontWeight:600,
+              fontFamily:"var(--ira-font-texto)", fontSize:"9px", fontWeight:600,
               color: accentA(0.7), letterSpacing:"0.14em", textTransform:"uppercase",
             }}>{T.lecturaAutorLabel}</span>
             <span style={{
-              fontFamily:"'DM Mono',monospace", fontSize:"8.5px",
-              color:"rgba(255,255,255,0.2)", letterSpacing:"0.06em",
+              fontFamily:"var(--ira-font-texto)", fontSize:"8.5px",
+              color:"var(--ira-texto-3)", letterSpacing:"0.06em",
             }}>{T.lecturaAutorBadge}</span>
           </div>
           <p style={{
-            margin:0, fontFamily:"Georgia, 'Times New Roman', serif",
+            margin:0, fontFamily:"var(--ira-font-texto)",
             fontSize:"12px", lineHeight:1.8,
-            color:"rgba(255,255,255,0.45)", fontStyle:"italic",
+            color:"var(--ira-texto-2)", fontStyle:"italic",
           }}>{result.lecturaAutor}</p>
         </div>
       )}
@@ -1784,7 +1768,7 @@ function AnalysisResult({ result, onReset, lang }) {
           border:`1px solid ${accentA(0.4)}`,
           color: sharing ? accentA(0.4) : accent,
           fontSize:"11px", letterSpacing:"0.08em", cursor: sharing ? "wait" : "pointer",
-          fontFamily:"'DM Mono',monospace", transition:"all 0.2s",
+          fontFamily:"var(--ira-font-texto)", transition:"all 0.2s",
         }}>
           <span style={{ fontSize:"14px" }}>📷</span>
           {sharing ? T.generating : T.shareImage}
@@ -1796,7 +1780,7 @@ function AnalysisResult({ result, onReset, lang }) {
           border: copied ? "1px solid rgba(110,198,160,0.4)" : "1px solid rgba(255,255,255,0.1)",
           color: copied ? "#6ec6a0" : "rgba(255,255,255,0.5)",
           fontSize:"11px", letterSpacing:"0.08em", cursor:"pointer",
-          fontFamily:"'DM Mono',monospace", transition:"all 0.2s",
+          fontFamily:"var(--ira-font-texto)", transition:"all 0.2s",
         }}>
           <span style={{ fontSize:"14px" }}>{copied ? "✓" : "🔗"}</span>
           {copied ? T.linkCopied : T.copyLink}
@@ -1805,8 +1789,8 @@ function AnalysisResult({ result, onReset, lang }) {
       <button onClick={onReset} style={{
         marginTop:"10px", width:"100%", padding:"11px",
         background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)",
-        borderRadius:"10px", color:"rgba(255,255,255,0.4)", fontSize:"11px",
-        cursor:"pointer", letterSpacing:"0.08em", fontFamily:"'DM Mono',monospace",
+        borderRadius:"10px", color:"var(--ira-texto-3)", fontSize:"11px",
+        cursor:"pointer", letterSpacing:"0.08em", fontFamily:"var(--ira-font-texto)",
       }}>{T.analyzeAnother}</button>
       <ShareCard result={result} cardRef={cardRef} />
     </div>
@@ -1839,7 +1823,7 @@ function ConfirmedToast({ lang, onDone }) {
     }}>
       <div style={{
         display: "flex", alignItems: "center", gap: "10px",
-        background: "#0e0e14",
+        background: "var(--ira-superficie)",
         border: `1px solid ${accentA(0.45)}`,
         borderRadius: "12px",
         padding: "12px 20px",
@@ -1850,8 +1834,8 @@ function ConfirmedToast({ lang, onDone }) {
           background: accent, boxShadow: `0 0 8px ${accent}`, flexShrink: 0,
         }} />
         <span style={{
-          fontSize: "12px", color: "#fff",
-          fontFamily: "'DM Mono',monospace",
+          fontSize: "12px", color: "var(--ira-nieve)",
+          fontFamily: "var(--ira-font-texto)",
           whiteSpace: "nowrap",
         }}>{msg}</span>
       </div>
@@ -1874,9 +1858,9 @@ function WelcomeModal({ lang, onClose }) {
       opacity: mounted ? 1 : 0, transition:"opacity 0.35s ease",
     }}>
       <div style={{
-        background:"#0e0e14",
-        border:`1px solid ${accentA(0.2)}`,
-        borderRadius:"20px",
+        background:"var(--ira-superficie)",
+        border:"1px solid var(--ira-linea)",
+        borderRadius:"var(--ira-radio-xl)",
         padding:"36px 32px 28px",
         maxWidth:"400px", width:"100%",
         boxShadow:`0 0 60px ${accentA(0.08)}`,
@@ -1889,14 +1873,14 @@ function WelcomeModal({ lang, onClose }) {
             background:accent, boxShadow:`0 0 8px ${accent}`,
             animation:"wcPulse 2s ease-in-out infinite",
           }} />
-          <span style={{ fontSize:"9px", letterSpacing:"0.16em", color:accentA(0.7), textTransform:"uppercase", fontFamily:"'DM Mono',monospace" }}>
+          <span style={{ fontSize:"9px", letterSpacing:"0.16em", color:accentA(0.7), textTransform:"uppercase", fontFamily:"var(--ira-font-texto)" }}>
             {lang === "es" ? "Bienvenido/a al IRA" : "Welcome to IRA"}
           </span>
         </div>
-        <h2 style={{ margin:"0 0 14px", fontSize:"26px", fontWeight:800, color:"#fff", fontFamily:"'Syne',sans-serif", letterSpacing:"-0.03em", lineHeight:1.1 }}>
+        <h2 style={{ margin:"0 0 14px", fontSize:"26px", fontWeight:800, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.03em", lineHeight:1.1 }}>
           {lang === "es" ? "Las palabras tienen peso." : "Words carry weight."}
         </h2>
-        <p style={{ margin:"0 0 28px", fontSize:"12px", color:"rgba(255,255,255,0.45)", lineHeight:1.75, fontFamily:"'DM Mono',monospace" }}>
+        <p style={{ margin:"0 0 28px", fontSize:"12px", color:"var(--ira-texto-2)", lineHeight:1.75, fontFamily:"var(--ira-font-texto)" }}>
           {lang === "es"
             ? "Aquí puedes explorar cómo hablan los políticos y los medios, o pegar cualquier texto y medirlo tú mismo."
             : "Explore how politicians and media speak, or paste any text and measure it yourself."}
@@ -1906,12 +1890,12 @@ function WelcomeModal({ lang, onClose }) {
           background: accentA(0.18), border:`1px solid ${accentA(0.45)}`,
           borderRadius:"12px", color:accent,
           fontSize:"12px", letterSpacing:"0.1em", textTransform:"uppercase",
-          cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+          cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
           transition:"background 0.2s",
         }}>
           {lang === "es" ? "Empezar a explorar →" : "Start exploring →"}
         </button>
-        <p style={{ margin:"16px 0 0", fontSize:"10px", color:"rgba(255,255,255,0.2)", fontFamily:"'DM Mono',monospace", textAlign:"right", fontStyle:"italic" }}>
+        <p style={{ margin:"16px 0 0", fontSize:"10px", color:"var(--ira-texto-3)", fontFamily:"var(--ira-font-texto)", textAlign:"right", fontStyle:"italic" }}>
           — Rick Grisales, creador del IRA
         </p>
       </div>
@@ -1928,19 +1912,11 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
   const [mounted, setMounted] = useState(false);
   const [sortOrder, setSortOrder] = useState('default');
 
-  const accent = mode === 'medios' ? '#0066ff' : '#ff6600';
-  const accentA = (a) => mode === 'medios' ? `rgba(0,102,255,${a})` : `rgba(255,102,0,${a})`;
+  const accent = mode === 'medios' ? '#DCB149' : '#DCB149';
+  const accentA = (a) => mode === 'medios' ? `rgba(220,177,73,${a})` : `rgba(220,177,73,${a})`;
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 60);
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes blob1 { 0% { transform:translate(0,0) scale(1); } 25% { transform:translate(40px,-28px) scale(1.04); } 50% { transform:translate(-30px,22px) scale(0.97); } 75% { transform:translate(20px,-14px) scale(1.02); } 100% { transform:translate(0,0) scale(1); } }
-      @keyframes blob2 { 0% { transform:translate(0,0) scale(1); } 30% { transform:translate(-38px,-24px) scale(1.06); } 60% { transform:translate(20px,34px) scale(0.93); } 100% { transform:translate(0,0) scale(1); } }
-      @keyframes blob3 { 0% { transform:translate(0,0) scale(1); } 40% { transform:translate(28px,42px) scale(1.07); } 70% { transform:translate(-18px,14px) scale(0.96); } 100% { transform:translate(0,0) scale(1); } }
-    `;
-    document.head.appendChild(style);
-    return () => { try { document.head.removeChild(style); } catch {} };
   }, []);
 
   const T = TEXTS[lang];
@@ -1953,33 +1929,17 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
 
   return (
     <AccentContext.Provider value={{ accent, accentA, mode }}>
-    <div style={{ minHeight:"100vh", background:"#0e0e14", fontFamily:"'DM Mono',monospace", position:"relative", overflow:"hidden" }}>
+    <div style={{ minHeight:"100vh", background:"#041414", fontFamily:"var(--ira-font-texto)", position:"relative", overflow:"hidden" }}>
       <style>{`
-        @keyframes b1 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(60px,-40px) scale(1.15); } }
-        @keyframes b2 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(-50px,60px) scale(1.2); } }
-        @keyframes b3 { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(40px,50px) scale(1.1); } }
         @keyframes wcPulse { 0%,100% { opacity:1; box-shadow:0 0 8px ${accent}; } 50% { opacity:0.5; box-shadow:0 0 16px ${accent}; } }
         @keyframes aboutPulse { 0%,100% { box-shadow:0 0 18px rgba(220,60,160,0.22), inset 0 0 12px rgba(220,60,160,0.06); } 50% { box-shadow:0 0 28px rgba(220,60,160,0.38), inset 0 0 16px rgba(220,60,160,0.1); } }
       `}</style>
 
-      <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none", overflow:"hidden" }}>
-        <div style={{ position:"absolute", top:"-20%", left:"15%", width:"70vw", height:"70vh", borderRadius:"50%",
-          background:`radial-gradient(ellipse at center, ${accentA(0.15)} 0%, ${accentA(0.08)} 40%, transparent 68%)`,
-          animation:"b1 20s ease-in-out infinite" }} />
-        <div style={{ position:"absolute", bottom:"-25%", right:"-10%", width:"70vw", height:"70vh", borderRadius:"50%",
-          background: mode === 'medios'
-            ? `radial-gradient(ellipse at center, rgba(0,50,180,0.15) 0%, rgba(0,10,26,0.09) 45%, transparent 70%)`
-            : `radial-gradient(ellipse at center, rgba(180,50,0,0.15) 0%, rgba(26,10,0,0.09) 45%, transparent 70%)`,
-          animation:"b2 28s ease-in-out infinite" }} />
-        <div style={{ position:"absolute", top:"25%", left:"-18%", width:"70vw", height:"70vh", borderRadius:"50%",
-          background:`radial-gradient(ellipse at center, ${accentA(0.15)} 0%, transparent 68%)`,
-          animation:"b3 16s ease-in-out infinite" }} />
-      </div>
 
       <div style={{ position:"relative", zIndex:1 }}>
 
       <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" className="top-nav-left" style={{
-        fontFamily:"'DM Mono',monospace", fontSize:"11px", fontWeight:700,
+        fontFamily:"var(--ira-font-texto)", fontSize:"11px", fontWeight:700,
         color:accent, letterSpacing:"0.04em",
         border:`1.5px solid ${accentA(0.45)}`,
         borderRadius:"20px", padding:"5px 13px",
@@ -1991,7 +1951,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
         <button onClick={() => navigate('/analisis-del-dia')}
           style={{ padding:"7px 14px", borderRadius:"20px", background:accentA(0.08),
             border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
-            letterSpacing:"0.12em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+            letterSpacing:"0.12em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
             transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
           onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
           onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
@@ -1999,7 +1959,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
         <button onClick={() => navigate('/patrones')}
           style={{ padding:"7px 14px", borderRadius:"20px", background:accentA(0.08),
             border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
-            letterSpacing:"0.12em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+            letterSpacing:"0.12em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
             transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
           onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
           onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
@@ -2007,7 +1967,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
         {user ? (
           <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
             <span style={{
-              fontSize:"11px", color:accent, fontFamily:"'DM Mono',monospace", fontWeight:700,
+              fontSize:"11px", color:accent, fontFamily:"var(--ira-font-texto)", fontWeight:700,
               border:`1.5px solid ${accentA(0.6)}`, borderRadius:"20px", padding:"5px 13px",
               maxWidth:"150px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap",
               background:accentA(0.08), letterSpacing:"0.04em",
@@ -2017,7 +1977,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             <button onClick={() => signOut()}
               style={{ padding:"6px 14px", borderRadius:"20px", background:accentA(0.08),
                 border:`1.5px solid ${accentA(0.45)}`, color:accent, fontSize:"10px",
-                letterSpacing:"0.1em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700, transition:"all 0.2s ease" }}
+                letterSpacing:"0.1em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700, transition:"all 0.2s ease" }}
               onMouseEnter={e => { e.currentTarget.style.background=accentA(0.18); e.currentTarget.style.borderColor=accentA(0.8); }}
               onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.45); }}
             >{lang === "es" ? "Salir" : "Sign out"}</button>
@@ -2026,7 +1986,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           <button onClick={openLogin}
             style={{ padding:"7px 14px", borderRadius:"20px", background:accentA(0.08),
               border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
-              letterSpacing:"0.12em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+              letterSpacing:"0.12em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
               transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
             onMouseEnter={e => { e.currentTarget.style.background=accentA(0.16); e.currentTarget.style.borderColor=accentA(0.6); }}
             onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); }}
@@ -2036,7 +1996,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           onClick={() => setLang(l => { const next = l==="es"?"en":"es"; localStorage.setItem('ira-lang',next); return next; })}
           style={{ display:"flex", alignItems:"center", gap:"5px", padding:"7px 14px", borderRadius:"20px",
             background:accentA(0.08), border:`1px solid ${accentA(0.35)}`, color:accent, fontSize:"10px",
-            letterSpacing:"0.18em", cursor:"pointer", fontFamily:"'DM Mono',monospace", fontWeight:700,
+            letterSpacing:"0.18em", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
             transition:"all 0.2s ease", boxShadow:`0 0 12px ${accentA(0.12)}` }}
           onMouseEnter={e => { e.currentTarget.style.background=accentA(0.18); e.currentTarget.style.borderColor=accentA(0.7); e.currentTarget.style.boxShadow=`0 0 20px ${accentA(0.3)}`; }}
           onMouseLeave={e => { e.currentTarget.style.background=accentA(0.08); e.currentTarget.style.borderColor=accentA(0.35); e.currentTarget.style.boxShadow=`0 0 12px ${accentA(0.12)}`; }}
@@ -2051,23 +2011,23 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
         <div style={{ marginBottom:"44px", opacity:mounted?1:0, transform:mounted?"none":"translateY(16px)", transition:"all 0.6s ease" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"12px" }}>
             <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:accent, boxShadow:`0 0 10px ${accent}` }} />
-            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase" }}>{T.headerTag}</span>
+            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>{T.headerTag}</span>
           </div>
-          <h1 style={{ margin:"0 0 10px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"'Syne',sans-serif", color:"#fff", letterSpacing:"-0.04em", lineHeight:1.05 }}>
-            IRA <span style={{ color:"rgba(255,255,255,0.12)", fontWeight:400 }}>/</span>{" "}
+          <h1 style={{ margin:"0 0 10px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)", color:"var(--ira-nieve)", letterSpacing:"-0.04em", lineHeight:1.05 }}>
+            IRA <span style={{ color:"var(--ira-texto-3)", fontWeight:400 }}>/</span>{" "}
             <span style={{ color:accent }}>
               {mode === 'medios' ? (lang==='en'?'Media':'Medios') : (lang==='en'?'Political':'Político')}
             </span>
           </h1>
-          <p style={{ margin:"0 0 20px", fontSize:"12px", color:"rgba(255,255,255,0.3)", lineHeight:1.65, maxWidth:"500px" }}>
+          <p style={{ margin:"0 0 20px", fontSize:"12px", color:"var(--ira-texto-3)", lineHeight:1.65, maxWidth:"500px" }}>
             {mode === 'medios' ? T.subtitleMedios : T.subtitle}
           </p>
           <div style={{ display:"flex", alignItems:"center", gap:"12px", flexWrap:"wrap" }}>
             <button onClick={() => setShowIRA(true)} style={{
               padding:"13px 28px", borderRadius:"12px", background:accent, border:"none",
               color:"#000", fontSize:"13px", fontWeight:700, letterSpacing:"0.04em", cursor:"pointer",
-              fontFamily:"'DM Mono',monospace", boxShadow:`0 0 24px ${accentA(0.35)}`, transition:"all 0.2s ease" }}
-              onMouseEnter={e => { e.currentTarget.style.background=mode==='medios'?"#3385ff":"#ff8533"; e.currentTarget.style.boxShadow=`0 0 32px ${accentA(0.55)}`; }}
+              fontFamily:"var(--ira-font-texto)", boxShadow:`0 0 24px ${accentA(0.35)}`, transition:"all 0.2s ease" }}
+              onMouseEnter={e => { e.currentTarget.style.background=mode==='medios'?"#F4CF7A":"#F4CF7A"; e.currentTarget.style.boxShadow=`0 0 32px ${accentA(0.55)}`; }}
               onMouseLeave={e => { e.currentTarget.style.background=accent; e.currentTarget.style.boxShadow=`0 0 24px ${accentA(0.35)}`; }}
             >{T.btnWhat}</button>
             <span style={{
@@ -2078,8 +2038,8 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
               fontSize:"11px",
             }}>
               {[
-                ['politico', lang==='en'?'Political':'Político', '#ff6600', (a)=>`rgba(255,102,0,${a})`, '/politicos'],
-                ['medios',   lang==='en'?'Media':'Medios',       '#0066ff', (a)=>`rgba(0,102,255,${a})`, '/medios'],
+                ['politico', lang==='en'?'Political':'Político', '#DCB149', (a)=>`rgba(220,177,73,${a})`, '/politicos'],
+                ['medios',   lang==='en'?'Media':'Medios',       '#DCB149', (a)=>`rgba(220,177,73,${a})`, '/medios'],
               ].map(([id, label, col, colA, path]) => (
                 <button key={id} onClick={() => navigate(path)} style={{
                   padding:"5px 14px", borderRadius:"16px",
@@ -2088,7 +2048,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
                   color: mode===id ? col : "rgba(255,255,255,0.3)",
                   fontSize:"inherit", letterSpacing:"0.1em", textTransform:"uppercase",
                   cursor:"pointer", transition:"all 0.2s ease",
-                  fontFamily:"'DM Mono',monospace", fontWeight: mode===id ? 700 : 400,
+                  fontFamily:"var(--ira-font-texto)", fontWeight: mode===id ? 700 : 400,
                 }}>{label}</button>
               ))}
             </span>
@@ -2101,7 +2061,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             border:"1.5px solid rgba(220,60,160,0.5)",
             color:"rgba(245,110,190,0.95)",
             fontSize:"11px", letterSpacing:"0.1em", cursor:"pointer",
-            fontFamily:"'DM Mono',monospace", fontWeight:700,
+            fontFamily:"var(--ira-font-texto)", fontWeight:700,
             transition:"all 0.25s ease",
             boxShadow:"0 0 18px rgba(220,60,160,0.22), inset 0 0 12px rgba(220,60,160,0.06)",
             animation:"aboutPulse 3s ease-in-out infinite",
@@ -2162,8 +2122,8 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
               }}>
                 <span style={{ fontSize:"18px", lineHeight:1, flexShrink:0, marginTop:"1px" }}>{c.icon}</span>
                 <div>
-                  <p style={{ margin:"0 0 4px", fontSize:"9px", fontWeight:700, letterSpacing:"0.14em", color:accent, textTransform:"uppercase", fontFamily:"'DM Mono',monospace" }}>{c.role}</p>
-                  <p style={{ margin:0, fontSize:"11px", color:"rgba(255,255,255,0.4)", lineHeight:1.6, fontFamily:"'DM Mono',monospace" }}>{c.desc}</p>
+                  <p style={{ margin:"0 0 4px", fontSize:"9px", fontWeight:700, letterSpacing:"0.14em", color:accent, textTransform:"uppercase", fontFamily:"var(--ira-font-texto)" }}>{c.role}</p>
+                  <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-3)", lineHeight:1.6, fontFamily:"var(--ira-font-texto)" }}>{c.desc}</p>
                 </div>
               </div>
             ))}
@@ -2185,7 +2145,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
               border: tab===id ? `1px solid ${accentA(0.4)}` : "1px solid transparent",
               color: tab===id ? accent : "rgba(255,255,255,0.35)",
               fontSize:"10px", letterSpacing:"0.1em", textTransform:"uppercase",
-              cursor:"pointer", transition:"all 0.2s ease", fontFamily:"'DM Mono',monospace",
+              cursor:"pointer", transition:"all 0.2s ease", fontFamily:"var(--ira-font-texto)",
             }}>{label}</button>
           ))}
         </div>
@@ -2194,7 +2154,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           <>
             {/* Botones de ordenación */}
             <div style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'16px', flexWrap:'wrap' }}>
-              <span style={{ fontSize:'9px', letterSpacing:'0.14em', color:'rgba(255,255,255,0.25)', textTransform:'uppercase', fontFamily:"'DM Mono',monospace" }}>
+              <span style={{ fontSize:'9px', letterSpacing:'0.14em', color:"var(--ira-texto-3)", textTransform:'uppercase', fontFamily:"var(--ira-font-texto)" }}>
                 {lang==='en' ? 'Sort' : 'Ordenar'}
               </span>
               {[
@@ -2208,7 +2168,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
                   border:`1px solid ${sortOrder===id ? accentA(0.5) : 'rgba(255,255,255,0.1)'}`,
                   color: sortOrder===id ? accent : 'rgba(255,255,255,0.35)',
                   fontSize:'9px', letterSpacing:'0.08em', cursor:'pointer',
-                  fontFamily:"'DM Mono',monospace", fontWeight: sortOrder===id ? 700 : 400,
+                  fontFamily:"var(--ira-font-texto)", fontWeight: sortOrder===id ? 700 : 400,
                   transition:'all 0.2s ease',
                 }}>{label}</button>
               ))}
@@ -2230,24 +2190,24 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             <IndexInteractive entities={filtered} lang={lang} accent={accent} accentA={accentA} />
 
             <div style={{ marginTop:"40px", padding:"20px", background:"rgba(255,255,255,0.02)", borderRadius:"12px", border:"1px solid rgba(255,255,255,0.05)" }}>
-              <p style={{ margin:"0 0 10px", fontSize:"10px", color:"rgba(255,255,255,0.18)", lineHeight:1.7, letterSpacing:"0.04em" }}>
-                {T.footerBasedOn}{" "}<em style={{ color:"rgba(255,255,255,0.3)" }}>{T.footerText}</em>{" "}{T.footerSub}
+              <p style={{ margin:"0 0 10px", fontSize:"10px", color:"var(--ira-texto-3)", lineHeight:1.7, letterSpacing:"0.04em" }}>
+                {T.footerBasedOn}{" "}<em style={{ color:"var(--ira-texto-3)" }}>{T.footerText}</em>{" "}{T.footerSub}
               </p>
-              <p style={{ margin:0, fontSize:"10px", color:"rgba(255,255,255,0.15)", letterSpacing:"0.04em" }}>
+              <p style={{ margin:0, fontSize:"10px", color:"var(--ira-texto-3)", letterSpacing:"0.04em" }}>
                 {lang === "es" ? "Desarrollado por" : "Developed by"}{" "}
                 <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer"
-                  style={{ color:"rgba(255,102,0,0.9)", textDecoration:"none", transition:"color 0.2s" }}
-                  onMouseEnter={e => e.currentTarget.style.color='#ff6600'}
-                  onMouseLeave={e => e.currentTarget.style.color='rgba(255,102,0,0.9)'}
+                  style={{ color:"rgba(220,177,73,0.9)", textDecoration:"none", transition:"color 0.2s" }}
+                  onMouseEnter={e => e.currentTarget.style.color='#DCB149'}
+                  onMouseLeave={e => e.currentTarget.style.color='rgba(220,177,73,0.9)'}
                 >Rick Grisales — oranrick.com</a>
                 {" · "}
                 <button onClick={() => navigate('/about')} style={{
                   background:"none", border:"none", padding:0, cursor:"pointer",
-                  color:"rgba(255,102,0,0.7)", fontSize:"10px", letterSpacing:"0.04em",
-                  fontFamily:"'DM Mono',monospace", textDecoration:"none", transition:"color 0.2s",
+                  color:"rgba(220,177,73,0.7)", fontSize:"10px", letterSpacing:"0.04em",
+                  fontFamily:"var(--ira-font-texto)", textDecoration:"none", transition:"color 0.2s",
                 }}
-                  onMouseEnter={e => e.currentTarget.style.color='#ff6600'}
-                  onMouseLeave={e => e.currentTarget.style.color='rgba(255,102,0,0.7)'}
+                  onMouseEnter={e => e.currentTarget.style.color='#DCB149'}
+                  onMouseLeave={e => e.currentTarget.style.color='rgba(220,177,73,0.7)'}
                 >{lang === "es" ? "Sobre el proyecto →" : "About this project →"}</button>
               </p>
             </div>
@@ -2257,8 +2217,8 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
         {tab === "analyze" && (
           <div style={{ opacity:mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
             <div style={{ marginBottom:"28px" }}>
-              <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"rgba(255,255,255,0.25)", textTransform:"uppercase", marginBottom:"6px" }}>{T.howWorks}</p>
-              <p style={{ fontSize:"12px", color:"rgba(255,255,255,0.4)", lineHeight:1.65, margin:0, maxWidth:"520px" }}>{T.howWorksDesc}</p>
+              <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>{T.howWorks}</p>
+              <p style={{ fontSize:"12px", color:"var(--ira-texto-3)", lineHeight:1.65, margin:0, maxWidth:"520px" }}>{T.howWorksDesc}</p>
             </div>
             <Analyzer lang={lang} />
           </div>
@@ -2268,7 +2228,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           <div style={{ opacity:mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
             <Suspense fallback={
               <div style={{ height:"160px", display:"flex", alignItems:"center", justifyContent:"center" }}>
-                <span style={{ fontSize:"11px", color:"rgba(255,255,255,0.2)", fontFamily:"'DM Mono',monospace" }}>{T.loading}</span>
+                <span style={{ fontSize:"11px", color:"var(--ira-texto-3)", fontFamily:"var(--ira-font-texto)" }}>{T.loading}</span>
               </div>
             }>
               <Comparator

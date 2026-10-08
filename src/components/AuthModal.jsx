@@ -60,15 +60,15 @@ const inputStyle = {
   background: 'rgba(255,255,255,0.04)',
   border: '1px solid rgba(255,255,255,0.08)',
   borderRadius: '10px', padding: '11px 14px',
-  color: '#fff', fontSize: '13px',
-  outline: 'none', fontFamily: "'DM Mono',monospace",
+  color: "var(--ira-nieve)", fontSize: '13px',
+  outline: 'none', fontFamily: "var(--ira-font-texto)",
 }
 
 const labelStyle = {
   display: 'block', marginBottom: '6px',
   fontSize: '10px', letterSpacing: '0.1em',
-  color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase',
-  fontFamily: "'DM Mono',monospace",
+  color: "var(--ira-texto-3)", textTransform: 'uppercase',
+  fontFamily: "var(--ira-font-texto)",
 }
 
 export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'register' }) {
@@ -187,9 +187,9 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
         onClick={e => e.stopPropagation()}
         style={{
           position: 'relative',
-          background: '#0e0e14',
-          border: '1px solid rgba(255,255,255,0.09)',
-          borderRadius: '20px',
+          background: 'var(--ira-superficie)',
+          border: '1px solid var(--ira-linea)',
+          borderRadius: 'var(--ira-radio-xl)',
           padding: '36px 32px',
           width: '100%',
           maxWidth: '400px',
@@ -204,18 +204,18 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
             <div style={{
               width: '5px', height: '5px', borderRadius: '50%',
-              background: '#ff6600', boxShadow: '0 0 8px #ff6600',
+              background: '#DCB149', boxShadow: '0 0 8px #DCB149',
             }} />
             <span style={{
               fontSize: '9px', letterSpacing: '0.18em',
-              color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase',
+              color: "var(--ira-texto-3)", textTransform: 'uppercase',
             }}>
               {isLogin ? T.tagLogin : T.tagRegister}
             </span>
           </div>
           <h2 style={{
             margin: 0, fontSize: '22px', fontWeight: 800,
-            color: '#fff', fontFamily: "'Syne',sans-serif",
+            color: "var(--ira-nieve)", fontFamily: "var(--ira-font-titulo)",
             letterSpacing: '-0.03em',
           }}>
             {isLogin ? T.titleLogin : T.titleRegister}
@@ -290,7 +290,7 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
                   }}
                 >
                   {T.genderOptions.map(opt => (
-                    <option key={opt} value={opt} style={{ background: '#0e0e14' }}>{opt}</option>
+                    <option key={opt} value={opt} style={{ background: '#041414' }}>{opt}</option>
                   ))}
                 </select>
               </div>
@@ -317,7 +317,7 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
               border: '1px solid rgba(224,82,82,0.3)',
               borderRadius: '8px',
               fontSize: '12px', color: '#e05252',
-              fontFamily: "'DM Mono',monospace",
+              fontFamily: "var(--ira-font-texto)",
               lineHeight: 1.5,
             }}>
               {error}
@@ -330,24 +330,24 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
             disabled={loading}
             onMouseEnter={e => {
               if (!loading) {
-                e.currentTarget.style.background = '#ff8533'
-                e.currentTarget.style.boxShadow = '0 0 32px rgba(255,102,0,0.55)'
+                e.currentTarget.style.background = '#F4CF7A'
+                e.currentTarget.style.boxShadow = '0 0 32px rgba(220,177,73,0.55)'
               }
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.background = loading ? 'rgba(255,102,0,0.4)' : '#ff6600'
-              e.currentTarget.style.boxShadow = loading ? 'none' : '0 0 24px rgba(255,102,0,0.35)'
+              e.currentTarget.style.background = loading ? 'rgba(220,177,73,0.4)' : '#DCB149'
+              e.currentTarget.style.boxShadow = loading ? 'none' : '0 0 24px rgba(220,177,73,0.35)'
             }}
             style={{
               marginTop: '4px',
               padding: '13px 28px', borderRadius: '12px',
-              background: loading ? 'rgba(255,102,0,0.4)' : '#ff6600',
+              background: loading ? 'rgba(220,177,73,0.4)' : '#DCB149',
               border: 'none',
               color: loading ? 'rgba(0,0,0,0.5)' : '#000',
               fontSize: '13px', fontWeight: 700,
               letterSpacing: '0.04em', cursor: loading ? 'not-allowed' : 'pointer',
-              fontFamily: "'DM Mono',monospace",
-              boxShadow: loading ? 'none' : '0 0 24px rgba(255,102,0,0.35)',
+              fontFamily: "var(--ira-font-texto)",
+              boxShadow: loading ? 'none' : '0 0 24px rgba(220,177,73,0.35)',
               transition: 'all 0.2s ease',
               width: '100%',
             }}
@@ -364,15 +364,15 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
           borderTop: '1px solid rgba(255,255,255,0.06)',
           textAlign: 'center',
         }}>
-          <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>
+          <span style={{ fontSize: '12px', color: "var(--ira-texto-3)" }}>
             {isLogin ? T.noAccount : T.hasAccount}
           </span>
           <button
             onClick={() => switchMode(isLogin ? 'register' : 'login')}
             style={{
               background: 'none', border: 'none', padding: 0,
-              color: '#ff6600', fontSize: '12px', cursor: 'pointer',
-              fontFamily: "'DM Mono',monospace", fontWeight: 700,
+              color: '#DCB149', fontSize: '12px', cursor: 'pointer',
+              fontFamily: "var(--ira-font-texto)", fontWeight: 700,
               letterSpacing: '0.04em',
             }}
           >
@@ -386,7 +386,7 @@ export function AuthModal({ onSuccess, onClose, lang = 'es', defaultMode = 'regi
           style={{
             position: 'absolute', top: '20px', right: '20px',
             background: 'none', border: 'none',
-            color: 'rgba(255,255,255,0.25)', fontSize: '18px',
+            color: "var(--ira-texto-3)", fontSize: '18px',
             cursor: 'pointer', lineHeight: 1, padding: '4px',
           }}
         >

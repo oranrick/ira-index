@@ -45,21 +45,21 @@ const TEXTS = {
   en: { title: 'Geographic distribution', subtitle: 'Click a country to view its analysis' },
 };
 
-export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) {
+export default function WorldMap({ entities, lang = 'es', accent = '#DCB149' }) {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(null);
   const T = TEXTS[lang] || TEXTS.es;
-  const accentA = (a) => accent === '#ff6600'
-    ? `rgba(255,102,0,${a})`
-    : `rgba(0,102,255,${a})`;
+  const accentA = (a) => accent === '#DCB149'
+    ? `rgba(220,177,73,${a})`
+    : `rgba(220,177,73,${a})`;
 
   return (
     <div style={{ marginTop: '28px', padding: '20px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '12px' }}>
       <div style={{ marginBottom: '14px' }}>
-        <span style={{ fontSize: '9px', letterSpacing: '0.16em', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase' }}>
+        <span style={{ fontSize: '9px', letterSpacing: '0.16em', color: "var(--ira-texto-3)", textTransform: 'uppercase' }}>
           🌍 {T.title}
         </span>
-        <p style={{ margin: '4px 0 0', fontSize: '11px', color: 'rgba(255,255,255,0.3)', fontFamily: "'DM Mono', monospace" }}>
+        <p style={{ margin: '4px 0 0', fontSize: '11px', color: "var(--ira-texto-3)", fontFamily: "var(--ira-font-texto)" }}>
           {T.subtitle}
         </p>
       </div>
@@ -132,7 +132,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                     fontSize: isHov ? '9.5px' : '8.5px',
                     fontWeight: 700,
                     fill: '#000',
-                    fontFamily: "'DM Mono', monospace",
+                    fontFamily: "var(--ira-font-texto)",
                     pointerEvents: 'none',
                     transition: 'all 0.2s ease',
                   }}
@@ -149,7 +149,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                     fontSize: '7px',
                     fontWeight: 600,
                     fill: 'rgba(255,255,255,0.80)',
-                    fontFamily: "'DM Mono', monospace",
+                    fontFamily: "var(--ira-font-texto)",
                     pointerEvents: 'none',
                     letterSpacing: '0.02em',
                   }}
@@ -176,7 +176,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
                         fontSize: '8.5px',
                         fontWeight: 700,
                         fill: '#fff',
-                        fontFamily: "'DM Mono', monospace",
+                        fontFamily: "var(--ira-font-texto)",
                         pointerEvents: 'none',
                       }}
                     >
@@ -199,7 +199,7 @@ export default function WorldMap({ entities, lang = 'es', accent = '#ff6600' }) 
         ].map(([color, range, label]) => (
           <div key={color} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <div style={{ width: 10, height: 10, borderRadius: '50%', background: color }} />
-            <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', fontFamily: "'DM Mono', monospace" }}>
+            <span style={{ fontSize: '9px', color: "var(--ira-texto-3)", fontFamily: "var(--ira-font-texto)" }}>
               {lang === 'en' ? range : range} · {lang === 'en' ? label : label}
             </span>
           </div>

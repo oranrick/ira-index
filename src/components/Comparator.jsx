@@ -4,7 +4,7 @@ import {
   Tooltip, ResponsiveContainer,
 } from "recharts";
 
-const COLOR_A = "#ff6600";
+const COLOR_A = "#DCB149";
 const COLOR_B = "#22d3ee";
 
 function scoreColor(s) {
@@ -19,18 +19,18 @@ function CompareTooltip({ active, payload, nameA, nameB }) {
   return (
     <div style={{
       background: "rgba(10,10,16,0.95)", border: "1px solid rgba(255,255,255,0.1)",
-      borderRadius: "8px", padding: "8px 12px", fontFamily: "'DM Mono',monospace",
+      borderRadius: "8px", padding: "8px 12px", fontFamily: "var(--ira-font-texto)",
       pointerEvents: "none",
     }}>
-      <p style={{ margin: "0 0 6px", fontSize: "9.5px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.04em" }}>{d.label}</p>
+      <p style={{ margin: "0 0 6px", fontSize: "9.5px", color: "var(--ira-texto-3)", letterSpacing: "0.04em" }}>{d.label}</p>
       <p style={{ margin: "2px 0", fontSize: "11px" }}>
         <span style={{ color: COLOR_A }}>{nameA}</span>
-        <span style={{ color: "rgba(255,255,255,0.25)", margin: "0 6px" }}>—</span>
+        <span style={{ color: "var(--ira-texto-3)", margin: "0 6px" }}>—</span>
         <span style={{ color: COLOR_A, fontWeight: 700 }}>{Number(d.a).toFixed(1)}</span>
       </p>
       <p style={{ margin: "2px 0", fontSize: "11px" }}>
         <span style={{ color: COLOR_B }}>{nameB}</span>
-        <span style={{ color: "rgba(255,255,255,0.25)", margin: "0 6px" }}>—</span>
+        <span style={{ color: "var(--ira-texto-3)", margin: "0 6px" }}>—</span>
         <span style={{ color: COLOR_B, fontWeight: 700 }}>{Number(d.b).toFixed(1)}</span>
       </p>
     </div>
@@ -64,13 +64,13 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color, sea
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <span style={{ fontSize: "18px" }}>{selected.flag}</span>
-            <span style={{ fontSize: "13px", color: "#fff", fontWeight: 600, fontFamily: "'Syne',sans-serif" }}>
+            <span style={{ fontSize: "13px", color: "var(--ira-nieve)", fontWeight: 600, fontFamily: "var(--ira-font-titulo)" }}>
               {selected.name}
             </span>
           </div>
           <button
             onClick={() => { onSelect(null); }}
-            style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.35)", fontSize: "16px", padding: "0 2px", lineHeight: 1 }}
+            style={{ background: "none", border: "none", cursor: "pointer", color: "var(--ira-texto-3)", fontSize: "16px", padding: "0 2px", lineHeight: 1 }}
           >×</button>
         </div>
       ) : (
@@ -85,7 +85,7 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color, sea
               width: "100%", boxSizing: "border-box",
               padding: "9px 14px", borderRadius: "10px",
               background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
-              color: "#fff", fontSize: "12px", fontFamily: "'DM Mono',monospace",
+              color: "var(--ira-nieve)", fontSize: "12px", fontFamily: "var(--ira-font-texto)",
               outline: "none",
             }}
           />
@@ -93,7 +93,7 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color, sea
             <div style={{
               position: "absolute", zIndex: 200, width: "100%",
               marginTop: "4px", borderRadius: "10px", overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.08)", background: "#0e0e14",
+              border: "1px solid var(--ira-linea)", background: "var(--ira-elevada)",
             }}>
               {filtered.map(p => (
                 <button
@@ -108,7 +108,7 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color, sea
                   onMouseLeave={e => e.currentTarget.style.background = "none"}
                 >
                   <span style={{ fontSize: "16px" }}>{p.flag}</span>
-                  <span style={{ fontSize: "12px", color: "#fff", fontFamily: "'DM Mono',monospace" }}>{p.name}</span>
+                  <span style={{ fontSize: "12px", color: "var(--ira-nieve)", fontFamily: "var(--ira-font-texto)" }}>{p.name}</span>
                 </button>
               ))}
             </div>
@@ -166,7 +166,7 @@ export default function Comparator({ politicians, paramsEs, paramShort, lang = "
               <PolarGrid stroke="rgba(255,255,255,0.08)" gridType="polygon" />
               <PolarAngleAxis
                 dataKey="param"
-                tick={{ fill: "rgba(255,255,255,0.4)", fontFamily: "'DM Mono',monospace", fontSize: 9.5 }}
+                tick={{ fill: "rgba(255,255,255,0.4)", fontFamily: "var(--ira-font-texto)", fontSize: 9.5 }}
               />
               <PolarRadiusAxis domain={[0, 10]} tick={false} axisLine={false} />
               <Tooltip
@@ -190,10 +190,10 @@ export default function Comparator({ politicians, paramsEs, paramShort, lang = "
                 flex: "1 1 180px", padding: "12px 16px", borderRadius: "12px",
                 background: `${col}10`, border: `1px solid ${col}38`,
               }}>
-                <p style={{ margin: "0 0 4px", fontSize: "11px", color: "rgba(255,255,255,0.4)", fontFamily: "'DM Mono',monospace" }}>
+                <p style={{ margin: "0 0 4px", fontSize: "11px", color: "var(--ira-texto-3)", fontFamily: "var(--ira-font-texto)" }}>
                   {e.flag} {e.name}
                 </p>
-                <span style={{ fontSize: "22px", fontWeight: 800, color: scoreColor(e.score), fontFamily: "'DM Mono',monospace" }}>
+                <span style={{ fontSize: "22px", fontWeight: 800, color: scoreColor(e.score), fontFamily: "var(--ira-font-texto)" }}>
                   {e.score.toFixed(2)}
                 </span>
               </div>
@@ -205,32 +205,32 @@ export default function Comparator({ politicians, paramsEs, paramShort, lang = "
               padding: "14px 16px", borderRadius: "12px",
               background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)",
             }}>
-              <p style={{ margin: "0 0 6px", fontSize: "9px", letterSpacing: "0.14em", color: "rgba(255,255,255,0.25)", textTransform: "uppercase" }}>
+              <p style={{ margin: "0 0 6px", fontSize: "9px", letterSpacing: "0.14em", color: "var(--ira-texto-3)", textTransform: "uppercase" }}>
                 {labelSynthesis}
               </p>
               {lang === "en" ? (
-                <p style={{ margin: 0, fontSize: "12px", color: "rgba(255,255,255,0.55)", lineHeight: 1.7, fontFamily: "'DM Mono',monospace" }}>
+                <p style={{ margin: 0, fontSize: "12px", color: "var(--ira-texto-2)", lineHeight: 1.7, fontFamily: "var(--ira-font-texto)" }}>
                   <span style={{ color: COLOR_A }}>{entityA.name}</span> outscores{" "}
                   <span style={{ color: COLOR_B }}>{entityB.name}</span> on{" "}
-                  <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.aWins}</span> of the 8 parameters;{" "}
+                  <span style={{ color: "var(--ira-nieve)", fontWeight: 700 }}>{synthesis.aWins}</span> of the 8 parameters;{" "}
                   <span style={{ color: COLOR_B }}>{entityB.name}</span> on{" "}
-                  <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.bWins}</span>.{" "}
+                  <span style={{ color: "var(--ira-nieve)", fontWeight: 700 }}>{synthesis.bWins}</span>.{" "}
                   The largest gap is in{" "}
-                  <span style={{ color: "#fff" }}>{synthesis.biggest.label}</span>{" "}
+                  <span style={{ color: "var(--ira-nieve)" }}>{synthesis.biggest.label}</span>{" "}
                   ({Math.abs(synthesis.biggest.diff).toFixed(1)} pts in favour of{" "}
                   <span style={{ color: synthesis.biggest.diff > 0 ? COLOR_A : COLOR_B }}>
                     {synthesis.biggest.diff > 0 ? entityA.name : entityB.name}
                   </span>).
                 </p>
               ) : (
-                <p style={{ margin: 0, fontSize: "12px", color: "rgba(255,255,255,0.55)", lineHeight: 1.7, fontFamily: "'DM Mono',monospace" }}>
+                <p style={{ margin: 0, fontSize: "12px", color: "var(--ira-texto-2)", lineHeight: 1.7, fontFamily: "var(--ira-font-texto)" }}>
                   <span style={{ color: COLOR_A }}>{entityA.name}</span> supera a{" "}
                   <span style={{ color: COLOR_B }}>{entityB.name}</span> en{" "}
-                  <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.aWins}</span> de los 8 parámetros;{" "}
+                  <span style={{ color: "var(--ira-nieve)", fontWeight: 700 }}>{synthesis.aWins}</span> de los 8 parámetros;{" "}
                   <span style={{ color: COLOR_B }}>{entityB.name}</span> en{" "}
-                  <span style={{ color: "#fff", fontWeight: 700 }}>{synthesis.bWins}</span>.{" "}
+                  <span style={{ color: "var(--ira-nieve)", fontWeight: 700 }}>{synthesis.bWins}</span>.{" "}
                   La mayor diferencia está en{" "}
-                  <span style={{ color: "#fff" }}>{synthesis.biggest.label}</span>{" "}
+                  <span style={{ color: "var(--ira-nieve)" }}>{synthesis.biggest.label}</span>{" "}
                   ({Math.abs(synthesis.biggest.diff).toFixed(1)} pts a favor de{" "}
                   <span style={{ color: synthesis.biggest.diff > 0 ? COLOR_A : COLOR_B }}>
                     {synthesis.biggest.diff > 0 ? entityA.name : entityB.name}
@@ -245,7 +245,7 @@ export default function Comparator({ politicians, paramsEs, paramShort, lang = "
           height: "160px", display: "flex", alignItems: "center", justifyContent: "center",
           borderRadius: "14px", border: "1px dashed rgba(255,255,255,0.07)",
         }}>
-          <p style={{ margin: 0, fontSize: "11px", color: "rgba(255,255,255,0.18)", fontFamily: "'DM Mono',monospace" }}>
+          <p style={{ margin: 0, fontSize: "11px", color: "var(--ira-texto-3)", fontFamily: "var(--ira-font-texto)" }}>
             {labelSelectTwo}
           </p>
         </div>

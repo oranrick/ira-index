@@ -264,17 +264,17 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
         {/* Annotated text */}
         <div style={styles.textColumn} ref={containerRef}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-            <p style={{ ...styles.sectionLabel, margin: 0, color: 'rgba(255,102,0,0.75)', letterSpacing: '0.18em' }}>{T.annotatedFragment}</p>
+            <p style={{ ...styles.sectionLabel, margin: 0, color: 'rgba(220,177,73,0.75)', letterSpacing: '0.18em' }}>{T.annotatedFragment}</p>
             {showTranslationToggle && (
               <button
                 onClick={() => setShowTranslation((v) => !v)}
                 style={{
-                  background: showTranslation ? 'rgba(255,102,0,0.15)' : 'rgba(255,255,255,0.04)',
-                  border: `1px solid ${showTranslation ? 'rgba(255,102,0,0.5)' : 'rgba(255,255,255,0.1)'}`,
+                  background: showTranslation ? 'rgba(220,177,73,0.15)' : 'rgba(255,255,255,0.04)',
+                  border: `1px solid ${showTranslation ? 'rgba(220,177,73,0.5)' : 'rgba(255,255,255,0.1)'}`,
                   borderRadius: '20px',
                   padding: '3px 10px',
-                  color: showTranslation ? '#ff6600' : 'rgba(255,255,255,0.35)',
-                  fontFamily: "'DM Mono', monospace",
+                  color: showTranslation ? '#DCB149' : 'rgba(255,255,255,0.35)',
+                  fontFamily: "var(--ira-font-texto)",
                   fontSize: '0.62rem',
                   letterSpacing: '0.1em',
                   cursor: 'pointer',
@@ -320,26 +320,26 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
           {showTranslation && showTranslationToggle && (
             <div style={{
               marginTop: '0.8rem',
-              background: 'rgba(255,102,0,0.04)',
-              border: '1px solid rgba(255,102,0,0.15)',
-              borderLeft: '2px solid rgba(255,102,0,0.4)',
+              background: 'rgba(220,177,73,0.04)',
+              border: '1px solid rgba(220,177,73,0.15)',
+              borderLeft: '2px solid rgba(220,177,73,0.4)',
               borderRadius: '0 8px 8px 0',
               padding: '1rem 1.2rem',
             }}>
               <p style={{
                 margin: '0 0 0.5rem',
-                fontFamily: "'DM Mono', monospace",
+                fontFamily: "var(--ira-font-texto)",
                 fontSize: '0.58rem',
                 letterSpacing: '0.14em',
-                color: 'rgba(255,102,0,0.6)',
+                color: 'rgba(220,177,73,0.6)',
                 textTransform: 'uppercase',
               }}>{translationLabel}</p>
               <p style={{
                 margin: 0,
-                fontFamily: 'Georgia, serif',
+                fontFamily: "var(--ira-font-texto)",
                 fontSize: isMobile ? '0.85rem' : '0.92rem',
                 lineHeight: 1.85,
-                color: 'rgba(255,255,255,0.52)',
+                color: "var(--ira-texto-2)",
                 fontStyle: 'italic',
               }}>{translationText}</p>
             </div>
@@ -393,21 +393,21 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                     </span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '1rem', flexShrink: 0 }}>
                       <span style={{
-                        fontFamily: "'DM Mono', monospace",
+                        fontFamily: "var(--ira-font-texto)",
                         fontSize: '1.1rem',
                         fontWeight: 700,
-                        color: '#ff6600',
+                        color: '#DCB149',
                         lineHeight: 1,
                       }}>
                         {param.value.toFixed(1)}
                       </span>
                       <span style={{
                         fontSize: '0.58rem',
-                        color: open ? '#ff6600' : 'rgba(255,255,255,0.35)',
-                        border: `1px solid ${open ? 'rgba(255,102,0,0.4)' : 'rgba(255,255,255,0.12)'}`,
+                        color: open ? '#DCB149' : 'rgba(255,255,255,0.35)',
+                        border: `1px solid ${open ? 'rgba(220,177,73,0.4)' : 'rgba(255,255,255,0.12)'}`,
                         borderRadius: '99px',
                         padding: '1px 7px',
-                        fontFamily: "'DM Mono', monospace",
+                        fontFamily: "var(--ira-font-texto)",
                         letterSpacing: '0.04em',
                         transition: 'all 0.2s',
                         whiteSpace: 'nowrap',
@@ -458,7 +458,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
             </div>
             <div style={styles.modalBody}>
               {transcriptLoading ? (
-                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>{T.transcriptLoading}</span>
+                <span style={{ color: "var(--ira-texto-3)", fontSize: '0.75rem' }}>{T.transcriptLoading}</span>
               ) : transcriptText ? (
                 transcriptText
                   .split(/\n\n+/)
@@ -467,7 +467,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                     <p key={i} style={styles.modalParagraph}>{para.trim()}</p>
                   ))
               ) : (
-                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem' }}>{T.transcriptUnavailable}</span>
+                <span style={{ color: "var(--ira-texto-3)", fontSize: '0.75rem' }}>{T.transcriptUnavailable}</span>
               )}
             </div>
           </div>
@@ -514,13 +514,13 @@ const styles = {
     margin: '0 auto',
   },
   backBtn: {
-    background: 'rgba(255,102,0,0.08)',
-    border: '1.5px solid rgba(255,102,0,0.45)',
-    color: '#ff6600',
+    background: 'rgba(220,177,73,0.08)',
+    border: '1.5px solid rgba(220,177,73,0.45)',
+    color: '#DCB149',
     borderRadius: '20px',
     padding: '0.4rem 1rem',
     cursor: 'pointer',
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.75rem',
     fontWeight: 700,
     marginBottom: '1.4rem',
@@ -534,12 +534,12 @@ const styles = {
   headerLeft: { flex: 1 },
   entityChip: {
     display: 'inline-block',
-    background: 'rgba(255,102,0,0.12)',
-    color: '#ff6600',
-    border: '1px solid rgba(255,102,0,0.25)',
+    background: 'rgba(220,177,73,0.12)',
+    color: '#DCB149',
+    border: '1px solid rgba(220,177,73,0.25)',
     borderRadius: '4px',
     padding: '2px 8px',
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.65rem',
     marginBottom: '0.5rem',
     textTransform: 'uppercase',
@@ -547,9 +547,9 @@ const styles = {
   },
   title: {
     margin: '0 0 0.4rem',
-    fontFamily: "'Syne', sans-serif",
+    fontFamily: "var(--ira-font-titulo)",
     fontWeight: 800,
-    color: '#fff',
+    color: "var(--ira-nieve)",
     lineHeight: 1.2,
   },
   meta: {
@@ -560,16 +560,16 @@ const styles = {
     marginBottom: '0.5rem',
   },
   metaItem: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.68rem',
-    color: 'rgba(255,255,255,0.35)',
+    color: "var(--ira-texto-3)",
   },
-  metaDot: { color: 'rgba(255,255,255,0.15)' },
+  metaDot: { color: "var(--ira-texto-3)" },
   context: {
     margin: 0,
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.72rem',
-    color: 'rgba(255,255,255,0.4)',
+    color: "var(--ira-texto-3)",
     lineHeight: 1.6,
     maxWidth: '520px',
   },
@@ -581,41 +581,41 @@ const styles = {
     flexShrink: 0,
   },
   scoreNumber: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontWeight: 700,
     lineHeight: 1,
   },
   scoreSep: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.75rem',
-    color: 'rgba(255,255,255,0.2)',
+    color: "var(--ira-texto-3)",
     alignSelf: 'flex-end',
     marginBottom: '3px',
   },
   scoreLabel: {
-    fontFamily: "'Syne', sans-serif",
+    fontFamily: "var(--ira-font-titulo)",
     fontSize: '0.58rem',
-    color: 'rgba(255,255,255,0.25)',
+    color: "var(--ira-texto-3)",
     textTransform: 'uppercase',
     letterSpacing: '0.1em',
   },
   scoreClassification: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.6rem',
     fontWeight: 600,
   },
   summaryBox: {
     background: 'rgba(255,255,255,0.02)',
-    borderLeft: '2px solid #ff6600',
+    borderLeft: '2px solid #DCB149',
     padding: '0.75rem 1rem',
     marginBottom: '1rem',
     borderRadius: '0 6px 6px 0',
   },
   summaryText: {
     margin: 0,
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.73rem',
-    color: 'rgba(255,255,255,0.5)',
+    color: "var(--ira-texto-2)",
     lineHeight: 1.7,
   },
   legend: {
@@ -640,14 +640,14 @@ const styles = {
     flexShrink: 0,
   },
   legendLabel: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.62rem',
     fontWeight: 500,
   },
   legendCount: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.57rem',
-    color: 'rgba(255,255,255,0.2)',
+    color: "var(--ira-texto-3)",
   },
   mainLayout: {
     display: 'grid',
@@ -656,24 +656,24 @@ const styles = {
   },
   textColumn: { position: 'relative' },
   sectionLabel: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.6rem',
     fontWeight: 600,
-    color: 'rgba(255,255,255,0.22)',
+    color: "var(--ira-texto-3)",
     letterSpacing: '0.14em',
     margin: '0 0 0.5rem',
   },
   textBlock: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     lineHeight: 2,
-    color: 'rgba(255,255,255,0.72)',
+    color: "var(--ira-texto-cita)",
     background: 'rgba(255,255,255,0.02)',
     border: '1px solid rgba(255,255,255,0.05)',
     borderRadius: '10px',
     padding: '1.3rem 1.4rem',
   },
   plainText: {
-    color: 'rgba(255,255,255,0.7)',
+    color: "var(--ira-texto-cita)",
     fontWeight: 400,
   },
   tooltip: {
@@ -697,22 +697,22 @@ const styles = {
   },
   tooltipIcon: { fontSize: '0.82rem' },
   tooltipLabel: {
-    fontFamily: "'Syne', sans-serif",
+    fontFamily: "var(--ira-font-titulo)",
     fontSize: '0.72rem',
     fontWeight: 700,
   },
   tooltipDesc: {
     margin: 0,
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.67rem',
-    color: 'rgba(255,255,255,0.48)',
+    color: "var(--ira-texto-2)",
     lineHeight: 1.5,
   },
   tooltipHint: {
     margin: '0.35rem 0 0',
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.58rem',
-    color: 'rgba(255,102,0,0.45)',
+    color: 'rgba(220,177,73,0.45)',
   },
   paramsColumn: {},
   paramsList: {
@@ -727,13 +727,13 @@ const styles = {
   paramItem: { display: 'flex', flexDirection: 'column', gap: '0.18rem' },
   paramHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
   paramName: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.65rem',
-    color: 'rgba(255,255,255,0.5)',
+    color: "var(--ira-texto-2)",
     fontWeight: 500,
   },
   paramValue: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.8rem',
     fontWeight: 700,
   },
@@ -751,9 +751,9 @@ const styles = {
   },
   paramNote: {
     margin: '0.3rem 0 0',
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.72rem',
-    color: 'rgba(255,255,255,0.52)',
+    color: "var(--ira-texto-2)",
     lineHeight: 1.65,
   },
   pinnedPanel: {
@@ -776,7 +776,7 @@ const styles = {
     right: '10px',
     background: 'none',
     border: 'none',
-    color: 'rgba(255,255,255,0.22)',
+    color: "var(--ira-texto-3)",
     cursor: 'pointer',
     fontSize: '0.82rem',
     padding: '2px 5px',
@@ -786,21 +786,21 @@ const styles = {
   pinnedTopRow: { display: 'flex', gap: '0.5rem', alignItems: 'flex-start', marginBottom: '0.45rem' },
   pinnedIcon: { fontSize: '1.1rem', marginTop: '2px' },
   pinnedLabel: {
-    fontFamily: "'Syne', sans-serif",
+    fontFamily: "var(--ira-font-titulo)",
     fontSize: '0.8rem',
     fontWeight: 700,
     margin: 0,
   },
   pinnedParam: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.58rem',
-    color: 'rgba(255,255,255,0.28)',
+    color: "var(--ira-texto-3)",
     margin: '0.1rem 0 0',
   },
   pinnedDesc: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.7rem',
-    color: 'rgba(255,255,255,0.48)',
+    color: "var(--ira-texto-2)",
     lineHeight: 1.6,
     margin: '0 0 0.5rem',
   },
@@ -810,34 +810,34 @@ const styles = {
     margin: '0.55rem 0',
   },
   pinnedNoteTitle: {
-    fontFamily: "'Syne', sans-serif",
+    fontFamily: "var(--ira-font-titulo)",
     fontSize: '0.58rem',
     fontWeight: 700,
-    color: 'rgba(255,255,255,0.22)',
+    color: "var(--ira-texto-3)",
     textTransform: 'uppercase',
     letterSpacing: '0.1em',
     margin: '0 0 0.3rem',
   },
   pinnedNote: {
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.7rem',
-    color: 'rgba(255,255,255,0.68)',
+    color: "var(--ira-texto-2)",
     lineHeight: 1.7,
     margin: 0,
   },
   lecturaBox: {
     marginTop: '1.5rem',
-    background: 'rgba(255,102,0,0.03)',
-    border: '1px solid rgba(255,102,0,0.12)',
-    borderLeft: '2px solid rgba(255,102,0,0.4)',
+    background: 'rgba(220,177,73,0.03)',
+    border: '1px solid rgba(220,177,73,0.12)',
+    borderLeft: '2px solid rgba(220,177,73,0.4)',
     borderRadius: '0 8px 8px 0',
     padding: '1rem 1.2rem',
   },
   lecturaText: {
     margin: 0,
-    fontFamily: 'Georgia, serif',
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.82rem',
-    color: 'rgba(255,255,255,0.55)',
+    color: "var(--ira-texto-2)",
     lineHeight: 1.85,
     fontStyle: 'italic',
   },
@@ -854,8 +854,8 @@ const styles = {
     animation: 'fadeIn 0.2s ease',
   },
   modalBox: {
-    background: '#0e0e14',
-    border: '1px solid rgba(255,102,0,0.2)',
+    background: 'var(--ira-superficie)',
+    border: '1px solid var(--ira-linea)',
     borderRadius: '16px',
     width: '100%',
     maxWidth: '720px',
@@ -877,23 +877,23 @@ const styles = {
   },
   modalSupertitle: {
     margin: '0 0 2px',
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.62rem',
-    color: '#ff6600',
+    color: '#DCB149',
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
   },
   modalTitle: {
-    fontFamily: "'Syne', sans-serif",
+    fontFamily: "var(--ira-font-titulo)",
     fontSize: '0.95rem',
     fontWeight: 700,
-    color: 'rgba(255,255,255,0.85)',
+    color: "var(--ira-texto-cita)",
   },
   modalClose: {
     background: 'none',
     border: '1px solid rgba(255,255,255,0.1)',
     borderRadius: '6px',
-    color: 'rgba(255,255,255,0.4)',
+    color: "var(--ira-texto-3)",
     cursor: 'pointer',
     fontSize: '0.8rem',
     padding: '4px 10px',
@@ -909,9 +909,9 @@ const styles = {
   },
   modalParagraph: {
     margin: '0 0 1.2rem',
-    fontFamily: "'DM Mono', monospace",
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.8rem',
-    color: 'rgba(255,255,255,0.65)',
+    color: "var(--ira-texto-2)",
     lineHeight: 1.8,
     textAlign: 'left',
   },
@@ -919,10 +919,10 @@ const styles = {
     marginTop: '0.9rem',
     display: 'block',
     background: 'transparent',
-    border: '1px solid rgba(255,102,0,0.45)',
+    border: '1px solid rgba(220,177,73,0.45)',
     borderRadius: '6px',
-    color: '#ff6600',
-    fontFamily: "'DM Mono', monospace",
+    color: '#DCB149',
+    fontFamily: "var(--ira-font-texto)",
     fontSize: '0.7rem',
     letterSpacing: '0.06em',
     padding: '0.45rem 1rem',
