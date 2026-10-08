@@ -3,22 +3,19 @@ import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   Tooltip, ResponsiveContainer,
 } from "recharts";
+import { colorPuntuacion as scoreColor, formatearPuntuacion } from "../lib/escala";
+import BarraEscala from "./ui/BarraEscala.jsx";
 
 const COLOR_A = "#DCB149";
 const COLOR_B = "#22d3ee";
 
-function scoreColor(s) {
-  if (s >= 7) return "#6ec6a0";
-  if (s >= 4.5) return "#e8a838";
-  return "#e05252";
-}
 
 function CompareTooltip({ active, payload, nameA, nameB }) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
     <div style={{
-      background: "rgba(10,10,16,0.95)", border: "1px solid rgba(255,255,255,0.1)",
+      background: "var(--ira-elevada)", border: "1px solid var(--ira-linea-fuerte)",
       borderRadius: "8px", padding: "8px 12px", fontFamily: "var(--ira-font-texto)",
       pointerEvents: "none",
     }}>
@@ -190,12 +187,14 @@ export default function Comparator({ politicians, paramsEs, paramShort, lang = "
                 flex: "1 1 180px", padding: "12px 16px", borderRadius: "12px",
                 background: `${col}10`, border: `1px solid ${col}38`,
               }}>
-                <p style={{ margin: "0 0 4px", fontSize: "11px", color: "var(--ira-texto-3)", fontFamily: "var(--ira-font-texto)" }}>
+                <p style={{ margin: "0 0 8px", fontSize: "14px", color: col }}>
                   {e.flag} {e.name}
                 </p>
-                <span style={{ fontSize: "22px", fontWeight: 800, color: scoreColor(e.score), fontFamily: "var(--ira-font-texto)" }}>
-                  {e.score.toFixed(2)}
-                </span>
+                <p style={{ margin: "0 0 10px", display: "flex", alignItems: "baseline", gap: "4px", fontFamily: "var(--ira-font-cifra)", fontWeight: 500, letterSpacing: "-0.04em", lineHeight: 1 }}>
+                  <span style={{ fontSize: "36px", color: scoreColor(e.score) }}>{formatearPuntuacion(e.score, lang)}</span>
+                  <span style={{ fontSize: "14px", color: "var(--ira-texto-3)", letterSpacing: 0 }}>/10</span>
+                </p>
+                <BarraEscala puntuacion={e.score} grosor={5} />
               </div>
             ))}
           </div>

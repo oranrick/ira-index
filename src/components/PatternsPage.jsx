@@ -5,6 +5,7 @@
 // Secciones: distribución por parámetro · peso en el IRA · comparación
 // lado a lado · evolución temporal. Filtros por figura y rango de fechas.
 
+import { CATEGORICOS } from '../lib/escala';
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -16,7 +17,8 @@ import { speeches } from '../data/speeches';
 // ── Constantes de parámetros (fórmula vigente, 7 params — ver CLAUDE.md) ──
 const KEYS = ['pronominal', 'metafora', 'dicotomia', 'tono', 'disenso', 'vector', 'coherencia'];
 const WEIGHTS = { pronominal: 0.20, metafora: 0.20, dicotomia: 0.10, tono: 0.20, disenso: 0.20, vector: 0.05, coherencia: 0.05 };
-const PARAM_COLORS = { pronominal: '#DCB149', metafora: '#e8a838', dicotomia: '#6ec6a0', tono: '#5ba8d4', disenso: '#a07cd4', vector: '#e05890', coherencia: '#50c8b4' };
+// Colores categóricos fuera de la gama de la escala (ver src/lib/escala.js)
+const PARAM_COLORS = Object.fromEntries(KEYS.map((k, i) => [k, CATEGORICOS[i]]));
 const PARAM_LABEL = {
   es: { pronominal: 'Pronombres y vínculo', metafora: 'Marco metafórico', dicotomia: 'Polaridad moral', tono: 'Tono emocional', disenso: 'Apertura al disenso', vector: 'Llamada a la acción', coherencia: 'Engagement dialógico' },
   en: { pronominal: 'Pronouns & Bond', metafora: 'Metaphorical Frame', dicotomia: 'Moral Polarity', tono: 'Emotional Tone', disenso: 'Openness to Dissent', vector: 'Call to Action', coherencia: 'Dialogic Engagement' },
@@ -26,8 +28,8 @@ const NAME2KEY = {
   'Carga dicotómica': 'dicotomia', 'Tono emocional dominante': 'tono',
   'Reconocimiento del disenso': 'disenso', 'Vector de acción': 'vector', 'Coherencia afectiva': 'coherencia',
 };
-const ENTITY_COLORS = { sheinbaum: '#6ec6a0', milei: '#DCB149', sanchez: '#5ba8d4', cepeda: '#a07cd4', trump: '#e05890', petro: '#e8a838', ardern: '#50c8b4', mujica: '#c8a050', putin: '#e05252' };
-const FALLBACK_COLORS = ['#F4CF7A', '#7fd4b0', '#78b8e0', '#b894e0', '#e878a8'];
+const ENTITY_COLORS = { sheinbaum: CATEGORICOS[2], milei: CATEGORICOS[0], sanchez: CATEGORICOS[1], cepeda: CATEGORICOS[5], trump: CATEGORICOS[3], petro: CATEGORICOS[4], ardern: CATEGORICOS[6], mujica: CATEGORICOS[7], putin: '#F4CF7A' };
+const FALLBACK_COLORS = ['#9FD3E6', '#C9B8F0', '#F2B8D5', '#B5C7DA', '#E3D5F5'];
 
 const MONTHS_ES = { enero: '01', febrero: '02', marzo: '03', abril: '04', mayo: '05', junio: '06', julio: '07', agosto: '08', septiembre: '09', octubre: '10', noviembre: '11', diciembre: '12' };
 function spanishDateToISO(str) {
@@ -75,21 +77,21 @@ const T = {
 };
 
 const card = {
-  background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)',
-  borderRadius: '16px', padding: '22px', marginBottom: '18px',
+  background: 'var(--ira-superficie)', border: '1px solid var(--ira-linea)',
+  borderRadius: 'var(--ira-radio-xl)', padding: '28px', marginBottom: '20px',
 };
-const h2 = { margin: '0 0 4px', fontSize: '17px', fontWeight: 700, color: "var(--ira-nieve)", fontFamily: "var(--ira-font-titulo)", letterSpacing: '-0.02em' };
-const sub = { margin: '0 0 18px', fontSize: '11px', color: "var(--ira-texto-3)", lineHeight: 1.5 };
+const h2 = { margin: '0 0 6px', fontSize: '22px', fontWeight: 500, color: "var(--ira-nieve)", fontFamily: "var(--ira-font-titulo)", letterSpacing: '-0.01em' };
+const sub = { margin: '0 0 20px', fontSize: '14px', color: "var(--ira-texto-2)", lineHeight: 1.6 };
 const accent = '#DCB149';
 const accentA = a => `rgba(220,177,73,${a})`;
 
 function chipStyle(active, color = accent) {
   return {
-    padding: '6px 12px', borderRadius: '18px', fontSize: '10.5px', fontWeight: 700,
-    fontFamily: "var(--ira-font-texto)", letterSpacing: '0.05em', cursor: 'pointer',
-    background: active ? `${color}26` : 'rgba(255,255,255,0.04)',
-    border: `1px solid ${active ? color : 'rgba(255,255,255,0.12)'}`,
-    color: active ? color : 'rgba(255,255,255,0.55)', transition: 'all 0.15s ease',
+    minHeight: '44px', padding: '0 16px', borderRadius: '99px', fontSize: '14px', fontWeight: 400,
+    fontFamily: "var(--ira-font-texto)", cursor: 'pointer',
+    background: active ? `${color}26` : 'transparent',
+    border: `1px solid ${active ? color : 'var(--ira-linea-fuerte)'}`,
+    color: active ? 'var(--ira-nieve)' : 'var(--ira-texto-2)', transition: 'all 0.15s ease',
   };
 }
 
@@ -201,19 +203,16 @@ export default function PatternsPage({ lang = 'es' }) {
     <div style={{ minHeight: '100vh', background: '#041414', fontFamily: "var(--ira-font-texto)", position: 'relative', overflow: 'hidden' }}>
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '1060px', margin: '0 auto', padding: '26px 20px 60px' }}>
-        <button onClick={() => { if (window.history.length > 1) navigate(-1); else navigate('/'); }}
-          style={{ fontFamily: "var(--ira-font-texto)", fontSize: '11px', fontWeight: 700, color: accent, letterSpacing: '0.04em', border: `1.5px solid ${accentA(0.45)}`, borderRadius: '20px', padding: '5px 13px', background: accentA(0.08), cursor: 'pointer', marginBottom: '22px' }}>
-          {t.back}
-        </button>
-
-        <h1 style={{ margin: '0 0 6px', fontSize: '32px', fontWeight: 800, color: "var(--ira-nieve)", fontFamily: "var(--ira-font-titulo)", letterSpacing: '-0.03em' }}>{t.title}</h1>
-        <p style={{ margin: '0 0 24px', fontSize: '12px', color: "var(--ira-texto-2)", lineHeight: 1.6, maxWidth: '560px' }}>{t.subtitle}</p>
+        <div className="ira-cabecera" style={{ marginBottom: '32px' }}>
+          <h1 className="ira-cabecera__titulo">{t.title}</h1>
+          <p className="ira-cabecera__texto">{t.subtitle}</p>
+        </div>
 
         {/* ── Filtros ── */}
         <div style={{ ...card, display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center', padding: '14px 18px' }}>
-          <button style={chipStyle(entityFilter === 'all')} onClick={() => setEntityFilter('all')}>{t.all}</button>
+          <button type="button" aria-pressed={entityFilter === 'all'} style={chipStyle(entityFilter === 'all')} onClick={() => setEntityFilter('all')}>{t.all}</button>
           {entities.map(e => (
-            <button key={e.id} style={chipStyle(entityFilter === e.id, entColor[e.id])} onClick={() => setEntityFilter(entityFilter === e.id ? 'all' : e.id)}>
+            <button type="button" key={e.id} aria-pressed={entityFilter === e.id} style={chipStyle(entityFilter === e.id, entColor[e.id])} onClick={() => setEntityFilter(entityFilter === e.id ? 'all' : e.id)}>
               {e.name} · {e.n}
             </button>
           ))}
@@ -289,7 +288,7 @@ export default function PatternsPage({ lang = 'es' }) {
             {entities.map(e => {
               const active = compareSel.includes(e.id);
               return (
-                <button key={e.id} style={chipStyle(active, entColor[e.id])}
+                <button type="button" key={e.id} aria-pressed={active} style={chipStyle(active, entColor[e.id])}
                   onClick={() => setCompareSel(sel => active ? sel.filter(x => x !== e.id) : sel.length >= 3 ? [...sel.slice(1), e.id] : [...sel, e.id])}>
                   {e.name}
                 </button>
@@ -351,7 +350,7 @@ export default function PatternsPage({ lang = 'es' }) {
                 <XAxis dataKey="date" tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontFamily: 'JetBrains Mono' }} tickFormatter={d => d?.slice(5)} />
                 <YAxis domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontFamily: 'JetBrains Mono' }} />
                 <Tooltip
-                  contentStyle={{ background: 'rgba(10,10,16,0.95)', border: `1px solid ${accentA(0.45)}`, borderRadius: '10px', fontFamily: 'JetBrains Mono', fontSize: '11px' }}
+                  contentStyle={{ background: '#112A2A', border: '1px solid #2A4747', borderRadius: '10px', fontFamily: 'JetBrains Mono', fontSize: '11px' }}
                   labelStyle={{ color: "var(--ira-texto-2)" }}
                   formatter={(v, name) => [Number(v).toFixed(2), entities.find(e => e.id === name)?.name ?? name]}
                 />

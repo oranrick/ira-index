@@ -81,7 +81,7 @@ button, input, select, textarea { font-family: inherit; }
 .speeches-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 0.8rem;
+  gap: 16px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
@@ -113,7 +113,7 @@ button, input, select, textarea { font-family: inherit; }
   .tabs-row {
     width: 100%;
   }
-  .tabs-row button {
+  .tabs-row-unused {
     flex: 1;
     padding: 8px 10px !important;
     font-size: 9px !important;

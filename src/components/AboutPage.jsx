@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App.jsx';
 
-const PARAM_COLORS = ["#DCB149","#e8a838","#6ec6a0","#5ba8d4","#a07cd4","#e05890","#50c8b4","#c8a050"];
+import { CATEGORICOS as PARAM_COLORS } from '../lib/escala';
 
 const AUTHORS = [
   {
@@ -292,12 +292,12 @@ export default function AboutPage() {
 
             {/* Escala visual */}
             <div style={{ marginTop:"40px", display:"flex", alignItems:"center", gap:"12px" }}>
-              <span style={{ fontSize:"10px", color:"#e05252", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
+              <span style={{ fontSize:"10px", color:"var(--ira-estrella-polarizante)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
                 0 — {es?"Máx. polarización":"Max. polarization"}
               </span>
               <div style={{ flex:1, height:"4px", borderRadius:"4px",
-                background:"linear-gradient(90deg, #e05252, #e8a838 50%, #6ec6a0)" }} />
-              <span style={{ fontSize:"10px", color:"#6ec6a0", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
+                background:"linear-gradient(90deg,#8F1C17,#BE281A 10%,#CB4021 20%,#D7662A 30%,#E59236 40%,#EEA73D 50%,#F4BC41 60%,#DAB850 70%,#C1B360 80%,#A7AE6F 90%,#8DAA7E)" }} />
+              <span style={{ fontSize:"10px", color:"var(--ira-salvia)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
                 10 — {es?"Máx. empatía":"Max. empathy"}
               </span>
             </div>
@@ -345,21 +345,8 @@ export default function AboutPage() {
 
           {/* CTAs */}
           <div style={{ display:"flex", gap:"12px", flexWrap:"wrap", marginTop:"32px" }}>
-            <button onClick={() => navigate('/politicos')} style={{
-              padding:"12px 24px", borderRadius:"12px", background:"#DCB149", border:"none",
-              color:"#000", fontSize:"12px", fontWeight:700, letterSpacing:"0.06em",
-              cursor:"pointer", fontFamily:"var(--ira-font-texto)", transition:"background 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.background="#F4CF7A"}
-              onMouseLeave={e => e.currentTarget.style.background="#DCB149"}
-            >{es ? "Explorar el índice →" : "Explore the index →"}</button>
-            <button onClick={() => navigate('/analyze')} style={{
-              padding:"12px 24px", borderRadius:"12px",
-              background:"rgba(220,177,73,0.08)", border:"1px solid rgba(220,177,73,0.3)",
-              color:"#DCB149", fontSize:"12px", fontWeight:700, letterSpacing:"0.06em",
-              cursor:"pointer", fontFamily:"var(--ira-font-texto)", transition:"all 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.background="rgba(220,177,73,0.15)"}
-              onMouseLeave={e => e.currentTarget.style.background="rgba(220,177,73,0.08)"}
-            >{es ? "Analizar un texto →" : "Analyze a text →"}</button>
+            <Link to="/discursos" className="ira-boton ira-boton--principal">{es ? "Ver discursos analizados" : "See analyzed speeches"}</Link>
+            <Link to="/analyze" className="ira-boton ira-boton--secundario">{es ? "Analizar un texto" : "Analyze a text"}</Link>
           </div>
         </div>
       </div>

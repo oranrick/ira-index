@@ -109,3 +109,187 @@
 .ira-pie a:hover { color: var(--ira-nieve); }
 .ira-pie__autoria { margin: 0; }
 .ira-pie__autoria a { color: var(--ira-texto-3); min-height: 0; }
+
+/* ── Cifras ───────────────────────────────────────────────────────────────── */
+.ira-cifra { font-family: var(--ira-font-cifra); font-weight: 500; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+
+/* ── Etiqueta de puntuación ───────────────────────────────────────────────── */
+.ira-etiqueta {
+  display: inline-flex; align-items: center; flex-shrink: 0;
+  font-family: var(--ira-font-cifra); font-weight: 500; font-size: 14px; line-height: 1;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.ira-etiqueta--pastilla { height: 28px; padding: 0 10px; border-radius: var(--ira-radio-s); }
+.ira-etiqueta--punto { gap: 8px; color: var(--ira-nieve); }
+.ira-etiqueta__punto { width: 10px; height: 10px; border-radius: 5px; flex-shrink: 0; }
+.ira-etiqueta--vacia { color: var(--ira-texto-3); }
+
+/* ── Barra de 11 segmentos ────────────────────────────────────────────────── */
+.ira-barra { display: flex; gap: 4px; }
+.ira-barra > span { flex: 1 1 0; }
+
+/* ── Indicador de escala ──────────────────────────────────────────────────── */
+.ira-indicador { display: flex; flex-direction: column; gap: 10px; }
+.ira-indicador__casillas { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 6px; padding-top: 6px; }
+.ira-indicador__casillas > span {
+  height: 52px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-family: var(--ira-font-cifra); font-weight: 500; font-size: 17px; font-variant-numeric: tabular-nums;
+}
+.ira-indicador__casillas > span.is-actual {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 2px var(--ira-noche), 0 0 0 4px var(--ira-nieve);
+}
+.ira-indicador--compacto .ira-indicador__casillas { gap: 4px; padding-top: 0; }
+.ira-indicador--compacto .ira-indicador__casillas > span { height: 30px; border-radius: var(--ira-radio-s); font-size: 13px; font-weight: 400; }
+.ira-indicador--compacto .ira-indicador__casillas > span.is-actual { transform: translateY(-3px); }
+.ira-indicador__extremos { display: flex; justify-content: space-between; font-size: 12px; line-height: 16px; color: var(--ira-texto-2); }
+@media (max-width: 480px) {
+  .ira-indicador__casillas > span { height: 40px; font-size: 14px; }
+  .ira-indicador__casillas { gap: 3px; }
+}
+
+/* ── Tarjeta de discurso ──────────────────────────────────────────────────── */
+.ira-tarjeta {
+  margin: 0; padding: 36px; display: flex; flex-direction: column; gap: 32px; text-align: left;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl);
+  color: var(--ira-nieve); font-family: var(--ira-font-texto);
+}
+.ira-tarjeta__cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.ira-tarjeta__orador { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ira-tarjeta__nombre { font-size: 16px; line-height: 22px; font-weight: 500; }
+.ira-tarjeta__cargo { font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+.ira-tarjeta__fecha { font-family: var(--ira-font-cifra); font-size: 13px; color: var(--ira-texto-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ira-tarjeta__cita { margin: 0; font-size: 20px; line-height: 32px; color: var(--ira-texto-cita); }
+.ira-tarjeta__puntuacion { display: flex; flex-direction: column; gap: 16px; }
+.ira-tarjeta__cifra { margin: 0; display: flex; align-items: baseline; gap: 8px; font-family: var(--ira-font-cifra); font-weight: 500; line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.ira-tarjeta__cifra > span:first-child { font-size: 88px; }
+.ira-tarjeta__max { font-size: 26px; font-weight: 400; color: var(--ira-texto-3); letter-spacing: 0; }
+.ira-tarjeta__extremos { display: flex; justify-content: space-between; font-size: 12px; color: var(--ira-texto-2); }
+.ira-tarjeta__pie { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 24px; border-top: 1px solid var(--ira-linea); }
+.ira-tarjeta__nota { font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+
+/* Compacta: para rejillas de varias tarjetas */
+.ira-tarjeta--compacta { padding: 24px; gap: 20px; border-radius: var(--ira-radio-l); }
+.ira-tarjeta--compacta .ira-tarjeta__cita {
+  font-size: 16px; line-height: 26px;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
+.ira-tarjeta--compacta .ira-tarjeta__puntuacion { gap: 12px; }
+.ira-tarjeta--compacta .ira-tarjeta__cifra > span:first-child { font-size: 48px; }
+.ira-tarjeta--compacta .ira-tarjeta__max { font-size: 18px; }
+.ira-tarjeta--compacta .ira-tarjeta__pie { padding-top: 16px; flex-wrap: wrap; }
+@media (max-width: 600px) {
+  .ira-tarjeta { padding: 24px; gap: 24px; }
+  .ira-tarjeta__cifra > span:first-child { font-size: 64px; }
+}
+
+/* ── Fila de parámetro ────────────────────────────────────────────────────── */
+.ira-param { margin-bottom: 18px; }
+.ira-param__cabecera {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  width: 100%; min-height: 44px; padding: 0; margin: 0;
+  background: none; border: none; font: inherit; color: inherit; text-align: left;
+}
+.ira-param__cabecera--boton { cursor: pointer; border-radius: var(--ira-radio-s); }
+.ira-param__cabecera--boton:hover .ira-param__nombre { color: var(--ira-nieve); }
+.ira-param__nombre { font-size: 14px; line-height: 20px; color: var(--ira-texto-cita); }
+.ira-param__lado { display: inline-flex; align-items: center; gap: 10px; }
+.ira-param__chevron { fill: none; stroke: var(--ira-texto-2); stroke-width: 1.75px; stroke-linecap: round; stroke-linejoin: round; transition: transform 150ms ease; }
+.ira-param__pista { height: 4px; border-radius: 2px; background: var(--ira-linea); overflow: hidden; margin-top: 4px; }
+.ira-param__pista > div { height: 100%; border-radius: 2px; transition: width 600ms ease; }
+.ira-param__desc { margin: 6px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+.ira-param__detalle {
+  margin-top: 12px; padding: 16px; border-radius: 12px;
+  background: var(--ira-noche); border: 1px solid var(--ira-linea);
+}
+
+/* ── Tarjeta de figura (clasificación) ────────────────────────────────────── */
+.ira-figura {
+  display: flex; flex-direction: column; gap: 16px; padding: 20px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l);
+  color: var(--ira-nieve); text-decoration: none; transition: background-color 150ms ease, border-color 150ms ease;
+}
+.ira-figura:hover { background: var(--ira-elevada); border-color: var(--ira-linea-fuerte); color: var(--ira-nieve); }
+.ira-figura__cabecera { display: flex; align-items: flex-start; gap: 12px; }
+.ira-figura__foto {
+  width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: center top;
+  flex-shrink: 0; border: 1px solid var(--ira-linea-fuerte);
+}
+.ira-figura__nombre { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 18px; line-height: 1.2; letter-spacing: -0.01em; }
+.ira-figura__pais { margin: 2px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+.ira-figura__cifra { margin: 0; display: flex; align-items: baseline; gap: 4px; font-family: var(--ira-font-cifra); font-weight: 500; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.ira-figura__cifra > span:first-child { font-size: 32px; }
+.ira-figura__max { font-size: 14px; color: var(--ira-texto-3); letter-spacing: 0; }
+.ira-figura__cta { font-size: 13px; color: var(--ira-texto-2); }
+.ira-figura:hover .ira-figura__cta { color: var(--ira-oro); }
+.ira-ficha__indicador { margin: 8px 0 32px; }
+
+/* ── Formularios ──────────────────────────────────────────────────────────── */
+.ira-grupo { margin-bottom: 20px; }
+.ira-rotulo { display: block; margin: 0 0 8px; padding: 0; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ira-texto-cita); }
+.ira-campo {
+  width: 100%; box-sizing: border-box; min-height: 48px; padding: 12px 14px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea-fuerte); border-radius: var(--ira-radio-m);
+  color: var(--ira-nieve); font-family: var(--ira-font-texto); font-size: 15px; line-height: 22px;
+}
+.ira-campo::placeholder { color: var(--ira-texto-3); }
+.ira-campo:hover { border-color: #3A5A5A; }
+.ira-campo:focus { outline: none; border-color: var(--ira-oro); box-shadow: 0 0 0 1px var(--ira-oro); }
+.ira-ayuda { margin: 6px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+.ira-aviso {
+  margin-bottom: 24px; padding: 14px 16px; border-radius: var(--ira-radio-m);
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea);
+  font-size: 14px; line-height: 22px; color: var(--ira-texto-2);
+}
+
+/* Fichas seleccionables (filtros, categorías) */
+.ira-chip {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+  border-radius: 99px; border: 1px solid var(--ira-linea-fuerte); background: transparent;
+  color: var(--ira-texto-2); font-family: var(--ira-font-texto); font-size: 14px; cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+.ira-chip:hover { color: var(--ira-nieve); background: var(--ira-elevada); }
+.ira-chip[aria-pressed="true"], .ira-chip.is-activa { color: var(--ira-noche); background: var(--ira-oro); border-color: var(--ira-oro); }
+
+/* ── Cabecera de página ───────────────────────────────────────────────────── */
+.ira-cabecera { margin-bottom: 40px; display: flex; flex-direction: column; gap: 20px; }
+.ira-cabecera__titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(40px, 6vw, 64px); line-height: 1.04; letter-spacing: -0.03em; }
+.ira-cabecera__texto { margin: 0; max-width: 600px; font-size: 17px; line-height: 28px; color: var(--ira-texto-2); }
+.ira-cabecera__acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+.ira-cabecera__extra { margin: 0; font-size: 14px; color: var(--ira-texto-2); }
+.ira-cabecera__extra a { text-underline-offset: 3px; }
+
+.ira-caso { padding: 18px 20px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); }
+.ira-caso__rol { margin: 0 0 6px; font-size: 14px; font-weight: 500; color: var(--ira-oro); }
+.ira-caso__texto { margin: 0; font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+
+/* Selector segmentado (pestañas que navegan) */
+.ira-segmentos {
+  display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 32px; max-width: 100%;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: 12px;
+}
+.ira-segmentos__opcion {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px;
+  border-radius: 9px; font-size: 14px; color: var(--ira-texto-2); text-decoration: none; white-space: nowrap;
+}
+.ira-segmentos__opcion:hover { color: var(--ira-nieve); background: var(--ira-elevada); }
+.ira-segmentos__opcion.is-activa { color: var(--ira-nieve); background: var(--ira-elevada); box-shadow: inset 0 0 0 1px var(--ira-linea-fuerte); }
+a.ira-chip { text-decoration: none; }
+@media (max-width: 600px) {
+  .ira-segmentos { display: flex; }
+  .ira-segmentos__opcion { flex: 1; padding: 0 10px; font-size: 13px; }
+}
+.ira-figura__puntuacion { display: flex; flex-direction: column; gap: 10px; }
+
+/* ── Secciones y paneles genéricos ────────────────────────────────────────── */
+.ira-seccion__titulo { margin: 0 0 16px; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; color: var(--ira-nieve); }
+.ira-panel { padding: 24px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-xl); }
+
+/* Control deslizante */
+.ira-rango { width: 100%; height: 44px; margin: 0; accent-color: var(--ira-oro); cursor: pointer; background: transparent; }
+.ira-rango:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 2px; border-radius: 6px; }
+
+/* ── Estructura de la app: el pie queda abajo en páginas cortas ───────────── */
+.ira-app { min-height: 100vh; display: flex; flex-direction: column; }
+.ira-app > main { flex: 1 0 auto; }

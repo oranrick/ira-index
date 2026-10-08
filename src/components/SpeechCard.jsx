@@ -1,12 +1,7 @@
 // src/components/SpeechCard.jsx
-import { useState } from 'react';
 import { getSpeechesByEntity } from '../data/speeches';
-
-const IRA_COLOR = (score) => {
-  if (score >= 7) return '#6ec6a0';
-  if (score >= 4.5) return '#e8a838';
-  return '#e05252';
-};
+import TarjetaDiscurso from './ui/TarjetaDiscurso.jsx';
+import { fechaCorta, citaDestacada } from '../lib/discursos';
 
 const CARD_TEXTS = {
   es: {
@@ -37,7 +32,6 @@ export function SpeechesSection({ entityId, speeches: speechesProp, onSelectSpee
   return (
     <div style={styles.section}>
       <div style={styles.sectionHeader}>
-        <span style={styles.sectionIcon}>📄</span>
         <h3 style={styles.sectionTitle}>{T.speechesTitle}</h3>
         <span style={styles.sectionBadge}>{speeches.length}</span>
       </div>
@@ -56,221 +50,59 @@ export function SpeechesSection({ entityId, speeches: speechesProp, onSelectSpee
 }
 
 function SpeechCard({ speech, onClick, lang = 'es' }) {
-  const [hovered, setHovered] = useState(false);
-  const scoreColor = IRA_COLOR(speech.iraScore);
   const T = CARD_TEXTS[lang] || CARD_TEXTS.es;
-
-  const IRA_LABEL_SHORT = (score) => {
-    if (score >= 7.5) return T.iraLabelEmp;
-    if (score >= 5) return T.iraLabelMix;
-    return T.iraLabelPol;
-  };
-
+  const title = lang === 'en' && speech.titleEn ? speech.titleEn : speech.title;
+  const extra = [
+    speech.duration,
+    speech.wordCount ? `${speech.wordCount.toLocaleString(lang === 'en' ? 'en-US' : 'es-ES')} ${T.words}` : null,
+  ].filter(Boolean).join(' · ');
   return (
-    <button
-      onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        ...styles.card,
-        borderColor: hovered ? scoreColor : 'rgba(255,255,255,0.08)',
-        background: hovered ? 'rgba(220,177,73,0.05)' : 'rgba(255,255,255,0.03)',
-        transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
-      }}
-    >
-      {/* Header row */}
-      <div style={styles.cardHeader}>
-        <div style={styles.cardMeta}>
-          <span style={styles.cardDate}>{speech.date}</span>
-          <span style={{ ...styles.cardClassBadge, color: scoreColor, borderColor: scoreColor }}>
-            {IRA_LABEL_SHORT(speech.iraScore)}
-          </span>
-        </div>
-        <div style={{ ...styles.iraScore, color: scoreColor }}>
-          <span style={styles.iraNumber}>{speech.iraScore.toFixed(1)}</span>
-          <span style={styles.iraMax}>/10</span>
-        </div>
-      </div>
-
-      {/* Title */}
-      <h4 style={styles.cardTitle}>{lang === 'en' && speech.titleEn ? speech.titleEn : speech.title}</h4>
-
-      {/* Context */}
-      <p style={styles.cardContext}>{speech.context}</p>
-
-      {/* Footer */}
-      <div style={styles.cardFooter}>
-        {speech.duration && <span style={styles.cardDuration}>⏱ {speech.duration}</span>}
-        <span style={styles.cardWords}>{speech.wordCount.toLocaleString()} {T.words}</span>
-        <span style={{ ...styles.cardCta, color: hovered ? '#DCB149' : 'rgba(255,255,255,0.4)' }}>
-          {T.seeAnalysis}
-        </span>
-      </div>
-
-      {/* IRA bar */}
-      <div style={styles.iraBarTrack}>
-        <div
-          style={{
-            ...styles.iraBarFill,
-            width: `${(speech.iraScore / 10) * 100}%`,
-            background: scoreColor,
-          }}
-        />
-      </div>
-    </button>
+    <TarjetaDiscurso
+      compacta
+      lang={lang}
+      orador={title}
+      cargo={speech.entityName}
+      fecha={fechaCorta(speech.date)}
+      cita={citaDestacada(speech, lang, 200)}
+      puntuacion={speech.iraScore}
+      pie={extra}
+      onVerDesglose={onClick}
+    />
   );
 }
 
 const styles = {
   section: {
-    marginTop: '2rem',
-    padding: '1.5rem',
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid rgba(255,255,255,0.06)',
-    borderRadius: '12px',
+    marginTop: '40px',
+    paddingTop: '32px',
+    borderTop: '1px solid var(--ira-linea)',
   },
   sectionHeader: {
     display: 'flex',
     alignItems: 'center',
-    gap: '0.5rem',
-    marginBottom: '0.4rem',
-  },
-  sectionIcon: {
-    fontSize: '1.1rem',
+    gap: '10px',
+    marginBottom: '6px',
   },
   sectionTitle: {
     margin: 0,
-    fontFamily: "var(--ira-font-titulo)",
-    fontSize: '1.1rem',
-    fontWeight: 700,
-    color: "var(--ira-nieve)",
-    letterSpacing: '0.02em',
+    fontFamily: 'var(--ira-font-titulo)',
+    fontSize: '22px',
+    fontWeight: 500,
+    color: 'var(--ira-nieve)',
+    letterSpacing: '-0.01em',
   },
   sectionBadge: {
-    background: 'rgba(220,177,73,0.2)',
-    color: '#DCB149',
+    border: '1px solid var(--ira-linea-fuerte)',
+    color: 'var(--ira-texto-2)',
     borderRadius: '99px',
-    padding: '2px 8px',
-    fontSize: '0.7rem',
-    fontFamily: "var(--ira-font-texto)",
-    fontWeight: 600,
+    padding: '2px 9px',
+    fontSize: '12px',
+    fontFamily: 'var(--ira-font-cifra)',
   },
   sectionDesc: {
-    margin: '0 0 1.2rem',
-    color: "var(--ira-texto-3)",
-    fontSize: '0.78rem',
-    fontFamily: "var(--ira-font-texto)",
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-    gap: '0.8rem',
-  },
-  card: {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '10px',
-    padding: '1rem 1.1rem 0.8rem',
-    cursor: 'pointer',
-    textAlign: 'left',
-    transition: 'all 0.2s ease',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-  },
-  cardHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-  },
-  cardMeta: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.3rem',
-  },
-  cardDate: {
-    fontFamily: "var(--ira-font-texto)",
-    fontSize: '0.7rem',
-    color: "var(--ira-texto-3)",
-  },
-  cardClassBadge: {
-    fontFamily: "var(--ira-font-texto)",
-    fontSize: '0.65rem',
-    fontWeight: 600,
-    border: '1px solid',
-    borderRadius: '4px',
-    padding: '1px 6px',
-    width: 'fit-content',
-    textTransform: 'uppercase',
-    letterSpacing: '0.06em',
-  },
-  iraScore: {
-    display: 'flex',
-    alignItems: 'baseline',
-    gap: '1px',
-  },
-  iraNumber: {
-    fontFamily: "var(--ira-font-texto)",
-    fontSize: '1.4rem',
-    fontWeight: 700,
-    lineHeight: 1,
-  },
-  iraMax: {
-    fontFamily: "var(--ira-font-texto)",
-    fontSize: '0.65rem',
-    color: "var(--ira-texto-3)",
-  },
-  cardTitle: {
-    margin: 0,
-    fontFamily: "var(--ira-font-titulo)",
-    fontSize: '0.9rem',
-    fontWeight: 700,
-    color: "var(--ira-nieve)",
-    lineHeight: 1.3,
-  },
-  cardContext: {
-    margin: 0,
-    fontFamily: "var(--ira-font-texto)",
-    fontSize: '0.72rem',
-    color: "var(--ira-texto-2)",
-    lineHeight: 1.5,
-    display: '-webkit-box',
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical',
-    overflow: 'hidden',
-  },
-  cardFooter: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.8rem',
-    marginTop: '0.2rem',
-  },
-  cardDuration: {
-    fontFamily: "var(--ira-font-texto)",
-    fontSize: '0.68rem',
-    color: "var(--ira-texto-3)",
-  },
-  cardWords: {
-    fontFamily: "var(--ira-font-texto)",
-    fontSize: '0.68rem',
-    color: "var(--ira-texto-3)",
-  },
-  cardCta: {
-    fontFamily: "var(--ira-font-texto)",
-    fontSize: '0.68rem',
-    marginLeft: 'auto',
-    transition: 'color 0.2s',
-  },
-  iraBarTrack: {
-    height: '2px',
-    background: 'rgba(255,255,255,0.08)',
-    borderRadius: '2px',
-    overflow: 'hidden',
-    marginTop: '0.2rem',
-  },
-  iraBarFill: {
-    height: '100%',
-    borderRadius: '2px',
-    transition: 'width 0.6s ease',
+    margin: '0 0 20px',
+    color: 'var(--ira-texto-2)',
+    fontSize: '13px',
+    lineHeight: '20px',
   },
 };

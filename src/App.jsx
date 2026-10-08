@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense, createContext, useContext } from "react";
-import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Routes, Route, Navigate, Link, useNavigate, useParams } from 'react-router-dom';
 import AboutPage from './components/AboutPage.jsx';
 import IndexInteractive from './components/IndexInteractive.jsx';
 import WorldMap from './components/WorldMap.jsx';
@@ -10,6 +10,12 @@ import { useAuth } from "./hooks/useAuth";
 import { supabase } from "./supabaseClient";
 import Nav from "./components/Nav.jsx";
 import Footer from "./components/Footer.jsx";
+import EtiquetaPuntuacion from "./components/ui/EtiquetaPuntuacion.jsx";
+import IndicadorEscala from "./components/ui/IndicadorEscala.jsx";
+import BarraEscala from "./components/ui/BarraEscala.jsx";
+import TarjetaDiscurso from "./components/ui/TarjetaDiscurso.jsx";
+import FilaParametro from "./components/ui/FilaParametro.jsx";
+import { colorPuntuacion, formatearPuntuacion, CATEGORICOS } from "./lib/escala";
 
 const Comparator   = lazy(() => import("./components/Comparator"));
 const RadarSection = lazy(() => import("./components/RadarSection"));
@@ -41,7 +47,7 @@ const TEXTS = {
     textPlaceholderMedios: "Pega aquí el artículo, editorial, columna o texto periodístico que quieres medir...",
     modeTogglePolitico: "Político",
     modeToggleMedios:   "Medios",
-    btnWhat:         "¿QUÉ ES EL IRA?",
+    btnWhat:         "¿Qué es el IRA?",
     tabExplore:      "Explorar",
     tabAnalyze:      "Analizar texto",
     tabCompare:      "Comparar",
@@ -52,7 +58,7 @@ const TEXTS = {
     polarizador:     "Polarizador",
     close:           "Cerrar",
     howWorks:        "Cómo funciona",
-    howWorksDesc:    "Pega cualquier texto en español o inglés. La IA lo analizará contra los 8 parámetros del IRA y generará una puntuación y síntesis interpretativa.",
+    howWorksDesc:    "Pega cualquier texto en español o inglés. La IA lo analizará contra los 7 parámetros del IRA y generará una puntuación y síntesis interpretativa.",
     nameLabel:       "Nombre / Fuente (opcional)",
     namePlaceholder: "ej. Discurso de Milei, mayo 2025",
     catLabel:        "Categoría",
@@ -124,7 +130,7 @@ const TEXTS = {
     textPlaceholderMedios: "Paste the article, editorial, column or journalistic text you want to measure...",
     modeTogglePolitico: "Political",
     modeToggleMedios:   "Media",
-    btnWhat:         "WHAT IS THE IRA?",
+    btnWhat:         "What is the IRA?",
     tabExplore:      "Explore",
     tabAnalyze:      "Analyze text",
     tabCompare:      "Compare",
@@ -135,7 +141,7 @@ const TEXTS = {
     polarizador:     "Polarizing",
     close:           "Close",
     howWorks:        "How it works",
-    howWorksDesc:    "Paste any text in Spanish or English. The AI will analyze it against the 8 IRA parameters and generate a score and interpretive summary.",
+    howWorksDesc:    "Paste any text in Spanish or English. The AI will analyze it against the 7 IRA parameters and generate a score and interpretive summary.",
     nameLabel:       "Name / Source (optional)",
     namePlaceholder: "e.g. Trump speech, January 2021",
     catLabel:        "Category",
@@ -684,7 +690,7 @@ const ENTITIES = [
   },
 ];
 
-const PARAM_COLORS = ["#DCB149","#e8a838","#6ec6a0","#5ba8d4","#a07cd4","#e05890","#50c8b4","#c8a050"];
+const PARAM_COLORS = CATEGORICOS;
 
 const PARAM_SHORT = {
   pronominal: 'Pronominal',
@@ -790,15 +796,7 @@ function drawRadar(canvas, result, accent = '#DCB149') {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function scoreColor(s) {
-  if (s >= 7) return "#6ec6a0";
-  if (s >= 4.5) return "#e8a838";
-  return "#e05252";
-}
-
-function catColor(cat) {
-  return cat === "Político" ? "#DCB149" : cat === "Medio" ? "#5ba8d4" : "#6ec6a0";
-}
+const scoreColor = colorPuntuacion;
 
 // ── Componentes ───────────────────────────────────────────────────────────────
 
@@ -816,91 +814,43 @@ function FlagEmoji({ emoji, size = 18 }) {
   );
 }
 
-function ScoreRing({ score, size = 80, stroke = 5, color }) {
-  const r = (size - stroke * 2) / 2;
-  const circ = 2 * Math.PI * r;
-  const offset = circ - (score / 10) * circ;
-  const col = color ?? scoreColor(score);
-  return (
-    <svg width={size} height={size} style={{ transform: "rotate(-90deg)", flexShrink: 0 }}>
-      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={stroke} />
-      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={col} strokeWidth={stroke}
-        strokeDasharray={circ} strokeDashoffset={offset} strokeLinecap="round"
-        style={{ transition: "stroke-dashoffset 1s cubic-bezier(0.4,0,0.2,1)" }} />
-    </svg>
-  );
-}
-
-function Badge({ label, color }) {
+function Badge({ label }) {
   return (
     <span style={{
-      fontSize:"9px", letterSpacing:"0.12em", textTransform:"uppercase",
-      color, border:`1px solid ${color}40`, padding:"2px 7px", borderRadius:"20px",
-      fontFamily:"var(--ira-font-texto)",
+      fontSize:"12px", lineHeight:"18px", color:"var(--ira-texto-2)",
+      border:"1px solid var(--ira-linea-fuerte)", padding:"1px 8px", borderRadius:"99px",
     }}>{label}</span>
   );
 }
 
 function EntityCard({ entity, lang }) {
-  const navigate = useNavigate();
-  const { accent } = useContext(AccentContext);
-  const [hov, setHov] = useState(false);
   const T = TEXTS[lang];
   const catLabel = CAT_TRANS[lang][entity.category] || entity.category;
+  const hasScore = entity.score != null;
   return (
-    <div onClick={() => navigate(`/entity/${entity.id}`)}
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{
-        background: hov ? "rgba(255,255,255,0.055)" : "rgba(255,255,255,0.025)",
-        border: `1px solid ${hov ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)"}`,
-        borderRadius:"16px", padding:"20px", cursor:"pointer",
-        transition:"all 0.25s ease", transform: hov ? "translateY(-3px)" : "none",
-        backdropFilter:"blur(8px)",
-      }}>
-      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"14px" }}>
-        {entity.photo && (
-          <img src={entity.photo} alt={entity.name} style={{
-            width: 46, height: 46, borderRadius: "50%", objectFit: "cover",
-            objectPosition: "center top", flexShrink: 0, alignSelf: "center",
-            border: `2px solid ${accent}`, marginRight: "12px",
-          }} />
-        )}
-        <div style={{ flex: 1 }}>
-          <div style={{ marginBottom:"6px", display:"flex", gap:"6px", alignItems:"center" }}>
+    <Link to={`/entity/${entity.id}`} className="ira-figura">
+      <div className="ira-figura__cabecera">
+        {entity.photo && <img src={entity.photo} alt="" className="ira-figura__foto" />}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ marginBottom:"8px", display:"flex", gap:"8px", alignItems:"center" }}>
             <FlagEmoji emoji={entity.flag} size={18} />
-            <Badge label={catLabel} color={catColor(entity.category)} />
+            <Badge label={catLabel} />
           </div>
-          <h3 style={{ margin:0, fontSize:"16px", fontWeight:700, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em" }}>
-            {entity.breakName && entity.name.includes(' ')
-              ? <>{entity.name.split(' ')[0]}<br/>{entity.name.split(' ').slice(1).join(' ')}</>
-              : entity.name}
-          </h3>
-          <p style={{ margin:"2px 0 0", fontSize:"10px", color:"var(--ira-texto-3)", letterSpacing:"0.04em" }}>{entity.country}</p>
-        </div>
-        <div style={{ position:"relative", flexShrink:0 }}>
-          <ScoreRing score={entity.score ?? 0} size={64} stroke={4} color={scoreColor(entity.score ?? 0)} />
-          <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-            <span style={{ fontSize:"14px", fontWeight:700, color:scoreColor(entity.score ?? 0), fontFamily:"var(--ira-font-texto)" }}>
-              {entity.score != null ? entity.score.toFixed(2) : '—'}
-            </span>
-          </div>
+          <h3 className="ira-figura__nombre">{entity.name}</h3>
+          <p className="ira-figura__pais">{entity.country}</p>
         </div>
       </div>
-      {(() => {
-        const total = PARAMS_TRANS.es.reduce((s,p) => s + entity.params[p.id], 0);
-        return (
-          <div style={{ display:"flex", width:"100%", height:"5px", gap:"2px", marginBottom:"10px" }}>
-            {PARAMS_TRANS.es.map((p,i) => (
-              <div key={i} style={{
-                width: `${(entity.params[p.id] / total) * 100}%`, height:"100%",
-                background: PARAM_COLORS[i], borderRadius:"2px",
-              }} />
-            ))}
-          </div>
-        );
-      })()}
-      <p style={{ margin:0, fontSize:"10px", color:"var(--ira-texto-3)", letterSpacing:"0.06em" }}>{T.seeAnalysis}</p>
-    </div>
+      <div className="ira-figura__puntuacion">
+        <p className="ira-figura__cifra">
+          <span style={{ color: hasScore ? colorPuntuacion(entity.score) : "var(--ira-texto-3)" }}>
+            {formatearPuntuacion(entity.score, lang)}
+          </span>
+          <span className="ira-figura__max">/10</span>
+        </p>
+        <BarraEscala puntuacion={hasScore ? entity.score : null} grosor={6} />
+      </div>
+      <span className="ira-figura__cta">{T.seeAnalysis}</span>
+    </Link>
   );
 }
 
@@ -1066,15 +1016,9 @@ function EntityDetailPage() {
     <AccentContext.Provider value={{ accent, accentA, mode: entity.category === 'Medio' ? 'medios' : 'politico' }}>
     <div style={{ minHeight:"100vh", background:"#041414", fontFamily:"var(--ira-font-texto)", position:"relative", overflow:"hidden" }}>
       <button onClick={() => { if (window.history.length > 1) navigate(-1); else navigate('/'); }}
-        className="ira-volver"
-        style={{
-          fontFamily:"var(--ira-font-texto)", fontSize:"11px", fontWeight:700,
-          color:accent, letterSpacing:"0.04em",
-          border:`1.5px solid ${accentA(0.45)}`,
-          borderRadius:"20px", padding:"5px 13px",
-          background:accentA(0.08), cursor:"pointer",
-          transition:"background 0.2s",
-        }}>← {T.back}</button>
+        className="ira-volver ira-boton ira-boton--secundario ira-boton--compacto"
+        type="button"
+        >{T.back}</button>
       <div style={{ position:"relative", zIndex:1 }}>
       <div className="detail-page" style={{
         opacity: mounted ? 1 : 0,
@@ -1085,23 +1029,22 @@ function EntityDetailPage() {
           <div>
             <div style={{ display:"flex", gap:"8px", alignItems:"center", marginBottom:"8px" }}>
               <FlagEmoji emoji={entity.flag} size={22} />
-              <Badge label={catLabel} color={catColor(entity.category)} />
+              <Badge label={catLabel} />
             </div>
-            <h2 style={{ margin:"0 0 2px", fontSize:"24px", fontWeight:800, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.03em" }}>
+            <h1 style={{ margin:"0 0 4px", fontSize:"clamp(32px,6vw,44px)", fontWeight:500, lineHeight:1.05, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em" }}>
               {entity.name}
-            </h2>
-            <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-3)" }}>{entity.country}</p>
+            </h1>
+            <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)" }}>{entity.country}</p>
           </div>
-          <div style={{ position:"relative" }}>
-            <ScoreRing score={liveScore} size={88} stroke={5} color={scoreColor(liveScore)} />
-            <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-              <span style={{ fontSize:"20px", fontWeight:800, color:scoreColor(liveScore), fontFamily:"var(--ira-font-texto)", display:"block" }}>
-                {liveScore.toFixed(2)}
-              </span>
-              <span style={{ fontSize:"8px", color:"var(--ira-texto-3)", letterSpacing:"0.08em" }}>IRA</span>
-            </div>
-          </div>
+          <p className="ira-figura__cifra" style={{ flexDirection:"column", alignItems:"flex-end", gap:"6px" }}>
+            <span style={{ display:"flex", alignItems:"baseline", gap:"6px" }}>
+              <span style={{ fontSize:"56px", color:scoreColor(liveScore) }}>{formatearPuntuacion(liveScore, lang)}</span>
+              <span className="ira-figura__max" style={{ fontSize:"18px" }}>/10</span>
+            </span>
+            <span style={{ fontFamily:"var(--ira-font-texto)", fontSize:"12px", letterSpacing:0, color:"var(--ira-texto-3)" }}>IRA</span>
+          </p>
         </div>
+        <IndicadorEscala puntuacion={liveScore} lang={lang} className="ira-ficha__indicador" />
         {entity.photo && (
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "20px" }}>
             <img src={entity.photo} alt={entity.name} style={{
@@ -1135,47 +1078,20 @@ function EntityDetailPage() {
             const isOpen = expanded === p.id;
             const det = details[p.id];
             return (
-              <div key={i} style={{ marginBottom:"14px" }}>
-                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"5px" }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:"7px" }}>
-                    <span style={{ fontSize:"11px", color:"var(--ira-texto-2)", letterSpacing:"0.04em" }}>{p.label}</span>
-                    <button
-                      onClick={() => setExpanded(isOpen ? null : p.id)}
-                      style={{
-                        background: isOpen ? accent : accentA(0.12),
-                        border: `1px solid ${accentA(0.55)}`,
-                        borderRadius:"4px", padding:"2px 7px",
-                        color: isOpen ? "#fff" : accent,
-                        fontSize:"9px", cursor:"pointer", lineHeight:"1.5",
-                        transition:"all 0.18s ease", fontFamily:"var(--ira-font-texto)",
-                        letterSpacing:"0.04em", fontWeight: isOpen ? 700 : 400,
-                      }}
-                    >{isOpen ? "▲" : "▼"}</button>
-                  </div>
-                  <span style={{ fontSize:"12px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-texto)" }}>
-                    {val.toFixed(1)}
-                  </span>
-                </div>
-                <div style={{ background:"rgba(255,255,255,0.06)", borderRadius:"4px", height:"3px", overflow:"hidden" }}>
-                  <div style={{
-                    height:"100%", width:`${(val/10)*100}%`,
-                    background:`linear-gradient(90deg,${PARAM_COLORS[i]}80,${PARAM_COLORS[i]})`,
-                    borderRadius:"4px", transition:"width 0.8s ease",
-                  }} />
-                </div>
-                <p style={{ margin:"4px 0 0", fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.5 }}>{p.desc}</p>
-                {isOpen && (
-                  <div style={{
-                    marginTop:"10px",
-                    background:"rgba(255,255,255,0.02)",
-                    border:`1px solid ${PARAM_COLORS[i]}20`,
-                    borderRadius:"10px", padding:"13px",
-                  }}>
+              <FilaParametro
+                key={p.id}
+                etiqueta={p.label}
+                puntuacion={val}
+                descripcion={p.desc}
+                lang={lang}
+                abierto={isOpen}
+                onToggle={() => setExpanded(isOpen ? null : p.id)}
+              >
                     {entity.quotes?.[p.id] && (
                       <p style={{
                         margin:"0 0 12px", padding:"0 0 0 10px",
-                        borderLeft:`2px solid ${PARAM_COLORS[i]}`,
-                        fontSize:"12px", fontStyle:"italic", fontFamily:"var(--ira-font-texto)",
+                        borderLeft:"2px solid var(--ira-linea-fuerte)",
+                        fontSize:"14px", fontStyle:"italic", fontFamily:"var(--ira-font-texto)",
                         color:"var(--ira-texto-2)", lineHeight:1.55,
                       }}>«{entity.quotes[p.id]}»</p>
                     )}
@@ -1193,18 +1109,16 @@ function EntityDetailPage() {
                       {det.detail}
                     </p>
                     <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
-                      <div style={{ background:"rgba(110,198,160,0.06)", border:"1px solid rgba(110,198,160,0.18)", borderRadius:"8px", padding:"10px 12px" }}>
-                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"#6ec6a0", textTransform:"uppercase" }}>{T.empatico}</p>
+                      <div style={{ background:"rgba(141,170,126,0.08)", border:"1px solid rgba(141,170,126,0.3)", borderRadius:"8px", padding:"10px 12px" }}>
+                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"var(--ira-salvia)", textTransform:"uppercase" }}>{T.empatico}</p>
                         <p style={{ margin:0, fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.empatico}</p>
                       </div>
-                      <div style={{ background:"rgba(224,82,82,0.06)", border:"1px solid rgba(224,82,82,0.18)", borderRadius:"8px", padding:"10px 12px" }}>
-                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"#e05252", textTransform:"uppercase" }}>{T.polarizador}</p>
+                      <div style={{ background:"rgba(190,40,26,0.08)", border:"1px solid rgba(190,40,26,0.35)", borderRadius:"8px", padding:"10px 12px" }}>
+                        <p style={{ margin:"0 0 5px", fontSize:"8px", letterSpacing:"0.14em", color:"var(--ira-estrella-polarizante)", textTransform:"uppercase" }}>{T.polarizador}</p>
                         <p style={{ margin:0, fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.polarizador}</p>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
+              </FilaParametro>
             );
           })}
         </div>
@@ -1242,7 +1156,7 @@ function IRAModal({ onClose, lang }) {
   return (
     <div onClick={onClose} style={{
       position:"fixed", inset:0, zIndex:300,
-      background:"rgba(14,14,20,0.92)", backdropFilter:"blur(20px)",
+      background:"rgba(4,20,20,0.92)", backdropFilter:"blur(20px)",
       display:"flex", alignItems:"center", justifyContent:"center",
       opacity: mounted?1:0, transition:"opacity 0.3s ease", padding:"20px",
     }}>
@@ -1258,7 +1172,7 @@ function IRAModal({ onClose, lang }) {
             <div style={{ width:"5px", height:"5px", borderRadius:"50%", background:accent, boxShadow:`0 0 8px ${accent}` }} />
             <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>{T.modalTag}</span>
           </div>
-          <h2 style={{ margin:"0 0 16px", fontSize:"22px", fontWeight:800, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.03em" }}>
+          <h2 style={{ margin:"0 0 16px", fontSize:"30px", fontWeight:500, lineHeight:1.15, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em" }}>
             {T.modalTitle}
           </h2>
           <p style={{ margin:0, fontSize:"12.5px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
@@ -1270,9 +1184,9 @@ function IRAModal({ onClose, lang }) {
           <p style={{ margin:"0 0 10px", fontSize:"9px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalWhatTitle}</p>
           <p style={{ margin:0, fontSize:"12.5px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
             {T.modalWhatPre}
-            <span style={{ color:"#e05252", fontWeight:600 }}>{T.modalWhatPol}</span>
+            <span style={{ color:"var(--ira-estrella-polarizante)", fontWeight:600 }}>{T.modalWhatPol}</span>
             {", "}
-            <span style={{ color:"#6ec6a0", fontWeight:600 }}>{T.modalWhatEmp}</span>
+            <span style={{ color:"var(--ira-salvia)", fontWeight:600 }}>{T.modalWhatEmp}</span>
             {"."}
           </p>
         </div>
@@ -1298,12 +1212,7 @@ function IRAModal({ onClose, lang }) {
           </p>
         </div>
 
-        <button onClick={onClose} style={{
-          width:"100%", padding:"12px",
-          background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)",
-          borderRadius:"10px", color:"var(--ira-texto-3)", fontSize:"11px",
-          cursor:"pointer", letterSpacing:"0.08em",
-        }}>{T.close}</button>
+        <button type="button" onClick={onClose} className="ira-boton ira-boton--secundario" style={{ width:"100%" }}>{T.close}</button>
       </div>
     </div>
   );
@@ -1315,36 +1224,27 @@ function countWords(str) {
 }
 
 function HistoryCard({ row, lang }) {
-  const { accentA } = useContext(AccentContext);
   const [expanded, setExpanded] = useState(false);
-  const col = scoreColor(row.ira_score);
   const date = new Date(row.created_at).toLocaleDateString(lang === "es" ? "es-ES" : "en-US", { day:"numeric", month:"short", year:"numeric" });
   const params = PARAMS_TRANS[lang];
   return (
     <div
-      onClick={() => setExpanded(e => !e)}
       style={{
-        borderRadius:"12px",
-        background:"rgba(255,255,255,0.03)",
-        border:`1px solid ${expanded ? accentA(0.2) : "rgba(255,255,255,0.06)"}`,
-        overflow:"hidden", cursor:"pointer", transition:"border-color 0.2s",
+        borderRadius:"var(--ira-radio-l)",
+        background:"var(--ira-superficie)",
+        border:`1px solid ${expanded ? "var(--ira-linea-fuerte)" : "var(--ira-linea)"}`,
+        overflow:"hidden", transition:"border-color 0.2s",
       }}
     >
-      <div style={{ display:"flex", alignItems:"center", gap:"14px", padding:"12px 16px" }}>
-        <div style={{
-          width:"42px", height:"42px", borderRadius:"50%", flexShrink:0,
-          border:`1.5px solid ${col}`, display:"flex", flexDirection:"column",
-          alignItems:"center", justifyContent:"center", background:`${col}14`,
-        }}>
-          <span style={{ fontSize:"12px", fontWeight:800, color:col, fontFamily:"var(--ira-font-texto)", lineHeight:1 }}>
-            {row.ira_score.toFixed(1)}
-          </span>
-        </div>
+      <button type="button" aria-expanded={expanded} onClick={() => setExpanded(e => !e)}
+        style={{ display:"flex", alignItems:"center", gap:"14px", padding:"12px 16px", width:"100%", minHeight:"56px",
+          background:"none", border:"none", color:"inherit", font:"inherit", textAlign:"left", cursor:"pointer" }}>
+        <EtiquetaPuntuacion puntuacion={row.ira_score} lang={lang} />
         <div style={{ flex:1, minWidth:0 }}>
-          <p style={{ margin:"0 0 2px", fontSize:"12px", fontWeight:700, color:"var(--ira-texto-cita)", fontFamily:"var(--ira-font-titulo)", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+          <p style={{ margin:"0 0 2px", fontSize:"15px", fontWeight:500, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
             {row.name}
           </p>
-          <p style={{ margin:0, fontSize:"9px", color:"var(--ira-texto-3)", fontFamily:"var(--ira-font-texto)", letterSpacing:"0.06em" }}>
+          <p style={{ margin:0, fontSize:"12px", color:"var(--ira-texto-2)", fontFamily:"var(--ira-font-texto)" }}>
             {CAT_TRANS[lang][row.category] || row.category} · {date}
           </p>
         </div>
@@ -1352,8 +1252,8 @@ function HistoryCard({ row, lang }) {
           fontSize:"10px", color:"var(--ira-texto-3)", flexShrink:0,
           display:"block", transition:"transform 0.2s",
           transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
-        }}>▾</span>
-      </div>
+        }} aria-hidden="true">▾</span>
+      </button>
       {expanded && (
         <div style={{ padding:"0 16px 16px", borderTop:"1px solid rgba(255,255,255,0.05)" }}>
           {row.summary && (
@@ -1361,26 +1261,9 @@ function HistoryCard({ row, lang }) {
               {row.summary}
             </p>
           )}
-          {row.params && params.filter(p => row.params[p.id] != null).map((p, i) => {
-            const val = +(row.params[p.id]?.score ?? 0);
-            return (
-              <div key={i} style={{ marginBottom:"10px" }}>
-                <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"4px" }}>
-                  <span style={{ fontSize:"10px", color:"var(--ira-texto-3)" }}>{p.label}</span>
-                  <span style={{ fontSize:"10px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-texto)" }}>
-                    {val.toFixed(1)}
-                  </span>
-                </div>
-                <div style={{ background:"rgba(255,255,255,0.06)", borderRadius:"4px", height:"3px", overflow:"hidden" }}>
-                  <div style={{
-                    height:"100%", width:`${(val/10)*100}%`,
-                    background:`linear-gradient(90deg,${PARAM_COLORS[i]}80,${PARAM_COLORS[i]})`,
-                    borderRadius:"4px",
-                  }} />
-                </div>
-              </div>
-            );
-          })}
+          {row.params && params.filter(p => row.params[p.id] != null).map((p) => (
+            <FilaParametro key={p.id} etiqueta={p.label} puntuacion={+(row.params[p.id]?.score ?? 0)} lang={lang} />
+          ))}
         </div>
       )}
     </div>
@@ -1388,8 +1271,8 @@ function HistoryCard({ row, lang }) {
 }
 
 function Analyzer({ lang }) {
-  const { accent, accentA, mode } = useContext(AccentContext);
-  const { openLogin } = useContext(AppContext);
+  const { mode } = useContext(AccentContext);
+  const { openLogin, openRegister, requireAuth } = useContext(AppContext);
   const { user, profile } = useAuth();
   const isAdmin = profile?.role === 'admin';
   const [text, setText] = useState("");
@@ -1466,120 +1349,76 @@ function Analyzer({ lang }) {
 
   if (result) return <AnalysisResult result={result} onReset={() => setResult(null)} lang={lang} />;
 
+  const submit = () => { if (user) analyze(); else requireAuth(analyze); };
+
   return (
     <div style={{ maxWidth:"640px", margin:"0 auto" }}>
       {!user && (
-        <div style={{
-          display:"flex", alignItems:"center", gap:"10px",
-          marginBottom:"20px", padding:"11px 16px",
-          background:"rgba(220,177,73,0.06)",
-          border:"1px solid rgba(220,177,73,0.2)",
-          borderRadius:"10px",
-        }}>
-          <span style={{ fontSize:"14px", flexShrink:0 }}>💾</span>
-          <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-2)", lineHeight:1.5, fontFamily:"var(--ira-font-texto)" }}>
+        <div className="ira-aviso">
+          <p style={{ margin:0 }}>
             {lang === "en"
-              ? <>{"Analyzing is free. "}<button onClick={openLogin} style={{ background:"none", border:"none", padding:0, color:"rgba(220,177,73,0.9)", fontSize:"11px", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700 }}>Sign in</button>{" to save your results."}</>
-              : <>{"Analizar es gratis. "}<button onClick={openLogin} style={{ background:"none", border:"none", padding:0, color:"rgba(220,177,73,0.9)", fontSize:"11px", cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700 }}>Inicia sesión</button>{" para guardar tus análisis."}</>
+              ? <>{"Analyzing a text requires an account. "}<button type="button" className="ira-enlace-boton" onClick={openRegister}>Create an account</button>{" or "}<button type="button" className="ira-enlace-boton" onClick={openLogin}>sign in</button>{"."}</>
+              : <>{"Para analizar un texto necesitas una cuenta. "}<button type="button" className="ira-enlace-boton" onClick={openRegister}>Crea una cuenta</button>{" o "}<button type="button" className="ira-enlace-boton" onClick={openLogin}>inicia sesión</button>{"."}</>
             }
           </p>
         </div>
       )}
-      <div style={{ marginBottom:"20px" }}>
-        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>
-          {T.nameLabel}
-        </p>
-        <input value={name} onChange={e => setName(e.target.value)}
-          placeholder={mode === 'medios' ? T.namePlaceholderMedios : T.namePlaceholder}
-          style={{
-            width:"100%", background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)",
-            borderRadius:"10px", padding:"10px 14px", color:"var(--ira-nieve)", fontSize:"13px",
-            outline:"none", boxSizing:"border-box", fontFamily:"var(--ira-font-texto)",
-          }} />
+      <div className="ira-grupo">
+        <label htmlFor="ira-an-nombre" className="ira-rotulo">{T.nameLabel}</label>
+        <input id="ira-an-nombre" className="ira-campo" value={name} onChange={e => setName(e.target.value)}
+          placeholder={mode === 'medios' ? T.namePlaceholderMedios : T.namePlaceholder} />
       </div>
-      <div style={{ marginBottom:"20px" }}>
-        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>
-          {lang === 'en' ? "Context (optional)" : "Contexto (opcional)"}
-        </p>
-        <input value={context} onChange={e => setContext(e.target.value)}
+      <div className="ira-grupo">
+        <label htmlFor="ira-an-contexto" className="ira-rotulo">{lang === 'en' ? "Context (optional)" : "Contexto (opcional)"}</label>
+        <input id="ira-an-contexto" className="ira-campo" value={context} onChange={e => setContext(e.target.value)}
+          aria-describedby="ira-an-contexto-ayuda"
           placeholder={lang === 'en'
             ? "e.g. Campaign rally, 50,000 attendees, 3 days before election"
-            : "ej. Mitin electoral, 50.000 asistentes, 3 días antes de las elecciones"}
-          style={{
-            width:"100%", background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)",
-            borderRadius:"10px", padding:"10px 14px", color:"var(--ira-nieve)", fontSize:"13px",
-            outline:"none", boxSizing:"border-box", fontFamily:"var(--ira-font-texto)",
-          }} />
-        <p style={{ margin:"5px 0 0", fontSize:"9.5px", color:"var(--ira-texto-3)", lineHeight:1.5 }}>
+            : "ej. Mitin electoral, 50.000 asistentes, 3 días antes de las elecciones"} />
+        <p id="ira-an-contexto-ayuda" className="ira-ayuda">
           {lang === 'en'
             ? "Who spoke, to whom, when and where. Improves accuracy (Van Dijk, 2008)."
             : "Quién habló, ante quién, cuándo y dónde. Mejora la precisión del análisis (Van Dijk, 2008)."}
         </p>
       </div>
-      <div style={{ marginBottom:"20px" }}>
-        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>
-          {T.catLabel}
-        </p>
+      <fieldset className="ira-grupo" style={{ border:"none", padding:0, margin:"0 0 20px" }}>
+        <legend className="ira-rotulo">{T.catLabel}</legend>
         <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
           {["Político","Medio","Otro"].map(cat => (
-            <button key={cat} onClick={() => setCategory(cat)} style={{
-              padding:"7px 14px", borderRadius:"20px",
-              border: category===cat ? `1px solid ${accentA(0.6)}` : "1px solid rgba(255,255,255,0.08)",
-              background: category===cat ? accentA(0.12) : "transparent",
-              color: category===cat ? accent : "rgba(255,255,255,0.35)",
-              fontSize:"10px", letterSpacing:"0.1em", textTransform:"uppercase", cursor:"pointer",
-              transition:"all 0.2s ease",
-            }}>{CAT_TRANS[lang][cat]}</button>
+            <button type="button" key={cat} onClick={() => setCategory(cat)} aria-pressed={category===cat} className="ira-chip">
+              {CAT_TRANS[lang][cat]}
+            </button>
           ))}
         </div>
-      </div>
-      <div style={{ marginBottom:"20px" }}>
-        <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>
-          {T.textLabel}
-        </p>
-        <textarea value={text} onChange={e => setText(e.target.value)}
+      </fieldset>
+      <div className="ira-grupo">
+        <label htmlFor="ira-an-texto" className="ira-rotulo">{T.textLabel}</label>
+        <textarea id="ira-an-texto" className="ira-campo" value={text} onChange={e => setText(e.target.value)}
           placeholder={mode === 'medios' ? T.textPlaceholderMedios : T.textPlaceholder}
-          rows={8}
-          style={{
-            width:"100%", background:"rgba(255,255,255,0.04)",
-            border:`1px solid ${overLimit ? "rgba(224,82,82,0.5)" : "rgba(255,255,255,0.08)"}`,
-            borderRadius:"12px", padding:"14px", color:"var(--ira-texto-cita)", fontSize:"13px",
-            outline:"none", resize:"vertical", boxSizing:"border-box", lineHeight:1.6,
-            fontFamily:"var(--ira-font-texto)",
-          }} />
-        <div style={{ display:"flex", justifyContent:"space-between", margin:"6px 0 0" }}>
-          <span style={{ fontSize:"10px", color:"var(--ira-texto-3)" }}>
-            {text.length} {T.chars}
-          </span>
-          <span style={{ fontSize:"10px", fontFamily:"var(--ira-font-texto)",
-            color: overLimit ? "#e05252" : !isAdmin && wordCount > WORD_LIMIT * 0.85 ? "#e8a838" : "rgba(255,255,255,0.2)",
-            fontWeight: overLimit ? 700 : 400,
+          rows={8} aria-invalid={overLimit || undefined} aria-describedby="ira-an-cuenta"
+          style={{ resize:"vertical", lineHeight:1.6, borderColor: overLimit ? "var(--ira-1)" : undefined }} />
+        <div id="ira-an-cuenta" style={{ display:"flex", justifyContent:"space-between", margin:"6px 0 0", fontSize:"12px", color:"var(--ira-texto-3)" }}>
+          <span>{text.length} {T.chars}</span>
+          <span style={{ fontFamily:"var(--ira-font-cifra)",
+            color: overLimit ? "var(--ira-estrella-polarizante)" : !isAdmin && wordCount > WORD_LIMIT * 0.85 ? "var(--ira-oro)" : "var(--ira-texto-3)",
+            fontWeight: overLimit ? 500 : 400,
           }}>
             {isAdmin ? `${wordCount} ${T.words}` : `${wordCount} / ${WORD_LIMIT} ${T.words}`}
           </span>
         </div>
       </div>
-      {error && <p style={{ color:"#e05252", fontSize:"11px", marginBottom:"14px" }}>{error}</p>}
-      <button onClick={analyze} disabled={loading || overLimit} style={{
-        width:"100%", padding:"14px",
-        background: overLimit ? "rgba(255,255,255,0.03)" : loading ? accentA(0.1) : accentA(0.2),
-        border: overLimit ? "1px solid rgba(224,82,82,0.3)" : `1px solid ${accentA(0.4)}`,
-        borderRadius:"12px",
-        color: overLimit ? "#e05252" : loading ? accentA(0.4) : accent,
-        fontSize:"12px", letterSpacing:"0.12em", textTransform:"uppercase",
-        cursor: loading || overLimit ? "not-allowed" : "pointer", transition:"all 0.2s ease",
-        fontFamily:"var(--ira-font-texto)",
-      }}>
+      {error && <p role="alert" style={{ color:"var(--ira-estrella-polarizante)", fontSize:"14px", margin:"0 0 14px" }}>{error}</p>}
+      <button type="button" onClick={submit} disabled={loading || overLimit} className="ira-boton ira-boton--principal" style={{ width:"100%" }}>
         {overLimit ? T.wordLimitMsg : loading ? T.analyzing : T.calcBtn}
       </button>
 
       {user && (
         <div style={{ marginTop:"40px" }}>
-          <p style={{ margin:"0 0 14px", fontSize:"9px", letterSpacing:"0.16em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
+          <h3 style={{ margin:"0 0 14px", fontSize:"20px", fontWeight:500, fontFamily:"var(--ira-font-titulo)", color:"var(--ira-nieve)" }}>
             {lang === "es" ? "Mis últimos análisis" : "My recent analyses"}
-          </p>
+          </h3>
           {history.length === 0 ? (
-            <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-3)", fontFamily:"var(--ira-font-texto)", textAlign:"center", padding:"24px 0" }}>
+            <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", textAlign:"center", padding:"24px 0" }}>
               {lang === "es" ? "Tus análisis aparecerán aquí" : "Your analyses will appear here"}
             </p>
           ) : (
@@ -1603,42 +1442,38 @@ function ShareCard({ result, cardRef }) {
   return (
     <div ref={cardRef} style={{
       position:'fixed', left:'-9999px', top:0,
-      width:'480px', background:'#041414',
+      width:'480px', background:'var(--ira-noche)',
       padding:'28px 32px 24px', boxSizing:'border-box',
-      fontFamily:"var(--ira-font-texto)",
-      border:`1px solid ${accent === '#DCB149' ? 'rgba(220,177,73,0.25)' : 'rgba(220,177,73,0.25)'}`, borderRadius:'16px',
+      fontFamily:"var(--ira-font-texto)", color:"var(--ira-nieve)",
+      border:'1px solid var(--ira-linea)', borderRadius:'18px',
     }}>
       {/* header */}
-      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'20px' }}>
-        <span style={{ color:accent, fontWeight:800, fontSize:'20px', fontFamily:"var(--ira-font-titulo)", letterSpacing:'-0.02em' }}>IRA</span>
-        <span style={{ color:"var(--ira-texto-3)", fontSize:'8px', letterSpacing:'0.14em', textTransform:'uppercase' }}>Índice de Resonancia Afectiva</span>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-end', marginBottom:'22px' }}>
+        <img src="/brand/ira-logo-sobre-oscuro.svg" alt="ira" style={{ height:'30px', width:'auto', display:'block' }} />
+        <span style={{ color:"var(--ira-texto-2)", fontSize:'11px' }}>Índice de Resonancia Afectiva</span>
       </div>
       {/* score + name */}
-      <div style={{ display:'flex', alignItems:'center', gap:'20px', marginBottom:'20px' }}>
-        <div style={{
-          width:'76px', height:'76px', borderRadius:'50%', flexShrink:0,
-          border:`2.5px solid ${col}`, display:'flex', flexDirection:'column',
-          alignItems:'center', justifyContent:'center', background:`${col}18`,
-        }}>
-          <span style={{ fontSize:'22px', fontWeight:800, color:col, lineHeight:1 }}>{result.ira.toFixed(2)}</span>
-          <span style={{ fontSize:'7px', color:"var(--ira-texto-3)", letterSpacing:'0.1em' }}>IRA</span>
+      <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', gap:'20px', marginBottom:'14px' }}>
+        <div style={{ minWidth:0 }}>
+          <p style={{ margin:'0 0 4px', fontSize:'12px', color:"var(--ira-texto-2)" }}>{result.category}</p>
+          <p style={{ margin:0, fontSize:'22px', fontWeight:500, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", lineHeight:1.15 }}>{result.name}</p>
         </div>
-        <div>
-          <p style={{ margin:'0 0 3px', fontSize:'8px', color:accent, letterSpacing:'0.14em', textTransform:'uppercase' }}>{result.category}</p>
-          <p style={{ margin:'0 0 3px', fontSize:'18px', fontWeight:700, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", lineHeight:1.2 }}>{result.name}</p>
-          <p style={{ margin:0, fontSize:'9px', color:col, letterSpacing:'0.06em' }}>{result.iraLabel}</p>
-        </div>
+        <p style={{ margin:0, display:'flex', alignItems:'baseline', gap:'4px', fontFamily:"var(--ira-font-cifra)", fontWeight:500, letterSpacing:'-0.04em', lineHeight:1 }}>
+          <span style={{ fontSize:'48px', color:col }}>{formatearPuntuacion(result.ira)}</span>
+          <span style={{ fontSize:'16px', color:"var(--ira-texto-3)", letterSpacing:0 }}>/10</span>
+        </p>
       </div>
+      <div style={{ marginBottom:'18px' }}><BarraEscala puntuacion={result.ira} grosor={6} /></div>
       {/* radar canvas */}
       <canvas ref={canvasRef} width={416} height={200} style={{ width:'100%', display:'block' }} />
       {/* summary */}
-      <p style={{ margin:'14px 0 0', fontSize:'9px', color:"var(--ira-texto-3)", lineHeight:1.65 }}>
+      <p style={{ margin:'14px 0 0', fontSize:'12px', color:"var(--ira-texto-cita)", lineHeight:1.6 }}>
         {result.summary}
       </p>
       {/* footer */}
-      <div style={{ marginTop:'16px', paddingTop:'12px', borderTop:'1px solid rgba(255,255,255,0.06)', display:'flex', justifyContent:'space-between' }}>
-        <span style={{ fontSize:'8px', color:"var(--ira-texto-3)" }}>ira-index.vercel.app</span>
-        <span style={{ fontSize:'8px', color: accent === '#DCB149' ? 'rgba(220,177,73,0.35)' : 'rgba(220,177,73,0.35)' }}>ira-index.vercel.app</span>
+      <div style={{ marginTop:'16px', paddingTop:'12px', borderTop:'1px solid var(--ira-linea)', display:'flex', justifyContent:'space-between', fontSize:'11px', color:"var(--ira-texto-3)" }}>
+        <span>0 Polarizante · Empático 10</span>
+        <span>ira-index.vercel.app</span>
       </div>
     </div>
   );
@@ -1685,50 +1520,13 @@ function AnalysisResult({ result, onReset, lang }) {
   }
   return (
     <div style={{ maxWidth:"640px", margin:"0 auto", opacity: mounted?1:0, transition:"opacity 0.4s ease" }}>
-      <div style={{ display:"flex", alignItems:"center", gap:"20px", marginBottom:"28px",
-        background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)",
-        borderRadius:"16px", padding:"20px" }}>
-        <div style={{ position:"relative", flexShrink:0 }}>
-          <ScoreRing score={result.ira} size={88} stroke={5} />
-          <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", textAlign:"center" }}>
-            <span style={{ fontSize:"20px", fontWeight:800, color:col, fontFamily:"var(--ira-font-texto)", display:"block" }}>
-              {result.ira.toFixed(2)}
-            </span>
-            <span style={{ fontSize:"8px", color:"var(--ira-texto-3)", letterSpacing:"0.08em" }}>IRA</span>
-          </div>
-        </div>
-        <div>
-          <Badge label={catLabel} color={catColor(result.category)} />
-          <h3 style={{ margin:"6px 0 4px", fontSize:"20px", fontWeight:700, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)" }}>
-            {result.name}
-          </h3>
-          <p style={{ margin:0, fontSize:"11.5px", color:"var(--ira-texto-3)", lineHeight:1.55 }}>
-            {result.summary}
-          </p>
-        </div>
+      <div style={{ marginBottom:"28px" }}>
+        <TarjetaDiscurso orador={result.name} cargo={catLabel} puntuacion={result.ira} lang={lang} pie={result.summary} />
       </div>
-      {params.filter(p => result.params[p.id] != null).map((p, i) => {
-        const val = +(result.params[p.id]?.score ?? 0);
-        const desc = result.params[p.id]?.desc ?? '';
-        return (
-          <div key={i} style={{ marginBottom:"14px" }}>
-            <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"5px" }}>
-              <span style={{ fontSize:"11px", color:"var(--ira-texto-2)" }}>{p.label}</span>
-              <span style={{ fontSize:"12px", fontWeight:700, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-texto)" }}>
-                {val.toFixed(1)}
-              </span>
-            </div>
-            <div style={{ background:"rgba(255,255,255,0.06)", borderRadius:"4px", height:"3px", overflow:"hidden" }}>
-              <div style={{
-                height:"100%", width:`${(val/10)*100}%`,
-                background:`linear-gradient(90deg,${PARAM_COLORS[i]}80,${PARAM_COLORS[i]})`,
-                borderRadius:"4px", transition:"width 0.8s ease",
-              }} />
-            </div>
-            <p style={{ margin:"4px 0 0", fontSize:"10.5px", color:"var(--ira-texto-3)", lineHeight:1.5 }}>{desc}</p>
-          </div>
-        );
-      })}
+      {params.filter(p => result.params[p.id] != null).map((p) => (
+        <FilaParametro key={p.id} etiqueta={p.label} puntuacion={+(result.params[p.id]?.score ?? 0)}
+          descripcion={result.params[p.id]?.desc ?? ''} lang={lang} />
+      ))}
       {/* Comparación con el corpus */}
       {result.comparacion && (
         <div style={{ marginTop:"20px", padding:"14px 16px", background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:"10px" }}>
@@ -1763,37 +1561,14 @@ function AnalysisResult({ result, onReset, lang }) {
       )}
       {/* Share buttons */}
       <div style={{ display:"flex", gap:"10px", marginTop:"24px", flexWrap:"wrap" }}>
-        <button onClick={handleShareImage} disabled={sharing} style={{
-          flex:"1 1 160px", display:"flex", alignItems:"center", justifyContent:"center", gap:"7px",
-          padding:"11px 16px", borderRadius:"10px",
-          background: sharing ? accentA(0.06) : accentA(0.12),
-          border:`1px solid ${accentA(0.4)}`,
-          color: sharing ? accentA(0.4) : accent,
-          fontSize:"11px", letterSpacing:"0.08em", cursor: sharing ? "wait" : "pointer",
-          fontFamily:"var(--ira-font-texto)", transition:"all 0.2s",
-        }}>
-          <span style={{ fontSize:"14px" }}>📷</span>
+        <button type="button" onClick={handleShareImage} disabled={sharing} className="ira-boton ira-boton--secundario" style={{ flex:"1 1 200px" }}>
           {sharing ? T.generating : T.shareImage}
         </button>
-        <button onClick={handleCopyLink} style={{
-          flex:"1 1 160px", display:"flex", alignItems:"center", justifyContent:"center", gap:"7px",
-          padding:"11px 16px", borderRadius:"10px",
-          background: copied ? "rgba(110,198,160,0.12)" : "rgba(255,255,255,0.04)",
-          border: copied ? "1px solid rgba(110,198,160,0.4)" : "1px solid rgba(255,255,255,0.1)",
-          color: copied ? "#6ec6a0" : "rgba(255,255,255,0.5)",
-          fontSize:"11px", letterSpacing:"0.08em", cursor:"pointer",
-          fontFamily:"var(--ira-font-texto)", transition:"all 0.2s",
-        }}>
-          <span style={{ fontSize:"14px" }}>{copied ? "✓" : "🔗"}</span>
-          {copied ? T.linkCopied : T.copyLink}
+        <button type="button" onClick={handleCopyLink} className="ira-boton ira-boton--secundario" style={{ flex:"1 1 200px" }} aria-live="polite">
+          {copied ? `✓ ${T.linkCopied}` : T.copyLink}
         </button>
       </div>
-      <button onClick={onReset} style={{
-        marginTop:"10px", width:"100%", padding:"11px",
-        background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.08)",
-        borderRadius:"10px", color:"var(--ira-texto-3)", fontSize:"11px",
-        cursor:"pointer", letterSpacing:"0.08em", fontFamily:"var(--ira-font-texto)",
-      }}>{T.analyzeAnother}</button>
+      <button type="button" onClick={onReset} className="ira-boton ira-boton--principal" style={{ marginTop:"10px", width:"100%" }}>{T.analyzeAnother}</button>
       <ShareCard result={result} cardRef={cardRef} />
     </div>
   );
@@ -1815,7 +1590,7 @@ function ConfirmedToast({ lang, onDone }) {
   }, []);
 
   return (
-    <div style={{
+    <div role="status" style={{
       position: "fixed", bottom: "28px", left: "50%",
       transform: "translateX(-50%)",
       zIndex: 1000,
@@ -1833,10 +1608,10 @@ function ConfirmedToast({ lang, onDone }) {
       }}>
         <div style={{
           width: "6px", height: "6px", borderRadius: "50%",
-          background: accent, boxShadow: `0 0 8px ${accent}`, flexShrink: 0,
+          background: "var(--ira-salvia)", flexShrink: 0,
         }} />
         <span style={{
-          fontSize: "12px", color: "var(--ira-nieve)",
+          fontSize: "14px", color: "var(--ira-nieve)",
           fontFamily: "var(--ira-font-texto)",
           whiteSpace: "nowrap",
         }}>{msg}</span>
@@ -1854,7 +1629,7 @@ function WelcomeModal({ lang, onClose }) {
   return (
     <div style={{
       position:"fixed", inset:0, zIndex:600,
-      background:"rgba(14,14,20,0.85)", backdropFilter:"blur(6px)",
+      background:"rgba(4,20,20,0.85)", backdropFilter:"blur(6px)",
       display:"flex", alignItems:"center", justifyContent:"center",
       padding:"24px",
       opacity: mounted ? 1 : 0, transition:"opacity 0.35s ease",
@@ -1870,34 +1645,22 @@ function WelcomeModal({ lang, onClose }) {
         transition:"transform 0.35s ease",
       }}>
         <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"20px" }}>
-          <div style={{
-            width:"6px", height:"6px", borderRadius:"50%",
-            background:accent, boxShadow:`0 0 8px ${accent}`,
-            animation:"wcPulse 2s ease-in-out infinite",
-          }} />
-          <span style={{ fontSize:"9px", letterSpacing:"0.16em", color:accentA(0.7), textTransform:"uppercase", fontFamily:"var(--ira-font-texto)" }}>
+          <span style={{ fontSize:"13px", color:"var(--ira-oro)" }}>
             {lang === "es" ? "Bienvenido/a al IRA" : "Welcome to IRA"}
           </span>
         </div>
-        <h2 style={{ margin:"0 0 14px", fontSize:"26px", fontWeight:800, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.03em", lineHeight:1.1 }}>
+        <h2 style={{ margin:"0 0 14px", fontSize:"30px", fontWeight:500, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em", lineHeight:1.15 }}>
           {lang === "es" ? "Las palabras tienen peso." : "Words carry weight."}
         </h2>
-        <p style={{ margin:"0 0 28px", fontSize:"12px", color:"var(--ira-texto-2)", lineHeight:1.75, fontFamily:"var(--ira-font-texto)" }}>
+        <p style={{ margin:"0 0 28px", fontSize:"16px", color:"var(--ira-texto-cita)", lineHeight:1.7 }}>
           {lang === "es"
             ? "Aquí puedes explorar cómo hablan los políticos y los medios, o pegar cualquier texto y medirlo tú mismo."
             : "Explore how politicians and media speak, or paste any text and measure it yourself."}
         </p>
-        <button onClick={onClose} style={{
-          width:"100%", padding:"13px",
-          background: accentA(0.18), border:`1px solid ${accentA(0.45)}`,
-          borderRadius:"12px", color:accent,
-          fontSize:"12px", letterSpacing:"0.1em", textTransform:"uppercase",
-          cursor:"pointer", fontFamily:"var(--ira-font-texto)", fontWeight:700,
-          transition:"background 0.2s",
-        }}>
+        <button type="button" onClick={onClose} className="ira-boton ira-boton--principal" style={{ width:"100%" }}>
           {lang === "es" ? "Empezar a explorar →" : "Start exploring →"}
         </button>
-        <p style={{ margin:"16px 0 0", fontSize:"10px", color:"var(--ira-texto-3)", fontFamily:"var(--ira-font-texto)", textAlign:"right", fontStyle:"italic" }}>
+        <p style={{ margin:"16px 0 0", fontSize:"13px", color:"var(--ira-texto-2)", textAlign:"right", fontStyle:"italic" }}>
           — Rick Grisales, creador del IRA
         </p>
       </div>
@@ -1941,170 +1704,89 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
       <div style={{ position:"relative", zIndex:1 }}>
 
       <div className="main-container">
-        <div style={{ marginBottom:"44px", opacity:mounted?1:0, transform:mounted?"none":"translateY(16px)", transition:"all 0.6s ease" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"12px" }}>
-            <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:accent, boxShadow:`0 0 10px ${accent}` }} />
-            <span style={{ fontSize:"9px", letterSpacing:"0.18em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>{T.headerTag}</span>
-          </div>
-          <h1 style={{ margin:"0 0 10px", fontSize:"clamp(28px,5vw,46px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)", color:"var(--ira-nieve)", letterSpacing:"-0.04em", lineHeight:1.05 }}>
-            IRA <span style={{ color:"var(--ira-texto-3)", fontWeight:400 }}>/</span>{" "}
-            <span style={{ color:accent }}>
-              {mode === 'medios' ? (lang==='en'?'Media':'Medios') : (lang==='en'?'Political':'Político')}
-            </span>
+        <div className="ira-cabecera" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease" }}>
+          <h1 className="ira-cabecera__titulo">
+            {lang==='en' ? 'Leaderboard' : 'Clasificación'}
           </h1>
-          <p style={{ margin:"0 0 20px", fontSize:"12px", color:"var(--ira-texto-3)", lineHeight:1.65, maxWidth:"500px" }}>
+          <p className="ira-cabecera__texto">
             {mode === 'medios' ? T.subtitleMedios : T.subtitle}
           </p>
-          <div style={{ display:"flex", alignItems:"center", gap:"12px", flexWrap:"wrap" }}>
-            <button onClick={() => setShowIRA(true)} style={{
-              padding:"13px 28px", borderRadius:"12px", background:accent, border:"none",
-              color:"#000", fontSize:"13px", fontWeight:700, letterSpacing:"0.04em", cursor:"pointer",
-              fontFamily:"var(--ira-font-texto)", boxShadow:`0 0 24px ${accentA(0.35)}`, transition:"all 0.2s ease" }}
-              onMouseEnter={e => { e.currentTarget.style.background=mode==='medios'?"#F4CF7A":"#F4CF7A"; e.currentTarget.style.boxShadow=`0 0 32px ${accentA(0.55)}`; }}
-              onMouseLeave={e => { e.currentTarget.style.background=accent; e.currentTarget.style.boxShadow=`0 0 24px ${accentA(0.35)}`; }}
-            >{T.btnWhat}</button>
-            <span style={{
-              display:"inline-flex", alignItems:"center",
-              background:"rgba(255,255,255,0.04)",
-              border:"1px solid rgba(255,255,255,0.09)",
-              borderRadius:"20px", padding:"3px",
-              fontSize:"11px",
-            }}>
-              {[
-                ['politico', lang==='en'?'Political':'Político', '#DCB149', (a)=>`rgba(220,177,73,${a})`, '/politicos'],
-                ['medios',   lang==='en'?'Media':'Medios',       '#DCB149', (a)=>`rgba(220,177,73,${a})`, '/medios'],
-              ].map(([id, label, col, colA, path]) => (
-                <button key={id} onClick={() => navigate(path)} style={{
-                  padding:"5px 14px", borderRadius:"16px",
-                  background: mode===id ? colA(0.2) : "transparent",
-                  border: mode===id ? `1px solid ${colA(0.45)}` : "1px solid transparent",
-                  color: mode===id ? col : "rgba(255,255,255,0.3)",
-                  fontSize:"inherit", letterSpacing:"0.1em", textTransform:"uppercase",
-                  cursor:"pointer", transition:"all 0.2s ease",
-                  fontFamily:"var(--ira-font-texto)", fontWeight: mode===id ? 700 : 400,
-                }}>{label}</button>
-              ))}
-            </span>
+          <div className="ira-cabecera__acciones">
+            <button type="button" className="ira-boton ira-boton--principal" onClick={() => setShowIRA(true)}>{T.btnWhat}</button>
+            <Link to="/about" className="ira-boton ira-boton--secundario">{lang === 'en' ? "Methodology" : "Metodología"}</Link>
           </div>
-          <button onClick={() => navigate('/about')} style={{
-            display:"inline-flex", alignItems:"center", gap:"7px",
-            marginTop:"14px",
-            padding:"10px 22px", borderRadius:"12px",
-            background:"linear-gradient(135deg, rgba(220,60,160,0.18) 0%, rgba(150,30,120,0.12) 100%)",
-            border:"1.5px solid rgba(220,60,160,0.5)",
-            color:"rgba(245,110,190,0.95)",
-            fontSize:"11px", letterSpacing:"0.1em", cursor:"pointer",
-            fontFamily:"var(--ira-font-texto)", fontWeight:700,
-            transition:"all 0.25s ease",
-            boxShadow:"0 0 18px rgba(220,60,160,0.22), inset 0 0 12px rgba(220,60,160,0.06)",
-            animation:"aboutPulse 3s ease-in-out infinite",
-          }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color="#fff";
-              e.currentTarget.style.borderColor="rgba(240,80,180,0.85)";
-              e.currentTarget.style.background="linear-gradient(135deg, rgba(220,60,160,0.32) 0%, rgba(180,40,140,0.22) 100%)";
-              e.currentTarget.style.boxShadow="0 0 32px rgba(220,60,160,0.5), 0 0 8px rgba(220,60,160,0.3), inset 0 0 16px rgba(220,60,160,0.1)";
-              e.currentTarget.style.transform="translateY(-2px) scale(1.02)";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color="rgba(245,110,190,0.95)";
-              e.currentTarget.style.borderColor="rgba(220,60,160,0.5)";
-              e.currentTarget.style.background="linear-gradient(135deg, rgba(220,60,160,0.18) 0%, rgba(150,30,120,0.12) 100%)";
-              e.currentTarget.style.boxShadow="0 0 18px rgba(220,60,160,0.22), inset 0 0 12px rgba(220,60,160,0.06)";
-              e.currentTarget.style.transform="translateY(0) scale(1)";
-            }}
-          >
-            <span style={{ fontSize:"13px" }}>✦</span>
-            {lang === 'en' ? "About this project" : "Sobre el proyecto"}
-            <span style={{ opacity:0.7 }}>→</span>
-          </button>
+          <p className="ira-cabecera__extra">
+            {lang === 'en' ? 'Also: ' : 'También: '}
+            <Link to="/analisis-del-dia">{lang === 'en' ? 'Daily analysis' : 'Análisis del día'}</Link>
+            {' · '}
+            <Link to="/patrones">{lang === 'en' ? 'Patterns' : 'Patrones'}</Link>
+          </p>
         </div>
 
         {/* ── Casos de uso ── */}
-        <div style={{ marginBottom:"28px", opacity:mounted?1:0, transition:"opacity 0.6s ease 0.25s" }}>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(210px, 1fr))", gap:"10px" }}>
+        <div style={{ marginBottom:"40px", opacity:mounted?1:0, transition:"opacity 0.6s ease 0.25s" }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(240px, 1fr))", gap:"12px" }}>
             {[
               {
-                icon: "📰",
                 role: lang==='en' ? "Journalists" : "Periodistas",
                 desc: lang==='en'
                   ? "Compare two candidates on the same topic. Detect whether an editorial activates fear frames before publishing."
                   : "Compara el lenguaje de dos candidatos en el mismo tema. Detecta si un editorial activa marcos de miedo antes de publicarlo.",
               },
               {
-                icon: "🔬",
                 role: lang==='en' ? "Researchers" : "Investigadores/as",
                 desc: lang==='en'
                   ? "Quantify a leader's polarizing language across their mandate. Reproducible, citable methodology."
                   : "Cuantifica la evolución del lenguaje polarizador de un líder a lo largo de su mandato. Metodología reproducible y citable.",
               },
               {
-                icon: "📣",
                 role: lang==='en' ? "Communicators" : "Comunicadores/as",
                 desc: lang==='en'
                   ? "Audit your own message before publishing. Does your communication build community or symbolic trenches?"
                   : "Audita tu propio mensaje antes de publicarlo. ¿Tu comunicación construye comunidad o trincheras simbólicas?",
               },
             ].map((c, i) => (
-              <div key={i} style={{
-                background:"rgba(255,255,255,0.025)",
-                border:"1px solid rgba(255,255,255,0.07)",
-                borderRadius:"12px",
-                padding:"14px 16px",
-                display:"flex", gap:"12px", alignItems:"flex-start",
-              }}>
-                <span style={{ fontSize:"18px", lineHeight:1, flexShrink:0, marginTop:"1px" }}>{c.icon}</span>
-                <div>
-                  <p style={{ margin:"0 0 4px", fontSize:"9px", fontWeight:700, letterSpacing:"0.14em", color:accent, textTransform:"uppercase", fontFamily:"var(--ira-font-texto)" }}>{c.role}</p>
-                  <p style={{ margin:0, fontSize:"11px", color:"var(--ira-texto-3)", lineHeight:1.6, fontFamily:"var(--ira-font-texto)" }}>{c.desc}</p>
-                </div>
+              <div key={i} className="ira-caso">
+                <p className="ira-caso__rol">{c.role}</p>
+                <p className="ira-caso__texto">{c.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="tabs-row" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
+        <nav className="ira-segmentos" aria-label={lang==='en' ? 'Sections' : 'Secciones'} style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
           {[
-            ["explore", T.tabExplore, mode === 'medios' ? '/medios' : '/politicos', false],
-            ["analyze", T.tabAnalyze, '/analyze', false],
-            ["compare", T.tabCompare, '/compare', false],
-          ].map(([id, label, path, needsAuth]) => (
-            <button key={id} onClick={() => {
-              if (needsAuth && !user) { requireAuth(() => navigate(path)); }
-              else { navigate(path); }
-            }} style={{
-              padding:"8px 18px", borderRadius:"9px",
-              background: tab===id ? accentA(0.18) : "transparent",
-              border: tab===id ? `1px solid ${accentA(0.4)}` : "1px solid transparent",
-              color: tab===id ? accent : "rgba(255,255,255,0.35)",
-              fontSize:"10px", letterSpacing:"0.1em", textTransform:"uppercase",
-              cursor:"pointer", transition:"all 0.2s ease", fontFamily:"var(--ira-font-texto)",
-            }}>{label}</button>
+            ["explore", T.tabExplore, mode === 'medios' ? '/medios' : '/politicos'],
+            ["analyze", T.tabAnalyze, '/analyze'],
+            ["compare", T.tabCompare, '/compare'],
+          ].map(([id, label, path]) => (
+            <Link key={id} to={path} className={'ira-segmentos__opcion' + (tab===id ? ' is-activa' : '')} aria-current={tab===id ? 'page' : undefined}>{label}</Link>
           ))}
-        </div>
+        </nav>
 
         {tab === "explore" && (
           <>
-            {/* Botones de ordenación */}
-            <div style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'16px', flexWrap:'wrap' }}>
-              <span style={{ fontSize:'9px', letterSpacing:'0.14em', color:"var(--ira-texto-3)", textTransform:'uppercase', fontFamily:"var(--ira-font-texto)" }}>
-                {lang==='en' ? 'Sort' : 'Ordenar'}
-              </span>
-              {[
-                ['default', lang==='en' ? 'Default' : 'Defecto'],
-                ['desc',    lang==='en' ? '▲ Highest IRA' : '▲ Mayor IRA'],
-                ['asc',     lang==='en' ? '▼ Lowest IRA'  : '▼ Menor IRA'],
-              ].map(([id, label]) => (
-                <button key={id} onClick={() => setSortOrder(id)} style={{
-                  padding:'4px 12px', borderRadius:'16px',
-                  background: sortOrder===id ? accentA(0.2) : 'transparent',
-                  border:`1px solid ${sortOrder===id ? accentA(0.5) : 'rgba(255,255,255,0.1)'}`,
-                  color: sortOrder===id ? accent : 'rgba(255,255,255,0.35)',
-                  fontSize:'9px', letterSpacing:'0.08em', cursor:'pointer',
-                  fontFamily:"var(--ira-font-texto)", fontWeight: sortOrder===id ? 700 : 400,
-                  transition:'all 0.2s ease',
-                }}>{label}</button>
-              ))}
+            <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:'12px 24px', marginBottom:'20px', flexWrap:'wrap' }}>
+              <div style={{ display:'flex', gap:'8px', flexWrap:'wrap' }} role="group" aria-label={lang==='en' ? 'Category' : 'Categoría'}>
+                {[
+                  ['politico', lang==='en'?'Politicians':'Políticos', '/politicos'],
+                  ['medios',   lang==='en'?'Media':'Medios',          '/medios'],
+                ].map(([id, label, path]) => (
+                  <Link key={id} to={path} className={'ira-chip' + (mode===id ? ' is-activa' : '')} aria-current={mode===id ? 'page' : undefined}>{label}</Link>
+                ))}
+              </div>
+              <div style={{ display:'flex', alignItems:'center', gap:'8px', flexWrap:'wrap' }} role="group" aria-labelledby="ira-ordenar">
+                <span id="ira-ordenar" style={{ fontSize:'13px', color:"var(--ira-texto-2)" }}>
+                  {lang==='en' ? 'Sort' : 'Ordenar'}
+                </span>
+                {[
+                  ['default', lang==='en' ? 'Default' : 'Por defecto'],
+                  ['desc',    lang==='en' ? 'Most empathic' : 'Más empático'],
+                  ['asc',     lang==='en' ? 'Most polarizing'  : 'Más polarizante'],
+                ].map(([id, label]) => (
+                  <button type="button" key={id} onClick={() => setSortOrder(id)} aria-pressed={sortOrder===id} className="ira-chip">{label}</button>
+                ))}
+              </div>
             </div>
 
             <div className="entity-grid">
@@ -2122,36 +1804,17 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
 
             <IndexInteractive entities={filtered} lang={lang} accent={accent} accentA={accentA} />
 
-            <div style={{ marginTop:"40px", padding:"20px", background:"rgba(255,255,255,0.02)", borderRadius:"12px", border:"1px solid rgba(255,255,255,0.05)" }}>
-              <p style={{ margin:"0 0 10px", fontSize:"10px", color:"var(--ira-texto-3)", lineHeight:1.7, letterSpacing:"0.04em" }}>
-                {T.footerBasedOn}{" "}<em style={{ color:"var(--ira-texto-3)" }}>{T.footerText}</em>{" "}{T.footerSub}
-              </p>
-              <p style={{ margin:0, fontSize:"10px", color:"var(--ira-texto-3)", letterSpacing:"0.04em" }}>
-                {lang === "es" ? "Desarrollado por" : "Developed by"}{" "}
-                <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer"
-                  style={{ color:"rgba(220,177,73,0.9)", textDecoration:"none", transition:"color 0.2s" }}
-                  onMouseEnter={e => e.currentTarget.style.color='#DCB149'}
-                  onMouseLeave={e => e.currentTarget.style.color='rgba(220,177,73,0.9)'}
-                >Rick Grisales — oranrick.com</a>
-                {" · "}
-                <button onClick={() => navigate('/about')} style={{
-                  background:"none", border:"none", padding:0, cursor:"pointer",
-                  color:"rgba(220,177,73,0.7)", fontSize:"10px", letterSpacing:"0.04em",
-                  fontFamily:"var(--ira-font-texto)", textDecoration:"none", transition:"color 0.2s",
-                }}
-                  onMouseEnter={e => e.currentTarget.style.color='#DCB149'}
-                  onMouseLeave={e => e.currentTarget.style.color='rgba(220,177,73,0.7)'}
-                >{lang === "es" ? "Sobre el proyecto →" : "About this project →"}</button>
-              </p>
-            </div>
+            <p style={{ margin:"40px 0 0", fontSize:"13px", color:"var(--ira-texto-3)", lineHeight:1.6 }}>
+              {T.footerBasedOn}{" "}<em>{T.footerText}</em>{" "}{T.footerSub}
+            </p>
           </>
         )}
 
         {tab === "analyze" && (
           <div style={{ opacity:mounted?1:0, transition:"opacity 0.4s ease 0.1s" }}>
             <div style={{ marginBottom:"28px" }}>
-              <p style={{ fontSize:"10px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"6px" }}>{T.howWorks}</p>
-              <p style={{ fontSize:"12px", color:"var(--ira-texto-3)", lineHeight:1.65, margin:0, maxWidth:"520px" }}>{T.howWorksDesc}</p>
+              <h2 style={{ fontSize:"22px", fontWeight:500, fontFamily:"var(--ira-font-titulo)", margin:"0 0 6px", color:"var(--ira-nieve)" }}>{T.howWorks}</h2>
+              <p style={{ fontSize:"15px", color:"var(--ira-texto-2)", lineHeight:1.6, margin:0, maxWidth:"560px" }}>{T.howWorksDesc}</p>
             </div>
             <Analyzer lang={lang} />
           </div>
