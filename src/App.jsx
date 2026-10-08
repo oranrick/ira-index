@@ -1947,7 +1947,11 @@ export default function App() {
     if (user && !localStorage.getItem('ira-welcomed')) setShowWelcome(true);
   }, [user]);
 
-  const enrichedEntities = ENTITIES.map(entity => {
+  // Solo figuras con algún discurso analizado (corpus o diario): las fichas
+  // "en construcción" no se muestran hasta que tengan su primer análisis.
+  const enrichedEntities = ENTITIES.filter(entity =>
+    getSpeechesByEntity(entity.id).length > 0 || (dailyEntityScores[entity.id]?.length ?? 0) > 0
+  ).map(entity => {
     if (!supabaseReady) return { ...entity, score: null };
     const curatedIras = getSpeechesByEntity(entity.id)
       .map(s => supabaseMap[s.id]?.ira)
