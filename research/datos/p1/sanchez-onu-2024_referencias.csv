@@ -1,0 +1,24 @@
+n,oracion,forma,lema,tipo,persona,numero,sujeto_explicito,contexto,categoria,nota
+1,1,abro,abrir,verbo,1,sg,,"Señora presidenta, señoras y señores jefes de Estado y de Gobierno, embajadores, embajadoras, delegados y delegadas: les abro en nombre de un país comprometido con los valores que esta institución encarna y con un orden internacional basado en las normas y en los principios consagrados en la Carta de Naciones Unidas.",Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+2,3,nos,yo,pronombre,1,pl,,"Un país, en definitiva, que practica y se conduce desde una máxima fundamental: el valor de la coherencia, la que nos ha llevado a decir lo mismo en Ucrania, en Gaza y en cualquier otro lugar.",I,
+3,8,deberíamos,debeer,verbo,1,pl,,"La paz sin democracia es la paz de las cárceles; la democracia sin desarrollo ni progreso es la antesala de la autocracia, como atestigua un pasado rico en enseñanzas que nunca deberíamos olvidar.",U,
+4,12,asistimos,asistimos,verbo,1,pl,,"Ocurre en Ucrania, pero ocurre también en Palestina, donde desde hace casi un año asistimos a una insoportable espiral de muerte y devastación que ya se extiende, desgraciadamente, al Líbano.",U,
+5,13,condenamos,condenar,verbo,1,pl,,Desde España condenamos con rotundidad la muerte de civiles inocentes.,I,
+6,15,podremos,poder,verbo,1,pl,,Solo poniendo fin a la guerra en Gaza y abordando las causas del conflicto israelí-palestino podremos resolver con éxito el resto de focos de inestabilidad en esa región.,U,
+7,16,podemos,poder,verbo,1,pl,,"En todo caso, las evidencias son ya rotundas: no podemos volver a la situación anterior.",U,
+8,22,proclamas,proclamar,verbo,2,sg,,"Una agenda reaccionaria global se abre paso al calor de la desconfianza hacia las instituciones, de la polarización y de la reivindicación de un pasado inventado, tan falso como sus proclamas.",X,"sustantivo, no verbo"
+9,23,seamos,ser,verbo,1,pl,,"La democracia, por tanto, libra una batalla por su supervivencia; y seamos claros: no deja de ceder terreno ante sus enemigos.",U,
+10,27,Vamos,ir,verbo,1,pl,,Vamos a seguir practicando también una política exterior feminista.,I,
+11,28,quiero,querer,verbo,1,sg,,"Y hoy quiero decir alto y claro que el momento es ahora: tanto la Secretaría General como la presidencia de esta Asamblea, en la próxima renovación de estos cargos, deben recaer finalmente en mujeres.",Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+12,29,voy,ir,verbo,1,sg,,No voy a hacer un discurso fatalista sobre la emergencia climática.,Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+13,30,me,yo,pronombre,1,sg,,Pero me niego a caer en la melancolía o en la resignación de quien da la batalla por perdida.,Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+14,30,niego,negar,verbo,1,sg,,Pero me niego a caer en la melancolía o en la resignación de quien da la batalla por perdida.,Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+15,34,aceptemos,acepter,verbo,1,pl,,"Por tanto, no aceptemos como inevitable el inicio de una nueva era de violencia y de guerras.",U,
+16,36,Honremos,honer,verbo,1,pl,,Honremos esa tarea mirando al horizonte sin miedo y con esperanza.,U,
+17,37,Apostemos,apostar,verbo,1,pl,,"Apostemos por la refundación del multilateralismo, que nos permita dejar un futuro mucho mejor que el actual presente a nuestros hijos y a nuestras hijas.",U,
+18,37,nos,yo,pronombre,1,pl,,"Apostemos por la refundación del multilateralismo, que nos permita dejar un futuro mucho mejor que el actual presente a nuestros hijos y a nuestras hijas.",U,
+19,37,nuestros,nuestro,posesivo,1,pl,,"Apostemos por la refundación del multilateralismo, que nos permita dejar un futuro mucho mejor que el actual presente a nuestros hijos y a nuestras hijas.",U,
+20,37,nuestras,nuestro,posesivo,1,pl,,"Apostemos por la refundación del multilateralismo, que nos permita dejar un futuro mucho mejor que el actual presente a nuestros hijos y a nuestras hijas.",U,
+21,38,Hagámoslo,hagámoslo,verbo,1,pl,,"Hagámoslo con creatividad, con audacia, con ilusión y con la ambición que nuestro tiempo demanda.",U,
+22,38,nuestro,nuestro,posesivo,1,pl,,"Hagámoslo con creatividad, con audacia, con ilusión y con la ambición que nuestro tiempo demanda.",U,
+23,1,les,él,pronombre,2,pl,,"Señora presidenta, señoras y señores jefes de Estado y de Gobierno, embajadores, embajadoras, delegados y delegadas: les abro en nombre de un país comprometido con los valores que esta institución encarna y con un orden internacional basado en las normas y en los principios consagrados en la Carta de Naciones Unidas.",2I,omitido por diseño ('les' es ambiguo con 'ellos'); recuperado en revisión
