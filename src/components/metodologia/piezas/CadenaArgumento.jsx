@@ -5,40 +5,89 @@ import { useState } from 'react';
 
 const COLOR = ['salvia', 'salvia', 'rojo', 'rojo'];
 
-function Ilustracion({ i }) {
-  if (i === 0) return (
-    <svg viewBox="0 0 240 120" aria-hidden="true">
-      <path d="M10 60 q12 -26 24 0 t24 0 t24 0 t24 0" className="ira-pz-il__onda" />
-      <circle cx="136" cy="60" r="16" className="ira-pz-il__nosotros" />
-      <circle cx="136" cy="60" r="28" className="ira-pz-il__anillo" />
-      <path d="M180 44 H232 M180 60 H224 M180 76 H214" className="ira-pz-il__razon" />
-    </svg>
-  );
-  if (i === 1) return (
-    <svg viewBox="0 0 240 120" aria-hidden="true">
-      <circle cx="90" cy="60" r="44" className="ira-pz-il__anillo" />
-      <circle cx="90" cy="60" r="14" className="ira-pz-il__nosotros" />
-      <circle cx="114" cy="44" r="6" className="ira-pz-il__otro" />
-      <path d="M104 62 L188 60" className="ira-pz-il__debil" />
-      <circle cx="196" cy="60" r="6" className="ira-pz-il__otro ira-pz-il__otro--lejos" />
-    </svg>
-  );
-  if (i === 2) return (
-    <svg viewBox="0 0 240 120" aria-hidden="true">
-      <circle cx="110" cy="60" r="46" className="ira-pz-il__puerta" transform="rotate(-25 110 60)" />
-      <circle cx="110" cy="60" r="14" className="ira-pz-il__nosotros" />
-      <circle cx="150" cy="54" r="6" className="ira-pz-il__otro" />
-      <path d="M206 56 L166 56" className="ira-pz-il__paso" />
-    </svg>
-  );
+// Onda horizontal de x0 a x1 (periodo p, amplitud amp) como trazado SVG
+function onda(x0, x1, y, amp, p = 16) {
+  const medios = Math.max(1, Math.round((x1 - x0) / (p / 2)));
+  let d = `M${x0} ${y} q${p / 4} ${-amp} ${p / 2} 0`;
+  for (let k = 1; k < medios; k++) d += ` t${p / 2} 0`;
+  return d;
+}
+
+function Persona({ x, y, className }) {
   return (
-    <svg viewBox="0 0 240 120" aria-hidden="true">
-      <rect x="30" y="20" width="18" height="90" className="ira-pz-il__muro" />
-      <path d="M30 42 H48 M30 64 H48 M30 86 H48" className="ira-pz-il__junta" />
-      <rect x="90" y="84" width="22" height="26" rx="3" className="ira-pz-il__barra ira-pz-il__barra--1" />
-      <rect x="124" y="64" width="22" height="46" rx="3" className="ira-pz-il__barra ira-pz-il__barra--2" />
-      <rect x="158" y="40" width="22" height="70" rx="3" className="ira-pz-il__barra ira-pz-il__barra--3" />
-      <rect x="192" y="14" width="22" height="96" rx="3" className="ira-pz-il__barra ira-pz-il__barra--4" />
+    <g className={className}>
+      <circle cx={x} cy={y - 9} r="6" />
+      <path d={`M${x - 10} ${y + 11} Q${x - 10} ${y} ${x} ${y} Q${x + 10} ${y} ${x + 10} ${y + 11} Z`} />
+    </g>
+  );
+}
+
+function Ilustracion({ i, r }) {
+  // 1 · Primero sentimos: la señal llega antes al sistema límbico y después a la corteza
+  if (i === 0) return (
+    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.senal} → 1 ${r.limbico} → 2 ${r.corteza}`}>
+      <text x="10" y="58" className="ira-pz-il__rotulo">{r.senal}</text>
+      <path d={onda(8, 104, 80, 10)} className="ira-pz-il__onda" />
+      <path d="M112 80 C108 56 122 34 146 32 C156 20 182 20 192 32 C212 30 228 46 224 66 C232 78 226 98 210 102 C206 114 188 118 176 112 L164 116 C152 122 136 118 132 106 C116 104 108 94 112 80 Z" className="ira-pz-il__cerebro" />
+      <path d="M140 48 C148 56 140 64 150 70 M176 34 C170 46 182 52 174 62 M204 54 C194 60 204 70 194 76 M190 90 C182 84 172 92 164 88" className="ira-pz-il__surco" />
+      <path d="M170 114 C172 124 174 132 178 140" className="ira-pz-il__surco" />
+      <path d="M104 80 L150 90" className="ira-pz-il__flecha" />
+      <circle cx="162" cy="92" r="11" className="ira-pz-il__limbico" />
+      <path d="M170 82 C178 66 186 54 196 46" className="ira-pz-il__flecha ira-pz-il__flecha--tarde" />
+      <circle cx="200" cy="43" r="5" className="ira-pz-il__corteza" />
+      <path d="M154 100 L122 134" className="ira-pz-il__guia" />
+      <text x="8" y="140" className="ira-pz-il__rotulo ira-pz-il__rotulo--fuerte"><tspan className="ira-pz-il__orden">1</tspan> {r.limbico}</text>
+      <path d="M206 40 L232 22" className="ira-pz-il__guia" />
+      <text x="292" y="16" textAnchor="end" className="ira-pz-il__rotulo"><tspan className="ira-pz-il__orden">2</tspan> {r.corteza}</text>
+    </svg>
+  );
+  // 2 · Pesa la frontera: la resonancia es plena con «nosotros» y se apaga al cruzar hacia «ellos»
+  if (i === 1) return (
+    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.oyente}: ${r.nosotros} / ${r.frontera} / ${r.ellos}`}>
+      <Persona x={30} y={78} className="ira-pz-il__persona ira-pz-il__persona--yo" />
+      <text x="30" y="112" textAnchor="middle" className="ira-pz-il__rotulo">{r.oyente}</text>
+      <path d="M44 70 C52 52 58 40 70 40 M44 86 C52 102 58 112 70 112" className="ira-pz-il__guia" />
+      <path d={onda(70, 214, 40, 10)} className="ira-pz-il__onda" />
+      <Persona x={238} y={44} className="ira-pz-il__persona" />
+      <text x="238" y="74" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--fuerte">{r.nosotros}</text>
+      <path d={onda(70, 134, 112, 10)} className="ira-pz-il__onda" />
+      <path d={onda(134, 214, 112, 3)} className="ira-pz-il__onda ira-pz-il__onda--debil" />
+      <path d="M142 90 V134" className="ira-pz-il__frontera" />
+      <text x="142" y="146" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--rojo">{r.frontera}</text>
+      <Persona x={238} y={116} className="ira-pz-il__persona ira-pz-il__persona--lejos" />
+      <text x="238" y="146" textAnchor="middle" className="ira-pz-il__rotulo">{r.ellos}</text>
+    </svg>
+  );
+  // 3 · Muro frente a puerta: el muro corta la resonancia; la puerta la deja pasar y crea un nosotros común
+  if (i === 2) return (
+    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.muro} / ${r.puerta}: ${r.comun}`}>
+      <Persona x={20} y={72} className="ira-pz-il__persona ira-pz-il__persona--yo" />
+      <path d={onda(32, 64, 70, 8)} className="ira-pz-il__onda" />
+      <rect x="66" y="34" width="10" height="76" rx="2" className="ira-pz-il__muro" />
+      <Persona x={112} y={72} className="ira-pz-il__persona ira-pz-il__persona--lejos" />
+      <text x="71" y="138" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--rojo">{r.muro}</text>
+      <path d="M150 20 V130" className="ira-pz-il__separador" />
+      <ellipse cx="226" cy="72" rx="68" ry="50" className="ira-pz-il__comun" />
+      <text x="226" y="16" textAnchor="middle" className="ira-pz-il__rotulo">{r.comun}</text>
+      <Persona x={180} y={72} className="ira-pz-il__persona ira-pz-il__persona--yo" />
+      <rect x="221" y="34" width="10" height="24" rx="2" className="ira-pz-il__muro" />
+      <rect x="221" y="86" width="10" height="24" rx="2" className="ira-pz-il__muro" />
+      <path d={onda(192, 256, 70, 8)} className="ira-pz-il__onda" />
+      <Persona x={272} y={72} className="ira-pz-il__persona" />
+      <text x="226" y="138" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--fuerte">{r.puerta}</text>
+    </svg>
+  );
+  // 4 · El incentivo: el mensaje contra el exogrupo genera mucha más interacción
+  return (
+    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.sobreNosotros} < ${r.contraEllos} (${r.interaccion})`}>
+      <path d="M8 18 H124 V48 H30 L22 56 V48 H8 Z" className="ira-pz-il__burbuja" />
+      <text x="66" y="38" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--fuerte">{r.sobreNosotros}</text>
+      <rect x="134" y="26" width="38" height="14" rx="3" className="ira-pz-il__barra ira-pz-il__barra--baja" />
+      <path d="M8 74 H124 V104 H30 L22 112 V104 H8 Z" className="ira-pz-il__burbuja ira-pz-il__burbuja--rojo" />
+      <text x="66" y="94" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--rojo">{r.contraEllos}</text>
+      <rect x="134" y="82" width="156" height="14" rx="3" className="ira-pz-il__barra ira-pz-il__barra--alta" />
+      <path d="M134 126 H286 M280 121 L287 126 L280 131" className="ira-pz-il__eje" />
+      <text x="290" y="146" textAnchor="end" className="ira-pz-il__rotulo">{r.interaccion}</text>
     </svg>
   );
 }
@@ -77,7 +126,7 @@ export default function CadenaArgumento({ pasos, cita, ui }) {
         <article key={i} className={`ira-pz-cadena__panel ira-pz-cadena__panel--${COLOR[i]}`} aria-live="polite">
           <div className="ira-pz-cadena__cab">
             <span className="ira-pz-cadena__grande ira-cifra" aria-hidden="true">{i + 1}</span>
-            <div className="ira-pz-cadena__ilustracion"><Ilustracion i={i} /></div>
+            <div className="ira-pz-cadena__ilustracion"><Ilustracion i={i} r={ui.ilustraciones} /></div>
           </div>
           <h3 className="ira-pz-cadena__titulo">{p.titulo}</h3>
           <p className="ira-pz-cadena__texto">{p.texto}</p>

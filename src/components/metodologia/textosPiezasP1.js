@@ -38,6 +38,12 @@ export const TEXTOS_PIEZAS_P1 = {
       anterior: 'Eslabón anterior',
       siguiente: 'Siguiente eslabón',
       reiniciar: 'Volver al inicio',
+      ilustraciones: {
+        senal: 'señal', limbico: 'sistema límbico', corteza: 'corteza',
+        oyente: 'oyente', nosotros: 'nosotros', ellos: 'ellos', frontera: 'frontera',
+        muro: 'muro', puerta: 'puerta', comun: 'nosotros común',
+        sobreNosotros: 'sobre nosotros', contraEllos: 'contra ellos', interaccion: 'interacción',
+      },
     },
 
     teoria: {
@@ -110,6 +116,12 @@ export const TEXTOS_PIEZAS_P1 = {
       anterior: 'Previous link',
       siguiente: 'Next link',
       reiniciar: 'Back to the start',
+      ilustraciones: {
+        senal: 'signal', limbico: 'limbic system', corteza: 'cortex',
+        oyente: 'listener', nosotros: 'us', ellos: 'them', frontera: 'boundary',
+        muro: 'wall', puerta: 'door', comun: 'common "us"',
+        sobreNosotros: 'about us', contraEllos: 'against them', interaccion: 'engagement',
+      },
     },
 
     teoria: {

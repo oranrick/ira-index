@@ -114,7 +114,7 @@
 }
 .ira-pz-cadena__cab { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
 .ira-pz-cadena__grande { font-size: 80px; line-height: 0.9; color: var(--pz-n); }
-.ira-pz-cadena__ilustracion { width: 240px; max-width: 55%; flex-shrink: 1; }
+.ira-pz-cadena__ilustracion { flex: 1 1 auto; min-width: 0; max-width: 320px; }
 .ira-pz-cadena__ilustracion svg { display: block; width: 100%; height: auto; overflow: visible; }
 .ira-pz-cadena__titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(22px, 2.6vw, 28px); line-height: 1.2; letter-spacing: -0.01em; }
 .ira-pz-cadena__texto { max-width: 620px; font-size: 17px; line-height: 28px; color: var(--ira-texto-cita); }
@@ -129,20 +129,30 @@
 .ira-pz-cadena__tesis.is-encendida { opacity: 1; }
 
 .ira-pz-il__onda { fill: none; stroke: var(--ira-oro); stroke-width: 3; stroke-linecap: round; }
-.ira-pz-il__nosotros { fill: var(--ira-salvia); }
-.ira-pz-il__anillo { fill: none; stroke: var(--ira-salvia); stroke-width: 2; opacity: 0.5; }
-.ira-pz-il__razon { fill: none; stroke: var(--ira-linea-fuerte); stroke-width: 3; stroke-linecap: round; }
-.ira-pz-il__otro { fill: var(--ira-nieve); }
-.ira-pz-il__otro--lejos { opacity: 0.35; }
-.ira-pz-il__debil { fill: none; stroke: var(--ira-salvia); stroke-width: 2; stroke-dasharray: 2 8; opacity: 0.5; }
-.ira-pz-il__puerta { fill: none; stroke: var(--ira-salvia); stroke-width: 3; stroke-dasharray: 230 59; }
-.ira-pz-il__paso { fill: none; stroke: var(--ira-marca-empatica); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 3 5; }
-.ira-pz-il__muro { fill: rgba(190, 40, 26, 0.25); stroke: var(--ira-1); }
-.ira-pz-il__junta { stroke: var(--ira-1); }
-.ira-pz-il__barra--1 { fill: var(--ira-linea-fuerte); }
-.ira-pz-il__barra--2 { fill: var(--ira-texto-3); }
-.ira-pz-il__barra--3 { fill: var(--ira-estrella-polarizante); }
-.ira-pz-il__barra--4 { fill: var(--ira-1); }
+.ira-pz-il__onda--debil { stroke-width: 2; opacity: 0.35; stroke-dasharray: 3 4; }
+.ira-pz-il__rotulo { fill: var(--ira-texto-2); font-family: var(--ira-font-texto); font-size: 13px; }
+.ira-pz-il__rotulo--fuerte { fill: var(--ira-marca-empatica); }
+.ira-pz-il__rotulo--rojo { fill: var(--ira-marca-polarizante); }
+.ira-pz-il__orden { font-family: var(--ira-font-cifra); font-weight: 500; fill: var(--ira-oro); }
+.ira-pz-il__cerebro { fill: rgba(141, 170, 126, 0.08); stroke: var(--ira-texto-3); stroke-width: 2; }
+.ira-pz-il__surco { fill: none; stroke: var(--ira-texto-3); stroke-width: 1.5; stroke-linecap: round; opacity: 0.6; }
+.ira-pz-il__limbico { fill: var(--ira-salvia); filter: drop-shadow(0 0 6px rgba(141, 170, 126, 0.8)); }
+.ira-pz-il__corteza { fill: var(--ira-texto-3); }
+.ira-pz-il__flecha { fill: none; stroke: var(--ira-oro); stroke-width: 2.5; stroke-linecap: round; }
+.ira-pz-il__flecha--tarde { stroke: var(--ira-texto-3); stroke-width: 2; stroke-dasharray: 3 5; }
+.ira-pz-il__guia { fill: none; stroke: var(--ira-linea-fuerte); stroke-width: 1.5; }
+.ira-pz-il__persona { fill: var(--ira-nieve); }
+.ira-pz-il__persona--yo { fill: var(--ira-salvia); }
+.ira-pz-il__persona--lejos { opacity: 0.35; }
+.ira-pz-il__frontera { stroke: var(--ira-1); stroke-width: 3; stroke-linecap: round; }
+.ira-pz-il__muro { fill: var(--ira-1); }
+.ira-pz-il__separador { stroke: var(--ira-linea); stroke-width: 1; }
+.ira-pz-il__comun { fill: rgba(141, 170, 126, 0.08); stroke: var(--ira-salvia); stroke-width: 1.5; stroke-dasharray: 4 5; }
+.ira-pz-il__burbuja { fill: rgba(141, 170, 126, 0.10); stroke: var(--ira-salvia); stroke-width: 1.5; stroke-linejoin: round; }
+.ira-pz-il__burbuja--rojo { fill: rgba(190, 40, 26, 0.14); stroke: var(--ira-1); }
+.ira-pz-il__barra--baja { fill: var(--ira-salvia); opacity: 0.7; }
+.ira-pz-il__barra--alta { fill: var(--ira-1); }
+.ira-pz-il__eje { fill: none; stroke: var(--ira-texto-3); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
 @media (max-width: 860px) {
   .ira-pz-cadena__rejilla { grid-template-columns: minmax(0, 1fr); }
