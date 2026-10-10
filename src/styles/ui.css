@@ -399,6 +399,17 @@ a.ira-chip { text-decoration: none; }
 .ira-portada__nota { margin: -12px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-3); }
 .ira-portada__nota .ira-enlace-boton { color: var(--ira-oro); text-decoration-color: currentColor; text-underline-offset: 3px; }
 .ira-portada__escala { padding-top: 20px; max-width: 520px; }
+.ira-portada__nuevo {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 16px;
+  max-width: 520px; padding: 14px 18px; border-radius: var(--ira-radio-l);
+  border: 1px solid var(--ira-salvia); background: rgba(141, 170, 126, 0.08);
+  color: var(--ira-nieve); text-decoration: none; transition: background-color 150ms ease;
+}
+.ira-portada__nuevo:hover { background: rgba(141, 170, 126, 0.16); }
+.ira-portada__nuevo:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 2px; }
+.ira-portada__nuevo-rotulo { grid-column: 1; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ira-marca-empatica); }
+.ira-portada__nuevo-texto { grid-column: 1; font-size: 15px; line-height: 22px; }
+.ira-portada__nuevo-flecha { grid-column: 2; grid-row: 1 / span 2; font-size: 20px; color: var(--ira-marca-empatica); }
 @media (max-width: 1100px) {
   .ira-portada { flex-direction: column; align-items: stretch; min-height: 0; gap: 48px; padding-top: 32px; }
   .ira-portada__texto { max-width: none; }

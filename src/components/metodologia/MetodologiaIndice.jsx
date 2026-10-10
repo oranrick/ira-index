@@ -14,6 +14,7 @@ const TXT = {
     rotulo: 'Metodología',
     titulo: 'Metodología 2.0',
     entradilla: 'El Índice de Resonancia Afectiva (IRA) mide, en una escala de 0 a 10, si el lenguaje de un discurso tiende a la polarización (0) o a la empatía (10). Se compone de varios parámetros, cada uno con su peso. En la versión 2.0 cambia la manera de puntuar: cada parámetro tiene un manual público, la IA clasifica lo que ocurre en el texto y la nota sale de una fórmula.',
+    anterior: 'Sobre el proyecto y la metodología actual',
     principiosTitulo: 'Tres principios',
     principios: [
       { titulo: 'La IA clasifica, las fórmulas calculan', texto: 'La IA no pone la nota: identifica y clasifica cada fenómeno con un manual público; la nota sale de una fórmula.' },
@@ -34,6 +35,7 @@ const TXT = {
     rotulo: 'Methodology',
     titulo: 'Methodology 2.0',
     entradilla: 'The Affective Resonance Index (IRA) measures, on a scale from 0 to 10, whether the language of a speech leans towards polarisation (0) or empathy (10). It is made up of several parameters, each with its own weight. Version 2.0 changes how scores are produced: each parameter has a public manual, the AI classifies what happens in the text, and the score comes from a formula.',
+    anterior: 'About the project and the current methodology',
     principiosTitulo: 'Three principles',
     principios: [
       { titulo: 'The AI classifies, the formulas calculate', texto: 'The AI does not give the score: it identifies and classifies each phenomenon using a public manual; the score comes from a formula.' },
@@ -67,6 +69,7 @@ export default function MetodologiaIndice() {
         <p className="ira-met__rotulo">{t.rotulo}</p>
         <h1 className="ira-met__titulo">{t.titulo}</h1>
         <p className="ira-met__entradilla">{t.entradilla}</p>
+        <p><Link to="/about" className="ira-met__enlace">{t.anterior} →</Link></p>
       </header>
 
       <section className="ira-met__seccion" aria-labelledby="met-principios">

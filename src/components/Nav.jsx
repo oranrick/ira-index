@@ -36,7 +36,7 @@ const TXT = {
 // Clasificación cubre también las fichas, los discursos de cada figura y el modo medios
 const ACTIVA = {
   clasificacion: (p) => /^\/(politicos|medios|entity\/|discursos)/.test(p),
-  metodologia: (p) => p.startsWith('/about'),
+  metodologia: (p) => p.startsWith('/metodologia') || p.startsWith('/about'),
 };
 
 export default function Nav() {
@@ -93,7 +93,7 @@ export default function Nav() {
 
         <nav id={panelId} className={'ira-nav__panel' + (abierto ? ' is-abierto' : '')} aria-label={t.principal}>
           {enlace('clasificacion', '/politicos')}
-          {enlace('metodologia', '/about')}
+          {enlace('metodologia', '/metodologia')}
           <span className="ira-nav__sep" aria-hidden="true" />
           {user ? (
             <>
