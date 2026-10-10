@@ -10,8 +10,14 @@ import MarcadorPieza from './MarcadorPieza.jsx';
 import { Aparecer, BarraPesos, EscalaSolidez, Icono, LineaTiempo, Pestanas, Puntos } from './Visuales.jsx';
 import EtiquetaPuntuacion from '../ui/EtiquetaPuntuacion.jsx';
 import { TEXTOS_P1 } from './textosP1.js';
+import { TEXTOS_PIEZAS_P1 } from './textosPiezasP1.js';
+import PruebaFrontera from './piezas/PruebaFrontera.jsx';
+import CadenaArgumento from './piezas/CadenaArgumento.jsx';
+import MapaTeoria from './piezas/MapaTeoria.jsx';
+import FronteraLinea from './piezas/FronteraLinea.jsx';
 import datosP1 from '../../data/metodologia/p1.json';
 import '../../styles/metodologia.css';
+import '../../styles/metodologia-piezas.css';
 
 const MANUAL_URL = 'https://github.com/oranrick/ira-index/blob/main/research/manual/P1.md';
 const ICONOS_PASO = ['extraer', 'revisar', 'clasificar', 'calcular'];
@@ -162,21 +168,7 @@ function PanelInterpelacion({ t }) {
   );
 }
 
-function Marca({ codigo, nombre, ejemplo, tipo }) {
-  return (
-    <li className={`ira-met__marca ira-met__marca--${tipo}`}>
-      <details>
-        <summary>
-          <span className="ira-met__codigo ira-cifra">{codigo}</span>
-          <span className="ira-met__marca-nombre">{nombre}</span>
-        </summary>
-        <p className="ira-met__marca-ej">{ejemplo}</p>
-      </details>
-    </li>
-  );
-}
-
-function PanelPermeabilidad({ t }) {
+function PanelPermeabilidad({ t, tp, lang }) {
   const a = t.ind.permeabilidad;
   const zonaDe = (b) => (b.es === true ? 'si' : b.es === false ? 'no' : 'depende');
   return (
@@ -202,22 +194,7 @@ function PanelPermeabilidad({ t }) {
         ))}
       </div>
 
-      <h4 className="ira-met__h4">{a.marcasTitulo}</h4>
-      <p className="ira-met__nota">{a.marcasNota} {t.verEjemplo}</p>
-      <div className="ira-met__tablero">
-        <div className="ira-met__tablero-col">
-          <p className="ira-met__tablero-titulo ira-met__tablero-titulo--muro"><Icono nombre="muro" tamano={22} /> {t.muroTitulo}</p>
-          <ul className="ira-met__marcas-lista ira-met__marcas-lista--muro">
-            {a.cierres.map(([c, nombre, e]) => <Marca key={c} codigo={c} nombre={nombre} ejemplo={e} tipo="cierre" />)}
-          </ul>
-        </div>
-        <div className="ira-met__tablero-col">
-          <p className="ira-met__tablero-titulo ira-met__tablero-titulo--puerta"><Icono nombre="puerta" tamano={22} /> {t.puertaTitulo}</p>
-          <ul className="ira-met__marcas-lista ira-met__marcas-lista--puerta">
-            {a.aperturas.map(([c, nombre, e]) => <Marca key={c} codigo={c} nombre={nombre} ejemplo={e} tipo="apertura" />)}
-          </ul>
-        </div>
-      </div>
+      <FronteraLinea cierres={a.cierres} aperturas={a.aperturas} ui={tp.linea} lang={lang} />
 
       <Acordeon titulo={a.dificilesTitulo}>
         <dl className="ira-met__marcas">
@@ -235,6 +212,7 @@ export default function MetodologiaP1() {
   const { lang } = useContext(AppContext);
   const { hash } = useLocation();
   const t = TEXTOS_P1[lang] ?? TEXTOS_P1.es;
+  const tp = TEXTOS_PIEZAS_P1[lang] ?? TEXTOS_PIEZAS_P1.es;
   const u = UI[lang] ?? UI.es;
   const numero = Object.fromEntries(t.secciones.map((s, i) => [s.id, i + 1]));
   const titulo = Object.fromEntries(t.secciones.map((s) => [s.id, s.titulo]));
@@ -299,36 +277,19 @@ export default function MetodologiaP1() {
           <Seccion {...sec('por-que-importa')} className="ira-met__seccion--banda">
             <p className="ira-met__entrada">{t.porque.entrada}</p>
             <LineaTiempo pasos={t.porque.tiempo} eje={t.porque.eje} />
-            <ol className="ira-met__cadena">
-              {t.porque.pasos.map((p, i) => (
-                <Aparecer as="li" key={p.titulo} className="ira-met__eslabon" style={{ '--retardo': `${i * 90}ms` }}>
-                  <span className="ira-met__eslabon-n ira-cifra" aria-hidden="true">{i + 1}</span>
-                  <h3 className="ira-met__h3">{p.titulo}</h3>
-                  <p className="ira-met__eslabon-texto">{p.texto}</p>
-                  <p className="ira-met__eslabon-fuentes">{p.fuentes}</p>
-                </Aparecer>
-              ))}
-            </ol>
-            <Destacado tono="rojo">{t.porque.cita}</Destacado>
+            <CadenaArgumento pasos={t.porque.pasos} cita={t.porque.cita} ui={tp.cadena} />
           </Seccion>
 
           {/* Pieza 1 */}
           <Seccion {...sec('mapa')}>
-            <MarcadorPieza etiqueta={pieza(1)} texto={t.piezas.mapa} aviso={t.pieza} />
+            <PruebaFrontera t={tp.frontera} />
           </Seccion>
 
           {/* Qué mide y por qué */}
           <Seccion {...sec('que-mide')}>
             {t.que.intro.map((p) => <p key={p} className="ira-met__texto">{p}</p>)}
             <h3 className="ira-met__h3">{t.que.teoriaTitulo}</h3>
-            <dl className="ira-met__teoria">
-              {t.que.teoria.map((a, i) => (
-                <Aparecer key={a.autor} style={{ '--retardo': `${(i % 2) * 90}ms` }}>
-                  <dt>{a.autor}</dt>
-                  <dd>{a.texto}</dd>
-                </Aparecer>
-              ))}
-            </dl>
+            <MapaTeoria teoria={t.que.teoria} ui={tp.teoria} referencias={t.referencias} />
             <div className="ira-met__cautela">
               <p className="ira-met__cautela-titulo">{t.que.cautelaTitulo}</p>
               <p>{t.que.cautela}</p>
@@ -384,7 +345,7 @@ export default function MetodologiaP1() {
               pestanas={[
                 { id: 'alcance', nombre: alcance.nombre, peso: alcance.peso, contenido: <PanelAlcance t={t} lang={lang} /> },
                 { id: 'interpelacion', nombre: interpelacion.nombre, peso: interpelacion.peso, contenido: <PanelInterpelacion t={t} /> },
-                { id: 'permeabilidad', nombre: permeabilidad.nombre, peso: permeabilidad.peso, contenido: <PanelPermeabilidad t={t} /> },
+                { id: 'permeabilidad', nombre: permeabilidad.nombre, peso: permeabilidad.peso, contenido: <PanelPermeabilidad t={t} tp={tp} lang={lang} /> },
               ]}
             />
           </Seccion>
