@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { AppContext } from '../../App.jsx';
 import AvisoVersion from './AvisoVersion.jsx';
+import { Aparecer, Icono } from './Visuales.jsx';
 import { PARAMETROS, REPO_RESEARCH } from './textosComunes.js';
 import '../../styles/metodologia.css';
 
@@ -72,11 +73,14 @@ export default function MetodologiaIndice() {
         <h2 id="met-principios" className="ira-met__h2">{t.principiosTitulo}</h2>
         <ol className="ira-met__principios">
           {t.principios.map((p, i) => (
-            <li key={i} className="ira-met__principio">
-              <span className="ira-met__principio-n ira-cifra" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <Aparecer as="li" key={i} className="ira-met__principio" style={{ '--retardo': `${i * 90}ms` }}>
+              <span className="ira-met__principio-cab">
+                <span className="ira-met__principio-n ira-cifra" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <Icono nombre={['ia', 'senalar', 'repositorio'][i]} tamano={28} className="ira-met__principio-icono" />
+              </span>
               <h3 className="ira-met__h3">{p.titulo}</h3>
               <p>{p.texto}</p>
-            </li>
+            </Aparecer>
           ))}
         </ol>
       </section>

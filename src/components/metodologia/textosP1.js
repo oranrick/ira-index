@@ -6,10 +6,13 @@
 const REFERENCIAS = [
   'Avenanti, A., Sirigu, A., y Aglioti, S. M. (2010). Racial bias reduces empathic sensorimotor resonance with other-race pain. Current Biology, 20(11), 1018–1022.',
   'Chilton, P. (2004). Analysing political discourse: Theory and practice. Routledge.',
+  'Damasio, A. R. (1994). Descartes\' error: Emotion, reason, and the human brain. Putnam.',
   'Gaertner, S. L., y Dovidio, J. F. (2000). Reducing intergroup bias: The common ingroup identity model. Psychology Press.',
   'Gallese, V. (2001). The "shared manifold" hypothesis: From mirror neurons to empathy. Journal of Consciousness Studies, 8(5–7), 33–50.',
   'Gallese, V. (2003). The roots of empathy: The shared manifold hypothesis and the neural basis of intersubjectivity. Psychopathology, 36(4), 171–180.',
+  'Haidt, J. (2001). The emotional dog and its rational tail: A social intuitionist approach to moral judgment. Psychological Review, 108(4), 814–834.',
   'Hein, G., Silani, G., Preuschoff, K., Batson, C. D., y Singer, T. (2010). Neural responses to ingroup and outgroup members\' suffering predict individual differences in costly helping. Neuron, 68(1), 149–160.',
+  'Hickok, G. (2014). The myth of mirror neurons: The real neuroscience of communication and cognition. W. W. Norton.',
   'Huddy, L., y Yair, O. (2021). Reducing affective polarization: Warm group relations or policy compromise? Political Psychology, 42(2), 291–309.',
   'Laclau, E. (2005). La razón populista. Fondo de Cultura Económica.',
   'Mouffe, C. (2005). On the political. Routledge.',
@@ -18,6 +21,7 @@ const REFERENCIAS = [
   'Tajfel, H., y Turner, J. C. (1979). An integrative theory of intergroup conflict. En W. G. Austin y S. Worchel (Eds.), The social psychology of intergroup relations (pp. 33–47). Brooks/Cole.',
   'van Dijk, T. A. (2006). Ideology and discourse analysis. Journal of Political Ideologies, 11(2), 115–140.',
   'Xu, X., Zuo, X., Wang, X., y Han, S. (2009). Do you feel my pain? Racial group membership modulates empathic neural responses. The Journal of Neuroscience, 29(26), 8525–8529.',
+  'Zajonc, R. B. (1980). Feeling and thinking: Preferences need no inferences. American Psychologist, 35(2), 151–175.',
 ];
 
 export const TEXTOS_P1 = {
@@ -30,7 +34,8 @@ export const TEXTOS_P1 = {
     pieza: 'Pieza interactiva en construcción',
 
     secciones: [
-      { id: 'en-una-frase', titulo: 'En una frase' },
+      { id: 'en-una-frase', titulo: 'La fórmula' },
+      { id: 'por-que-importa', titulo: 'Por qué importa' },
       { id: 'mapa', titulo: 'El mapa de la frontera' },
       { id: 'que-mide', titulo: 'Qué mide y por qué' },
       { id: 'que-no-mide', titulo: 'Qué no mide P1' },
@@ -49,6 +54,53 @@ export const TEXTOS_P1 = {
     frase: 'P1 mide dónde traza el discurso la línea entre «nosotros» y «ellos», y si esa línea es un muro o una puerta.',
     formula: ['P1 = 0,50 × Alcance', '   + 0,28 × Permeabilidad', '   + 0,22 × Interpelación'],
     formulaNota: 'Si algún indicador no llega a su mínimo, su peso se reparte en proporción entre los demás.',
+
+    pesosEtiqueta: 'Peso de cada indicador en P1',
+    pesos: { alcance: 'Alcance', permeabilidad: 'Permeabilidad', interpelacion: 'Interpelación' },
+
+    porque: {
+      entrada: 'Primero sentimos, después pensamos. Por eso importa tanto dónde coloca el discurso a cada persona: dentro del nosotros, en su periferia o frente a él.',
+      eje: 'tiempo',
+      tiempo: [
+        { titulo: 'Oír', texto: 'Llega la frase.' },
+        { titulo: 'Sentir', texto: 'Antes de pensarlo, el oyente se siente dentro o fuera.' },
+        { titulo: 'Pensar', texto: 'El argumento llega después y parte de esa primera respuesta.' },
+      ],
+      pasos: [
+        { titulo: 'Primero sentimos, después pensamos', texto: 'La respuesta afectiva llega antes que el argumento y lo orienta. Decidimos si algo nos gusta antes de saber por qué, y el razonamiento moral suele llegar después, a justificar una intuición que ya estaba ahí. Sin las señales emocionales del cuerpo no se razona mejor: se decide peor. La razón cuenta: puede revisar la intuición, pero parte de ella.', fuentes: 'Zajonc, 1980 · Haidt, 2001 · Damasio, 1994' },
+        { titulo: 'En esa primera respuesta pesa la frontera', texto: 'Comprendemos al otro simulándolo de forma encarnada, y esa resonancia se debilita cuando el otro queda categorizado como «ellos».', fuentes: 'Gallese · Xu et al., 2009 · Avenanti et al., 2010 · Hein et al., 2010' },
+        { titulo: 'Por eso el muro es tan eficaz', texto: 'Un discurso que abre la puerta mantiene la empatía disponible: recategorizar al otro dentro de un nosotros común reduce el sesgo, y las relaciones cálidas entre grupos reducen la polarización afectiva.', fuentes: 'Gaertner y Dovidio, 2000 · Huddy y Yair, 2021' },
+        { titulo: 'Y el incentivo empuja hacia el muro', texto: 'En redes sociales, la animosidad hacia el exogrupo es lo que más interacción genera. Por eso merece la pena medir dónde se traza la frontera.', fuentes: 'Rathje et al., 2021' },
+      ],
+      cita: 'Un discurso que levanta un muro apaga la empatía hacia quien queda fuera antes de que el oyente haya podido pesar un solo argumento.',
+    },
+
+    blancosZonas: [
+      { id: 'no', nombre: 'No es frontera', icono: 'circulo' },
+      { id: 'depende', nombre: 'Solo si se le da cuerpo', icono: 'interrogante' },
+      { id: 'si', nombre: 'Es frontera', icono: 'muro' },
+    ],
+    muroTitulo: 'El muro: marcas de cierre',
+    puertaTitulo: 'La puerta: marcas de apertura',
+    verEjemplo: 'Pulsa una marca para ver su ejemplo.',
+    pestanasEtiqueta: 'Indicadores de P1',
+
+    solidez: {
+      titulo: 'Solidez según los nosotros clasificables',
+      tramos: [
+        { id: 'no-fiable', nombre: 'No fiable', rango: '0 a 14', desde: 0, hasta: 15 },
+        { id: 'orientativa', nombre: 'Orientativa', rango: '15 a 40', desde: 15, hasta: 40 },
+        { id: 'solida', nombre: 'Sólida', rango: 'más de 40', desde: 40, hasta: 60 },
+      ],
+      discursos: { 'sanchez-barcelona-2026': 'Barcelona 2026', 'sanchez-onu-2024': 'ONU 2024' },
+      lecturas: { 'sanchez-barcelona-2026': 'sólida', 'sanchez-onu-2024': 'por debajo del mínimo de 15' },
+      minimoTitulo: 'Lo mínimo para puntuar',
+    },
+
+    resultados: {
+      si: 'Se cumplen las tres: excepción democrática. No resta, y la ficha lo avisa.',
+      no: 'Falla cualquiera: cierre normal, y el nosotros es GC.',
+    },
 
     piezas: {
       mapa: 'Un mapa con el nosotros en el centro y cuatro frases para probar: cómo cada una abre una puerta, levanta un muro o amplía el círculo.',
@@ -73,7 +125,7 @@ export const TEXTOS_P1 = {
         { autor: 'Tajfel y Turner (1979); Gaertner y Dovidio (2000)', texto: 'La categorización activa el favoritismo endogrupal; la recategorización en un nosotros común lo reduce.' },
       ],
       cautelaTitulo: 'Cautela',
-      cautela: 'P1 no mide la resonancia neural de la audiencia. Es un indicador discursivo de las condiciones de categorización que la neurociencia asocia con esa resonancia.',
+      cautela: 'P1 no mide la resonancia neural de la audiencia. Es un indicador discursivo de las condiciones de categorización que la neurociencia asocia con esa resonancia. La simulación encarnada es la hipótesis de Gallese; el papel exacto de las neuronas espejo en humanos sigue en discusión (Hickok, 2014).',
     },
 
     noMide: {
@@ -282,6 +334,7 @@ export const TEXTOS_P1 = {
           'Las repeticiones y las oraciones que restan en dos indicadores cuentan cada vez: cada indicador mide una propiedad distinta.',
           'La excepción democrática se aplica a todo P1, con tres condiciones (conducta concreta, agente acotado, sin extensión) que no dependen de la verdad de la acusación.',
           'Cada excepción se señala en la ficha; se retira si un verificador acreditado la desmiente con fuente publicada.',
+          'Sección teórica ampliada: por qué importa que la frontera sea una puerta (la respuesta afectiva precede al argumento y la frontera la condiciona). Sin cambios en reglas ni en cálculos.',
         ],
       },
     },
@@ -300,7 +353,8 @@ export const TEXTOS_P1 = {
     pieza: 'Interactive piece under construction',
 
     secciones: [
-      { id: 'en-una-frase', titulo: 'In one sentence' },
+      { id: 'en-una-frase', titulo: 'The formula' },
+      { id: 'por-que-importa', titulo: 'Why it matters' },
       { id: 'mapa', titulo: 'The boundary map' },
       { id: 'que-mide', titulo: 'What it measures and why' },
       { id: 'que-no-mide', titulo: 'What P1 does not measure' },
@@ -319,6 +373,53 @@ export const TEXTOS_P1 = {
     frase: 'P1 measures where a speech draws the line between "us" and "them", and whether that line is a wall or a door.',
     formula: ['P1 = 0.50 × Reach', '   + 0.28 × Permeability', '   + 0.22 × Address'],
     formulaNota: 'If an indicator does not reach its minimum, its weight is shared proportionally among the others.',
+
+    pesosEtiqueta: 'Weight of each indicator in P1',
+    pesos: { alcance: 'Reach', permeabilidad: 'Permeability', interpelacion: 'Address' },
+
+    porque: {
+      entrada: 'We feel first and think afterwards. That is why it matters so much where a speech places each person: inside "us", on its edge, or facing it.',
+      eje: 'time',
+      tiempo: [
+        { titulo: 'Hear', texto: 'The sentence arrives.' },
+        { titulo: 'Feel', texto: 'Before thinking about it, the listener feels inside or outside.' },
+        { titulo: 'Think', texto: 'The argument comes later and starts from that first response.' },
+      ],
+      pasos: [
+        { titulo: 'We feel first, then we think', texto: 'The affective response arrives before the argument and steers it. We decide whether we like something before we know why, and moral reasoning tends to come afterwards, to justify an intuition that was already there. Without the body\'s emotional signals we do not reason better: we decide worse. Reason does count: it can revise the intuition, but it starts from it.', fuentes: 'Zajonc, 1980 · Haidt, 2001 · Damasio, 1994' },
+        { titulo: 'In that first response, the boundary weighs in', texto: 'We understand others by simulating them in an embodied way, and that resonance weakens when the other is categorised as "them".', fuentes: 'Gallese · Xu et al., 2009 · Avenanti et al., 2010 · Hein et al., 2010' },
+        { titulo: 'That is why the wall works so well', texto: 'A speech that opens the door keeps empathy available: recategorising the other within a common "us" reduces bias, and warm relations between groups reduce affective polarisation.', fuentes: 'Gaertner and Dovidio, 2000 · Huddy and Yair, 2021' },
+        { titulo: 'And the incentive pushes towards the wall', texto: 'On social media, animosity towards the out-group is what generates the most engagement. That is why it is worth measuring where the boundary is drawn.', fuentes: 'Rathje et al., 2021' },
+      ],
+      cita: 'A speech that builds a wall switches off empathy for whoever is left outside before the listener has been able to weigh a single argument.',
+    },
+
+    blancosZonas: [
+      { id: 'no', nombre: 'Not a boundary', icono: 'circulo' },
+      { id: 'depende', nombre: 'Only if given a body', icono: 'interrogante' },
+      { id: 'si', nombre: 'A boundary', icono: 'muro' },
+    ],
+    muroTitulo: 'The wall: closure marks',
+    puertaTitulo: 'The door: opening marks',
+    verEjemplo: 'Tap a mark to see its example.',
+    pestanasEtiqueta: 'P1 indicators',
+
+    solidez: {
+      titulo: 'Robustness by classifiable "we"s',
+      tramos: [
+        { id: 'no-fiable', nombre: 'Unreliable', rango: '0 to 14', desde: 0, hasta: 15 },
+        { id: 'orientativa', nombre: 'Indicative', rango: '15 to 40', desde: 15, hasta: 40 },
+        { id: 'solida', nombre: 'Solid', rango: 'over 40', desde: 40, hasta: 60 },
+      ],
+      discursos: { 'sanchez-barcelona-2026': 'Barcelona 2026', 'sanchez-onu-2024': 'UN 2024' },
+      lecturas: { 'sanchez-barcelona-2026': 'solid', 'sanchez-onu-2024': 'below the minimum of 15' },
+      minimoTitulo: 'The minimum to score',
+    },
+
+    resultados: {
+      si: 'All three are met: democratic exception. It does not subtract, and the scorecard flags it.',
+      no: 'Any one fails: normal closure, and the "we" is GC.',
+    },
 
     piezas: {
       mapa: 'A map with "us" at the centre and four sentences to try: how each one opens a door, builds a wall or widens the circle.',
@@ -343,7 +444,7 @@ export const TEXTOS_P1 = {
         { autor: 'Tajfel and Turner (1979); Gaertner and Dovidio (2000)', texto: 'Categorisation triggers in-group favouritism; recategorisation into a common "us" reduces it.' },
       ],
       cautelaTitulo: 'Caution',
-      cautela: 'P1 does not measure the audience\'s neural resonance. It is a discursive indicator of the categorisation conditions that neuroscience associates with that resonance.',
+      cautela: 'P1 does not measure the audience\'s neural resonance. It is a discursive indicator of the categorisation conditions that neuroscience associates with that resonance. Embodied simulation is Gallese\'s hypothesis; the exact role of mirror neurons in humans is still debated (Hickok, 2014).',
     },
 
     noMide: {
@@ -552,6 +653,7 @@ export const TEXTOS_P1 = {
           'Repetitions and sentences that subtract in two indicators count every time: each indicator measures a different property.',
           'The democratic exception applies to all of P1, with three conditions (specific conduct, bounded agent, no extension) that do not depend on whether the accusation is true.',
           'Every exception is flagged on the scorecard; it is withdrawn if an accredited fact-checker debunks it with a published source.',
+          'Expanded theory section: why it matters that the boundary is a door (the affective response comes before the argument, and the boundary shapes it). No changes to rules or calculations.',
         ],
       },
     },
