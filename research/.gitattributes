@@ -1,2 +1,3 @@
-# Datos y fichas con saltos de línea LF en todas las plataformas (reproducibilidad byte a byte)
+# Reproducibilidad byte a byte: los textos en LF y los CSV tal como los escribe el módulo csv (CRLF), sin conversión
 * text=auto eol=lf
+*.csv -text
