@@ -19,6 +19,8 @@ const TXT = {
     crear: 'Crear cuenta para analizar',
     analizar: 'Analizar un discurso',
     nota: (Entrar) => <>¿Ya tienes cuenta? {Entrar('Inicia sesión')} para analizar un discurso.</>,
+    nuevoRotulo: 'Nuevo · Metodología 2.0',
+    nuevoTexto: 'P1, la frontera del nosotros: dónde traza un discurso la línea entre «nosotros» y «ellos».',
   },
   en: {
     titulo: 'How politics sounds when it listens',
@@ -29,6 +31,8 @@ const TXT = {
     crear: 'Create an account to analyze',
     analizar: 'Analyze a speech',
     nota: (Entrar) => <>Already have an account? {Entrar('Sign in')} to analyze a speech.</>,
+    nuevoRotulo: 'New · Methodology 2.0',
+    nuevoTexto: 'P1, the boundary of "us": where a speech draws the line between "us" and "them".',
   },
 };
 
@@ -91,6 +95,11 @@ export default function Portada() {
             {t.nota((x) => <button type="button" className="ira-enlace-boton" onClick={openLogin}>{x}</button>)}
           </p>
         )}
+        <Link to="/metodologia/p1" className="ira-portada__nuevo">
+          <span className="ira-portada__nuevo-rotulo">{t.nuevoRotulo}</span>
+          <span className="ira-portada__nuevo-texto">{t.nuevoTexto}</span>
+          <span className="ira-portada__nuevo-flecha" aria-hidden="true">→</span>
+        </Link>
         <IndicadorEscala compacto lang={lang} className="ira-portada__escala" />
       </div>
 
