@@ -301,6 +301,12 @@ export default function AboutPage() {
                 10 — {es?"Máx. empatía":"Max. empathy"}
               </span>
             </div>
+
+            <p style={{ margin:"32px 0 0" }}>
+              <Link to="/metodologia" style={{ display:"inline-flex", alignItems:"center", minHeight:"44px", fontSize:"16px", fontWeight:500, textUnderlineOffset:"4px" }}>
+                {es ? "Metodología 2.0 (en desarrollo) →" : "Methodology 2.0 (in development) →"}
+              </Link>
+            </p>
           </div>
         </div>
 

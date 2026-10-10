@@ -1,0 +1,614 @@
+{
+  "generado_por": "research/scripts/exportar_web_p1.py",
+  "version": "P1 v1.1 (2026-10-09)",
+  "spacy": "3.8.16",
+  "modelo": "es_core_news_md 3.8.0",
+  "codigos": {
+    "U": {
+      "categoria": "Universal sin oposición",
+      "indicador": "alcance",
+      "valor": 10,
+      "grupo": "inclusivo"
+    },
+    "G": {
+      "categoria": "Grupo sin perdedor",
+      "indicador": "alcance",
+      "valor": 10,
+      "grupo": "inclusivo"
+    },
+    "GC": {
+      "categoria": "Contra alguien",
+      "indicador": "alcance",
+      "valor": 0,
+      "grupo": "contra"
+    },
+    "S": {
+      "categoria": "Situacional",
+      "indicador": null,
+      "valor": null,
+      "grupo": "situacional"
+    },
+    "I": {
+      "categoria": "Institucional",
+      "indicador": null,
+      "valor": null,
+      "grupo": "situacional"
+    },
+    "A": {
+      "categoria": "Ambiguo",
+      "indicador": null,
+      "valor": null,
+      "grupo": "situacional"
+    },
+    "X": {
+      "categoria": "Error de extracción",
+      "indicador": null,
+      "valor": null,
+      "grupo": "situacional"
+    },
+    "Y": {
+      "categoria": "Primera persona singular",
+      "indicador": null,
+      "valor": null,
+      "grupo": "tenue"
+    },
+    "F": {
+      "categoria": "Tercera persona «ellos»",
+      "indicador": null,
+      "valor": null,
+      "grupo": "tenue"
+    },
+    "2I": {
+      "categoria": "Interpelación inclusiva",
+      "indicador": "interpelacion",
+      "valor": 10,
+      "grupo": "inclusivo"
+    },
+    "2C": {
+      "categoria": "Interpelación contra alguien",
+      "indicador": "interpelacion",
+      "valor": 0,
+      "grupo": "contra"
+    }
+  },
+  "fichas": {
+    "sanchez-barcelona-2026": {
+      "id": "sanchez-barcelona-2026",
+      "titulo": "Sánchez · Cumbre Progresista, Barcelona 2026",
+      "p1": 5.4876,
+      "solidez": "sólida (47 nosotros clasificables)",
+      "nosotros_clasificables": 47,
+      "indicadores": {
+        "alcance": {
+          "nombre": "Alcance del nosotros",
+          "valor": 6.8085,
+          "n": 47,
+          "minimo": 15,
+          "puntua": true,
+          "peso_nominal": 0.5,
+          "peso_efectivo": 0.5,
+          "motivo": null,
+          "recuento": {
+            "U": 2,
+            "G": 30,
+            "GC": 15
+          },
+          "detalle": "32 inclusivos (2 universales + 30 de grupo sin perdedor) y 15 contra alguien → 10 × 32 / 47"
+        },
+        "permeabilidad": {
+          "nombre": "Permeabilidad",
+          "valor": 2.0,
+          "n": 8,
+          "minimo": 3,
+          "puntua": true,
+          "peso_nominal": 0.2778,
+          "peso_efectivo": 0.2778,
+          "motivo": null,
+          "recuento": {
+            "A": 1,
+            "C": 7
+          },
+          "detalle": "1 apertura y 7 cierres → 10 × (1 + 1) / (8 + 2)"
+        },
+        "interpelacion": {
+          "nombre": "Interpelación",
+          "valor": 6.875,
+          "n": 16,
+          "minimo": 3,
+          "puntua": true,
+          "peso_nominal": 0.2222,
+          "peso_efectivo": 0.2222,
+          "motivo": null,
+          "recuento": {
+            "2I": 11,
+            "2C": 5
+          },
+          "detalle": "11 inclusivas y 5 contra alguien → 10 × 11 / 16"
+        }
+      },
+      "margen_alcance_95": [
+        5.38,
+        7.96
+      ],
+      "excepciones": [],
+      "excepciones_retiradas": [],
+      "informativo": {
+        "S": 1,
+        "I": 1,
+        "A": 0,
+        "Y": 12,
+        "X": 2,
+        "F": 3
+      },
+      "version": "P1 v1.1 (2026-10-09)"
+    },
+    "sanchez-onu-2024": {
+      "id": "sanchez-onu-2024",
+      "titulo": "Sánchez · Asamblea General de la ONU 2024",
+      "p1": null,
+      "solidez": null,
+      "nosotros_clasificables": 13,
+      "indicadores": {
+        "alcance": {
+          "nombre": "Alcance del nosotros",
+          "valor": 10.0,
+          "n": 13,
+          "minimo": 15,
+          "puntua": false,
+          "peso_nominal": 0.5,
+          "peso_efectivo": null,
+          "motivo": "13 casos, mínimo 15",
+          "recuento": {
+            "U": 13,
+            "G": 0,
+            "GC": 0
+          },
+          "detalle": "13 inclusivos (13 universales + 0 de grupo sin perdedor) y 0 contra alguien → 10 × 13 / 13"
+        },
+        "permeabilidad": {
+          "nombre": "Permeabilidad",
+          "valor": 2.5,
+          "n": 2,
+          "minimo": 3,
+          "puntua": false,
+          "peso_nominal": 0.2778,
+          "peso_efectivo": null,
+          "motivo": "2 casos, mínimo 3",
+          "recuento": {
+            "A": 0,
+            "C": 2
+          },
+          "detalle": "0 aperturas y 2 cierres → 10 × (0 + 1) / (2 + 2)"
+        },
+        "interpelacion": {
+          "nombre": "Interpelación",
+          "valor": 10.0,
+          "n": 1,
+          "minimo": 3,
+          "puntua": false,
+          "peso_nominal": 0.2222,
+          "peso_efectivo": null,
+          "motivo": "1 caso, mínimo 3",
+          "recuento": {
+            "2I": 1,
+            "2C": 0
+          },
+          "detalle": "1 inclusiva y 0 contra alguien → 10 × 1 / 1"
+        }
+      },
+      "margen_alcance_95": null,
+      "excepciones": [
+        {
+          "oracion": 19,
+          "texto": "una agresión que la Rusia de Putin dirige no solo contra el pueblo ucraniano sino contra el conjunto de la comunidad internacional"
+        },
+        {
+          "oracion": 35,
+          "texto": "[la democracia] no deja de ceder terreno ante sus enemigos."
+        },
+        {
+          "oracion": 37,
+          "texto": "proteja las instituciones democráticas de quienes buscan socavarlas deliberadamente"
+        }
+      ],
+      "excepciones_retiradas": [],
+      "informativo": {
+        "S": 0,
+        "I": 3,
+        "A": 0,
+        "Y": 5,
+        "X": 1,
+        "F": 0
+      },
+      "version": "P1 v1.1 (2026-10-09)"
+    }
+  },
+  "fragmento": {
+    "discurso": "sanchez-barcelona-2026",
+    "fuente": "Pedro Sánchez, Cumbre Progresista Internacional, Barcelona, 18 de abril de 2026. Fragmento.",
+    "oraciones": [
+      {
+        "oracion": 40,
+        "texto": "Porque durante años la derecha y la ultraderecha han intentado convertir nuestra identidad en insultos.",
+        "referencias": [
+          {
+            "n": 33,
+            "inicio": 73,
+            "fin": 80,
+            "forma": "nuestra",
+            "codigo": "GC",
+            "categoria": "Contra alguien",
+            "grupo": "contra",
+            "indicador": "alcance",
+            "valor": 0,
+            "nota": ""
+          }
+        ],
+        "eventos": [
+          {
+            "tipo": "C",
+            "codigo": "C5",
+            "marca": "amenaza dirigida al nosotros",
+            "blanco": "personas",
+            "nota": "",
+            "texto": "durante años la derecha y la ultraderecha han intentado convertir nuestra identidad en insultos."
+          }
+        ]
+      },
+      {
+        "oracion": 41,
+        "texto": "Han intentado una y otra vez que nos avergoncemos de nuestras ideas y de nuestra historia.",
+        "referencias": [
+          {
+            "n": 34,
+            "inicio": 33,
+            "fin": 36,
+            "forma": "nos",
+            "codigo": "GC",
+            "categoria": "Contra alguien",
+            "grupo": "contra",
+            "indicador": "alcance",
+            "valor": 0,
+            "nota": ""
+          },
+          {
+            "n": 35,
+            "inicio": 37,
+            "fin": 49,
+            "forma": "avergoncemos",
+            "codigo": "GC",
+            "categoria": "Contra alguien",
+            "grupo": "contra",
+            "indicador": "alcance",
+            "valor": 0,
+            "nota": ""
+          },
+          {
+            "n": 36,
+            "inicio": 53,
+            "fin": 61,
+            "forma": "nuestras",
+            "codigo": "GC",
+            "categoria": "Contra alguien",
+            "grupo": "contra",
+            "indicador": "alcance",
+            "valor": 0,
+            "nota": ""
+          },
+          {
+            "n": 37,
+            "inicio": 73,
+            "fin": 80,
+            "forma": "nuestra",
+            "codigo": "GC",
+            "categoria": "Contra alguien",
+            "grupo": "contra",
+            "indicador": "alcance",
+            "valor": 0,
+            "nota": ""
+          }
+        ],
+        "eventos": [
+          {
+            "tipo": "C",
+            "codigo": "C5",
+            "marca": "amenaza dirigida al nosotros",
+            "blanco": "personas",
+            "nota": "mismo referente que la 40, pero oración distinta: evento distinto",
+            "texto": "Han intentado una y otra vez que nos avergoncemos de nuestras ideas y de nuestra historia."
+          }
+        ]
+      },
+      {
+        "oracion": 42,
+        "texto": "Pero eso, ¿sabéis qué?",
+        "referencias": [
+          {
+            "n": 38,
+            "inicio": 11,
+            "fin": 17,
+            "forma": "sabéis",
+            "codigo": "2C",
+            "categoria": "Interpelación contra alguien",
+            "grupo": "contra",
+            "indicador": "interpelacion",
+            "valor": 0,
+            "nota": "responde a la derecha que quiere avergonzarlos (frases 40-41)"
+          }
+        ],
+        "eventos": []
+      },
+      {
+        "oracion": 43,
+        "texto": "Se acabó.",
+        "referencias": [],
+        "eventos": []
+      },
+      {
+        "oracion": 44,
+        "texto": "Termina hoy, en Barcelona, el 18 de abril de 2026.",
+        "referencias": [],
+        "eventos": []
+      },
+      {
+        "oracion": 45,
+        "texto": "La vergüenza cambia de bando.",
+        "referencias": [],
+        "eventos": []
+      },
+      {
+        "oracion": 46,
+        "texto": "A partir de ahora, la vergüenza para ellos: para aquellos que callan ante la injusticia, para aquellos que explotan a los trabajadores y trabajadoras, los que criminalizan al diferente, los que convierten derechos en mercancías, los que defienden el privilegio de las élites, los que apoyan la guerra y la violencia en Gaza, en Cisjordania, en Ucrania, en el Líbano, en Oriente Medio.",
+        "referencias": [
+          {
+            "n": 39,
+            "inicio": 37,
+            "fin": 42,
+            "forma": "ellos",
+            "codigo": "F",
+            "categoria": "Tercera persona «ellos»",
+            "grupo": "tenue",
+            "indicador": null,
+            "valor": null,
+            "nota": ""
+          }
+        ],
+        "eventos": [
+          {
+            "tipo": "C",
+            "codigo": "C2",
+            "marca": "bloque homogéneo",
+            "blanco": "personas",
+            "nota": "una lista de conductas muy diversas fundidas en un solo 'ellos'",
+            "texto": "la vergüenza para ellos: para aquellos que callan ante la injusticia, para aquellos que explotan..."
+          }
+        ]
+      },
+      {
+        "oracion": 47,
+        "texto": "La vergüenza para ellos; para nosotros el orgullo.",
+        "referencias": [
+          {
+            "n": 40,
+            "inicio": 18,
+            "fin": 23,
+            "forma": "ellos",
+            "codigo": "F",
+            "categoria": "Tercera persona «ellos»",
+            "grupo": "tenue",
+            "indicador": null,
+            "valor": null,
+            "nota": ""
+          },
+          {
+            "n": 41,
+            "inicio": 30,
+            "fin": 38,
+            "forma": "nosotros",
+            "codigo": "GC",
+            "categoria": "Contra alguien",
+            "grupo": "contra",
+            "indicador": "alcance",
+            "valor": 0,
+            "nota": ""
+          }
+        ],
+        "eventos": [
+          {
+            "tipo": "C",
+            "codigo": "C1",
+            "marca": "contraposición",
+            "blanco": "personas",
+            "nota": "",
+            "texto": "La vergüenza para ellos; para nosotros el orgullo."
+          }
+        ]
+      },
+      {
+        "oracion": 48,
+        "texto": "El orgullo de ser pacifistas porque amamos la paz.",
+        "referencias": [
+          {
+            "n": 42,
+            "inicio": 36,
+            "fin": 42,
+            "forma": "amamos",
+            "codigo": "G",
+            "categoria": "Grupo sin perdedor",
+            "grupo": "inclusivo",
+            "indicador": "alcance",
+            "valor": 10,
+            "nota": ""
+          }
+        ],
+        "eventos": []
+      },
+      {
+        "oracion": 49,
+        "texto": "El orgullo de ser ecologistas porque queremos un planeta habitable para nuestros hijos e hijas.",
+        "referencias": [
+          {
+            "n": 43,
+            "inicio": 37,
+            "fin": 45,
+            "forma": "queremos",
+            "codigo": "G",
+            "categoria": "Grupo sin perdedor",
+            "grupo": "inclusivo",
+            "indicador": "alcance",
+            "valor": 10,
+            "nota": ""
+          },
+          {
+            "n": 44,
+            "inicio": 72,
+            "fin": 80,
+            "forma": "nuestros",
+            "codigo": "U",
+            "categoria": "Universal sin oposición",
+            "grupo": "inclusivo",
+            "indicador": "alcance",
+            "valor": 10,
+            "nota": ""
+          }
+        ],
+        "eventos": []
+      },
+      {
+        "oracion": 50,
+        "texto": "El orgullo de ser sindicalistas porque queremos derechos para los trabajadores y las trabajadoras.",
+        "referencias": [
+          {
+            "n": 45,
+            "inicio": 39,
+            "fin": 47,
+            "forma": "queremos",
+            "codigo": "G",
+            "categoria": "Grupo sin perdedor",
+            "grupo": "inclusivo",
+            "indicador": "alcance",
+            "valor": 10,
+            "nota": ""
+          }
+        ],
+        "eventos": []
+      },
+      {
+        "oracion": 51,
+        "texto": "El orgullo de ser feministas porque queremos un mundo más justo.",
+        "referencias": [
+          {
+            "n": 46,
+            "inicio": 36,
+            "fin": 44,
+            "forma": "queremos",
+            "codigo": "G",
+            "categoria": "Grupo sin perdedor",
+            "grupo": "inclusivo",
+            "indicador": "alcance",
+            "valor": 10,
+            "nota": ""
+          }
+        ],
+        "eventos": []
+      },
+      {
+        "oracion": 80,
+        "texto": "En este lugar somos 5.000 personas soñando un mundo mejor.",
+        "referencias": [
+          {
+            "n": 77,
+            "inicio": 14,
+            "fin": 19,
+            "forma": "somos",
+            "codigo": "G",
+            "categoria": "Grupo sin perdedor",
+            "grupo": "inclusivo",
+            "indicador": "alcance",
+            "valor": 10,
+            "nota": ""
+          }
+        ],
+        "eventos": []
+      },
+      {
+        "oracion": 81,
+        "texto": "Pero fuera hay millones y millones de personas dispuestas a unirse a nosotros para convertir ese sueño en realidad.",
+        "referencias": [
+          {
+            "n": 78,
+            "inicio": 69,
+            "fin": 77,
+            "forma": "nosotros",
+            "codigo": "G",
+            "categoria": "Grupo sin perdedor",
+            "grupo": "inclusivo",
+            "indicador": "alcance",
+            "valor": 10,
+            "nota": ""
+          }
+        ],
+        "eventos": [
+          {
+            "tipo": "A",
+            "codigo": "A1",
+            "marca": "invitación",
+            "blanco": "personas",
+            "nota": "abre la puerta a terceros, no al adversario",
+            "texto": "fuera hay millones y millones de personas dispuestas a unirse a nosotros"
+          }
+        ]
+      },
+      {
+        "oracion": 82,
+        "texto": "Esa es nuestra responsabilidad y ese es nuestro compromiso.",
+        "referencias": [
+          {
+            "n": 79,
+            "inicio": 7,
+            "fin": 14,
+            "forma": "nuestra",
+            "codigo": "G",
+            "categoria": "Grupo sin perdedor",
+            "grupo": "inclusivo",
+            "indicador": "alcance",
+            "valor": 10,
+            "nota": ""
+          },
+          {
+            "n": 80,
+            "inicio": 40,
+            "fin": 47,
+            "forma": "nuestro",
+            "codigo": "G",
+            "categoria": "Grupo sin perdedor",
+            "grupo": "inclusivo",
+            "indicador": "alcance",
+            "valor": 10,
+            "nota": ""
+          }
+        ],
+        "eventos": []
+      }
+    ],
+    "recuento": {
+      "por_grupo": {
+        "contra": 7,
+        "tenue": 2,
+        "inclusivo": 9
+      },
+      "por_codigo": {
+        "GC": 6,
+        "2C": 1,
+        "F": 2,
+        "G": 8,
+        "U": 1
+      },
+      "eventos": {
+        "C": 4,
+        "A": 1
+      }
+    },
+    "pendientes": []
+  }
+}

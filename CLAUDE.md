@@ -30,6 +30,8 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 **Estado: sin cambios.**
 
+> Metodología 2.0 en desarrollo: P1 v1.1 redefinido en `research/manual/P1.md` (frontera del nosotros: alcance, permeabilidad, interpelación). El motor web sigue usando la definición anterior hasta que se migre.
+
 ---
 
 ## P2 · Marco Metafórico · peso 20% ✓ REVISADO

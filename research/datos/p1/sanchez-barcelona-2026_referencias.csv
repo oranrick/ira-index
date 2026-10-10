@@ -1,0 +1,83 @@
+n,oracion,forma,lema,tipo,persona,numero,sujeto_explicito,contexto,categoria,nota
+1,2,nos,yo,pronombre,1,pl,,Un gran aplauso para el presidente Lula y para todos los líderes internacionales que nos acompañan aquí en Barcelona este fin de semana.,S,nosotros situacional: los presentes en el acto
+2,5,Me,yo,pronombre,1,sg,,"Me hace muy feliz veros hoy aquí, y además con una enorme sonrisa.",Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+3,7,vuestra,vuestro,posesivo,2,pl,,"Gracias por haber abarrotado este espacio con vuestra presencia, con vuestras ideas, con vuestra ilusión, con vuestra energía.",2I,
+4,7,vuestras,vuestro,posesivo,2,pl,,"Gracias por haber abarrotado este espacio con vuestra presencia, con vuestras ideas, con vuestra ilusión, con vuestra energía.",2I,
+5,7,vuestra,vuestro,posesivo,2,pl,,"Gracias por haber abarrotado este espacio con vuestra presencia, con vuestras ideas, con vuestra ilusión, con vuestra energía.",2I,
+6,7,vuestra,vuestro,posesivo,2,pl,,"Gracias por haber abarrotado este espacio con vuestra presencia, con vuestras ideas, con vuestra ilusión, con vuestra energía.",2I,
+7,8,nos,yo,pronombre,1,pl,,"Porque de alguna manera el futuro nos ha reclamado, y vosotros y vosotras habéis sabido acudir.",G,
+8,8,vosotros,vosotro,pronombre,2,pl,,"Porque de alguna manera el futuro nos ha reclamado, y vosotros y vosotras habéis sabido acudir.",2I,
+9,8,vosotras,vosotra,pronombre,2,pl,,"Porque de alguna manera el futuro nos ha reclamado, y vosotros y vosotras habéis sabido acudir.",2I,
+10,14,quiero,querer,verbo,1,sg,,A ese mismo compromiso quiero apelar hoy en esta intervención.,Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+11,15,yo,yo,pronombre,1,sg,,Porque yo sé que el horizonte está cargado de incertidumbres.,Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+12,15,sé,saber,verbo,1,sg,yo,Porque yo sé que el horizonte está cargado de incertidumbres.,Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+13,18,yo,yo,pronombre,1,sg,,"Pero yo os pido que no os engañen, que no nos engañen.",Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+14,18,os,tú,pronombre,2,pl,,"Pero yo os pido que no os engañen, que no nos engañen.",2C,'que no os engañen': supone a alguien que engaña
+15,18,pido,pedir,verbo,1,sg,yo,"Pero yo os pido que no os engañen, que no nos engañen.",Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+16,18,os,tú,pronombre,2,pl,,"Pero yo os pido que no os engañen, que no nos engañen.",2C,'que no os engañen': supone a alguien que engaña
+17,18,nos,yo,pronombre,1,pl,,"Pero yo os pido que no os engañen, que no nos engañen.",G,
+18,28,estoy,estar,verbo,1,sg,,Por eso estoy convencido de que el tiempo de la internacional ultraderechista y la derecha rendida a esos postulados reaccionarios ha llegado a su fin.,Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+19,29,nosotros,yo,pronombre,1,pl,,"Y que nosotros, vosotros y vosotras, vamos a traer al mundo y a todos nuestros países una nueva era de progreso.",X,duplicado de 'vamos'
+20,29,vosotros,vosotro,pronombre,2,pl,,"Y que nosotros, vosotros y vosotras, vamos a traer al mundo y a todos nuestros países una nueva era de progreso.",2I,
+21,29,vosotras,vosotra,pronombre,2,pl,,"Y que nosotros, vosotros y vosotras, vamos a traer al mundo y a todos nuestros países una nueva era de progreso.",2I,
+22,29,vamos,ir,verbo,1,pl,,"Y que nosotros, vosotros y vosotras, vamos a traer al mundo y a todos nuestros países una nueva era de progreso.",G,
+23,29,nuestros,nuestro,posesivo,1,pl,,"Y que nosotros, vosotros y vosotras, vamos a traer al mundo y a todos nuestros países una nueva era de progreso.",U,
+24,30,Vamos,ir,verbo,1,pl,,Vamos a reconstruir lo que ellos han tratado de destruir.,GC,
+25,30,ellos,él,pronombre,3,pl,,Vamos a reconstruir lo que ellos han tratado de destruir.,F,
+26,31,Vamos,ir,verbo,1,pl,,Vamos a demostrar al mundo que el futuro puede ser mejor.,G,
+27,32,sabemos,saber,verbo,1,pl,,"Por supuesto, lo sabemos, lograrlo no va a ser fácil.",G,
+28,33,hemos,haber,verbo,1,pl,,Pero ya hemos tomado en nuestras manos tres importantes instrumentos que nos van a hacer falta para cambiar el transcurso de la historia.,G,
+29,33,nuestras,nuestro,posesivo,1,pl,,Pero ya hemos tomado en nuestras manos tres importantes instrumentos que nos van a hacer falta para cambiar el transcurso de la historia.,G,
+30,33,nos,yo,pronombre,1,pl,,Pero ya hemos tomado en nuestras manos tres importantes instrumentos que nos van a hacer falta para cambiar el transcurso de la historia.,G,
+31,35,estamos,estar,verbo,1,pl,,"Por eso estamos aquí, para celebrar y para consolidar nuestra unidad.",G,
+32,35,nuestra,nuestro,posesivo,1,pl,,"Por eso estamos aquí, para celebrar y para consolidar nuestra unidad.",G,
+33,40,nuestra,nuestro,posesivo,1,pl,,Porque durante años la derecha y la ultraderecha han intentado convertir nuestra identidad en insultos.,GC,
+34,41,nos,yo,pronombre,1,pl,,Han intentado una y otra vez que nos avergoncemos de nuestras ideas y de nuestra historia.,GC,
+35,41,avergoncemos,avergoncemos,verbo,1,pl,,Han intentado una y otra vez que nos avergoncemos de nuestras ideas y de nuestra historia.,GC,
+36,41,nuestras,nuestro,posesivo,1,pl,,Han intentado una y otra vez que nos avergoncemos de nuestras ideas y de nuestra historia.,GC,
+37,41,nuestra,nuestro,posesivo,1,pl,,Han intentado una y otra vez que nos avergoncemos de nuestras ideas y de nuestra historia.,GC,
+38,42,sabéis,sabéis,verbo,1,sg,,"Pero eso, ¿sabéis qué?",2C,responde a la derecha que quiere avergonzarlos (frases 40-41)
+39,46,ellos,él,pronombre,3,pl,,"A partir de ahora, la vergüenza para ellos: para aquellos que callan ante la injusticia, para aquellos que explotan a los trabajadores y trabajadoras, los que criminalizan al diferente, los que convierten derechos en mercancías, los que defienden el privilegio de las élites, los que apoyan la guerra y la violencia en Gaza, en Cisjordania, en Ucrania, en el Líbano, en Oriente Medio.",F,
+40,47,ellos,él,pronombre,3,pl,,La vergüenza para ellos; para nosotros el orgullo.,F,
+41,47,nosotros,yo,pronombre,1,pl,,La vergüenza para ellos; para nosotros el orgullo.,GC,
+42,48,amamos,amar,verbo,1,pl,,El orgullo de ser pacifistas porque amamos la paz.,G,
+43,49,queremos,querer,verbo,1,pl,,El orgullo de ser ecologistas porque queremos un planeta habitable para nuestros hijos e hijas.,G,
+44,49,nuestros,nuestro,posesivo,1,pl,,El orgullo de ser ecologistas porque queremos un planeta habitable para nuestros hijos e hijas.,U,
+45,50,queremos,querer,verbo,1,pl,,El orgullo de ser sindicalistas porque queremos derechos para los trabajadores y las trabajadoras.,G,
+46,51,queremos,querer,verbo,1,pl,,El orgullo de ser feministas porque queremos un mundo más justo.,G,
+47,53,estamos,estar,verbo,1,pl,,Aquí en España estamos aprobando e impulsando un proceso de regularización de medio millón de inmigrantes.,I,
+48,54,quiero,querer,verbo,1,sg,,Y le quiero decir a la derecha y a la ultraderecha que se oponen: España es hija de la migración y no va a ser madre de la xenofobia.,Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+49,57,Yo,yo,pronombre,1,sg,,"Yo os digo, y estoy convencido de que lo compartís, que no lo vamos a hacer.",Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+50,57,os,tú,pronombre,2,pl,,"Yo os digo, y estoy convencido de que lo compartís, que no lo vamos a hacer.",2C,'no lo vamos a hacer': rechazo a la agenda del adversario
+51,57,digo,decir,verbo,1,sg,Yo,"Yo os digo, y estoy convencido de que lo compartís, que no lo vamos a hacer.",Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+52,57,estoy,estar,verbo,1,sg,,"Yo os digo, y estoy convencido de que lo compartís, que no lo vamos a hacer.",Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+53,57,vamos,ir,verbo,1,pl,,"Yo os digo, y estoy convencido de que lo compartís, que no lo vamos a hacer.",GC,
+54,58,vamos,ir,verbo,1,pl,,Que no vamos a comprar su pesimismo ni su desesperanza.,GC,
+55,59,vamos,ir,verbo,1,pl,,"Que vamos a defender que un mundo mejor es posible: que se pueden subir salarios y crear empleos a la vez, que se puede frenar la emergencia climática y ganar competitividad, que la diversidad y la igualdad entre hombres y mujeres son palancas de progreso social, y que la prosperidad de las naciones o es compartida o no será.",GC,
+56,60,vamos,ir,verbo,1,pl,,Lo vamos a hacer doblándoles el brazo a quienes se creen intocables.,GC,
+57,63,nuestras,nuestro,posesivo,1,pl,,A los tecnóligargas que quieren llenarse el bolsillo a costa de la salud de nuestras democracias y la salud mental de nuestros jóvenes.,GC,v1.1: nosotros universal construido frente a los tecnoligarcas
+58,63,nuestros,nuestro,posesivo,1,pl,,A los tecnóligargas que quieren llenarse el bolsillo a costa de la salud de nuestras democracias y la salud mental de nuestros jóvenes.,GC,v1.1: nosotros universal construido frente a los tecnoligarcas
+59,64,Vamos,ir,verbo,1,pl,,"Vamos a hacerlo, y ¿sabéis por qué vamos a lograrlo?",G,
+60,64,sabéis,sabéis,verbo,1,sg,,"Vamos a hacerlo, y ¿sabéis por qué vamos a lograrlo?",2I,persona corregida (2.ª pl)
+61,64,vamos,ir,verbo,1,pl,,"Vamos a hacerlo, y ¿sabéis por qué vamos a lograrlo?",G,
+62,65,gobernamos,gobernamos,verbo,2,pl,,"Porque cuando gobernamos los progresistas, los estados no se arrodillan ante las élites.",GC,persona corregida (1.ª pl)
+63,66,ponemos,poner,verbo,1,pl,,Las ponemos en su sitio.,GC,
+64,67,vamos,ir,verbo,1,pl,,"Y vamos a hacerlo no porque sea fácil, sino porque es nuestro deber.",G,
+65,67,nuestro,nuestro,posesivo,1,pl,,"Y vamos a hacerlo no porque sea fácil, sino porque es nuestro deber.",G,
+66,68,estamos,estar,verbo,1,pl,,"Si no, ¿por qué estamos en política?",G,
+67,69,somos,ser,verbo,1,pl,,"Y por cierto, si no somos nosotros, ¿quién lo va a hacer?",G,
+68,69,nosotros,yo,pronombre,1,pl,,"Y por cierto, si no somos nosotros, ¿quién lo va a hacer?",X,duplicado de 'somos'
+69,70,nos,yo,pronombre,1,pl,,Eso es lo que nos enseñó el gran Pepe Mujica.,G,
+70,76,os,tú,pronombre,2,pl,,Por eso os pido que hagamos realidad nuestros sueños.,2I,
+71,76,pido,pedir,verbo,1,sg,,Por eso os pido que hagamos realidad nuestros sueños.,Y,"primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
+72,76,hagamos,hacer,verbo,1,pl,,Por eso os pido que hagamos realidad nuestros sueños.,G,
+73,76,nuestros,nuestro,posesivo,1,pl,,Por eso os pido que hagamos realidad nuestros sueños.,G,
+74,78,nos,yo,pronombre,1,pl,,"Que nos unamos y trabajemos juntos y juntas, y hacerlo además con moral de victoria.",G,
+75,78,unamos,unir,verbo,1,pl,,"Que nos unamos y trabajemos juntos y juntas, y hacerlo además con moral de victoria.",G,
+76,78,trabajemos,trabajar,verbo,1,pl,,"Que nos unamos y trabajemos juntos y juntas, y hacerlo además con moral de victoria.",G,
+77,80,somos,ser,verbo,1,pl,,En este lugar somos 5.000 personas soñando un mundo mejor.,G,
+78,81,nosotros,yo,pronombre,1,pl,,Pero fuera hay millones y millones de personas dispuestas a unirse a nosotros para convertir ese sueño en realidad.,G,
+79,82,nuestra,nuestro,posesivo,1,pl,,Esa es nuestra responsabilidad y ese es nuestro compromiso.,G,
+80,82,nuestro,nuestro,posesivo,1,pl,,Esa es nuestra responsabilidad y ese es nuestro compromiso.,G,
+81,5,veros,ver,pronombre,2,pl,,"Me hace muy feliz veros hoy aquí, y además con una enorme sonrisa.",2I,omitido por el extractor (clítico pegado)
+82,57,compartís,compartir,verbo,2,pl,,"Yo os digo, y estoy convencido de que lo compartís, que no lo vamos a hacer.",2C,'no lo vamos a hacer': rechazo a la agenda del adversario

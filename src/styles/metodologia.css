@@ -1,0 +1,501 @@
+/* IRA · Metodología 2.0 (índice y páginas de parámetro). Usa tokens.css y ui.css. */
+
+.ira-met { display: flex; flex-direction: column; gap: 40px; color: var(--ira-nieve); }
+.ira-met p { margin: 0; }
+
+/* ── Aviso de versión ─────────────────────────────────────────────────────── */
+.ira-met__aviso {
+  display: flex; flex-direction: column; gap: 6px; padding: 14px 18px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea);
+  border-left: 3px solid var(--ira-oro); border-radius: var(--ira-radio-m);
+}
+.ira-met__aviso-rotulo { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--ira-oro); }
+.ira-met__aviso-texto { font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+
+/* ── Cabecera ─────────────────────────────────────────────────────────────── */
+.ira-met__volver { align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; font-size: 14px; color: var(--ira-texto-2); text-decoration: none; margin-bottom: -28px; }
+.ira-met__volver:hover { color: var(--ira-nieve); }
+.ira-met__cabecera { display: flex; flex-direction: column; gap: 16px; }
+.ira-met__rotulo { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ira-texto-3); }
+.ira-met__titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(40px, 6vw, 68px); line-height: 1.04; letter-spacing: -0.03em; overflow-wrap: break-word; }
+.ira-met__entradilla { max-width: 680px; font-size: 18px; line-height: 30px; color: var(--ira-texto-cita); }
+
+/* ── Secciones y texto ────────────────────────────────────────────────────── */
+.ira-met__seccion { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: 24px; min-width: 0; }
+.ira-met__h2 { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.15; letter-spacing: -0.02em; }
+.ira-met__h3 { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 19px; line-height: 1.25; }
+.ira-met__h4 { margin: 8px 0 0; font-family: var(--ira-font-texto); font-weight: 500; font-size: 15px; color: var(--ira-texto-cita); }
+.ira-met__texto { max-width: 720px; font-size: 16px; line-height: 27px; color: var(--ira-texto-cita); }
+.ira-met__texto strong { color: var(--ira-nieve); font-weight: 500; }
+.ira-met__nota { max-width: 720px; font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+.ira-met__regla {
+  max-width: 720px; padding: 12px 16px; border-left: 3px solid var(--ira-oro);
+  background: rgba(220, 177, 73, 0.06); border-radius: 0 var(--ira-radio-m) var(--ira-radio-m) 0;
+  font-size: 15px; line-height: 24px; color: var(--ira-nieve);
+}
+.ira-met__enlace { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 500; text-underline-offset: 4px; }
+.ira-met__lista { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; max-width: 720px; font-size: 15px; line-height: 24px; color: var(--ira-texto-cita); }
+
+/* ── Índice: principios ───────────────────────────────────────────────────── */
+.ira-met__principios { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ira-met__principio {
+  display: flex; flex-direction: column; gap: 10px; padding: 24px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l);
+}
+.ira-met__principio p { font-size: 15px; line-height: 24px; color: var(--ira-texto-2); }
+.ira-met__principio-n { font-size: 14px; color: var(--ira-oro); }
+
+/* ── Índice: parámetros ───────────────────────────────────────────────────── */
+.ira-met__parametros { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.ira-met__parametros > li { display: flex; }
+.ira-met__parametros > li:first-child { grid-column: 1 / -1; }
+.ira-met__param {
+  flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 20px;
+  border-radius: var(--ira-radio-l); border: 1px solid var(--ira-linea); background: var(--ira-superficie);
+  color: var(--ira-nieve); text-decoration: none;
+}
+.ira-met__param--activo { border-color: var(--ira-salvia); transition: background-color 150ms ease; }
+.ira-met__param--activo:hover { background: var(--ira-elevada); color: var(--ira-nieve); }
+.ira-met__param--pronto { border-style: dashed; background: transparent; }
+.ira-met__param--pronto .ira-met__param-nombre { color: var(--ira-texto-2); }
+.ira-met__param-cab { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.ira-met__param-codigo { font-size: 15px; color: var(--ira-texto-2); }
+.ira-met__param--activo .ira-met__param-codigo { color: var(--ira-salvia); }
+.ira-met__param-estado { font-size: 12px; padding: 3px 9px; border-radius: 99px; border: 1px solid var(--ira-linea-fuerte); color: var(--ira-texto-2); }
+.ira-met__param-estado--activo { border-color: var(--ira-salvia); color: var(--ira-marca-empatica); }
+.ira-met__param-nombre { font-family: var(--ira-font-titulo); font-weight: 500; font-size: 20px; line-height: 1.2; }
+.ira-met__param--activo .ira-met__param-nombre { font-size: 28px; }
+.ira-met__param-def { max-width: 620px; font-size: 16px; line-height: 26px; color: var(--ira-texto-cita); }
+.ira-met__param-cta { margin-top: 4px; font-size: 14px; color: var(--ira-oro); }
+
+/* ── P1: rejilla con índice lateral ───────────────────────────────────────── */
+.ira-met__rejilla { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; align-items: start; }
+.ira-met__cuerpo { display: flex; flex-direction: column; gap: 64px; min-width: 0; }
+.ira-met__indice--ancho { position: sticky; top: 24px; }
+.ira-met__indice--movil { display: none; }
+.ira-met__indice-titulo { margin-bottom: 8px !important; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ira-texto-3); }
+.ira-met__indice-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.ira-met__indice-lista a {
+  display: flex; align-items: center; min-height: 36px; padding: 4px 0 4px 12px;
+  border-left: 1px solid var(--ira-linea); font-size: 14px; line-height: 20px; color: var(--ira-texto-2); text-decoration: none;
+}
+.ira-met__indice-lista a:hover { color: var(--ira-nieve); border-left-color: var(--ira-oro); }
+@media (max-width: 1000px) {
+  .ira-met__rejilla { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .ira-met__indice--ancho { display: none; }
+  .ira-met__indice--movil { display: block; }
+  .ira-met__indice--movil .ira-met__indice-lista a { min-height: 44px; }
+}
+
+/* ── P1: frase y fórmula ──────────────────────────────────────────────────── */
+.ira-met__frase { max-width: 760px; font-family: var(--ira-font-titulo); font-weight: 400; font-size: clamp(22px, 3vw, 30px); line-height: 1.3; letter-spacing: -0.01em; }
+.ira-met__formula {
+  align-self: flex-start; max-width: 100%; box-sizing: border-box; padding: 18px 22px;
+  background: var(--ira-noche); border: 1px solid var(--ira-linea-fuerte); border-radius: var(--ira-radio-m);
+}
+.ira-met__formula-linea { font-size: clamp(14px, 2.2vw, 18px); line-height: 1.7; white-space: pre-wrap; color: var(--ira-nieve); letter-spacing: -0.02em; }
+.ira-met__formula--ind { padding: 12px 16px; }
+
+/* ── P1: qué mide ─────────────────────────────────────────────────────────── */
+.ira-met__teoria { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.ira-met__teoria > div { padding: 18px 20px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); }
+.ira-met__teoria dt { margin-bottom: 6px; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 16px; color: var(--ira-oro); }
+.ira-met__teoria dd { margin: 0; font-size: 14px; line-height: 23px; color: var(--ira-texto-2); }
+.ira-met__cautela { max-width: 720px; padding: 16px 18px; border: 1px dashed var(--ira-linea-fuerte); border-radius: var(--ira-radio-m); font-size: 15px; line-height: 24px; color: var(--ira-texto-cita); }
+.ira-met__cautela-titulo { margin-bottom: 4px !important; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ira-texto-2); }
+
+/* ── Tablas (en móvil se apilan) ──────────────────────────────────────────── */
+.ira-met__tabla-marco { border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); overflow: hidden; }
+.ira-met__tabla { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 22px; }
+.ira-met__tabla th { padding: 12px 16px; text-align: left; font-weight: 500; font-size: 13px; color: var(--ira-texto-2); background: var(--ira-superficie); border-bottom: 1px solid var(--ira-linea); }
+.ira-met__tabla td { padding: 12px 16px; vertical-align: top; color: var(--ira-texto-cita); border-bottom: 1px solid var(--ira-linea); }
+.ira-met__tabla tr:last-child td { border-bottom: none; }
+@media (max-width: 640px) {
+  .ira-met__tabla thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+  .ira-met__tabla, .ira-met__tabla tbody, .ira-met__tabla tr, .ira-met__tabla td { display: block; }
+  .ira-met__tabla tr { padding: 12px 14px; border-bottom: 1px solid var(--ira-linea); }
+  .ira-met__tabla tr:last-child { border-bottom: none; }
+  .ira-met__tabla td { padding: 4px 0; border: none; }
+  .ira-met__tabla td::before { content: attr(data-rotulo); display: block; font-size: 12px; color: var(--ira-texto-3); }
+}
+.ira-met__codigo { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 26px; padding: 0 6px; border-radius: var(--ira-radio-s); border: 1px solid var(--ira-linea-fuerte); font-size: 13px; color: var(--ira-nieve); }
+.ira-met__codigo--cierre { border-color: var(--ira-1); border-style: solid; }
+.ira-met__codigo--apertura { border-color: var(--ira-salvia); border-style: dashed; }
+.ira-met__no-cuenta { white-space: nowrap; font-size: 13px; color: var(--ira-texto-2); font-style: italic; }
+.ira-met__destinos { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.ira-met__etiqueta-param { padding: 2px 8px; border-radius: var(--ira-radio-s); border: 1px solid var(--ira-linea-fuerte); font-size: 13px; color: var(--ira-nieve); }
+.ira-met__destino-nota { font-size: 13px; color: var(--ira-texto-2); }
+
+/* ── Cómo se aplica: secuencia ────────────────────────────────────────────── */
+.ira-met__pasos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; counter-reset: paso; }
+.ira-met__paso {
+  position: relative; display: flex; flex-direction: column; gap: 8px; padding: 20px 18px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l);
+}
+.ira-met__paso:not(:last-child)::after {
+  content: '→'; position: absolute; right: -11px; top: 22px; width: 10px; text-align: center;
+  font-family: var(--ira-font-cifra); color: var(--ira-oro);
+}
+.ira-met__paso-n { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--ira-oro); color: var(--ira-oro); font-size: 14px; }
+.ira-met__paso-quien { font-size: 13px; color: var(--ira-oro); }
+.ira-met__paso-texto { font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+.ira-met__clave {
+  align-self: flex-start; padding: 14px 20px; border-radius: var(--ira-radio-m);
+  background: rgba(141, 170, 126, 0.1); border: 1px solid var(--ira-salvia);
+  font-family: var(--ira-font-titulo); font-weight: 500; font-size: 19px; line-height: 1.35; color: var(--ira-marca-empatica);
+}
+@media (max-width: 900px) {
+  .ira-met__pasos { grid-template-columns: minmax(0, 1fr); }
+  .ira-met__paso:not(:last-child)::after { content: '↓'; right: auto; left: 31px; top: auto; bottom: -19px; }
+}
+
+/* ── Indicadores ──────────────────────────────────────────────────────────── */
+.ira-met__indicador { display: flex; flex-direction: column; gap: 14px; padding-top: 28px; border-top: 1px solid var(--ira-linea); }
+.ira-met__indicador:first-of-type { border-top: none; padding-top: 0; }
+.ira-met__indicador-titulo { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 24px; }
+.ira-met__peso { font-size: 15px; font-weight: 400; color: var(--ira-oro); }
+.ira-met__marcas { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.ira-met__marcas dt { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: var(--ira-nieve); }
+.ira-met__marcas dd { margin: 4px 0 0; font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+
+/* ── Acordeón ─────────────────────────────────────────────────────────────── */
+.ira-met__acordeon { border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-m); background: var(--ira-superficie); }
+.ira-met__acordeon > summary {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  min-height: 48px; padding: 0 16px; cursor: pointer; list-style: none;
+  font-size: 15px; font-weight: 500; color: var(--ira-nieve); border-radius: var(--ira-radio-m);
+}
+.ira-met__acordeon > summary::-webkit-details-marker { display: none; }
+.ira-met__acordeon > summary:hover { background: var(--ira-elevada); }
+.ira-met__chevron { flex-shrink: 0; fill: none; stroke: var(--ira-texto-2); stroke-width: 1.75px; stroke-linecap: round; stroke-linejoin: round; transition: transform 150ms ease; }
+.ira-met__acordeon[open] > summary .ira-met__chevron { transform: rotate(180deg); }
+.ira-met__acordeon-cuerpo { padding: 4px 16px 18px; }
+
+/* ── Excepción democrática ────────────────────────────────────────────────── */
+.ira-met__condiciones { margin: 0; padding-left: 24px; display: flex; flex-direction: column; gap: 10px; max-width: 720px; font-size: 15px; line-height: 24px; color: var(--ira-texto-cita); }
+.ira-met__condicion-nombre { font-weight: 500; color: var(--ira-nieve); }
+.ira-met__veredicto { display: inline; }
+.ira-met__veredicto--si > span:first-child { color: var(--ira-salvia); font-weight: 700; }
+.ira-met__veredicto--no > span:first-child { color: var(--ira-estrella-polarizante); font-weight: 700; }
+.ira-met__salvaguardas, .ira-met__limites { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.ira-met__salvaguardas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ira-met__salvaguardas > li, .ira-met__limites > li {
+  display: flex; flex-direction: column; gap: 6px; padding: 18px 20px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l);
+  font-size: 14px; line-height: 23px; color: var(--ira-texto-2);
+}
+.ira-met__salvaguarda-nombre, .ira-met__limite-nombre { font-size: 15px; font-weight: 500; color: var(--ira-nieve); }
+.ira-met__limites { counter-reset: limite; }
+.ira-met__limites > li { counter-increment: limite; }
+.ira-met__limite-nombre::before { content: counter(limite) '. '; font-family: var(--ira-font-cifra); color: var(--ira-oro); }
+
+/* ── Referencias y pie ────────────────────────────────────────────────────── */
+.ira-met__referencias { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+.ira-met__referencias li { padding-left: 24px; text-indent: -24px; overflow-wrap: anywhere; }
+.ira-met__pie-nav { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding-top: 32px; border-top: 1px solid var(--ira-linea); }
+.ira-met__siguiente { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: var(--ira-texto-3); }
+
+/* ── Marcador de pieza (fase 3) ───────────────────────────────────────────── */
+.ira-met__marcador {
+  display: flex; flex-direction: column; gap: 10px; padding: 24px;
+  border: 1px dashed var(--ira-linea-fuerte); border-radius: var(--ira-radio-xl);
+  background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255, 255, 255, 0.015) 14px 28px);
+}
+.ira-met__marcador-rotulo { font-size: 14px; color: var(--ira-oro); }
+.ira-met__marcador-texto { max-width: 640px; font-size: 15px; line-height: 24px; color: var(--ira-texto-cita); }
+.ira-met__marcador-estado { font-size: 13px; color: var(--ira-texto-3); font-style: italic; }
+.ira-met__marcador .ira-met__tabla-marco { margin-top: 8px; background: var(--ira-noche); }
+
+/* ── Responsive general ───────────────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .ira-met__principios, .ira-met__teoria, .ira-met__salvaguardas { grid-template-columns: minmax(0, 1fr); }
+  .ira-met__param--activo .ira-met__param-nombre { font-size: 24px; }
+}
+@media (max-width: 600px) {
+  .ira-met { gap: 32px; }
+  .ira-met__cuerpo { gap: 48px; }
+  .ira-met__entradilla { font-size: 16px; line-height: 27px; }
+  .ira-met__principio, .ira-met__marcador { padding: 18px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.ira-met--p1) { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ira-met__chevron, .ira-met__param--activo, .ira-met-pestanas__tab { transition: none; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Ritmo visual: emblema, numeración, bandas, ilustraciones y tableros
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met {
+  --met-alcance: #7FA7D9;        /* categóricos de lib/escala: no se confunden con una puntuación */
+  --met-interpelacion: #B39DDB;
+  --met-permeabilidad: #5FC4C9;
+  --met-cierre: var(--ira-1);
+  --met-apertura: var(--ira-salvia);
+}
+
+/* Aparición al hacer scroll: solo si el sistema no pide reducir el movimiento */
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met-aparecer { opacity: 0; transform: translateY(18px); transition: opacity 600ms ease var(--retardo, 0ms), transform 600ms cubic-bezier(.2, .7, .2, 1) var(--retardo, 0ms); }
+  .ira-met-aparecer.is-visible { opacity: 1; transform: none; }
+}
+
+.ira-met-icono { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.6px; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Cabecera de P1 con emblema (centro salvia, anillos y muro) */
+.ira-met__cabecera--p1 { flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; }
+.ira-met__cabecera-texto { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.ira-met__emblema { width: 220px; height: 220px; flex-shrink: 0; overflow: visible; }
+.ira-met__emblema-muro { fill: none; stroke: var(--ira-linea-fuerte); stroke-width: 2; stroke-dasharray: 210 34; transform-origin: 100px 100px; }
+.ira-met__emblema-anillo { fill: none; stroke: var(--ira-salvia); stroke-width: 6; opacity: 0.45; transform-origin: 100px 100px; }
+.ira-met__emblema-anillo--2 { opacity: 0.2; }
+.ira-met__emblema-centro { fill: var(--ira-salvia); filter: drop-shadow(0 0 18px rgba(141, 170, 126, 0.7)); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met__emblema-anillo { animation: ira-met-onda 4.8s ease-out infinite; }
+  .ira-met__emblema-anillo--2 { animation-delay: 2.4s; }
+  .ira-met__emblema-muro { animation: ira-met-girar 60s linear infinite; }
+}
+@keyframes ira-met-onda { 0% { transform: scale(0.85); opacity: 0.5; } 70% { opacity: 0.12; } 100% { transform: scale(1.12); opacity: 0; } }
+@keyframes ira-met-girar { to { transform: rotate(360deg); } }
+@media (max-width: 700px) {
+  .ira-met__cabecera--p1 { flex-direction: column-reverse; align-items: flex-start; gap: 16px; }
+  .ira-met__emblema { width: 120px; height: 120px; }
+}
+
+/* Cabecera de sección numerada */
+.ira-met__seccion-cab { display: flex; flex-direction: column; gap: 6px; }
+.ira-met__seccion-n { font-size: 13px; color: var(--ira-oro); letter-spacing: 0.04em; }
+.ira-met__seccion-n::after { content: ""; display: inline-block; width: 36px; height: 1px; margin-left: 10px; vertical-align: middle; background: rgba(220, 177, 73, 0.5); }
+
+/* Sección en banda (destacada) */
+.ira-met__seccion--banda {
+  padding: 32px; border-radius: 22px; border: 1px solid var(--ira-linea);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(141, 170, 126, 0.10), transparent 60%), var(--ira-superficie);
+}
+@media (max-width: 600px) { .ira-met__seccion--banda { padding: 20px 16px; } }
+.ira-met__entrada { max-width: 720px; font-family: var(--ira-font-titulo); font-size: clamp(20px, 2.6vw, 26px); line-height: 1.35; color: var(--ira-nieve); }
+
+/* Índice lateral: número y sección actual */
+.ira-met__indice-n { min-width: 22px; margin-right: 6px; font-size: 11px; color: var(--ira-texto-3); }
+.ira-met__indice-lista a.is-actual { color: var(--ira-nieve); border-left: 2px solid var(--ira-oro); padding-left: 11px; }
+.ira-met__indice-lista a.is-actual .ira-met__indice-n { color: var(--ira-oro); }
+
+/* Frase destacada */
+.ira-met__destacado {
+  max-width: 760px; padding: 4px 0 4px 22px; border-left: 3px solid var(--ira-oro);
+  font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(19px, 2.4vw, 24px); line-height: 1.35; color: var(--ira-nieve);
+}
+.ira-met__destacado--salvia { border-color: var(--ira-salvia); color: var(--ira-marca-empatica); }
+.ira-met__destacado--rojo { border-color: var(--ira-1); color: var(--ira-marca-polarizante); }
+
+/* Barra de pesos */
+.ira-met-pesos { margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 760px; }
+.ira-met-pesos__barra { display: flex; gap: 4px; height: 18px; }
+.ira-met-pesos__tramo { flex-basis: 0; border-radius: 4px; }
+.ira-met-pesos__tramo--alcance { background: var(--met-alcance); }
+.ira-met-pesos__tramo--permeabilidad { background: var(--met-permeabilidad); }
+.ira-met-pesos__tramo--interpelacion { background: var(--met-interpelacion); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met-aparecer .ira-met-pesos__tramo { transform: scaleX(0); transform-origin: left; transition: transform 800ms cubic-bezier(.2, .7, .2, 1); }
+  .ira-met-aparecer.is-visible .ira-met-pesos__tramo { transform: none; }
+  .ira-met-aparecer.is-visible .ira-met-pesos__tramo:nth-child(2) { transition-delay: 150ms; }
+  .ira-met-aparecer.is-visible .ira-met-pesos__tramo:nth-child(3) { transition-delay: 300ms; }
+}
+.ira-met-pesos__leyenda { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+.ira-met-pesos__leyenda li { flex-basis: 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.ira-met-pesos__cifra { font-size: clamp(20px, 3vw, 30px); line-height: 1; }
+.ira-met-pesos__nombre { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ira-texto-2); }
+.ira-met-pesos__leyenda li:nth-child(1) .ira-met-icono { color: var(--met-alcance); }
+.ira-met-pesos__leyenda li:nth-child(2) .ira-met-icono { color: var(--met-permeabilidad); }
+.ira-met-pesos__leyenda li:nth-child(3) .ira-met-icono { color: var(--met-interpelacion); }
+@media (max-width: 480px) { .ira-met-pesos__nombre { font-size: 12px; } .ira-met-pesos__nombre .ira-met-icono { display: none; } }
+
+/* Línea de tiempo: oír, sentir, pensar */
+.ira-met-tiempo { display: flex; flex-direction: column; gap: 8px; }
+.ira-met-tiempo__svg { width: 100%; height: auto; overflow: visible; }
+.ira-met-tiempo__onda { fill: none; stroke: var(--ira-oro); stroke-width: 3; stroke-linecap: round; }
+.ira-met-tiempo__flecha { fill: none; stroke: var(--ira-texto-3); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.ira-met-tiempo__anillo { fill: none; stroke: var(--ira-salvia); stroke-width: 5; }
+.ira-met-tiempo__anillo--1 { opacity: 0.45; }
+.ira-met-tiempo__anillo--2 { opacity: 0.2; }
+.ira-met-tiempo__punto { fill: var(--ira-salvia); }
+.ira-met-tiempo__oyente { fill: var(--ira-nieve); }
+.ira-met-tiempo__razon line { stroke: var(--ira-texto-2); stroke-width: 3; stroke-linecap: round; }
+.ira-met-tiempo__eje { fill: none; stroke: var(--ira-linea-fuerte); stroke-width: 1.4; }
+.ira-met-tiempo__pasos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; text-align: center; }
+.ira-met-tiempo__pasos li { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.ira-met-tiempo__n { width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--ira-oro); color: var(--ira-oro); font-size: 13px; }
+.ira-met-tiempo__titulo { font-family: var(--ira-font-titulo); font-weight: 500; font-size: 18px; }
+.ira-met-tiempo__texto { font-size: 13px; line-height: 20px; color: var(--ira-texto-2); max-width: 220px; }
+.ira-met-tiempo__eje-rotulo { align-self: flex-end; font-family: var(--ira-font-cifra); font-size: 12px; color: var(--ira-texto-3); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met-tiempo__onda { stroke-dasharray: 260; stroke-dashoffset: 260; transition: stroke-dashoffset 900ms ease; }
+  .ira-met-tiempo__flecha, .ira-met-tiempo__centro, .ira-met-tiempo__razon line { opacity: 0; transition: opacity 500ms ease; }
+  .ira-met-tiempo.is-visible .ira-met-tiempo__onda { stroke-dashoffset: 0; }
+  .ira-met-tiempo.is-visible .ira-met-tiempo__flecha { opacity: 1; transition-delay: 700ms; }
+  .ira-met-tiempo.is-visible .ira-met-tiempo__centro { opacity: 1; transition-delay: 900ms; }
+  .ira-met-tiempo.is-visible .ira-met-tiempo__flecha--2 { transition-delay: 1500ms; }
+  .ira-met-tiempo.is-visible .ira-met-tiempo__razon line { opacity: 1; transition-delay: 1800ms; }
+  .ira-met-tiempo.is-visible .ira-met-tiempo__razon line:nth-child(2) { transition-delay: 1950ms; }
+  .ira-met-tiempo.is-visible .ira-met-tiempo__razon line:nth-child(3) { transition-delay: 2100ms; }
+}
+@media (max-width: 520px) { .ira-met-tiempo__titulo { font-size: 16px; } .ira-met-tiempo__texto { font-size: 12px; line-height: 17px; } }
+
+/* La cadena del argumento */
+.ira-met__cadena { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.ira-met__eslabon { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 22px 22px 18px; background: var(--ira-noche); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); }
+.ira-met__eslabon-n { font-size: 40px; line-height: 1; color: var(--ira-salvia); opacity: 0.85; }
+.ira-met__eslabon:nth-child(n+3) .ira-met__eslabon-n { color: var(--ira-estrella-polarizante); }
+.ira-met__eslabon-texto { font-size: 15px; line-height: 24px; color: var(--ira-texto-cita); }
+.ira-met__eslabon-fuentes { margin-top: auto !important; padding-top: 8px; font-family: var(--ira-font-cifra); font-size: 12px; color: var(--ira-texto-3); }
+@media (max-width: 760px) { .ira-met__cadena { grid-template-columns: minmax(0, 1fr); } }
+
+/* Qué no mide: desvíos hacia otros parámetros */
+.ira-met__desvios { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ira-met__desvio { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 16px 18px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); }
+.ira-met__desvio-fenomeno { flex-basis: 100%; font-size: 15px; line-height: 22px; color: var(--ira-nieve); }
+.ira-met__desvio-flecha { font-family: var(--ira-font-cifra); color: var(--ira-oro); }
+.ira-met__desvio-destino { flex: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+@media (max-width: 760px) { .ira-met__desvios { grid-template-columns: minmax(0, 1fr); } }
+
+/* Pasos con icono; el de la IA, resaltado */
+.ira-met__paso-cab { display: flex; align-items: center; justify-content: space-between; }
+.ira-met__paso-icono { color: var(--ira-texto-2); }
+.ira-met__paso--ia { border-color: var(--ira-oro); background: linear-gradient(180deg, rgba(220, 177, 73, 0.08), transparent 70%), var(--ira-superficie); }
+.ira-met__paso--ia .ira-met__paso-icono { color: var(--ira-oro); }
+
+/* Pestañas de indicadores */
+.ira-met-pestanas { display: flex; flex-direction: column; gap: 20px; }
+.ira-met-pestanas__lista { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.ira-met-pestanas__tab {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 44px; padding: 16px;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-bottom-width: 3px; border-radius: var(--ira-radio-l);
+  color: var(--ira-texto-2); font: inherit; text-align: left; cursor: pointer; transition: background-color 150ms ease, border-color 150ms ease;
+}
+.ira-met-pestanas__tab:hover { background: var(--ira-elevada); color: var(--ira-nieve); }
+.ira-met-pestanas__tab[aria-selected="true"] { background: var(--ira-elevada); color: var(--ira-nieve); }
+.ira-met-pestanas__tab--alcance .ira-met-icono { color: var(--met-alcance); }
+.ira-met-pestanas__tab--interpelacion .ira-met-icono { color: var(--met-interpelacion); }
+.ira-met-pestanas__tab--permeabilidad .ira-met-icono { color: var(--met-permeabilidad); }
+.ira-met-pestanas__tab--alcance[aria-selected="true"] { border-bottom-color: var(--met-alcance); }
+.ira-met-pestanas__tab--interpelacion[aria-selected="true"] { border-bottom-color: var(--met-interpelacion); }
+.ira-met-pestanas__tab--permeabilidad[aria-selected="true"] { border-bottom-color: var(--met-permeabilidad); }
+.ira-met-pestanas__nombre { font-family: var(--ira-font-titulo); font-weight: 500; font-size: 17px; line-height: 1.2; }
+.ira-met-pestanas__peso { font-size: 14px; color: var(--ira-oro); }
+.ira-met-pestanas__panel { display: flex; flex-direction: column; gap: 16px; }
+.ira-met-pestanas__panel:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 6px; border-radius: 6px; }
+@media (max-width: 520px) {
+  .ira-met-pestanas__tab { padding: 12px 10px; }
+  .ira-met-pestanas__nombre { font-size: 14px; }
+}
+.ira-met__panel-mide { max-width: 720px; font-family: var(--ira-font-titulo); font-size: clamp(19px, 2.4vw, 23px); line-height: 1.35; color: var(--ira-nieve); }
+.ira-met__nota strong { color: var(--ira-texto-cita); font-weight: 500; }
+
+/* Interpelación: las dos categorías frente a frente */
+.ira-met__dos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.ira-met__dos-item { display: flex; flex-direction: column; gap: 8px; padding: 18px; border-radius: var(--ira-radio-l); background: var(--ira-superficie); border: 1px solid var(--ira-linea); }
+.ira-met__dos-item--incl { border-top: 3px solid var(--met-apertura); }
+.ira-met__dos-item--contra { border-top: 3px dashed var(--met-cierre); }
+.ira-met__dos-item .ira-met__codigo { align-self: flex-start; }
+.ira-met__dos-nombre { font-weight: 500; font-size: 15px; }
+.ira-met__dos-ej { font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+@media (max-width: 600px) { .ira-met__dos { grid-template-columns: minmax(0, 1fr); } }
+
+/* ¿Quién queda fuera? tres zonas */
+.ira-met__blancos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.ira-met__zona { display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: var(--ira-radio-l); border: 1px solid var(--ira-linea); background: var(--ira-superficie); }
+.ira-met__zona--no { border-style: dashed; }
+.ira-met__zona--depende { border-color: var(--ira-linea-fuerte); }
+.ira-met__zona--si { border-color: rgba(190, 40, 26, 0.6); background: linear-gradient(180deg, rgba(190, 40, 26, 0.08), transparent 70%), var(--ira-superficie); }
+.ira-met__zona-titulo { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--ira-nieve); }
+.ira-met__zona--si .ira-met__zona-titulo .ira-met-icono { color: var(--ira-estrella-polarizante); }
+.ira-met__zona ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.ira-met__zona li { display: flex; flex-direction: column; gap: 3px; padding-top: 10px; border-top: 1px solid var(--ira-linea); }
+.ira-met__zona-blanco { font-size: 14px; font-weight: 500; color: var(--ira-texto-cita); }
+.ira-met__zona-ej { font-size: 13px; line-height: 20px; color: var(--ira-texto-2); font-style: italic; }
+.ira-met__zona-nota { font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+@media (max-width: 760px) { .ira-met__blancos { grid-template-columns: minmax(0, 1fr); } }
+
+/* Tablero: el muro (cierres, ladrillos) y la puerta (aperturas, arcos) */
+.ira-met__tablero { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ira-met__tablero-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.ira-met__tablero-titulo { display: flex; align-items: center; gap: 8px; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 17px; }
+.ira-met__tablero-titulo--muro .ira-met-icono { color: var(--ira-estrella-polarizante); }
+.ira-met__tablero-titulo--puerta .ira-met-icono { color: var(--ira-salvia); }
+.ira-met__marcas-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.ira-met__marcas-lista--muro { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-right: 14px; }
+.ira-met__marcas-lista--muro .ira-met__marca:nth-child(4n+3), .ira-met__marcas-lista--muro .ira-met__marca:nth-child(4n+4) { transform: translateX(14px); }
+.ira-met__marcas-lista--puerta { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ira-met__marca details { height: 100%; box-sizing: border-box; }
+.ira-met__marca summary { list-style: none; cursor: pointer; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 44px; padding: 10px 12px; }
+.ira-met__marca summary::-webkit-details-marker { display: none; }
+.ira-met__marca--cierre details { border: 1px solid rgba(190, 40, 26, 0.55); border-radius: 4px; background: rgba(190, 40, 26, 0.07); }
+.ira-met__marca--apertura details { border: 1px dashed var(--ira-salvia); border-radius: 40px 40px 6px 6px; background: rgba(141, 170, 126, 0.06); }
+.ira-met__marca--apertura summary { align-items: center; text-align: center; padding-top: 14px; }
+.ira-met__marca--cierre .ira-met__codigo { border-color: var(--ira-1); }
+.ira-met__marca--apertura .ira-met__codigo { border-color: var(--ira-salvia); border-style: dashed; }
+.ira-met__marca summary:hover { background: rgba(255, 255, 255, 0.03); }
+.ira-met__marca details[open] { background: var(--ira-elevada); }
+.ira-met__marca-nombre { font-size: 13px; line-height: 18px; color: var(--ira-texto-cita); }
+.ira-met__marca-ej { margin: 0; padding: 0 12px 12px; font-size: 13px; line-height: 19px; font-style: italic; color: var(--ira-texto-2); }
+.ira-met__marca--apertura .ira-met__marca-ej { text-align: center; }
+@media (max-width: 900px) { .ira-met__tablero { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) {
+  .ira-met__marcas-lista--puerta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ira-met__marcas-lista--muro { padding-right: 8px; }
+  .ira-met__marcas-lista--muro .ira-met__marca:nth-child(4n+3), .ira-met__marcas-lista--muro .ira-met__marca:nth-child(4n+4) { transform: translateX(8px); }
+}
+
+/* Excepción: tres controles y dos salidas */
+.ira-met__controles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ira-met__control { display: flex; flex-direction: column; gap: 8px; padding: 20px 18px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); }
+.ira-met__control p { font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+.ira-met__control-n { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--ira-noche); border: 2px solid var(--ira-oro); color: var(--ira-oro); font-size: 15px; }
+.ira-met__resultados { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.ira-met__resultado { display: flex; gap: 10px; align-items: baseline; padding: 14px 16px; border-radius: var(--ira-radio-m); font-size: 15px; line-height: 23px; }
+.ira-met__resultado > span { font-weight: 700; }
+.ira-met__resultado--si { border: 1px solid var(--ira-salvia); background: rgba(141, 170, 126, 0.08); color: var(--ira-marca-empatica); }
+.ira-met__resultado--no { border: 1px dashed var(--ira-1); background: rgba(190, 40, 26, 0.07); color: var(--ira-marca-polarizante); }
+.ira-met__salvaguardas > li { position: relative; }
+.ira-met__salvaguarda-icono { color: var(--ira-oro); }
+@media (max-width: 760px) { .ira-met__controles, .ira-met__resultados { grid-template-columns: minmax(0, 1fr); } }
+
+/* Mínimos con puntos y escala de solidez */
+.ira-met__minimos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; }
+.ira-met__minimo { display: flex; flex-direction: column; gap: 12px; padding: 18px; background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); }
+.ira-met__minimo-cab { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.ira-met__minimo-ind { font-family: var(--ira-font-titulo); font-weight: 500; font-size: 17px; }
+.ira-met__minimo-texto { font-size: 14px; line-height: 21px; color: var(--ira-texto-cita); }
+.ira-met-puntos { display: flex; flex-wrap: wrap; gap: 6px; }
+.ira-met-puntos > span { width: 12px; height: 12px; border-radius: 50%; background: var(--ira-salvia); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met-aparecer .ira-met-puntos > span { transform: scale(0); transition: transform 300ms ease calc(var(--i) * 40ms + 200ms); }
+  .ira-met-aparecer.is-visible .ira-met-puntos > span { transform: none; }
+}
+@media (max-width: 760px) { .ira-met__minimos { grid-template-columns: minmax(0, 1fr); } }
+
+.ira-met-solidez { margin: 0; padding: 40px 0; }
+.ira-met-solidez__pista { position: relative; height: 44px; }
+.ira-met-solidez__tramo { position: absolute; top: 0; height: 44px; box-sizing: border-box; padding: 4px 8px; display: flex; flex-direction: column; justify-content: center; border-radius: 6px; border: 1px solid var(--ira-linea-fuerte); overflow: hidden; }
+.ira-met-solidez__tramo--no-fiable { border-style: dashed; }
+.ira-met-solidez__tramo--orientativa { background: rgba(220, 177, 73, 0.08); }
+.ira-met-solidez__tramo--solida { background: rgba(141, 170, 126, 0.14); border-color: var(--ira-salvia); }
+.ira-met-solidez__nombre { font-size: 13px; font-weight: 500; white-space: nowrap; }
+.ira-met-solidez__rango { font-size: 11px; color: var(--ira-texto-2); white-space: nowrap; }
+.ira-met-solidez__marca { position: absolute; top: -8px; bottom: -8px; width: 2px; margin-left: -1px; background: var(--ira-nieve); }
+.ira-met-solidez__marca-texto { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 12px; color: var(--ira-nieve); }
+.ira-met-solidez__marca--arriba .ira-met-solidez__marca-texto { bottom: calc(100% + 4px); }
+.ira-met-solidez__marca--abajo .ira-met-solidez__marca-texto { top: calc(100% + 4px); }
+.ira-met-solidez__marca-texto strong { font-weight: 500; color: var(--ira-oro); }
+@media (max-width: 520px) {
+  .ira-met-solidez__nombre { font-size: 11px; }
+  .ira-met-solidez__rango { display: none; }
+  .ira-met-solidez__marca-texto { font-size: 11px; }
+  .ira-met-solidez__marca--arriba .ira-met-solidez__marca-texto { left: auto; right: -4px; transform: none; }
+}
+
+/* Índice: cabecera de cada principio con su icono */
+.ira-met__principio-cab { display: flex; align-items: center; justify-content: space-between; }
+.ira-met__principio-icono { color: var(--ira-salvia); }

@@ -6,3 +6,7 @@ dist
 
 .vercel
 backups/
+
+# Entorno de investigación (Python)
+research/.venv/
+__pycache__/
