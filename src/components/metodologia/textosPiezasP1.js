@@ -6,6 +6,9 @@
 
 export const TEXTOS_PIEZAS_P1 = {
   es: {
+    // Pieza 7 («¿Cuenta o no?»): espera a tener más corpus para usar solo frases reales
+    proximamente: 'Próximamente',
+
     frontera: {
       intro: 'Elige una frase del manual y mira dónde coloca al otro: dentro del nosotros, en el umbral o detrás del muro.',
       etiqueta: 'Frases de ejemplo',
@@ -82,17 +85,12 @@ export const TEXTOS_PIEZAS_P1 = {
       referencia: 'Barcelona 2026: 1 apertura y 7 cierres = 2,00. Aquí cada marca cuenta una vez; en un discurso real cuenta cada repetición.',
     },
     arbol: {
-      intro: 'Elige una frase y mira cómo recorre las tres condiciones. Las preguntas van en orden: en cuanto una falla, el árbol termina y la frase cuenta como cierre normal.',
-      etiqueta: 'Frases para recorrer el árbol',
+      intro: 'Elige una frase y mira qué condiciones cumple. La excepción solo se aplica si se cumplen las tres; si falla cualquiera, la frase cuenta como cierre normal.',
+      etiqueta: 'Frases de ejemplo del manual',
       entrada: 'Hay frontera: la frase coloca a un otro humano identificable frente al nosotros.',
-      preguntas: [
-        '¿Se identifica al otro por un acto concreto?',
-        '¿Se atribuye el acto a quien lo cometió?',
-        '¿La oración evita generalizar, esencializar y deshumanizar?',
-      ],
-      si: 'Sí', no: 'No',
-      saltado: 'Ya no hace falta mirarla: el árbol terminó antes.',
-      pendiente: 'Contesta las preguntas para ver el resultado.',
+      cumple: 'Se cumple', noCumple: 'No se cumple',
+      segunManual: 'Según el manual:',
+      pendiente: 'Marca las tres condiciones para ver el resultado.',
       permeabilidad: 'Permeabilidad',
       alcance: 'Alcance e interpelación',
       resultado: {
@@ -104,22 +102,13 @@ export const TEXTOS_PIEZAS_P1 = {
       desmentidoNo: 'No hay desmentido',
       desmentidoSi: 'Sí, está desmentida',
       propia: 'Prueba con tu propia frase',
-      propiaAyuda: 'Piensa en una frase de un discurso que señale a alguien por violencia o por atacar la democracia, y contesta tú las preguntas.',
-      // Mismo orden que excepcion.ejemplos en textosP1.js. Pendiente de revisión del autor.
-      casos: [
-        { pasos: [[true, '«atacó»: un acto'], [true, 'un individuo, el terrorista'], [true, 'no extiende la acusación a nadie más']] },
-        { pasos: [[true, '«ha invadido»: un acto'], [true, 'el Estado como actor'], [true, 'no extiende la acusación a nadie más']] },
-        { pasos: [[true, '«atacó»: un acto'], [true, 'un gobierno, no un pueblo'], [true, 'no extiende la acusación a nadie más']], nota: 'Es formalmente idéntica a la de Rusia. El IRA no decide quién tiene razón: si un verificador la desmiente, la excepción se retira.' },
-        { pasos: [[true, '«está cometiendo»: un acto'], [true, 'un gobierno, no un pueblo'], [true, 'no extiende la acusación a nadie más']] },
-        { pasos: [[false, '«son genocidas»: se les define por lo que son, y son un pueblo entero']] },
-        { pasos: [[false, '«son nazis»: se les define por lo que son, y son un pueblo entero, esencializado']] },
-        { pasos: [[false, '«traen la violencia»: no es un acto concreto, sino una conducta atribuida a un grupo por lo que es']] },
-        { pasos: [[true, '«justificar la violencia»: una conducta'], [true, 'quien lo haga, también si es de los propios'], [true, 'no extiende la acusación a nadie más']] },
-      ],
+      propiaAyuda: 'Piensa en una frase de un discurso que señale a alguien por violencia o por atacar la democracia, y decide tú si cumple cada condición.',
     },
   },
 
   en: {
+    proximamente: 'Coming soon',
+
     frontera: {
       intro: 'Pick a sentence from the manual and see where it places the other: inside "us", on the threshold or behind the wall.',
       etiqueta: 'Example sentences',
@@ -195,17 +184,12 @@ export const TEXTOS_PIEZAS_P1 = {
       referencia: 'Barcelona 2026: 1 opening and 7 closures = 2.00. Here each mark counts once; in a real speech every repetition counts.',
     },
     arbol: {
-      intro: 'Pick a sentence and see how it goes through the three conditions. The questions come in order: as soon as one fails, the tree ends and the sentence counts as a normal closure.',
-      etiqueta: 'Sentences to run through the tree',
+      intro: 'Pick a sentence and see which conditions it meets. The exception only applies if all three are met; if any one fails, the sentence counts as a normal closure.',
+      etiqueta: 'Example sentences from the manual',
       entrada: 'There is a boundary: the sentence places an identifiable human other against "us".',
-      preguntas: [
-        'Is the other identified by a specific act?',
-        'Is the act attributed to whoever committed it?',
-        'Does the sentence avoid generalising, essentialising and dehumanising?',
-      ],
-      si: 'Yes', no: 'No',
-      saltado: 'No need to check it: the tree has already ended.',
-      pendiente: 'Answer the questions to see the result.',
+      cumple: 'Met', noCumple: 'Not met',
+      segunManual: 'According to the manual:',
+      pendiente: 'Mark all three conditions to see the result.',
       permeabilidad: 'Permeability',
       alcance: 'Reach and address',
       resultado: {
@@ -217,17 +201,7 @@ export const TEXTOS_PIEZAS_P1 = {
       desmentidoNo: 'No debunk',
       desmentidoSi: 'Yes, it has been debunked',
       propia: 'Try your own sentence',
-      propiaAyuda: 'Think of a sentence from a speech that points at someone for violence or for attacking democracy, and answer the questions yourself.',
-      casos: [
-        { pasos: [[true, '"attacked": an act'], [true, 'an individual, the terrorist'], [true, 'it does not extend the accusation to anyone else']] },
-        { pasos: [[true, '"has invaded": an act'], [true, 'the State as actor'], [true, 'it does not extend the accusation to anyone else']] },
-        { pasos: [[true, '"attacked": an act'], [true, 'a government, not a people'], [true, 'it does not extend the accusation to anyone else']], nota: 'It is formally identical to the Russia sentence. The IRA does not decide who is right: if a fact-checker debunks it, the exception is withdrawn.' },
-        { pasos: [[true, '"is committing": an act'], [true, 'a government, not a people'], [true, 'it does not extend the accusation to anyone else']] },
-        { pasos: [[false, '"are genocidal": they are defined by what they are, and they are an entire people']] },
-        { pasos: [[false, '"are Nazis": they are defined by what they are, and they are an entire people, essentialised']] },
-        { pasos: [[false, '"bring violence": not a specific act, but conduct attributed to a group for what it is']] },
-        { pasos: [[true, '"justifying violence": a conduct'], [true, 'whoever does it, one\'s own side included'], [true, 'it does not extend the accusation to anyone else']] },
-      ],
+      propiaAyuda: 'Think of a sentence from a speech that points at someone for violence or for attacking democracy, and decide yourself whether it meets each condition.',
     },
   },
 };

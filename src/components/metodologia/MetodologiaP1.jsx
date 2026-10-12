@@ -390,7 +390,7 @@ export default function MetodologiaP1() {
 
           {/* Pieza 7 */}
           <Seccion {...sec('cuenta-o-no')}>
-            <MarcadorPieza etiqueta={pieza(7)} texto={t.piezas.juego} aviso={t.pieza} />
+            <MarcadorPieza etiqueta={pieza(7)} texto={t.piezas.juego} aviso={tp.proximamente} />
           </Seccion>
 
           {/* Mínimos y solidez */}

@@ -1,7 +1,9 @@
-// IRA · Metodología 2.0 · P1 · El árbol de la excepción democrática (pieza interactiva).
-// Las ocho frases del manual (sección 6.3) recorren las tres condiciones en orden; en cuanto
-// una falla, el árbol termina en cierre normal. Si se cumplen las tres, la excepción puede
-// retirarse con un desmentido documentado. «Tu frase» deja contestar las tres preguntas a mano.
+// IRA · Metodología 2.0 · P1 · La excepción democrática, condición a condición (pieza interactiva).
+// Las ocho frases del manual (tabla de la sección 6.3) se comprueban contra las tres condiciones.
+// Como en el manual, no hay orden: se aplica si se cumplen las tres y, si falla cualquiera, es un
+// cierre normal. Las marcas ✓/✕ y la razón salen de la misma tabla (textosP1 · excepcion.ejemplos).
+// Si se cumplen las tres, la excepción puede retirarse con un desmentido documentado.
+// «Tu frase» deja contestar las tres preguntas a mano.
 import { useRef, useState } from 'react';
 
 function Veredicto({ ok }) {
@@ -9,19 +11,21 @@ function Veredicto({ ok }) {
 }
 
 export default function ArbolExcepcion({ condiciones, ejemplos, ui }) {
-  const casos = [...ejemplos.map(([frase, , razon], i) => ({ frase, razon, ...ui.casos[i] })), { propia: true, frase: ui.propia }];
+  const casos = [
+    ...ejemplos.map(([frase, , razon, marcas]) => ({ frase, razon, marcas })),
+    { propia: true, frase: ui.propia },
+  ];
   const [activa, setActiva] = useState(0);
   const [propias, setPropias] = useState([null, null, null]);
   const [desmentido, setDesmentido] = useState(false);
   const refs = useRef([]);
 
   const caso = casos[activa];
-  const respuestas = caso.propia ? propias : caso.pasos.map((p) => p[0]);
-  const fallo = respuestas.findIndex((r) => r === false);
-  const pendiente = respuestas.findIndex((r) => r === null);
-  const completo = fallo !== -1 || pendiente === -1;
-  const excepcion = completo && fallo === -1;
-  const retirada = excepcion && desmentido;
+  const respuestas = caso.propia ? propias : caso.marcas;
+  const falla = respuestas.some((r) => r === false);
+  const cumple = respuestas.every((r) => r === true);
+  const excepcion = cumple;
+  const resultado = falla ? 'cierre' : !cumple ? null : desmentido ? 'retirada' : 'excepcion';
 
   const elegir = (i) => {
     setActiva(i);
@@ -39,17 +43,9 @@ export default function ArbolExcepcion({ condiciones, ejemplos, ui }) {
   };
   const responder = (k, valor) => {
     setDesmentido(false);
-    // Cambiar una respuesta deja sin contestar las preguntas que vienen después
-    setPropias((p) => p.map((r, j) => (j === k ? valor : j > k ? null : r)));
+    setPropias((p) => p.map((r, j) => (j === k ? valor : r)));
   };
-
-  const estadoNodo = (k) => {
-    if (fallo !== -1 && k > fallo) return 'saltado';
-    if (respuestas[k] === null) return k === pendiente ? 'actual' : 'saltado';
-    return respuestas[k] ? 'si' : 'no';
-  };
-
-  const resultado = !completo ? null : retirada ? 'retirada' : excepcion ? 'excepcion' : 'cierre';
+  const estadoNodo = (k) => (respuestas[k] === null ? 'actual' : respuestas[k] ? 'si' : 'no');
 
   return (
     <div className="ira-pz-arbol">
@@ -76,40 +72,34 @@ export default function ArbolExcepcion({ condiciones, ejemplos, ui }) {
         <div className="ira-pz-arbol__lado">
           <p className="ira-pz-arbol__entrada">{caso.propia ? ui.propiaAyuda : ui.entrada}</p>
           <ol className="ira-pz-arbol__nodos">
-            {condiciones.map(([nombre, texto], k) => {
-              const estado = estadoNodo(k);
-              return (
-                <li key={nombre} className={`ira-pz-arbol__nodo is-${estado}`}>
-                  <span className="ira-pz-arbol__n ira-cifra" aria-hidden="true">{k + 1}</span>
-                  <div className="ira-pz-arbol__cuerpo">
-                    <p className="ira-pz-arbol__pregunta">{ui.preguntas[k]}</p>
-                    <p className="ira-pz-arbol__ayuda">{texto}</p>
-                    {caso.propia ? (
-                      estado !== 'saltado' && (
-                        <span className="ira-pz-arbol__botones" role="group" aria-label={ui.preguntas[k]}>
-                          {[true, false].map((v) => (
-                            <button key={String(v)} type="button" aria-pressed={propias[k] === v} onClick={() => responder(k, v)}
-                              className={`ira-pz-arbol__opcion ira-pz-arbol__opcion--${v ? 'si' : 'no'}${propias[k] === v ? ' is-on' : ''}`}>
-                              {v ? ui.si : ui.no}
-                            </button>
-                          ))}
-                        </span>
-                      )
-                    ) : estado === 'saltado' ? (
-                      <p className="ira-pz-arbol__razon ira-pz-arbol__razon--saltado">{ui.saltado}</p>
-                    ) : (
-                      <p className="ira-pz-arbol__razon"><Veredicto ok={respuestas[k]} /> {caso.pasos[k][1]}</p>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
+            {condiciones.map(([nombre, texto], k) => (
+              <li key={nombre} className={`ira-pz-arbol__nodo is-${estadoNodo(k)}`}>
+                <span className="ira-pz-arbol__n ira-cifra" aria-hidden="true">{k + 1}</span>
+                <div className="ira-pz-arbol__cuerpo">
+                  <p className="ira-pz-arbol__pregunta">{nombre}</p>
+                  <p className="ira-pz-arbol__ayuda">{texto}</p>
+                  {caso.propia ? (
+                    <span className="ira-pz-arbol__botones" role="group" aria-label={nombre}>
+                      {[true, false].map((v) => (
+                        <button key={String(v)} type="button" aria-pressed={propias[k] === v} onClick={() => responder(k, v)}
+                          className={`ira-pz-arbol__opcion ira-pz-arbol__opcion--${v ? 'si' : 'no'}${propias[k] === v ? ' is-on' : ''}`}>
+                          {v ? ui.cumple : ui.noCumple}
+                        </button>
+                      ))}
+                    </span>
+                  ) : (
+                    <p className="ira-pz-arbol__razon"><Veredicto ok={respuestas[k]} /> {respuestas[k] ? ui.cumple : ui.noCumple}</p>
+                  )}
+                </div>
+              </li>
+            ))}
           </ol>
 
           <div className={`ira-pz-arbol__resultado is-${resultado ?? 'pendiente'}`} aria-live="polite">
             {resultado ? (
               <>
                 <p className="ira-pz-arbol__resultado-titulo">{ui.resultado[resultado].titulo}</p>
+                {!caso.propia && <p className="ira-pz-arbol__manual"><span>{ui.segunManual}</span> {caso.razon}</p>}
                 <dl className="ira-pz-arbol__efectos">
                   <div><dt>{ui.permeabilidad}</dt><dd>{ui.resultado[resultado].permeabilidad}</dd></div>
                   <div><dt>{ui.alcance}</dt><dd>{ui.resultado[resultado].alcance}</dd></div>
@@ -133,8 +123,6 @@ export default function ArbolExcepcion({ condiciones, ejemplos, ui }) {
               </span>
             </div>
           )}
-
-          {!caso.propia && caso.nota && <p className="ira-met__nota">{caso.nota}</p>}
         </div>
       </div>
     </div>

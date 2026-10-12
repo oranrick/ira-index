@@ -303,7 +303,6 @@
 .ira-pz-arbol__nodo.is-si::before { background: var(--ira-salvia); }
 .ira-pz-arbol__nodo.is-no .ira-pz-arbol__n { border-color: var(--ira-1); background: rgba(190, 40, 26, 0.18); color: var(--ira-nieve); }
 .ira-pz-arbol__nodo.is-actual .ira-pz-arbol__n { border-color: var(--ira-oro); color: var(--ira-oro); }
-.ira-pz-arbol__nodo.is-saltado { opacity: 0.4; }
 .ira-pz-arbol__cuerpo { display: flex; flex-direction: column; gap: 6px; min-width: 0; padding-top: 6px; }
 .ira-pz-arbol__pregunta { font-family: var(--ira-font-titulo); font-weight: 500; font-size: 17px; line-height: 1.3; color: var(--ira-nieve); }
 .ira-pz-arbol__ayuda { font-size: 13px; line-height: 20px; color: var(--ira-texto-3); }
@@ -348,5 +347,7 @@
   }
   .ira-pz-arbol__frase { flex: 0 0 72%; scroll-snap-align: start; min-height: 0; }
 }
-.ira-pz-arbol__nodo.is-saltado .ira-pz-arbol__ayuda { display: none; }
+
 @media (max-width: 520px) { .ira-pz-arbol__efectos > div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+.ira-pz-arbol__manual { font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
+.ira-pz-arbol__manual > span { color: var(--ira-texto-2); }
