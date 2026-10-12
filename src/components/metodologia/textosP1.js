@@ -296,7 +296,7 @@ export const TEXTOS_P1 = {
     },
 
     limites: [
-      ['«Ustedes» en América', 'Es tercera persona gramaticalmente y el extractor solo busca 1.ª y 2.ª. Hay que añadirlo antes de analizar el corpus latinoamericano. «Les» también es ambiguo.'],
+      ['«Ustedes» en América', 'Concuerda con el verbo en 3.ª persona. El extractor tiene una variedad americana: lo seguro se extrae como 2.ª persona y lo ambiguo («les», «sus», «saben» sin sujeto) sale como candidato para el codificador. Falta probarlo con un discurso real: si salen demasiados candidatos, la revisión deja de ser de 5 minutos.'],
       ['El adversario nombrado', 'El extractor solo capta «ellos»; los grupos nominales («la derecha», «los tecnoligarcas») y los sujetos implícitos («han intentado que...») los encuentra el codificador al anotar los eventos. Pendiente: proponerlos automáticamente.'],
       ['Acusaciones falsas bien formuladas', 'Una acusación de violencia falsa que cumple las tres condiciones de la excepción pasa el filtro mientras no exista un desmentido documentado. El IRA mide el lenguaje, no los hechos; la ficha lo avisa y la verificación corresponde al periodismo.'],
       ['Discursos con pocos eventos pero intensos', 'La ONU tiene dos cierres claros («gente sin escrúpulos, activistas de la mentira») y queda sin puntuar por el mínimo de 3.'],
@@ -615,7 +615,7 @@ export const TEXTOS_P1 = {
     },
 
     limites: [
-      ['"Ustedes" in the Americas', 'It is grammatically third person and the extractor only looks for 1st and 2nd. It must be added before analysing the Latin American corpus. "Les" is also ambiguous.'],
+      ['"Ustedes" in the Americas', 'It agrees with a third-person verb. The extractor has an American variety: what is certain is extracted as second person, and what is ambiguous ("les", "sus", "saben" with no subject) comes out as a candidate for the coder. It still has to be tested on a real speech: if too many candidates come out, the review stops being a 5-minute job.'],
       ['The named adversary', 'The extractor only catches "ellos" (they); noun phrases ("the right", "the tech oligarchs") and implicit subjects ("have tried to...") are found by the coder when annotating events. Pending: proposing them automatically.'],
       ['Well-phrased false accusations', 'A false accusation of violence that meets the exception\'s three conditions passes the filter until there is a documented debunk. The IRA measures language, not facts; the scorecard says so, and verification is a job for journalism.'],
       ['Speeches with few but intense events', 'The UN speech has two clear closures ("people without scruples, activists of lies") and remains unscored because of the minimum of 3.'],
