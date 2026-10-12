@@ -5,6 +5,7 @@
 
 const REFERENCIAS = [
   'Avenanti, A., Sirigu, A., y Aglioti, S. M. (2010). Racial bias reduces empathic sensorimotor resonance with other-race pain. Current Biology, 20(11), 1018–1022.',
+  'Bechara, A., Damasio, H., Tranel, D., y Damasio, A. R. (1997). Deciding advantageously before knowing the advantageous strategy. Science, 275(5304), 1293–1295.',
   'Chilton, P. (2004). Analysing political discourse: Theory and practice. Routledge.',
   'Damasio, A. R. (1994). Descartes\' error: Emotion, reason, and the human brain. Putnam.',
   'Gaertner, S. L., y Dovidio, J. F. (2000). Reducing intergroup bias: The common ingroup identity model. Psychology Press.',
@@ -16,6 +17,7 @@ const REFERENCIAS = [
   'Huddy, L., y Yair, O. (2021). Reducing affective polarization: Warm group relations or policy compromise? Political Psychology, 42(2), 291–309.',
   'Laclau, E. (2005). La razón populista. Fondo de Cultura Económica.',
   'Mouffe, C. (2005). On the political. Routledge.',
+  'Pessoa, L. (2008). On the relationship between emotion and cognition. Nature Reviews Neuroscience, 9(2), 148–158.',
   'Rathje, S., Van Bavel, J. J., y van der Linden, S. (2021). Out-group animosity drives engagement on social media. PNAS, 118(26), e2024292118.',
   'Reisigl, M., y Wodak, R. (2001). Discourse and discrimination. Routledge.',
   'Tajfel, H., y Turner, J. C. (1979). An integrative theory of intergroup conflict. En W. G. Austin y S. Worchel (Eds.), The social psychology of intergroup relations (pp. 33–47). Brooks/Cole.',
@@ -67,7 +69,7 @@ export const TEXTOS_P1 = {
         { titulo: 'Pensar', texto: 'El argumento llega después y parte de esa primera respuesta.' },
       ],
       pasos: [
-        { titulo: 'Primero sentimos, después pensamos', texto: 'La respuesta afectiva llega antes que el argumento y lo orienta. Decidimos si algo nos gusta antes de saber por qué, y el razonamiento moral suele llegar después, a justificar una intuición que ya estaba ahí. Sin las señales emocionales del cuerpo no se razona mejor: se decide peor. La razón cuenta: puede revisar la intuición, pero parte de ella.', fuentes: 'Zajonc, 1980 · Haidt, 2001 · Damasio, 1994' },
+        { titulo: 'Intuición → razonamiento', texto: 'El juicio político no es afectivamente neutro. La intuición suele llegar antes que el argumento: una valoración afectiva rápida, en gran parte no consciente, orienta qué nos parece relevante y cómo lo juzgamos después.', fuentes: 'Damasio, 1994 · Bechara et al., 1997 · Haidt, 2001' },
         { titulo: 'En esa primera respuesta pesa la frontera', texto: 'Comprendemos al otro simulándolo de forma encarnada, y esa resonancia se debilita cuando el otro queda categorizado como «ellos».', fuentes: 'Gallese · Xu et al., 2009 · Avenanti et al., 2010 · Hein et al., 2010' },
         { titulo: 'Por eso el muro es tan eficaz', texto: 'Un discurso que abre la puerta mantiene la empatía disponible: recategorizar al otro dentro de un nosotros común reduce el sesgo, y las relaciones cálidas entre grupos reducen la polarización afectiva.', fuentes: 'Gaertner y Dovidio, 2000 · Huddy y Yair, 2021' },
         { titulo: 'Y el incentivo empuja hacia el muro', texto: 'En redes sociales, la animosidad hacia el exogrupo es lo que más interacción genera. Por eso merece la pena medir dónde se traza la frontera.', fuentes: 'Rathje et al., 2021' },
@@ -386,7 +388,7 @@ export const TEXTOS_P1 = {
         { titulo: 'Think', texto: 'The argument comes later and starts from that first response.' },
       ],
       pasos: [
-        { titulo: 'We feel first, then we think', texto: 'The affective response arrives before the argument and steers it. We decide whether we like something before we know why, and moral reasoning tends to come afterwards, to justify an intuition that was already there. Without the body\'s emotional signals we do not reason better: we decide worse. Reason does count: it can revise the intuition, but it starts from it.', fuentes: 'Zajonc, 1980 · Haidt, 2001 · Damasio, 1994' },
+        { titulo: 'Intuition → reasoning', texto: 'Political judgment is never affectively neutral. Intuition usually arrives before argument: a fast, largely nonconscious affective appraisal shapes what we find relevant and how we judge it afterwards.', fuentes: 'Damasio, 1994 · Bechara et al., 1997 · Haidt, 2001' },
         { titulo: 'In that first response, the boundary weighs in', texto: 'We understand others by simulating them in an embodied way, and that resonance weakens when the other is categorised as "them".', fuentes: 'Gallese · Xu et al., 2009 · Avenanti et al., 2010 · Hein et al., 2010' },
         { titulo: 'That is why the wall works so well', texto: 'A speech that opens the door keeps empathy available: recategorising the other within a common "us" reduces bias, and warm relations between groups reduce affective polarisation.', fuentes: 'Gaertner and Dovidio, 2000 · Huddy and Yair, 2021' },
         { titulo: 'And the incentive pushes towards the wall', texto: 'On social media, animosity towards the out-group is what generates the most engagement. That is why it is worth measuring where the boundary is drawn.', fuentes: 'Rathje et al., 2021' },
