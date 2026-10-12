@@ -10,8 +10,8 @@ const AUTHORS = [
     work: { es: "El error de Descartes (1994)", en: "Descartes' Error (1994)" },
     color: "#DCB149",
     contribution: {
-      es: "Las emociones no son el ruido de la razón — son su substrato. Pacientes con daño límbico no se vuelven más racionales: se vuelven incapaces de decidir.",
-      en: "Emotions are not the noise of reason — they are its substrate. Patients with limbic damage don't become more rational: they become incapable of deciding.",
+      es: "Las emociones no son el ruido de la razón: forman parte de ella. Pacientes con lesiones prefrontales que pierden la señal emocional no se vuelven más racionales: deciden peor.",
+      en: "Emotions are not the noise of reason: they are part of it. Patients with prefrontal damage who lose emotional signals don't become more rational: they decide worse.",
     },
   },
   {
@@ -165,8 +165,8 @@ export default function AboutPage() {
             en="Where does all this rage come from? The answer that took shape is this: we are a wounded society. And wounds become infected when language touches them every day — with war metaphors, manufactured enemies, fear dispensed as electoral fuel."
           />
           <Prose es={es}
-            es="Si la empatía tiene una base biológica — las neuronas espejo, el sistema límbico, la inteligencia emocional como capacidad entrenable — entonces la polarización también la tiene. Y si el odio se contagia a través del lenguaje, la empatía también puede contagiarse. Esa intuición es el fundamento del IRA."
-            en="If empathy has a biological basis — mirror neurons, the limbic system, emotional intelligence as a trainable capacity — then polarization has one too. And if hatred spreads through language, empathy can spread through language too. That intuition is the foundation of the IRA."
+            es="Si la empatía tiene una base biológica (la simulación encarnada del otro, la inteligencia emocional como capacidad entrenable), entonces la polarización también la tiene. Y si el odio se contagia a través del lenguaje, la empatía también puede contagiarse. Esa intuición es el fundamento del IRA."
+            en="If empathy has a biological basis (the embodied simulation of others, emotional intelligence as a trainable capacity), then polarization has one too. And if hatred spreads through language, empathy can spread through language too. That intuition is the foundation of the IRA."
           />
 
           {/* TFG callout */}

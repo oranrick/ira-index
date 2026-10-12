@@ -5,7 +5,6 @@
 
 const REFERENCIAS = [
   'Avenanti, A., Sirigu, A., y Aglioti, S. M. (2010). Racial bias reduces empathic sensorimotor resonance with other-race pain. Current Biology, 20(11), 1018–1022.',
-  'Bechara, A., Damasio, H., Tranel, D., y Damasio, A. R. (1997). Deciding advantageously before knowing the advantageous strategy. Science, 275(5304), 1293–1295.',
   'Chilton, P. (2004). Analysing political discourse: Theory and practice. Routledge.',
   'Damasio, A. R. (1994). Descartes\' error: Emotion, reason, and the human brain. Putnam.',
   'Gaertner, S. L., y Dovidio, J. F. (2000). Reducing intergroup bias: The common ingroup identity model. Psychology Press.',
@@ -58,15 +57,15 @@ export const TEXTOS_P1 = {
     pesos: { alcance: 'Alcance', permeabilidad: 'Permeabilidad', interpelacion: 'Interpelación' },
 
     porque: {
-      entrada: 'Primero sentimos, después pensamos. Por eso importa tanto dónde coloca el discurso a cada persona: dentro del nosotros, en su periferia o frente a él.',
+      entrada: 'La intuición suele llegar antes que el argumento. Por eso importa tanto dónde coloca el discurso a cada persona: dentro del nosotros, en su periferia o frente a él.',
       eje: 'tiempo',
       tiempo: [
-        { titulo: 'Oír', texto: 'Llega la frase.' },
-        { titulo: 'Sentir', texto: 'Antes de pensarlo, el oyente se siente dentro o fuera.' },
-        { titulo: 'Pensar', texto: 'El argumento llega después y parte de esa primera respuesta.' },
+        { titulo: 'Frase', texto: 'Llega al oyente.' },
+        { titulo: 'Intuición', texto: 'Una valoración rápida lo coloca dentro o fuera del nosotros.' },
+        { titulo: 'Razonamiento', texto: 'Suele llegar después y parte de esa primera valoración.' },
       ],
       pasos: [
-        { titulo: 'Intuición → razonamiento', texto: 'El juicio político no es afectivamente neutro. La intuición suele llegar antes que el argumento: una valoración afectiva rápida, en gran parte no consciente, orienta qué nos parece relevante y cómo lo juzgamos después.', fuentes: 'Damasio, 1994 · Bechara et al., 1997 · Haidt, 2001' },
+        { titulo: 'Intuición → razonamiento', texto: 'El juicio político no es afectivamente neutro. La intuición suele llegar antes que el argumento: una valoración afectiva rápida, en gran parte no consciente, orienta qué nos parece relevante y cómo lo juzgamos después.', fuentes: 'Damasio, 1994 · Haidt, 2001' },
         { titulo: 'En esa primera respuesta pesa la frontera', texto: 'Comprendemos al otro simulándolo de forma encarnada, y esa resonancia se debilita cuando el otro queda categorizado como «ellos».', fuentes: 'Gallese · Xu et al., 2009 · Avenanti et al., 2010 · Hein et al., 2010' },
         { titulo: 'Por eso el muro es tan eficaz', texto: 'Un discurso que abre la puerta mantiene la empatía disponible: recategorizar al otro dentro de un nosotros común reduce el sesgo, y las relaciones cálidas entre grupos reducen la polarización afectiva.', fuentes: 'Gaertner y Dovidio, 2000 · Huddy y Yair, 2021' },
         { titulo: 'Y el incentivo empuja hacia el muro', texto: 'En redes sociales, la animosidad hacia el exogrupo es lo que más interacción genera. Por eso merece la pena medir dónde se traza la frontera.', fuentes: 'Rathje et al., 2021' },
