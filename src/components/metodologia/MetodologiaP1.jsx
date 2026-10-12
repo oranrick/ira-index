@@ -15,6 +15,7 @@ import PruebaFrontera from './piezas/PruebaFrontera.jsx';
 import CadenaArgumento from './piezas/CadenaArgumento.jsx';
 import MapaTeoria from './piezas/MapaTeoria.jsx';
 import FronteraLinea from './piezas/FronteraLinea.jsx';
+import ArbolExcepcion from './piezas/ArbolExcepcion.jsx';
 import datosP1 from '../../data/metodologia/p1.json';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-piezas.css';
@@ -373,18 +374,7 @@ export default function MetodologiaP1() {
               <p className="ira-met__resultado ira-met__resultado--no"><span aria-hidden="true">✕</span> {t.resultados.no}</p>
             </div>
 
-            <MarcadorPieza etiqueta={pieza(8)} texto={t.piezas.arbol} aviso={t.pieza}>
-              <Tabla
-                className="ira-met__tabla-marco--dentro"
-                cabecera={t.excepcion.ejemplosCabecera}
-                filas={t.excepcion.ejemplos.map(([frase, si, razon]) => [
-                  frase,
-                  <span key="r" className={`ira-met__veredicto ira-met__veredicto--${si ? 'si' : 'no'}`}>
-                    <span aria-hidden="true">{si ? '✓' : '✕'}</span> {si ? t.excepcion.si : t.excepcion.no}: {razon}
-                  </span>,
-                ])}
-              />
-            </MarcadorPieza>
+            <ArbolExcepcion condiciones={t.excepcion.condiciones} ejemplos={t.excepcion.ejemplos} ui={tp.arbol} />
 
             <h3 className="ira-met__h3">{t.excepcion.salvaguardasTitulo}</h3>
             <ul className="ira-met__salvaguardas">
