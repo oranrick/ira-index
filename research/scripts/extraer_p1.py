@@ -7,7 +7,17 @@ clíticos de 1.ª y 2.ª persona, y los pronombres tónicos ellos/ellas, usted/u
 No interpreta nada: el mismo texto da siempre la misma tabla.
 La columna `categoria` queda vacía para el paso 2 (clasificación humana o IA).
 
-Uso:  python3 extraer_p1.py discurso.txt salida.csv
+Variedad americana (--variedad america). En América el público es «ustedes», que concuerda
+con el verbo en 3.ª persona («ustedes saben», «les pido», «sus familias»). Se extrae así:
+  - Seguro (persona 2): el verbo en 3.ª persona que lleva «ustedes»/«usted» colgado de él
+    (se cuenta una sola vez, como «vosotros sabéis»), y el imperativo («sigan», «siga»).
+  - Candidato (persona 2?): el verbo en 3.ª del plural sin sujeto expreso, el clítico «les»,
+    los clíticos «los/las» y, en oraciones donde aparece «ustedes» o «usted», los posesivos
+    «su/sus/suyo...». Pueden ser el público o «ellos»: el codificador lo decide en la revisión
+    (2I/2C si es el público, X si es tercera persona). La columna `revisar` lo indica.
+En la variedad española (por defecto) la extracción no cambia.
+
+Uso:  python3 extraer_p1.py discurso.txt salida.csv [--variedad america]
 """
 import csv
 import sys
@@ -43,7 +53,17 @@ def persona_numero(tok):
     return (per[0] if per else None, num[0] if num else None)
 
 
-def extraer(texto):
+USTEDES = {"ustedes": "Plur", "usted": "Sing"}
+POSESIVOS_3 = {"su", "sus", "suyo", "suya", "suyos", "suyas"}
+REVISAR = "candidato a «ustedes»: confirmar si es el público (2I/2C) o tercera persona (X)"
+
+
+def finito(t):
+    return t.pos_ in ("VERB", "AUX") and t.morph.get("VerbForm") == ["Fin"]
+
+
+def extraer(texto, variedad="espana"):
+    america = variedad == "america"
     doc = nlp(texto)
     filas = []
     for i_or, sent in enumerate(doc.sents, 1):
@@ -52,19 +72,44 @@ def extraer(texto):
         for t in sent:
             if t.dep_ == "nsubj" and t.lower_ in LEXICO and LEXICO[t.lower_][0] == "pronombre":
                 sujetos[t.head.i] = t
+        # «ustedes»/«usted» colgado de un verbo en 3.ª persona del mismo número: se cuenta con
+        # el verbo. Se mira la palabra y no la función sintáctica: spaCy etiqueta a veces
+        # «Ustedes» como nombre propio o como objeto.
+        de_ustedes = {}
+        if america:
+            for t in sent:
+                h = t.head
+                if t.lower_ in USTEDES and h is not t and finito(h) and persona_numero(h) == ("3", USTEDES[t.lower_]):
+                    de_ustedes.setdefault(h.i, t)
+        con_ustedes = america and any(t.lower_ in USTEDES for t in sent)
+        unidos = {t.i for t in de_ustedes.values()}
         usados = set()
         for t in sent:
             low = t.lower_
             per, num = persona_numero(t)
             tipo = None
-            if t.pos_ in ("VERB", "AUX") and t.morph.get("VerbForm") == ["Fin"] and per in ("1", "2"):
+            revisar = ""
+            if finito(t) and per in ("1", "2"):
                 tipo = "verbo"
+            elif america and finito(t) and per == "3" and (t.i in de_ustedes or t.morph.get("Mood") == ["Imp"]):
+                tipo, per = "verbo", "2"
+            elif america and finito(t) and per == "3" and num == "Plur" and not any(c.dep_.startswith("nsubj") for c in t.children):
+                tipo, per, revisar = "verbo", "2?", REVISAR
+            elif america and t.i in unidos:
+                continue  # ya se cuenta con su verbo
             elif low in LEXICO:
                 tipo, per, num = LEXICO[low]
+            elif america and t.pos_ == "PRON" and low in ("les", "los", "las"):
+                tipo, per, num, revisar = "pronombre", "2?", "Plur", REVISAR
+            elif con_ustedes and low in POSESIVOS_3:
+                tipo, per, revisar = "posesivo", "2?", REVISAR
+                num = "Plur" if low.endswith("s") else "Sing"
             if not tipo or t.i in usados:
                 continue
             explicito = ""
-            if tipo == "verbo" and t.i in sujetos and LEXICO[sujetos[t.i].lower_][1] == per:
+            if tipo == "verbo" and t.i in de_ustedes:
+                explicito = de_ustedes[t.i].text
+            elif tipo == "verbo" and t.i in sujetos and LEXICO[sujetos[t.i].lower_][1] == per:
                 explicito = sujetos[t.i].text
                 usados.add(sujetos[t.i].i)
             if tipo == "pronombre" and sujetos.get(t.head.i) is t and t.head.pos_ in ("VERB", "AUX") \
@@ -81,14 +126,23 @@ def extraer(texto):
                 "sujeto_explicito": explicito,
                 "contexto": sent.text.strip().replace("\n", " "),
                 "categoria": "",
+                **({"revisar": revisar} if america else {}),
             })
     return filas, len([t for t in doc if not t.is_punct and not t.is_space])
 
 
 if __name__ == "__main__":
-    texto = open(sys.argv[1], encoding="utf-8").read()
-    filas, palabras = extraer(texto)
-    with open(sys.argv[2], "w", newline="", encoding="utf-8") as f:
+    args = sys.argv[1:]
+    variedad = "espana"
+    if "--variedad" in args:
+        i = args.index("--variedad")
+        variedad = args[i + 1]
+        del args[i:i + 2]
+    if variedad not in ("espana", "america"):
+        sys.exit("--variedad tiene que ser espana o america")
+    texto = open(args[0], encoding="utf-8").read()
+    filas, palabras = extraer(texto, variedad)
+    with open(args[1], "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(filas[0].keys()))
         w.writeheader()
         w.writerows(filas)

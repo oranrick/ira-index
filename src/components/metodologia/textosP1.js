@@ -295,7 +295,7 @@ export const TEXTOS_P1 = {
     },
 
     limites: [
-      ['«Ustedes» en América', 'Es tercera persona gramaticalmente y el extractor solo busca 1.ª y 2.ª. Hay que añadirlo antes de analizar el corpus latinoamericano. «Les» también es ambiguo.'],
+      ['«Ustedes» en América', 'Concuerda con el verbo en 3.ª persona. El extractor tiene una variedad americana: lo seguro se extrae como 2.ª persona y lo ambiguo («les», «sus», «saben» sin sujeto) sale como candidato para el codificador. Falta probarlo con un discurso real: si salen demasiados candidatos, la revisión deja de ser de 5 minutos.'],
       ['El adversario nombrado', 'El extractor solo capta «ellos»; los grupos nominales («la derecha», «los tecnoligarcas») y los sujetos implícitos («han intentado que...») los encuentra el codificador al anotar los eventos. Pendiente: proponerlos automáticamente.'],
       ['Acusaciones falsas bien formuladas', 'Una acusación de violencia falsa que cumple las tres condiciones de la excepción pasa el filtro mientras no exista un desmentido documentado. El IRA mide el lenguaje, no los hechos; la ficha lo avisa y la verificación corresponde al periodismo.'],
       ['Discursos con pocos eventos pero intensos', 'La ONU tiene dos cierres claros («gente sin escrúpulos, activistas de la mentira») y queda sin puntuar por el mínimo de 3.'],
