@@ -18,6 +18,7 @@ const REFERENCIAS = [
   'Mouffe, C. (2005). On the political. Routledge.',
   'Rathje, S., Van Bavel, J. J., y van der Linden, S. (2021). Out-group animosity drives engagement on social media. PNAS, 118(26), e2024292118.',
   'Tajfel, H., y Turner, J. C. (1979). An integrative theory of intergroup conflict. En W. G. Austin y S. Worchel (Eds.), The social psychology of intergroup relations (pp. 33–47). Brooks/Cole.',
+  'van Dijk, T. A. (1998). Ideology: A multidisciplinary approach. Sage.',
   'van Dijk, T. A. (2006). Ideology and discourse analysis. Journal of Political Ideologies, 11(2), 115–140.',
   'Xu, X., Zuo, X., Wang, X., y Han, S. (2009). Do you feel my pain? Racial group membership modulates empathic neural responses. The Journal of Neuroscience, 29(26), 8525–8529.',
 ];
