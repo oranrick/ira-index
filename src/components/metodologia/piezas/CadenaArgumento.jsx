@@ -23,22 +23,23 @@ function Persona({ x, y, className }) {
 }
 
 function Ilustracion({ i, r }) {
-  // 1 · Primero sentimos: la señal llega antes al sistema límbico y después a la corteza
+  // 1 · Intuición → razonamiento: la frase recibe enseguida una valoración rápida (destello) y el
+  // razonamiento llega después, partiendo de ella y teñido de su color. Sin anatomía: el manual no la nombra.
   if (i === 0) return (
-    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.senal} → 1 ${r.limbico} → 2 ${r.corteza}`}>
-      <text x="10" y="58" className="ira-pz-il__rotulo">{r.senal}</text>
-      <path d={onda(8, 104, 80, 10)} className="ira-pz-il__onda" />
-      <path d="M112 80 C108 56 122 34 146 32 C156 20 182 20 192 32 C212 30 228 46 224 66 C232 78 226 98 210 102 C206 114 188 118 176 112 L164 116 C152 122 136 118 132 106 C116 104 108 94 112 80 Z" className="ira-pz-il__cerebro" />
-      <path d="M140 48 C148 56 140 64 150 70 M176 34 C170 46 182 52 174 62 M204 54 C194 60 204 70 194 76 M190 90 C182 84 172 92 164 88" className="ira-pz-il__surco" />
-      <path d="M170 114 C172 124 174 132 178 140" className="ira-pz-il__surco" />
-      <path d="M104 80 L150 90" className="ira-pz-il__flecha" />
-      <circle cx="162" cy="92" r="11" className="ira-pz-il__limbico" />
-      <path d="M170 82 C178 66 186 54 196 46" className="ira-pz-il__flecha ira-pz-il__flecha--tarde" />
-      <circle cx="200" cy="43" r="5" className="ira-pz-il__corteza" />
-      <path d="M154 100 L122 134" className="ira-pz-il__guia" />
-      <text x="8" y="140" className="ira-pz-il__rotulo ira-pz-il__rotulo--fuerte"><tspan className="ira-pz-il__orden">1</tspan> {r.limbico}</text>
-      <path d="M206 40 L232 22" className="ira-pz-il__guia" />
-      <text x="292" y="16" textAnchor="end" className="ira-pz-il__rotulo"><tspan className="ira-pz-il__orden">2</tspan> {r.corteza}</text>
+    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.frase} → 1 ${r.intuicion} → 2 ${r.razonamiento}`}>
+      <path d="M6 52 H70 V86 H26 L18 94 V86 H6 Z" className="ira-pz-il__burbuja ira-pz-il__burbuja--neutra" />
+      <path d="M16 64 H60 M16 75 H48" className="ira-pz-il__razon" />
+      <text x="38" y="114" textAnchor="middle" className="ira-pz-il__rotulo">{r.frase}</text>
+      <path d="M74 69 H88" className="ira-pz-il__flecha" />
+      <circle cx="106" cy="69" r="22" className="ira-pz-il__halo" />
+      <circle cx="106" cy="69" r="12" className="ira-pz-il__intuicion" />
+      <text x="106" y="30" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--oro"><tspan className="ira-pz-il__orden">1</tspan> {r.intuicion}</text>
+      <path d="M130 69 H146" className="ira-pz-il__flecha ira-pz-il__flecha--tarde" />
+      <rect x="150" y="60" width="36" height="18" rx="4" className="ira-pz-il__paso-razon" />
+      <rect x="196" y="54" width="40" height="30" rx="4" className="ira-pz-il__paso-razon" />
+      <rect x="246" y="46" width="46" height="46" rx="4" className="ira-pz-il__paso-razon" />
+      <path d="M186 69 H196 M236 69 H246" className="ira-pz-il__guia" />
+      <text x="292" y="114" textAnchor="end" className="ira-pz-il__rotulo"><tspan className="ira-pz-il__orden">2</tspan> {r.razonamiento}</text>
     </svg>
   );
   // 2 · Pesa la frontera: la resonancia es plena con «nosotros» y se apaga al cruzar hacia «ellos»

@@ -1,5 +1,9 @@
 // IRA · Metodología 2.0 · textos compartidos por el índice y las páginas de parámetro.
-// Español primero; la traducción al inglés está pendiente de revisión del autor.
+// Solo en español: los códigos y ejemplos de cada parámetro dependen de la gramática española
+// (pronombres, desinencias, clíticos) y no tienen el mismo sentido traducidos.
+
+// Única frase en inglés de la sección: se muestra si la web está en inglés.
+export const SOLO_ES = 'This section is only available in Spanish: its codes and examples depend on Spanish grammar (pronouns, verb endings, clitics) and do not carry the same meaning in translation.';
 
 export const REPO_RESEARCH = 'https://github.com/oranrick/ira-index/tree/main/research';
 
@@ -7,10 +11,6 @@ export const AVISO = {
   es: {
     rotulo: 'Metodología 2.0 · en desarrollo',
     texto: 'Estamos rediseñando el IRA parámetro a parámetro para que cada puntuación pueda explicarse frase a frase. Las puntuaciones que ves hoy en la web todavía se calculan con la versión anterior. Publicamos cada parámetro cuando su manual está cerrado.',
-  },
-  en: {
-    rotulo: 'Methodology 2.0 · in development',
-    texto: 'We are redesigning the IRA one parameter at a time so that every score can be explained sentence by sentence. The scores you see on the site today are still calculated with the previous version. We publish each parameter once its manual is closed.',
   },
 };
 
@@ -25,15 +25,5 @@ export const PARAMETROS = {
     { id: 'p6', codigo: 'P6', nombre: 'Llamada a la acción' },
     { id: 'p7', codigo: 'P7', nombre: 'Engagement dialógico' },
     { id: 'p8', codigo: 'P8', nombre: 'Por definir' },
-  ],
-  en: [
-    { id: 'p1', codigo: 'P1', nombre: 'The boundary of "us"', definicion: 'Where the speech draws the line between "us" and "them", and whether that line is a wall or a door.', ruta: '/metodologia/p1' },
-    { id: 'p2', codigo: 'P2', nombre: 'Metaphorical frame' },
-    { id: 'p3', codigo: 'P3', nombre: 'Moral polarity' },
-    { id: 'p4', codigo: 'P4', nombre: 'Emotional tone' },
-    { id: 'p5', codigo: 'P5', nombre: 'Openness to dissent' },
-    { id: 'p6', codigo: 'P6', nombre: 'Call to action' },
-    { id: 'p7', codigo: 'P7', nombre: 'Dialogic engagement' },
-    { id: 'p8', codigo: 'P8', nombre: 'To be defined' },
   ],
 };

@@ -134,13 +134,15 @@
 .ira-pz-il__rotulo--fuerte { fill: var(--ira-marca-empatica); }
 .ira-pz-il__rotulo--rojo { fill: var(--ira-marca-polarizante); }
 .ira-pz-il__orden { font-family: var(--ira-font-cifra); font-weight: 500; fill: var(--ira-oro); }
-.ira-pz-il__cerebro { fill: rgba(141, 170, 126, 0.08); stroke: var(--ira-texto-3); stroke-width: 2; }
-.ira-pz-il__surco { fill: none; stroke: var(--ira-texto-3); stroke-width: 1.5; stroke-linecap: round; opacity: 0.6; }
-.ira-pz-il__limbico { fill: var(--ira-salvia); filter: drop-shadow(0 0 6px rgba(141, 170, 126, 0.8)); }
-.ira-pz-il__corteza { fill: var(--ira-texto-3); }
+.ira-pz-il__rotulo--oro { fill: var(--ira-oro); }
+.ira-pz-il__burbuja--neutra { fill: rgba(252, 253, 255, 0.04); stroke: var(--ira-texto-3); }
+.ira-pz-il__halo { fill: rgba(220, 177, 73, 0.16); stroke: var(--ira-oro); stroke-width: 1; stroke-dasharray: 2 4; }
+.ira-pz-il__intuicion { fill: var(--ira-oro); filter: drop-shadow(0 0 6px rgba(220, 177, 73, 0.8)); }
+.ira-pz-il__paso-razon { fill: rgba(220, 177, 73, 0.06); stroke: var(--ira-oro); stroke-width: 1.5; stroke-opacity: 0.55; }
 .ira-pz-il__flecha { fill: none; stroke: var(--ira-oro); stroke-width: 2.5; stroke-linecap: round; }
 .ira-pz-il__flecha--tarde { stroke: var(--ira-texto-3); stroke-width: 2; stroke-dasharray: 3 5; }
 .ira-pz-il__guia { fill: none; stroke: var(--ira-linea-fuerte); stroke-width: 1.5; }
+.ira-pz-il__razon { fill: none; stroke: var(--ira-texto-3); stroke-width: 3; stroke-linecap: round; }
 .ira-pz-il__persona { fill: var(--ira-nieve); }
 .ira-pz-il__persona--yo { fill: var(--ira-salvia); }
 .ira-pz-il__persona--lejos { opacity: 0.35; }

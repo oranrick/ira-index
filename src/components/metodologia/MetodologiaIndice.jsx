@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { AppContext } from '../../App.jsx';
 import AvisoVersion from './AvisoVersion.jsx';
 import { Aparecer, Icono } from './Visuales.jsx';
-import { PARAMETROS, REPO_RESEARCH } from './textosComunes.js';
+import { PARAMETROS, REPO_RESEARCH, SOLO_ES } from './textosComunes.js';
 import '../../styles/metodologia.css';
 
 const TXT = {
@@ -31,39 +31,20 @@ const TXT = {
     researchEnlace: 'Ver la carpeta research/ en GitHub',
     nuevaPestana: '(se abre en una pestaña nueva)',
   },
-  en: {
-    rotulo: 'Methodology',
-    titulo: 'Methodology 2.0',
-    entradilla: 'The Affective Resonance Index (IRA) measures, on a scale from 0 to 10, whether the language of a speech leans towards polarisation (0) or empathy (10). It is made up of several parameters, each with its own weight. Version 2.0 changes how scores are produced: each parameter has a public manual, the AI classifies what happens in the text, and the score comes from a formula.',
-    anterior: 'About the project and the current methodology',
-    principiosTitulo: 'Three principles',
-    principios: [
-      { titulo: 'The AI classifies, the formulas calculate', texto: 'The AI does not give the score: it identifies and classifies each phenomenon using a public manual; the score comes from a formula.' },
-      { titulo: 'Every point can be traced in the text', texto: 'Every analysis has a scorecard showing which sentences add or subtract, and why.' },
-      { titulo: 'Reproducible', texto: 'Manual, code and data are in the public repository, with pinned versions.' },
-    ],
-    parametrosTitulo: 'The parameters',
-    parametrosTexto: 'We publish each parameter once its manual is closed. The others keep their current names for now.',
-    proximamente: 'Coming soon',
-    disponible: 'Manual v1.1',
-    leer: 'Read the method',
-    researchTitulo: 'Manual, code and data',
-    researchTexto: 'The research/ folder in the repository holds the coding manuals, the Python scripts, the coded tables and the scorecard for each speech.',
-    researchEnlace: 'See the research/ folder on GitHub',
-    nuevaPestana: '(opens in a new tab)',
-  },
 };
 
 export default function MetodologiaIndice() {
   const { lang } = useContext(AppContext);
-  const t = TXT[lang] ?? TXT.es;
-  const parametros = PARAMETROS[lang] ?? PARAMETROS.es;
+  // La sección solo está en español: los códigos y ejemplos de P1 dependen de la gramática española
+  const t = TXT.es;
+  const parametros = PARAMETROS.es;
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
     <div className="main-container ira-met" style={{ maxWidth: 1080 }}>
-      <AvisoVersion lang={lang} />
+      {lang === 'en' && <p className="ira-met__nota" lang="en">{SOLO_ES}</p>}
+      <AvisoVersion lang="es" />
 
       <header className="ira-met__cabecera">
         <p className="ira-met__rotulo">{t.rotulo}</p>
