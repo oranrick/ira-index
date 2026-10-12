@@ -351,3 +351,70 @@
 @media (max-width: 520px) { .ira-pz-arbol__efectos > div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
 .ira-pz-arbol__manual { font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
 .ira-pz-arbol__manual > span { color: var(--ira-texto-2); }
+
+/* ── Discurso anotado ────────────────────────────────────────────────────── */
+.ira-pz-anot { display: flex; flex-direction: column; gap: 18px; }
+.ira-pz-anot--contra { --pz-color: var(--ira-1); --pz-claro: var(--ira-marca-polarizante); --pz-fondo: rgba(190, 40, 26, 0.16); }
+.ira-pz-anot--inclusivo { --pz-color: var(--ira-salvia); --pz-claro: var(--ira-marca-empatica); --pz-fondo: rgba(141, 170, 126, 0.16); }
+.ira-pz-anot--tenue { --pz-color: var(--ira-linea-fuerte); --pz-claro: var(--ira-texto-2); --pz-fondo: rgba(252, 253, 255, 0.05); }
+.ira-pz-anot--situacional { --pz-color: var(--ira-texto-3); --pz-claro: var(--ira-texto-2); --pz-fondo: transparent; }
+.ira-pz-anot__leyenda { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--ira-texto-2); }
+.ira-pz-anot__clave { display: inline-flex; align-items: center; gap: 8px; }
+.ira-pz-anot__clave::before { content: ""; width: 18px; height: 3px; border-radius: 2px; background: var(--pz-color); }
+.ira-pz-anot--situacional.ira-pz-anot__clave::before { background: none; border-bottom: 2px dotted var(--pz-color); height: 0; }
+.ira-pz-anot__clave--evento::before { width: 10px; height: 10px; border-radius: 3px; background: var(--ira-1); }
+
+.ira-pz-anot__rejilla { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 32px; align-items: start; }
+.ira-pz-anot__texto { display: flex; flex-direction: column; gap: 18px; max-width: 64ch; min-width: 0; }
+.ira-pz-anot__aviso { margin: 0; }
+.ira-pz-anot__parrafo { font-size: 18px; line-height: 34px; color: var(--ira-texto-cita); }
+.ira-pz-anot__ref {
+  display: inline; padding: 0 2px; margin: 0; border: none; border-radius: 4px; border-bottom: 3px solid var(--pz-color);
+  background: transparent; color: var(--ira-nieve); font: inherit; line-height: inherit; cursor: pointer;
+  transition: background-color 150ms ease;
+}
+.ira-pz-anot--situacional.ira-pz-anot__ref { border-bottom-style: dotted; border-bottom-width: 2px; }
+.ira-pz-anot--tenue.ira-pz-anot__ref { color: var(--ira-texto-cita); }
+.ira-pz-anot__ref sup { margin-left: 2px; font-size: 10px; line-height: 0; color: var(--pz-claro); }
+.ira-pz-anot__ref:hover, .ira-pz-anot__ref.is-activa { background: var(--pz-fondo); }
+.ira-pz-anot__ref.is-activa { outline: 2px solid var(--pz-color); outline-offset: 1px; }
+.ira-pz-anot__evento {
+  display: inline-flex; align-items: center; vertical-align: 2px; margin-left: 6px; min-height: 24px; padding: 0 7px;
+  border-radius: 6px; border: 1px solid var(--ira-1); background: rgba(190, 40, 26, 0.16);
+  color: var(--ira-marca-polarizante); font: inherit; font-size: 12px; line-height: 1; cursor: pointer;
+}
+.ira-pz-anot__evento--A { border-color: var(--ira-salvia); border-style: dashed; background: rgba(141, 170, 126, 0.14); color: var(--ira-marca-empatica); }
+.ira-pz-anot__evento--dificil { border-color: var(--ira-oro); border-style: dashed; background: transparent; color: var(--ira-oro); font-family: var(--ira-font-texto); }
+.ira-pz-anot__evento.is-activa { outline: 2px solid currentColor; outline-offset: 1px; }
+.ira-pz-anot__fuente { font-size: 12px; color: var(--ira-texto-3); }
+
+.ira-pz-anot__ficha {
+  position: sticky; top: 96px; display: flex; flex-direction: column; gap: 12px; padding: 20px 22px;
+  border-radius: var(--ira-radio-l); background: var(--ira-noche); border: 1px solid var(--ira-linea); border-top: 3px solid var(--pz-color);
+}
+@media (prefers-reduced-motion: no-preference) { .ira-pz-anot__ficha { animation: ira-pz-entrar 300ms cubic-bezier(.2, .7, .2, 1); } }
+.ira-pz-anot__ficha-cat { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pz-claro); }
+.ira-pz-anot__ficha-titulo { font-family: var(--ira-font-titulo); font-weight: 500; font-size: 22px; line-height: 1.25; color: var(--ira-nieve); }
+.ira-pz-anot__codigo { display: inline-block; padding: 2px 8px; border-radius: 6px; border: 1px solid var(--pz-color); font-size: 14px; vertical-align: 3px; color: var(--pz-claro); }
+.ira-pz-anot__filas { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.ira-pz-anot__filas > div { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+.ira-pz-anot__filas dt { color: var(--ira-texto-2); }
+.ira-pz-anot__filas dd { margin: 0; text-align: right; color: var(--ira-nieve); }
+.ira-pz-anot__oracion-sel { padding: 10px 12px; border-radius: var(--ira-radio-s); background: var(--ira-superficie); font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
+.ira-pz-anot__regla, .ira-pz-anot__nota { font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
+.ira-pz-anot__regla > span:first-child, .ira-pz-anot__nota > span:first-child { color: var(--ira-texto-2); }
+
+.ira-pz-anot__resumen { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+.ira-pz-anot__resumen-titulo { font-family: var(--ira-font-titulo); font-weight: 500; font-size: 17px; }
+.ira-pz-anot__resumen dl { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ira-pz-anot__resumen dl > div { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: var(--ira-radio-l); border: 1px solid var(--ira-linea); }
+.ira-pz-anot__resumen dt { font-size: 12px; color: var(--ira-texto-2); }
+.ira-pz-anot__resumen dd { margin: 0; font-size: 15px; line-height: 22px; }
+
+@media (max-width: 860px) {
+  .ira-pz-anot__rejilla { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  /* En móvil la ficha queda pegada abajo mientras se lee el fragmento */
+  .ira-pz-anot__ficha { top: auto; bottom: env(safe-area-inset-bottom, 0px); max-height: 42vh; overflow-y: auto; box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.45); }
+  .ira-pz-anot__parrafo { font-size: 17px; line-height: 32px; }
+  .ira-pz-anot__resumen dl { grid-template-columns: minmax(0, 1fr); }
+}

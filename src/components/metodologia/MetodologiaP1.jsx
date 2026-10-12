@@ -16,6 +16,7 @@ import CadenaArgumento from './piezas/CadenaArgumento.jsx';
 import MapaTeoria from './piezas/MapaTeoria.jsx';
 import FronteraLinea from './piezas/FronteraLinea.jsx';
 import ArbolExcepcion from './piezas/ArbolExcepcion.jsx';
+import DiscursoAnotado from './piezas/DiscursoAnotado.jsx';
 import datosP1 from '../../data/metodologia/p1.json';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-piezas.css';
@@ -336,7 +337,7 @@ export default function MetodologiaP1() {
 
           {/* Pieza 2 */}
           <Seccion {...sec('discurso-anotado')}>
-            <MarcadorPieza etiqueta={pieza(2)} texto={t.piezas.anotado} aviso={t.pieza} />
+            <DiscursoAnotado fragmento={datosP1.fragmento} t={t} ui={tp.anotado} />
           </Seccion>
 
           {/* Los tres indicadores, en pestañas */}
