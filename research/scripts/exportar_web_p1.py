@@ -6,7 +6,7 @@ calcular_p1.py (se importa; las fórmulas no se reimplementan aquí).
 
 Contenido:
   fichas      la ficha de P1 de cada discurso, indicador a indicador
-  fragmento   oraciones 40-51 y 80-82 de Barcelona con cada referencia localizada en su
+  fragmento   oraciones 38-54 de Barcelona con cada referencia localizada en su
               oración y los eventos de frontera de esas oraciones
 
 Uso (desde research/):  python scripts/exportar_web_p1.py
@@ -32,7 +32,7 @@ DISCURSOS = [
     ("sanchez-onu-2024", "Sánchez · Asamblea General de la ONU 2024"),
 ]
 FRAGMENTO_ID = "sanchez-barcelona-2026"
-FRAGMENTO_ORACIONES = list(range(40, 52)) + list(range(80, 83))
+FRAGMENTO_ORACIONES = list(range(38, 55))
 FRAGMENTO_FUENTE = "Pedro Sánchez, Cumbre Progresista Internacional, Barcelona, 18 de abril de 2026. Fragmento."
 
 # Códigos del manual (secciones 4 y 5). `valor` es lo que aporta la mención a su indicador.
@@ -196,7 +196,9 @@ def fragmento():
                 codigo, etiqueta = None, marca
             evs.append({"tipo": e["tipo"], "codigo": codigo, "marca": etiqueta, "blanco": e["blanco"],
                         "nota": e["nota"], "texto": e["texto"]})
-        salida.append({"oracion": o, "texto": texto, "referencias": refs, "eventos": evs})
+        # párrafo del discurso (1, 2, ...): los párrafos van separados por una línea en blanco
+        parrafo = sent.doc.text[:sent.start_char].count("\n\n") + 1
+        salida.append({"oracion": o, "parrafo": parrafo, "texto": texto, "referencias": refs, "eventos": evs})
 
     todas = [x for s in salida for x in s["referencias"]]
     return {

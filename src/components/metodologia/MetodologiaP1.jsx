@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { AppContext } from '../../App.jsx';
 import AvisoVersion from './AvisoVersion.jsx';
+import { SOLO_ES } from './textosComunes.js';
 import MarcadorPieza from './MarcadorPieza.jsx';
 import { Aparecer, BarraPesos, EscalaSolidez, Icono, LineaTiempo, Pestanas, Puntos } from './Visuales.jsx';
 import EtiquetaPuntuacion from '../ui/EtiquetaPuntuacion.jsx';
@@ -15,6 +16,8 @@ import PruebaFrontera from './piezas/PruebaFrontera.jsx';
 import CadenaArgumento from './piezas/CadenaArgumento.jsx';
 import MapaTeoria from './piezas/MapaTeoria.jsx';
 import FronteraLinea from './piezas/FronteraLinea.jsx';
+import ArbolExcepcion from './piezas/ArbolExcepcion.jsx';
+import DiscursoAnotado from './piezas/DiscursoAnotado.jsx';
 import datosP1 from '../../data/metodologia/p1.json';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-piezas.css';
@@ -24,7 +27,6 @@ const ICONOS_PASO = ['extraer', 'revisar', 'clasificar', 'calcular'];
 
 const UI = {
   es: { navPie: 'Navegación entre parámetros', pieza: 'Pieza', nuevaPestana: '(se abre en una pestaña nueva)' },
-  en: { navPie: 'Navigation between parameters', pieza: 'Piece', nuevaPestana: '(opens in a new tab)' },
 };
 
 function Seccion({ id, n, titulo, children, className = '' }) {
@@ -80,7 +82,7 @@ function Destacado({ children, tono = 'oro' }) {
 
 function Valor({ valor, t, lang }) {
   if (valor == null) return <span className="ira-met__no-cuenta">{t.ind.noCuenta}</span>;
-  return <EtiquetaPuntuacion puntuacion={Number(valor)} variante="punto" lang={lang} decimales={0} />;
+  return <EtiquetaPuntuacion puntuacion={Number(valor)} variante="punto" lang="es" decimales={0} />;
 }
 
 // Índice lateral con la sección actual resaltada (y desplegable en pantallas estrechas)
@@ -135,7 +137,7 @@ function PanelAlcance({ t, lang }) {
         filas={a.codigos.map((c) => [
           <span key="c" className="ira-met__codigo ira-cifra">{c.codigo}</span>,
           c.categoria,
-          <Valor key="v" valor={c.valor} t={t} lang={lang} />,
+          <Valor key="v" valor={c.valor} t={t} lang="es" />,
           c.ej,
         ])}
       />
@@ -194,7 +196,7 @@ function PanelPermeabilidad({ t, tp, lang }) {
         ))}
       </div>
 
-      <FronteraLinea cierres={a.cierres} aperturas={a.aperturas} ui={tp.linea} lang={lang} />
+      <FronteraLinea cierres={a.cierres} aperturas={a.aperturas} ui={tp.linea} lang="es" />
 
       <Acordeon titulo={a.dificilesTitulo}>
         <dl className="ira-met__marcas">
@@ -211,9 +213,10 @@ function PanelPermeabilidad({ t, tp, lang }) {
 export default function MetodologiaP1() {
   const { lang } = useContext(AppContext);
   const { hash } = useLocation();
-  const t = TEXTOS_P1[lang] ?? TEXTOS_P1.es;
-  const tp = TEXTOS_PIEZAS_P1[lang] ?? TEXTOS_PIEZAS_P1.es;
-  const u = UI[lang] ?? UI.es;
+  // La sección solo está en español: los códigos y ejemplos de P1 dependen de la gramática española
+  const t = TEXTOS_P1.es;
+  const tp = TEXTOS_PIEZAS_P1.es;
+  const u = UI.es;
   const numero = Object.fromEntries(t.secciones.map((s, i) => [s.id, i + 1]));
   const titulo = Object.fromEntries(t.secciones.map((s) => [s.id, s.titulo]));
   const pieza = (k) => `${u.pieza} ${k}`;
@@ -243,7 +246,8 @@ export default function MetodologiaP1() {
 
   return (
     <div className="main-container ira-met ira-met--p1" style={{ maxWidth: 1180 }}>
-      <AvisoVersion lang={lang} />
+      {lang === 'en' && <p className="ira-met__nota" lang="en">{SOLO_ES}</p>}
+      <AvisoVersion lang="es" />
 
       <Link to="/metodologia" className="ira-met__volver">{t.volverIndice}</Link>
       <header className="ira-met__cabecera ira-met__cabecera--p1">
@@ -335,7 +339,7 @@ export default function MetodologiaP1() {
 
           {/* Pieza 2 */}
           <Seccion {...sec('discurso-anotado')}>
-            <MarcadorPieza etiqueta={pieza(2)} texto={t.piezas.anotado} aviso={t.pieza} />
+            <DiscursoAnotado fragmento={datosP1.fragmento} t={t} ui={tp.anotado} />
           </Seccion>
 
           {/* Los tres indicadores, en pestañas */}
@@ -343,9 +347,9 @@ export default function MetodologiaP1() {
             <Pestanas
               etiqueta={t.pestanasEtiqueta}
               pestanas={[
-                { id: 'alcance', nombre: alcance.nombre, peso: alcance.peso, contenido: <PanelAlcance t={t} lang={lang} /> },
+                { id: 'alcance', nombre: alcance.nombre, peso: alcance.peso, contenido: <PanelAlcance t={t} lang="es" /> },
                 { id: 'interpelacion', nombre: interpelacion.nombre, peso: interpelacion.peso, contenido: <PanelInterpelacion t={t} /> },
-                { id: 'permeabilidad', nombre: permeabilidad.nombre, peso: permeabilidad.peso, contenido: <PanelPermeabilidad t={t} tp={tp} lang={lang} /> },
+                { id: 'permeabilidad', nombre: permeabilidad.nombre, peso: permeabilidad.peso, contenido: <PanelPermeabilidad t={t} tp={tp} lang="es" /> },
               ]}
             />
           </Seccion>
@@ -373,18 +377,7 @@ export default function MetodologiaP1() {
               <p className="ira-met__resultado ira-met__resultado--no"><span aria-hidden="true">✕</span> {t.resultados.no}</p>
             </div>
 
-            <MarcadorPieza etiqueta={pieza(8)} texto={t.piezas.arbol} aviso={t.pieza}>
-              <Tabla
-                className="ira-met__tabla-marco--dentro"
-                cabecera={t.excepcion.ejemplosCabecera}
-                filas={t.excepcion.ejemplos.map(([frase, si, razon]) => [
-                  frase,
-                  <span key="r" className={`ira-met__veredicto ira-met__veredicto--${si ? 'si' : 'no'}`}>
-                    <span aria-hidden="true">{si ? '✓' : '✕'}</span> {si ? t.excepcion.si : t.excepcion.no}: {razon}
-                  </span>,
-                ])}
-              />
-            </MarcadorPieza>
+            <ArbolExcepcion condiciones={t.excepcion.condiciones} ejemplos={t.excepcion.ejemplos} ui={tp.arbol} />
 
             <h3 className="ira-met__h3">{t.excepcion.salvaguardasTitulo}</h3>
             <ul className="ira-met__salvaguardas">
@@ -400,7 +393,7 @@ export default function MetodologiaP1() {
 
           {/* Pieza 7 */}
           <Seccion {...sec('cuenta-o-no')}>
-            <MarcadorPieza etiqueta={pieza(7)} texto={t.piezas.juego} aviso={t.pieza} />
+            <MarcadorPieza etiqueta={pieza(7)} texto={t.piezas.juego} aviso={tp.proximamente} />
           </Seccion>
 
           {/* Mínimos y solidez */}

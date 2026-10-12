@@ -228,7 +228,22 @@
     "fuente": "Pedro Sánchez, Cumbre Progresista Internacional, Barcelona, 18 de abril de 2026. Fragmento.",
     "oraciones": [
       {
+        "oracion": 38,
+        "parrafo": 10,
+        "texto": "En segundo lugar: el orgullo.",
+        "referencias": [],
+        "eventos": []
+      },
+      {
+        "oracion": 39,
+        "parrafo": 10,
+        "texto": "Recuperar el orgullo.",
+        "referencias": [],
+        "eventos": []
+      },
+      {
         "oracion": 40,
+        "parrafo": 10,
         "texto": "Porque durante años la derecha y la ultraderecha han intentado convertir nuestra identidad en insultos.",
         "referencias": [
           {
@@ -257,6 +272,7 @@
       },
       {
         "oracion": 41,
+        "parrafo": 10,
         "texto": "Han intentado una y otra vez que nos avergoncemos de nuestras ideas y de nuestra historia.",
         "referencias": [
           {
@@ -321,6 +337,7 @@
       },
       {
         "oracion": 42,
+        "parrafo": 10,
         "texto": "Pero eso, ¿sabéis qué?",
         "referencias": [
           {
@@ -340,24 +357,28 @@
       },
       {
         "oracion": 43,
+        "parrafo": 10,
         "texto": "Se acabó.",
         "referencias": [],
         "eventos": []
       },
       {
         "oracion": 44,
+        "parrafo": 10,
         "texto": "Termina hoy, en Barcelona, el 18 de abril de 2026.",
         "referencias": [],
         "eventos": []
       },
       {
         "oracion": 45,
+        "parrafo": 10,
         "texto": "La vergüenza cambia de bando.",
         "referencias": [],
         "eventos": []
       },
       {
         "oracion": 46,
+        "parrafo": 10,
         "texto": "A partir de ahora, la vergüenza para ellos: para aquellos que callan ante la injusticia, para aquellos que explotan a los trabajadores y trabajadoras, los que criminalizan al diferente, los que convierten derechos en mercancías, los que defienden el privilegio de las élites, los que apoyan la guerra y la violencia en Gaza, en Cisjordania, en Ucrania, en el Líbano, en Oriente Medio.",
         "referencias": [
           {
@@ -386,6 +407,7 @@
       },
       {
         "oracion": 47,
+        "parrafo": 11,
         "texto": "La vergüenza para ellos; para nosotros el orgullo.",
         "referencias": [
           {
@@ -426,6 +448,7 @@
       },
       {
         "oracion": 48,
+        "parrafo": 11,
         "texto": "El orgullo de ser pacifistas porque amamos la paz.",
         "referencias": [
           {
@@ -445,6 +468,7 @@
       },
       {
         "oracion": 49,
+        "parrafo": 11,
         "texto": "El orgullo de ser ecologistas porque queremos un planeta habitable para nuestros hijos e hijas.",
         "referencias": [
           {
@@ -476,6 +500,7 @@
       },
       {
         "oracion": 50,
+        "parrafo": 11,
         "texto": "El orgullo de ser sindicalistas porque queremos derechos para los trabajadores y las trabajadoras.",
         "referencias": [
           {
@@ -495,6 +520,7 @@
       },
       {
         "oracion": 51,
+        "parrafo": 11,
         "texto": "El orgullo de ser feministas porque queremos un mundo más justo.",
         "referencias": [
           {
@@ -513,79 +539,48 @@
         "eventos": []
       },
       {
-        "oracion": 80,
-        "texto": "En este lugar somos 5.000 personas soñando un mundo mejor.",
+        "oracion": 52,
+        "parrafo": 11,
+        "texto": "El orgullo de ser de izquierdas, de ser socialistas, de ser socialdemócratas, de ser progresistas.",
+        "referencias": [],
+        "eventos": []
+      },
+      {
+        "oracion": 53,
+        "parrafo": 12,
+        "texto": "Aquí en España estamos aprobando e impulsando un proceso de regularización de medio millón de inmigrantes.",
         "referencias": [
           {
-            "n": 77,
-            "inicio": 14,
-            "fin": 19,
-            "forma": "somos",
-            "codigo": "G",
-            "categoria": "Grupo sin perdedor",
-            "grupo": "inclusivo",
-            "indicador": "alcance",
-            "valor": 10,
+            "n": 47,
+            "inicio": 15,
+            "fin": 22,
+            "forma": "estamos",
+            "codigo": "I",
+            "categoria": "Institucional",
+            "grupo": "situacional",
+            "indicador": null,
+            "valor": null,
             "nota": ""
           }
         ],
         "eventos": []
       },
       {
-        "oracion": 81,
-        "texto": "Pero fuera hay millones y millones de personas dispuestas a unirse a nosotros para convertir ese sueño en realidad.",
+        "oracion": 54,
+        "parrafo": 12,
+        "texto": "Y le quiero decir a la derecha y a la ultraderecha que se oponen: España es hija de la migración y no va a ser madre de la xenofobia.",
         "referencias": [
           {
-            "n": 78,
-            "inicio": 69,
-            "fin": 77,
-            "forma": "nosotros",
-            "codigo": "G",
-            "categoria": "Grupo sin perdedor",
-            "grupo": "inclusivo",
-            "indicador": "alcance",
-            "valor": 10,
-            "nota": ""
-          }
-        ],
-        "eventos": [
-          {
-            "tipo": "A",
-            "codigo": "A1",
-            "marca": "invitación",
-            "blanco": "personas",
-            "nota": "abre la puerta a terceros, no al adversario",
-            "texto": "fuera hay millones y millones de personas dispuestas a unirse a nosotros"
-          }
-        ]
-      },
-      {
-        "oracion": 82,
-        "texto": "Esa es nuestra responsabilidad y ese es nuestro compromiso.",
-        "referencias": [
-          {
-            "n": 79,
-            "inicio": 7,
-            "fin": 14,
-            "forma": "nuestra",
-            "codigo": "G",
-            "categoria": "Grupo sin perdedor",
-            "grupo": "inclusivo",
-            "indicador": "alcance",
-            "valor": 10,
-            "nota": ""
-          },
-          {
-            "n": 80,
-            "inicio": 40,
-            "fin": 47,
-            "forma": "nuestro",
-            "codigo": "G",
-            "categoria": "Grupo sin perdedor",
-            "grupo": "inclusivo",
-            "indicador": "alcance",
-            "valor": 10,
-            "nota": ""
+            "n": 48,
+            "inicio": 5,
+            "fin": 11,
+            "forma": "quiero",
+            "codigo": "Y",
+            "categoria": "Primera persona singular",
+            "grupo": "tenue",
+            "indicador": null,
+            "valor": null,
+            "nota": "primera persona singular: informativa, no puntúa en P1 (candidata a P8)"
           }
         ],
         "eventos": []
@@ -594,19 +589,21 @@
     "recuento": {
       "por_grupo": {
         "contra": 7,
-        "tenue": 2,
-        "inclusivo": 9
+        "tenue": 3,
+        "inclusivo": 5,
+        "situacional": 1
       },
       "por_codigo": {
         "GC": 6,
         "2C": 1,
         "F": 2,
-        "G": 8,
-        "U": 1
+        "G": 4,
+        "U": 1,
+        "I": 1,
+        "Y": 1
       },
       "eventos": {
-        "C": 4,
-        "A": 1
+        "C": 4
       }
     },
     "pendientes": []

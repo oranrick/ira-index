@@ -2,10 +2,39 @@
 // cadena del argumento, mapa de la base teórica y la línea de la permeabilidad).
 // Las frases de ejemplo y las marcas salen de research/manual/P1.md. Las explicaciones
 // breves de «por qué» de cada ejemplo están pendientes de revisión del autor.
-// La versión inglesa también está pendiente de revisión.
 
 export const TEXTOS_PIEZAS_P1 = {
   es: {
+    // Pieza 7 («¿Cuenta o no?»): espera a tener más corpus para usar solo frases reales
+    proximamente: 'Próximamente',
+
+    anotado: {
+      intro: 'Un fragmento del discurso de Pedro Sánchez en Barcelona (2026), tal como está codificado. Cada referencia a personas lleva su código, y cada evento de frontera, su marca. Toca cualquiera para ver por qué.',
+      leyenda: 'Leyenda',
+      grupos: [['contra', 'Contra alguien'], ['inclusivo', 'Inclusivo'], ['tenue', 'No puntúa en P1'], ['situacional', 'Situacional o institucional']],
+      leyendaEvento: 'Evento de frontera',
+      fuente: 'Pedro Sánchez, Cumbre Progresista Internacional, Barcelona, 18 de abril de 2026. Oraciones 38 a 54.',
+      inicial: { oracion: 47, forma: 'nosotros' },
+      dificil: { oracion: 54, indice: 3 },
+      indicador: 'Indicador',
+      vale: (v) => `vale ${v}`,
+      evento: 'Evento de frontera',
+      blanco: 'Blanco',
+      blancos: { personas: 'personas' },
+      sumaCierre: 'suma un cierre',
+      sumaApertura: 'suma una apertura',
+      sinEvento: 'no hay evento',
+      casoDificil: 'Caso difícil',
+      ejemploManual: 'Ejemplo del manual:',
+      reglaManual: 'Regla del manual:',
+      segunManual: 'Según el manual:',
+      notaCodificador: 'Nota del codificador:',
+      resumenTitulo: 'En este fragmento',
+      resumenAlcance: (inc, contra) => `${inc} inclusivos y ${contra} contra alguien`,
+      resumenInterpelacion: (inc, contra) => `${inc} inclusivas y ${contra} contra alguien`,
+      resumenPermeabilidad: (a, c) => `${a} ${a === 1 ? 'apertura' : 'aperturas'} y ${c} ${c === 1 ? 'cierre' : 'cierres'}`,
+      resumenNota: 'Es solo un fragmento: las notas de P1 se calculan sobre el discurso entero.',
+    },
     frontera: {
       intro: 'Elige una frase del manual y mira dónde coloca al otro: dentro del nosotros, en el umbral o detrás del muro.',
       etiqueta: 'Frases de ejemplo',
@@ -39,7 +68,7 @@ export const TEXTOS_PIEZAS_P1 = {
       siguiente: 'Siguiente eslabón',
       reiniciar: 'Volver al inicio',
       ilustraciones: {
-        senal: 'señal', limbico: 'sistema límbico', corteza: 'corteza',
+        frase: 'frase', intuicion: 'intuición', razonamiento: 'razonamiento',
         oyente: 'oyente', nosotros: 'nosotros', ellos: 'ellos', frontera: 'frontera',
         muro: 'muro', puerta: 'puerta', comun: 'nosotros común',
         sobreNosotros: 'sobre nosotros', contraEllos: 'contra ellos', interaccion: 'interacción',
@@ -81,82 +110,25 @@ export const TEXTOS_PIEZAS_P1 = {
       ultima: 'Última marca',
       referencia: 'Barcelona 2026: 1 apertura y 7 cierres = 2,00. Aquí cada marca cuenta una vez; en un discurso real cuenta cada repetición.',
     },
-  },
-
-  en: {
-    frontera: {
-      intro: 'Pick a sentence from the manual and see where it places the other: inside "us", on the threshold or behind the wall.',
-      etiqueta: 'Example sentences',
-      periferia: 'periphery',
-      nosotros: 'us',
-      elOtro: 'The other',
-      indicador: 'Indicator',
-      efecto: 'Effect',
-      posiciones: {
-        grupo: 'absent: nobody is left outside',
-        muro: 'behind the wall',
-        dentro: 'inside "us"',
-        umbral: 'on the threshold',
-        expulsion: 'outside the community',
-        excepcion: 'outside because of a specific act',
+    arbol: {
+      intro: 'Elige una frase y mira qué condiciones cumple. La excepción solo se aplica si se cumplen las tres; si falla cualquiera, la frase cuenta como cierre normal.',
+      etiqueta: 'Frases de ejemplo del manual',
+      entrada: 'Hay frontera: la frase coloca a un otro humano identificable frente al nosotros.',
+      cumple: 'Se cumple', noCumple: 'No se cumple',
+      segunManual: 'Según el manual:',
+      pendiente: 'Marca las tres condiciones para ver el resultado.',
+      permeabilidad: 'Permeabilidad',
+      alcance: 'Alcance e interpelación',
+      resultado: {
+        excepcion: { titulo: 'Excepción democrática (CP)', permeabilidad: 'Se anota como CP y no puntúa.', alcance: 'El nosotros conserva su categoría (U, G o 2I) con la nota «excepción democrática». La ficha lo avisa.' },
+        cierre: { titulo: 'Cierre normal', permeabilidad: 'Suma un cierre.', alcance: 'El nosotros de esa oración es GC.' },
+        retirada: { titulo: 'Excepción retirada: cierre normal', permeabilidad: 'Suma un cierre. La ficha cita el desmentido.', alcance: 'El nosotros de esa oración es GC.' },
       },
-      ejemplos: [
-        { codigo: 'G', tipo: 'incl', modo: 'grupo', corto: 'Group with no loser', frase: '«en este lugar somos 5.000 personas soñando un mundo mejor» (here we are 5,000 people dreaming of a better world)', indicador: 'Reach', efecto: 'Inclusive: worth 10', porque: 'It speaks to its own without invalidating anyone, so it builds no wall.' },
-        { codigo: 'GC · C1', tipo: 'cierre', modo: 'muro', corto: 'Us/them contrast', frase: '«la vergüenza para ellos; para nosotros el orgullo» (shame for them; pride for us)', indicador: 'Reach and permeability', efecto: '"We" worth 0 and one closure', porque: '"Us" is built against an identifiable other: "against someone" overrides reach.' },
-        { codigo: 'A3', tipo: 'apertura', modo: 'dentro', corto: 'Common belonging with difference', frase: '«pensamos distinto, pero también son de aquí» (we think differently, but they are from here too)', indicador: 'Permeability', efecto: 'One opening', porque: 'It acknowledges difference and still places the other inside the common house.' },
-        { codigo: 'A9', tipo: 'apertura', modo: 'umbral', corto: 'Conditional inclusion', frase: '«los que rectifiquen serán bienvenidos» (those who change course will be welcome)', indicador: 'Permeability', efecto: 'One opening', porque: 'The door exists, with a condition: the other stays on the threshold.' },
-        { codigo: 'C4', tipo: 'cierre', modo: 'expulsion', corto: 'Expulsion from the community', frase: '«no son el pueblo» (they are not the people)', indicador: 'Permeability', efecto: 'One closure', porque: 'It removes the other from the community: not only outside, but denied the right to be inside.' },
-        { codigo: 'CP', tipo: 'excepcion', modo: 'excepcion', corto: 'Democratic exception', frase: '«Rusia ha invadido nuestro país» (Russia has invaded our country)', indicador: 'Permeability', efecto: 'Recorded as CP, does not subtract', porque: 'A specific act and the State as actor: it meets the three conditions. The IRA does not verify the accusation and the scorecard says so.' },
-      ],
-    },
-
-    cadena: {
-      etiqueta: 'The chain of the argument',
-      conectores: ['and in that first response…', 'that is why…', 'and on top of that…'],
-      anterior: 'Previous link',
-      siguiente: 'Next link',
-      reiniciar: 'Back to the start',
-      ilustraciones: {
-        senal: 'signal', limbico: 'limbic system', corteza: 'cortex',
-        oyente: 'listener', nosotros: 'us', ellos: 'them', frontera: 'boundary',
-        muro: 'wall', puerta: 'door', comun: 'common "us"',
-        sobreNosotros: 'about us', contraEllos: 'against them', interaccion: 'engagement',
-      },
-    },
-
-    teoria: {
-      ayuda: 'Tap an author to see what they bring to the boundary.',
-      referencias: 'References',
-      zonas: { cuerpo: 'Body', lenguaje: 'Language', politica: 'Politics' },
-      nodos: [
-        { corto: 'Gallese', anios: '2001 · 2003', zona: 'cuerpo', disciplina: 'Neuroscience', refs: ['Gallese'] },
-        { corto: 'Chilton', anios: '2004', zona: 'lenguaje', disciplina: 'Deixis', refs: ['Chilton'] },
-        { corto: 'Van Dijk', anios: '1998 · 2006', zona: 'lenguaje', disciplina: 'Critical discourse analysis', refs: ['van Dijk'] },
-        { corto: 'Mouffe', anios: '2005', zona: 'politica', disciplina: 'Agonism', refs: ['Mouffe'] },
-        { corto: 'Laclau', anios: '2005', zona: 'politica', disciplina: 'Populism', refs: ['Laclau'] },
-        { corto: 'Tajfel · Gaertner', anios: '1979 · 2000', zona: 'cuerpo', disciplina: 'Social psychology', refs: ['Tajfel', 'Gaertner'] },
-      ],
-    },
-
-    linea: {
-      titulo: 'The boundary, mark by mark',
-      ayuda: 'Switch marks on: every closure makes the line more solid and every opening cuts a gap that lets the light through. The score updates instantly.',
-      vaciar: 'Clear',
-      vacia: 'No marks yet: there is no boundary to measure.',
-      nosotros: 'us',
-      elOtro: 'the other',
-      cierres: 'Closures',
-      cierresNota: 'make the line more solid',
-      aperturas: 'Openings',
-      aperturasNota: 'cut a gap in it',
-      permeabilidad: 'Permeability',
-      muro: 'Wall',
-      puerta: 'Door',
-      sinEventos: 'No events: permeability is not scored.',
-      pocos: (n) => `${n} ${n === 1 ? 'event' : 'events'}: below the minimum of 3, not scored.`,
-      puntua: (n) => `${n} events: scored.`,
-      ultima: 'Last mark',
-      referencia: 'Barcelona 2026: 1 opening and 7 closures = 2.00. Here each mark counts once; in a real speech every repetition counts.',
+      desmentidoPregunta: '¿Un verificador acreditado por la red IFCN ha desmentido la acusación?',
+      desmentidoNo: 'No hay desmentido',
+      desmentidoSi: 'Sí, está desmentida',
+      propia: 'Prueba con tu propia frase',
+      propiaAyuda: 'Piensa en una frase de un discurso que señale a alguien por violencia o por atacar la democracia, y decide tú si cumple cada condición.',
     },
   },
 };
