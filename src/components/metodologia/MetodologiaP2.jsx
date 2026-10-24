@@ -540,6 +540,7 @@ export default function MetodologiaP2() {
             </div>
             <p className="ira-met__nota">{t.prueba.descriptivo}</p>
             <Destacado tono="salvia">{t.prueba.p1}</Destacado>
+            <p className="ira-p2-excepcion">{t.prueba.onu}</p>
             <h3 className="ira-met__h3">{t.prueba.dudasTitulo}</h3>
             <ul className="ira-p2-pendiente">
               {t.prueba.dudas.map(([n, e]) => (

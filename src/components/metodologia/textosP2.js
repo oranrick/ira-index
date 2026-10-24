@@ -42,7 +42,7 @@ export const TEXTOS_P2 = {
       { id: 'regla', titulo: 'La regla, paso a paso' },
       { id: 'formula', titulo: 'La fórmula' },
       { id: 'casos', titulo: 'Casos resueltos' },
-      { id: 'prueba', titulo: 'Primera prueba: Barcelona' },
+      { id: 'prueba', titulo: 'Las pruebas: Barcelona y la ONU' },
       { id: 'pendiente', titulo: 'Lo que falta' },
       { id: 'cambios', titulo: 'Registro de decisiones' },
       { id: 'referencias', titulo: 'Referencias' },
@@ -185,7 +185,7 @@ export const TEXTOS_P2 = {
         { codigo: 'DEP', nombre: 'Deporte y competición', ej: 'ganar, remontar, equipo, partido', icono: 'deporte' },
         { codigo: 'ENF', nombre: 'Enfermedad y contagio', ej: 'virus, cáncer, contagio, infectar', icono: 'enfermedad' },
         { codigo: 'INM', nombre: 'Inmunidad, limpieza y pureza', ej: 'erradicar, limpiar el país, sacar la basura, purgar', icono: 'inmunidad', siempre: true },
-        { codigo: 'ANI', nombre: 'Animal, plaga y caricatura', ej: 'plaga, ratas, parásito, hiena, títere', icono: 'animal', siempre: true },
+        { codigo: 'ANI', nombre: 'Animal y plaga', ej: 'plaga, ratas, parásito, hiena, alimañas', icono: 'animal', siempre: true },
         { codigo: 'CAT', nombre: 'Catástrofe natural', ej: 'oleada, avalancha, tsunami, inundar', icono: 'catastrofe' },
         { codigo: 'REL', nombre: 'Religión', ej: 'cruzada, demonio, pecado, salvación', icono: 'religion' },
         { codigo: 'CON', nombre: 'Construcción', ej: 'construir, cimientos, puentes, tejer', icono: 'construccion' },
@@ -195,7 +195,7 @@ export const TEXTOS_P2 = {
         { codigo: 'OTR', nombre: 'Otro', ej: 'si se repite, pasa a la lista', icono: 'otro' },
       ],
       siempre: 'Contra personas, siempre polariza',
-      nota: 'ANI incluye la caricatura («títere», «hiena»), como en el TFG. ENF e INM van separados: «virus» diagnostica, «erradicar» expulsa. En Esposito, el peligro está en la reacción inmunitaria.',
+      nota: 'ANI es deshumanizar: el rival como animal, plaga o parásito. El insulto que lo rebaja sin quitarle lo humano («lacayo», «títere») va a P3. ENF e INM van separados: «virus» diagnostica, «erradicar» expulsa. En Esposito, el peligro está en la reacción inmunitaria.',
     },
 
     regla: {
@@ -239,8 +239,7 @@ export const TEXTOS_P2 = {
     },
 
     pendiente: [
-      ['Casos de la prueba', 'Confirmar «rendida» y si los insultos lexicalizados («títere») salen de ANI.'],
-      ['Segunda prueba', 'Codificar el discurso de la ONU (2024) con las mismas reglas.'],
+      ['Otros oradores', 'Probar con discursos de otros oradores y géneros (Trump, Ardern, Petro).'],
       ['Cómo se aplica', 'La lista de palabras candidatas por dominio (código) y la adaptación del MIPVU (humano).'],
       ['Base teórica y referencias', 'Redactar la base teórica y verificar cada referencia.'],
     ],
@@ -264,7 +263,8 @@ export const TEXTOS_P2 = {
       calculo: '10 × (6 + 1) / (6 + 4 + 2) = 5,83',
       cifras: [['6', 'empáticas'], ['4', 'polarizan'], ['23', 'neutras']],
       descriptivo: '33 eventos en 1.197 palabras: 27,6 por mil. Dominio más frecuente: «Otro» (11): ruido, herramientas, comercio. La lista de dominios necesita ampliarse.',
-      p1: 'En P1 el mismo discurso saca 5,5. Con un solo discurso no se puede saber si P1 y P2 van juntos: hace falta el corpus.',
+      p1: 'En P1 el mismo discurso saca 5,5. Con dos discursos no se puede saber si P1 y P2 van juntos: hace falta el corpus.',
+      onu: 'Segunda prueba, Asamblea General de la ONU 2024: P2 = 5,71 (orientativa, 5 eventos con signo), con dos excepciones democráticas. P1 deja ese discurso sin puntuar por falta de material; P2 sí lo puntúa.',
       polarizanTitulo: 'Las imágenes que polarizan',
       polarizan: [
         ['30', 'CON', '«Vamos a reconstruir lo que ellos han tratado de destruir»'],
@@ -309,7 +309,8 @@ export const TEXTOS_P2 = {
         'El blanco se decide con todo el discurso, incluido su tema; si sale del contexto, se anota el porqué.',
         'Fórmula: P2 = 10 × (E + 1) / (E + P + 2); las neutras no entran; mínimo de 3 eventos con signo.',
         'Cambio respecto al TFG: la metáfora contra problemas («curar la desigualdad») pasa de empática a neutra.',
-        'ANI se amplía a la caricatura; la ficha añade densidad por mil palabras y dominio dominante.',
+        'ANI es deshumanizar; el insulto que rebaja sin quitar lo humano («títere», «lacayo») va a P3. La ficha añade densidad por mil palabras y dominio dominante.',
+        '«La derecha rendida»: neutra en P2 de forma provisional.',
         'Criticar el estilo del rival («hacen mucho ruido») no es negarle la palabra: neutra.',
         'Un insulto que el diccionario ya recoge con ese sentido («lacayo») es juicio literal: va a P3.',
         'La unidad del propio grupo es empática si no excluye a nadie.',
