@@ -239,7 +239,7 @@ export const TEXTOS_P2 = {
     },
 
     pendiente: [
-      ['Casos de la prueba', 'Confirmar los puntos dudosos de Barcelona: el ruido, la unidad del propio grupo y «rendida».'],
+      ['Casos de la prueba', 'Confirmar la unidad del propio grupo, «rendida» y si los insultos lexicalizados («títere») salen de ANI.'],
       ['Segunda prueba', 'Codificar el discurso de la ONU (2024) con las mismas reglas.'],
       ['Cómo se aplica', 'La lista de palabras candidatas por dominio (código) y la adaptación del MIPVU (humano).'],
       ['Base teórica y referencias', 'Redactar la base teórica y verificar cada referencia.'],
@@ -259,16 +259,14 @@ export const TEXTOS_P2 = {
 
     prueba: {
       intro: 'El discurso de Pedro Sánchez en la Cumbre Progresista de Barcelona (18 de abril de 2026), codificado entero con las reglas de esta página. Borrador: los casos dudosos están marcados.',
-      nota: '4,38',
-      solidez: 'sólida · 14 eventos con signo',
-      calculo: '10 × (6 + 1) / (6 + 8 + 2) = 4,38',
-      cifras: [['6', 'empáticas'], ['8', 'polarizan'], ['20', 'neutras']],
-      descriptivo: '34 eventos en 1.197 palabras: 28,4 por mil. Dominio más frecuente: «Otro» (11), sobre todo la imagen del ruido.',
-      p1: 'En P1 el mismo discurso saca 5,5. Los dos parámetros no se mueven a la par: es lo que buscábamos.',
+      nota: '5,83',
+      solidez: 'sólida · 10 eventos con signo',
+      calculo: '10 × (6 + 1) / (6 + 4 + 2) = 5,83',
+      cifras: [['6', 'empáticas'], ['4', 'polarizan'], ['23', 'neutras']],
+      descriptivo: '33 eventos en 1.197 palabras: 27,6 por mil. Dominio más frecuente: «Otro» (11): ruido, herramientas, comercio. La lista de dominios necesita ampliarse.',
+      p1: 'En P1 el mismo discurso saca 5,5. Con un solo discurso no se puede saber si P1 y P2 van juntos: hace falta el corpus.',
       polarizanTitulo: 'Las imágenes que polarizan',
       polarizan: [
-        ['16', 'ANI', '«unas derechas lacayas»'],
-        ['16 · 17 · 19', 'OTR', '«hacen mucho ruido», «gritan tanto y tan alto…»'],
         ['30', 'CON', '«Vamos a reconstruir lo que ellos han tratado de destruir»'],
         ['45', 'GUE', '«La vergüenza cambia de bando»'],
         ['60', 'GUE', '«doblándoles el brazo a quienes se creen intocables»'],
@@ -282,10 +280,12 @@ export const TEXTOS_P2 = {
         ['54', 'FAM', '«España es hija de la migración y no va a ser madre de la xenofobia»'],
         ['73', 'FAM', '«La promesa que todo padre y toda madre le debe a su hijo y a su hija»'],
       ],
-      dudasTitulo: 'Lo que más mueve la nota',
+      dudasTitulo: 'Lo que cambió al revisar la prueba',
       dudas: [
-        ['El ruido (oraciones 16, 17 y 19)', 'Si reducir la voz del rival a «ruido» no polarizara, P2 subiría a 5,38.'],
-        ['La unidad del propio grupo (34 y 35)', 'Si fuera neutra en lugar de empática, P2 bajaría a 3,57.'],
+        ['El ruido (oraciones 16, 17 y 19)', '«Hacen mucho ruido», «gritan tanto y tan alto»: critica el estilo del rival, no le niega la palabra. Neutra. La nota pasó de 4,38 a 5,83.'],
+        ['«Unas derechas lacayas» (16)', 'Insulto que el diccionario ya recoge con ese sentido: es juicio literal y lo mide P3, no P2.'],
+        ['«Que no os engañen» (18)', 'Polariza, pero es literal: no hay metáfora. Lo recogen P1 y P3.'],
+        ['Por confirmar: la unidad del propio grupo (34 y 35)', 'Codificada empática, como el nosotros de grupo sin perdedor de P1. Si fuera neutra, P2 bajaría a 5,00.'],
       ],
     },
 
@@ -310,6 +310,8 @@ export const TEXTOS_P2 = {
         'Fórmula: P2 = 10 × (E + 1) / (E + P + 2); las neutras no entran; mínimo de 3 eventos con signo.',
         'Cambio respecto al TFG: la metáfora contra problemas («curar la desigualdad») pasa de empática a neutra.',
         'ANI se amplía a la caricatura; la ficha añade densidad por mil palabras y dominio dominante.',
+        'Criticar el estilo del rival («hacen mucho ruido») no es negarle la palabra: neutra.',
+        'Un insulto que el diccionario ya recoge con ese sentido («lacayo») es juicio literal: va a P3.',
       ],
     },
 
