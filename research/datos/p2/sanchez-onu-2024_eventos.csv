@@ -1,16 +1,16 @@
 n,oracion,fragmento,dominio,tipo,blanco,tipo_blanco,humano,reglas,une,excepcion,resultado,nota
 1,2,lucha contra la impunidad,GUE,convencional,la impunidad,problema,no,,no,,N,
 2,5,el mundo levantó pieza a pieza de las cenizas de la barbarie,CON,viva,el sistema multilateral que construyó el mundo,nosotros,no,,si,,E,construcción común de todos los países
-3,5,se encuentra hoy bajo una enorme presión,OTR,convencional,el sistema multilateral,problema,no,,no,,N,
-4,8,La paz sin democracia es la paz de las cárceles,OTR,viva,la tiranía,problema,no,,no,,N,
+3,5,se encuentra hoy bajo una enorme presión,MAQ,convencional,el sistema multilateral,problema,no,,no,,N,
+4,8,La paz sin democracia es la paz de las cárceles,ESP,viva,la tiranía,problema,no,,no,,N,
 5,8,la antesala de la autocracia,CON,convencional,la autocracia,problema,no,,no,,N,
-6,12,insoportable espiral de muerte y devastación,OTR,convencional,la guerra en Gaza,problema,no,,no,,N,
+6,12,insoportable espiral de muerte y devastación,VIA,convencional,la guerra en Gaza,problema,no,,no,,N,
 7,20,riesgo real de retroceso de la democracia,VIA,convencional,la democracia,problema,no,,no,,N,
 8,21,Derechos que se creían consolidados,CON,convencional,los derechos,meta,no,,no,,N,
 9,22,Una agenda reaccionaria global se abre paso,VIA,convencional,la agenda reaccionaria,ideologia,si,si,no,no,N,"ideología con cuerpo (P1 la codifica como amenaza, C5); la imagen solo dice que avanza; «falso» es juicio literal (P3)"
 10,23,libra una batalla por su supervivencia; y seamos claros: no deja de ceder terreno ante sus enemigos,GUE,convencional,los enemigos de la democracia,personas,si,,,si,N,"excepción democrática, como en P1: personas definidas por su conducta antidemocrática"
 11,24,ganar esta batalla con una mano atada a la espalda,GUE,viva,"gente sin escrúpulos, activistas de la mentira",personas,si,no,,no,P,bloque homogéneo (P1: C2); sin conducta concreta ni agente acotado
-12,24,dispuestos a partir en dos las sociedades,OTR,convencional,"gente sin escrúpulos, activistas de la mentira",personas,si,no,,no,P,el rival como quien rompe lo común (como «destruir» en Barcelona 30)
+12,24,dispuestos a partir en dos las sociedades,CUI,convencional,"gente sin escrúpulos, activistas de la mentira",personas,si,no,,no,P,el rival como quien rompe lo común (como «destruir» en Barcelona 30)
 13,25,levantar un escudo que proteja las instituciones democráticas de quienes buscan socavarlas deliberadamente,GUE,convencional,quienes buscan socavar las instituciones,personas,si,,,si,N,"excepción democrática, como en P1: conducta concreta y agente acotado"
 14,26,trabajar por su regeneración interna,CUI,convencional,la democracia de todos los ciudadanos,nosotros,no,,si,,E,con autocrítica («reconocer errores») y la democracia «como algo propio»
 15,30,quien da la batalla por perdida,GUE,convencional,la emergencia climática,problema,no,,no,,N,
