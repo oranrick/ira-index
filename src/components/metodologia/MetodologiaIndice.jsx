@@ -1,5 +1,5 @@
 // IRA · /metodologia — índice de la Metodología 2.0: aviso de versión, tres principios,
-// tarjetas de parámetros (solo P1 activa) y enlace a la carpeta research/ del repositorio.
+// tarjetas de parámetros (P1 y P2 activas) y enlace a la carpeta research/ del repositorio.
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -22,9 +22,8 @@ const TXT = {
       { titulo: 'Reproducible', texto: 'Manual, código y datos están en el repositorio público, con versiones fijadas.' },
     ],
     parametrosTitulo: 'Los parámetros',
-    parametrosTexto: 'Publicamos cada parámetro cuando su manual está cerrado. Los demás conservan, de momento, su nombre actual.',
+    parametrosTexto: 'Cada parámetro se publica con su manual. P1 está cerrado; P2 es un borrador en desarrollo y puede cambiar. Los demás conservan, de momento, su nombre actual.',
     proximamente: 'Próximamente',
-    disponible: 'Manual v1.1',
     leer: 'Leer el método',
     researchTitulo: 'Manual, código y datos',
     researchTexto: 'La carpeta research/ del repositorio contiene los manuales de codificación, los scripts en Python, las tablas codificadas y las fichas de cada discurso.',
@@ -79,7 +78,7 @@ export default function MetodologiaIndice() {
                 <Link to={p.ruta} className="ira-met__param ira-met__param--activo">
                   <span className="ira-met__param-cab">
                     <span className="ira-met__param-codigo ira-cifra">{p.codigo}</span>
-                    <span className="ira-met__param-estado ira-met__param-estado--activo">{t.disponible}</span>
+                    <span className={`ira-met__param-estado ira-met__param-estado--activo${p.borrador ? ' ira-met__param-estado--borrador' : ''}`}>{p.estado}</span>
                   </span>
                   <span className="ira-met__param-nombre">{p.nombre}</span>
                   <span className="ira-met__param-def">{p.definicion}</span>

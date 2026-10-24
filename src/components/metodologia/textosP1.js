@@ -340,6 +340,6 @@ export const TEXTOS_P1 = {
 
     referencias: REFERENCIAS,
     manual: 'Manual completo de P1 en el repositorio',
-    pie: { volver: '← Volver al índice', siguiente: 'Siguiente: P2 · próximamente' },
+    pie: { volver: '← Volver al índice', siguiente: 'Siguiente: P2 · El marco metafórico →' },
   },
 };

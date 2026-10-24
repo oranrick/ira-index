@@ -28,6 +28,7 @@ const Portada = lazy(() => import("./components/Portada.jsx"));
 const PaisPage = lazy(() => import("./components/PaisPage.jsx"));
 const MetodologiaIndice = lazy(() => import("./components/metodologia/MetodologiaIndice.jsx"));
 const MetodologiaP1 = lazy(() => import("./components/metodologia/MetodologiaP1.jsx"));
+const MetodologiaP2 = lazy(() => import("./components/metodologia/MetodologiaP2.jsx"));
 
 const AccentContext = createContext({
   accent: '#DCB149',
@@ -2013,6 +2014,7 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/metodologia" element={<Suspense fallback={null}><MetodologiaIndice /></Suspense>} />
         <Route path="/metodologia/p1" element={<Suspense fallback={null}><MetodologiaP1 /></Suspense>} />
+        <Route path="/metodologia/p2" element={<Suspense fallback={null}><MetodologiaP2 /></Suspense>} />
         <Route path="/analisis-del-dia" element={<DailyAnalysisPage />} />
         <Route path="/patrones" element={<PatternsPageRoute />} />
         <Route path="*" element={<Navigate to="/politicos" replace />} />

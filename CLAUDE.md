@@ -51,6 +51,8 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 **Estado: sin cambios.**
 
+> Metodología 2.0 en desarrollo: P2 borrador v0.1 en `research/manual/P2.md` (dominio por blanco, regla en tres pasos, P2 = 10 × (E + 1) / (E + P + 2)). Página en `/metodologia/p2`, enlazada desde el índice como borrador en desarrollo. El motor web sigue usando la definición anterior hasta que se migre.
+
 ## P3 · Polaridad Moral · peso 10% ✓ REVISADO
 
 **Base teórica:**
