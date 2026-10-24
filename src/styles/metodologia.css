@@ -48,7 +48,7 @@
 /* ── Índice: parámetros ───────────────────────────────────────────────────── */
 .ira-met__parametros { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
 .ira-met__parametros > li { display: flex; }
-.ira-met__parametros > li:first-child { grid-column: 1 / -1; }
+.ira-met__parametros > li:has(.ira-met__param--activo) { grid-column: 1 / -1; }
 .ira-met__param {
   flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 20px;
   border-radius: var(--ira-radio-l); border: 1px solid var(--ira-linea); background: var(--ira-superficie);
@@ -63,6 +63,7 @@
 .ira-met__param--activo .ira-met__param-codigo { color: var(--ira-salvia); }
 .ira-met__param-estado { font-size: 12px; padding: 3px 9px; border-radius: 99px; border: 1px solid var(--ira-linea-fuerte); color: var(--ira-texto-2); }
 .ira-met__param-estado--activo { border-color: var(--ira-salvia); color: var(--ira-marca-empatica); }
+.ira-met__param-estado--borrador { border-color: var(--ira-oro); border-style: dashed; color: var(--ira-oro); }
 .ira-met__param-nombre { font-family: var(--ira-font-titulo); font-weight: 500; font-size: 20px; line-height: 1.2; }
 .ira-met__param--activo .ira-met__param-nombre { font-size: 28px; }
 .ira-met__param-def { max-width: 620px; font-size: 16px; line-height: 26px; color: var(--ira-texto-cita); }

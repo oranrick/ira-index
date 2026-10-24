@@ -10,15 +10,15 @@ export const REPO_RESEARCH = 'https://github.com/oranrick/ira-index/tree/main/re
 export const AVISO = {
   es: {
     rotulo: 'Metodología 2.0 · en desarrollo',
-    texto: 'Estamos rediseñando el IRA parámetro a parámetro para que cada puntuación pueda explicarse frase a frase. Las puntuaciones que ves hoy en la web todavía se calculan con la versión anterior. Publicamos cada parámetro cuando su manual está cerrado.',
+    texto: 'Estamos rediseñando el IRA parámetro a parámetro para que cada puntuación pueda explicarse frase a frase. Las puntuaciones que ves hoy en la web todavía se calculan con la versión anterior. Los parámetros en desarrollo se publican como borrador y pueden cambiar.',
   },
 };
 
-// Índice de parámetros. Solo P1 tiene página; el resto conserva su nombre actual.
+// Índice de parámetros. P1 (manual cerrado) y P2 (borrador) tienen página; el resto conserva su nombre actual.
 export const PARAMETROS = {
   es: [
-    { id: 'p1', codigo: 'P1', nombre: 'La frontera del nosotros', definicion: 'Dónde traza el discurso la línea entre «nosotros» y «ellos», y si esa línea es un muro o una puerta.', ruta: '/metodologia/p1' },
-    { id: 'p2', codigo: 'P2', nombre: 'Marco metafórico' },
+    { id: 'p1', codigo: 'P1', nombre: 'La frontera del nosotros', definicion: 'Dónde traza el discurso la línea entre «nosotros» y «ellos», y si esa línea es un muro o una puerta.', ruta: '/metodologia/p1', estado: 'Manual v1.1' },
+    { id: 'p2', codigo: 'P2', nombre: 'El marco metafórico', definicion: 'Con qué imágenes piensa el discurso el conflicto y contra quién apuntan: el dominio no decide, decide el blanco.', ruta: '/metodologia/p2', estado: 'Borrador v0.1 · en desarrollo', borrador: true },
     { id: 'p3', codigo: 'P3', nombre: 'Polaridad moral' },
     { id: 'p4', codigo: 'P4', nombre: 'Tono emocional' },
     { id: 'p5', codigo: 'P5', nombre: 'Apertura al disenso' },
