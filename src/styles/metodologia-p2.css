@@ -283,3 +283,37 @@
   .ira-p2-casos td::before { display: none; }
   .ira-p2-casos td:last-child { margin-left: auto; }
 }
+
+/* ── Cita del TFG ────────────────────────────────────────────────────────── */
+.ira-p2-cita { margin: 0 0 8px; }
+.ira-p2-cita blockquote { margin: 0; }
+.ira-p2-cita figcaption { margin-top: 8px; font-size: 13px; color: var(--ira-texto-3); font-style: italic; }
+
+/* ── Fórmula ─────────────────────────────────────────────────────────────── */
+.ira-p2-leyenda { list-style: none; margin: 14px 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.ira-p2-leyenda li { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 999px; background: var(--p2-fondo); border: 1px solid var(--p2-color); font-size: 14px; color: var(--ira-texto-cita); }
+.ira-p2-leyenda__k { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--p2-color); color: var(--ira-noche); font-size: 12px; font-weight: 500; }
+
+/* ── Primera prueba ──────────────────────────────────────────────────────── */
+.ira-p2-prueba { display: grid; grid-template-columns: minmax(200px, 260px) minmax(0, 1fr); gap: 28px; align-items: start; margin-bottom: 14px; }
+.ira-p2-prueba__nota { display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: var(--ira-radio-l); background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-top: 3px solid var(--ira-4); }
+.ira-p2-prueba__cifra { margin: 0; font-size: 56px; line-height: 1; color: var(--ira-4); }
+.ira-p2-prueba__solidez { margin: 0; font-size: 13px; color: var(--ira-texto-2); }
+.ira-p2-prueba__calculo { margin: 6px 0 0; font-size: 13px; color: var(--ira-texto-cita); }
+.ira-p2-prueba__cifras { list-style: none; margin: 10px 0 0; padding: 10px 0 0; border-top: 1px solid var(--ira-linea); display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--ira-texto-2); }
+.ira-p2-prueba__cifras strong { color: var(--p2-claro); font-weight: 500; margin-right: 4px; }
+.ira-p2-prueba__listas { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.ira-p2-prueba__lista { padding: 14px 16px; border-radius: var(--ira-radio-l); background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-left: 3px solid var(--p2-color); }
+.ira-p2-prueba__titulo { margin: 0 0 10px; font-size: 14px; font-weight: 500; color: var(--p2-claro); }
+.ira-p2-prueba__lista ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ira-p2-prueba__lista li { display: grid; grid-template-columns: 96px 90px minmax(0, 1fr); gap: 10px; align-items: baseline; font-size: 14px; line-height: 21px; }
+.ira-p2-prueba__o { font-size: 12px; color: var(--ira-texto-3); white-space: nowrap; }
+.ira-p2-prueba__lista .ira-p2-codigo { min-width: 0; font-size: 11px; justify-self: start; white-space: nowrap; }
+.ira-p2-prueba__f { color: var(--ira-nieve); }
+@media (max-width: 760px) {
+  .ira-p2-prueba { grid-template-columns: 1fr; }
+  .ira-p2-prueba__lista li { grid-template-columns: auto auto; justify-content: start; gap: 4px 10px; }
+  .ira-p2-prueba__f { grid-column: 1 / -1; }
+}
+
+.ira-p2-excepcion { margin: 16px 0 0; padding: 14px 16px; border-radius: var(--ira-radio-l); border: 1px dashed var(--ira-oro); background: rgba(220, 177, 73, 0.06); font-size: 15px; line-height: 24px; color: var(--ira-texto-cita); }

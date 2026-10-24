@@ -40,7 +40,9 @@ export const TEXTOS_P2 = {
       { id: 'unidad', titulo: 'La unidad: el evento' },
       { id: 'dominios', titulo: 'Los dominios' },
       { id: 'regla', titulo: 'La regla, paso a paso' },
+      { id: 'formula', titulo: 'La fórmula' },
       { id: 'casos', titulo: 'Casos resueltos' },
+      { id: 'prueba', titulo: 'Primera prueba: Barcelona' },
       { id: 'pendiente', titulo: 'Lo que falta' },
       { id: 'cambios', titulo: 'Registro de decisiones' },
       { id: 'referencias', titulo: 'Referencias' },
@@ -88,7 +90,8 @@ export const TEXTOS_P2 = {
     },
 
     porque: {
-      entrada: 'La metáfora no adorna: decide qué problema vemos y qué solución nos parece obvia. Y las más eficaces son las que nadie nota.',
+      entrada: 'Si concebimos un problema en términos bélicos, buscaremos soluciones bélicas. Bajo la metáfora de la guerra, el ciudadano se vuelve soldado, y discrepar se parece a traicionar.',
+      entradaFuente: 'El contagio de las palabras, TFG, 2024',
       experimento: {
         titulo: 'El mismo crimen, dos imágenes',
         texto: 'En un experimento clásico, describir el crimen como un virus o como una bestia cambió las soluciones que la gente prefería: prevenir y reformar, o perseguir y encerrar.',
@@ -181,8 +184,8 @@ export const TEXTOS_P2 = {
         { codigo: 'GUE', nombre: 'Guerra y conflicto', ej: 'luchar, batalla, frente, trinchera, rendirse', icono: 'guerra' },
         { codigo: 'DEP', nombre: 'Deporte y competición', ej: 'ganar, remontar, equipo, partido', icono: 'deporte' },
         { codigo: 'ENF', nombre: 'Enfermedad y contagio', ej: 'virus, cáncer, contagio, infectar', icono: 'enfermedad' },
-        { codigo: 'INM', nombre: 'Inmunidad y pureza', ej: 'erradicar, limpiar, blindar, purgar', icono: 'inmunidad', siempre: true },
-        { codigo: 'ANI', nombre: 'Animal y plaga', ej: 'plaga, ratas, parásito, alimañas', icono: 'animal', siempre: true },
+        { codigo: 'INM', nombre: 'Inmunidad, limpieza y pureza', ej: 'erradicar, limpiar el país, sacar la basura, purgar', icono: 'inmunidad', siempre: true },
+        { codigo: 'ANI', nombre: 'Animal, plaga y caricatura', ej: 'plaga, ratas, parásito, hiena, títere', icono: 'animal', siempre: true },
         { codigo: 'CAT', nombre: 'Catástrofe natural', ej: 'oleada, avalancha, tsunami, inundar', icono: 'catastrofe' },
         { codigo: 'REL', nombre: 'Religión', ej: 'cruzada, demonio, pecado, salvación', icono: 'religion' },
         { codigo: 'CON', nombre: 'Construcción', ej: 'construir, cimientos, puentes, tejer', icono: 'construccion' },
@@ -192,7 +195,7 @@ export const TEXTOS_P2 = {
         { codigo: 'OTR', nombre: 'Otro', ej: 'si se repite, pasa a la lista', icono: 'otro' },
       ],
       siempre: 'Contra personas, siempre polariza',
-      nota: 'ENF e INM van separados: «virus» diagnostica, «erradicar» expulsa. En Esposito, el peligro está en la reacción inmunitaria.',
+      nota: 'ANI incluye la caricatura («títere», «hiena»), como en el TFG. ENF e INM van separados: «virus» diagnostica, «erradicar» expulsa. En Esposito, el peligro está en la reacción inmunitaria.',
     },
 
     regla: {
@@ -236,12 +239,55 @@ export const TEXTOS_P2 = {
     },
 
     pendiente: [
-      ['Excepción democrática', '¿Se aplica como en P1? «Combatir a los terroristas» tiene blanco humano.'],
-      ['Fórmula, mínimos y solidez', 'Cómo pasan los eventos a una nota de 0 a 10, y cuántos hacen falta.'],
-      ['Cómo se aplica', 'El léxico de candidatos por dominio (código) y la adaptación del MIPVU (humano).'],
-      ['Prueba real', 'Codificar los dos discursos de Sánchez ya transcritos.'],
-      ['El discurso anotado y la ficha', 'Las piezas que en P1 enseñan un fragmento real y su cálculo.'],
+      ['Casos de la prueba', 'Confirmar los puntos dudosos de Barcelona: el ruido, la unidad del propio grupo y «rendida».'],
+      ['Segunda prueba', 'Codificar el discurso de la ONU (2024) con las mismas reglas.'],
+      ['Cómo se aplica', 'La lista de palabras candidatas por dominio (código) y la adaptación del MIPVU (humano).'],
+      ['Base teórica y referencias', 'Redactar la base teórica y verificar cada referencia.'],
     ],
+
+    formula: {
+      lineas: ['P2 = 10 × (E + 1) / (E + P + 2)'],
+      leyenda: [['E', 'eventos empáticos'], ['P', 'eventos que polarizan'], ['N', 'neutras: no entran en la nota']],
+      notas: [
+        'Las neutras no entran para que no diluyan las imágenes que toman partido. La ficha las cuenta aparte.',
+        'Con pocos eventos, la fórmula acerca la nota al centro (regla de sucesión de Laplace, como la permeabilidad de P1).',
+        'Mínimo: 3 eventos con signo. Solidez: de 3 a 5, orientativa; 6 o más, sólida.',
+        'La ficha describe además la densidad (eventos por mil palabras) y el dominio dominante, sin que cambien la nota.',
+      ],
+      excepcion: 'Excepción democrática: la metáfora contra quien ejerce violencia o actúa contra la democracia, con las tres condiciones de P1, queda neutra. Si es ANI o INM, la ficha avisa de que había metáforas mejores a mano.',
+    },
+
+    prueba: {
+      intro: 'El discurso de Pedro Sánchez en la Cumbre Progresista de Barcelona (18 de abril de 2026), codificado entero con las reglas de esta página. Borrador: los casos dudosos están marcados.',
+      nota: '4,38',
+      solidez: 'sólida · 14 eventos con signo',
+      calculo: '10 × (6 + 1) / (6 + 8 + 2) = 4,38',
+      cifras: [['6', 'empáticas'], ['8', 'polarizan'], ['20', 'neutras']],
+      descriptivo: '34 eventos en 1.197 palabras: 28,4 por mil. Dominio más frecuente: «Otro» (11), sobre todo la imagen del ruido.',
+      p1: 'En P1 el mismo discurso saca 5,5. Los dos parámetros no se mueven a la par: es lo que buscábamos.',
+      polarizanTitulo: 'Las imágenes que polarizan',
+      polarizan: [
+        ['16', 'ANI', '«unas derechas lacayas»'],
+        ['16 · 17 · 19', 'OTR', '«hacen mucho ruido», «gritan tanto y tan alto…»'],
+        ['30', 'CON', '«Vamos a reconstruir lo que ellos han tratado de destruir»'],
+        ['45', 'GUE', '«La vergüenza cambia de bando»'],
+        ['60', 'GUE', '«doblándoles el brazo a quienes se creen intocables»'],
+        ['66', 'OTR', '«Las ponemos en su sitio»'],
+      ],
+      empaticasTitulo: 'Las imágenes que unen',
+      empaticas: [
+        ['29', 'FAM', '«vamos a traer al mundo y a todos nuestros países una nueva era de progreso»'],
+        ['34 · 35', 'OTR · CON', '«lo que se respira aquí: unidad», «consolidar nuestra unidad»'],
+        ['37', 'VIA', '«recuperar un horizonte compartido»'],
+        ['54', 'FAM', '«España es hija de la migración y no va a ser madre de la xenofobia»'],
+        ['73', 'FAM', '«La promesa que todo padre y toda madre le debe a su hijo y a su hija»'],
+      ],
+      dudasTitulo: 'Lo que más mueve la nota',
+      dudas: [
+        ['El ruido (oraciones 16, 17 y 19)', 'Si reducir la voz del rival a «ruido» no polarizara, P2 subiría a 5,38.'],
+        ['La unidad del propio grupo (34 y 35)', 'Si fuera neutra en lugar de empática, P2 bajaría a 3,57.'],
+      ],
+    },
 
     cambios: {
       titulo: 'Borrador v0.1 · 23 y 24 de octubre de 2026',
@@ -258,6 +304,12 @@ export const TEXTOS_P2 = {
         'Empática solo la metáfora que acepta y une, aunque no mencione al otro.',
         'Reparto con P3 y P6: lo figurado va a P2; lo literal, a los demás.',
         'Sin niveles de intensidad: todos los eventos valen 1.',
+        'Excepción democrática como en P1, también para ANI e INM: la metáfora queda neutra, con aviso de que había metáforas mejores.',
+        'La regla queda en tres pasos: ¿blanco humano?, ¿conserva las reglas?, ¿acepta y une?',
+        'El blanco se decide con todo el discurso, incluido su tema; si sale del contexto, se anota el porqué.',
+        'Fórmula: P2 = 10 × (E + 1) / (E + P + 2); las neutras no entran; mínimo de 3 eventos con signo.',
+        'Cambio respecto al TFG: la metáfora contra problemas («curar la desigualdad») pasa de empática a neutra.',
+        'ANI se amplía a la caricatura; la ficha añade densidad por mil palabras y dominio dominante.',
       ],
     },
 

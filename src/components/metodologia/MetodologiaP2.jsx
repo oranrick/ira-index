@@ -393,7 +393,10 @@ export default function MetodologiaP2() {
 
           {/* Por qué importa */}
           <Seccion {...sec('por-que-importa')} className="ira-met__seccion--banda">
-            <p className="ira-met__entrada">{t.porque.entrada}</p>
+            <figure className="ira-p2-cita">
+              <blockquote className="ira-met__entrada">{t.porque.entrada}</blockquote>
+              <figcaption>{t.porque.entradaFuente}</figcaption>
+            </figure>
             <Experimento x={t.porque.experimento} />
             <ol className="ira-p2-eslabones">
               {t.porque.pasos.map((p, i) => (
@@ -472,6 +475,20 @@ export default function MetodologiaP2() {
             <Recorrido r={t.regla} t={t} />
           </Seccion>
 
+          {/* Fórmula */}
+          <Seccion {...sec('formula')}>
+            <div className="ira-met__formula">{t.formula.lineas.map((l) => <p key={l} className="ira-met__formula-linea ira-cifra">{l}</p>)}</div>
+            <ul className="ira-p2-leyenda">
+              {t.formula.leyenda.map(([k, v]) => (
+                <li key={k} className={`ira-p2--${k === 'E' ? 'empatica' : k === 'P' ? 'polariza' : 'neutra'}`}>
+                  <span className="ira-p2-leyenda__k ira-cifra">{k}</span><span>{v}</span>
+                </li>
+              ))}
+            </ul>
+            <ul className="ira-met__lista">{t.formula.notas.map((x) => <li key={x}>{x}</li>)}</ul>
+            <p className="ira-p2-excepcion">{t.formula.excepcion}</p>
+          </Seccion>
+
           {/* Casos */}
           <Seccion {...sec('casos')}>
             <div className="ira-met__tabla-marco">
@@ -492,6 +509,43 @@ export default function MetodologiaP2() {
             <Acordeon titulo={t.casos.porResolverTitulo}>
               <ul className="ira-met__lista">{t.casos.porResolver.map((x) => <li key={x}>{x}</li>)}</ul>
             </Acordeon>
+          </Seccion>
+
+          {/* Primera prueba */}
+          <Seccion {...sec('prueba')}>
+            <p className="ira-met__texto">{t.prueba.intro}</p>
+            <div className="ira-pz-banda ira-p2-prueba">
+              <div className="ira-p2-prueba__nota">
+                <p className="ira-p2-prueba__cifra ira-cifra">{t.prueba.nota}</p>
+                <p className="ira-p2-prueba__solidez">P2 · {t.prueba.solidez}</p>
+                <p className="ira-p2-prueba__calculo ira-cifra">{t.prueba.calculo}</p>
+                <ul className="ira-p2-prueba__cifras">
+                  {t.prueba.cifras.map(([n, k], i) => (
+                    <li key={k} className={`ira-p2--${['empatica', 'polariza', 'neutra'][i]}`}><strong className="ira-cifra">{n}</strong> {k}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="ira-p2-prueba__listas">
+                {[['polarizan', 'polariza'], ['empaticas', 'empatica']].map(([k, tono]) => (
+                  <div key={k} className={`ira-p2-prueba__lista ira-p2--${tono}`}>
+                    <p className="ira-p2-prueba__titulo">{t.prueba[`${k}Titulo`]}</p>
+                    <ul>
+                      {t.prueba[k].map(([o, d, f]) => (
+                        <li key={o + f}><span className="ira-p2-prueba__o ira-cifra">{o}</span><span className="ira-p2-codigo ira-cifra">{d}</span><span className="ira-p2-prueba__f">{f}</span></li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p className="ira-met__nota">{t.prueba.descriptivo}</p>
+            <Destacado tono="salvia">{t.prueba.p1}</Destacado>
+            <h3 className="ira-met__h3">{t.prueba.dudasTitulo}</h3>
+            <ul className="ira-p2-pendiente">
+              {t.prueba.dudas.map(([n, e]) => (
+                <li key={n} className="ira-p2-pendiente__item"><p className="ira-p2-pendiente__nombre">{n}</p><p>{e}</p></li>
+              ))}
+            </ul>
           </Seccion>
 
           {/* Pendiente */}
