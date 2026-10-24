@@ -239,7 +239,7 @@ export const TEXTOS_P2 = {
     },
 
     pendiente: [
-      ['Casos de la prueba', 'Confirmar la unidad del propio grupo, «rendida» y si los insultos lexicalizados («títere») salen de ANI.'],
+      ['Casos de la prueba', 'Confirmar «rendida» y si los insultos lexicalizados («títere») salen de ANI.'],
       ['Segunda prueba', 'Codificar el discurso de la ONU (2024) con las mismas reglas.'],
       ['Cómo se aplica', 'La lista de palabras candidatas por dominio (código) y la adaptación del MIPVU (humano).'],
       ['Base teórica y referencias', 'Redactar la base teórica y verificar cada referencia.'],
@@ -285,7 +285,7 @@ export const TEXTOS_P2 = {
         ['El ruido (oraciones 16, 17 y 19)', '«Hacen mucho ruido», «gritan tanto y tan alto»: critica el estilo del rival, no le niega la palabra. Neutra. La nota pasó de 4,38 a 5,83.'],
         ['«Unas derechas lacayas» (16)', 'Insulto que el diccionario ya recoge con ese sentido: es juicio literal y lo mide P3, no P2.'],
         ['«Que no os engañen» (18)', 'Polariza, pero es literal: no hay metáfora. Lo recogen P1 y P3.'],
-        ['Por confirmar: la unidad del propio grupo (34 y 35)', 'Codificada empática, como el nosotros de grupo sin perdedor de P1. Si fuera neutra, P2 bajaría a 5,00.'],
+        ['La unidad del propio grupo (34 y 35)', 'Empática: une sin excluir a nadie, como el nosotros de grupo sin perdedor de P1.'],
       ],
     },
 
@@ -312,6 +312,7 @@ export const TEXTOS_P2 = {
         'ANI se amplía a la caricatura; la ficha añade densidad por mil palabras y dominio dominante.',
         'Criticar el estilo del rival («hacen mucho ruido») no es negarle la palabra: neutra.',
         'Un insulto que el diccionario ya recoge con ese sentido («lacayo») es juicio literal: va a P3.',
+        'La unidad del propio grupo es empática si no excluye a nadie.',
       ],
     },
 
