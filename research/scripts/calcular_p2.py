@@ -12,7 +12,7 @@ import csv
 import sys
 from collections import Counter
 
-VERSION = "P2 borrador v0.1 (2026-10-24)"
+VERSION = "P2 borrador v0.2 (2026-10-27)"
 MINIMO = 3          # eventos con signo (E + P)
 SOLIDA_DESDE = 6    # de 3 a 5, orientativa
 NOMBRES = {"P": "polarizan", "N": "neutras", "E": "empáticas"}

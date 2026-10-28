@@ -28,6 +28,12 @@ const TRAZOS_P2 = {
   viaje: <><path d="M5 20c0-4 4-4 4-8s-4-4-4-8" strokeDasharray="2.4 2.4" /><circle cx="17" cy="7" r="2.5" /><path d="M17 9.5V20" /></>,
   familia: <><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /><path d="M10 20v-5h4v5" /></>,
   cuidado: <><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></>,
+  naturaleza: <><path d="M12 21V11" /><path d="M12 13c-4 0-6-3-6-7 4 0 6 3 6 7z" /><path d="M12 11c0-3.5 2-6 6-6 0 3.5-2 6-6 6z" /></>,
+  maquina: <><circle cx="12" cy="12" r="3" /><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8" /></>,
+  comercio: <><path d="M3 7h18l-1.5 9h-15z" /><path d="M8 7V5a4 4 0 0 1 8 0v2" /><circle cx="12" cy="11.5" r="1.4" /></>,
+  luz: <><circle cx="12" cy="12" r="4" /><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" /></>,
+  sonido: <><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" /><path d="M15.5 9a4 4 0 0 1 0 6" /><path d="M18 6.5a7.5 7.5 0 0 1 0 11" /></>,
+  espacio: <><rect x="3.5" y="3.5" width="17" height="17" rx="1.5" /><rect x="9" y="9" width="6" height="6" /><path d="M3.5 12H9M15 12h5.5" opacity="0.5" /></>,
   otro: <><circle cx="6" cy="12" r="1.3" /><circle cx="12" cy="12" r="1.3" /><circle cx="18" cy="12" r="1.3" /></>,
   persona: <><circle cx="12" cy="8" r="3.5" /><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" /></>,
 };
@@ -230,13 +236,34 @@ function Dominios({ d }) {
               <IconoP2 nombre={x.icono} tamano={22} className="ira-p2-dominio__icono" />
               <span className="ira-p2-codigo ira-cifra">{x.codigo}</span>
             </span>
-            <span className="ira-p2-dominio__nombre">{x.nombre}</span>
+            <span className="ira-p2-dominio__nombre">{x.nombre}{x.nuevo && <span className="ira-p2-nuevo">{d.nuevo}</span>}</span>
             <span className="ira-p2-dominio__ej">{x.ej}</span>
             {x.siempre && <span className="ira-p2-dominio__aviso">{d.siempre}</span>}
           </Aparecer>
         ))}
       </ul>
       <p className="ira-met__nota">{d.nota}</p>
+      <p className="ira-met__nota">{d.prueba}</p>
+      <h3 className="ira-met__h3">{d.reglasTitulo}</h3>
+      <div className="ira-p2-reglas-dom">
+        {d.reglas.map((r) => (
+          <div key={r.codigo} className="ira-p2-regla-dom">
+            <p className="ira-p2-regla-dom__cab"><span className="ira-p2-codigo ira-cifra">{r.codigo}</span> {r.nombre}</p>
+            <ul>
+              {r.filas.map(([ej, que, res]) => (
+                <li key={ej} className={`ira-p2--${res === 'pendiente' ? 'neutra' : res}`}>
+                  <span className="ira-p2-regla-dom__ej">{ej}</span>
+                  <span className="ira-p2-regla-dom__que">{que}</span>
+                  {res === 'pendiente'
+                    ? <span className="ira-p2-pildora ira-p2-pildora--pendiente">Pendiente</span>
+                    : <span className={`ira-p2-pildora ira-p2--${res}`}>{res === 'neutra' ? 'Neutra' : 'Polariza'}</span>}
+                </li>
+              ))}
+            </ul>
+            <p className="ira-p2-regla-dom__base">{r.base}</p>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
@@ -475,6 +502,36 @@ export default function MetodologiaP2() {
             <Recorrido r={t.regla} t={t} />
           </Seccion>
 
+          {/* Cómo se aplica */}
+          <Seccion {...sec('como-se-aplica')}>
+            <ol className="ira-met__pasos">
+              {t.aplica.pasos.map((p, i) => (
+                <Aparecer as="li" key={p.nombre} className={`ira-met__paso${i === 2 ? ' ira-met__paso--ia' : ''}`} style={{ '--retardo': `${i * 90}ms` }}>
+                  <span className="ira-met__paso-cab">
+                    <span className="ira-met__paso-n ira-cifra" aria-hidden="true">{i + 1}</span>
+                    <Icono nombre={['extraer', 'revisar', 'clasificar', 'calcular'][i]} tamano={26} className="ira-met__paso-icono" />
+                  </span>
+                  <h3 className="ira-met__h3">{p.nombre}</h3>
+                  <p className="ira-met__paso-quien">{p.quien}</p>
+                  <p className="ira-met__paso-texto">{p.texto}</p>
+                </Aparecer>
+              ))}
+            </ol>
+            <Destacado tono="salvia">{t.aplica.clave}</Destacado>
+            <h3 className="ira-met__h3">{t.aplica.rendimientoTitulo}</h3>
+            <div className="ira-met__tabla-marco">
+              <table className="ira-met__tabla ira-p2-rendimiento">
+                <thead><tr>{t.aplica.rendimientoCabecera.map((c) => <th key={c} scope="col">{c}</th>)}</tr></thead>
+                <tbody>
+                  {t.aplica.rendimiento.map((f) => (
+                    <tr key={f[0]}>{f.map((c, j) => <td key={j} data-rotulo={t.aplica.rendimientoCabecera[j]} className={j === 1 || j === 2 ? 'ira-cifra' : undefined}>{c}</td>)}</tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="ira-met__nota">{t.aplica.rendimientoNota}</p>
+          </Seccion>
+
           {/* Fórmula */}
           <Seccion {...sec('formula')}>
             <div className="ira-met__formula">{t.formula.lineas.map((l) => <p key={l} className="ira-met__formula-linea ira-cifra">{l}</p>)}</div>
@@ -564,9 +621,11 @@ export default function MetodologiaP2() {
 
           {/* Registro */}
           <Seccion {...sec('cambios')}>
-            <Acordeon titulo={t.cambios.titulo}>
-              <ul className="ira-met__lista">{t.cambios.decisiones.map((d) => <li key={d}>{d}</li>)}</ul>
-            </Acordeon>
+            {t.cambios.versiones.map((v) => (
+              <Acordeon key={v.titulo} titulo={v.titulo}>
+                <ul className="ira-met__lista">{v.decisiones.map((d) => <li key={d}>{d}</li>)}</ul>
+              </Acordeon>
+            ))}
           </Seccion>
 
           {/* Referencias */}

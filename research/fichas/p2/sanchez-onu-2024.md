@@ -10,7 +10,7 @@ Cálculo: 10 × (E + 1) / (E + P + 2) = 10 × (3 + 1) / (3 + 2 + 2) = **5,71**
 
 Descriptivo: 18 eventos en 943 palabras, **19,1 por mil**. Dominio dominante: **GUE** (6 eventos).
 
-Por dominio: GUE 6, CON 4, OTR 4, VIA 3, CUI 1
+Por dominio: GUE 6, CON 4, VIA 4, CUI 2, MAQ 1, ESP 1
 
 **Excepción democrática aplicada** (el IRA no verifica estas acusaciones):
 - Oración 23: «libra una batalla por su supervivencia; y seamos claros: no deja de ceder terreno ante sus enemigos»
@@ -18,11 +18,11 @@ Por dominio: GUE 6, CON 4, OTR 4, VIA 3, CUI 1
 
 **Eventos que polarizan**
 - 24 · GUE · «ganar esta batalla con una mano atada a la espalda»
-- 24 · OTR · «dispuestos a partir en dos las sociedades»
+- 24 · CUI · «dispuestos a partir en dos las sociedades»
 
 **Eventos que son empáticos**
 - 5 · CON · «el mundo levantó pieza a pieza de las cenizas de la barbarie»
 - 26 · CUI · «trabajar por su regeneración interna»
 - 37 · CON · «la refundación del multilateralismo»
 
-_P2 borrador v0.1 (2026-10-24)_
+_P2 borrador v0.2 (2026-10-27)_
