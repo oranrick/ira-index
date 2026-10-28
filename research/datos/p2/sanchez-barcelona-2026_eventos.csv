@@ -3,32 +3,33 @@ n,oracion,fragmento,dominio,tipo,blanco,tipo_blanco,humano,reglas,une,excepcion,
 2,10,fractura social,CUI,convencional,la sociedad dividida,problema,no,,no,,N,
 3,13,se comprometió a luchar por él,GUE,convencional,el porvenir,meta,no,,no,,N,«luchar» aparece dos veces en la oración: un solo evento
 4,15,el horizonte está cargado de incertidumbres,VIA,convencional,el futuro,meta,no,,no,,N,
-5,16,hacen mucho ruido,SON,convencional,la ultraderecha y las derechas,personas,si,si,no,no,N,"critica el estilo del rival (volumen), no le niega la palabra; «lacayas» es insulto lexicalizado: P3"
-6,17,gritan tanto y tan alto que a veces parece que no existieran otras voces,SON,convencional,la ultraderecha y las derechas,personas,si,si,no,no,N,«otras voces»: las del rival también son voces; crítica de estilo
-7,19,gritan porque saben que su tiempo se acaba,SON,convencional,los ultras y las derechas,personas,si,si,no,no,N,competencia: ganar o perder el tiempo político
+5,16,hacen mucho ruido,SON,convencional,la ultraderecha y las derechas,personas,si,si,no,no,N,"SON (regla 2026-10-27): expresión hecha, crítica de estilo; no niega el sentido de lo que dicen. «lacayas»: insulto lexicalizado, P3"
+6,17,gritan tanto y tan alto que a veces parece que no existieran otras voces,SON,convencional,la ultraderecha y las derechas,personas,si,si,no,no,N,SON (regla 2026-10-27): crítica de estilo; «otras voces» reconoce que las suyas también lo son
+7,19,gritan porque saben que su tiempo se acaba,SON,convencional,los ultras y las derechas,personas,si,si,no,no,N,"SON (regla 2026-10-27): crítica de estilo, sin negar la voz"
 8,19,no gritan porque estén ganando,DEP,convencional,los ultras y las derechas,personas,si,si,no,no,N,competición con reglas: ganar o perder
 9,20,su ortodoxia neoliberal [...] murió en 2008,CUI,convencional,el neoliberalismo,ideologia,no,,no,,N,ideología sin cuerpo: muere la doctrina; «cruel» es juicio literal (P3)
 10,22,su visión del orden internacional se está viendo desmantelada,CON,convencional,su visión del orden internacional,ideologia,no,,no,,N,
 11,23,su rendición al negacionismo climático,GUE,convencional,las derechas,personas,si,si,no,no,N,mismo criterio que «la derecha rendida» (oración 28); pendiente de confirmar
 12,24,la derecha languidece,NAT,convencional,la derecha,personas,si,si,no,no,N,"declive del rival, sin humillación ni expulsión"
-13,27,fractura social,CUI,convencional,la sociedad dividida,problema,no,,no,,N,«vacíos» y «odio» son juicio literal (P3)
-14,28,la derecha rendida a esos postulados reaccionarios,GUE,convencional,la derecha,personas,si,si,no,no,N,pendiente de confirmar; «reaccionarios» es juicio literal (P3)
-15,29,vamos a traer al mundo y a todos nuestros países una nueva era de progreso,FAM,convencional,el mundo y todos nuestros países,nosotros,no,,si,,E,dar a luz una era para todos; P1 la codifica sin perdedor (G y U)
-16,30,Vamos a reconstruir lo que ellos han tratado de destruir,CON,convencional,ellos,personas,si,no,,no,P,ellos como destructores de lo común
-17,33,ya hemos tomado en nuestras manos tres importantes instrumentos,MAQ,convencional,nosotros,nosotros,no,,no,,N,herramientas; no une ni excluye
-18,34,lo que se respira aquí: unidad,CUI,convencional,los presentes,nosotros,no,,si,,E,unidad del propio grupo sin perdedor; criterio por confirmar
-19,35,consolidar nuestra unidad,CON,convencional,nosotros,nosotros,no,,si,,E,unidad del propio grupo sin perdedor; criterio por confirmar
-20,37,recuperar un horizonte compartido,VIA,convencional,"nosotros (entre fuerzas, países y generaciones)",nosotros,no,,si,,E,
-21,45,La vergüenza cambia de bando,GUE,convencional,ellos,personas,si,no,,no,P,dos bandos: la vergüenza para ellos
-22,54,España es hija de la migración y no va a ser madre de la xenofobia,FAM,viva,España con sus migrantes,nosotros,no,,si,,E,la familia que incluye a los migrantes
-23,58,no vamos a comprar su pesimismo,COM,convencional,su pesimismo,ideologia,no,,no,,N,comercio
-24,59,palancas de progreso social,MAQ,convencional,la diversidad y la igualdad,meta,no,,no,,N,mecánica
-25,60,doblándoles el brazo a quienes se creen intocables,GUE,viva,los multimillonarios y especuladores,personas,si,no,,no,P,coerción figurada: va a P2 por el reparto figurado/literal
-26,62,juegan con los ahorros y las casas de la gente,DEP,convencional,los especuladores,personas,si,si,no,no,N,acusación; el juicio lo mide P3
-27,63,la salud de nuestras democracias,ENF,convencional,nuestras democracias,nosotros,no,,no,,N,el cuerpo político dañado; no llama enfermedad a nadie
-28,65,los estados no se arrodillan ante las élites,GUE,convencional,las élites,personas,si,si,no,no,N,negarse a someterse no ataca al rival
-29,66,Las ponemos en su sitio,ESP,convencional,las élites,personas,si,no,,no,P,humillación: subordinar al rival
-30,71,el progreso no es una quimera,REL,convencional,el progreso,meta,no,,no,,N,
-31,73,La promesa que todo padre y toda madre le debe a su hijo y a su hija,FAM,viva,toda la sociedad,nosotros,no,,si,,E,el progreso como cuidado entre generaciones
-32,75,"No la promesa de resistir, sino de avanzar",VIA,convencional,el progreso,meta,no,,no,,N,
-33,78,con moral de victoria,GUE,convencional,el objetivo común,meta,no,,no,,N,victoria sin rival nombrado
+13,25,"No importa, por tanto, que griten",SON,convencional,los ultras y las derechas,personas,si,si,no,no,N,"SON (regla 2026-10-27): resta importancia al volumen, no niega la voz; omitida en la primera codificación"
+14,27,fractura social,CUI,convencional,la sociedad dividida,problema,no,,no,,N,«vacíos» y «odio» son juicio literal (P3)
+15,28,la derecha rendida a esos postulados reaccionarios,GUE,convencional,la derecha,personas,si,si,no,no,N,pendiente de confirmar; «reaccionarios» es juicio literal (P3)
+16,29,vamos a traer al mundo y a todos nuestros países una nueva era de progreso,FAM,convencional,el mundo y todos nuestros países,nosotros,no,,si,,E,dar a luz una era para todos; P1 la codifica sin perdedor (G y U)
+17,30,Vamos a reconstruir lo que ellos han tratado de destruir,CON,convencional,ellos,personas,si,no,,no,P,ellos como destructores de lo común
+18,33,ya hemos tomado en nuestras manos tres importantes instrumentos,MAQ,convencional,nosotros,nosotros,no,,no,,N,herramientas; no une ni excluye
+19,34,lo que se respira aquí: unidad,CUI,convencional,los presentes,nosotros,no,,si,,E,unidad del propio grupo sin perdedor: empática (decisión 2026-10-24)
+20,35,consolidar nuestra unidad,CON,convencional,nosotros,nosotros,no,,si,,E,unidad del propio grupo sin perdedor: empática (decisión 2026-10-24)
+21,37,recuperar un horizonte compartido,VIA,convencional,"nosotros (entre fuerzas, países y generaciones)",nosotros,no,,si,,E,
+22,45,La vergüenza cambia de bando,GUE,convencional,ellos,personas,si,no,,no,P,dos bandos: la vergüenza para ellos
+23,54,España es hija de la migración y no va a ser madre de la xenofobia,FAM,viva,España con sus migrantes,nosotros,no,,si,,E,la familia que incluye a los migrantes
+24,58,no vamos a comprar su pesimismo,COM,convencional,su pesimismo,ideologia,no,,no,,N,comercio
+25,59,palancas de progreso social,MAQ,convencional,la diversidad y la igualdad,meta,no,,no,,N,mecánica
+26,60,doblándoles el brazo a quienes se creen intocables,GUE,viva,los multimillonarios y especuladores,personas,si,no,,no,P,coerción figurada: va a P2 por el reparto figurado/literal
+27,62,juegan con los ahorros y las casas de la gente,DEP,convencional,los especuladores,personas,si,si,no,no,N,acusación; el juicio lo mide P3
+28,63,la salud de nuestras democracias,ENF,convencional,nuestras democracias,nosotros,no,,no,,N,el cuerpo político dañado; no llama enfermedad a nadie
+29,65,los estados no se arrodillan ante las élites,GUE,convencional,las élites,personas,si,si,no,no,N,negarse a someterse no ataca al rival
+30,66,Las ponemos en su sitio,ESP,convencional,las élites,personas,si,no,,no,P,humillación: subordinar al rival
+31,71,el progreso no es una quimera,REL,convencional,el progreso,meta,no,,no,,N,
+32,73,La promesa que todo padre y toda madre le debe a su hijo y a su hija,FAM,viva,toda la sociedad,nosotros,no,,si,,E,el progreso como cuidado entre generaciones
+33,75,"No la promesa de resistir, sino de avanzar",VIA,convencional,el progreso,meta,no,,no,,N,
+34,78,con moral de victoria,GUE,convencional,el objetivo común,meta,no,,no,,N,victoria sin rival nombrado

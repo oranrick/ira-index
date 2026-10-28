@@ -15,6 +15,12 @@ scripts/exportar_web_p1.py  datos de la página /metodologia/p1
 datos/p1/             tablas codificadas: <id>_referencias.csv y <id>_eventos.csv
 fichas/p1/            ficha de P1 de cada discurso
 textos/               transcripciones en texto plano (copiadas de src/data/speeches.js)
+
+manual/P2.md          manual de codificación de P2 (borrador v0.2)
+scripts/extraer_p2.py   paso 1: candidatos a metáfora por lemas (spaCy) con scripts/lexico_p2.csv
+scripts/calcular_p2.py  paso 4: fórmula y ficha
+datos/p2/             <id>_candidatos.csv (salida del extractor) y <id>_eventos.csv (codificado)
+fichas/p2/            ficha de P2 de cada discurso
 ```
 
 ## Instalar el entorno
