@@ -5,6 +5,8 @@ import { useRef, useState } from 'react';
 import { chispazo, useAlVer } from '../Juego.jsx';
 
 const COLOR = ['salvia', 'salvia', 'rojo', 'rojo'];
+// Cinco ladrillos de 14 de alto entre y = 34 y y = 110
+const LADRILLOS = [34, 49.5, 65, 80.5, 96];
 
 // Onda horizontal de x0 a x1 (periodo p, amplitud amp) como trazado SVG
 function onda(x0, x1, y, amp, p = 16) {
@@ -65,17 +67,23 @@ function Ilustracion({ i, r }) {
     <svg viewBox="0 0 300 150" className="ira-pz-il ira-pz-il--2" role="img" aria-label={`${r.muro} / ${r.puerta}: ${r.comun}`}>
       <Persona x={20} y={72} className="ira-pz-il__persona ira-pz-il__persona--yo" />
       <path d={onda(32, 64, 70, 8)} className="ira-pz-il__onda ira-pz-il__onda--choca" />
-      <rect x="66" y="34" width="10" height="76" rx="2" className="ira-pz-il__muro ira-pz-il__muro--cae" />
+      {/* el muro se levanta ladrillo a ladrillo, de abajo arriba */}
+      {LADRILLOS.map((y, k) => (
+        <rect key={`m${k}`} x="66" y={y} width="10" height="14" rx="1.5" className="ira-pz-il__ladrillo" style={{ '--k': LADRILLOS.length - 1 - k }} />
+      ))}
       <Persona x={112} y={72} className="ira-pz-il__persona ira-pz-il__persona--lejos" />
       <text x="71" y="138" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--rojo">{r.muro}</text>
       <path d="M150 20 V130" className="ira-pz-il__separador" />
       <ellipse cx="226" cy="72" rx="68" ry="50" className="ira-pz-il__comun" />
       <text x="226" y="16" textAnchor="middle" className="ira-pz-il__rotulo">{r.comun}</text>
       <Persona x={180} y={72} className="ira-pz-il__persona ira-pz-il__persona--yo" />
-      <rect x="221" y="34" width="10" height="24" rx="2" className="ira-pz-il__muro ira-pz-il__hoja--arriba" />
-      <rect x="221" y="86" width="10" height="24" rx="2" className="ira-pz-il__muro ira-pz-il__hoja--abajo" />
+      {/* la puerta: el mismo muro, pero sus ladrillos se apartan y dejan paso */}
+      {LADRILLOS.map((y, k) => (
+        <rect key={`p${k}`} x="221" y={y} width="10" height="14" rx="1.5"
+          className={`ira-pz-il__ladrillo ira-pz-il__ladrillo--puerta ira-pz-il__ladrillo--${k < 2 ? 'arriba' : k > 2 ? 'abajo' : 'medio'}`} />
+      ))}
       <path d={onda(192, 256, 70, 8)} className="ira-pz-il__onda ira-pz-il__onda--pasa" />
-      <Persona x={272} y={72} className="ira-pz-il__persona" />
+      <Persona x={272} y={72} className="ira-pz-il__persona ira-pz-il__persona--otro" />
       <text x="226" y="138" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--fuerte">{r.puerta}</text>
     </svg>
   );

@@ -144,15 +144,34 @@
 /* ════════════════════════════════════════════════════════════════════════════
    P1 · El mapa de la frontera: anillo que se abre y se cierra, el otro que viaja
    ════════════════════════════════════════════════════════════════════════════ */
+/* El anillo: 24 piezas. Juntas son muro; apartadas como un iris dejan pasar la luz */
+.ira-met .ira-pz-mapa__aro { transform-origin: 50px 50px; transform-box: view-box; }
+.ira-met .ira-pz-mapa__pieza { fill: none; stroke: var(--ira-salvia); stroke-linecap: round; transform-origin: 50px 50px; transform-box: view-box; filter: drop-shadow(0 0 1.6px rgba(141, 170, 126, 0.8)); }
+.ira-met .ira-pz-mapa--muro .ira-pz-mapa__pieza, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__pieza { stroke: var(--ira-1); stroke-linecap: butt; filter: drop-shadow(0 0 2.4px rgba(190, 40, 26, 0.9)); }
+.ira-met .ira-pz-mapa--excepcion .ira-pz-mapa__pieza { stroke: var(--ira-oro); filter: drop-shadow(0 0 2px rgba(220, 177, 73, 0.8)); }
+.ira-met .ira-pz-mapa--grupo .ira-pz-mapa__pieza { opacity: 0.75; }
+.ira-met .ira-pz-mapa__senda { fill: none; stroke: var(--ira-marca-empatica); stroke-width: 0.9; stroke-linecap: round; stroke-dasharray: 0.1 3; opacity: 0.8; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-pz-mapa__pieza { transition: transform 820ms cubic-bezier(.34, 1.36, .5, 1), stroke-dasharray 620ms cubic-bezier(.3, 1.2, .5, 1), stroke-width 500ms cubic-bezier(.3, 1.6, .5, 1), stroke 420ms ease, filter 420ms ease; }
+  .ira-met .ira-pz-mapa--grupo .ira-pz-mapa__aro { animation: ira-met-girar 40s linear infinite; }
+  .ira-met .ira-pz-mapa__luz { transition: opacity 500ms ease 300ms, ry 600ms ease; animation: ira-juego-luz 2.4s ease-in-out infinite; transform-origin: 79.4px 50px; transform-box: view-box; }
+  /* las dos hojas de la puerta respiran: se abren un poco más y vuelven */
+  .ira-met .ira-pz-mapa__pieza.is-hoja-abajo { animation: ira-juego-hoja-abajo 2.8s ease-in-out infinite 900ms; }
+  .ira-met .ira-pz-mapa__pieza.is-hoja-arriba { animation: ira-juego-hoja-arriba 2.8s ease-in-out infinite 900ms; }
+  /* el muro arde despacio */
+  .ira-met .ira-pz-mapa--muro .ira-pz-mapa__pieza, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__pieza { animation: ira-juego-arde-muro 2.6s ease-in-out infinite 1s; }
+  .ira-met .ira-pz-mapa__senda { transition: opacity 400ms ease; animation: ira-juego-senda 1.1s linear infinite; }
+}
+@keyframes ira-juego-luz { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3, 1.15); } }
+@keyframes ira-juego-hoja-abajo { 0%, 100% { rotate: 0deg; } 50% { rotate: 6deg; } }
+@keyframes ira-juego-hoja-arriba { 0%, 100% { rotate: 0deg; } 50% { rotate: -6deg; } }
+@keyframes ira-juego-arde-muro { 0%, 100% { filter: drop-shadow(0 0 2.4px rgba(190, 40, 26, 0.9)); } 50% { filter: drop-shadow(0 0 5px rgba(232, 96, 74, 1)); } }
+@keyframes ira-juego-senda { to { stroke-dashoffset: 3.1; } }
 .ira-met .ira-pz-frontera__izq { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .ira-met .ira-pz-frontera__frase { position: relative; overflow: visible; }
 .ira-met .ira-pz-frontera__frase.is-activa { border-color: var(--jg, var(--pz-color)); background: linear-gradient(90deg, var(--jg-fondo, transparent), transparent 70%), var(--ira-elevada); }
 .ira-met .ira-pz-frontera__frase.is-activa .ira-pz-codigo { background: var(--jg-fondo); box-shadow: 0 0 12px -2px var(--jg-halo); }
 .ira-met .ira-pz-mapa__lienzo { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.ira-met .ira-pz-mapa__aro { fill: none; stroke: var(--ira-salvia); transform-origin: 50% 50%; filter: drop-shadow(0 0 3px rgba(141, 170, 126, 0.55)); }
-.ira-met .ira-pz-mapa--muro .ira-pz-mapa__aro, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__aro { stroke: var(--ira-1); filter: drop-shadow(0 0 4px rgba(190, 40, 26, 0.7)); }
-.ira-met .ira-pz-mapa--excepcion .ira-pz-mapa__aro { stroke: var(--ira-oro); filter: drop-shadow(0 0 4px rgba(220, 177, 73, 0.6)); }
-.ira-met .ira-pz-mapa__jambas line { stroke: var(--ira-salvia); stroke-width: 1.4; stroke-linecap: round; }
 .ira-met .ira-pz-mapa__orbita { fill: var(--ira-marca-empatica); opacity: 0.85; transform-origin: 50% 50%; }
 .ira-met .ira-pz-mapa--muro .ira-pz-mapa__orbita, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__orbita { opacity: 0.55; }
 .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__periferia { border-color: rgba(190, 40, 26, 0.6); }
@@ -165,13 +184,11 @@
 .ira-met .ira-pz-mapa__llegada { position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; border: 2px solid var(--jg, var(--ira-nieve)); opacity: 0; }
 .ira-met .ira-pz-frontera__donde { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
-  .ira-met .ira-pz-mapa__aro { transition: stroke-dasharray 700ms cubic-bezier(.3, 1.3, .5, 1), stroke-dashoffset 700ms cubic-bezier(.3, 1.3, .5, 1), stroke-width 450ms cubic-bezier(.3, 1.6, .5, 1), stroke 400ms ease, filter 400ms ease; }
-  .ira-met .ira-pz-mapa__jambas { transition: opacity 300ms ease 250ms; }
   .ira-met .ira-pz-mapa__orbita { animation: ira-met-girar 22s linear infinite; }
   .ira-met .ira-pz-mapa__halo { animation: ira-juego-respira 3.6s ease-in-out infinite; }
   .ira-met .ira-pz-mapa__golpe { animation: ira-juego-golpe 700ms ease-out; }
   .ira-met .ira-pz-mapa--muro .ira-pz-mapa__golpe, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__golpe { animation: ira-juego-golpe-duro 650ms ease-out; }
-  .ira-met .ira-pz-mapa--muro .ira-pz-mapa__aro, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__aro { animation: ira-juego-temblor 420ms ease-out 260ms; }
+  .ira-met .ira-pz-mapa--muro .ira-pz-mapa__aro, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__aro { animation: ira-juego-temblor 420ms ease-out 520ms; }
   .ira-met .ira-pz-mapa__otro { transition: left 700ms cubic-bezier(.34, 1.45, .64, 1), top 700ms cubic-bezier(.34, 1.45, .64, 1), opacity 400ms ease, transform 500ms ease, box-shadow 400ms ease; }
   .ira-met .ira-pz-mapa__llegada { animation: ira-juego-llegada 700ms ease-out 520ms; }
   .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__periferia { animation: ira-juego-parpadeo 900ms ease-out; }
@@ -293,14 +310,18 @@
   .ira-met .ira-pz-il--1 .ira-pz-il__onda--debil { animation: ira-il-aparece 400ms ease-out backwards 1000ms, ira-il-titubea 1.6s steps(2, end) infinite 1.4s; }
   .ira-met .ira-pz-il--1 .ira-pz-il__persona:not(.ira-pz-il__persona--yo) { animation: ira-il-pop 420ms cubic-bezier(.3, 1.6, .5, 1) backwards 800ms; }
 
-  /* 3 · el muro cae y corta la onda; la puerta se abre y la deja pasar */
+  /* 3 · el muro se levanta ladrillo a ladrillo y corta la onda; el mismo muro, al otro lado,
+     aparta sus ladrillos, se vuelve salvia y deja pasar la onda hasta el otro */
   .ira-met .ira-pz-il--2 .ira-pz-il__persona { animation: ira-il-pop 400ms cubic-bezier(.3, 1.6, .5, 1) backwards; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__muro--cae { animation: ira-il-cae-duro 560ms cubic-bezier(.5, 0, .5, 1.6) backwards 250ms; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__onda--choca { stroke-dasharray: 80; animation: ira-il-trazo-corto 360ms ease-out backwards 650ms, ira-il-rebota 1.6s ease-in-out infinite 1.2s; transform-origin: right center; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__hoja--arriba { animation: ira-il-abre-arriba 600ms cubic-bezier(.3, 1.5, .5, 1) backwards 900ms; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__hoja--abajo { animation: ira-il-abre-abajo 600ms cubic-bezier(.3, 1.5, .5, 1) backwards 900ms; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__onda--pasa { stroke-dasharray: 120; animation: ira-il-trazo-medio 600ms ease-out backwards 1300ms, ira-il-vibra 2.4s ease-in-out infinite 2s; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__comun { animation: ira-il-crece 700ms cubic-bezier(.3, 1.4, .5, 1) backwards 1600ms, ira-met-girar 40s linear infinite 2.4s; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo:not(.ira-pz-il__ladrillo--puerta) { animation: ira-il-ladrillo 520ms cubic-bezier(.5, 0, .4, 1.5) backwards; animation-delay: calc(150ms + var(--k) * 110ms); }
+  .ira-met .ira-pz-il--2 .ira-pz-il__onda--choca { stroke-dasharray: 80; animation: ira-il-trazo-corto 360ms ease-out backwards 780ms, ira-il-rebota 1.6s ease-in-out infinite 1.3s; transform-origin: right center; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo--puerta { animation: ira-il-aparece 350ms ease-out backwards 150ms; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo--arriba { animation: ira-il-abre-ladrillo-arriba 1800ms both; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo--abajo { animation: ira-il-abre-ladrillo-abajo 1800ms both; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo--medio { animation: ira-il-abre-ladrillo-medio 1800ms both; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__onda--pasa { stroke-dasharray: 120; animation: ira-il-trazo-medio 600ms ease-out backwards 1700ms, ira-il-vibra 2.4s ease-in-out infinite 2.4s; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__comun { animation: ira-il-crece 700ms cubic-bezier(.3, 1.4, .5, 1) backwards 2000ms, ira-met-girar 40s linear infinite 2.8s; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__persona--otro { animation: ira-il-pop 400ms cubic-bezier(.3, 1.6, .5, 1) backwards, ira-il-acoge 600ms ease-out backwards 2050ms; }
 
   /* 4 · el incentivo: el mensaje contra ellos se dispara */
   .ira-met .ira-pz-il--3 .ira-pz-il__burbuja { animation: ira-il-desliza 420ms ease-out backwards; }
@@ -323,8 +344,11 @@
 @keyframes ira-il-cae { from { opacity: 0; transform: translateY(-26px); } }
 @keyframes ira-il-cae-duro { 0% { opacity: 0; transform: translateY(-60px); } 60% { opacity: 1; transform: translateY(4px); } 100% { transform: none; } }
 @keyframes ira-il-rebota { 0%, 100% { transform: none; } 50% { transform: scaleX(0.82); } }
-@keyframes ira-il-abre-arriba { from { transform: translateY(14px); } }
-@keyframes ira-il-abre-abajo { from { transform: translateY(-14px); } }
+@keyframes ira-il-ladrillo { 0% { opacity: 0; transform: translateY(-46px); } 60% { opacity: 1; } 100% { transform: none; } }
+@keyframes ira-il-abre-ladrillo-arriba { 0%, 58% { transform: none; fill: var(--ira-1); animation-timing-function: cubic-bezier(.3, 1.5, .5, 1); } 100% { transform: translateY(-11px); fill: var(--ira-salvia); } }
+@keyframes ira-il-abre-ladrillo-abajo { 0%, 58% { transform: none; fill: var(--ira-1); animation-timing-function: cubic-bezier(.3, 1.5, .5, 1); } 100% { transform: translateY(11px); fill: var(--ira-salvia); } }
+@keyframes ira-il-abre-ladrillo-medio { 0%, 58% { transform: none; opacity: 1; fill: var(--ira-1); } 80% { transform: scale(0.2); opacity: 0; } 100% { transform: scale(0.2); opacity: 0; } }
+@keyframes ira-il-acoge { from { fill: var(--ira-nieve); } to { fill: var(--ira-marca-empatica); } }
 @keyframes ira-il-vibra { 0%, 100% { transform: none; } 50% { transform: translateY(-1.5px); } }
 @keyframes ira-il-titubea { 0% { opacity: 0.35; } 50% { opacity: 0.15; } }
 @keyframes ira-il-arde { 0%, 100% { filter: drop-shadow(0 0 0 rgba(190, 40, 26, 0)); } 50% { filter: drop-shadow(0 0 7px rgba(190, 40, 26, 0.9)); } }
@@ -355,7 +379,10 @@
   .ira-met .ira-pz-linea__chip.is-on .ira-pz-linea__chip-marca { animation: ira-juego-salto 420ms cubic-bezier(.3, 1.7, .5, 1); }
   .ira-met .ira-pz-linea__chip:hover .ira-pz-linea__chip-marca { transform: rotate(90deg); transition: transform 250ms ease; }
   .ira-met .ira-pz-linea__tramo--muro { animation: ira-juego-muro 520ms cubic-bezier(.5, 0, .5, 1.6); }
-  .ira-met .ira-pz-linea__tramo--puerta { animation: ira-pz-crecer 350ms cubic-bezier(.2, .7, .2, 1); }
+  .ira-met .ira-pz-linea__tramo--puerta { animation: none; }
+  .ira-met .ira-pz-linea__tramo--puerta::before { animation: ira-juego-jamba-arriba 620ms cubic-bezier(.3, 1.5, .5, 1) backwards; }
+  .ira-met .ira-pz-linea__tramo--puerta::after { animation: ira-juego-jamba-abajo 620ms cubic-bezier(.3, 1.5, .5, 1) backwards; }
+  .ira-met .ira-pz-linea__haz { animation-delay: 250ms; animation-fill-mode: backwards; }
   .ira-met .ira-pz-linea__haz { animation: ira-juego-haz-abre 600ms ease-out; transform-origin: left center; }
   .ira-met .ira-pz-linea__haz::after { animation: ira-juego-destello-haz 1.8s ease-in-out infinite; }
   .ira-met .ira-pz-linea__otro { transition: left 750ms cubic-bezier(.34, 1.5, .64, 1), opacity 300ms ease; }
@@ -569,18 +596,25 @@
    Cabeceras, línea de tiempo y barra de pesos
    ════════════════════════════════════════════════════════════════════════════ */
 .ira-juego-emblema { cursor: pointer; -webkit-tap-highlight-color: transparent; }
-/* P1: al pasar por encima el muro se abre en puerta */
-.ira-juego-emblema__puerta { fill: none; stroke: var(--ira-salvia); stroke-width: 3; stroke-dasharray: 0 578; transform-origin: 100px 100px; opacity: 0; filter: drop-shadow(0 0 6px rgba(141, 170, 126, 0.8)); }
-.ira-juego-emblema:hover .ira-met__emblema-muro { stroke-dasharray: 500 78; }
-.ira-juego-emblema:hover .ira-juego-emblema__puerta { opacity: 1; stroke-dasharray: 500 78; }
+/* P1: el muro del emblema son 20 piezas; al pasar por encima se apartan como un iris y
+   un punto (el otro) entra hasta el nosotros */
+.ira-juego-emblema__muro { transform-origin: 100px 100px; transform-box: view-box; }
+.ira-juego-emblema__pieza { fill: none; stroke: var(--ira-linea-fuerte); stroke-width: 3; stroke-linecap: round; transform: rotate(var(--a0)); transform-origin: 100px 100px; transform-box: view-box; }
+.ira-juego-emblema:hover .ira-juego-emblema__pieza { transform: rotate(var(--a1)); stroke: var(--ira-salvia); filter: drop-shadow(0 0 3px rgba(141, 170, 126, 0.8)); }
+.ira-juego-emblema__otro { fill: var(--ira-nieve); opacity: 0; transform: translate(118px, 0); transform-box: view-box; filter: drop-shadow(0 0 6px rgba(252, 253, 255, 0.8)); }
+.ira-juego-emblema:hover .ira-juego-emblema__otro { opacity: 1; transform: translate(52px, -4px); }
 .ira-juego-emblema:hover .ira-met__emblema-centro { filter: drop-shadow(0 0 28px rgba(141, 170, 126, 1)); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-juego-emblema__muro { animation: ira-met-girar 70s linear infinite; }
+  .ira-juego-emblema:hover .ira-juego-emblema__muro { animation-play-state: paused; }
+  .ira-juego-emblema__pieza { transition: transform 900ms cubic-bezier(.34, 1.36, .5, 1), stroke 400ms ease, filter 400ms ease; }
+  .ira-juego-emblema__otro { transition: transform 900ms cubic-bezier(.34, 1.3, .6, 1) 250ms, opacity 300ms ease 250ms; }
+  .ira-juego-emblema:active { transform: scale(0.96); transition: transform 120ms ease; }
+  .ira-met .ira-met__emblema { transition: transform 300ms cubic-bezier(.3, 1.6, .5, 1); }
+}
 /* P2: al pasar por encima la flecha vuelve a dispararse */
 .ira-p2-emblema.ira-juego-emblema .ira-p2-emblema__flecha:first-of-type { stroke-dasharray: 130; }
 @media (prefers-reduced-motion: no-preference) {
-  .ira-met .ira-met__emblema-muro, .ira-juego-emblema__puerta { transition: stroke-dasharray 700ms cubic-bezier(.3, 1.4, .5, 1), opacity 400ms ease; }
-  .ira-juego-emblema__puerta { animation: ira-met-girar 60s linear infinite; }
-  .ira-juego-emblema:active { transform: scale(0.96); transition: transform 120ms ease; }
-  .ira-met .ira-met__emblema { transition: transform 300ms cubic-bezier(.3, 1.6, .5, 1); }
   .ira-p2-emblema.ira-juego-emblema .ira-p2-emblema__flecha:first-of-type { animation: ira-juego-flecha-sale 900ms cubic-bezier(.5, 0, .4, 1) backwards 300ms; }
   .ira-p2-emblema.ira-juego-emblema .ira-p2-emblema__centro { transform-origin: 132px 68px; animation: ira-juego-alerta-punto 2.4s ease-in-out infinite 1.4s; }
   .ira-p2-emblema.ira-juego-emblema:hover .ira-p2-emblema__flecha:first-of-type { animation: ira-juego-flecha-sale 600ms cubic-bezier(.5, 0, .4, 1); }
@@ -596,15 +630,41 @@
 .ira-met .ira-met-tiempo__repetir svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .ira-met .ira-met-tiempo__repetir:hover { color: var(--ira-oro); border-color: var(--ira-oro); }
 .ira-met .ira-met-tiempo__ahora { fill: var(--ira-oro); filter: drop-shadow(0 0 5px var(--ira-oro)); }
+/* La línea de tiempo cuenta su historia en bucle (5 s): la frase viaja como un pulso de luz
+   por la onda y la flecha, la intuición se enciende y coloca al oyente dentro y fuera del
+   nosotros, y después el razonamiento se escribe línea a línea. */
+.ira-met .ira-met-tiempo__pulso { fill: none; stroke: #FFF3C8; stroke-width: 6; stroke-linecap: round; opacity: 0; filter: drop-shadow(0 0 5px var(--ira-oro)); }
+.ira-met .ira-met-tiempo__destello { fill: none; stroke: var(--ira-oro); stroke-width: 2; opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
   .ira-met .ira-met-tiempo__repetir:hover svg { animation: ira-met-girar 900ms linear infinite reverse; }
-  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__ahora { animation: ira-juego-tiempo 3.6s cubic-bezier(.45, 0, .55, 1) infinite 400ms; }
-  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__onda { animation: ira-juego-onda-viva 2.4s ease-in-out infinite 1.2s; }
-  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__punto { transform-origin: 360px 70px; transform-box: view-box; animation: ira-juego-respira 3s ease-in-out infinite 1.4s; }
-  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__oyente { transform-origin: 360px 70px; transform-box: view-box; animation: ira-met-girar 7s linear infinite 1.4s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__ahora { animation: ira-juego-tiempo 5s linear infinite 2.3s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__pulso--onda { stroke-dasharray: 34 400; animation: ira-tl-pulso-onda 5s linear infinite 2.3s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__pulso--flecha { stroke-dasharray: 18 200; animation: ira-tl-pulso-flecha 5s linear infinite 2.3s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__pulso--flecha2 { stroke-dasharray: 18 200; animation: ira-tl-pulso-flecha2 5s linear infinite 2.3s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__destello { transform-origin: 360px 70px; transform-box: view-box; animation: ira-tl-destello 5s ease-out infinite 2.3s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__punto { transform-origin: 360px 70px; transform-box: view-box; animation: ira-tl-punto 5s ease-out infinite 2.3s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__oyente { animation: ira-tl-oyente 5s cubic-bezier(.34, 1.4, .6, 1) infinite 2.3s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__razon line { stroke-dasharray: 130; animation: ira-tl-razon 5s ease-out infinite 2.3s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__razon line:nth-child(2) { animation-name: ira-tl-razon-2; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__razon line:nth-child(3) { animation-name: ira-tl-razon-3; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__pasos li { animation: ira-tl-paso 5s ease-out infinite 2.3s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__pasos li:nth-child(2) { animation-name: ira-tl-paso-2; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__pasos li:nth-child(3) { animation-name: ira-tl-paso-3; }
 }
+@keyframes ira-tl-pulso-onda { 0% { stroke-dashoffset: 34; opacity: 1; } 24% { stroke-dashoffset: -250; opacity: 1; } 25%, 100% { stroke-dashoffset: -250; opacity: 0; } }
+@keyframes ira-tl-pulso-flecha { 0%, 24% { stroke-dashoffset: 18; opacity: 0; } 25% { opacity: 1; } 34% { stroke-dashoffset: -80; opacity: 1; } 35%, 100% { stroke-dashoffset: -80; opacity: 0; } }
+@keyframes ira-tl-destello { 0%, 34% { opacity: 0; transform: scale(1); } 35% { opacity: 1; transform: scale(1); } 50% { opacity: 0; transform: scale(4.2); } 100% { opacity: 0; } }
+@keyframes ira-tl-punto { 0%, 34% { transform: none; filter: none; } 38% { transform: scale(1.45); filter: drop-shadow(0 0 10px var(--ira-salvia)); } 48%, 100% { transform: none; filter: none; } }
+@keyframes ira-tl-oyente { 0%, 36% { transform: none; } 42%, 62% { transform: translate(-22px, 10px); } 70%, 100% { transform: none; } }
+@keyframes ira-tl-pulso-flecha2 { 0%, 46% { stroke-dashoffset: 18; opacity: 0; } 47% { opacity: 1; } 56% { stroke-dashoffset: -80; opacity: 1; } 57%, 100% { stroke-dashoffset: -80; opacity: 0; } }
+@keyframes ira-tl-razon { 0%, 56% { stroke-dashoffset: 130; opacity: 1; } 64% { stroke-dashoffset: 0; } 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0.25; } }
+@keyframes ira-tl-razon-2 { 0%, 60% { stroke-dashoffset: 130; opacity: 1; } 68% { stroke-dashoffset: 0; } 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0.25; } }
+@keyframes ira-tl-razon-3 { 0%, 64% { stroke-dashoffset: 130; opacity: 1; } 72% { stroke-dashoffset: 0; } 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0.25; } }
+/* el rótulo de cada paso se ilumina cuando le toca */
+@keyframes ira-tl-paso { 0%, 25% { opacity: 1; } 35%, 100% { opacity: 0.55; } }
+@keyframes ira-tl-paso-2 { 0%, 33% { opacity: 0.55; } 36%, 56% { opacity: 1; } 62%, 100% { opacity: 0.55; } }
+@keyframes ira-tl-paso-3 { 0%, 56% { opacity: 0.55; } 62%, 92% { opacity: 1; } 100% { opacity: 0.55; } }
 @keyframes ira-juego-tiempo { 0% { transform: translateX(0); opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { transform: translateX(650px); opacity: 0; } }
-@keyframes ira-juego-onda-viva { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
 .ira-met .ira-met-pesos__tramo { cursor: pointer; }
 .ira-met .ira-met-pesos.is-foco .ira-met-pesos__tramo:not(.is-foco), .ira-met .ira-met-pesos.is-foco .ira-met-pesos__leyenda li:not(.is-foco) { opacity: 0.35; }
@@ -632,3 +692,24 @@
   .ira-juego-desliza span:first-child { display: inline-block; animation: ira-juego-empuje 1.2s ease-in-out infinite reverse; }
   .ira-juego-desliza span:last-child { display: inline-block; animation: ira-juego-empuje 1.2s ease-in-out infinite; }
 }
+
+/* Ladrillos de la ilustración 3 (estado final: muro rojo a la izquierda, puerta abierta salvia a la derecha) */
+.ira-met .ira-pz-il__ladrillo { fill: var(--ira-1); }
+.ira-met .ira-pz-il__ladrillo--puerta { fill: var(--ira-salvia); }
+.ira-met .ira-pz-il__ladrillo--arriba { transform: translateY(-11px); }
+.ira-met .ira-pz-il__ladrillo--abajo { transform: translateY(11px); }
+.ira-met .ira-pz-il__ladrillo--medio { opacity: 0; }
+.ira-met .ira-pz-il__persona--otro { fill: var(--ira-marca-empatica); }
+
+/* Permeabilidad: cada cierre es un tramo de ladrillos; cada apertura, el mismo tramo con los
+   ladrillos apartados arriba y abajo y la luz pasando por el hueco */
+.ira-met .ira-pz-linea__tramo--muro { background: repeating-linear-gradient(180deg, var(--ira-1) 0 9px, #5E120C 9px 11px); }
+.ira-met .ira-pz-linea__tramo--puerta { width: var(--grosor); border-left: none; }
+.ira-met .ira-pz-linea__tramo--puerta::before, .ira-met .ira-pz-linea__tramo--puerta::after {
+  content: ''; position: absolute; left: 0; right: 0; height: 5px; border-radius: 2px; background: var(--ira-salvia); box-shadow: 0 0 8px rgba(141, 170, 126, 0.8);
+}
+.ira-met .ira-pz-linea__tramo--puerta::before { top: 0; }
+.ira-met .ira-pz-linea__tramo--puerta::after { bottom: 0; }
+.ira-met .ira-pz-linea__tramo--puerta .ira-pz-linea__haz { left: 50%; }
+@keyframes ira-juego-jamba-arriba { from { top: calc(50% - 5px); background: var(--ira-1); } }
+@keyframes ira-juego-jamba-abajo { from { bottom: calc(50% - 5px); background: var(--ira-1); } }

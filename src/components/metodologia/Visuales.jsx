@@ -64,6 +64,9 @@ export function LineaTiempo({ pasos, eje }) {
         {/* 1 · la frase llega como onda */}
         <path className="ira-met-tiempo__onda" d="M40 70 q15 -34 30 0 t30 0 t30 0 t30 0 t30 0" />
         <path className="ira-met-tiempo__flecha" d="M206 70 h80 m-8 -6 l8 6 -8 6" />
+        {/* el pulso: la frase viaja por la onda y por la flecha hasta la intuición */}
+        <path className="ira-met-tiempo__pulso ira-met-tiempo__pulso--onda" d="M40 70 q15 -34 30 0 t30 0 t30 0 t30 0 t30 0" />
+        <path className="ira-met-tiempo__pulso ira-met-tiempo__pulso--flecha" d="M206 70 h80" />
         {/* 2 · el nosotros y un oyente colocado dentro o fuera */}
         <g className="ira-met-tiempo__centro">
           <circle cx="360" cy="70" r="58" className="ira-met-tiempo__anillo ira-met-tiempo__anillo--2" />
@@ -72,6 +75,8 @@ export function LineaTiempo({ pasos, eje }) {
           <circle cx="398" cy="52" r="5" className="ira-met-tiempo__oyente" />
         </g>
         <path className="ira-met-tiempo__flecha ira-met-tiempo__flecha--2" d="M434 70 h80 m-8 -6 l8 6 -8 6" />
+        <path className="ira-met-tiempo__pulso ira-met-tiempo__pulso--flecha2" d="M434 70 h80" />
+        <circle cx="360" cy="70" r="15" className="ira-met-tiempo__destello" />
         {/* 3 · el argumento llega después */}
         <g className="ira-met-tiempo__razon">
           <line x1="548" y1="48" x2="672" y2="48" />
