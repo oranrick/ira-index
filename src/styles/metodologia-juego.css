@@ -625,3 +625,10 @@
   .ira-met .ira-pz-cadena__pie { flex-wrap: wrap; }
   .ira-met .ira-pz-frontera__rejilla { gap: 20px; }
 }
+.ira-juego-desliza { display: none; margin: -6px 0 0; font-size: 12px; color: var(--ira-texto-3); text-align: center; }
+.ira-juego-desliza span { color: var(--ira-oro); font-size: 15px; }
+@media (hover: none) and (pointer: coarse) { .ira-juego-desliza { display: block; } }
+@media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  .ira-juego-desliza span:first-child { display: inline-block; animation: ira-juego-empuje 1.2s ease-in-out infinite reverse; }
+  .ira-juego-desliza span:last-child { display: inline-block; animation: ira-juego-empuje 1.2s ease-in-out infinite; }
+}

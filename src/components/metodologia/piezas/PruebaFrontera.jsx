@@ -4,7 +4,7 @@
 // cierra en muro o se abre en puerta; el otro viaja hasta su sitio y deja una onda al llegar.
 // Se puede recorrer solo (Recorrer) o frase a frase con el mando o las flechas.
 import { useRef, useState } from 'react';
-import { Chispas, Mando, PistaTeclas, chispazo, tonoDe, traerEnTira, useRecorrido } from '../Juego.jsx';
+import { Chispas, Mando, PistaTeclas, chispazo, tonoDe, traerEnTira, useDeslizar, useRecorrido, PistaDeslizar } from '../Juego.jsx';
 
 // Centro del punto «el otro» en % del diagrama (cuadrado)
 const POSICION = {
@@ -53,6 +53,7 @@ export default function PruebaFrontera({ t }) {
     elegir(i);
     refs.current[(i + n) % n]?.focus();
   };
+  const deslizar = useDeslizar((ev) => { recorrido.parar(); elegir(activa + 1, ev); }, (ev) => { recorrido.parar(); elegir(activa - 1, ev); });
   const onKey = (ev, i) => {
     if (ev.key === 'ArrowDown' || ev.key === 'ArrowRight') { ev.preventDefault(); mover(i + 1); }
     else if (ev.key === 'ArrowUp' || ev.key === 'ArrowLeft') { ev.preventDefault(); mover(i - 1); }
@@ -93,7 +94,7 @@ export default function PruebaFrontera({ t }) {
             textos={{ anterior: 'Frase anterior', siguiente: 'Frase siguiente', recorrer: 'Recorrer las seis' }} />
         </div>
 
-        <div className="ira-pz-frontera__lado">
+        <div className="ira-pz-frontera__lado" {...deslizar}>
           <div className={`ira-pz-mapa ira-pz-mapa--${e.modo} ira-juego--${tonoDe(e.tipo)}`} aria-hidden="true">
             <span className="ira-pz-mapa__periferia" />
             <span className="ira-pz-mapa__rotulo">{t.periferia}</span>
@@ -132,6 +133,7 @@ export default function PruebaFrontera({ t }) {
               <span key={`llega-${activa}`} className="ira-pz-mapa__llegada" />
             </span>
           </div>
+          <PistaDeslizar />
           <p className="ira-pz-frontera__posicion" aria-live="polite">
             {t.elOtro}: <strong key={activa} className="ira-pz-frontera__donde">{t.posiciones[e.modo]}</strong>
           </p>

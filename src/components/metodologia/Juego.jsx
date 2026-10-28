@@ -210,3 +210,25 @@ export function traerEnTira(boton) {
   if (!boton || !tira || tira.scrollWidth <= tira.clientWidth + 1) return;
   tira.scrollTo({ left: boton.offsetLeft - 16, behavior: quieto() ? 'auto' : 'smooth' });
 }
+
+/** Deslizar con el dedo a izquierda o derecha sobre un diagrama para cambiar de ejemplo. */
+export function useDeslizar(siguiente, anterior, umbral = 45) {
+  const inicio = useRef(null);
+  return {
+    onPointerDown: (ev) => { if (ev.pointerType !== 'mouse') inicio.current = [ev.clientX, ev.clientY]; },
+    onPointerUp: (ev) => {
+      if (!inicio.current) return;
+      const dx = ev.clientX - inicio.current[0];
+      const dy = ev.clientY - inicio.current[1];
+      inicio.current = null;
+      if (Math.abs(dx) > umbral && Math.abs(dx) > Math.abs(dy) * 1.4) (dx < 0 ? siguiente : anterior)(ev);
+    },
+    onPointerCancel: () => { inicio.current = null; },
+    style: { touchAction: 'pan-y' },
+  };
+}
+
+/** Pista para pantallas táctiles: el diagrama también se desliza. */
+export function PistaDeslizar({ texto = 'Desliza el diagrama para cambiar de frase' }) {
+  return <p className="ira-juego-desliza" aria-hidden="true"><span>‹</span> {texto} <span>›</span></p>;
+}

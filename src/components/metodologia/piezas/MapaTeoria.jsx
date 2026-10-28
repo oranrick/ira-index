@@ -2,7 +2,7 @@
 // La frontera del nosotros en el centro y los autores alrededor, en tres zonas
 // (cuerpo, lenguaje, política). Al elegir uno se abre su tarjeta con texto y referencias.
 import { useState } from 'react';
-import { Mando, chispazo, useRecorrido } from '../Juego.jsx';
+import { Mando, chispazo, useDeslizar, useRecorrido } from '../Juego.jsx';
 
 // Centro de cada nodo en el lienzo de 520 × 520 (mismo orden que que.teoria)
 const NODOS_XY = [
@@ -24,6 +24,7 @@ export default function MapaTeoria({ teoria, ui, referencias }) {
     setActivoBase(n);
   };
   const recorrido = useRecorrido(total, () => setActivoBase((a) => (a + 1) % total), 4200);
+  const deslizar = useDeslizar((ev) => { recorrido.parar(); setActivo(activo + 1, ev); }, (ev) => { recorrido.parar(); setActivo(activo - 1, ev); });
   const a = teoria[activo];
   const n = ui.nodos[activo];
   const refs = referencias.filter((r) => n.refs.some((clave) => r.startsWith(clave)));
@@ -68,7 +69,7 @@ export default function MapaTeoria({ teoria, ui, referencias }) {
           ))}
         </div>
 
-        <article key={activo} className={`ira-pz-teoria__tarjeta ira-pz-zona--${n.zona}`} aria-live="polite">
+        <article key={activo} className={`ira-pz-teoria__tarjeta ira-pz-zona--${n.zona}`} aria-live="polite" {...deslizar}>
           <span className="ira-pz-teoria__chip">{ui.zonas[n.zona]} · {n.disciplina}</span>
           <h4 className="ira-pz-teoria__autor">{a.autor}</h4>
           <p className="ira-pz-teoria__texto">{a.texto}</p>

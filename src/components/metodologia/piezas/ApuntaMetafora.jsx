@@ -3,7 +3,7 @@
 // viaja por ella y golpea su blanco (alguien, algo o el nosotros); después los tres pasos de la
 // regla se encienden uno tras otro y el resultado aparece al final, como en la cadena real.
 import { useEffect, useRef, useState } from 'react';
-import { Chispas, Mando, PistaTeclas, chispazo, tonoDe, traerEnTira, useRecorrido } from '../Juego.jsx';
+import { Chispas, Mando, PistaTeclas, chispazo, tonoDe, traerEnTira, useDeslizar, useRecorrido, PistaDeslizar } from '../Juego.jsx';
 
 // Centro de cada blanco en el lienzo de 420 × 300
 const BLANCO_XY = { alguien: [342, 62], algo: [342, 150], nosotros: [342, 238] };
@@ -56,6 +56,7 @@ export default function ApuntaMetafora({ t, resultados }) {
     elegir(i);
     refs.current[(i + n) % n]?.focus({ preventScroll: true });
   };
+  const deslizar = useDeslizar((ev) => { recorrido.parar(); elegir(activa + 1, ev); }, (ev) => { recorrido.parar(); elegir(activa - 1, ev); });
   const onKey = (ev, i) => {
     if (ev.key === 'ArrowDown' || ev.key === 'ArrowRight') { ev.preventDefault(); mover(i + 1); }
     else if (ev.key === 'ArrowUp' || ev.key === 'ArrowLeft') { ev.preventDefault(); mover(i - 1); }
@@ -96,7 +97,7 @@ export default function ApuntaMetafora({ t, resultados }) {
             textos={{ anterior: 'Frase anterior', siguiente: 'Frase siguiente', recorrer: 'Recorrer las siete' }} />
         </div>
 
-        <div className={`ira-p2-apunta__lado ira-p2--${e.resultado} ira-juego--${tono}`}>
+        <div className={`ira-p2-apunta__lado ira-p2--${e.resultado} ira-juego--${tono}`} {...deslizar}>
           <svg viewBox="0 0 420 300" className={`ira-p2-diana ira-p2-diana--${e.resultado}`} role="img" aria-label={`${e.nombreDominio} → ${e.blancoTexto}: ${r.nombre}`}>
             <defs>
               <radialGradient id="ira-p2-bala">
@@ -147,6 +148,7 @@ export default function ApuntaMetafora({ t, resultados }) {
             </circle>
           </svg>
 
+          <PistaDeslizar />
           <ol key={`pasos-${activa}`} className="ira-p2-pasos">
             <li className="ira-p2-paso" style={{ '--k': 0 }}><span className="ira-p2-paso__n ira-cifra">1</span><span className="ira-p2-paso__q">{t.paso1}</span><Respuesta valor={e.p1} t={t} /></li>
             <li className="ira-p2-paso" style={{ '--k': 1 }}><span className="ira-p2-paso__n ira-cifra">2</span><span className="ira-p2-paso__q">{t.paso2}</span><Respuesta valor={e.p2} t={t} /></li>
