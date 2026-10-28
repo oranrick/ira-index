@@ -2,6 +2,7 @@
 // aparición al hacer scroll, iconos de trazo, línea de tiempo, barra de pesos, pestañas,
 // filas de puntos y escala de solidez. Ninguna calcula P1: solo dibujan datos ya dados.
 import { useEffect, useId, useRef, useState } from 'react';
+import { chispazo } from './Juego.jsx';
 
 /** Añade .is-visible cuando el bloque entra en pantalla (la animación vive en el CSS y
  *  se desactiva con prefers-reduced-motion). Sin IntersectionObserver, se ve directamente. */
@@ -52,8 +53,13 @@ export function Icono({ nombre, tamano = 24, className = '' }) {
 
 /** Oír → sentir dónde me colocan → pensar. Ilustración de línea con las etiquetas en HTML. */
 export function LineaTiempo({ pasos, eje }) {
+  const [vuelta, setVuelta] = useState(0);
   return (
-    <Aparecer className="ira-met-tiempo">
+    <Aparecer key={vuelta} className="ira-met-tiempo">
+      <button type="button" className="ira-met-tiempo__repetir" onClick={(ev) => { chispazo(ev, 'oro', 7); setVuelta((v) => v + 1); }}>
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4" /></svg>
+        Repetir
+      </button>
       <svg viewBox="0 0 720 150" className="ira-met-tiempo__svg" aria-hidden="true">
         {/* 1 · la frase llega como onda */}
         <path className="ira-met-tiempo__onda" d="M40 70 q15 -34 30 0 t30 0 t30 0 t30 0 t30 0" />
@@ -73,6 +79,7 @@ export function LineaTiempo({ pasos, eje }) {
           <line x1="548" y1="92" x2="628" y2="92" />
         </g>
         <path className="ira-met-tiempo__eje" d="M30 136 H690 m-8 -5 l8 5 -8 5" />
+        <circle cx="30" cy="136" r="4" className="ira-met-tiempo__ahora" />
       </svg>
       <ol className="ira-met-tiempo__pasos">
         {pasos.map((p, i) => (
@@ -90,16 +97,19 @@ export function LineaTiempo({ pasos, eje }) {
 
 /** Pesos de los indicadores como barra apilada, con nombre y cifra en cada tramo. */
 export function BarraPesos({ partes, etiqueta }) {
+  const [foco, setFoco] = useState(null);
   return (
-    <figure className="ira-met-pesos" aria-label={etiqueta}>
+    <figure className={`ira-met-pesos${foco ? ' is-foco' : ''}`} aria-label={etiqueta}>
       <div className="ira-met-pesos__barra" aria-hidden="true">
         {partes.map((p) => (
-          <span key={p.id} className={`ira-met-pesos__tramo ira-met-pesos__tramo--${p.id}`} style={{ flexGrow: p.peso }} />
+          <span key={p.id} className={`ira-met-pesos__tramo ira-met-pesos__tramo--${p.id}${foco === p.id ? ' is-foco' : ''}`} style={{ flexGrow: p.peso }}
+            onMouseEnter={() => setFoco(p.id)} onMouseLeave={() => setFoco(null)} onClick={(ev) => chispazo(ev, p.id, 8)} />
         ))}
       </div>
       <ul className="ira-met-pesos__leyenda">
         {partes.map((p) => (
-          <li key={p.id} style={{ flexGrow: p.peso }}>
+          <li key={p.id} style={{ flexGrow: p.peso }} className={foco === p.id ? 'is-foco' : ''}
+            onMouseEnter={() => setFoco(p.id)} onMouseLeave={() => setFoco(null)}>
             <span className="ira-met-pesos__cifra ira-cifra">{p.cifra}</span>
             <span className="ira-met-pesos__nombre">
               <Icono nombre={p.id} tamano={16} /> {p.nombre}
@@ -116,9 +126,16 @@ export function Pestanas({ pestanas, etiqueta }) {
   const base = useId();
   const [activa, setActiva] = useState(0);
   const refs = useRef([]);
+  const [antes, setAntes] = useState(0); // para que el panel entre desde el lado de la pestaña de origen
+  const cambiar = (n, ev) => {
+    if (n === activa) return;
+    setAntes(activa);
+    setActiva(n);
+    chispazo(ev ?? refs.current[n], pestanas[n].id, 8);
+  };
   const mover = (i) => {
     const n = (i + pestanas.length) % pestanas.length;
-    setActiva(n);
+    cambiar(n);
     refs.current[n]?.focus();
   };
   const onKey = (e, i) => {
@@ -128,8 +145,9 @@ export function Pestanas({ pestanas, etiqueta }) {
     else if (e.key === 'End') { e.preventDefault(); mover(pestanas.length - 1); }
   };
   return (
-    <div className="ira-met-pestanas">
-      <div role="tablist" aria-label={etiqueta} className="ira-met-pestanas__lista">
+    <div className="ira-met-pestanas" style={{ '--n': pestanas.length, '--i': activa }}>
+      <div role="tablist" aria-label={etiqueta} className={`ira-met-pestanas__lista ira-met-pestanas__lista--${pestanas[activa].id}`}>
+        <span className="ira-met-pestanas__pastilla" aria-hidden="true" />
         {pestanas.map((p, i) => (
           <button
             key={p.id}
@@ -141,7 +159,7 @@ export function Pestanas({ pestanas, etiqueta }) {
             aria-controls={`${base}-panel-${p.id}`}
             tabIndex={i === activa ? 0 : -1}
             className={`ira-met-pestanas__tab ira-met-pestanas__tab--${p.id}`}
-            onClick={() => setActiva(i)}
+            onClick={(ev) => cambiar(i, ev)}
             onKeyDown={(e) => onKey(e, i)}
           >
             <Icono nombre={p.id} tamano={22} />
@@ -158,7 +176,7 @@ export function Pestanas({ pestanas, etiqueta }) {
           aria-labelledby={`${base}-tab-${p.id}`}
           hidden={i !== activa}
           tabIndex={0}
-          className="ira-met-pestanas__panel"
+          className={`ira-met-pestanas__panel ira-met-pestanas__panel--desde-${i > antes ? 'der' : 'izq'}`}
         >
           {p.contenido}
         </div>

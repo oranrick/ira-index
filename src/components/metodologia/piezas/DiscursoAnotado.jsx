@@ -3,7 +3,8 @@
 // personas está localizada en su oración con su código, y cada evento de frontera con su marca.
 // Al tocar una referencia o un evento se abre su ficha. Los nombres de los códigos y las reglas
 // que se citan salen de textosP1 (copia web del manual): la pieza no añade reglas propias.
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { Mando, chispazo, tonoDe, useRecorrido } from '../Juego.jsx';
 
 // Regla del manual que decide cada código (índices de textosP1 · ind.alcance.reglas)
 const REGLA_ALCANCE = { GC: 0, G: 2 };
@@ -32,8 +33,36 @@ export default function DiscursoAnotado({ fragmento, t, ui }) {
     const o = fragmento.oraciones.find((x) => x.oracion === ui.inicial.oracion);
     return { tipo: 'ref', oracion: o.oracion, n: o.referencias.find((r) => r.forma === ui.inicial.forma)?.n };
   })();
-  const [sel, setSel] = useState(inicial);
+  const [sel, setSelBase] = useState(inicial);
   const esSel = (tipo, oracion, id) => sel.tipo === tipo && sel.oracion === oracion && (id === undefined || sel.n === id || sel.k === id);
+  const botones = useRef({});
+
+  // Todas las marcas en orden de lectura, para recorrerlas con el mando
+  const orden = [];
+  fragmento.oraciones.forEach((o) => {
+    [...o.referencias].filter((r) => r.inicio != null).sort((a, b) => a.inicio - b.inicio)
+      .forEach((r) => orden.push({ tipo: 'ref', oracion: o.oracion, n: r.n, tono: r.grupo }));
+    o.eventos.forEach((e, k) => orden.push({ tipo: 'evento', oracion: o.oracion, k, tono: e.tipo === 'C' ? 'rojo' : 'salvia' }));
+    if (o.oracion === ui.dificil.oracion) orden.push({ tipo: 'dificil', oracion: o.oracion, tono: 'oro' });
+  });
+  const clave = (x) => `${x.tipo}-${x.oracion}-${x.n ?? x.k ?? ''}`;
+  const pos = Math.max(0, orden.findIndex((x) => clave(x) === clave(sel)));
+  const setSel = (x, ev) => {
+    if (clave(x) !== clave(sel)) chispazo(ev ?? botones.current[clave(x)], tonoDe(x.tono ?? 'oro'), 7);
+    setSelBase(x);
+  };
+  const ir = (k) => {
+    const x = orden[(k + orden.length) % orden.length];
+    setSel(x);
+    botones.current[clave(x)]?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' });
+  };
+  const recorrido = useRecorrido(orden.length, () => {
+    setSelBase((s) => {
+      const i = orden.findIndex((x) => clave(x) === clave(s));
+      return orden[(i + 1) % orden.length];
+    });
+  }, 2600);
+  const manual = (x, ev) => { recorrido.parar(); setSel(x, ev); };
 
   const parrafos = [];
   fragmento.oraciones.forEach((o) => {
@@ -92,6 +121,10 @@ export default function DiscursoAnotado({ fragmento, t, ui }) {
         <li className="ira-pz-anot__clave ira-pz-anot__clave--evento">{ui.leyendaEvento}</li>
       </ul>
 
+      <div className={`ira-pz-anot__mando ira-juego-espera${recorrido.visto ? ' is-visto' : ''}`} ref={recorrido.ref}>
+        <Mando i={pos} n={orden.length} ir={ir} recorrido={recorrido} tono={sel.tipo === 'dificil' ? 'oro' : ficha.grupo}
+          etiqueta="Marcas del fragmento" textos={{ anterior: 'Marca anterior', siguiente: 'Marca siguiente', recorrer: 'Leer marca a marca' }} />
+      </div>
       <div className="ira-pz-banda ira-pz-anot__rejilla">
         <div className="ira-pz-anot__texto" lang="es">
           {ui.aviso && <p className="ira-met__nota ira-pz-anot__aviso" lang={ui.lang}>{ui.aviso}</p>}
@@ -101,21 +134,25 @@ export default function DiscursoAnotado({ fragmento, t, ui }) {
                 <span key={o.oracion} className="ira-pz-anot__oracion">
                   {partir(o.texto, o.referencias).map((tr, i) => (tr.ref ? (
                     <button key={i} type="button" aria-pressed={esSel('ref', o.oracion, tr.ref.n)}
-                      onClick={() => setSel({ tipo: 'ref', oracion: o.oracion, n: tr.ref.n })}
+                      ref={(el) => { botones.current[`ref-${o.oracion}-${tr.ref.n}`] = el; }}
+                      onClick={(ev) => manual({ tipo: 'ref', oracion: o.oracion, n: tr.ref.n, tono: tr.ref.grupo }, ev)}
                       className={`ira-pz-anot__ref ira-pz-anot--${tr.ref.grupo}${esSel('ref', o.oracion, tr.ref.n) ? ' is-activa' : ''}`}>
                       {tr.texto}<sup className="ira-cifra">{tr.ref.codigo}</sup>
                     </button>
                   ) : <span key={i}>{tr.texto}</span>))}
                   {o.eventos.map((e, k) => (
                     <button key={`e${k}`} type="button" aria-pressed={esSel('evento', o.oracion, k)}
-                      onClick={() => setSel({ tipo: 'evento', oracion: o.oracion, k })}
+                      ref={(el) => { botones.current[`evento-${o.oracion}-${k}`] = el; }}
+                      onClick={(ev) => manual({ tipo: 'evento', oracion: o.oracion, k, tono: e.tipo === 'C' ? 'rojo' : 'salvia' }, ev)}
                       className={`ira-pz-anot__evento ira-pz-anot__evento--${e.tipo}${esSel('evento', o.oracion, k) ? ' is-activa' : ''}`}
                       aria-label={`${ui.evento} ${e.codigo}`}>
                       <span className="ira-cifra">{e.codigo}</span>
                     </button>
                   ))}
                   {o.oracion === ui.dificil.oracion && (
-                    <button type="button" aria-pressed={sel.tipo === 'dificil'} onClick={() => setSel({ tipo: 'dificil', oracion: o.oracion })}
+                    <button type="button" aria-pressed={sel.tipo === 'dificil'}
+                      ref={(el) => { botones.current[`dificil-${o.oracion}-`] = el; }}
+                      onClick={(ev) => manual({ tipo: 'dificil', oracion: o.oracion, tono: 'oro' }, ev)}
                       className={`ira-pz-anot__evento ira-pz-anot__evento--dificil${sel.tipo === 'dificil' ? ' is-activa' : ''}`} lang={ui.lang}>
                       {ui.casoDificil}
                     </button>

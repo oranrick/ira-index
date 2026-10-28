@@ -8,6 +8,7 @@ import AvisoVersion from './AvisoVersion.jsx';
 import { Aparecer, Icono } from './Visuales.jsx';
 import { PARAMETROS, REPO_RESEARCH, SOLO_ES } from './textosComunes.js';
 import '../../styles/metodologia.css';
+import '../../styles/metodologia-juego.css';
 
 const TXT = {
   es: {

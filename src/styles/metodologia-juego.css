@@ -1,0 +1,639 @@
+/* IRA · Metodología 2.0 · capa de juego compartida por P1 y P2.
+   Chispazos, chispas, mando de recorrido, control segmentado y el tacto de los botones
+   de elección (elevarse, hundirse al pulsar, brillo que recorre la elegida).
+   Todo el movimiento vive dentro de prefers-reduced-motion: no-preference. */
+
+.ira-juego--salvia { --jg: var(--ira-salvia); --jg-claro: var(--ira-marca-empatica); --jg-fondo: rgba(141, 170, 126, 0.16); --jg-halo: rgba(141, 170, 126, 0.45); }
+.ira-juego--rojo { --jg: var(--ira-1); --jg-claro: var(--ira-marca-polarizante); --jg-fondo: rgba(190, 40, 26, 0.16); --jg-halo: rgba(190, 40, 26, 0.45); }
+.ira-juego--oro { --jg: var(--ira-oro); --jg-claro: var(--ira-oro-hover); --jg-fondo: rgba(220, 177, 73, 0.14); --jg-halo: rgba(220, 177, 73, 0.45); }
+.ira-juego--neutra { --jg: #6F8585; --jg-claro: var(--ira-texto-cita); --jg-fondo: rgba(169, 184, 184, 0.1); --jg-halo: rgba(169, 184, 184, 0.3); }
+.ira-juego--alcance { --jg: #7FA7D9; --jg-claro: #CFE0F5; --jg-fondo: rgba(127, 167, 217, 0.14); --jg-halo: rgba(127, 167, 217, 0.45); }
+.ira-juego--interpelacion { --jg: #B39DDB; --jg-claro: #E2D8F3; --jg-fondo: rgba(179, 157, 219, 0.14); --jg-halo: rgba(179, 157, 219, 0.45); }
+.ira-juego--permeabilidad { --jg: #5FC4C9; --jg-claro: #C6EEF0; --jg-fondo: rgba(95, 196, 201, 0.14); --jg-halo: rgba(95, 196, 201, 0.45); }
+
+/* ── Chispazo: destellos que saltan desde el punto pulsado ───────────────── */
+.ira-chispazo { position: fixed; z-index: 2000; width: 0; height: 0; pointer-events: none; }
+.ira-chispazo > svg { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%) scale(0.2); opacity: 0; animation: ira-chispa-salto 820ms cubic-bezier(.15, .7, .25, 1) forwards; }
+.ira-chispazo__onda { position: absolute; left: 0; top: 0; width: 18px; height: 18px; border: 1.5px solid; border-radius: 50%; transform: translate(-50%, -50%) scale(0.3); opacity: 0.8; animation: ira-chispa-onda 650ms ease-out forwards; }
+@keyframes ira-chispa-salto {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
+  15% { opacity: 1; }
+  60% { opacity: 1; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--giro)); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx) * 1.25), calc(-50% + var(--dy) * 1.25 + 10px)) scale(0.4) rotate(calc(var(--giro) * 2)); }
+}
+@keyframes ira-chispa-onda { to { transform: translate(-50%, -50%) scale(4); opacity: 0; } }
+
+/* ── Chispas que titilan alrededor de lo elegido ─────────────────────────── */
+.ira-chispas { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.ira-chispas__una { position: absolute; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-chispas { animation: ira-chispas-entrar 420ms cubic-bezier(.2, .9, .3, 1.4); }
+}
+@keyframes ira-chispas-entrar { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+
+/* ── Tacto de los botones de elección (frases, nodos, chips, opciones) ───── */
+.ira-juego-elige { position: relative; isolation: isolate; }
+.ira-juego-elige::after {
+  /* brillo que recorre la tarjeta elegida, una vez */
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
+  background: linear-gradient(105deg, transparent 30%, rgba(252, 253, 255, 0.07) 45%, rgba(252, 253, 255, 0.13) 50%, transparent 65%);
+  background-size: 250% 100%; background-position: 120% 0; opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ira-juego-elige { transition: transform 220ms cubic-bezier(.2, .9, .3, 1.3), background-color 160ms ease, border-color 200ms ease, box-shadow 260ms ease; }
+  .ira-juego-elige:hover { transform: translateX(4px); }
+  .ira-juego-elige:active { transform: translateX(2px) scale(0.985); transition-duration: 80ms; }
+  .ira-juego-elige.is-activa, .ira-juego-elige[aria-checked="true"] { transform: translateX(8px); }
+  .ira-juego-elige.is-activa::after, .ira-juego-elige[aria-checked="true"]::after { animation: ira-juego-brillo 900ms ease-out 60ms; }
+}
+@keyframes ira-juego-brillo { 0% { opacity: 1; background-position: 120% 0; } 100% { opacity: 1; background-position: -30% 0; } }
+.ira-juego-elige.is-activa, .ira-juego-elige[aria-checked="true"] { box-shadow: -6px 0 22px -10px var(--jg-halo, rgba(220, 177, 73, 0.45)); }
+
+/* Rejilla de frases: el indicador lateral de la elegida es una barra que crece */
+.ira-juego-barra { position: absolute; left: -1px; top: 14%; bottom: 14%; width: 3px; border-radius: 3px; background: var(--jg, var(--ira-oro)); box-shadow: 0 0 10px var(--jg-halo, transparent); transform: scaleY(0); transform-origin: center; opacity: 0; }
+.is-activa > .ira-juego-barra, [aria-checked="true"] > .ira-juego-barra { transform: none; opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-juego-barra { transition: transform 360ms cubic-bezier(.2, .9, .3, 1.3), opacity 200ms ease; }
+}
+
+/* ── Mando de recorrido ──────────────────────────────────────────────────── */
+.ira-juego-mando { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; min-width: 0; }
+@media (max-width: 420px) { .ira-juego-mando .ira-juego-mando__puntos { display: none; } }
+.ira-juego-mando__boton, .ira-juego-mando__play {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; height: 44px; padding: 0;
+  border-radius: 999px; border: 1px solid var(--ira-linea-fuerte); background: rgba(4, 20, 20, 0.6);
+  color: var(--ira-nieve); font: inherit; font-size: 14px; cursor: pointer;
+}
+.ira-juego__ico { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ira-juego-mando__boton:hover, .ira-juego-mando__play:hover { background: var(--ira-elevada); border-color: var(--jg); }
+.ira-juego-mando__play { position: relative; overflow: hidden; padding: 0 18px 0 10px; white-space: nowrap; border-color: var(--jg); color: var(--jg-claro); }
+.ira-juego-mando__play-ico { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--jg); }
+.ira-juego-mando__play-ico svg { fill: var(--ira-noche); }
+.ira-juego-mando__play.is-jugando { background: var(--jg-fondo); }
+.ira-juego-mando__progreso { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--jg); transform-origin: left; animation: ira-juego-progreso linear forwards; }
+@keyframes ira-juego-progreso { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.ira-juego-mando__puntos { display: inline-flex; gap: 5px; margin-left: 6px; min-width: 0; overflow: hidden; flex-shrink: 1; padding: 4px 0; }
+.ira-juego-mando__boton, .ira-juego-mando__play { flex-shrink: 0; }
+.ira-juego-mando__puntos > span { flex-shrink: 0; }
+.ira-juego-mando__puntos > span { width: 6px; height: 6px; border-radius: 3px; background: var(--ira-linea-fuerte); }
+.ira-juego-mando__puntos > span.is-visto { background: var(--jg); opacity: 0.5; }
+.ira-juego-mando__puntos > span.is-activo { width: 22px; background: var(--jg); box-shadow: 0 0 8px var(--jg-halo); }
+.ira-juego-mando__cuenta { margin-left: auto; padding-left: 6px; font-size: 15px; color: var(--ira-nieve); white-space: nowrap; }
+.ira-juego-mando__cuenta > span { color: var(--ira-texto-3); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-juego-mando__boton, .ira-juego-mando__play { transition: transform 180ms cubic-bezier(.2, .9, .3, 1.4), background-color 150ms ease, border-color 150ms ease; }
+  .ira-juego-mando__boton:active, .ira-juego-mando__play:active { transform: scale(0.9); }
+  .ira-juego-mando__boton:hover .ira-juego__ico { animation: ira-juego-empuje 600ms ease-in-out infinite; }
+  .ira-juego-mando__puntos > span { transition: width 320ms cubic-bezier(.2, .9, .3, 1.3), background-color 200ms ease; }
+  .ira-juego-mando__play:not(.is-jugando) .ira-juego-mando__play-ico { animation: ira-juego-latido 2.4s ease-in-out infinite; }
+}
+@keyframes ira-juego-empuje { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(2px); } }
+.ira-juego-mando__boton:first-child:hover .ira-juego__ico { animation-direction: reverse; }
+@keyframes ira-juego-latido { 0%, 100% { box-shadow: 0 0 0 0 var(--jg-halo); } 50% { box-shadow: 0 0 0 6px transparent; } }
+
+/* ── Control segmentado con pastilla deslizante ──────────────────────────── */
+.ira-juego-seg {
+  position: relative; display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px;
+  border-radius: 999px; border: 1px solid var(--ira-linea-fuerte); background: rgba(4, 20, 20, 0.6);
+}
+.ira-juego-seg__pastilla {
+  position: absolute; border-radius: 999px; background: var(--jg-fondo); border: 1px solid var(--jg);
+  box-shadow: 0 0 18px -4px var(--jg-halo), inset 0 0 12px -6px var(--jg-halo);
+}
+.ira-juego-seg__opcion {
+  position: relative; z-index: 1; min-height: 40px; padding: 0 16px; border: none; border-radius: 999px; background: transparent;
+  color: var(--ira-texto-2); font: inherit; font-size: 14px; cursor: pointer; white-space: nowrap;
+}
+.ira-juego-seg__opcion:hover { color: var(--ira-nieve); }
+.ira-juego-seg__opcion.is-on { color: var(--jg-claro); font-weight: 500; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-juego-seg__pastilla { transition: left 420ms cubic-bezier(.3, 1.35, .45, 1), width 420ms cubic-bezier(.3, 1.35, .45, 1), top 300ms ease, background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease; }
+  .ira-juego-seg__opcion { transition: color 200ms ease, transform 160ms ease; }
+  .ira-juego-seg__opcion:active { transform: scale(0.94); }
+}
+
+/* ── Pista de teclado ────────────────────────────────────────────────────── */
+.ira-juego-pista { display: none; align-items: center; gap: 4px; margin: 0; font-size: 12px; color: var(--ira-texto-3); }
+.ira-juego-pista kbd { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 4px; border-radius: 5px; border: 1px solid var(--ira-linea-fuerte); border-bottom-width: 2px; font-family: var(--ira-font-cifra); font-size: 11px; color: var(--ira-texto-2); }
+.ira-juego-pista span { margin-left: 4px; }
+@media (hover: hover) and (pointer: fine) { .ira-juego-pista { display: inline-flex; } }
+
+/* Cabecera de pieza: texto a un lado, mando al otro */
+.ira-juego-cab { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+.ira-juego-cab > p { flex: 1 1 300px; }
+.ira-juego-cab > .ira-juego-mando { flex: 0 0 auto; }
+.ira-juego-mando__pista { position: relative; flex: 1 1 60px; min-width: 40px; max-width: 160px; height: 4px; margin-left: 6px; border-radius: 2px; background: var(--ira-linea-fuerte); overflow: hidden; }
+.ira-juego-mando__pista > span { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; background: var(--jg); box-shadow: 0 0 8px var(--jg-halo); }
+@media (prefers-reduced-motion: no-preference) { .ira-juego-mando__pista > span { transition: width 400ms cubic-bezier(.3, 1.3, .5, 1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ira-chispazo { display: none; }
+  .ira-chispas__una { animation: none !important; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Pestañas de los indicadores (P1): una pastilla de luz se desliza a la elegida
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met .ira-met-pestanas__panel[hidden] { display: none; } /* antes se veían los tres paneles a la vez */
+.ira-met .ira-met-pestanas__lista { position: relative; padding: 6px; border-radius: 22px; border: 1px solid var(--ira-linea); background: rgba(4, 20, 20, 0.55); }
+.ira-met .ira-met-pestanas__lista--alcance { --tab: var(--met-alcance); --tab-fondo: rgba(127, 167, 217, 0.13); }
+.ira-met .ira-met-pestanas__lista--interpelacion { --tab: var(--met-interpelacion); --tab-fondo: rgba(179, 157, 219, 0.13); }
+.ira-met .ira-met-pestanas__lista--permeabilidad { --tab: var(--met-permeabilidad); --tab-fondo: rgba(95, 196, 201, 0.13); }
+.ira-met .ira-met-pestanas__pastilla {
+  position: absolute; top: 6px; bottom: 6px; z-index: 0;
+  left: calc(6px + (100% - 12px - 16px) / var(--n) * var(--i) + 8px * var(--i));
+  width: calc((100% - 12px - 16px) / var(--n));
+  border-radius: var(--ira-radio-l); border: 1px solid var(--tab);
+  background: radial-gradient(120% 90% at 20% 0%, var(--tab-fondo), transparent 70%), var(--ira-elevada);
+  box-shadow: 0 10px 30px -14px var(--tab), inset 0 -3px 0 var(--tab);
+}
+.ira-met .ira-met-pestanas__tab { position: relative; z-index: 1; background: transparent; border-color: transparent; border-bottom-width: 1px; }
+.ira-met .ira-met-pestanas__tab:hover { background: rgba(17, 42, 42, 0.5); }
+.ira-met .ira-met-pestanas__tab[aria-selected="true"] { background: transparent; border-color: transparent; }
+.ira-met .ira-met-pestanas__tab .ira-met-icono { transform-origin: 50% 70%; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-met-pestanas__pastilla { transition: left 520ms cubic-bezier(.3, 1.3, .45, 1), border-color 300ms ease, box-shadow 300ms ease, background 300ms ease; }
+  .ira-met .ira-met-pestanas__tab { transition: color 200ms ease, background-color 150ms ease, transform 180ms ease; }
+  .ira-met .ira-met-pestanas__tab:active { transform: scale(0.97); }
+  .ira-met .ira-met-pestanas__tab:hover .ira-met-icono { animation: ira-juego-meneo 500ms ease-in-out; }
+  .ira-met .ira-met-pestanas__tab[aria-selected="true"] .ira-met-icono { animation: ira-juego-salto 520ms cubic-bezier(.3, 1.6, .5, 1); }
+  .ira-met .ira-met-pestanas__panel--desde-der:not([hidden]) { animation: ira-juego-desde-der 420ms cubic-bezier(.2, .8, .2, 1); }
+  .ira-met .ira-met-pestanas__panel--desde-izq:not([hidden]) { animation: ira-juego-desde-izq 420ms cubic-bezier(.2, .8, .2, 1); }
+}
+@keyframes ira-juego-meneo { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-12deg); } 65% { transform: rotate(9deg); } }
+@keyframes ira-juego-salto { 0% { transform: scale(0.6) translateY(4px); } 60% { transform: scale(1.25) translateY(-3px); } 100% { transform: none; } }
+@keyframes ira-juego-desde-der { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes ira-juego-desde-izq { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   P1 · El mapa de la frontera: anillo que se abre y se cierra, el otro que viaja
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met .ira-pz-frontera__izq { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ira-met .ira-pz-frontera__frase { position: relative; overflow: visible; }
+.ira-met .ira-pz-frontera__frase.is-activa { border-color: var(--jg, var(--pz-color)); background: linear-gradient(90deg, var(--jg-fondo, transparent), transparent 70%), var(--ira-elevada); }
+.ira-met .ira-pz-frontera__frase.is-activa .ira-pz-codigo { background: var(--jg-fondo); box-shadow: 0 0 12px -2px var(--jg-halo); }
+.ira-met .ira-pz-mapa__lienzo { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ira-met .ira-pz-mapa__aro { fill: none; stroke: var(--ira-salvia); transform-origin: 50% 50%; filter: drop-shadow(0 0 3px rgba(141, 170, 126, 0.55)); }
+.ira-met .ira-pz-mapa--muro .ira-pz-mapa__aro, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__aro { stroke: var(--ira-1); filter: drop-shadow(0 0 4px rgba(190, 40, 26, 0.7)); }
+.ira-met .ira-pz-mapa--excepcion .ira-pz-mapa__aro { stroke: var(--ira-oro); filter: drop-shadow(0 0 4px rgba(220, 177, 73, 0.6)); }
+.ira-met .ira-pz-mapa__jambas line { stroke: var(--ira-salvia); stroke-width: 1.4; stroke-linecap: round; }
+.ira-met .ira-pz-mapa__orbita { fill: var(--ira-marca-empatica); opacity: 0.85; transform-origin: 50% 50%; }
+.ira-met .ira-pz-mapa--muro .ira-pz-mapa__orbita, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__orbita { opacity: 0.55; }
+.ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__periferia { border-color: rgba(190, 40, 26, 0.6); }
+.ira-met .ira-pz-mapa__golpe { left: 20.6%; top: 20.6%; width: 58.8%; height: 58.8%; border-radius: 50%; border: 2px solid var(--jg, var(--ira-salvia)); opacity: 0; pointer-events: none; }
+.ira-met .ira-pz-mapa__otro { display: grid; place-items: center; box-shadow: 0 0 14px rgba(252, 253, 255, 0.55); z-index: 2; }
+.ira-met .ira-pz-mapa--grupo .ira-pz-mapa__otro { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+.ira-met .ira-pz-mapa--grupo .ira-pz-mapa__centro { box-shadow: 0 0 34px rgba(141, 170, 126, 0.95); }
+.ira-met .ira-pz-mapa__centro { transition: box-shadow 500ms ease; }
+.ira-met .ira-pz-mapa--muro .ira-pz-mapa__otro, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__otro { box-shadow: 0 0 14px rgba(232, 96, 74, 0.6); }
+.ira-met .ira-pz-mapa__llegada { position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; border: 2px solid var(--jg, var(--ira-nieve)); opacity: 0; }
+.ira-met .ira-pz-frontera__donde { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-pz-mapa__aro { transition: stroke-dasharray 700ms cubic-bezier(.3, 1.3, .5, 1), stroke-dashoffset 700ms cubic-bezier(.3, 1.3, .5, 1), stroke-width 450ms cubic-bezier(.3, 1.6, .5, 1), stroke 400ms ease, filter 400ms ease; }
+  .ira-met .ira-pz-mapa__jambas { transition: opacity 300ms ease 250ms; }
+  .ira-met .ira-pz-mapa__orbita { animation: ira-met-girar 22s linear infinite; }
+  .ira-met .ira-pz-mapa__halo { animation: ira-juego-respira 3.6s ease-in-out infinite; }
+  .ira-met .ira-pz-mapa__golpe { animation: ira-juego-golpe 700ms ease-out; }
+  .ira-met .ira-pz-mapa--muro .ira-pz-mapa__golpe, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__golpe { animation: ira-juego-golpe-duro 650ms ease-out; }
+  .ira-met .ira-pz-mapa--muro .ira-pz-mapa__aro, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__aro { animation: ira-juego-temblor 420ms ease-out 260ms; }
+  .ira-met .ira-pz-mapa__otro { transition: left 700ms cubic-bezier(.34, 1.45, .64, 1), top 700ms cubic-bezier(.34, 1.45, .64, 1), opacity 400ms ease, transform 500ms ease, box-shadow 400ms ease; }
+  .ira-met .ira-pz-mapa__llegada { animation: ira-juego-llegada 700ms ease-out 520ms; }
+  .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__periferia { animation: ira-juego-parpadeo 900ms ease-out; }
+  .ira-met .ira-pz-frontera__donde { animation: ira-juego-asoma 420ms cubic-bezier(.3, 1.5, .5, 1); }
+  .ira-met .ira-pz-ficha { animation: ira-pz-entrar 380ms cubic-bezier(.2, .8, .2, 1); }
+}
+@keyframes ira-juego-respira { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.18); opacity: 0.6; } }
+@keyframes ira-juego-golpe { 0% { opacity: 0.8; transform: scale(0.92); } 100% { opacity: 0; transform: scale(1.35); } }
+@keyframes ira-juego-golpe-duro { 0% { opacity: 0; transform: scale(1.3); } 45% { opacity: 0.9; transform: scale(1); } 100% { opacity: 0; transform: scale(0.96); } }
+@keyframes ira-juego-temblor { 0%, 100% { transform: none; } 20% { transform: translateX(-1.2px) rotate(-1deg); } 45% { transform: translateX(1px) rotate(0.8deg); } 70% { transform: translateX(-0.5px); } }
+@keyframes ira-juego-llegada { 0% { opacity: 0.9; transform: scale(1); } 100% { opacity: 0; transform: scale(3.2); } }
+@keyframes ira-juego-parpadeo { 0%, 40%, 80% { opacity: 1; } 20%, 60% { opacity: 0.2; } }
+@keyframes ira-juego-asoma { from { opacity: 0; transform: translateY(6px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   P2 · ¿Contra quién apunta?: disparo, viaje, impacto y la regla paso a paso
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met .ira-p2-apunta__izq { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ira-met .ira-p2-apunta__frase { position: relative; overflow: visible; }
+.ira-met .ira-p2-apunta__frase.is-activa .ira-p2-codigo { border-color: var(--p2-color); background: var(--p2-fondo); box-shadow: 0 0 12px -2px var(--p2-halo); }
+.ira-met .ira-p2-diana__bala { color: var(--p2-color); }
+.ira-met .ira-p2-diana__impacto { fill: none; stroke: var(--p2-color); stroke-width: 3; opacity: 0; }
+.ira-met .ira-p2-diana__disparo { transform-origin: 86px 150px; transform-box: view-box; }
+.ira-met .ira-p2-diana__cuerpo { transform-box: view-box; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p2-diana__disparo { animation: ira-juego-carga 520ms cubic-bezier(.3, 1.6, .5, 1); }
+  .ira-met .ira-p2-diana__halo { animation: ira-juego-respira-svg 3.2s ease-in-out infinite; transform-origin: 86px 150px; transform-box: view-box; }
+  .ira-met .ira-p2-diana__flecha { stroke-dasharray: 400; animation: ira-p2-trazo 620ms cubic-bezier(.5, 0, .4, 1); }
+  .ira-met .ira-p2-diana__impacto { animation: ira-juego-impacto 650ms ease-out 560ms; }
+  .ira-met .ira-p2-diana--neutra .is-blanco .ira-p2-diana__cuerpo { animation: ira-juego-toque 420ms cubic-bezier(.3, 1.6, .5, 1) 560ms; }
+  .ira-met .ira-p2-diana--polariza .is-blanco .ira-p2-diana__cuerpo { animation: ira-juego-sacudida 560ms ease-out 560ms; }
+  .ira-met .ira-p2-diana--empatica .is-blanco .ira-p2-diana__cuerpo { animation: ira-juego-abrazo 900ms cubic-bezier(.3, 1.4, .5, 1) 560ms; }
+  .ira-met .ira-p2-diana__blanco .ira-p2-diana__aro { transition: stroke 300ms ease 560ms, fill 300ms ease 560ms, filter 300ms ease 560ms; }
+  .ira-met .ira-p2-paso { animation: ira-juego-paso 420ms cubic-bezier(.2, .9, .3, 1.2) both; animation-delay: calc(700ms + var(--k) * 200ms); }
+  .ira-met .ira-p2-paso .ira-p2-paso__resp { animation: ira-juego-sello 380ms cubic-bezier(.3, 1.8, .5, 1) both; animation-delay: calc(820ms + var(--k) * 200ms); }
+  .ira-met .ira-p2-veredicto { animation: ira-pz-entrar 380ms cubic-bezier(.2, .8, .2, 1) both 1250ms; }
+  .ira-met .ira-p2-veredicto__resultado .ira-p2-pildora { animation: ira-juego-sello 520ms cubic-bezier(.3, 1.8, .5, 1) both 1400ms; }
+}
+@keyframes ira-juego-carga { 0% { transform: scale(1); } 35% { transform: scale(0.86); } 70% { transform: scale(1.08); } 100% { transform: none; } }
+@keyframes ira-juego-respira-svg { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+@keyframes ira-juego-impacto { 0% { opacity: 0.95; transform: scale(1); } 100% { opacity: 0; transform: scale(1.9); } }
+@keyframes ira-juego-toque { 0% { transform: none; } 40% { transform: translateX(6px) scale(0.95); } 100% { transform: none; } }
+@keyframes ira-juego-sacudida { 0% { transform: none; } 15% { transform: translateX(9px) rotate(5deg); } 35% { transform: translateX(-6px) rotate(-4deg); } 55% { transform: translateX(4px) rotate(2deg); } 75% { transform: translateX(-2px); } 100% { transform: none; } }
+@keyframes ira-juego-abrazo { 0% { transform: none; } 30% { transform: scale(1.18); } 55% { transform: scale(0.96); } 100% { transform: none; } }
+@keyframes ira-juego-paso { from { opacity: 0.25; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
+@keyframes ira-juego-sello { 0% { opacity: 0; transform: scale(1.8); } 60% { opacity: 1; transform: scale(0.92); } 100% { opacity: 1; transform: none; } }
+.ira-met .ira-p2-diana__punta--llega { transform-box: view-box; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p2-diana__punta--llega { animation: ira-juego-sello 300ms cubic-bezier(.3, 1.8, .5, 1) both 540ms; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   P1 · Árbol de la excepción: comprobación en cadena e interruptores
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met .ira-pz-arbol__izq { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ira-met .ira-pz-arbol__frase { position: relative; overflow: visible; }
+.ira-met .ira-pz-arbol__frase.is-activa { background: linear-gradient(90deg, rgba(220, 177, 73, 0.1), transparent 70%), var(--ira-elevada); }
+.ira-met .ira-pz-arbol__nodo.is-si .ira-pz-arbol__n { background: rgba(141, 170, 126, 0.16); box-shadow: 0 0 14px -2px rgba(141, 170, 126, 0.6); }
+.ira-met .ira-pz-arbol__nodo.is-no .ira-pz-arbol__n { box-shadow: 0 0 14px -2px rgba(190, 40, 26, 0.7); }
+.ira-met .ira-pz-arbol__nodo::before { transform-origin: top; }
+.ira-met .ira-pz-arbol__resultado.is-excepcion { background: linear-gradient(90deg, rgba(220, 177, 73, 0.1), transparent 60%), var(--ira-noche); box-shadow: 0 12px 34px -20px rgba(220, 177, 73, 0.8); }
+.ira-met .ira-pz-arbol__resultado.is-cierre, .ira-met .ira-pz-arbol__resultado.is-retirada { background: linear-gradient(90deg, rgba(190, 40, 26, 0.12), transparent 60%), var(--ira-noche); }
+.ira-met .ira-pz-arbol__cuerpo .ira-juego-seg { align-self: flex-start; margin-top: 2px; }
+.ira-met .ira-pz-arbol__nodo.is-actual .ira-pz-arbol__n { box-shadow: 0 0 0 4px rgba(220, 177, 73, 0.12); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .is-comprobando .ira-pz-arbol__n { animation: ira-juego-nodo 460ms cubic-bezier(.3, 1.7, .5, 1) backwards; animation-delay: calc(150ms + var(--k) * 300ms); }
+  .ira-met .is-comprobando .ira-pz-arbol__razon { animation: ira-juego-razon 360ms ease-out backwards; animation-delay: calc(260ms + var(--k) * 300ms); }
+  .ira-met .is-comprobando .ira-pz-arbol__razon .ira-pz-arbol__marca { display: inline-block; animation: ira-juego-sello 420ms cubic-bezier(.3, 1.8, .5, 1) backwards; animation-delay: calc(300ms + var(--k) * 300ms); }
+  .ira-met .is-comprobando .ira-pz-arbol__nodo::before { animation: ira-juego-llenar 300ms ease-in backwards; animation-delay: calc(380ms + var(--k) * 300ms); }
+  .ira-met .ira-pz-arbol__resultado.is-tras-comprobar { animation: ira-juego-resultado 520ms cubic-bezier(.2, 1.2, .3, 1) backwards 1020ms; }
+  .ira-met .ira-pz-arbol__resultado:not(.is-tras-comprobar) { animation: ira-juego-resultado 420ms cubic-bezier(.2, 1.2, .3, 1); }
+  .ira-met .ira-pz-arbol__nodo.is-actual .ira-pz-arbol__n { animation: ira-juego-espera 1.6s ease-in-out infinite; }
+  .ira-met .is-propia .ira-pz-arbol__nodo.is-si .ira-pz-arbol__n, .ira-met .is-propia .ira-pz-arbol__nodo.is-no .ira-pz-arbol__n { animation: ira-juego-salto 460ms cubic-bezier(.3, 1.6, .5, 1); }
+  .ira-met .ira-pz-arbol__salvaguarda { animation: ira-pz-entrar 380ms ease-out backwards 1150ms; }
+}
+@keyframes ira-juego-nodo { from { border-color: var(--ira-linea-fuerte); background: var(--ira-noche); color: var(--ira-texto-3); box-shadow: none; transform: scale(0.8); } }
+@keyframes ira-juego-razon { from { opacity: 0; transform: translateY(-4px); } }
+@keyframes ira-juego-llenar { from { transform: scaleY(0); } }
+@keyframes ira-juego-resultado { 0% { opacity: 0; transform: translateY(12px) scale(0.97); } 100% { opacity: 1; transform: none; } }
+@keyframes ira-juego-espera { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 177, 73, 0.35); } 50% { box-shadow: 0 0 0 7px rgba(220, 177, 73, 0); } }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   P1 · La cadena del argumento: cada ilustración cuenta su eslabón en movimiento
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met .ira-pz-il * { transform-box: fill-box; transform-origin: center; }
+.ira-met .ira-pz-cadena__siguiente { gap: 8px; }
+.ira-met .ira-pz-cadena__flecha { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.ira-met .ira-pz-cadena__panel { touch-action: pan-y; position: relative; overflow: hidden; }
+.ira-met .ira-pz-cadena__panel::before { content: ''; position: absolute; inset: -40% -10% auto auto; width: 70%; height: 90%; background: radial-gradient(closest-side, color-mix(in srgb, var(--pz-n) 16%, transparent), transparent); pointer-events: none; }
+.ira-met .ira-pz-cadena__nodo.is-activo .ira-pz-cadena__n { text-shadow: 0 0 14px var(--pz-n); }
+.ira-met .ira-pz-cadena__linea { transform-origin: top; }
+.ira-met .ira-pz-cadena__tesis.is-encendida { box-shadow: 0 18px 50px -30px rgba(190, 40, 26, 0.9); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-pz-cadena__siguiente:not(.is-ultimo) .ira-pz-cadena__flecha { animation: ira-juego-empuje 1.1s ease-in-out infinite; }
+  .ira-met .ira-pz-cadena__siguiente.is-ultimo .ira-pz-cadena__flecha { animation: ira-met-girar 2.4s linear infinite; }
+  .ira-met .ira-pz-cadena__grande { animation: ira-juego-salto 520ms cubic-bezier(.3, 1.6, .5, 1); }
+  .ira-met .ira-pz-cadena__conector.is-hecho .ira-pz-cadena__linea { animation: ira-juego-llenar 420ms ease-out; }
+  .ira-met .ira-pz-cadena__tesis { transition: opacity 500ms ease, box-shadow 600ms ease, transform 500ms cubic-bezier(.3, 1.4, .5, 1); }
+  .ira-met .ira-pz-cadena__tesis.is-encendida { transform: scale(1.01); }
+
+  /* 1 · intuición antes que razonamiento */
+  .ira-met .ira-pz-il--0 .ira-pz-il__burbuja--neutra { animation: ira-il-pop 420ms cubic-bezier(.3, 1.6, .5, 1) backwards; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__razon { animation: ira-il-aparece 300ms ease-out backwards 200ms; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__flecha:not(.ira-pz-il__flecha--tarde) { stroke-dasharray: 20; animation: ira-il-trazo 220ms ease-out backwards 300ms; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__intuicion { animation: ira-il-chispa 640ms cubic-bezier(.3, 1.8, .5, 1) backwards 420ms, ira-il-latido 1.8s ease-in-out infinite 1.2s; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__halo { animation: ira-il-aparece 400ms ease-out backwards 480ms, ira-met-girar 9s linear infinite 900ms; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__flecha--tarde { animation: ira-il-desliza 500ms ease-out backwards 900ms; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__paso-razon { animation: ira-il-crece-x 380ms cubic-bezier(.3, 1.4, .5, 1) backwards; transform-origin: left center; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__paso-razon:nth-of-type(1) { animation-delay: 1100ms; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__paso-razon:nth-of-type(2) { animation-delay: 1300ms; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__paso-razon:nth-of-type(3) { animation-delay: 1500ms; }
+  .ira-met .ira-pz-il--0 .ira-pz-il__guia { animation: ira-il-aparece 300ms ease-out backwards 1300ms; }
+
+  /* 2 · la resonancia llega plena al nosotros y se apaga al cruzar la frontera */
+  .ira-met .ira-pz-il--1 .ira-pz-il__persona--yo { animation: ira-il-pop 420ms cubic-bezier(.3, 1.6, .5, 1) backwards; }
+  .ira-met .ira-pz-il--1 .ira-pz-il__guia { animation: ira-il-aparece 300ms ease-out backwards 200ms; }
+  .ira-met .ira-pz-il--1 .ira-pz-il__onda:not(.ira-pz-il__onda--debil) { stroke-dasharray: 400; animation: ira-il-trazo-largo 900ms ease-out backwards 300ms, ira-il-vibra 2.4s ease-in-out infinite 1.4s; }
+  .ira-met .ira-pz-il--1 .ira-pz-il__frontera { animation: ira-il-cae 460ms cubic-bezier(.3, 1.6, .5, 1) backwards 700ms; }
+  .ira-met .ira-pz-il--1 .ira-pz-il__onda--debil { animation: ira-il-aparece 400ms ease-out backwards 1000ms, ira-il-titubea 1.6s steps(2, end) infinite 1.4s; }
+  .ira-met .ira-pz-il--1 .ira-pz-il__persona:not(.ira-pz-il__persona--yo) { animation: ira-il-pop 420ms cubic-bezier(.3, 1.6, .5, 1) backwards 800ms; }
+
+  /* 3 · el muro cae y corta la onda; la puerta se abre y la deja pasar */
+  .ira-met .ira-pz-il--2 .ira-pz-il__persona { animation: ira-il-pop 400ms cubic-bezier(.3, 1.6, .5, 1) backwards; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__muro--cae { animation: ira-il-cae-duro 560ms cubic-bezier(.5, 0, .5, 1.6) backwards 250ms; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__onda--choca { stroke-dasharray: 80; animation: ira-il-trazo-corto 360ms ease-out backwards 650ms, ira-il-rebota 1.6s ease-in-out infinite 1.2s; transform-origin: right center; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__hoja--arriba { animation: ira-il-abre-arriba 600ms cubic-bezier(.3, 1.5, .5, 1) backwards 900ms; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__hoja--abajo { animation: ira-il-abre-abajo 600ms cubic-bezier(.3, 1.5, .5, 1) backwards 900ms; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__onda--pasa { stroke-dasharray: 120; animation: ira-il-trazo-medio 600ms ease-out backwards 1300ms, ira-il-vibra 2.4s ease-in-out infinite 2s; }
+  .ira-met .ira-pz-il--2 .ira-pz-il__comun { animation: ira-il-crece 700ms cubic-bezier(.3, 1.4, .5, 1) backwards 1600ms, ira-met-girar 40s linear infinite 2.4s; }
+
+  /* 4 · el incentivo: el mensaje contra ellos se dispara */
+  .ira-met .ira-pz-il--3 .ira-pz-il__burbuja { animation: ira-il-desliza 420ms ease-out backwards; }
+  .ira-met .ira-pz-il--3 .ira-pz-il__burbuja--rojo { animation-delay: 200ms; }
+  .ira-met .ira-pz-il--3 .ira-pz-il__eje { animation: ira-il-aparece 400ms ease-out backwards 300ms; }
+  .ira-met .ira-pz-il--3 .ira-pz-il__barra--baja { transform-origin: left center; animation: ira-il-crece-x 600ms ease-out backwards 500ms; }
+  .ira-met .ira-pz-il--3 .ira-pz-il__barra--alta { transform-origin: left center; animation: ira-il-crece-x 1100ms cubic-bezier(.2, 1.25, .4, 1) backwards 700ms, ira-il-arde 1.4s ease-in-out infinite 1.9s; }
+}
+@keyframes ira-il-pop { from { opacity: 0; transform: scale(0.3); } }
+@keyframes ira-il-aparece { from { opacity: 0; } }
+@keyframes ira-il-trazo { from { stroke-dashoffset: 20; } }
+@keyframes ira-il-trazo-corto { from { stroke-dashoffset: 80; } }
+@keyframes ira-il-trazo-medio { from { stroke-dashoffset: 120; } }
+@keyframes ira-il-trazo-largo { from { stroke-dashoffset: 400; } }
+@keyframes ira-il-chispa { 0% { opacity: 0; transform: scale(0); } 55% { opacity: 1; transform: scale(1.6); } 100% { transform: none; } }
+@keyframes ira-il-latido { 0%, 100% { transform: none; } 50% { transform: scale(1.15); } }
+@keyframes ira-il-desliza { from { opacity: 0; transform: translateX(-12px); } }
+@keyframes ira-il-crece-x { from { transform: scaleX(0); } }
+@keyframes ira-il-crece { from { opacity: 0; transform: scale(0.5); } }
+@keyframes ira-il-cae { from { opacity: 0; transform: translateY(-26px); } }
+@keyframes ira-il-cae-duro { 0% { opacity: 0; transform: translateY(-60px); } 60% { opacity: 1; transform: translateY(4px); } 100% { transform: none; } }
+@keyframes ira-il-rebota { 0%, 100% { transform: none; } 50% { transform: scaleX(0.82); } }
+@keyframes ira-il-abre-arriba { from { transform: translateY(14px); } }
+@keyframes ira-il-abre-abajo { from { transform: translateY(-14px); } }
+@keyframes ira-il-vibra { 0%, 100% { transform: none; } 50% { transform: translateY(-1.5px); } }
+@keyframes ira-il-titubea { 0% { opacity: 0.35; } 50% { opacity: 0.15; } }
+@keyframes ira-il-arde { 0%, 100% { filter: drop-shadow(0 0 0 rgba(190, 40, 26, 0)); } 50% { filter: drop-shadow(0 0 7px rgba(190, 40, 26, 0.9)); } }
+/* Las entradas esperan a estar a la vista */
+.ira-met .ira-juego-espera:not(.is-visto) *, .ira-met .ira-juego-espera:not(.is-visto) *::before, .ira-met .ira-juego-espera:not(.is-visto) *::after { animation-play-state: paused !important; }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   P1 · Permeabilidad, marca a marca: chips con resorte, muro que golpea, luz que pasa
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met .ira-pz-linea__acciones { display: inline-flex; gap: 8px; flex-wrap: nowrap; flex-shrink: 0; }
+.ira-met .ira-pz-linea__cifra > .ira-pz-linea__num { font-size: inherit; font-weight: inherit; color: inherit; letter-spacing: inherit; }
+.ira-met .ira-pz-linea__azar { gap: 8px; }
+.ira-met .ira-pz-linea__dado { fill: none; stroke: currentColor; stroke-width: 1.7; }
+.ira-met .ira-pz-linea__dado circle { fill: currentColor; stroke: none; }
+.ira-met .ira-pz-linea__chip-marca { display: inline-grid; place-items: center; width: 20px; height: 20px; margin-left: -6px; border-radius: 50%; border: 1px solid var(--ira-linea-fuerte); }
+.ira-met .ira-pz-linea__chip-marca svg { fill: none; stroke: var(--ira-texto-3); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.ira-met .ira-pz-linea__chip.is-on .ira-pz-linea__chip-marca { background: var(--pz-color); border-color: var(--pz-color); }
+.ira-met .ira-pz-linea__chip.is-on .ira-pz-linea__chip-marca svg { stroke: var(--ira-noche); }
+.ira-met .ira-pz-linea__chip.is-on { box-shadow: 0 0 16px -6px var(--pz-color); }
+.ira-met .ira-pz-linea__var { font-weight: 500; color: var(--ira-marca-empatica); display: inline-block; }
+.ira-met .ira-pz-linea__var--c { color: var(--ira-marca-polarizante); }
+.ira-met .ira-pz-linea__haz { overflow: hidden; }
+.ira-met .ira-pz-linea__haz::after { content: ''; position: absolute; inset: -2px 0; width: 40px; background: linear-gradient(90deg, transparent, rgba(252, 253, 255, 0.95), transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-pz-linea__chip { transition: transform 240ms cubic-bezier(.3, 1.7, .5, 1), background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 250ms ease; }
+  .ira-met .ira-pz-linea__chip:hover { transform: translateY(-2px); }
+  .ira-met .ira-pz-linea__chip:active { transform: scale(0.92); transition-duration: 80ms; }
+  .ira-met .ira-pz-linea__chip.is-on .ira-pz-linea__chip-marca { animation: ira-juego-salto 420ms cubic-bezier(.3, 1.7, .5, 1); }
+  .ira-met .ira-pz-linea__chip:hover .ira-pz-linea__chip-marca { transform: rotate(90deg); transition: transform 250ms ease; }
+  .ira-met .ira-pz-linea__tramo--muro { animation: ira-juego-muro 520ms cubic-bezier(.5, 0, .5, 1.6); }
+  .ira-met .ira-pz-linea__tramo--puerta { animation: ira-pz-crecer 350ms cubic-bezier(.2, .7, .2, 1); }
+  .ira-met .ira-pz-linea__haz { animation: ira-juego-haz-abre 600ms ease-out; transform-origin: left center; }
+  .ira-met .ira-pz-linea__haz::after { animation: ira-juego-destello-haz 1.8s ease-in-out infinite; }
+  .ira-met .ira-pz-linea__otro { transition: left 750ms cubic-bezier(.34, 1.5, .64, 1), opacity 300ms ease; }
+  .ira-met .ira-pz-linea__escala > span { transition: opacity 300ms ease calc(var(--i) * 30ms), transform 300ms ease; }
+  .ira-met .ira-pz-linea__var { animation: ira-juego-sello 380ms cubic-bezier(.3, 1.8, .5, 1); }
+  .ira-met .ira-pz-linea__estado { animation: ira-juego-asoma 360ms ease-out; }
+  .ira-met .ira-pz-linea__azar:hover .ira-pz-linea__dado { animation: ira-juego-dado 600ms cubic-bezier(.3, 1.4, .5, 1); }
+  .ira-met .ira-pz-linea__nosotros .ira-pz-linea__punto { animation: ira-juego-respira 3.6s ease-in-out infinite; }
+}
+@keyframes ira-juego-muro { 0% { transform: scaleY(0) scaleX(2.2); opacity: 0; } 60% { transform: scaleY(1.08); opacity: 1; } 100% { transform: none; } }
+@keyframes ira-juego-haz-abre { from { transform: translateY(-50%) scaleX(0); } to { transform: translateY(-50%) scaleX(1); } }
+@keyframes ira-juego-destello-haz { 0% { transform: translateX(-40px); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateX(200px); opacity: 0; } }
+@keyframes ira-juego-dado { 0% { transform: none; } 50% { transform: rotate(200deg) scale(1.2); } 100% { transform: rotate(360deg); } }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Base teórica como mapa: autores que flotan y un flujo que llega a la frontera
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met .ira-pz-teoria__linea.is-encima { opacity: 0.7; }
+.ira-met .ira-pz-teoria__flujo { stroke: var(--pz-zona); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 14; filter: drop-shadow(0 0 4px var(--pz-zona)); }
+.ira-met .ira-pz-teoria__nodo.is-activo { box-shadow: 0 0 0 3px color-mix(in srgb, var(--pz-zona) 22%, transparent), 0 10px 26px -12px var(--pz-zona); }
+.ira-met .ira-pz-teoria__muro, .ira-met .ira-pz-teoria__puerta, .ira-met .ira-pz-teoria__centro { transform-origin: center; transform-box: fill-box; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-pz-teoria__nodo { animation: ira-juego-flota 5s ease-in-out infinite; animation-delay: calc(var(--k) * -0.8s); transition: background-color 200ms ease, border-color 200ms ease, box-shadow 300ms ease; }
+  .ira-met .ira-pz-teoria__nodo:hover { animation-play-state: paused; }
+  .ira-met .ira-pz-teoria__nodo:active { scale: 0.94; }
+  .ira-met .ira-pz-teoria__flujo { animation: ira-juego-flujo 900ms linear infinite, ira-il-aparece 300ms ease-out; }
+  .ira-met .ira-pz-teoria__muro { animation: ira-met-girar 30s linear infinite; }
+  .ira-met .ira-pz-teoria__puerta { animation: ira-met-girar 22s linear infinite reverse; }
+  .ira-met .ira-pz-teoria__centro { animation: ira-juego-respira 3s ease-in-out infinite; }
+  .ira-met .ira-pz-teoria__linea { transition: opacity 250ms ease; }
+}
+@keyframes ira-juego-flota { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+@keyframes ira-juego-flujo { to { stroke-dashoffset: -16; } }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   P1 · Discurso anotado: la palabra elegida brilla y se puede leer marca a marca
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met .ira-pz-anot__mando { max-width: 520px; }
+.ira-met .ira-pz-anot__ref.is-activa { box-shadow: 0 0 18px -4px var(--pz-color); }
+.ira-met .ira-pz-anot__evento.is-activa { box-shadow: 0 0 14px -2px currentColor; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-pz-anot__ref, .ira-met .ira-pz-anot__evento { transition: background-color 150ms ease, transform 200ms cubic-bezier(.3, 1.7, .5, 1), box-shadow 250ms ease; }
+  .ira-met .ira-pz-anot__ref:hover, .ira-met .ira-pz-anot__evento:hover { transform: translateY(-2px); }
+  .ira-met .ira-pz-anot__ref.is-activa, .ira-met .ira-pz-anot__evento.is-activa { animation: ira-juego-palabra 520ms cubic-bezier(.3, 1.7, .5, 1); }
+  .ira-met .ira-pz-anot__ref.is-activa sup { display: inline-block; animation: ira-juego-salto 520ms cubic-bezier(.3, 1.6, .5, 1); }
+  .ira-met .ira-pz-anot__ficha-titulo { animation: ira-juego-asoma 420ms cubic-bezier(.3, 1.4, .5, 1) backwards 80ms; }
+  .ira-met .ira-pz-anot__oracion-sel { animation: ira-juego-asoma 420ms ease-out backwards 160ms; }
+}
+@keyframes ira-juego-palabra { 0% { transform: scale(1); } 40% { transform: scale(1.12) translateY(-2px); } 100% { transform: none; } }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   P2 · Misma imagen, dos destinos: el viajero baja por cada rama; modo adivinanza
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-met .ira-p2-destinos__modo { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0 0 14px; }
+.ira-met .ira-p2-destinos__pista { font-size: 13px; color: var(--ira-oro); }
+.ira-met .ira-p2-horquilla__viajero { stroke: none; }
+.ira-met .ira-p2-horquilla__viajero--a { fill: #A9B8B8; filter: drop-shadow(0 0 3px rgba(169, 184, 184, 0.9)); }
+.ira-met .ira-p2-horquilla__viajero--b { fill: #E8604A; filter: drop-shadow(0 0 4px rgba(190, 40, 26, 1)); }
+.ira-met .ira-p2-destino__horquilla.is-a .ira-p2-horquilla--polariza, .ira-met .ira-p2-destino__horquilla.is-a .ira-p2-horquilla__viajero--b,
+.ira-met .ira-p2-destino__horquilla.is-b .ira-p2-horquilla--neutra, .ira-met .ira-p2-destino__horquilla.is-b .ira-p2-horquilla__viajero--a { opacity: 0.2; }
+.ira-met .ira-p2-destino__horquilla.is-a .ira-p2-horquilla--neutra, .ira-met .ira-p2-destino__horquilla.is-b .ira-p2-horquilla--polariza { stroke-width: 4; }
+.ira-met button.ira-p2-destino__rama { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; border-top: none; border-right: none; border-bottom: none; }
+.ira-met .ira-p2-destino__rama.is-tapada { background: repeating-linear-gradient(135deg, rgba(220, 177, 73, 0.05) 0 8px, transparent 8px 16px), var(--ira-elevada); border-left-color: var(--ira-oro); }
+.ira-met .ira-p2-destino__tapa { display: inline-flex; align-items: center; gap: 8px; padding: 3px 12px 3px 4px; border-radius: 999px; border: 1px dashed var(--ira-oro); color: var(--ira-oro); font-size: 13px; }
+.ira-met .ira-p2-destino__tapa > span { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--ira-oro); color: var(--ira-noche); font-weight: 700; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p2-destino__horquilla path, .ira-met .ira-p2-horquilla__viajero { transition: opacity 250ms ease, stroke-width 250ms ease; }
+  .ira-met .ira-p2-destino__rama { transition: transform 220ms cubic-bezier(.3, 1.6, .5, 1), background-color 200ms ease; }
+  .ira-met .ira-p2-destino__rama:hover { transform: translateX(4px); }
+  .ira-met .ira-p2-destino__rama.is-tapada:hover .ira-p2-destino__tapa > span { animation: ira-juego-meneo 500ms ease-in-out; }
+  .ira-met .ira-p2-destino__rama.is-destapada .ira-p2-destino__pie { animation: ira-juego-sello 480ms cubic-bezier(.3, 1.8, .5, 1); }
+  .ira-met .ira-p2-destinos.is-adivinar .ira-p2-destino__rama.is-tapada { animation: ira-juego-espera-rama 2.4s ease-in-out infinite; }
+}
+@keyframes ira-juego-espera-rama { 0%, 100% { box-shadow: inset 0 0 0 0 rgba(220, 177, 73, 0); } 50% { box-shadow: inset 0 0 0 1px rgba(220, 177, 73, 0.35); } }
+
+/* ── El experimento: un interruptor elige la imagen y se enciende su camino ── */
+.ira-met .ira-p2-exp__cab { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
+.ira-met button.ira-p2-exp__carril { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.ira-met .ira-p2-exp__carril.is-elegido { border-color: var(--exp-color); background: linear-gradient(90deg, var(--exp-fondo), transparent 80%), var(--ira-elevada); box-shadow: 0 10px 30px -18px var(--exp-color); }
+.ira-met .ira-p2-exp__carril--a { --exp-color: var(--ira-salvia); --exp-fondo: rgba(141, 170, 126, 0.16); }
+.ira-met .ira-p2-exp__carril--b { --exp-color: var(--ira-1); --exp-fondo: rgba(190, 40, 26, 0.16); }
+.ira-met .ira-p2-exp__carril:not(.is-elegido) { opacity: 0.55; }
+.ira-met .ira-p2-exp__carril.is-elegido .ira-p2-exp__conector { background: var(--exp-color); box-shadow: 0 0 8px var(--exp-color); }
+.ira-met .ira-p2-exp__carril.is-elegido .ira-p2-exp__solucion { color: var(--exp-color); font-size: 15px; }
+.ira-met .ira-p2-exp__carril--a.is-elegido .ira-p2-exp__solucion { color: var(--ira-marca-empatica); }
+.ira-met .ira-p2-exp__carril--b.is-elegido .ira-p2-exp__solucion { color: var(--ira-marca-polarizante); }
+.ira-met .ira-p2-exp__carril .ira-p2-exp__flecha { display: inline-block; }
+.ira-met .ira-p2-exp.is-virus .ira-p2-exp__carriles::before { background: linear-gradient(180deg, var(--ira-salvia) 0 50%, var(--ira-linea-fuerte) 50%); }
+.ira-met .ira-p2-exp.is-bestia .ira-p2-exp__carriles::before { background: linear-gradient(180deg, var(--ira-linea-fuerte) 0 50%, var(--ira-1) 50%); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p2-exp__carril { transition: opacity 300ms ease, border-color 300ms ease, background 300ms ease, box-shadow 300ms ease, transform 260ms cubic-bezier(.3, 1.6, .5, 1); }
+  .ira-met .ira-p2-exp__carril:hover { transform: translateX(4px); }
+  .ira-met .ira-p2-exp__carril.is-elegido .ira-p2-exp__conector { animation: ira-juego-chispa-linea 500ms ease-out; transform-origin: left; }
+  .ira-met .ira-p2-exp__carril.is-elegido .ira-p2-exp__flecha { animation: ira-juego-empuje 900ms ease-in-out infinite; }
+  .ira-met .ira-p2-exp__carril.is-elegido .ira-p2-exp__solucion { animation: ira-juego-sello 460ms cubic-bezier(.3, 1.8, .5, 1) 150ms backwards; }
+  .ira-met .ira-p2-exp__problema span { animation: ira-juego-salto 480ms cubic-bezier(.3, 1.6, .5, 1); display: inline-block; }
+}
+@keyframes ira-juego-chispa-linea { from { transform: scaleX(0); } }
+
+/* ── Viva → convencional → muerta: un marcador se posa en el tramo elegido ── */
+.ira-met .ira-p2-viva__marcador {
+  position: absolute; top: -5px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%;
+  left: calc((var(--sel) * 2 + 1) / (var(--n) * 2) * 100%);
+  background: var(--ira-nieve); box-shadow: 0 0 0 4px rgba(220, 177, 73, 0.35), 0 0 16px rgba(220, 177, 73, 0.8);
+}
+.ira-met .ira-p2-viva__marcador.is-muerta { background: var(--ira-texto-3); box-shadow: 0 0 0 4px rgba(124, 143, 143, 0.25); }
+.ira-met .ira-p2-viva__tramo { padding: 0; overflow: hidden; }
+.ira-met .ira-p2-viva__boton { display: flex; flex-direction: column; gap: 6px; width: 100%; height: 100%; padding: 16px; border: none; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.ira-met .ira-p2-viva__nombre, .ira-met .ira-p2-viva__ej, .ira-met .ira-p2-viva__nota { display: block; }
+.ira-met .ira-p2-viva__cuenta { display: block; margin-top: auto; padding-top: 8px; font-size: 13px; font-weight: 500; }
+.ira-met .ira-p2-viva__tramo.is-elegido { box-shadow: 0 0 0 2px var(--ira-oro), 0 14px 30px -18px rgba(220, 177, 73, 0.9); background: linear-gradient(180deg, rgba(220, 177, 73, 0.1), transparent 70%), var(--ira-superficie); }
+.ira-met .ira-p2-viva__tramo--muerta.is-elegido { box-shadow: 0 0 0 2px var(--ira-texto-3); background: var(--ira-superficie); }
+.ira-met .ira-p2-viva__tramo.is-elegido .ira-p2-viva__cuenta { font-size: 15px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p2-viva__marcador { transition: left 600ms cubic-bezier(.3, 1.5, .5, 1), background-color 300ms ease, box-shadow 300ms ease; animation: ira-juego-respira 2.6s ease-in-out infinite; }
+  .ira-met .ira-p2-viva__tramo { transition: box-shadow 300ms ease, transform 260ms cubic-bezier(.3, 1.6, .5, 1), opacity 300ms ease; }
+  .ira-met .ira-p2-viva__tramo.is-elegido { transform: translateY(-4px); }
+  .ira-met .ira-p2-viva__tramo.is-elegido .ira-p2-viva__cuenta { animation: ira-juego-sello 460ms cubic-bezier(.3, 1.8, .5, 1); }
+  .ira-met .ira-p2-viva__tramo--muerta.is-elegido .ira-p2-viva__nombre { animation: ira-juego-desvanece 1.6s ease-in-out infinite; }
+  .ira-met .ira-p2-viva__tramo--viva.is-elegido .ira-p2-viva__nombre { animation: ira-juego-chispea 1.2s ease-in-out infinite; }
+}
+@keyframes ira-juego-desvanece { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+@keyframes ira-juego-chispea { 0%, 100% { text-shadow: 0 0 0 transparent; } 50% { text-shadow: 0 0 12px rgba(220, 177, 73, 0.9); } }
+
+/* ── La unidad: la ecuación se arma pieza a pieza ────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p2-ecuacion .ira-p2-ecuacion__parte { opacity: 0; transform: translateY(-14px) rotate(-3deg); }
+  .ira-met .ira-p2-ecuacion .ira-p2-ecuacion__igual, .ira-met .ira-p2-ecuacion .ira-p2-ecuacion__caja--total { opacity: 0; transform: scale(0.4); }
+  .ira-met .ira-p2-ecuacion.is-visible .ira-p2-ecuacion__parte { opacity: 1; transform: none; transition: opacity 400ms ease, transform 500ms cubic-bezier(.3, 1.7, .5, 1); transition-delay: calc(var(--k) * 220ms); }
+  .ira-met .ira-p2-ecuacion.is-visible .ira-p2-ecuacion__igual { opacity: 1; transform: none; transition: opacity 300ms ease 760ms, transform 400ms cubic-bezier(.3, 1.7, .5, 1) 760ms; }
+  .ira-met .ira-p2-ecuacion.is-visible .ira-p2-ecuacion__caja--total { opacity: 1; transform: none; transition: opacity 300ms ease 980ms, transform 520ms cubic-bezier(.3, 1.9, .5, 1) 980ms; animation: ira-juego-chispea-caja 2.4s ease-in-out infinite 1.6s; }
+  .ira-met .ira-p2-unidad__ej { transition: transform 240ms cubic-bezier(.3, 1.6, .5, 1), border-color 200ms ease; }
+  .ira-met .ira-p2-unidad__ej:hover { transform: translateY(-3px); border-color: rgba(220, 177, 73, 0.5); }
+  .ira-met .ira-p2-unidad__ej:hover .ira-p2-unidad__n { animation: ira-juego-salto 480ms cubic-bezier(.3, 1.6, .5, 1); }
+}
+.ira-met .ira-p2-unidad__n { display: inline-block; }
+@keyframes ira-juego-chispea-caja { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 177, 73, 0); } 50% { box-shadow: 0 0 18px 0 rgba(220, 177, 73, 0.45); } }
+
+/* ── Dominios: cada icono se mueve a su manera al pasar por encima ───────── */
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p2-dominio { transition: transform 260ms cubic-bezier(.3, 1.6, .5, 1), border-color 200ms ease, box-shadow 260ms ease; }
+  .ira-met .ira-p2-dominio:hover { transform: translateY(-4px); border-color: rgba(220, 177, 73, 0.55); box-shadow: 0 14px 30px -20px rgba(220, 177, 73, 0.9); }
+  .ira-met .ira-p2-dominio--siempre:hover { border-color: var(--ira-1); box-shadow: 0 14px 30px -18px rgba(190, 40, 26, 1); }
+  .ira-met .ira-p2-dominio__icono { transform-origin: center; }
+  .ira-met .ira-p2-dominio:hover .ira-p2-dominio__icono { animation: ira-juego-meneo 520ms ease-in-out; }
+  .ira-met .ira-p2-dominio--guerra:hover .ira-p2-dominio__icono, .ira-met .ira-p2-dominio--inmunidad:hover .ira-p2-dominio__icono { animation: ira-juego-sacudida 500ms ease-out; }
+  .ira-met .ira-p2-dominio--enfermedad:hover .ira-p2-dominio__icono, .ira-met .ira-p2-dominio--otro:hover .ira-p2-dominio__icono { animation: ira-met-girar 1.2s linear infinite; }
+  .ira-met .ira-p2-dominio--deporte:hover .ira-p2-dominio__icono, .ira-met .ira-p2-dominio--construccion:hover .ira-p2-dominio__icono { animation: ira-juego-salto 520ms cubic-bezier(.3, 1.6, .5, 1); }
+  .ira-met .ira-p2-dominio--cuidado:hover .ira-p2-dominio__icono, .ira-met .ira-p2-dominio--familia:hover .ira-p2-dominio__icono { animation: ira-il-latido 700ms ease-in-out infinite; }
+  .ira-met .ira-p2-dominio--viaje:hover .ira-p2-dominio__icono, .ira-met .ira-p2-dominio--catastrofe:hover .ira-p2-dominio__icono { animation: ira-juego-empuje 600ms ease-in-out infinite; }
+  .ira-met .ira-p2-dominio--siempre .ira-p2-codigo { animation: ira-juego-alerta 2.6s ease-in-out infinite; }
+}
+@keyframes ira-juego-alerta { 0%, 100% { box-shadow: 0 0 0 0 rgba(190, 40, 26, 0); } 50% { box-shadow: 0 0 10px 0 rgba(190, 40, 26, 0.7); } }
+
+/* ── La regla, jugable: una ficha baja por la línea; las salidas son botones ── */
+.ira-met .ira-p2-recorrido__otra { gap: 8px; }
+.ira-met .ira-p2-recorrido__otra svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ira-met .ira-p2-recorrido__ayuda { margin: -4px 0 12px; }
+.ira-met .ira-p2-recorrido__ficha {
+  position: absolute; left: -5px; width: 42px; height: 42px; box-sizing: border-box; border-radius: 50%; z-index: 2; list-style: none; pointer-events: none;
+  --fc: var(--ira-oro); border: 2px solid var(--fc); box-shadow: 0 0 0 4px color-mix(in srgb, var(--fc) 18%, transparent), 0 0 18px color-mix(in srgb, var(--fc) 80%, transparent);
+}
+.ira-met .ira-p2-recorrido__ficha.is-polariza { --fc: var(--ira-1); }
+.ira-met .ira-p2-recorrido__ficha.is-neutra { --fc: #A9B8B8; }
+.ira-met .ira-p2-recorrido__ficha.is-empatica { --fc: var(--ira-salvia); }
+.ira-met .ira-p2-nodo.is-pasado .ira-p2-nodo__n { border-color: var(--ira-oro); background: rgba(220, 177, 73, 0.15); color: var(--ira-nieve); }
+.ira-met .ira-p2-nodo.is-pasado button.ira-p2-salida.is-elegida { opacity: 1; border-style: solid; }
+.ira-met button.ira-p2-salida { font: inherit; font-size: 14px; min-height: 40px; padding: 6px 14px; cursor: pointer; color: inherit; background: transparent; }
+.ira-met button.ira-p2-salida.ira-p2-salida--polariza { background: rgba(190, 40, 26, 0.12); }
+.ira-met button.ira-p2-salida.ira-p2-salida--neutra { background: rgba(169, 184, 184, 0.08); }
+.ira-met button.ira-p2-salida.ira-p2-salida--empatica { background: rgba(141, 170, 126, 0.13); }
+.ira-met button.ira-p2-salida:disabled { cursor: default; opacity: 0.5; }
+.ira-met button.ira-p2-salida.is-elegida { opacity: 1; box-shadow: 0 0 18px -4px currentColor; }
+.ira-met .ira-p2-salida--polariza.is-elegida { color: var(--ira-marca-polarizante); }
+.ira-met .ira-p2-salida--empatica.is-elegida { color: var(--ira-marca-empatica); }
+.ira-met .ira-p2-nodo.is-actual { border-color: var(--ira-oro); box-shadow: 0 14px 34px -22px rgba(220, 177, 73, 1); }
+.ira-met .ira-p2-nodo.is-actual .ira-p2-nodo__n { background: var(--ira-oro); color: var(--ira-noche); }
+.ira-met .ira-p2-nodo.is-pendiente { opacity: 0.6; }
+.ira-met .ira-p2-recorrido__final { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: -12px 0 24px 44px; padding: 14px 16px; border-radius: var(--ira-radio-l); border: 1px solid var(--p2-color); background: var(--p2-fondo); font-size: 15px; line-height: 22px; color: var(--ira-texto-cita); }
+.ira-met .ira-p2-recorrido__final .ira-p2-pildora { font-size: 16px; padding: 5px 14px 5px 11px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p2-recorrido__ficha { transition: top 700ms cubic-bezier(.34, 1.5, .64, 1), border-color 300ms ease, box-shadow 300ms ease; animation: ira-juego-anillo 2s ease-in-out infinite; }
+  .ira-met .ira-p2-nodo { transition: opacity 300ms ease, border-color 300ms ease, box-shadow 300ms ease; }
+  .ira-met .ira-p2-nodo.is-actual .ira-p2-nodo__n { animation: ira-juego-salto 500ms cubic-bezier(.3, 1.6, .5, 1); }
+  .ira-met button.ira-p2-salida:not(:disabled) { transition: transform 200ms cubic-bezier(.3, 1.7, .5, 1), box-shadow 200ms ease; }
+  .ira-met button.ira-p2-salida:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 8px 18px -10px currentColor; }
+  .ira-met button.ira-p2-salida:not(:disabled):active { transform: scale(0.94); }
+  .ira-met .ira-p2-nodo.is-actual button.ira-p2-salida:not(:disabled) .ira-p2-salida__flecha { display: inline-block; animation: ira-juego-empuje 900ms ease-in-out infinite; }
+  .ira-met .ira-p2-recorrido__final { animation: ira-juego-resultado 520ms cubic-bezier(.2, 1.2, .3, 1); }
+  .ira-met .ira-p2-recorrido__final .ira-p2-pildora { animation: ira-juego-sello 520ms cubic-bezier(.3, 1.8, .5, 1) 120ms backwards; }
+}
+
+/* ── La idea: los tres resultados respiran a su ritmo ────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p2-tres__item { transition: transform 260ms cubic-bezier(.3, 1.6, .5, 1), box-shadow 260ms ease; }
+  .ira-met .ira-p2-tres__item:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -20px var(--p2-color); }
+  .ira-met .ira-p2-tres__item.ira-p2--polariza .ira-p2-tres__marca { animation: ira-juego-alerta-punto 1.2s ease-in-out infinite; }
+  .ira-met .ira-p2-tres__item.ira-p2--neutra .ira-p2-tres__marca { animation: ira-juego-desvanece 3.2s ease-in-out infinite; }
+  .ira-met .ira-p2-tres__item.ira-p2--empatica .ira-p2-tres__marca { animation: ira-juego-respira 2.6s ease-in-out infinite; }
+}
+@keyframes ira-juego-alerta-punto { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.35); } 30% { transform: scale(1); } 45% { transform: scale(1.2); } }
+@keyframes ira-juego-anillo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+
+/* ── Destellos de la portada en títulos, citas y destacados ──────────────── */
+.ira-met .ira-met__destacado, .ira-met .ira-p2-cita { position: relative; }
+.ira-juego-titulo { position: relative; display: inline-block; }
+.ira-juego-titulo .ira-chispas { inset: -6px -14px; }
+.ira-met .ira-met__destacado .ira-chispas { inset: 2px; }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Cabeceras, línea de tiempo y barra de pesos
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-juego-emblema { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* P1: al pasar por encima el muro se abre en puerta */
+.ira-juego-emblema__puerta { fill: none; stroke: var(--ira-salvia); stroke-width: 3; stroke-dasharray: 0 578; transform-origin: 100px 100px; opacity: 0; filter: drop-shadow(0 0 6px rgba(141, 170, 126, 0.8)); }
+.ira-juego-emblema:hover .ira-met__emblema-muro { stroke-dasharray: 500 78; }
+.ira-juego-emblema:hover .ira-juego-emblema__puerta { opacity: 1; stroke-dasharray: 500 78; }
+.ira-juego-emblema:hover .ira-met__emblema-centro { filter: drop-shadow(0 0 28px rgba(141, 170, 126, 1)); }
+/* P2: al pasar por encima la flecha vuelve a dispararse */
+.ira-p2-emblema.ira-juego-emblema .ira-p2-emblema__flecha:first-of-type { stroke-dasharray: 130; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-met__emblema-muro, .ira-juego-emblema__puerta { transition: stroke-dasharray 700ms cubic-bezier(.3, 1.4, .5, 1), opacity 400ms ease; }
+  .ira-juego-emblema__puerta { animation: ira-met-girar 60s linear infinite; }
+  .ira-juego-emblema:active { transform: scale(0.96); transition: transform 120ms ease; }
+  .ira-met .ira-met__emblema { transition: transform 300ms cubic-bezier(.3, 1.6, .5, 1); }
+  .ira-p2-emblema.ira-juego-emblema .ira-p2-emblema__flecha:first-of-type { animation: ira-juego-flecha-sale 900ms cubic-bezier(.5, 0, .4, 1) backwards 300ms; }
+  .ira-p2-emblema.ira-juego-emblema .ira-p2-emblema__centro { transform-origin: 132px 68px; animation: ira-juego-alerta-punto 2.4s ease-in-out infinite 1.4s; }
+  .ira-p2-emblema.ira-juego-emblema:hover .ira-p2-emblema__flecha:first-of-type { animation: ira-juego-flecha-sale 600ms cubic-bezier(.5, 0, .4, 1); }
+  .ira-p2-emblema.ira-juego-emblema:hover .ira-p2-emblema__aro:not(.ira-p2-emblema__aro--2) { transform-origin: 132px 68px; animation: ira-juego-sacudida 500ms ease-out 450ms; }
+}
+@keyframes ira-juego-flecha-sale { from { stroke-dashoffset: 130; } }
+
+.ira-met .ira-met-tiempo { position: relative; }
+.ira-met .ira-met-tiempo__repetir {
+  position: absolute; right: 0; top: -6px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px;
+  border-radius: 999px; border: 1px solid var(--ira-linea-fuerte); background: rgba(4, 20, 20, 0.7); color: var(--ira-texto-2); font: inherit; font-size: 13px; cursor: pointer;
+}
+.ira-met .ira-met-tiempo__repetir svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ira-met .ira-met-tiempo__repetir:hover { color: var(--ira-oro); border-color: var(--ira-oro); }
+.ira-met .ira-met-tiempo__ahora { fill: var(--ira-oro); filter: drop-shadow(0 0 5px var(--ira-oro)); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-met-tiempo__repetir:hover svg { animation: ira-met-girar 900ms linear infinite reverse; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__ahora { animation: ira-juego-tiempo 3.6s cubic-bezier(.45, 0, .55, 1) infinite 400ms; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__onda { animation: ira-juego-onda-viva 2.4s ease-in-out infinite 1.2s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__punto { transform-origin: 360px 70px; transform-box: view-box; animation: ira-juego-respira 3s ease-in-out infinite 1.4s; }
+  .ira-met .ira-met-tiempo.is-visible .ira-met-tiempo__oyente { transform-origin: 360px 70px; transform-box: view-box; animation: ira-met-girar 7s linear infinite 1.4s; }
+}
+@keyframes ira-juego-tiempo { 0% { transform: translateX(0); opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { transform: translateX(650px); opacity: 0; } }
+@keyframes ira-juego-onda-viva { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+.ira-met .ira-met-pesos__tramo { cursor: pointer; }
+.ira-met .ira-met-pesos.is-foco .ira-met-pesos__tramo:not(.is-foco), .ira-met .ira-met-pesos.is-foco .ira-met-pesos__leyenda li:not(.is-foco) { opacity: 0.35; }
+.ira-met .ira-met-pesos__tramo.is-foco { filter: brightness(1.2); transform: scaleY(1.5); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-met-pesos__leyenda li { transition: opacity 200ms ease; }
+  .ira-met .ira-met-aparecer.is-visible .ira-met-pesos__tramo { transition: transform 300ms cubic-bezier(.3, 1.6, .5, 1), opacity 200ms ease, filter 200ms ease; }
+}
