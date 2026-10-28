@@ -1,27 +1,30 @@
 // IRA · Metodología 2.0 · P2 El marco metafórico · textos de la página (SIMULACIÓN).
-// Fuente: research/manual/P2.md (borrador v0.1). Aquí solo se resume y se adapta el tono:
+// Fuente: research/manual/P2.md (borrador v0.2). Aquí solo se resume y se adapta el tono:
 // no se añaden reglas que no estén en el manual. Lo pendiente se marca como tal.
 
 const REFERENCIAS = [
   'Charteris-Black, J. (2004). Corpus approaches to critical metaphor analysis. Palgrave Macmillan.',
-  'Esposito, R. (2002). Immunitas: protezione e negazione della vita. Einaudi.',
-  'Esposito, R. (2004). Bíos: biopolitica e filosofia. Einaudi.',
-  'Gallese, V., y Lakoff, G. (2005). The brain\'s concepts: The role of the sensory-motor system in conceptual knowledge. Cognitive Neuropsychology, 22(3–4), 455–479.',
-  'Klemperer, V. (1947). LTI: Notizbuch eines Philologen. Aufbau.',
-  'Lakoff, G. (1996). Moral politics. University of Chicago Press.',
+  'Esposito, R. (2005). Immunitas: protección y negación de la vida (L. Padilla López, trad.). Amorrortu. (Obra original publicada en 2002).',
+  'Esposito, R. (2006). Bíos: biopolítica y filosofía (C. R. Molinari Marotto, trad.). Amorrortu. (Obra original publicada en 2004).',
+  'Gallese, V., y Lakoff, G. (2005). The brain\'s concepts: The role of the sensory-motor system in conceptual knowledge. Cognitive Neuropsychology, 22(3–4), 455–479. https://doi.org/10.1080/02643290442000310',
+  'Klemperer, V. (2001). LTI. La lengua del Tercer Reich: apuntes de un filólogo (A. Kovacsics, trad.). Minúscula. (Obra original publicada en 1947).',
+  'Kövecses, Z. (2002). Metaphor: A practical introduction. Oxford University Press.',
+  'Lakoff, G. (1996). Moral politics: What conservatives know that liberals don\'t. University of Chicago Press.',
+  'Lakoff, G. (2004). Don\'t think of an elephant! Know your values and frame the debate. Chelsea Green.',
   'Lakoff, G., y Johnson, M. (1980). Metaphors we live by. University of Chicago Press.',
   'Mouffe, C. (2005). On the political. Routledge.',
   'Musolff, A. (2010). Metaphor, nation and the Holocaust: The concept of the body politic. Routledge.',
+  'Rancière, J. (1996). El desacuerdo: política y filosofía (H. Pons, trad.). Nueva Visión. (Obra original publicada en 1995).',
   'Sontag, S. (1978). Illness as metaphor. Farrar, Straus and Giroux.',
   'Steen, G. J., Dorst, A. G., Herrmann, J. B., Kaal, A. A., Krennmayr, T., y Pasma, T. (2010). A method for linguistic metaphor identification: From MIP to MIPVU. John Benjamins.',
-  'Steen, G. J., Reijnierse, W. G., y Burgers, C. (2014). When do natural language metaphors influence reasoning? A follow-up study to Thibodeau and Boroditsky (2013). PLoS ONE, 9(12), e113536.',
-  'Thibodeau, P. H., y Boroditsky, L. (2011). Metaphors we think with: The role of metaphor in reasoning. PLoS ONE, 6(2), e16782.',
+  'Steen, G. J., Reijnierse, W. G., y Burgers, C. (2014). When do natural language metaphors influence reasoning? A follow-up study to Thibodeau and Boroditsky (2013). PLoS ONE, 9(12), e113536. https://doi.org/10.1371/journal.pone.0113536',
+  'Thibodeau, P. H., y Boroditsky, L. (2011). Metaphors we think with: The role of metaphor in reasoning. PLoS ONE, 6(2), e16782. https://doi.org/10.1371/journal.pone.0016782',
 ];
 
 export const TEXTOS_P2 = {
   es: {
     volverIndice: '← Metodología 2.0',
-    rotulo: 'Parámetro 2 · borrador v0.1',
+    rotulo: 'Parámetro 2 · borrador v0.2',
     titulo: 'El marco metafórico',
     frase: 'P2 mide con qué imágenes piensa el discurso el conflicto y contra quién apuntan.',
     lema: ['El dominio no decide.', 'Decide el blanco.'],
@@ -40,6 +43,7 @@ export const TEXTOS_P2 = {
       { id: 'unidad', titulo: 'La unidad: el evento' },
       { id: 'dominios', titulo: 'Los dominios' },
       { id: 'regla', titulo: 'La regla, paso a paso' },
+      { id: 'como-se-aplica', titulo: 'Cómo se aplica' },
       { id: 'formula', titulo: 'La fórmula' },
       { id: 'casos', titulo: 'Casos resueltos' },
       { id: 'prueba', titulo: 'Las pruebas: Barcelona y la ONU' },
@@ -131,7 +135,7 @@ export const TEXTOS_P2 = {
         { autor: 'Musolff (2010)', texto: 'Reconstruye el cuerpo político y la imagen del parásito, del organismo enfermo que debe expulsar lo ajeno. Une a Klemperer con Esposito.' },
         { autor: 'Thibodeau y Boroditsky (2011)', texto: 'La metáfora cambia el razonamiento: el crimen como virus o como bestia lleva a soluciones distintas. La réplica de Steen, Reijnierse y Burgers (2014) encontró efectos más débiles.' },
       ],
-      otros: 'También: Sontag (la enfermedad como metáfora), Charteris-Black (análisis crítico de la metáfora), Steen et al. (el procedimiento MIPVU) y Mouffe (agonismo).',
+      otros: 'También: Sontag (la enfermedad como metáfora), Charteris-Black y Kövecses (los dominios fuente más frecuentes, base de la lista de dominios), Steen et al. (el procedimiento MIPVU), Mouffe (agonismo) y Rancière (la voz tratada como ruido, base de la regla SON).',
       cautelaTitulo: 'Cautela',
       cautela: 'P2 no mide lo que cada oyente siente. Es un indicador de las imágenes que el discurso pone a su disposición y de hacia quién las dirige.',
     },
@@ -182,20 +186,44 @@ export const TEXTOS_P2 = {
       intro: 'Lista cerrada. El dominio no decide el resultado, pero sirve para describir el discurso y detectar los dos que nunca pueden ser respetuosos con una persona.',
       lista: [
         { codigo: 'GUE', nombre: 'Guerra y conflicto', ej: 'luchar, batalla, frente, trinchera, rendirse', icono: 'guerra' },
-        { codigo: 'DEP', nombre: 'Deporte y competición', ej: 'ganar, remontar, equipo, partido', icono: 'deporte' },
+        { codigo: 'DEP', nombre: 'Deporte y juego', ej: 'ganar, remontar, equipo, partido', icono: 'deporte' },
         { codigo: 'ENF', nombre: 'Enfermedad y contagio', ej: 'virus, cáncer, contagio, infectar', icono: 'enfermedad' },
         { codigo: 'INM', nombre: 'Inmunidad, limpieza y pureza', ej: 'erradicar, limpiar el país, sacar la basura, purgar', icono: 'inmunidad', siempre: true },
         { codigo: 'ANI', nombre: 'Animal y plaga', ej: 'plaga, ratas, parásito, hiena, alimañas', icono: 'animal', siempre: true },
-        { codigo: 'CAT', nombre: 'Catástrofe natural', ej: 'oleada, avalancha, tsunami, inundar', icono: 'catastrofe' },
-        { codigo: 'REL', nombre: 'Religión', ej: 'cruzada, demonio, pecado, salvación', icono: 'religion' },
+        { codigo: 'CAT', nombre: 'Catástrofe natural', ej: 'oleada, avalancha, tsunami, tormenta', icono: 'catastrofe' },
+        { codigo: 'NAT', nombre: 'Naturaleza y agua', ej: 'raíz, semilla, florecer, languidecer, fluir', icono: 'naturaleza', nuevo: true },
+        { codigo: 'REL', nombre: 'Religión y mito', ej: 'cruzada, demonio, salvación, milagro, quimera', icono: 'religion' },
         { codigo: 'CON', nombre: 'Construcción', ej: 'construir, cimientos, puentes, tejer', icono: 'construccion' },
-        { codigo: 'VIA', nombre: 'Viaje y camino', ej: 'caminar, rumbo, avanzar, horizonte', icono: 'viaje' },
-        { codigo: 'FAM', nombre: 'Familia y casa', ej: 'hermanos, casa común, madre patria', icono: 'familia' },
-        { codigo: 'CUI', nombre: 'Cuidado y cuerpo', ej: 'abrazar, sanar heridas, tender la mano', icono: 'cuidado' },
-        { codigo: 'OTR', nombre: 'Otro', ej: 'si se repite, pasa a la lista', icono: 'otro' },
+        { codigo: 'VIA', nombre: 'Viaje y movimiento', ej: 'caminar, rumbo, avanzar, horizonte, espiral', icono: 'viaje' },
+        { codigo: 'FAM', nombre: 'Familia y casa', ej: 'hermanos, casa común, traer al mundo', icono: 'familia' },
+        { codigo: 'CUI', nombre: 'Cuidado, cuerpo y vida', ej: 'abrazar, sanar heridas, corazón, respirar', icono: 'cuidado' },
+        { codigo: 'MAQ', nombre: 'Máquina, herramienta y fuerza', ej: 'motor, palanca, engranaje, presión', icono: 'maquina', nuevo: true },
+        { codigo: 'COM', nombre: 'Comercio y dinero', ej: 'comprar, vender, pagar el precio, negocio', icono: 'comercio', nuevo: true },
+        { codigo: 'LUZ', nombre: 'Luz, fuego y temperatura', ej: 'luz, faro, sombra, cenizas, cabeza fría', icono: 'luz', nuevo: true },
+        { codigo: 'SON', nombre: 'Sonido y voz', ej: 'ruido, gritar, eco, callar, silenciar', icono: 'sonido', nuevo: true },
+        { codigo: 'ESP', nombre: 'Espacio y posición', ej: 'poner en su sitio, al margen, dentro y fuera', icono: 'espacio', nuevo: true },
+        { codigo: 'OTR', nombre: 'Otro', ej: 'personificación, baile; si se repite, pasa a la lista', icono: 'otro' },
+      ],
+      nuevo: 'v0.2',
+      prueba: 'Con la lista v0.1, «Otro» era lo más frecuente en Barcelona (11 de 33 eventos). Con la v0.2 queda 1. En un discurso de Petro, como prueba externa: 1 de unas 30 metáforas.',
+      reglasTitulo: 'Reglas propias de tres dominios',
+      reglas: [
+        { codigo: 'SON', nombre: 'Sonido y voz', base: 'Rancière: la palabra que cuenta como argumento frente a la voz tratada como ruido.', filas: [
+          ['«hacen mucho ruido», «gritan tanto»', 'Expresión hecha: critica el estilo', 'neutra'],
+          ['«lo que dicen es solo ruido»', 'Niega que su discurso tenga sentido', 'polariza'],
+          ['«hay que silenciarlos»', 'Niega la voz', 'polariza'],
+        ] },
+        { codigo: 'MAQ', nombre: 'Máquina, herramienta y fuerza', base: '«Marioneta» va a P3, como «títere»: rebaja sin quitar lo humano.', filas: [
+          ['«el motor de la economía»', 'Blanco no humano', 'neutra'],
+          ['«son una apisonadora»', 'Describe cómo actúan', 'neutra'],
+          ['«son robots», «máquinas de votar»', 'Les quita la mente', 'polariza'],
+        ] },
+        { codigo: 'COM', nombre: 'Comercio y dinero', base: 'Pendiente de decidir: ¿metáfora de P2 o acusación moral de P3?', filas: [
+          ['«vender el país», «comprar votos», «hacer negocio con el dolor»', 'Por decidir', 'pendiente'],
+        ] },
       ],
       siempre: 'Contra personas, siempre polariza',
-      nota: 'ANI es deshumanizar: el rival como animal, plaga o parásito. El insulto que lo rebaja sin quitarle lo humano («lacayo», «títere») va a P3. ENF e INM van separados: «virus» diagnostica, «erradicar» expulsa. En Esposito, el peligro está en la reacción inmunitaria.',
+      nota: 'ANI es deshumanizar: el rival como animal, plaga o parásito. El insulto que lo rebaja sin quitarle lo humano («lacayo», «títere», «marioneta») va a P3. ENF e INM van separados: «virus» diagnostica, «erradicar» expulsa. En Esposito, el peligro está en la reacción inmunitaria.',
     },
 
     regla: {
@@ -238,10 +266,29 @@ export const TEXTOS_P2 = {
       ],
     },
 
+    aplica: {
+      pasos: [
+        { nombre: 'Extraer', quien: 'Código', texto: 'Un script busca las palabras y expresiones del léxico de cada dominio (unas 460). La conjugación la resuelve spaCy: con «luchar» en la lista encuentra «luchaba» o «lucharemos». También corrige sus errores habituales en participios y gerundios.' },
+        { nombre: 'Revisar', quien: 'Humano, unos 10 minutos', texto: 'Descarta los usos literales («la guerra en Gaza», «las armas de fuego») y lee el discurso entero para añadir las metáforas que el léxico no recoge («el futuro nos ha reclamado»).' },
+        { nombre: 'Clasificar', quien: 'Humano o IA', texto: 'Cada metáfora recibe dominio, blanco y resultado con las reglas de esta página.' },
+        { nombre: 'Calcular', quien: 'Código', texto: 'Un script aplica la fórmula y escribe la ficha.' },
+      ],
+      clave: 'El código propone; la persona decide. La IA nunca pone la nota.',
+      rendimientoTitulo: 'Cuánto encuentra el código',
+      rendimientoCabecera: ['Discurso', 'Metáforas', 'Encontradas', 'Nota'],
+      rendimiento: [
+        ['Sánchez, Barcelona 2026', '34', '33', 'Léxico hecho en parte con este discurso'],
+        ['Sánchez, ONU 2024', '18', '18', 'Ídem'],
+        ['Sheinbaum, aranceles 2025', '8', '6', 'Prueba ciega: léxico cerrado antes de leerlo'],
+      ],
+      rendimientoNota: 'En la prueba ciega encuentra 3 de cada 4 metáforas, y cerca de la mitad de sus candidatos son usos literales que se descartan en segundos. Por eso la lectura humana es obligatoria. Las transcripciones necesitan puntuación: sin puntos no hay oraciones.',
+    },
+
     pendiente: [
-      ['Otros oradores', 'Probar con discursos de otros oradores y géneros (Trump, Ardern, Petro).'],
-      ['Cómo se aplica', 'La lista de palabras candidatas por dominio (código) y la adaptación del MIPVU (humano).'],
-      ['Base teórica y referencias', 'Redactar la base teórica y verificar cada referencia.'],
+      ['Comercio (COM)', '¿«Vender el país» o «comprar votos» son metáforas de P2 o acusaciones morales de P3?'],
+      ['Referencias de la regla SON', 'Completar dos referencias citadas por el autor y repasar todas con Scite.'],
+      ['«La derecha rendida»', 'Neutra en P2 de forma provisional; «postulados reaccionarios» se revisa en P3.'],
+      ['Fiabilidad', 'Estudio intercodificadores y comparación humano frente a IA, como en P1.'],
     ],
 
     formula: {
@@ -261,8 +308,8 @@ export const TEXTOS_P2 = {
       nota: '5,83',
       solidez: 'sólida · 10 eventos con signo',
       calculo: '10 × (6 + 1) / (6 + 4 + 2) = 5,83',
-      cifras: [['6', 'empáticas'], ['4', 'polarizan'], ['23', 'neutras']],
-      descriptivo: '33 eventos en 1.197 palabras: 27,6 por mil. Dominio más frecuente: «Otro» (11): ruido, herramientas, comercio. La lista de dominios necesita ampliarse.',
+      cifras: [['6', 'empáticas'], ['4', 'polarizan'], ['24', 'neutras']],
+      descriptivo: '34 eventos en 1.197 palabras: 28,4 por mil. Dominio más frecuente: guerra (7). Con la lista de dominios v0.2, «Otro» queda en 1.',
       p1: 'En P1 el mismo discurso saca 5,5. Con dos discursos no se puede saber si P1 y P2 van juntos: hace falta el corpus.',
       onu: 'Segunda prueba, Asamblea General de la ONU 2024: P2 = 5,71 (orientativa, 5 eventos con signo), con dos excepciones democráticas. P1 deja ese discurso sin puntuar por falta de material; P2 sí lo puntúa.',
       polarizanTitulo: 'Las imágenes que polarizan',
@@ -270,19 +317,19 @@ export const TEXTOS_P2 = {
         ['30', 'CON', '«Vamos a reconstruir lo que ellos han tratado de destruir»'],
         ['45', 'GUE', '«La vergüenza cambia de bando»'],
         ['60', 'GUE', '«doblándoles el brazo a quienes se creen intocables»'],
-        ['66', 'OTR', '«Las ponemos en su sitio»'],
+        ['66', 'ESP', '«Las ponemos en su sitio»'],
       ],
       empaticasTitulo: 'Las imágenes que unen',
       empaticas: [
         ['29', 'FAM', '«vamos a traer al mundo y a todos nuestros países una nueva era de progreso»'],
-        ['34 · 35', 'OTR · CON', '«lo que se respira aquí: unidad», «consolidar nuestra unidad»'],
+        ['34 · 35', 'CUI · CON', '«lo que se respira aquí: unidad», «consolidar nuestra unidad»'],
         ['37', 'VIA', '«recuperar un horizonte compartido»'],
         ['54', 'FAM', '«España es hija de la migración y no va a ser madre de la xenofobia»'],
         ['73', 'FAM', '«La promesa que todo padre y toda madre le debe a su hijo y a su hija»'],
       ],
       dudasTitulo: 'Lo que cambió al revisar la prueba',
       dudas: [
-        ['El ruido (oraciones 16, 17 y 19)', '«Hacen mucho ruido», «gritan tanto y tan alto»: critica el estilo del rival, no le niega la palabra. Neutra. La nota pasó de 4,38 a 5,83.'],
+        ['El ruido (oraciones 16, 17, 19 y 25)', '«Hacen mucho ruido», «gritan tanto y tan alto», «no importa que griten»: critican el estilo del rival, no dicen que lo que dice carezca de sentido ni piden silenciarlo. Neutras con la regla SON. La nota pasó de 4,38 a 5,83 y se mantiene.'],
         ['«Unas derechas lacayas» (16)', 'Insulto que el diccionario ya recoge con ese sentido: es juicio literal y lo mide P3, no P2.'],
         ['«Que no os engañen» (18)', 'Polariza, pero es literal: no hay metáfora. Lo recogen P1 y P3.'],
         ['La unidad del propio grupo (34 y 35)', 'Empática: une sin excluir a nadie, como el nosotros de grupo sin perdedor de P1.'],
@@ -290,8 +337,16 @@ export const TEXTOS_P2 = {
     },
 
     cambios: {
-      titulo: 'Borrador v0.1 · 23 y 24 de octubre de 2026',
-      decisiones: [
+      versiones: [
+        { titulo: 'Borrador v0.2 · 27 de octubre de 2026', decisiones: [
+          'Lista de dominios v0.2: se añaden naturaleza, máquinas, comercio, luz y temperatura, sonido y espacio. «Otro» pasa de 11 eventos a 1 en Barcelona.',
+          'Sonido: la expresión hecha «hacer mucho ruido» es neutra; tratar el discurso del rival como ruido sin significado, o pedir silenciarlo, polariza.',
+          'Máquinas: con blanco no humano, neutra; describir cómo actúa el rival («apisonadora»), neutra; quitarle la mente («robots»), polariza.',
+          '«Marioneta» va a P3, como «títere».',
+          'Comercio: pendiente decidir si es P2 o P3.',
+          'Procedimiento: extracción de candidatos por lemas con spaCy, revisión humana y lectura completa. Base teórica redactada y referencias comprobadas.',
+        ] },
+        { titulo: 'Borrador v0.1 · 23 y 24 de octubre de 2026', decisiones: [
         'El núcleo de P2 es dominio por blanco: el dominio por sí solo no decide si la metáfora polariza.',
         'P2 usa la tipología de blancos de P1, más dos categorías propias: meta o futuro, y el propio nosotros.',
         'Una metáfora con blanco no humano es neutra: diagnosticar no es polarizar.',
@@ -314,11 +369,12 @@ export const TEXTOS_P2 = {
         'Criticar el estilo del rival («hacen mucho ruido») no es negarle la palabra: neutra.',
         'Un insulto que el diccionario ya recoge con ese sentido («lacayo») es juicio literal: va a P3.',
         'La unidad del propio grupo es empática si no excluye a nadie.',
+      ] },
       ],
     },
 
     referencias: REFERENCIAS,
-    referenciasNota: 'Referencias por verificar antes de publicar.',
+    referenciasNota: 'Referencias comprobadas el 27 de octubre de 2026 (DOI y fichas editoriales). Falta una segunda comprobación con Scite.',
     manual: 'Borrador del manual de P2 en el repositorio',
     pie: { volver: '← Volver al índice', anterior: '← P1 · La frontera del nosotros' },
   },

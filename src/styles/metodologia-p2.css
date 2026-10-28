@@ -317,3 +317,18 @@
 }
 
 .ira-p2-excepcion { margin: 16px 0 0; padding: 14px 16px; border-radius: var(--ira-radio-l); border: 1px dashed var(--ira-oro); background: rgba(220, 177, 73, 0.06); font-size: 15px; line-height: 24px; color: var(--ira-texto-cita); }
+
+/* ── Reglas propias de dominios (v0.2) ───────────────────────────────────── */
+.ira-p2-reglas-dom { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+.ira-p2-regla-dom { display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: var(--ira-radio-l); background: var(--ira-superficie); border: 1px solid var(--ira-linea); min-width: 0; }
+.ira-p2-regla-dom__cab { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--ira-nieve); }
+.ira-p2-regla-dom ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ira-p2-regla-dom li { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: var(--ira-radio-m); background: var(--p2-fondo); border-left: 2px solid var(--p2-color); }
+.ira-p2-regla-dom__ej { font-size: 14px; line-height: 20px; color: var(--ira-nieve); }
+.ira-p2-regla-dom__que { font-size: 13px; color: var(--ira-texto-2); }
+.ira-p2-regla-dom li .ira-p2-pildora { align-self: flex-start; font-size: 12px; }
+.ira-p2-pildora--pendiente { color: var(--ira-oro); border: 1px dashed var(--ira-oro); background: transparent; }
+.ira-p2-pildora--pendiente::before { background: var(--ira-oro); }
+.ira-p2-regla-dom__base { margin: auto 0 0; font-size: 12px; line-height: 18px; color: var(--ira-texto-3); }
+@media (max-width: 900px) { .ira-p2-reglas-dom { grid-template-columns: 1fr; } }
+.ira-p2-dominio__nombre .ira-p2-nuevo { margin-left: 6px; }
