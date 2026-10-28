@@ -3,7 +3,7 @@
 // viaja por ella y golpea su blanco (alguien, algo o el nosotros); después los tres pasos de la
 // regla se encienden uno tras otro y el resultado aparece al final, como en la cadena real.
 import { useEffect, useRef, useState } from 'react';
-import { Chispas, Mando, PistaTeclas, chispazo, tonoDe, useRecorrido } from '../Juego.jsx';
+import { Chispas, Mando, PistaTeclas, chispazo, tonoDe, traerEnTira, useRecorrido } from '../Juego.jsx';
 
 // Centro de cada blanco en el lienzo de 420 × 300
 const BLANCO_XY = { alguien: [342, 62], algo: [342, 150], nosotros: [342, 238] };
@@ -44,9 +44,13 @@ export default function ApuntaMetafora({ t, resultados }) {
     const k = (i + n) % n;
     if (k !== activa) chispazo(ev ?? refs.current[k], t.ejemplos[k].resultado, 8);
     setActiva(k);
-    refs.current[k]?.scrollIntoView?.({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    traerEnTira(refs.current[k]);
   };
-  const recorrido = useRecorrido(n, () => setActiva((a) => (a + 1) % n), 3800);
+  const activaRef = useRef(activa);
+  activaRef.current = activa;
+  const elegirRef = useRef(elegir);
+  elegirRef.current = elegir;
+  const recorrido = useRecorrido(n, () => elegirRef.current(activaRef.current + 1), 3800);
   const mover = (i) => {
     recorrido.parar();
     elegir(i);

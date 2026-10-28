@@ -8,6 +8,7 @@ import IndicadorEscala from './ui/IndicadorEscala.jsx';
 import PanelEjemplos from './PanelEjemplos.jsx';
 import ModalCiencia from './ModalCiencia.jsx';
 import { ejemploDesdeCorpus, ejemploDesdeDiario, seleccionarEjemplos } from '../lib/ejemplosPortada';
+import Brilla from './ui/Brilla.jsx';
 
 const TXT = {
   es: {
@@ -80,7 +81,7 @@ export default function Portada() {
   return (
     <div className="ira-portada">
       <div className="ira-portada__texto">
-        <h1 className="ira-portada__titulo">{t.titulo}</h1>
+        <h1 className="ira-portada__titulo"><Brilla tono="salvia" cantidad={4} tamano={[10, 16]}>{t.titulo}</Brilla></h1>
         <p className="ira-portada__intro">
           {t.intro((x) => <Link to="/about">{x}</Link>, boton('neuro'), boton('ling'), boton('psico'))}
         </p>

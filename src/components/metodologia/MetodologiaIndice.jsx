@@ -9,6 +9,7 @@ import { Aparecer, Icono } from './Visuales.jsx';
 import { PARAMETROS, REPO_RESEARCH, SOLO_ES } from './textosComunes.js';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-juego.css';
+import Brilla from '../ui/Brilla.jsx';
 
 const TXT = {
   es: {
@@ -48,7 +49,7 @@ export default function MetodologiaIndice() {
 
       <header className="ira-met__cabecera">
         <p className="ira-met__rotulo">{t.rotulo}</p>
-        <h1 className="ira-met__titulo">{t.titulo}</h1>
+        <h1 className="ira-met__titulo"><Brilla tono="salvia" cantidad={4}>{t.titulo}</Brilla></h1>
         <p className="ira-met__entradilla">{t.entradilla}</p>
         <p><Link to="/about" className="ira-met__enlace">{t.anterior} →</Link></p>
       </header>

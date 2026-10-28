@@ -11,26 +11,6 @@
 .ira-juego--interpelacion { --jg: #B39DDB; --jg-claro: #E2D8F3; --jg-fondo: rgba(179, 157, 219, 0.14); --jg-halo: rgba(179, 157, 219, 0.45); }
 .ira-juego--permeabilidad { --jg: #5FC4C9; --jg-claro: #C6EEF0; --jg-fondo: rgba(95, 196, 201, 0.14); --jg-halo: rgba(95, 196, 201, 0.45); }
 
-/* ── Chispazo: destellos que saltan desde el punto pulsado ───────────────── */
-.ira-chispazo { position: fixed; z-index: 2000; width: 0; height: 0; pointer-events: none; }
-.ira-chispazo > svg { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%) scale(0.2); opacity: 0; animation: ira-chispa-salto 820ms cubic-bezier(.15, .7, .25, 1) forwards; }
-.ira-chispazo__onda { position: absolute; left: 0; top: 0; width: 18px; height: 18px; border: 1.5px solid; border-radius: 50%; transform: translate(-50%, -50%) scale(0.3); opacity: 0.8; animation: ira-chispa-onda 650ms ease-out forwards; }
-@keyframes ira-chispa-salto {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
-  15% { opacity: 1; }
-  60% { opacity: 1; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--giro)); }
-  100% { opacity: 0; transform: translate(calc(-50% + var(--dx) * 1.25), calc(-50% + var(--dy) * 1.25 + 10px)) scale(0.4) rotate(calc(var(--giro) * 2)); }
-}
-@keyframes ira-chispa-onda { to { transform: translate(-50%, -50%) scale(4); opacity: 0; } }
-
-/* ── Chispas que titilan alrededor de lo elegido ─────────────────────────── */
-.ira-chispas { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
-.ira-chispas__una { position: absolute; }
-@media (prefers-reduced-motion: no-preference) {
-  .ira-chispas { animation: ira-chispas-entrar 420ms cubic-bezier(.2, .9, .3, 1.4); }
-}
-@keyframes ira-chispas-entrar { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
-
 /* ── Tacto de los botones de elección (frases, nodos, chips, opciones) ───── */
 .ira-juego-elige { position: relative; isolation: isolate; }
 .ira-juego-elige::after {
@@ -58,7 +38,7 @@
 
 /* ── Mando de recorrido ──────────────────────────────────────────────────── */
 .ira-juego-mando { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; min-width: 0; }
-@media (max-width: 420px) { .ira-juego-mando .ira-juego-mando__puntos { display: none; } }
+@media (max-width: 420px) { .ira-juego-mando .ira-juego-mando__puntos, .ira-juego-mando .ira-juego-mando__pista { display: none; } }
 .ira-juego-mando__boton, .ira-juego-mando__play {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; height: 44px; padding: 0;
   border-radius: 999px; border: 1px solid var(--ira-linea-fuerte); background: rgba(4, 20, 20, 0.6);
@@ -121,15 +101,11 @@
 /* Cabecera de pieza: texto a un lado, mando al otro */
 .ira-juego-cab { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
 .ira-juego-cab > p { flex: 1 1 300px; }
-.ira-juego-cab > .ira-juego-mando { flex: 0 0 auto; }
+.ira-juego-cab > .ira-juego-mando { flex: 0 1 auto; max-width: 100%; }
 .ira-juego-mando__pista { position: relative; flex: 1 1 60px; min-width: 40px; max-width: 160px; height: 4px; margin-left: 6px; border-radius: 2px; background: var(--ira-linea-fuerte); overflow: hidden; }
 .ira-juego-mando__pista > span { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; background: var(--jg); box-shadow: 0 0 8px var(--jg-halo); }
 @media (prefers-reduced-motion: no-preference) { .ira-juego-mando__pista > span { transition: width 400ms cubic-bezier(.3, 1.3, .5, 1); } }
 
-@media (prefers-reduced-motion: reduce) {
-  .ira-chispazo { display: none; }
-  .ira-chispas__una { animation: none !important; }
-}
 
 /* ════════════════════════════════════════════════════════════════════════════
    Pestañas de los indicadores (P1): una pastilla de luz se desliza a la elegida
@@ -586,7 +562,7 @@
 /* ── Destellos de la portada en títulos, citas y destacados ──────────────── */
 .ira-met .ira-met__destacado, .ira-met .ira-p2-cita { position: relative; }
 .ira-juego-titulo { position: relative; display: inline-block; }
-.ira-juego-titulo .ira-chispas { inset: -6px -14px; }
+.ira-juego-titulo .ira-chispas { inset: -6px 0; }
 .ira-met .ira-met__destacado .ira-chispas { inset: 2px; }
 
 /* ════════════════════════════════════════════════════════════════════════════
@@ -636,4 +612,16 @@
 @media (prefers-reduced-motion: no-preference) {
   .ira-met .ira-met-pesos__leyenda li { transition: opacity 200ms ease; }
   .ira-met .ira-met-aparecer.is-visible .ira-met-pesos__tramo { transition: transform 300ms cubic-bezier(.3, 1.6, .5, 1), opacity 200ms ease, filter 200ms ease; }
+}
+
+/* ── Móvil: las frases en tira deslizable y el diagrama a la vista ───────── */
+@media (max-width: 860px) {
+  .ira-met .ira-pz-frontera__izq .ira-pz-frontera__frases {
+    flex-direction: row; overflow-x: auto; scroll-snap-type: x mandatory; gap: 8px;
+    margin: 0 -16px; padding: 10px 16px 12px; scrollbar-width: thin;
+  }
+  .ira-met .ira-pz-frontera__izq .ira-pz-frontera__frase { flex: 0 0 78%; scroll-snap-align: start; }
+  .ira-met .ira-juego-elige.is-activa, .ira-met .ira-juego-elige[aria-checked="true"], .ira-met .ira-juego-elige:hover { transform: none; }
+  .ira-met .ira-pz-cadena__pie { flex-wrap: wrap; }
+  .ira-met .ira-pz-frontera__rejilla { gap: 20px; }
 }

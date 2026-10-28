@@ -7,7 +7,7 @@
 // Al elegir una frase, las condiciones se comprueban una tras otra (la línea se va llenando)
 // y el resultado llega al final con su destello.
 import { useEffect, useRef, useState } from 'react';
-import { Chispas, Mando, PistaTeclas, Segmentado, chispazo, useRecorrido } from '../Juego.jsx';
+import { Chispas, Mando, PistaTeclas, Segmentado, chispazo, traerEnTira, useRecorrido } from '../Juego.jsx';
 
 function Veredicto({ ok }) {
   return <span className={`ira-pz-arbol__marca ira-pz-arbol__marca--${ok ? 'si' : 'no'}`} aria-hidden="true">{ok ? '✓' : '✕'}</span>;
@@ -49,10 +49,14 @@ export default function ArbolExcepcion({ condiciones, ejemplos, ui }) {
     if (k !== activa && ev) chispazo(ev, 'oro', 7);
     setActiva(k);
     setDesmentido(false);
-    refs.current[k]?.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
+    traerEnTira(refs.current[k]);
   };
   // El recorrido salta «tu frase»: ahí decides tú
-  const recorrido = useRecorrido(n - 1, () => { setActiva((a) => (a + 1) % (n - 1)); setDesmentido(false); }, 3600);
+  const activaRef = useRef(activa);
+  activaRef.current = activa;
+  const elegirRef = useRef(elegir);
+  elegirRef.current = elegir;
+  const recorrido = useRecorrido(n - 1, () => elegirRef.current((activaRef.current + 1) % (n - 1)), 3600);
   const mover = (i) => {
     recorrido.parar();
     const k = (i + n) % n;

@@ -4,7 +4,7 @@
 // cierra en muro o se abre en puerta; el otro viaja hasta su sitio y deja una onda al llegar.
 // Se puede recorrer solo (Recorrer) o frase a frase con el mando o las flechas.
 import { useRef, useState } from 'react';
-import { Chispas, Mando, PistaTeclas, chispazo, tonoDe, useRecorrido } from '../Juego.jsx';
+import { Chispas, Mando, PistaTeclas, chispazo, tonoDe, traerEnTira, useRecorrido } from '../Juego.jsx';
 
 // Centro del punto «el otro» en % del diagrama (cuadrado)
 const POSICION = {
@@ -36,12 +36,18 @@ export default function PruebaFrontera({ t }) {
   const pos = POSICION[e.modo];
   const anillo = ANILLO[e.modo];
 
+  const activaRef = useRef(activa);
+  activaRef.current = activa;
+  const elegirRef = useRef(null);
   const elegir = (i, ev) => {
     const k = (i + n) % n;
     if (k !== activa) chispazo(ev ?? refs.current[k], t.ejemplos[k].tipo, 8);
     setActiva(k);
+    // En móvil las frases van en tira: la elegida se trae a la vista sin mover la página
+    traerEnTira(refs.current[k]);
   };
-  const recorrido = useRecorrido(n, () => setActiva((a) => (a + 1) % n), 3400);
+  elegirRef.current = elegir;
+  const recorrido = useRecorrido(n, () => elegirRef.current(activaRef.current + 1), 3400);
   const mover = (i) => {
     recorrido.parar();
     elegir(i);

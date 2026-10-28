@@ -7,6 +7,7 @@
 }
 .ira-destello { position: absolute; width: 0; height: 0; }
 .ira-destello__nucleo { position: absolute; border-radius: 50%; }
+.ira-destello__estrella { position: absolute; opacity: 0.9; }
 .ira-destello__onda {
   position: absolute;
   left: 0;
@@ -24,12 +25,41 @@
   0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.4); }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.6); }
 }
+@keyframes ira-destello-cruz {
+  0%, 100% { opacity: 0.85; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.1; transform: scale(0.35) rotate(45deg); }
+}
 /* Estrellita de las palabras marcadas en los fragmentos */
 @keyframes ira-brillo {
   0%, 100% { opacity: 0.55; transform: scale(0.8) rotate(0deg); }
   50% { opacity: 1; transform: scale(1.1) rotate(45deg); }
 }
 
+/* ── Chispazo: destellos que saltan desde el punto pulsado ───────────────── */
+.ira-chispazo { position: fixed; z-index: 2000; width: 0; height: 0; pointer-events: none; }
+.ira-chispazo > svg { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%) scale(0.2); opacity: 0; animation: ira-chispa-salto 820ms cubic-bezier(.15, .7, .25, 1) forwards; }
+.ira-chispazo__onda { position: absolute; left: 0; top: 0; width: 18px; height: 18px; border: 1.5px solid; border-radius: 50%; transform: translate(-50%, -50%) scale(0.3); opacity: 0.8; animation: ira-chispa-onda 650ms ease-out forwards; }
+@keyframes ira-chispa-salto {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
+  15% { opacity: 1; }
+  60% { opacity: 1; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--giro)); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx) * 1.25), calc(-50% + var(--dy) * 1.25 + 10px)) scale(0.4) rotate(calc(var(--giro) * 2)); }
+}
+@keyframes ira-chispa-onda { to { transform: translate(-50%, -50%) scale(4); opacity: 0; } }
+
+/* ── Chispas que titilan alrededor de lo elegido ─────────────────────────── */
+.ira-chispas { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.ira-chispas__una { position: absolute; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-chispas { animation: ira-chispas-entrar 420ms cubic-bezier(.2, .9, .3, 1.4); }
+}
+@keyframes ira-chispas-entrar { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+
 @media (prefers-reduced-motion: reduce) {
   .ira-destellos *, .ira-estrella { animation: none !important; }
+  .ira-chispazo { display: none; }
 }
+
+/* Títulos con estrellitas (Brilla) */
+.ira-brilla { position: relative; display: inline-block; max-width: 100%; }
+.ira-brilla > .ira-chispas { inset: -4px 0; }
