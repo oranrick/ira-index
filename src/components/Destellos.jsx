@@ -3,7 +3,8 @@
 // Los fuertes solo usan los extremos de la escala (rojo 0-2, verde 8-10):
 // el impacto más intenso brilla más, sea negativo o positivo.
 // Decorativo: aria-hidden, sin eventos de puntero, quieto con "reducir movimiento".
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { escucharClics } from './ui/Chispas.jsx';
 import { ESCALA } from '../lib/escala';
 import '../styles/destellos.css';
 
@@ -70,6 +71,8 @@ function crearDestellos(cantidad, intensidad) {
 export default function Destellos({ cantidad = 90, intensidad = 1, animado = true }) {
   // Nueva colocación en cada carga de la página
   const destellos = useMemo(() => crearDestellos(cantidad, intensidad), [cantidad, intensidad]);
+  // Cada clic de la web suelta destellos
+  useEffect(() => escucharClics(), []);
 
   return (
     <div className="ira-destellos" aria-hidden="true">

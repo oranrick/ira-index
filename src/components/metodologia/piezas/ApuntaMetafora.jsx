@@ -26,6 +26,7 @@ function Respuesta({ valor, t }) {
 
 export default function ApuntaMetafora({ t, resultados }) {
   const [activa, setActiva] = useState(0);
+  const [disparo, setDisparo] = useState(0); // tocar la diana vuelve a disparar
   const refs = useRef([]);
   const viaje = useRef(null);
   const brillo = useRef(null);
@@ -37,7 +38,7 @@ export default function ApuntaMetafora({ t, resultados }) {
   // El destello sale cada vez que cambia la frase (SMIL: se arranca a mano)
   useEffect(() => {
     try { viaje.current?.beginElement?.(); brillo.current?.beginElement?.(); } catch { /* sin SMIL: la flecha basta */ }
-  }, [activa]);
+  }, [activa, disparo]);
 
   // En móvil las frases van en una fila deslizable: la elegida se trae a la vista
   const elegir = (i, ev) => {
@@ -98,7 +99,7 @@ export default function ApuntaMetafora({ t, resultados }) {
         </div>
 
         <div className={`ira-p2-apunta__lado ira-p2--${e.resultado} ira-juego--${tono}`} {...deslizar}>
-          <svg viewBox="0 0 420 300" className={`ira-p2-diana ira-p2-diana--${e.resultado}`} role="img" aria-label={`${e.nombreDominio} → ${e.blancoTexto}: ${r.nombre}`}>
+          <svg viewBox="0 0 420 300" onClick={(ev) => { chispazo(ev, e.resultado, 9); setDisparo((d) => d + 1); }} className={`ira-p2-diana ira-p2-diana--${e.resultado}`} role="img" aria-label={`${e.nombreDominio} → ${e.blancoTexto}: ${r.nombre}`}>
             <defs>
               <radialGradient id="ira-p2-bala">
                 <stop offset="0" stopColor="#FCFDFF" />
@@ -108,7 +109,7 @@ export default function ApuntaMetafora({ t, resultados }) {
             </defs>
             {/* la imagen: late como si cargara el disparo */}
             <circle cx={ORIGEN[0]} cy={ORIGEN[1]} r="52" className="ira-p2-diana__halo" />
-            <g key={`img-${activa}`} className="ira-p2-diana__disparo">
+            <g key={`img-${activa}-${disparo}`} className="ira-p2-diana__disparo">
               <circle cx={ORIGEN[0]} cy={ORIGEN[1]} r="38" className="ira-p2-diana__imagen" />
               <text x={ORIGEN[0]} y={ORIGEN[1] + 6} className="ira-p2-diana__codigo">{e.dominio}</text>
             </g>
@@ -117,7 +118,7 @@ export default function ApuntaMetafora({ t, resultados }) {
             {/* los tres blancos */}
             {Object.entries(BLANCO_XY).map(([id, [x, y]]) => (
               <g key={id} className={`ira-p2-diana__blanco ira-p2-diana__blanco--${id}${e.blanco === id ? ' is-blanco' : ''}`}>
-                <g key={e.blanco === id ? `hit-${activa}` : id} className="ira-p2-diana__cuerpo" style={{ transformOrigin: `${x}px ${y}px` }}>
+                <g key={e.blanco === id ? `hit-${activa}-${disparo}` : id} className="ira-p2-diana__cuerpo" style={{ transformOrigin: `${x}px ${y}px` }}>
                   <circle cx={x} cy={y} r="30" className="ira-p2-diana__aro" />
                   {id === 'alguien' && (
                     <g className="ira-p2-diana__icono">
@@ -137,11 +138,11 @@ export default function ApuntaMetafora({ t, resultados }) {
               </g>
             ))}
 
-            <path key={activa} d={flecha(e.blanco)} className="ira-p2-diana__flecha" />
+            <path key={`f-${activa}-${disparo}`} d={flecha(e.blanco)} className="ira-p2-diana__flecha" />
             {/* la punta llega con el trazo (un marker saldría antes de tiempo) */}
-            <path key={`punta-${activa}`} d={`M${bx - 41} ${by - 6.5} L${bx - 30} ${by} L${bx - 41} ${by + 6.5} Z`} className="ira-p2-diana__punta ira-p2-diana__punta--llega" style={{ transformOrigin: `${bx - 34}px ${by}px` }} />
+            <path key={`punta-${activa}-${disparo}`} d={`M${bx - 41} ${by - 6.5} L${bx - 30} ${by} L${bx - 41} ${by + 6.5} Z`} className="ira-p2-diana__punta ira-p2-diana__punta--llega" style={{ transformOrigin: `${bx - 34}px ${by}px` }} />
             {/* el impacto: onda en el blanco al llegar */}
-            <circle key={`onda-${activa}`} cx={bx} cy={by} r="30" className="ira-p2-diana__impacto" style={{ transformOrigin: `${bx}px ${by}px` }} />
+            <circle key={`onda-${activa}-${disparo}`} cx={bx} cy={by} r="30" className="ira-p2-diana__impacto" style={{ transformOrigin: `${bx}px ${by}px` }} />
             <circle r="7" className="ira-p2-diana__bala" fill="url(#ira-p2-bala)" opacity="0">
               <animateMotion ref={viaje} key={`m-${activa}`} begin="indefinite" dur="0.62s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.5 0 0.4 1" path={flecha(e.blanco)} />
               <animate ref={brillo} key={`o-${activa}`} attributeName="opacity" begin="indefinite" dur="0.62s" values="0;1;1;0" keyTimes="0;0.1;0.85;1" fill="freeze" />

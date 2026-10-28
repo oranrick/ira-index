@@ -145,22 +145,9 @@
    P1 · El mapa de la frontera: anillo que se abre y se cierra, el otro que viaja
    ════════════════════════════════════════════════════════════════════════════ */
 /* El anillo: 24 piezas. Juntas son muro; apartadas como un iris dejan pasar la luz */
-.ira-met .ira-pz-mapa__aro { transform-origin: 50px 50px; transform-box: view-box; }
-.ira-met .ira-pz-mapa__pieza { fill: none; stroke: var(--ira-salvia); stroke-linecap: round; transform-origin: 50px 50px; transform-box: view-box; filter: drop-shadow(0 0 1.6px rgba(141, 170, 126, 0.8)); }
-.ira-met .ira-pz-mapa--muro .ira-pz-mapa__pieza, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__pieza { stroke: var(--ira-1); stroke-linecap: butt; filter: drop-shadow(0 0 2.4px rgba(190, 40, 26, 0.9)); }
-.ira-met .ira-pz-mapa--excepcion .ira-pz-mapa__pieza { stroke: var(--ira-oro); filter: drop-shadow(0 0 2px rgba(220, 177, 73, 0.8)); }
-.ira-met .ira-pz-mapa--grupo .ira-pz-mapa__pieza { opacity: 0.75; }
-.ira-met .ira-pz-mapa__senda { fill: none; stroke: var(--ira-marca-empatica); stroke-width: 0.9; stroke-linecap: round; stroke-dasharray: 0.1 3; opacity: 0.8; }
 @media (prefers-reduced-motion: no-preference) {
-  .ira-met .ira-pz-mapa__pieza { transition: transform 820ms cubic-bezier(.34, 1.36, .5, 1), stroke-dasharray 620ms cubic-bezier(.3, 1.2, .5, 1), stroke-width 500ms cubic-bezier(.3, 1.6, .5, 1), stroke 420ms ease, filter 420ms ease; }
-  .ira-met .ira-pz-mapa--grupo .ira-pz-mapa__aro { animation: ira-met-girar 40s linear infinite; }
-  .ira-met .ira-pz-mapa__luz { transition: opacity 500ms ease 300ms, ry 600ms ease; animation: ira-juego-luz 2.4s ease-in-out infinite; transform-origin: 79.4px 50px; transform-box: view-box; }
   /* las dos hojas de la puerta respiran: se abren un poco más y vuelven */
-  .ira-met .ira-pz-mapa__pieza.is-hoja-abajo { animation: ira-juego-hoja-abajo 2.8s ease-in-out infinite 900ms; }
-  .ira-met .ira-pz-mapa__pieza.is-hoja-arriba { animation: ira-juego-hoja-arriba 2.8s ease-in-out infinite 900ms; }
   /* el muro arde despacio */
-  .ira-met .ira-pz-mapa--muro .ira-pz-mapa__pieza, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__pieza { animation: ira-juego-arde-muro 2.6s ease-in-out infinite 1s; }
-  .ira-met .ira-pz-mapa__senda { transition: opacity 400ms ease; animation: ira-juego-senda 1.1s linear infinite; }
 }
 @keyframes ira-juego-luz { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3, 1.15); } }
 @keyframes ira-juego-hoja-abajo { 0%, 100% { rotate: 0deg; } 50% { rotate: 6deg; } }
@@ -171,27 +158,8 @@
 .ira-met .ira-pz-frontera__frase { position: relative; overflow: visible; }
 .ira-met .ira-pz-frontera__frase.is-activa { border-color: var(--jg, var(--pz-color)); background: linear-gradient(90deg, var(--jg-fondo, transparent), transparent 70%), var(--ira-elevada); }
 .ira-met .ira-pz-frontera__frase.is-activa .ira-pz-codigo { background: var(--jg-fondo); box-shadow: 0 0 12px -2px var(--jg-halo); }
-.ira-met .ira-pz-mapa__lienzo { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.ira-met .ira-pz-mapa__orbita { fill: var(--ira-marca-empatica); opacity: 0.85; transform-origin: 50% 50%; }
-.ira-met .ira-pz-mapa--muro .ira-pz-mapa__orbita, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__orbita { opacity: 0.55; }
-.ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__periferia { border-color: rgba(190, 40, 26, 0.6); }
-.ira-met .ira-pz-mapa__golpe { left: 20.6%; top: 20.6%; width: 58.8%; height: 58.8%; border-radius: 50%; border: 2px solid var(--jg, var(--ira-salvia)); opacity: 0; pointer-events: none; }
-.ira-met .ira-pz-mapa__otro { display: grid; place-items: center; box-shadow: 0 0 14px rgba(252, 253, 255, 0.55); z-index: 2; }
-.ira-met .ira-pz-mapa--grupo .ira-pz-mapa__otro { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-.ira-met .ira-pz-mapa--grupo .ira-pz-mapa__centro { box-shadow: 0 0 34px rgba(141, 170, 126, 0.95); }
-.ira-met .ira-pz-mapa__centro { transition: box-shadow 500ms ease; }
-.ira-met .ira-pz-mapa--muro .ira-pz-mapa__otro, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__otro { box-shadow: 0 0 14px rgba(232, 96, 74, 0.6); }
-.ira-met .ira-pz-mapa__llegada { position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; border: 2px solid var(--jg, var(--ira-nieve)); opacity: 0; }
 .ira-met .ira-pz-frontera__donde { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
-  .ira-met .ira-pz-mapa__orbita { animation: ira-met-girar 22s linear infinite; }
-  .ira-met .ira-pz-mapa__halo { animation: ira-juego-respira 3.6s ease-in-out infinite; }
-  .ira-met .ira-pz-mapa__golpe { animation: ira-juego-golpe 700ms ease-out; }
-  .ira-met .ira-pz-mapa--muro .ira-pz-mapa__golpe, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__golpe { animation: ira-juego-golpe-duro 650ms ease-out; }
-  .ira-met .ira-pz-mapa--muro .ira-pz-mapa__aro, .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__aro { animation: ira-juego-temblor 420ms ease-out 520ms; }
-  .ira-met .ira-pz-mapa__otro { transition: left 700ms cubic-bezier(.34, 1.45, .64, 1), top 700ms cubic-bezier(.34, 1.45, .64, 1), opacity 400ms ease, transform 500ms ease, box-shadow 400ms ease; }
-  .ira-met .ira-pz-mapa__llegada { animation: ira-juego-llegada 700ms ease-out 520ms; }
-  .ira-met .ira-pz-mapa--expulsion .ira-pz-mapa__periferia { animation: ira-juego-parpadeo 900ms ease-out; }
   .ira-met .ira-pz-frontera__donde { animation: ira-juego-asoma 420ms cubic-bezier(.3, 1.5, .5, 1); }
   .ira-met .ira-pz-ficha { animation: ira-pz-entrar 380ms cubic-bezier(.2, .8, .2, 1); }
 }
@@ -310,18 +278,7 @@
   .ira-met .ira-pz-il--1 .ira-pz-il__onda--debil { animation: ira-il-aparece 400ms ease-out backwards 1000ms, ira-il-titubea 1.6s steps(2, end) infinite 1.4s; }
   .ira-met .ira-pz-il--1 .ira-pz-il__persona:not(.ira-pz-il__persona--yo) { animation: ira-il-pop 420ms cubic-bezier(.3, 1.6, .5, 1) backwards 800ms; }
 
-  /* 3 · el muro se levanta ladrillo a ladrillo y corta la onda; el mismo muro, al otro lado,
-     aparta sus ladrillos, se vuelve salvia y deja pasar la onda hasta el otro */
-  .ira-met .ira-pz-il--2 .ira-pz-il__persona { animation: ira-il-pop 400ms cubic-bezier(.3, 1.6, .5, 1) backwards; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo:not(.ira-pz-il__ladrillo--puerta) { animation: ira-il-ladrillo 520ms cubic-bezier(.5, 0, .4, 1.5) backwards; animation-delay: calc(150ms + var(--k) * 110ms); }
-  .ira-met .ira-pz-il--2 .ira-pz-il__onda--choca { stroke-dasharray: 80; animation: ira-il-trazo-corto 360ms ease-out backwards 780ms, ira-il-rebota 1.6s ease-in-out infinite 1.3s; transform-origin: right center; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo--puerta { animation: ira-il-aparece 350ms ease-out backwards 150ms; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo--arriba { animation: ira-il-abre-ladrillo-arriba 1800ms both; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo--abajo { animation: ira-il-abre-ladrillo-abajo 1800ms both; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__ladrillo--medio { animation: ira-il-abre-ladrillo-medio 1800ms both; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__onda--pasa { stroke-dasharray: 120; animation: ira-il-trazo-medio 600ms ease-out backwards 1700ms, ira-il-vibra 2.4s ease-in-out infinite 2.4s; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__comun { animation: ira-il-crece 700ms cubic-bezier(.3, 1.4, .5, 1) backwards 2000ms, ira-met-girar 40s linear infinite 2.8s; }
-  .ira-met .ira-pz-il--2 .ira-pz-il__persona--otro { animation: ira-il-pop 400ms cubic-bezier(.3, 1.6, .5, 1) backwards, ira-il-acoge 600ms ease-out backwards 2050ms; }
+  /* 3 · ahora son dos membranas vivas (DosFronteras en CadenaArgumento.jsx) */
 
   /* 4 · el incentivo: el mensaje contra ellos se dispara */
   .ira-met .ira-pz-il--3 .ira-pz-il__burbuja { animation: ira-il-desliza 420ms ease-out backwards; }
@@ -344,11 +301,6 @@
 @keyframes ira-il-cae { from { opacity: 0; transform: translateY(-26px); } }
 @keyframes ira-il-cae-duro { 0% { opacity: 0; transform: translateY(-60px); } 60% { opacity: 1; transform: translateY(4px); } 100% { transform: none; } }
 @keyframes ira-il-rebota { 0%, 100% { transform: none; } 50% { transform: scaleX(0.82); } }
-@keyframes ira-il-ladrillo { 0% { opacity: 0; transform: translateY(-46px); } 60% { opacity: 1; } 100% { transform: none; } }
-@keyframes ira-il-abre-ladrillo-arriba { 0%, 58% { transform: none; fill: var(--ira-1); animation-timing-function: cubic-bezier(.3, 1.5, .5, 1); } 100% { transform: translateY(-11px); fill: var(--ira-salvia); } }
-@keyframes ira-il-abre-ladrillo-abajo { 0%, 58% { transform: none; fill: var(--ira-1); animation-timing-function: cubic-bezier(.3, 1.5, .5, 1); } 100% { transform: translateY(11px); fill: var(--ira-salvia); } }
-@keyframes ira-il-abre-ladrillo-medio { 0%, 58% { transform: none; opacity: 1; fill: var(--ira-1); } 80% { transform: scale(0.2); opacity: 0; } 100% { transform: scale(0.2); opacity: 0; } }
-@keyframes ira-il-acoge { from { fill: var(--ira-nieve); } to { fill: var(--ira-marca-empatica); } }
 @keyframes ira-il-vibra { 0%, 100% { transform: none; } 50% { transform: translateY(-1.5px); } }
 @keyframes ira-il-titubea { 0% { opacity: 0.35; } 50% { opacity: 0.15; } }
 @keyframes ira-il-arde { 0%, 100% { filter: drop-shadow(0 0 0 rgba(190, 40, 26, 0)); } 50% { filter: drop-shadow(0 0 7px rgba(190, 40, 26, 0.9)); } }
@@ -596,21 +548,11 @@
    Cabeceras, línea de tiempo y barra de pesos
    ════════════════════════════════════════════════════════════════════════════ */
 .ira-juego-emblema { cursor: pointer; -webkit-tap-highlight-color: transparent; }
-/* P1: el muro del emblema son 20 piezas; al pasar por encima se apartan como un iris y
-   un punto (el otro) entra hasta el nosotros */
-.ira-juego-emblema__muro { transform-origin: 100px 100px; transform-box: view-box; }
-.ira-juego-emblema__pieza { fill: none; stroke: var(--ira-linea-fuerte); stroke-width: 3; stroke-linecap: round; transform: rotate(var(--a0)); transform-origin: 100px 100px; transform-box: view-box; }
-.ira-juego-emblema:hover .ira-juego-emblema__pieza { transform: rotate(var(--a1)); stroke: var(--ira-salvia); filter: drop-shadow(0 0 3px rgba(141, 170, 126, 0.8)); }
-.ira-juego-emblema__otro { fill: var(--ira-nieve); opacity: 0; transform: translate(118px, 0); transform-box: view-box; filter: drop-shadow(0 0 6px rgba(252, 253, 255, 0.8)); }
-.ira-juego-emblema:hover .ira-juego-emblema__otro { opacity: 1; transform: translate(52px, -4px); }
-.ira-juego-emblema:hover .ira-met__emblema-centro { filter: drop-shadow(0 0 28px rgba(141, 170, 126, 1)); }
+/* P1: el emblema es la frontera en pequeño (Membrana), alternando muro y puerta */
+.ira-met .ira-juego-emblema__membrana { max-width: none; width: 100%; }
+.ira-met .ira-juego-emblema { display: block; }
 @media (prefers-reduced-motion: no-preference) {
-  .ira-juego-emblema__muro { animation: ira-met-girar 70s linear infinite; }
-  .ira-juego-emblema:hover .ira-juego-emblema__muro { animation-play-state: paused; }
-  .ira-juego-emblema__pieza { transition: transform 900ms cubic-bezier(.34, 1.36, .5, 1), stroke 400ms ease, filter 400ms ease; }
-  .ira-juego-emblema__otro { transition: transform 900ms cubic-bezier(.34, 1.3, .6, 1) 250ms, opacity 300ms ease 250ms; }
   .ira-juego-emblema:active { transform: scale(0.96); transition: transform 120ms ease; }
-  .ira-met .ira-met__emblema { transition: transform 300ms cubic-bezier(.3, 1.6, .5, 1); }
 }
 /* P2: al pasar por encima la flecha vuelve a dispararse */
 .ira-p2-emblema.ira-juego-emblema .ira-p2-emblema__flecha:first-of-type { stroke-dasharray: 130; }
@@ -693,14 +635,6 @@
   .ira-juego-desliza span:last-child { display: inline-block; animation: ira-juego-empuje 1.2s ease-in-out infinite; }
 }
 
-/* Ladrillos de la ilustración 3 (estado final: muro rojo a la izquierda, puerta abierta salvia a la derecha) */
-.ira-met .ira-pz-il__ladrillo { fill: var(--ira-1); }
-.ira-met .ira-pz-il__ladrillo--puerta { fill: var(--ira-salvia); }
-.ira-met .ira-pz-il__ladrillo--arriba { transform: translateY(-11px); }
-.ira-met .ira-pz-il__ladrillo--abajo { transform: translateY(11px); }
-.ira-met .ira-pz-il__ladrillo--medio { opacity: 0; }
-.ira-met .ira-pz-il__persona--otro { fill: var(--ira-marca-empatica); }
-
 /* Permeabilidad: cada cierre es un tramo de ladrillos; cada apertura, el mismo tramo con los
    ladrillos apartados arriba y abajo y la luz pasando por el hueco */
 .ira-met .ira-pz-linea__tramo--muro { background: repeating-linear-gradient(180deg, var(--ira-1) 0 9px, #5E120C 9px 11px); }
@@ -713,3 +647,35 @@
 .ira-met .ira-pz-linea__tramo--puerta .ira-pz-linea__haz { left: 50%; }
 @keyframes ira-juego-jamba-arriba { from { top: calc(50% - 5px); background: var(--ira-1); } }
 @keyframes ira-juego-jamba-abajo { from { bottom: calc(50% - 5px); background: var(--ira-1); } }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   P1 · La frontera como membrana viva (Membrana.jsx dibuja cada cuadro)
+   ════════════════════════════════════════════════════════════════════════════ */
+.ira-pz-membrana { position: relative; width: 100%; max-width: 360px; aspect-ratio: 1; }
+.ira-pz-membrana__lienzo { display: block; width: 100%; height: 100%; overflow: visible; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ira-pz-membrana__periferia { fill: none; stroke-width: 0.35; stroke-dasharray: 1 1.6; }
+.ira-pz-membrana__rotulo { font-family: var(--ira-font-texto); font-size: 3.2px; fill: var(--ira-texto-3); text-anchor: middle; }
+.ira-pz-membrana__nosotros { font-family: var(--ira-font-texto); font-size: 3.4px; fill: var(--ira-marca-empatica); text-anchor: middle; }
+.ira-pz-membrana__borde { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ira-pz-membrana__escudo { fill: none; stroke: var(--ira-oro); stroke-linecap: round; filter: drop-shadow(0 0 2.4px rgba(220, 177, 73, 0.95)); }
+.ira-pz-membrana__halo { fill: none; stroke: var(--ira-salvia); stroke-width: 2.2; }
+.ira-pz-membrana__centro { fill: var(--ira-salvia); }
+.ira-pz-membrana__persona { fill: var(--ira-marca-empatica); }
+.ira-pz-membrana__golpe { fill: none; }
+.ira-pz-membrana__brillo { fill: #FFF3C8; filter: drop-shadow(0 0 2px #F4CF7A); }
+
+/* Cadena, eslabón 3: dos fronteras pequeñas, muro y puerta */
+.ira-pz-il-fronteras { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+.ira-pz-il-fronteras__una { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.ira-pz-il-fronteras__una .ira-pz-membrana { max-width: 150px; }
+.ira-pz-il-fronteras figcaption { display: flex; flex-direction: column; align-items: center; font-size: 13px; color: var(--ira-marca-polarizante); }
+.ira-pz-il-fronteras__una--puerta figcaption { color: var(--ira-marca-empatica); }
+.ira-pz-il-fronteras figcaption span { font-size: 11px; color: var(--ira-texto-3); }
+/* Permeabilidad alta: el otro cruza la línea y se tiñe de salvia */
+.ira-met .ira-pz-linea__otro.is-dentro { color: var(--ira-marca-empatica); }
+.ira-met .ira-pz-linea__otro.is-dentro .ira-pz-linea__punto { background: var(--ira-salvia); box-shadow: 0 0 0 6px rgba(141, 170, 126, 0.16), 0 0 16px rgba(141, 170, 126, 0.8); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-pz-linea__otro .ira-pz-linea__punto { transition: background-color 400ms ease 400ms, box-shadow 400ms ease 400ms; }
+  .ira-met .ira-pz-linea__otro.is-dentro .ira-pz-linea__punto { animation: ira-juego-salto 520ms cubic-bezier(.3, 1.6, .5, 1) 600ms backwards; }
+}
+.ira-met .ira-p2-diana, .ira-met .ira-met-tiempo__svg, .ira-met .ira-pz-cadena__ilustracion { cursor: pointer; }

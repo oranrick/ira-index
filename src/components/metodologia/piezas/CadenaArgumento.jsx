@@ -1,12 +1,34 @@
 // IRA · Metodología 2.0 · P1 · Por qué importa: la cadena del argumento.
 // Los cuatro eslabones del manual unidos por conectores; el activo se abre en grande con
 // su ilustración. La tesis final se enciende al llegar al último eslabón.
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Membrana from './Membrana.jsx';
 import { chispazo, useAlVer } from '../Juego.jsx';
 
 const COLOR = ['salvia', 'salvia', 'rojo', 'rojo'];
-// Cinco ladrillos de 14 de alto entre y = 34 y y = 110
-const LADRILLOS = [34, 49.5, 65, 80.5, 96];
+
+// 3 · Muro frente a puerta: la misma frontera, dos veces. A la izquierda se endurece y el otro
+// rebota; a la derecha se abre, el otro entra y el grupo le hace sitio. Se repite cada 5 s.
+function DosFronteras({ r }) {
+  const [vuelta, setVuelta] = useState(0);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = setInterval(() => setVuelta((v) => v + 1), 5200);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div className="ira-pz-il-fronteras" role="img" aria-label={`${r.muro} / ${r.puerta}: ${r.comun}`}>
+      <figure className="ira-pz-il-fronteras__una ira-pz-il-fronteras__una--muro">
+        <Membrana modo="muro" vuelta={vuelta} rotulos={false} />
+        <figcaption>{r.muro}</figcaption>
+      </figure>
+      <figure className="ira-pz-il-fronteras__una ira-pz-il-fronteras__una--puerta">
+        <Membrana modo="dentro" vuelta={vuelta} rotulos={false} />
+        <figcaption>{r.puerta}<span>{r.comun}</span></figcaption>
+      </figure>
+    </div>
+  );
+}
 
 // Onda horizontal de x0 a x1 (periodo p, amplitud amp) como trazado SVG
 function onda(x0, x1, y, amp, p = 16) {
@@ -63,30 +85,7 @@ function Ilustracion({ i, r }) {
     </svg>
   );
   // 3 · Muro frente a puerta: el muro corta la resonancia; la puerta la deja pasar y crea un nosotros común
-  if (i === 2) return (
-    <svg viewBox="0 0 300 150" className="ira-pz-il ira-pz-il--2" role="img" aria-label={`${r.muro} / ${r.puerta}: ${r.comun}`}>
-      <Persona x={20} y={72} className="ira-pz-il__persona ira-pz-il__persona--yo" />
-      <path d={onda(32, 64, 70, 8)} className="ira-pz-il__onda ira-pz-il__onda--choca" />
-      {/* el muro se levanta ladrillo a ladrillo, de abajo arriba */}
-      {LADRILLOS.map((y, k) => (
-        <rect key={`m${k}`} x="66" y={y} width="10" height="14" rx="1.5" className="ira-pz-il__ladrillo" style={{ '--k': LADRILLOS.length - 1 - k }} />
-      ))}
-      <Persona x={112} y={72} className="ira-pz-il__persona ira-pz-il__persona--lejos" />
-      <text x="71" y="138" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--rojo">{r.muro}</text>
-      <path d="M150 20 V130" className="ira-pz-il__separador" />
-      <ellipse cx="226" cy="72" rx="68" ry="50" className="ira-pz-il__comun" />
-      <text x="226" y="16" textAnchor="middle" className="ira-pz-il__rotulo">{r.comun}</text>
-      <Persona x={180} y={72} className="ira-pz-il__persona ira-pz-il__persona--yo" />
-      {/* la puerta: el mismo muro, pero sus ladrillos se apartan y dejan paso */}
-      {LADRILLOS.map((y, k) => (
-        <rect key={`p${k}`} x="221" y={y} width="10" height="14" rx="1.5"
-          className={`ira-pz-il__ladrillo ira-pz-il__ladrillo--puerta ira-pz-il__ladrillo--${k < 2 ? 'arriba' : k > 2 ? 'abajo' : 'medio'}`} />
-      ))}
-      <path d={onda(192, 256, 70, 8)} className="ira-pz-il__onda ira-pz-il__onda--pasa" />
-      <Persona x={272} y={72} className="ira-pz-il__persona ira-pz-il__persona--otro" />
-      <text x="226" y="138" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--fuerte">{r.puerta}</text>
-    </svg>
-  );
+  if (i === 2) return <DosFronteras r={r} />;
   // 4 · El incentivo: el mensaje contra el exogrupo genera mucha más interacción
   return (
     <svg viewBox="0 0 300 150" className="ira-pz-il ira-pz-il--3" role="img" aria-label={`${r.sobreNosotros} < ${r.contraEllos} (${r.interaccion})`}>
@@ -159,7 +158,7 @@ export default function CadenaArgumento({ pasos, cita, ui }) {
           onPointerDown={empezar} onPointerUp={soltar} onPointerCancel={() => { toque.current = null; }}>
           <div className="ira-pz-cadena__cab">
             <span className="ira-pz-cadena__grande ira-cifra" aria-hidden="true">{i + 1}</span>
-            <div className="ira-pz-cadena__ilustracion"><Ilustracion i={i} r={ui.ilustraciones} /></div>
+            <div className="ira-pz-cadena__ilustracion" onClick={(ev) => chispazo(ev, COLOR[i], 8)}><Ilustracion i={i} r={ui.ilustraciones} /></div>
           </div>
           <h3 className="ira-pz-cadena__titulo">{p.titulo}</h3>
           <p className="ira-pz-cadena__texto">{p.texto}</p>

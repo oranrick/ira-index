@@ -2,7 +2,7 @@
 // Entre el nosotros y el otro hay una línea vertical. Cada cierre activado la hace más
 // maciza; cada apertura le abre un hueco por el que pasa la luz. La permeabilidad se
 // recalcula con la regla de sucesión de Laplace: 10 × (A + 1) / (A + C + 2).
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ESCALA, colorCifra, formatearPuntuacion, nivel } from '../../../lib/escala';
 import { NumeroAnimado, chispazo } from '../Juego.jsx';
 
@@ -37,7 +37,20 @@ export default function FronteraLinea({ cierres, aperturas, ui, lang }) {
   const idx = nivel(perm);
   const estado = n === 0 ? ui.sinEventos : puntua ? ui.puntua(n) : ui.pocos(n);
   const u = todas[ultima] ?? todas.C5;
-  const otroX = n === 0 ? 88 : 88 - perm * 2.6;
+  // Con permeabilidad alta (y suficientes eventos) el otro cruza la línea y pasa a ser de dentro
+  const cruza = puntua && perm >= 7.5;
+  const otroX = n === 0 ? 88 : cruza ? 32 : 88 - perm * 3.2;
+  const otroRef = useRef(null);
+  const cruzaba = useRef(cruza);
+  useEffect(() => {
+    if (cruza !== cruzaba.current) {
+      cruzaba.current = cruza;
+      // al cruzar, destellos donde aterriza (cuando termina el viaje)
+      const id = setTimeout(() => chispazo(otroRef.current?.firstChild, cruza ? 'salvia' : 'rojo', 10), cruza ? 650 : 50);
+      return () => clearTimeout(id);
+    }
+    return undefined;
+  }, [cruza]);
 
   const chip = (m, tipo) => {
     const on = sel.includes(m[0]);
@@ -77,7 +90,7 @@ export default function FronteraLinea({ cierres, aperturas, ui, lang }) {
       <div className="ira-pz-linea__rejilla">
         <div className="ira-pz-linea__escena" aria-hidden="true" style={{ '--grosor': `${6 + C * 2}px` }}>
           <span className="ira-pz-linea__nosotros"><span className="ira-pz-linea__punto" />{ui.nosotros}</span>
-          <span className="ira-pz-linea__otro" style={{ left: `${otroX}%`, opacity: n === 0 ? 0.4 : 1 }}><span className="ira-pz-linea__punto" />{ui.elOtro}</span>
+          <span ref={otroRef} className={`ira-pz-linea__otro${cruza ? ' is-dentro' : ''}`} style={{ left: `${otroX}%`, opacity: n === 0 ? 0.4 : 1 }}><span className="ira-pz-linea__punto" />{ui.elOtro}</span>
           <div className="ira-pz-linea__frontera">
             {n === 0 && <span className="ira-pz-linea__vacia" />}
             {sel.map((c) => (c.startsWith('C') ? (

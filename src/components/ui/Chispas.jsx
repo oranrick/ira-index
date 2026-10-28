@@ -32,6 +32,9 @@ const PUNTA = 'M12 0 L14.6 9.4 L24 12 L14.6 14.6 L12 24 L9.4 14.6 L0 12 L9.4 9.4
 /** Lanza un estallido de destellos desde un punto (evento de puntero) o desde el centro de un nodo. */
 export function chispazo(origen, tono = 'oro', cantidad = 9) {
   if (typeof document === 'undefined' || quieto()) return;
+  // marca el clic como ya celebrado, para que el destello general de la web no lo repita
+  const nativo = origen?.nativeEvent ?? origen;
+  if (nativo && typeof nativo === 'object' && 'type' in nativo) nativo.__iraChispa = true;
   let x; let y;
   if (origen && 'clientX' in origen && (origen.clientX || origen.clientY)) { x = origen.clientX; y = origen.clientY; }
   else {
@@ -101,4 +104,19 @@ export function Chispas({ tono = 'oro', semilla = '', cantidad = 3, tamano = [7,
       })}
     </span>
   );
+}
+
+/** Destellos en cualquier clic de la web (botones, enlaces, pestañas…), salvo que la pieza
+ *  ya haya lanzado los suyos. Se monta una vez, en el fondo de destellos. */
+export function escucharClics() {
+  if (typeof document === 'undefined') return () => {};
+  const alClic = (ev) => {
+    if (ev.__iraChispa) return;
+    const objetivo = ev.target?.closest?.('button, a, [role="button"], [role="tab"], [role="radio"], summary, label');
+    if (!objetivo || objetivo.closest('[data-sin-chispa]')) return;
+    const tono = objetivo.closest('.ira-boton--principal') ? 'rojo' : 'oro';
+    chispazo(ev.clientX || ev.clientY ? ev : objetivo, tono, 7);
+  };
+  document.addEventListener('click', alClic);
+  return () => document.removeEventListener('click', alClic);
 }

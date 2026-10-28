@@ -19,6 +19,7 @@ import MapaTeoria from './piezas/MapaTeoria.jsx';
 import FronteraLinea from './piezas/FronteraLinea.jsx';
 import ArbolExcepcion from './piezas/ArbolExcepcion.jsx';
 import DiscursoAnotado from './piezas/DiscursoAnotado.jsx';
+import Membrana from './piezas/Membrana.jsx';
 import datosP1 from '../../data/metodologia/p1.json';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-piezas.css';
@@ -28,16 +29,21 @@ const MANUAL_URL = 'https://github.com/oranrick/ira-index/blob/main/research/man
 const ICONOS_PASO = ['extraer', 'revisar', 'clasificar', 'calcular'];
 const TONO_TITULO = 'salvia';
 
-// Emblema: 20 piezas del muro, cerradas (a0) y abiertas con un hueco de 70° a la derecha (a1)
-const PIEZAS_EMBLEMA = (() => {
-  const n = 20; const c = 2 * Math.PI * 92; const hueco = 70;
-  return Array.from({ length: n }, (_, i) => {
-    const t0 = 360 / n; const t1 = (360 - hueco) / n;
-    const a1 = hueco / 2 + i * t1 + t1 * 0.18;
-    const medio = a1 + t1 * 0.32;
-    return { a0: i * t0 + t0 * 0.04, a1, largo: (t1 * 0.64 * c) / 360, retraso: Math.round((Math.min(medio, 360 - medio) / 180) * 220) };
-  });
-})();
+// Emblema de la cabecera: la frontera en pequeño, alternando muro y puerta. Al tocarlo, cambia.
+function EmblemaFrontera() {
+  const [paso, setPaso] = useState(0);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = setInterval(() => setPaso((p) => p + 1), 4600);
+    return () => clearInterval(id);
+  }, [paso]);
+  const modo = paso % 2 ? 'dentro' : 'muro';
+  return (
+    <div className="ira-met__emblema ira-juego-emblema" onClick={() => setPaso((p) => p + 1)}>
+      <Membrana modo={modo} vuelta={Math.floor((paso + 1) / 2)} rotulos={false} className="ira-juego-emblema__membrana" />
+    </div>
+  );
+}
 
 const UI = {
   es: { navPie: 'Navegación entre parámetros', pieza: 'Pieza', nuevaPestana: '(se abre en una pestaña nueva)' },
@@ -275,20 +281,7 @@ export default function MetodologiaP1() {
           <h1 className="ira-met__titulo"><span className="ira-juego-titulo">{t.titulo}<Chispas tono={TONO_TITULO} semilla={t.titulo} cantidad={4} tamano={[9, 15]} /></span></h1>
           <p className="ira-met__frase">{t.frase}</p>
         </div>
-        <svg viewBox="0 0 200 200" className="ira-met__emblema ira-juego-emblema" aria-hidden="true"
-          onClick={(ev) => chispazo(ev, 'salvia', 12)}>
-          {/* el muro: 20 piezas; al pasar por encima se apartan como un iris y entra el otro */}
-          <g className="ira-juego-emblema__muro">
-            {PIEZAS_EMBLEMA.map((p, i) => (
-              <circle key={i} cx="100" cy="100" r="92" className="ira-juego-emblema__pieza"
-                style={{ '--a0': `${p.a0}deg`, '--a1': `${p.a1}deg`, strokeDasharray: `${p.largo} 600`, transitionDelay: `${p.retraso}ms` }} />
-            ))}
-          </g>
-          <circle cx="100" cy="100" r="7" className="ira-juego-emblema__otro" />
-          <circle cx="100" cy="100" r="64" className="ira-met__emblema-anillo ira-met__emblema-anillo--2" />
-          <circle cx="100" cy="100" r="40" className="ira-met__emblema-anillo" />
-          <circle cx="100" cy="100" r="20" className="ira-met__emblema-centro" />
-        </svg>
+        <EmblemaFrontera />
       </header>
 
       <div className="ira-met__rejilla">
