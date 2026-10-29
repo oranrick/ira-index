@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App.jsx';
+import Brilla from './ui/Brilla.jsx';
 
 import { CATEGORICOS, CATEGORICOS as PARAM_COLORS } from '../lib/escala';
 
@@ -117,7 +118,7 @@ export default function AboutPage() {
             </p>
             <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
               color:"#DCB149", lineHeight:1, letterSpacing:"-0.04em" }}>
-              {es ? "La configuran." : "They shape it."}
+              <Brilla tono="oro" cantidad={4} tamano={[10, 16]}>{es ? "La configuran." : "They shape it."}</Brilla>
             </p>
           </div>
 

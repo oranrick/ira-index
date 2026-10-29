@@ -6,6 +6,7 @@ import { polaridadFragmento, puntuacionesPorClave } from '../lib/anotaciones';
 import BarraEscala from './ui/BarraEscala.jsx';
 import FilaParametro from './ui/FilaParametro.jsx';
 import { fechaCorta } from '../lib/discursos';
+import Brilla from './ui/Brilla.jsx';
 
 // Colores de las dos familias de anotación (tokens.css)
 const FAMILIA = {
@@ -197,7 +198,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
         <div style={styles.headerLeft}>
           <div style={styles.entityChip}>{speech.entityName}</div>
           <h1 style={{ ...styles.title, fontSize: isMobile ? '30px' : 'clamp(32px, 4vw, 48px)' }}>
-            {displayTitle}
+            <Brilla semilla={String(displayTitle)}>{displayTitle}</Brilla>
           </h1>
           <div style={styles.meta}>
             <span style={{ ...styles.metaItem, fontFamily: 'var(--ira-font-cifra)' }}>{fechaCorta(speech.date)}</span>

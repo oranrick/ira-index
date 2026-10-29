@@ -3,7 +3,8 @@
 // Los fuertes solo usan los extremos de la escala (rojo 0-2, verde 8-10):
 // el impacto más intenso brilla más, sea negativo o positivo.
 // Decorativo: aria-hidden, sin eventos de puntero, quieto con "reducir movimiento".
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { escucharClics } from './ui/Chispas.jsx';
 import { ESCALA } from '../lib/escala';
 import '../styles/destellos.css';
 
@@ -51,12 +52,17 @@ function crearDestellos(cantidad, intensidad) {
       glow = `0 0 ${Math.round(size * 3)}px ${color}`;
     }
 
+    // Estrella de cuatro puntas, la misma de los fragmentos de la portada: en todos los
+    // fuertes y en algunos medios, para que la firma de la portada se vea en toda la web
+    const estrella = nivel === 'fuerte' ? Math.round(18 + Math.random() * 12)
+      : nivel === 'medio' && Math.random() < 0.3 ? Math.round(10 + Math.random() * 6) : 0;
+
     const dur = 3 + Math.random() * 5;
     return {
       id: k,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size, opacidad, glow, nucleo, color, onda,
+      size, opacidad, glow, nucleo, color, onda, estrella,
       dur, retraso: -Math.random() * 8,
     };
   });
@@ -65,6 +71,8 @@ function crearDestellos(cantidad, intensidad) {
 export default function Destellos({ cantidad = 90, intensidad = 1, animado = true }) {
   // Nueva colocación en cada carga de la página
   const destellos = useMemo(() => crearDestellos(cantidad, intensidad), [cantidad, intensidad]);
+  // Cada clic de la web suelta destellos
+  useEffect(() => escucharClics(), []);
 
   return (
     <div className="ira-destellos" aria-hidden="true">
@@ -78,6 +86,21 @@ export default function Destellos({ cantidad = 90, intensidad = 1, animado = tru
               animation: animado ? `ira-titileo ${d.dur.toFixed(2)}s ease-in-out ${d.retraso.toFixed(2)}s infinite` : 'none',
             }}
           />
+          {d.estrella > 0 && (
+            <svg
+              viewBox="0 0 24 24"
+              width={d.estrella}
+              height={d.estrella}
+              className="ira-destello__estrella"
+              style={{
+                left: -d.estrella / 2, top: -d.estrella / 2, fill: d.color,
+                filter: `drop-shadow(0 0 3px ${d.color})`,
+                animation: animado ? `ira-destello-cruz ${d.dur.toFixed(2)}s ease-in-out ${d.retraso.toFixed(2)}s infinite` : 'none',
+              }}
+            >
+              <path d="M12 0 L13.1 10.9 L24 12 L13.1 13.1 L12 24 L10.9 13.1 L0 12 L10.9 10.9 Z" />
+            </svg>
+          )}
           {d.onda > 0 && (
             <div
               className="ira-destello__onda"

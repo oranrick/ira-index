@@ -18,6 +18,7 @@ import BarraEscala from "./components/ui/BarraEscala.jsx";
 import TarjetaDiscurso from "./components/ui/TarjetaDiscurso.jsx";
 import FilaParametro from "./components/ui/FilaParametro.jsx";
 import { colorPuntuacion, colorCifra, formatearPuntuacion, CATEGORICOS } from "./lib/escala";
+import Brilla from './components/ui/Brilla.jsx';
 
 const Comparator   = lazy(() => import("./components/Comparator"));
 const RadarSection = lazy(() => import("./components/RadarSection"));
@@ -1053,7 +1054,7 @@ function EntityDetailPage() {
               <Badge label={catLabel} />
             </div>
             <h1 style={{ margin:"0 0 4px", fontSize:"clamp(32px,6vw,44px)", fontWeight:500, lineHeight:1.05, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em" }}>
-              {entity.name}
+              <Brilla tono={entity.score >= 6 ? 'salvia' : entity.score != null && entity.score < 4 ? 'rojo' : 'oro'}>{entity.name}</Brilla>
             </h1>
             <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)" }}>{entity.country}</p>
           </div>
@@ -1739,7 +1740,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
       <div className="main-container">
         <div className="ira-cabecera" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease" }}>
           <h1 className="ira-cabecera__titulo">
-            {lang==='en' ? 'Leaderboard' : 'Clasificación'}
+            <Brilla>{lang==='en' ? 'Leaderboard' : 'Clasificación'}</Brilla>
           </h1>
           <p className="ira-cabecera__texto">
             {mode === 'medios' ? T.subtitleMedios : T.subtitle}

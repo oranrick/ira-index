@@ -10,6 +10,7 @@ import { SOLO_ES } from './textosComunes.js';
 import MarcadorPieza from './MarcadorPieza.jsx';
 import { Aparecer, BarraPesos, EscalaSolidez, Icono, LineaTiempo, Pestanas, Puntos } from './Visuales.jsx';
 import EtiquetaPuntuacion from '../ui/EtiquetaPuntuacion.jsx';
+import { Chispas, chispazo } from './Juego.jsx';
 import { TEXTOS_P1 } from './textosP1.js';
 import { TEXTOS_PIEZAS_P1 } from './textosPiezasP1.js';
 import PruebaFrontera from './piezas/PruebaFrontera.jsx';
@@ -18,12 +19,31 @@ import MapaTeoria from './piezas/MapaTeoria.jsx';
 import FronteraLinea from './piezas/FronteraLinea.jsx';
 import ArbolExcepcion from './piezas/ArbolExcepcion.jsx';
 import DiscursoAnotado from './piezas/DiscursoAnotado.jsx';
+import Membrana from './piezas/Membrana.jsx';
 import datosP1 from '../../data/metodologia/p1.json';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-piezas.css';
+import '../../styles/metodologia-juego.css';
 
 const MANUAL_URL = 'https://github.com/oranrick/ira-index/blob/main/research/manual/P1.md';
 const ICONOS_PASO = ['extraer', 'revisar', 'clasificar', 'calcular'];
+const TONO_TITULO = 'salvia';
+
+// Emblema de la cabecera: la frontera en pequeño, alternando muro y puerta. Al tocarlo, cambia.
+function EmblemaFrontera() {
+  const [paso, setPaso] = useState(0);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = setInterval(() => setPaso((p) => p + 1), 4600);
+    return () => clearInterval(id);
+  }, [paso]);
+  const modo = paso % 2 ? 'dentro' : 'muro';
+  return (
+    <div className="ira-met__emblema ira-juego-emblema" onClick={() => setPaso((p) => p + 1)}>
+      <Membrana modo={modo} vuelta={Math.floor((paso + 1) / 2)} rotulos={false} className="ira-juego-emblema__membrana" />
+    </div>
+  );
+}
 
 const UI = {
   es: { navPie: 'Navegación entre parámetros', pieza: 'Pieza', nuevaPestana: '(se abre en una pestaña nueva)' },
@@ -77,7 +97,12 @@ function Formula({ children }) {
 }
 
 function Destacado({ children, tono = 'oro' }) {
-  return <Aparecer as="p" className={`ira-met__destacado ira-met__destacado--${tono}`}>{children}</Aparecer>;
+  return (
+    <Aparecer as="p" className={`ira-met__destacado ira-met__destacado--${tono}`}>
+      {children}
+      <Chispas tono={tono} semilla={String(children)} cantidad={3} />
+    </Aparecer>
+  );
 }
 
 function Valor({ valor, t, lang }) {
@@ -253,15 +278,10 @@ export default function MetodologiaP1() {
       <header className="ira-met__cabecera ira-met__cabecera--p1">
         <div className="ira-met__cabecera-texto">
           <p className="ira-met__rotulo">{t.rotulo}</p>
-          <h1 className="ira-met__titulo">{t.titulo}</h1>
+          <h1 className="ira-met__titulo"><span className="ira-juego-titulo">{t.titulo}<Chispas tono={TONO_TITULO} semilla={t.titulo} cantidad={4} tamano={[9, 15]} /></span></h1>
           <p className="ira-met__frase">{t.frase}</p>
         </div>
-        <svg viewBox="0 0 200 200" className="ira-met__emblema" aria-hidden="true">
-          <circle cx="100" cy="100" r="92" className="ira-met__emblema-muro" />
-          <circle cx="100" cy="100" r="64" className="ira-met__emblema-anillo ira-met__emblema-anillo--2" />
-          <circle cx="100" cy="100" r="40" className="ira-met__emblema-anillo" />
-          <circle cx="100" cy="100" r="20" className="ira-met__emblema-centro" />
-        </svg>
+        <EmblemaFrontera />
       </header>
 
       <div className="ira-met__rejilla">

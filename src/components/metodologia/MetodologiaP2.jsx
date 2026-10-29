@@ -1,19 +1,22 @@
 // IRA · /metodologia/p2 — P2 El marco metafórico (Metodología 2.0, borrador v0.1). SIMULACIÓN.
 // Todo el contenido sale de research/manual/P2.md (ver textosP2.js). P2 aún no tiene fórmula:
 // la página explica la regla y deja marcado lo pendiente.
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import AvisoVersion from './AvisoVersion.jsx';
 import { Aparecer, Icono } from './Visuales.jsx';
+import { Chispas, CifraAlVer, Segmentado, chispazo, tonoDe } from './Juego.jsx';
 import { TEXTOS_P2 } from './textosP2.js';
 import ApuntaMetafora from './piezas/ApuntaMetafora.jsx';
 import MapaTeoria from './piezas/MapaTeoria.jsx';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-piezas.css';
 import '../../styles/metodologia-p2.css';
+import '../../styles/metodologia-juego.css';
 
 const MANUAL_URL = 'https://github.com/oranrick/ira-index/blob/main/research/manual/P2.md';
+const TONO_TITULO = 'oro';
 
 // Iconos de trazo de los dominios (24 × 24, decorativos)
 const TRAZOS_P2 = {
@@ -67,7 +70,12 @@ function Acordeon({ titulo, children }) {
 }
 
 function Destacado({ children, tono = 'oro' }) {
-  return <Aparecer as="p" className={`ira-met__destacado ira-met__destacado--${tono}`}>{children}</Aparecer>;
+  return (
+    <Aparecer as="p" className={`ira-met__destacado ira-met__destacado--${tono}`}>
+      {children}
+      <Chispas tono={tono} semilla={String(children)} cantidad={3} />
+    </Aparecer>
+  );
 }
 
 function Pildora({ resultado, t }) {
@@ -115,50 +123,110 @@ function IndiceSecciones({ t }) {
 
 // ── Piezas de la página ───────────────────────────────────────────────────────
 
-/** Misma imagen, dos destinos: una horquilla por dominio. */
+/** Misma imagen, dos destinos: una horquilla por dominio. En «Adivinar», el veredicto de cada
+ *  rama queda tapado hasta que lo destapas: primero piensas tú, luego miras. */
 function DosDestinos({ d, t }) {
+  const [modo, setModo] = useState('ver');
+  const [vistos, setVistos] = useState({});
+  const [encima, setEncima] = useState({});
+  const adivinar = modo === 'adivinar';
+  const destapar = (clave, resultado, ev) => {
+    if (!adivinar || vistos[clave]) return;
+    chispazo(ev, resultado, 9);
+    setVistos((v) => ({ ...v, [clave]: true }));
+  };
   return (
-    <ul className="ira-p2-destinos">
-      {d.pares.map((p, i) => (
-        <Aparecer as="li" key={p.dominio} className="ira-p2-destino" style={{ '--retardo': `${i * 90}ms` }}>
-          <div className="ira-p2-destino__origen">
-            <span className="ira-p2-codigo ira-cifra">{p.dominio}</span>
-            <span className="ira-p2-destino__nombre">{p.nombre}</span>
-          </div>
-          <svg viewBox="0 0 80 160" preserveAspectRatio="none" className="ira-p2-destino__horquilla" aria-hidden="true">
-            <path d="M0 80 C40 80, 40 40, 80 40" className="ira-p2-horquilla--neutra" />
-            <path d="M0 80 C40 80, 40 120, 80 120" className="ira-p2-horquilla--polariza" />
-            <circle cx="0" cy="80" r="5" className="ira-p2-horquilla__nudo" />
-          </svg>
-          <div className="ira-p2-destino__ramas">
-            {[p.a, p.b].map((x) => (
-              <div key={x.frase} className={`ira-p2-destino__rama ira-p2--${x.resultado}`}>
-                <p className="ira-p2-destino__frase">{x.frase}</p>
-                <p className="ira-p2-destino__pie"><Pildora resultado={x.resultado} t={t} /> <span>{x.nota}</span></p>
-              </div>
-            ))}
-          </div>
-        </Aparecer>
-      ))}
-    </ul>
+    <>
+      <div className="ira-p2-destinos__modo">
+        <Segmentado
+          etiqueta="Cómo ver los ejemplos"
+          opciones={[{ id: 'ver', nombre: 'Ver todo', tono: 'oro' }, { id: 'adivinar', nombre: 'Adivinar primero', tono: 'oro' }]}
+          valor={modo}
+          onCambio={(m) => { setModo(m); setVistos({}); }}
+        />
+        {adivinar && <span className="ira-p2-destinos__pista">Toca cada frase para destapar su resultado.</span>}
+      </div>
+      <ul className={`ira-p2-destinos${adivinar ? ' is-adivinar' : ''}`}>
+        {d.pares.map((p, i) => (
+          <Aparecer as="li" key={p.dominio} className="ira-p2-destino" style={{ '--retardo': `${i * 90}ms` }}>
+            <div className="ira-p2-destino__origen">
+              <span className="ira-p2-codigo ira-cifra">{p.dominio}</span>
+              <span className="ira-p2-destino__nombre">{p.nombre}</span>
+            </div>
+            <svg viewBox="0 0 80 160" preserveAspectRatio="none" className={`ira-p2-destino__horquilla${encima[i] ? ` is-${encima[i]}` : ''}`} aria-hidden="true">
+              <path d="M0 80 C40 80, 40 40, 80 40" className="ira-p2-horquilla--neutra" />
+              <path d="M0 80 C40 80, 40 120, 80 120" className="ira-p2-horquilla--polariza" />
+              <circle r="3.2" className="ira-p2-horquilla__viajero ira-p2-horquilla__viajero--a">
+                <animateMotion dur="2.6s" repeatCount="indefinite" path="M0 80 C40 80, 40 40, 80 40" begin={`${i * 0.4}s`} />
+              </circle>
+              <circle r="3.2" className="ira-p2-horquilla__viajero ira-p2-horquilla__viajero--b">
+                <animateMotion dur="1.5s" repeatCount="indefinite" path="M0 80 C40 80, 40 120, 80 120" begin={`${0.3 + i * 0.4}s`} />
+              </circle>
+              <circle cx="0" cy="80" r="5" className="ira-p2-horquilla__nudo" />
+            </svg>
+            <div className="ira-p2-destino__ramas">
+              {[['a', p.a], ['b', p.b]].map(([lado, x]) => {
+                const clave = `${i}-${lado}`;
+                const tapado = adivinar && !vistos[clave];
+                const Etiqueta = adivinar ? 'button' : 'div';
+                return (
+                  <Etiqueta
+                    key={x.frase}
+                    {...(adivinar ? { type: 'button', 'aria-expanded': !tapado, onClick: (ev) => destapar(clave, x.resultado, ev) } : {})}
+                    onMouseEnter={() => setEncima((e) => ({ ...e, [i]: lado }))}
+                    onMouseLeave={() => setEncima((e) => ({ ...e, [i]: null }))}
+                    className={`ira-p2-destino__rama ira-p2--${x.resultado}${tapado ? ' is-tapada' : ''}${adivinar && !tapado ? ' is-destapada' : ''}`}
+                  >
+                    <p className="ira-p2-destino__frase">{x.frase}</p>
+                    <p className="ira-p2-destino__pie">
+                      {tapado ? (
+                        <span className="ira-p2-destino__tapa"><span aria-hidden="true">?</span> ¿Neutra o polariza?</span>
+                      ) : (
+                        <><Pildora resultado={x.resultado} t={t} /> <span>{x.nota}</span></>
+                      )}
+                    </p>
+                  </Etiqueta>
+                );
+              })}
+            </div>
+          </Aparecer>
+        ))}
+      </ul>
+    </>
   );
 }
 
-/** El experimento: el mismo problema con dos imágenes lleva a dos soluciones. */
+/** El experimento: el mismo problema con dos imágenes lleva a dos soluciones.
+ *  Se elige la imagen con el interruptor y el camino hacia su solución se enciende. */
 function Experimento({ x }) {
+  const [imagen, setImagen] = useState('virus');
   return (
-    <Aparecer className="ira-p2-exp">
-      <p className="ira-p2-exp__titulo">{x.titulo}</p>
+    <Aparecer className={`ira-p2-exp is-${imagen}`}>
+      <div className="ira-p2-exp__cab">
+        <p className="ira-p2-exp__titulo">{x.titulo}</p>
+        <Segmentado
+          etiqueta="Imagen del crimen"
+          opciones={[{ id: 'virus', nombre: `es ${x.virus.imagen}`, tono: 'salvia' }, { id: 'bestia', nombre: `es ${x.bestia.imagen}`, tono: 'rojo' }]}
+          valor={imagen}
+          onCambio={setImagen}
+        />
+      </div>
       <div className="ira-p2-exp__lienzo">
-        <div className="ira-p2-exp__problema"><span>{x.problema}</span></div>
+        <div className="ira-p2-exp__problema"><span key={imagen}>{x.problema}</span></div>
         <div className="ira-p2-exp__carriles">
-          {[x.virus, x.bestia].map((c, i) => (
-            <div key={c.imagen} className={`ira-p2-exp__carril ira-p2-exp__carril--${i ? 'b' : 'a'}`}>
+          {[['virus', x.virus], ['bestia', x.bestia]].map(([id, c], i) => (
+            <button
+              type="button"
+              key={c.imagen}
+              aria-pressed={imagen === id}
+              onClick={(ev) => { if (imagen !== id) chispazo(ev, id === 'virus' ? 'salvia' : 'rojo', 8); setImagen(id); }}
+              className={`ira-p2-exp__carril ira-p2-exp__carril--${i ? 'b' : 'a'}${imagen === id ? ' is-elegido' : ''}`}
+            >
               <span className="ira-p2-exp__conector" aria-hidden="true" />
               <span className="ira-p2-exp__imagen">es <strong>{c.imagen}</strong></span>
               <span className="ira-p2-exp__flecha" aria-hidden="true">→</span>
-              <span className="ira-p2-exp__solucion ira-cifra">{c.solucion}</span>
-            </div>
+              <span key={imagen === id ? `s-${imagen}` : id} className="ira-p2-exp__solucion ira-cifra">{c.solucion}</span>
+            </button>
           ))}
         </div>
       </div>
@@ -168,20 +236,45 @@ function Experimento({ x }) {
   );
 }
 
-/** Escala viva → convencional → muerta. */
+/** Escala viva → convencional → muerta. Un marcador recorre la pista y se posa en el tramo elegido. */
 function EscalaViva({ c }) {
+  const [sel, setSel] = useState(0);
+  const refs = useRef([]);
+  const elegir = (k, ev) => {
+    const n = (k + c.tramos.length) % c.tramos.length;
+    if (n !== sel) chispazo(ev ?? refs.current[n], c.tramos[n].cuenta ? 'oro' : 'neutra', 7);
+    setSel(n);
+  };
+  const onKey = (ev, k) => {
+    if (ev.key === 'ArrowRight' || ev.key === 'ArrowDown') { ev.preventDefault(); elegir(k + 1); refs.current[(k + 1) % c.tramos.length]?.focus(); }
+    else if (ev.key === 'ArrowLeft' || ev.key === 'ArrowUp') { ev.preventDefault(); elegir(k - 1); refs.current[(k - 1 + c.tramos.length) % c.tramos.length]?.focus(); }
+  };
   return (
-    <div className="ira-p2-viva">
-      <div className="ira-p2-viva__pista" aria-hidden="true"><span>{c.eje[0]}</span><span>{c.eje[1]}</span></div>
-      <ol className="ira-p2-viva__tramos">
-        {c.tramos.map((tr) => (
-          <Aparecer as="li" key={tr.id} className={`ira-p2-viva__tramo ira-p2-viva__tramo--${tr.id}`}>
-            <p className="ira-p2-viva__nombre">{tr.nombre}</p>
-            <p className="ira-p2-viva__ej">{tr.ej}</p>
-            <p className="ira-p2-viva__nota">{tr.nota}</p>
-            <p className={`ira-p2-viva__cuenta ira-p2-viva__cuenta--${tr.cuenta ? 'si' : 'no'}`}>
-              <span aria-hidden="true">{tr.cuenta ? '✓' : '✕'}</span> {tr.cuenta ? c.cuentaSi : c.cuentaNo}
-            </p>
+    <div className="ira-p2-viva" style={{ '--sel': sel, '--n': c.tramos.length }}>
+      <div className="ira-p2-viva__pista" aria-hidden="true">
+        <span>{c.eje[0]}</span><span>{c.eje[1]}</span>
+        <span className={`ira-p2-viva__marcador is-${c.tramos[sel].id}`} />
+      </div>
+      <ol className="ira-p2-viva__tramos" role="radiogroup" aria-label="Grados de la metáfora">
+        {c.tramos.map((tr, k) => (
+          <Aparecer as="li" key={tr.id} className={`ira-p2-viva__tramo ira-p2-viva__tramo--${tr.id}${k === sel ? ' is-elegido' : ''}`}>
+            <button
+              type="button"
+              ref={(el) => { refs.current[k] = el; }}
+              role="radio"
+              aria-checked={k === sel}
+              tabIndex={k === sel ? 0 : -1}
+              onClick={(ev) => elegir(k, ev)}
+              onKeyDown={(ev) => onKey(ev, k)}
+              className="ira-p2-viva__boton"
+            >
+              <span className="ira-p2-viva__nombre">{tr.nombre}</span>
+              <span className="ira-p2-viva__ej">{tr.ej}</span>
+              <span className="ira-p2-viva__nota">{tr.nota}</span>
+              <span className={`ira-p2-viva__cuenta ira-p2-viva__cuenta--${tr.cuenta ? 'si' : 'no'}`}>
+                <span aria-hidden="true">{tr.cuenta ? '✓' : '✕'}</span> {tr.cuenta ? c.cuentaSi : c.cuentaNo}
+              </span>
+            </button>
           </Aparecer>
         ))}
       </ol>
@@ -195,12 +288,12 @@ function Unidad({ u }) {
     <>
       <Aparecer className="ira-p2-ecuacion" role="group" aria-label={`${u.definicion.join(' + ')} = ${u.igual}`}>
         {u.definicion.map((d, i) => (
-          <span key={d} className="ira-p2-ecuacion__parte">
+          <span key={d} className="ira-p2-ecuacion__parte" style={{ '--k': i }}>
             {i > 0 && <span className="ira-p2-ecuacion__op ira-cifra" aria-hidden="true">+</span>}
             <span className="ira-p2-ecuacion__caja">{d}</span>
           </span>
         ))}
-        <span className="ira-p2-ecuacion__op ira-cifra" aria-hidden="true">=</span>
+        <span className="ira-p2-ecuacion__op ira-p2-ecuacion__igual ira-cifra" aria-hidden="true">=</span>
         <span className="ira-p2-ecuacion__caja ira-p2-ecuacion__caja--total ira-cifra">{u.igual}</span>
       </Aparecer>
       <ul className="ira-p2-unidad">
@@ -225,7 +318,7 @@ function Dominios({ d }) {
     <>
       <ul className="ira-p2-dominios">
         {d.lista.map((x, i) => (
-          <Aparecer as="li" key={x.codigo} className={`ira-p2-dominio${x.siempre ? ' ira-p2-dominio--siempre' : ''}${x.codigo === 'OTR' ? ' ira-p2-dominio--otro' : ''}`} style={{ '--retardo': `${(i % 4) * 60}ms` }}>
+          <Aparecer as="li" key={x.codigo} className={`ira-p2-dominio ira-p2-dominio--${x.icono}${x.siempre ? ' ira-p2-dominio--siempre' : ''}${x.codigo === 'OTR' ? ' ira-p2-dominio--otro' : ''}`} style={{ '--retardo': `${(i % 4) * 60}ms` }}>
             <span className="ira-p2-dominio__cab">
               <IconoP2 nombre={x.icono} tamano={22} className="ira-p2-dominio__icono" />
               <span className="ira-p2-codigo ira-cifra">{x.codigo}</span>
@@ -266,45 +359,103 @@ function Blancos({ r }) {
   );
 }
 
-/** Los tres pasos como recorrido vertical con salidas. */
+/** Los tres pasos como recorrido vertical con salidas. Las salidas son botones: se juega la regla
+ *  eligiendo Sí o No en cada paso; una ficha baja por la línea hasta el resultado. */
 function Recorrido({ r, t }) {
-  const salida = (texto, destino, tono) => (
-    <span className={`ira-p2-salida ira-p2-salida--${tono}`}>
-      <span className="ira-p2-salida__resp">{texto}</span>
-      <span className="ira-p2-salida__flecha" aria-hidden="true">→</span>
-      <span className="ira-p2-salida__destino">{destino}</span>
-    </span>
-  );
+  const [nodo, setNodo] = useState(1);
+  const [final, setFinal] = useState(null);
+  const [camino, setCamino] = useState([1]);
+  const [elegidas, setElegidas] = useState({}); // paso → respuesta elegida, para dejar el rastro
+  const refs = useRef({});
+  const lista = useRef(null);
+  const [fichaTop, setFichaTop] = useState(18);
+  // La ficha se coloca a la altura del número del paso en el que estás
+  useLayoutEffect(() => {
+    const medir = () => {
+      const li = lista.current?.querySelectorAll('.ira-p2-nodo')[nodo - 1];
+      if (li) setFichaTop(li.offsetTop + 9);
+    };
+    medir();
+    window.addEventListener('resize', medir);
+    return () => window.removeEventListener('resize', medir);
+  }, [nodo]);
+  const ir = (destino, tono, ev, texto) => {
+    setElegidas((e) => ({ ...e, [nodo]: texto }));
+    if (typeof destino === 'number') {
+      setNodo(destino);
+      setCamino((c) => [...c, destino]);
+      chispazo(ev, 'oro', 6);
+      setTimeout(() => refs.current[destino]?.focus({ preventScroll: true }), 50);
+    } else {
+      setFinal(destino);
+      chispazo(ev, tono, 11);
+    }
+  };
+  const reiniciar = (ev) => { setNodo(1); setFinal(null); setCamino([1]); setElegidas({}); chispazo(ev, 'oro', 6); };
+  const salida = (n, texto, destino, tono, nombre) => {
+    const activo = nodo === n && !final;
+    const elegida = elegidas[n] === texto && camino.includes(n);
+    return (
+      <button
+        type="button"
+        ref={(el) => { if (texto === t.apunta.no) refs.current[n] = el; }}
+        disabled={!activo}
+        onClick={(ev) => ir(destino, tono, ev, texto)}
+        className={`ira-p2-salida ira-p2-salida--${tono}${elegida ? ' is-elegida' : ''}`}
+      >
+        <span className="ira-p2-salida__resp">{texto}</span>
+        <span className="ira-p2-salida__flecha" aria-hidden="true">→</span>
+        <span className="ira-p2-salida__destino">{nombre}</span>
+      </button>
+    );
+  };
+  const estado = (n) => (nodo === n && !final ? ' is-actual' : camino.includes(n) ? ' is-pasado' : ' is-pendiente');
   return (
     <>
-      <h3 className="ira-met__h3">{r.arbolTitulo}</h3>
-      <ol className="ira-p2-recorrido">
-        <Aparecer as="li" className="ira-p2-nodo">
+      <div className="ira-juego-cab">
+        <h3 className="ira-met__h3">{r.arbolTitulo}</h3>
+        <button type="button" className="ira-boton ira-boton--secundario ira-boton--compacto ira-p2-recorrido__otra" onClick={reiniciar} disabled={nodo === 1 && !final}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4" /></svg>
+          Empezar de nuevo
+        </button>
+      </div>
+      <p className="ira-met__nota ira-p2-recorrido__ayuda" aria-live="polite">
+        {final ? 'Ese es el resultado de la regla para tu metáfora.' : 'Piensa en una metáfora y responde: el botón activo es el paso en el que estás.'}
+      </p>
+      <ol ref={lista} className={`ira-p2-recorrido is-en-${final ? 'final' : nodo}`}>
+        <li className={`ira-p2-recorrido__ficha${final ? ` is-${final}` : ''}`} style={{ top: fichaTop }} aria-hidden="true" />
+        <Aparecer as="li" className={`ira-p2-nodo${estado(1)}`}>
           <span className="ira-p2-nodo__n ira-cifra" aria-hidden="true">1</span>
           <p className="ira-p2-nodo__q">{r.p1}</p>
           <div className="ira-p2-nodo__salidas">
-            {salida(t.apunta.no, `${r.irA} 3`, 'sigue')}
-            {salida(t.apunta.si, `${r.irA} 2`, 'sigue')}
+            {salida(1, t.apunta.no, 3, 'sigue', `${r.irA} 3`)}
+            {salida(1, t.apunta.si, 2, 'sigue', `${r.irA} 2`)}
           </div>
         </Aparecer>
-        <Aparecer as="li" className="ira-p2-nodo">
+        <Aparecer as="li" className={`ira-p2-nodo${estado(2)}`}>
           <span className="ira-p2-nodo__n ira-cifra" aria-hidden="true">2</span>
           <p className="ira-p2-nodo__q">{r.p2}</p>
           <p className="ira-p2-nodo__atajo"><span className="ira-cifra">ANI · INM</span> {r.atajoTexto}</p>
           <div className="ira-p2-nodo__salidas">
-            {salida(t.apunta.no, t.resultados.polariza.nombre, 'polariza')}
-            {salida(t.apunta.si, `${r.irA} 3`, 'sigue')}
+            {salida(2, t.apunta.no, 'polariza', 'polariza', t.resultados.polariza.nombre)}
+            {salida(2, t.apunta.si, 3, 'sigue', `${r.irA} 3`)}
           </div>
         </Aparecer>
-        <Aparecer as="li" className="ira-p2-nodo">
+        <Aparecer as="li" className={`ira-p2-nodo${estado(3)}`}>
           <span className="ira-p2-nodo__n ira-cifra" aria-hidden="true">3</span>
           <p className="ira-p2-nodo__q">{r.p3}</p>
           <div className="ira-p2-nodo__salidas">
-            {salida(t.apunta.no, t.resultados.neutra.nombre, 'neutra')}
-            {salida(t.apunta.si, t.resultados.empatica.nombre, 'empatica')}
+            {salida(3, t.apunta.no, 'neutra', 'neutra', t.resultados.neutra.nombre)}
+            {salida(3, t.apunta.si, 'empatica', 'empatica', t.resultados.empatica.nombre)}
           </div>
         </Aparecer>
       </ol>
+      {final && (
+        <p key={final} className={`ira-p2-recorrido__final ira-p2--${final}`} role="status">
+          <span className="ira-p2-pildora">{t.resultados[final].nombre}</span>
+          <span>{t.resultados[final].texto}</span>
+        </p>
+      )}
 
       <h3 className="ira-met__h3">{r.senalesTitulo}</h3>
       <div className="ira-p2-senales">
@@ -346,10 +497,11 @@ export default function MetodologiaP2() {
       <header className="ira-met__cabecera ira-met__cabecera--p1">
         <div className="ira-met__cabecera-texto">
           <p className="ira-met__rotulo">{t.rotulo} <span className="ira-p2-borrador">{t.enConstruccion}</span></p>
-          <h1 className="ira-met__titulo">{t.titulo}</h1>
+          <h1 className="ira-met__titulo"><span className="ira-juego-titulo">{t.titulo}<Chispas tono={TONO_TITULO} semilla={t.titulo} cantidad={4} tamano={[9, 15]} /></span></h1>
           <p className="ira-met__frase">{t.frase}</p>
         </div>
-        <svg viewBox="0 0 200 200" className="ira-met__emblema ira-p2-emblema" aria-hidden="true">
+        <svg viewBox="0 0 200 200" className="ira-met__emblema ira-p2-emblema ira-juego-emblema" aria-hidden="true"
+          onClick={(ev) => chispazo(ev, 'rojo', 12)}>
           <circle cx="132" cy="68" r="56" className="ira-p2-emblema__aro ira-p2-emblema__aro--2" />
           <circle cx="132" cy="68" r="34" className="ira-p2-emblema__aro" />
           <circle cx="132" cy="68" r="13" className="ira-p2-emblema__centro" />
@@ -394,6 +546,7 @@ export default function MetodologiaP2() {
           {/* Por qué importa */}
           <Seccion {...sec('por-que-importa')} className="ira-met__seccion--banda">
             <figure className="ira-p2-cita">
+              <Chispas tono="oro" semilla={t.porque.entrada} cantidad={3} />
               <blockquote className="ira-met__entrada">{t.porque.entrada}</blockquote>
               <figcaption>{t.porque.entradaFuente}</figcaption>
             </figure>
@@ -516,12 +669,14 @@ export default function MetodologiaP2() {
             <p className="ira-met__texto">{t.prueba.intro}</p>
             <div className="ira-pz-banda ira-p2-prueba">
               <div className="ira-p2-prueba__nota">
-                <p className="ira-p2-prueba__cifra ira-cifra">{t.prueba.nota}</p>
+                <p className="ira-p2-prueba__cifra ira-cifra" aria-label={t.prueba.nota}>
+                  <CifraAlVer valor={Number(t.prueba.nota.replace(',', '.'))} formato={(v) => v.toFixed(2).replace('.', ',')} />
+                </p>
                 <p className="ira-p2-prueba__solidez">P2 · {t.prueba.solidez}</p>
                 <p className="ira-p2-prueba__calculo ira-cifra">{t.prueba.calculo}</p>
                 <ul className="ira-p2-prueba__cifras">
                   {t.prueba.cifras.map(([n, k], i) => (
-                    <li key={k} className={`ira-p2--${['empatica', 'polariza', 'neutra'][i]}`}><strong className="ira-cifra">{n}</strong> {k}</li>
+                    <li key={k} className={`ira-p2--${['empatica', 'polariza', 'neutra'][i]}`}><strong className="ira-cifra"><CifraAlVer valor={Number(n)} /></strong> {k}</li>
                   ))}
                 </ul>
               </div>

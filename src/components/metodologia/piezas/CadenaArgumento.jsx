@@ -1,9 +1,34 @@
 // IRA · Metodología 2.0 · P1 · Por qué importa: la cadena del argumento.
 // Los cuatro eslabones del manual unidos por conectores; el activo se abre en grande con
 // su ilustración. La tesis final se enciende al llegar al último eslabón.
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Membrana from './Membrana.jsx';
+import { chispazo, useAlVer } from '../Juego.jsx';
 
 const COLOR = ['salvia', 'salvia', 'rojo', 'rojo'];
+
+// 3 · Muro frente a puerta: la misma frontera, dos veces. A la izquierda se endurece y el otro
+// rebota; a la derecha se abre, el otro entra y el grupo le hace sitio. Se repite cada 5 s.
+function DosFronteras({ r }) {
+  const [vuelta, setVuelta] = useState(0);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = setInterval(() => setVuelta((v) => v + 1), 5200);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div className="ira-pz-il-fronteras" role="img" aria-label={`${r.muro} / ${r.puerta}: ${r.comun}`}>
+      <figure className="ira-pz-il-fronteras__una ira-pz-il-fronteras__una--muro">
+        <Membrana modo="muro" vuelta={vuelta} rotulos={false} />
+        <figcaption>{r.muro}</figcaption>
+      </figure>
+      <figure className="ira-pz-il-fronteras__una ira-pz-il-fronteras__una--puerta">
+        <Membrana modo="dentro" vuelta={vuelta} rotulos={false} />
+        <figcaption>{r.puerta}<span>{r.comun}</span></figcaption>
+      </figure>
+    </div>
+  );
+}
 
 // Onda horizontal de x0 a x1 (periodo p, amplitud amp) como trazado SVG
 function onda(x0, x1, y, amp, p = 16) {
@@ -26,7 +51,7 @@ function Ilustracion({ i, r }) {
   // 1 · Intuición → razonamiento: la frase recibe enseguida una valoración rápida (destello) y el
   // razonamiento llega después, partiendo de ella y teñido de su color. Sin anatomía: el manual no la nombra.
   if (i === 0) return (
-    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.frase} → 1 ${r.intuicion} → 2 ${r.razonamiento}`}>
+    <svg viewBox="0 0 300 150" className="ira-pz-il ira-pz-il--0" role="img" aria-label={`${r.frase} → 1 ${r.intuicion} → 2 ${r.razonamiento}`}>
       <path d="M6 52 H70 V86 H26 L18 94 V86 H6 Z" className="ira-pz-il__burbuja ira-pz-il__burbuja--neutra" />
       <path d="M16 64 H60 M16 75 H48" className="ira-pz-il__razon" />
       <text x="38" y="114" textAnchor="middle" className="ira-pz-il__rotulo">{r.frase}</text>
@@ -44,7 +69,7 @@ function Ilustracion({ i, r }) {
   );
   // 2 · Pesa la frontera: la resonancia es plena con «nosotros» y se apaga al cruzar hacia «ellos»
   if (i === 1) return (
-    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.oyente}: ${r.nosotros} / ${r.frontera} / ${r.ellos}`}>
+    <svg viewBox="0 0 300 150" className="ira-pz-il ira-pz-il--1" role="img" aria-label={`${r.oyente}: ${r.nosotros} / ${r.frontera} / ${r.ellos}`}>
       <Persona x={30} y={78} className="ira-pz-il__persona ira-pz-il__persona--yo" />
       <text x="30" y="112" textAnchor="middle" className="ira-pz-il__rotulo">{r.oyente}</text>
       <path d="M44 70 C52 52 58 40 70 40 M44 86 C52 102 58 112 70 112" className="ira-pz-il__guia" />
@@ -60,27 +85,10 @@ function Ilustracion({ i, r }) {
     </svg>
   );
   // 3 · Muro frente a puerta: el muro corta la resonancia; la puerta la deja pasar y crea un nosotros común
-  if (i === 2) return (
-    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.muro} / ${r.puerta}: ${r.comun}`}>
-      <Persona x={20} y={72} className="ira-pz-il__persona ira-pz-il__persona--yo" />
-      <path d={onda(32, 64, 70, 8)} className="ira-pz-il__onda" />
-      <rect x="66" y="34" width="10" height="76" rx="2" className="ira-pz-il__muro" />
-      <Persona x={112} y={72} className="ira-pz-il__persona ira-pz-il__persona--lejos" />
-      <text x="71" y="138" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--rojo">{r.muro}</text>
-      <path d="M150 20 V130" className="ira-pz-il__separador" />
-      <ellipse cx="226" cy="72" rx="68" ry="50" className="ira-pz-il__comun" />
-      <text x="226" y="16" textAnchor="middle" className="ira-pz-il__rotulo">{r.comun}</text>
-      <Persona x={180} y={72} className="ira-pz-il__persona ira-pz-il__persona--yo" />
-      <rect x="221" y="34" width="10" height="24" rx="2" className="ira-pz-il__muro" />
-      <rect x="221" y="86" width="10" height="24" rx="2" className="ira-pz-il__muro" />
-      <path d={onda(192, 256, 70, 8)} className="ira-pz-il__onda" />
-      <Persona x={272} y={72} className="ira-pz-il__persona" />
-      <text x="226" y="138" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--fuerte">{r.puerta}</text>
-    </svg>
-  );
+  if (i === 2) return <DosFronteras r={r} />;
   // 4 · El incentivo: el mensaje contra el exogrupo genera mucha más interacción
   return (
-    <svg viewBox="0 0 300 150" role="img" aria-label={`${r.sobreNosotros} < ${r.contraEllos} (${r.interaccion})`}>
+    <svg viewBox="0 0 300 150" className="ira-pz-il ira-pz-il--3" role="img" aria-label={`${r.sobreNosotros} < ${r.contraEllos} (${r.interaccion})`}>
       <path d="M8 18 H124 V48 H30 L22 56 V48 H8 Z" className="ira-pz-il__burbuja" />
       <text x="66" y="38" textAnchor="middle" className="ira-pz-il__rotulo ira-pz-il__rotulo--fuerte">{r.sobreNosotros}</text>
       <rect x="134" y="26" width="38" height="14" rx="3" className="ira-pz-il__barra ira-pz-il__barra--baja" />
@@ -95,12 +103,34 @@ function Ilustracion({ i, r }) {
 
 export default function CadenaArgumento({ pasos, cita, ui }) {
   const [i, setI] = useState(0);
+  const [marco, visto] = useAlVer();
+  const tesis = useRef(null);
+  const toque = useRef(null);
   const ultimo = i === pasos.length - 1;
-  const ir = (k) => setI(Math.max(0, Math.min(pasos.length - 1, k)));
+  const ir = (k, ev) => {
+    const n = Math.max(0, Math.min(pasos.length - 1, k));
+    if (n === i) return;
+    if (ev) chispazo(ev, COLOR[n], 7);
+    setI(n);
+    // Al llegar al último eslabón, la tesis se enciende con su destello
+    if (n === pasos.length - 1) setTimeout(() => chispazo(tesis.current, 'rojo', 12), 380);
+  };
   const p = pasos[i];
+  // Deslizar con el dedo sobre el panel también pasa de eslabón
+  const empezar = (ev) => { toque.current = ev.clientX; };
+  const soltar = (ev) => {
+    if (toque.current == null) return;
+    const dx = ev.clientX - toque.current;
+    toque.current = null;
+    if (Math.abs(dx) > 50) ir(i + (dx < 0 ? 1 : -1));
+  };
+  const onKey = (ev) => {
+    if (ev.key === 'ArrowRight') { ev.preventDefault(); ir(i + 1); }
+    else if (ev.key === 'ArrowLeft') { ev.preventDefault(); ir(i - 1); }
+  };
 
   return (
-    <div className="ira-pz-cadena">
+    <div ref={marco} className={`ira-pz-cadena ira-juego-espera${visto ? ' is-visto' : ''}`} onKeyDown={onKey}>
       <div className="ira-pz-cadena__rejilla">
         <ol className="ira-pz-cadena__rail" aria-label={ui.etiqueta}>
           {pasos.map((x, k) => (
@@ -108,8 +138,8 @@ export default function CadenaArgumento({ pasos, cita, ui }) {
               <button
                 type="button"
                 aria-current={k === i ? 'step' : undefined}
-                onClick={() => ir(k)}
-                className={`ira-pz-cadena__nodo ira-pz-cadena__nodo--${COLOR[k]}${k === i ? ' is-activo' : ''}${k <= i ? ' is-visto' : ''}`}
+                onClick={(ev) => ir(k, ev)}
+                className={`ira-pz-cadena__nodo ira-juego-elige ira-pz-cadena__nodo--${COLOR[k]}${k === i ? ' is-activo' : ''}${k <= i ? ' is-visto' : ''}`}
               >
                 <span className="ira-pz-cadena__n ira-cifra">{k + 1}</span>
                 <span className="ira-pz-cadena__nodo-titulo">{x.titulo}</span>
@@ -124,10 +154,11 @@ export default function CadenaArgumento({ pasos, cita, ui }) {
           ))}
         </ol>
 
-        <article key={i} className={`ira-pz-cadena__panel ira-pz-cadena__panel--${COLOR[i]}`} aria-live="polite">
+        <article key={i} className={`ira-pz-cadena__panel ira-pz-cadena__panel--${COLOR[i]}`} aria-live="polite"
+          onPointerDown={empezar} onPointerUp={soltar} onPointerCancel={() => { toque.current = null; }}>
           <div className="ira-pz-cadena__cab">
             <span className="ira-pz-cadena__grande ira-cifra" aria-hidden="true">{i + 1}</span>
-            <div className="ira-pz-cadena__ilustracion"><Ilustracion i={i} r={ui.ilustraciones} /></div>
+            <div className="ira-pz-cadena__ilustracion" onClick={(ev) => chispazo(ev, COLOR[i], 8)}><Ilustracion i={i} r={ui.ilustraciones} /></div>
           </div>
           <h3 className="ira-pz-cadena__titulo">{p.titulo}</h3>
           <p className="ira-pz-cadena__texto">{p.texto}</p>
@@ -137,18 +168,21 @@ export default function CadenaArgumento({ pasos, cita, ui }) {
               {pasos.map((x, k) => <span key={x.titulo} className={`${k === i ? 'is-activo' : ''}${k <= i ? ' is-visto' : ''}`} />)}
             </span>
             <span className="ira-pz-cadena__botones">
-              <button type="button" className="ira-boton ira-boton--secundario ira-boton--icono" onClick={() => ir(i - 1)} disabled={i === 0} aria-label={ui.anterior}>
+              <button type="button" className="ira-boton ira-boton--secundario ira-boton--icono" onClick={(ev) => ir(i - 1, ev)} disabled={i === 0} aria-label={ui.anterior}>
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" className="ira-met__chevron"><polyline points="15 6 9 12 15 18" /></svg>
               </button>
-              <button type="button" className="ira-boton ira-boton--principal ira-boton--compacto" onClick={() => (ultimo ? setI(0) : ir(i + 1))}>
+              <button type="button" className={`ira-boton ira-boton--principal ira-boton--compacto ira-pz-cadena__siguiente${ultimo ? ' is-ultimo' : ''}`} onClick={(ev) => (ultimo ? (chispazo(ev, 'salvia', 7), setI(0)) : ir(i + 1, ev))}>
                 {ultimo ? ui.reiniciar : ui.siguiente}
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" className="ira-pz-cadena__flecha">
+                  {ultimo ? <path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4" /> : <path d="M5 12h14M13 6l6 6-6 6" />}
+                </svg>
               </button>
             </span>
           </div>
         </article>
       </div>
 
-      <p className={`ira-met__destacado ira-met__destacado--rojo ira-pz-cadena__tesis${ultimo ? ' is-encendida' : ''}`}>{cita}</p>
+      <p ref={tesis} className={`ira-met__destacado ira-met__destacado--rojo ira-pz-cadena__tesis${ultimo ? ' is-encendida' : ''}`}>{cita}</p>
     </div>
   );
 }

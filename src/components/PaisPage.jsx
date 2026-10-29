@@ -9,6 +9,7 @@ import BarraEscala from './ui/BarraEscala.jsx';
 import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
 import { colorPuntuacion, colorCifra, formatearPuntuacion } from '../lib/escala';
 import { citaDestacada, fechaCorta } from '../lib/discursos';
+import Brilla from './ui/Brilla.jsx';
 import {
   PAISES, POLITICOS, PENDIENTES, nombrePais, urlBandera, etiquetaNivel, agruparPorPais, puntuacionFigura, discursosDelPais,
 } from '../lib/paises';
@@ -90,7 +91,7 @@ export default function PaisPage() {
         <img src={urlBandera(pais.iso)} alt={t.bandera(nombrePais(pais, lang))} width="440" height="330" className="ira-pais__bandera" style={{ boxShadow: `0 0 80px ${color}47, 0 28px 60px rgba(0,0,0,0.5)` }} />
         <div className="ira-pais__titulos">
           <p className="ira-pais__rotulo">{t.rotulo}</p>
-          <h1 className="ira-pais__nombre">{nombrePais(pais, lang)}</h1>
+          <h1 className="ira-pais__nombre"><Brilla tono="salvia">{nombrePais(pais, lang)}</Brilla></h1>
           <div className="ira-pais__datos">
             <p className="ira-pais__cifra">
               <span style={{ color: pais.puntuacion == null ? 'var(--ira-texto-3)' : color }}>{formatearPuntuacion(pais.puntuacion, lang)}</span>

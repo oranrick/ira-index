@@ -13,6 +13,7 @@ import {
 } from 'recharts';
 import { supabase } from '../supabaseClient';
 import { politicalSpeeches as speeches } from '../data/speeches';
+import Brilla from './ui/Brilla.jsx';
 
 // ── Constantes de parámetros (fórmula vigente, 7 params — ver CLAUDE.md) ──
 const KEYS = ['pronominal', 'metafora', 'dicotomia', 'tono', 'disenso', 'vector', 'coherencia'];
@@ -210,7 +211,7 @@ export default function PatternsPage({ lang = 'es' }) {
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '1060px', margin: '0 auto', padding: '26px 20px 60px' }}>
         <div className="ira-cabecera" style={{ marginBottom: '32px' }}>
-          <h1 className="ira-cabecera__titulo">{t.title}</h1>
+          <h1 className="ira-cabecera__titulo"><Brilla>{t.title}</Brilla></h1>
           <p className="ira-cabecera__texto">{t.subtitle}</p>
         </div>
 

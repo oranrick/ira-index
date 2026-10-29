@@ -343,7 +343,7 @@
 @media (max-width: 860px) {
   .ira-pz-arbol__rejilla { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   /* En móvil la lista es una tira deslizable para que el árbol quede a la vista */
-  .ira-pz-arbol__rejilla > .ira-pz-frontera__frases {
+  .ira-pz-arbol__rejilla .ira-pz-frontera__frases {
     flex-direction: row; overflow-x: auto; scroll-snap-type: x mandatory; gap: 8px;
     margin: 0 -16px; padding: 6px 16px 10px; scrollbar-width: thin;
   }
