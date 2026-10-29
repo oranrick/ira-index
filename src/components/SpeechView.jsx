@@ -6,7 +6,6 @@ import { polaridadFragmento, puntuacionesPorClave } from '../lib/anotaciones';
 import BarraEscala from './ui/BarraEscala.jsx';
 import FilaParametro from './ui/FilaParametro.jsx';
 import { fechaCorta } from '../lib/discursos';
-import Brilla from './ui/Brilla.jsx';
 
 // Colores de las dos familias de anotación (tokens.css)
 const FAMILIA = {
@@ -20,7 +19,7 @@ const SPEECH_VIEW_TEXTS = {
     back:                  "← Volver",
     annotatedFragment:     "FRAGMENTO ANOTADO",
     iraParams:             "PARÁMETROS IRA",
-    clickFullAnalysis:     "Clic para análisis completo →",
+    clickFullAnalysis:     "Clic para análisis completo",
     pinnedNoteTitle:       "Análisis del fragmento",
     translationLabel:      "Traducción al español",
     translationLabelEn:    "Traducción al inglés",
@@ -38,7 +37,7 @@ const SPEECH_VIEW_TEXTS = {
     back:                  "← Back",
     annotatedFragment:     "ANNOTATED FRAGMENT",
     iraParams:             "IRA PARAMETERS",
-    clickFullAnalysis:     "Click for full analysis →",
+    clickFullAnalysis:     "Click for full analysis",
     pinnedNoteTitle:       "Fragment analysis",
     translationLabel:      "Spanish translation",
     translationLabelEn:    "English translation",
@@ -198,7 +197,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
         <div style={styles.headerLeft}>
           <div style={styles.entityChip}>{speech.entityName}</div>
           <h1 style={{ ...styles.title, fontSize: isMobile ? '30px' : 'clamp(32px, 4vw, 48px)' }}>
-            <Brilla semilla={String(displayTitle)}>{displayTitle}</Brilla>
+            {displayTitle}
           </h1>
           <div style={styles.meta}>
             <span style={{ ...styles.metaItem, fontFamily: 'var(--ira-font-cifra)' }}>{fechaCorta(speech.date)}</span>

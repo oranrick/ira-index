@@ -7,9 +7,9 @@
 .ira-juego--rojo { --jg: var(--ira-1); --jg-claro: var(--ira-marca-polarizante); --jg-fondo: rgba(190, 40, 26, 0.16); --jg-halo: rgba(190, 40, 26, 0.45); }
 .ira-juego--oro { --jg: var(--ira-oro); --jg-claro: var(--ira-oro-hover); --jg-fondo: rgba(220, 177, 73, 0.14); --jg-halo: rgba(220, 177, 73, 0.45); }
 .ira-juego--neutra { --jg: #6F8585; --jg-claro: var(--ira-texto-cita); --jg-fondo: rgba(169, 184, 184, 0.1); --jg-halo: rgba(169, 184, 184, 0.3); }
-.ira-juego--alcance { --jg: #7FA7D9; --jg-claro: #CFE0F5; --jg-fondo: rgba(127, 167, 217, 0.14); --jg-halo: rgba(127, 167, 217, 0.45); }
-.ira-juego--interpelacion { --jg: #B39DDB; --jg-claro: #E2D8F3; --jg-fondo: rgba(179, 157, 219, 0.14); --jg-halo: rgba(179, 157, 219, 0.45); }
-.ira-juego--permeabilidad { --jg: #5FC4C9; --jg-claro: #C6EEF0; --jg-fondo: rgba(95, 196, 201, 0.14); --jg-halo: rgba(95, 196, 201, 0.45); }
+.ira-juego--alcance { --jg: #EDE4CF; --jg-claro: #FFF8E8; --jg-fondo: rgba(237, 228, 207, 0.1); --jg-halo: rgba(237, 228, 207, 0.4); }
+.ira-juego--interpelacion { --jg: #6F8C88; --jg-claro: #B9CCC9; --jg-fondo: rgba(111, 140, 136, 0.16); --jg-halo: rgba(111, 140, 136, 0.5); }
+.ira-juego--permeabilidad { --jg: #A3C2B8; --jg-claro: #DCEBE6; --jg-fondo: rgba(163, 194, 184, 0.13); --jg-halo: rgba(163, 194, 184, 0.45); }
 
 /* ── Tacto de los botones de elección (frases, nodos, chips, opciones) ───── */
 .ira-juego-elige { position: relative; isolation: isolate; }
@@ -112,9 +112,9 @@
    ════════════════════════════════════════════════════════════════════════════ */
 .ira-met .ira-met-pestanas__panel[hidden] { display: none; } /* antes se veían los tres paneles a la vez */
 .ira-met .ira-met-pestanas__lista { position: relative; padding: 6px; border-radius: 22px; border: 1px solid var(--ira-linea); background: rgba(4, 20, 20, 0.55); }
-.ira-met .ira-met-pestanas__lista--alcance { --tab: var(--met-alcance); --tab-fondo: rgba(127, 167, 217, 0.13); }
-.ira-met .ira-met-pestanas__lista--interpelacion { --tab: var(--met-interpelacion); --tab-fondo: rgba(179, 157, 219, 0.13); }
-.ira-met .ira-met-pestanas__lista--permeabilidad { --tab: var(--met-permeabilidad); --tab-fondo: rgba(95, 196, 201, 0.13); }
+.ira-met .ira-met-pestanas__lista--alcance { --tab: var(--met-alcance); --tab-fondo: rgba(237, 228, 207, 0.1); }
+.ira-met .ira-met-pestanas__lista--interpelacion { --tab: var(--met-interpelacion); --tab-fondo: rgba(111, 140, 136, 0.18); }
+.ira-met .ira-met-pestanas__lista--permeabilidad { --tab: var(--met-permeabilidad); --tab-fondo: rgba(163, 194, 184, 0.13); }
 .ira-met .ira-met-pestanas__pastilla {
   position: absolute; top: 6px; bottom: 6px; z-index: 0;
   left: calc(6px + (100% - 12px - 16px) / var(--n) * var(--i) + 8px * var(--i));

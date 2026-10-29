@@ -407,7 +407,7 @@ a.ira-chip { text-decoration: none; }
 }
 .ira-portada__nuevo:hover { background: rgba(141, 170, 126, 0.16); }
 .ira-portada__nuevo:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: 2px; }
-.ira-portada__nuevo-rotulo { grid-column: 1; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ira-marca-empatica); }
+.ira-portada__nuevo-rotulo { font-family: var(--ira-font-voz); font-style: italic; grid-column: 1; font-size: 15px; color: var(--ira-marca-empatica); }
 .ira-portada__nuevo-texto { grid-column: 1; font-size: 15px; line-height: 22px; }
 .ira-portada__nuevo-flecha { grid-column: 2; grid-row: 1 / span 2; font-size: 20px; color: var(--ira-marca-empatica); }
 @media (max-width: 1100px) {
@@ -500,7 +500,7 @@ a.ira-chip { text-decoration: none; }
 .ira-mapa__panel-nivel { font-family: var(--ira-font-texto); font-size: 14px; letter-spacing: 0; color: var(--ira-texto-cita); }
 .ira-mapa__panel-texto { margin: 0; font-size: 14px; line-height: 1.65; color: var(--ira-texto-cita); }
 .ira-mapa__botones { display: flex; flex-direction: column; gap: 8px; }
-.ira-mapa__boton-todos { text-transform: uppercase; letter-spacing: 0.04em; font-size: 14px; }
+.ira-mapa__boton-todos { font-size: 14px; }
 .ira-mapa__boton-persona { min-height: 52px; height: auto; padding: 8px 14px; justify-content: space-between; text-align: left; white-space: normal; }
 .ira-mapa__persona { display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
 .ira-mapa__persona small { font-size: 12px; font-weight: 400; color: var(--ira-texto-2); }
@@ -534,7 +534,7 @@ a.ira-chip { text-decoration: none; }
 .ira-pais__cabecera { display: flex; align-items: center; gap: 56px; }
 .ira-pais__bandera { width: 440px; max-width: 36%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 22px; border: 1px solid var(--ira-linea-fuerte); flex-shrink: 0; display: block; }
 .ira-pais__titulos { display: flex; flex-direction: column; gap: 20px; flex: 1; min-width: 0; }
-.ira-pais__rotulo { margin: 0; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ira-texto-3); }
+.ira-pais__rotulo { font-family: var(--ira-font-voz); font-style: italic; margin: 0; font-size: 14px; color: var(--ira-texto-3); }
 .ira-pais__nombre { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(44px, 7vw, 100px); line-height: 1; letter-spacing: -0.04em; overflow-wrap: break-word; }
 .ira-pais__datos { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 20px; }
 .ira-pais__cifra { margin: 0; display: flex; align-items: baseline; gap: 6px; font-family: var(--ira-font-cifra); font-weight: 500; font-size: 56px; line-height: 1; letter-spacing: -0.04em; }

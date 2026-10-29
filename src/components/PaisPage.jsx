@@ -9,7 +9,6 @@ import BarraEscala from './ui/BarraEscala.jsx';
 import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
 import { colorPuntuacion, colorCifra, formatearPuntuacion } from '../lib/escala';
 import { citaDestacada, fechaCorta } from '../lib/discursos';
-import Brilla from './ui/Brilla.jsx';
 import {
   PAISES, POLITICOS, PENDIENTES, nombrePais, urlBandera, etiquetaNivel, agruparPorPais, puntuacionFigura, discursosDelPais,
 } from '../lib/paises';
@@ -45,7 +44,7 @@ function Silueta({ atlas, color }) {
   const p = 6, [x0, y0, x1, y1] = g.bb;
   return (
     <svg viewBox={`${x0 - p} ${y0 - p} ${x1 - x0 + 2 * p} ${y1 - y0 + 2 * p}`} aria-hidden="true" className="ira-pais__silueta">
-      <path d={g.d} fill={color} fillOpacity="0.9" stroke={color} vectorEffect="non-scaling-stroke" strokeLinejoin="round" style={{ filter: `drop-shadow(0 0 14px ${color})` }} />
+      <path d={g.d} fill={color} fillOpacity="0.9" stroke={color} vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
       <g transform={`translate(${g.c[0]} ${g.c[1]})`}>
         <circle r="3" fill="none" stroke={color} vectorEffect="non-scaling-stroke" className="ira-mapa__onda" />
         <circle r="3" fill="none" stroke={color} vectorEffect="non-scaling-stroke" className="ira-mapa__onda" style={{ animationDelay: '1.5s' }} />
@@ -88,16 +87,15 @@ export default function PaisPage() {
       <Link to="/politicos" className="ira-pais__volver">{t.volver}</Link>
 
       <header className="ira-pais__cabecera">
-        <img src={urlBandera(pais.iso)} alt={t.bandera(nombrePais(pais, lang))} width="440" height="330" className="ira-pais__bandera" style={{ boxShadow: `0 0 80px ${color}47, 0 28px 60px rgba(0,0,0,0.5)` }} />
+        <img src={urlBandera(pais.iso)} alt={t.bandera(nombrePais(pais, lang))} width="440" height="330" className="ira-pais__bandera" />
         <div className="ira-pais__titulos">
           <p className="ira-pais__rotulo">{t.rotulo}</p>
-          <h1 className="ira-pais__nombre"><Brilla tono="salvia">{nombrePais(pais, lang)}</Brilla></h1>
+          <h1 className="ira-pais__nombre">{nombrePais(pais, lang)}</h1>
           <div className="ira-pais__datos">
             <p className="ira-pais__cifra">
               <span style={{ color: pais.puntuacion == null ? 'var(--ira-texto-3)' : color }}>{formatearPuntuacion(pais.puntuacion, lang)}</span>
               <span className="ira-pais__max">/10<span className="ira-sr"> {t.de}</span></span>
             </p>
-            <EtiquetaPuntuacion puntuacion={pais.puntuacion} lang={lang} />
             <span className="ira-pais__nivel">{etiquetaNivel(pais.puntuacion, lang)}</span>
             <span className="ira-pais__conteo">{t.figuras(pais.figuras.length)} · {t.discursos(discursos.length)}</span>
           </div>
@@ -138,7 +136,7 @@ export default function PaisPage() {
                 <div className="ira-pais__persona-texto">
                   <p className="ira-pais__persona-nombre">{f.name}{rol(f.id) && <span className="ira-pais__rol">{rol(f.id)}</span>}</p>
                   {resumen(f.id) && <p className="ira-pais__persona-resumen">{resumen(f.id)}</p>}
-                  <p className="ira-pais__persona-meta">{t.discursos(nDe(f.id))} · {t.verPol} →</p>
+                  <p className="ira-pais__persona-meta">{t.discursos(nDe(f.id))} · {t.verPol}</p>
                 </div>
                 <p className="ira-pais__cifra ira-pais__cifra--media">
                   <span style={{ color: colorCifra(f.puntuacion) }}>{formatearPuntuacion(f.puntuacion, lang)}</span><span className="ira-pais__max">/10</span>

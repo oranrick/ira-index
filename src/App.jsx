@@ -14,11 +14,11 @@ import Destellos from "./components/Destellos.jsx";
 import { useAtraparFoco } from "./components/ui/Ventana.jsx";
 import EtiquetaPuntuacion from "./components/ui/EtiquetaPuntuacion.jsx";
 import IndicadorEscala from "./components/ui/IndicadorEscala.jsx";
+import Traza from "./components/ui/Traza.jsx";
 import BarraEscala from "./components/ui/BarraEscala.jsx";
 import TarjetaDiscurso from "./components/ui/TarjetaDiscurso.jsx";
 import FilaParametro from "./components/ui/FilaParametro.jsx";
 import { colorPuntuacion, colorCifra, formatearPuntuacion, CATEGORICOS } from "./lib/escala";
-import Brilla from './components/ui/Brilla.jsx';
 
 const Comparator   = lazy(() => import("./components/Comparator"));
 const RadarSection = lazy(() => import("./components/RadarSection"));
@@ -60,8 +60,8 @@ const TEXTS = {
     tabAnalyze:      "Analizar texto",
     tabCompare:      "Comparar",
     filterAll:       "Todos",
-    seeAnalysis:     "Ver análisis →",
-    paramsTitle:     "7 Parámetros IRA",
+    seeAnalysis:     "Ver análisis",
+    paramsTitle:     "Parámetro a parámetro",
     empatico:        "Empático",
     polarizador:     "Polarizador",
     close:           "Cerrar",
@@ -70,7 +70,7 @@ const TEXTS = {
     nameLabel:       "Nombre / Fuente (opcional)",
     namePlaceholder: "ej. Discurso de Milei, mayo 2025",
     catLabel:        "Categoría",
-    textLabel:       "Texto a analizar — español o inglés",
+    textLabel:       "Texto a analizar (español o inglés)",
     textPlaceholder: "Pega aquí el discurso, artículo, declaración o texto que quieres medir...",
     chars:           "caracteres",
     words:           "palabras",
@@ -79,7 +79,7 @@ const TEXTS = {
     errorLong:       "El texto supera el límite de 800 palabras.",
     errorGeneral:    "Error al analizar. Intenta de nuevo.",
     analyzing:       "Analizando...",
-    calcBtn:         "Calcular IRA →",
+    calcBtn:         "Calcular IRA",
     analyzeAnother:  "← Analizar otro texto",
     defaultName:     "Texto analizado",
     catPolitico:     "Político",
@@ -88,7 +88,7 @@ const TEXTS = {
     headerTag:       "Índice de Resonancia Afectiva",
     footerBasedOn:   "Datos basados en",
     footerText:      "El contagio de las palabras",
-    footerSub:       "(Grisales, UCM 2024). IRA — metodología en desarrollo.",
+    footerSub:       "(Grisales, UCM 2024). IRA, metodología en desarrollo.",
     loading:         "Cargando...",
     synthesis:       "Síntesis",
     politicianA:     "Político A",
@@ -98,7 +98,7 @@ const TEXTS = {
     annotatedFragment:"FRAGMENTO ANOTADO",
     iraParams:       "PARÁMETROS IRA",
     analysisLabel:   "Análisis",
-    clickFullAnalysis:"Clic para análisis completo →",
+    clickFullAnalysis:"Clic para análisis completo",
     translationLabel:"Traducción al español",
     seeTranslation:  "🌐 ver traducción",
     hideTranslation: "✕ traducción",
@@ -109,12 +109,12 @@ const TEXTS = {
     generating:      "Generando...",
     lecturaAutorLabel: "Lectura del autor",
     lecturaAutorBadge: "· no computa en la nota",
-    analyzeInSite:   "Analiza tu propio texto →",
+    analyzeInSite:   "Analiza tu propio texto",
     pinnedNoteTitle: "Análisis del fragmento",
     speechesTitle:   "Discursos analizados",
     speechesDesc:    "Fragmentos anotados del TFG",
     words:           "palabras",
-    seeAnalysisCard: "Ver análisis →",
+    seeAnalysisCard: "Ver análisis",
     iraLabelEmp:     "Empático",
     iraLabelMix:     "Mixto",
     iraLabelPol:     "Polarizante",
@@ -143,8 +143,8 @@ const TEXTS = {
     tabAnalyze:      "Analyze text",
     tabCompare:      "Compare",
     filterAll:       "All",
-    seeAnalysis:     "See analysis →",
-    paramsTitle:     "7 IRA Parameters",
+    seeAnalysis:     "See analysis",
+    paramsTitle:     "Parameter by parameter",
     empatico:        "Empathic",
     polarizador:     "Polarizing",
     close:           "Close",
@@ -153,7 +153,7 @@ const TEXTS = {
     nameLabel:       "Name / Source (optional)",
     namePlaceholder: "e.g. Trump speech, January 2021",
     catLabel:        "Category",
-    textLabel:       "Text to analyze — Spanish or English",
+    textLabel:       "Text to analyze (Spanish or English)",
     textPlaceholder: "Paste the speech, article, statement or text you want to measure...",
     chars:           "characters",
     words:           "words",
@@ -162,7 +162,7 @@ const TEXTS = {
     errorLong:       "Text exceeds the 800-word limit.",
     errorGeneral:    "Analysis error. Please try again.",
     analyzing:       "Analyzing...",
-    calcBtn:         "Calculate IRA →",
+    calcBtn:         "Calculate IRA",
     analyzeAnother:  "← Analyze another text",
     defaultName:     "Analyzed text",
     catPolitico:     "Politician",
@@ -171,7 +171,7 @@ const TEXTS = {
     headerTag:       "Affective Resonance Index",
     footerBasedOn:   "Data based on",
     footerText:      "The contagion of words",
-    footerSub:       "(Grisales, UCM 2024). IRA — methodology under development.",
+    footerSub:       "(Grisales, UCM 2024). IRA, methodology under development.",
     loading:         "Loading...",
     synthesis:       "Synthesis",
     politicianA:     "Politician A",
@@ -181,7 +181,7 @@ const TEXTS = {
     annotatedFragment:"ANNOTATED FRAGMENT",
     iraParams:       "IRA PARAMETERS",
     analysisLabel:   "Analysis",
-    clickFullAnalysis:"Click for full analysis →",
+    clickFullAnalysis:"Click for full analysis",
     translationLabel:"Spanish translation",
     seeTranslation:  "🌐 see translation",
     hideTranslation: "✕ translation",
@@ -192,12 +192,12 @@ const TEXTS = {
     generating:      "Generating...",
     lecturaAutorLabel: "Author's reading",
     lecturaAutorBadge: "· does not count toward the score",
-    analyzeInSite:   "Analyze your own text →",
+    analyzeInSite:   "Analyze your own text",
     pinnedNoteTitle: "Fragment analysis",
     speechesTitle:   "Analyzed speeches",
     speechesDesc:    "Annotated fragments from the thesis",
     words:           "words",
-    seeAnalysisCard: "See analysis →",
+    seeAnalysisCard: "See analysis",
     iraLabelEmp:     "Empathic",
     iraLabelMix:     "Mixed",
     iraLabelPol:     "Polarizing",
@@ -790,7 +790,7 @@ function drawRadar(canvas, result, accent = '#DCB149') {
   ctx.lineWidth = 1.5;
   ctx.stroke();
   // labels
-  ctx.font = '9px monospace';
+  ctx.font = '600 9px "Schibsted Grotesk", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   const labels = PARAMS_ORDER.map(id => PARAM_SHORT[id]);
@@ -831,33 +831,28 @@ function Badge({ label }) {
   );
 }
 
+// Cada político es una pista de la mesa de mezclas: su traza sale de las notas de sus
+// discursos analizados (en orden de fecha); si solo hay uno, de su nota media.
 function EntityCard({ entity, lang }) {
   const T = TEXTS[lang];
-  const catLabel = CAT_TRANS[lang][entity.category] || entity.category;
+  const { supabaseMap } = useContext(AppContext);
   const hasScore = entity.score != null;
+  const notas = getSpeechesByEntity(entity.id)
+    .slice().sort((x, y) => String(x.date).localeCompare(String(y.date)))
+    .map((sp) => supabaseMap[sp.id]?.ira).filter((v) => v != null);
+  const traza = notas.length >= 2 ? notas : hasScore ? [entity.score] : [5];
   return (
-    <Link to={`/entity/${entity.id}`} className="ira-figura">
-      <div className="ira-figura__cabecera">
-        {entity.photo && <img src={entity.photo} alt="" className="ira-figura__foto" />}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ marginBottom:"8px", display:"flex", gap:"8px", alignItems:"center" }}>
-            <FlagEmoji emoji={entity.flag} size={18} />
-            <Badge label={catLabel} />
-          </div>
-          <h3 className="ira-figura__nombre">{entity.name}</h3>
-          <p className="ira-figura__pais">{entity.country}</p>
-        </div>
-      </div>
-      <div className="ira-figura__puntuacion">
-        <p className="ira-figura__cifra">
-          <span style={{ color: hasScore ? colorCifra(entity.score) : "var(--ira-texto-3)" }}>
-            {formatearPuntuacion(entity.score, lang)}
-          </span>
-          <span className="ira-figura__max">/10</span>
-        </p>
-        <BarraEscala puntuacion={hasScore ? entity.score : null} grosor={6} />
-      </div>
-      <span className="ira-figura__cta">{T.seeAnalysis}</span>
+    <Link to={`/entity/${entity.id}`} className="ira-canal">
+      {entity.photo && <img src={entity.photo} alt="" className="ira-canal__foto" />}
+      <span className="ira-canal__nombre">
+        {entity.name}
+        <span className="ira-canal__pais">{entity.country}</span>
+      </span>
+      <Traza notas={traza} semilla={entity.id} alto={52} grosor={1.9} duracion={1300} repetir className="ira-canal__traza" />
+      <span className="ira-canal__nota" style={{ color: hasScore ? colorCifra(entity.score) : "var(--ira-texto-3)" }}>
+        {formatearPuntuacion(entity.score, lang)}
+        <span className="ira-sr"> {lang === 'en' ? 'out of 10' : 'de 10'} · {T.seeAnalysis}</span>
+      </span>
     </Link>
   );
 }
@@ -874,7 +869,7 @@ function RadarTooltip({ active, payload }) {
     }}>
       <span style={{ color: "var(--ira-texto-2)", fontSize: "13px" }}>{label}</span>
       <span style={{ color: accent, fontSize: "12px", fontWeight: 700, marginLeft: "8px" }}>
-        — {Number(value).toFixed(1)}
+        {Number(value).toFixed(1)}
       </span>
     </div>
   );
@@ -1047,41 +1042,27 @@ function EntityDetailPage() {
         transform: mounted ? "none" : "translateY(20px)",
         transition:"all 0.4s ease",
       }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"24px" }}>
-          <div>
-            <div style={{ display:"flex", gap:"8px", alignItems:"center", marginBottom:"8px" }}>
-              <FlagEmoji emoji={entity.flag} size={22} />
-              <Badge label={catLabel} />
-            </div>
-            <h1 style={{ margin:"0 0 4px", fontSize:"clamp(32px,6vw,44px)", fontWeight:500, lineHeight:1.05, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em" }}>
-              <Brilla tono={entity.score >= 6 ? 'salvia' : entity.score != null && entity.score < 4 ? 'rojo' : 'oro'}>{entity.name}</Brilla>
-            </h1>
-            <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)" }}>{entity.country}</p>
-          </div>
-          <p className="ira-figura__cifra" style={{ flexDirection:"column", alignItems:"flex-end", gap:"6px" }}>
-            <span style={{ display:"flex", alignItems:"baseline", gap:"6px" }}>
-              <span style={{ fontSize:"56px", color:scoreColor(liveScore) }}>{formatearPuntuacion(liveScore, lang)}</span>
-              <span className="ira-figura__max" style={{ fontSize:"18px" }}>/10</span>
-            </span>
-            <span style={{ fontFamily:"var(--ira-font-texto)", fontSize:"12px", letterSpacing:0, color:"var(--ira-texto-3)" }}>IRA</span>
-          </p>
-        </div>
-        <IndicadorEscala puntuacion={liveScore} lang={lang} className="ira-ficha__indicador" />
-        {entity.photo && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "20px" }}>
-            <img src={entity.photo} alt={entity.name} style={{
-              width: 100, height: 100, borderRadius: "50%", objectFit: "cover",
-              objectPosition: "center top", border: `3px solid ${accent}`,
-              boxShadow: `0 0 16px ${accentA(0.35)}`,
-            }} />
-            <p style={{ margin: "6px 0 0", fontSize: "12px", color: "var(--ira-texto-3)", letterSpacing: "0.05em" }}>
-              {entity.photoCredit}
+        {/* Cabecera de ficha: retrato pequeño, nombre grande, nota grande. Sin chips. */}
+        <header className="ira-ficha__cab">
+          {entity.photo && (
+            <figure className="ira-ficha__retrato">
+              <img src={entity.photo} alt="" />
+              {entity.photoCredit && <figcaption>{entity.photoCredit}</figcaption>}
+            </figure>
+          )}
+          <div className="ira-ficha__quien">
+            <h1>{entity.name}</h1>
+            <p className="ira-ficha__donde">
+              <FlagEmoji emoji={entity.flag} size={18} /> {entity.country}{entity.category !== 'Político' ? `, ${catLabel.toLowerCase()}` : ''}
             </p>
           </div>
-        )}
-        <p style={{ fontSize:"14px", color:"var(--ira-texto-3)", lineHeight:1.6, marginBottom:"24px", borderLeft:`2px solid ${accentA(0.4)}`, paddingLeft:"12px" }}>
-          {context}
-        </p>
+          <p className="ira-ficha__nota">
+            <span style={{ color:scoreColor(liveScore) }}>{formatearPuntuacion(liveScore, lang)}</span>
+            <span className="ira-ficha__de">/10</span>
+          </p>
+        </header>
+        <IndicadorEscala puntuacion={liveScore} lang={lang} className="ira-ficha__indicador" />
+        <p className="ira-ficha__contexto">{context}</p>
         <div style={{ marginBottom:"24px" }}>
           <Suspense fallback={null}>
             <RadarSection
@@ -1091,10 +1072,8 @@ function EntityDetailPage() {
             />
           </Suspense>
         </div>
-        <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"20px" }}>
-          <p style={{ fontSize:"12px", letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase", marginBottom:"16px" }}>
-            {T.paramsTitle}
-          </p>
+        <div className="ira-ficha__params">
+          <h2 className="ira-ficha__h2">{T.paramsTitle}</h2>
           {params.map((p, i) => {
             const val = entity.params[p.id];
             const isOpen = expanded === p.id;
@@ -1113,17 +1092,13 @@ function EntityDetailPage() {
                       <p style={{
                         margin:"0 0 12px", padding:"0 0 0 10px",
                         borderLeft:"2px solid var(--ira-linea-fuerte)",
-                        fontSize:"14px", fontStyle:"italic", fontFamily:"var(--ira-font-texto)",
-                        color:"var(--ira-texto-2)", lineHeight:1.55,
+                        fontSize:"16px", fontStyle:"italic", fontFamily:"var(--ira-font-voz)",
+                        color:"var(--ira-texto-cita)", lineHeight:1.55,
                       }}>«{entity.quotes[p.id]}»</p>
                     )}
                     {(lang === "en" ? entity.paramTextsEn?.[p.id] : entity.paramTexts?.[p.id]) && (
-                      <div style={{
-                        background: accentA(0.05),
-                        border: `1px solid ${accentA(0.2)}`,
-                        borderRadius:"8px", padding:"10px 12px", marginBottom:"12px",
-                      }}>
-                        <p style={{ margin:"0 0 5px", fontSize:"12px", letterSpacing:"0.14em", color: accentA(0.8), textTransform:"uppercase" }}>{T.analysisLabel}</p>
+                      <div style={{ borderLeft:"2px solid var(--ira-oro)", padding:"2px 0 2px 14px", marginBottom:"14px" }}>
+                        <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin:"0 0 5px", fontSize:"15px", color: accentA(0.8) }}>{T.analysisLabel}</p>
                         <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.65 }}>{lang === "en" ? entity.paramTextsEn[p.id] : entity.paramTexts[p.id]}</p>
                       </div>
                     )}
@@ -1131,13 +1106,13 @@ function EntityDetailPage() {
                       {det.detail}
                     </p>
                     <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
-                      <div style={{ background:"rgba(141,170,126,0.08)", border:"1px solid rgba(141,170,126,0.3)", borderRadius:"8px", padding:"10px 12px" }}>
-                        <p style={{ margin:"0 0 5px", fontSize:"12px", letterSpacing:"0.14em", color:"var(--ira-salvia)", textTransform:"uppercase" }}>{T.empatico}</p>
-                        <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.empatico}</p>
+                      <div style={{ borderLeft:"2px solid var(--ira-salvia)", padding:"2px 0 2px 14px" }}>
+                        <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin:"0 0 5px", fontSize:"15px", color:"var(--ira-salvia)" }}>{T.empatico}</p>
+                        <p style={{ margin:0, fontSize:"15px", color:"var(--ira-texto-cita)", lineHeight:1.55, fontFamily:"var(--ira-font-voz)" }}>{det.empatico}</p>
                       </div>
-                      <div style={{ background:"rgba(190,40,26,0.08)", border:"1px solid rgba(190,40,26,0.35)", borderRadius:"8px", padding:"10px 12px" }}>
-                        <p style={{ margin:"0 0 5px", fontSize:"12px", letterSpacing:"0.14em", color:"var(--ira-estrella-polarizante)", textTransform:"uppercase" }}>{T.polarizador}</p>
-                        <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)", lineHeight:1.55, fontStyle:"italic", fontFamily:"var(--ira-font-texto)" }}>{det.polarizador}</p>
+                      <div style={{ borderLeft:"2px solid var(--ira-estrella-polarizante)", padding:"2px 0 2px 14px" }}>
+                        <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin:"0 0 5px", fontSize:"15px", color:"var(--ira-estrella-polarizante)" }}>{T.polarizador}</p>
+                        <p style={{ margin:0, fontSize:"15px", color:"var(--ira-texto-cita)", lineHeight:1.55, fontFamily:"var(--ira-font-voz)" }}>{det.polarizador}</p>
                       </div>
                     </div>
               </FilaParametro>
@@ -1190,7 +1165,7 @@ function IRAModal({ onClose, lang }) {
         <div style={{ marginBottom:"24px" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"10px" }}>
             <div style={{ width:"5px", height:"5px", borderRadius:"50%", background:accent, boxShadow:`0 0 8px ${accent}` }} />
-            <span style={{ fontSize:"12px", letterSpacing:"0.18em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>{T.modalTag}</span>
+            <span style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", fontSize:"15px", color:"var(--ira-texto-3)" }}>{T.modalTag}</span>
           </div>
           <h2 id="ira-modal-que-es" style={{ margin:"0 0 16px", fontSize:"30px", fontWeight:500, lineHeight:1.15, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em" }}>
             {T.modalTitle}
@@ -1201,7 +1176,7 @@ function IRAModal({ onClose, lang }) {
         </div>
 
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"24px" }}>
-          <p style={{ margin:"0 0 10px", fontSize:"12px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalWhatTitle}</p>
+          <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin:"0 0 10px", fontSize:"15px", color:accent }}>{T.modalWhatTitle}</p>
           <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
             {T.modalWhatPre}
             <span style={{ color:"var(--ira-estrella-polarizante)", fontWeight:600 }}>{T.modalWhatPol}</span>
@@ -1212,7 +1187,7 @@ function IRAModal({ onClose, lang }) {
         </div>
 
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"24px" }}>
-          <p style={{ margin:"0 0 16px", fontSize:"12px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalParamsTitle}</p>
+          <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin:"0 0 16px", fontSize:"15px", color:accent }}>{T.modalParamsTitle}</p>
           <div style={{ display:"flex", flexDirection:"column", gap:"14px" }}>
             {paramsInfo.map((p, i) => (
               <div key={i} style={{ borderLeft:`2px solid ${PARAM_COLORS[i]}50`, paddingLeft:"14px" }}>
@@ -1224,7 +1199,7 @@ function IRAModal({ onClose, lang }) {
         </div>
 
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)", paddingTop:"22px", marginBottom:"28px" }}>
-          <p style={{ margin:"0 0 10px", fontSize:"12px", letterSpacing:"0.16em", color:accent, textTransform:"uppercase" }}>{T.modalOriginTitle}</p>
+          <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin:"0 0 10px", fontSize:"15px", color:accent }}>{T.modalOriginTitle}</p>
           <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.75 }}>
             {T.modalOriginPre}
             <em style={{ color:"var(--ira-texto-2)" }}>{T.modalOriginBook}</em>
@@ -1550,7 +1525,7 @@ function AnalysisResult({ result, onReset, lang }) {
       {/* Comparación con el corpus */}
       {result.comparacion && (
         <div style={{ marginTop:"20px", padding:"14px 16px", background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)", borderRadius:"10px" }}>
-          <p style={{ margin:"0 0 5px", fontSize:"12px", fontWeight:700, letterSpacing:"0.14em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
+          <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin:"0 0 5px", fontSize:"15px", color:"var(--ira-texto-3)" }}>
             {lang === 'en' ? "Corpus comparison" : "Comparación con el corpus"}
           </p>
           <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.6, fontStyle:"italic" }}>
@@ -1563,9 +1538,9 @@ function AnalysisResult({ result, onReset, lang }) {
         <div style={{ marginTop:"24px" }}>
           <div style={{ height:"1px", background:"rgba(255,255,255,0.07)", marginBottom:"18px" }} />
           <div style={{ display:"flex", alignItems:"baseline", gap:"8px", marginBottom:"10px" }}>
-            <span style={{
-              fontFamily:"var(--ira-font-texto)", fontSize:"12px", fontWeight:600,
-              color: accentA(0.7), letterSpacing:"0.14em", textTransform:"uppercase",
+            <span style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic",
+              fontFamily:"var(--ira-font-texto)", fontSize:"15px", fontWeight:600,
+              color: accentA(0.7),
             }}>{T.lecturaAutorLabel}</span>
             <span style={{
               fontFamily:"var(--ira-font-texto)", fontSize:"12px",
@@ -1680,10 +1655,10 @@ function WelcomeModal({ lang, onClose }) {
             : "Explore how politicians and media speak, or paste any text and measure it yourself."}
         </p>
         <button type="button" onClick={onClose} className="ira-boton ira-boton--principal" style={{ width:"100%" }}>
-          {lang === "es" ? "Empezar a explorar →" : "Start exploring →"}
+          {lang === "es" ? "Empezar a explorar" : "Start exploring"}
         </button>
         <p style={{ margin:"16px 0 0", fontSize:"13px", color:"var(--ira-texto-2)", textAlign:"right", fontStyle:"italic" }}>
-          — Rick Grisales, creador del IRA
+          Rick Grisales, creador del IRA
         </p>
       </div>
     </div>
@@ -1740,7 +1715,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
       <div className="main-container">
         <div className="ira-cabecera" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease" }}>
           <h1 className="ira-cabecera__titulo">
-            <Brilla>{lang==='en' ? 'Leaderboard' : 'Clasificación'}</Brilla>
+            {lang==='en' ? 'Leaderboard' : 'Clasificación'}
           </h1>
           <p className="ira-cabecera__texto">
             {mode === 'medios' ? T.subtitleMedios : T.subtitle}
@@ -1822,7 +1797,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
               </div>
             </div>
 
-            <div className="entity-grid">
+            <div className="entity-grid ira-mesa">
               {displayEntities.map((entity, i) => (
                 <div key={entity.id} style={{ opacity:mounted?1:0, transform:mounted?"none":"translateY(20px)", transition:`all 0.5s ease ${0.1+i*0.06}s` }}>
                   <EntityCard entity={entity} lang={lang} />

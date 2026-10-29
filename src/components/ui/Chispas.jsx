@@ -12,9 +12,9 @@ export const TONOS = {
   rojo: ['#E8604A', '#BE281A'],
   oro: ['#F4CF7A', '#DCB149'],
   neutra: ['#D5DEDE', '#7C8F8F'],
-  alcance: ['#A9C6EC', '#7FA7D9'],
-  interpelacion: ['#CDBDEB', '#B39DDB'],
-  permeabilidad: ['#9EDFE2', '#5FC4C9'],
+  alcance: ['#FFF8E8', '#EDE4CF'],
+  interpelacion: ['#B9CCC9', '#6F8C88'],
+  permeabilidad: ['#DCEBE6', '#A3C2B8'],
 };
 
 // Traduce los nombres de tono que usan las piezas a un tono de destello

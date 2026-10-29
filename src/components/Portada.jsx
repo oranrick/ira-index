@@ -8,7 +8,6 @@ import IndicadorEscala from './ui/IndicadorEscala.jsx';
 import PanelEjemplos from './PanelEjemplos.jsx';
 import ModalCiencia from './ModalCiencia.jsx';
 import { ejemploDesdeCorpus, ejemploDesdeDiario, seleccionarEjemplos } from '../lib/ejemplosPortada';
-import Brilla from './ui/Brilla.jsx';
 
 const TXT = {
   es: {
@@ -81,10 +80,18 @@ export default function Portada() {
   return (
     <div className="ira-portada">
       <div className="ira-portada__texto">
-        <h1 className="ira-portada__titulo"><Brilla tono="salvia" cantidad={4} tamano={[10, 16]}>{t.titulo}</Brilla></h1>
+        <h1 className="ira-portada__titulo">
+          {t.titulo.split(' ').slice(0, -1).join(' ')}{' '}
+          <span className="ira-portada__subraya">
+            {t.titulo.split(' ').slice(-1)[0]}
+            <svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 20 C 60 10, 120 26, 180 16 S 270 12, 296 18" /></svg>
+          </span>
+        </h1>
+        <div className="ira-portada__bajada">
         <p className="ira-portada__intro">
           {t.intro((x) => <Link to="/about">{x}</Link>, boton('neuro'), boton('ling'), boton('psico'))}
         </p>
+        <div className="ira-portada__lado">
         <div className="ira-portada__acciones">
           <Link to="/politicos" className="ira-boton ira-boton--principal">{t.ver}</Link>
           {user
@@ -96,15 +103,19 @@ export default function Portada() {
             {t.nota((x) => <button type="button" className="ira-enlace-boton" onClick={openLogin}>{x}</button>)}
           </p>
         )}
-        <Link to="/metodologia/p1" className="ira-portada__nuevo">
-          <span className="ira-portada__nuevo-rotulo">{t.nuevoRotulo}</span>
-          <span className="ira-portada__nuevo-texto">{t.nuevoTexto}</span>
-          <span className="ira-portada__nuevo-flecha" aria-hidden="true">→</span>
-        </Link>
-        <IndicadorEscala compacto lang={lang} className="ira-portada__escala" />
+        </div>
+        </div>
       </div>
 
       <PanelEjemplos ejemplos={ejemplos} lang={lang} />
+
+      <div className="ira-portada__pie">
+        <Link to="/metodologia/p1" className="ira-portada__nuevo">
+            <span className="ira-portada__nuevo-rotulo">{t.nuevoRotulo}</span>
+            <span className="ira-portada__nuevo-texto">{t.nuevoTexto}</span>
+          </Link>
+          <IndicadorEscala compacto lang={lang} className="ira-portada__escala" />
+      </div>
 
       <ModalCiencia ciencia={ciencia} lang={lang} onCerrar={() => setCiencia(null)} />
     </div>

@@ -1,10 +1,11 @@
-// IRA · panel de la portada con discursos de ejemplo
+// IRA · panel de la portada: un discurso analizado como grabación (traza de sus frases y
+// citas marcadas como en una transcripción)
 // Rota cada 7 s con fundido; flechas, puntos y contador. Al pulsar se reinicia el temporizador.
 // Se detiene con el puntero encima o el foco dentro, y no rota con "reducir movimiento".
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { colorCifra, formatearPuntuacion } from '../lib/escala';
 import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
-import Estrella from './ui/Estrella.jsx';
+import Traza from './ui/Traza.jsx';
 
 const SEGUNDOS = 7;
 
@@ -23,46 +24,30 @@ const TXT = {
   },
 };
 
-const ESTRELLA = {
-  polarizante: { color: 'var(--ira-estrella-polarizante)', brillo: '#BE281A' },
-  empatico: { color: 'var(--ira-estrella-empatica)', brillo: '#8DAA7E' },
-};
-
 function prefiereQuieto() {
   return typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 }
 
-// Posiciones de los destellos alrededor de un fragmento: fijas para cada texto
-// (no cambian en cada render) y repartidas por los bordes, sin señalar palabras.
-function destellosPara(texto) {
-  let h = 0;
-  for (let k = 0; k < texto.length; k++) h = (h * 31 + texto.charCodeAt(k)) >>> 0;
-  const azar = () => { h = (h * 1103515245 + 12345) >>> 0; return h / 4294967296; };
-  return Array.from({ length: 3 }, (_, k) => ({
-    left: `${Math.round(8 + azar() * 84)}%`,
-    top: k === 1 ? `${Math.round(azar() * 100)}%` : (k === 0 ? '-6px' : 'calc(100% - 4px)'),
-    tamano: 7 + Math.round(azar() * 5),
-    retraso: `${(-azar() * 2.4).toFixed(2)}s`,
-  }));
+function Fragmento({ f, lang, t }) {
+  return (
+    <figure className={`ira-panel-ej__fragmento ira-panel-ej__fragmento--${f.polaridad}`}>
+      <blockquote className="ira-panel-ej__cita">
+        <p><span className="ira-panel-ej__marca">«{f.texto}»</span></p>
+      </blockquote>
+      <figcaption className="ira-panel-ej__pie-frase">
+        <span className="ira-sr">{f.polaridad === 'polarizante' ? t.marcaPol : t.marcaEmp}: </span>
+        <b style={{ color: colorCifra(f.puntuacion) }}>{formatearPuntuacion(f.puntuacion, lang)}</b>
+        <span aria-hidden="true">{f.polaridad === 'polarizante' ? t.pol.toLowerCase() : t.emp.toLowerCase()}</span>
+      </figcaption>
+    </figure>
+  );
 }
 
-function Fragmento({ f, lang, t }) {
-  const est = ESTRELLA[f.polaridad];
-  return (
-    <div className="ira-panel-ej__fragmento">
-      <EtiquetaPuntuacion puntuacion={f.puntuacion} lang={lang} className="ira-panel-ej__etiqueta" />
-      <div className={`ira-panel-ej__cita ira-panel-ej__cita--${f.polaridad}`}>
-        <p>
-          «{f.texto}»
-          <span className="ira-sr"> ({f.polaridad === 'polarizante' ? t.marcaPol : t.marcaEmp})</span>
-        </p>
-        {destellosPara(f.texto).map((d, k) => (
-          <Estrella key={k} color={est.color} brillo={est.brillo} titila tamano={d.tamano}
-            className="ira-panel-ej__destello" style={{ left: d.left, top: d.top, animationDelay: d.retraso }} />
-        ))}
-      </div>
-    </div>
-  );
+// Las notas de la traza: las de sus frases analizadas, en orden, con la nota del discurso
+// en los extremos para que la grabación empiece y acabe en su tono general
+function notasDe(ej) {
+  const frases = ej.fragmentos.map((f) => f.puntuacion);
+  return [ej.puntuacion, ...frases, ej.puntuacion];
 }
 
 export default function PanelEjemplos({ ejemplos, lang = 'es' }) {
@@ -104,36 +89,27 @@ export default function PanelEjemplos({ ejemplos, lang = 'es' }) {
         <p className="ira-panel-ej__vacio" role="status">{t.cargando}</p>
       ) : (
         <div key={actual.id} className="ira-panel-ej__contenido">
-          <dl className="ira-panel-ej__datos">
-            <div><dt>{t.pais}</dt><dd>{actual.pais || '—'}</dd></div>
-            <div><dt>{t.fecha}</dt><dd className="ira-cifra-fecha">{actual.fecha || '—'}</dd></div>
-            <div><dt>{t.persona}</dt><dd>{actual.persona}</dd></div>
-            <div><dt>{t.discurso}</dt><dd>{actual.discurso}</dd></div>
-          </dl>
-
+          <div className="ira-panel-ej__cab">
+            <p className="ira-panel-ej__quien">
+              <b>{actual.persona}</b>
+              <span>{actual.discurso}</span>
+              <span className="ira-panel-ej__donde">{[actual.pais, actual.fecha].filter(Boolean).join(', ')}</span>
+            </p>
+            <p className="ira-panel-ej__cifra" aria-label={`${t.puntuacion}: ${formatearPuntuacion(actual.puntuacion, lang)}`}>
+              <span style={{ color: colorCifra(actual.puntuacion) }}>{formatearPuntuacion(actual.puntuacion, lang)}</span>
+              <span className="ira-panel-ej__max">{lang === 'en' ? 'of 10' : 'de 10'}</span>
+            </p>
+          </div>
+          <Traza notas={notasDe(actual)} semilla={actual.id} alto={110} grosor={2.4} duracion={2200} cabezal repetir className="ira-panel-ej__traza" />
           <div className="ira-panel-ej__fragmentos">
             {actual.fragmentos.map((f, k) => <Fragmento key={k} f={f} lang={lang} t={t} />)}
-          </div>
-
-          <div className="ira-panel-ej__resumen">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <span className="ira-panel-ej__rotulo">{t.puntuacion}</span>
-              <p className="ira-panel-ej__cifra">
-                <span style={{ color: colorCifra(actual.puntuacion) }}>{formatearPuntuacion(actual.puntuacion, lang)}</span>
-                <span className="ira-panel-ej__max">/10</span>
-              </p>
-            </div>
-            <div className="ira-panel-ej__leyenda">
-              <span><Estrella {...ESTRELLA.polarizante} />{t.pol}</span>
-              <span><Estrella {...ESTRELLA.empatico} />{t.emp}</span>
-            </div>
           </div>
         </div>
       )}
 
       {n > 1 && (
         <div className="ira-panel-ej__controles">
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div className="ira-panel-ej__puntos">
             {ejemplos.map((e, k) => (
               <button
                 key={e.id}

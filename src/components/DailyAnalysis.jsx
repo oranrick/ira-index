@@ -7,7 +7,6 @@ import { Navigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import TarjetaDiscurso from './ui/TarjetaDiscurso.jsx';
 import { fechaCorta, citaDestacada } from '../lib/discursos';
-import Brilla from './ui/Brilla.jsx';
 
 const TEXTS = {
   es: {
@@ -15,7 +14,7 @@ const TEXTS = {
     desc: 'El discurso más reciente detectado automáticamente, analizado con el motor IRA.',
     loading: 'Cargando...',
     empty: 'Todavía no hay ningún discurso analizado.',
-    source: 'Ver fuente original →',
+    source: 'Ver fuente original',
     expand: 'Ver texto completo',
     collapse: 'Ocultar texto',
     lecturaAutor: 'Lectura del autor',
@@ -27,7 +26,7 @@ const TEXTS = {
     desc: 'The most recently detected speech, analyzed with the IRA engine.',
     loading: 'Loading...',
     empty: 'No speech has been analyzed yet.',
-    source: 'View original source →',
+    source: 'View original source',
     expand: 'Show full text',
     collapse: 'Hide text',
     lecturaAutor: "Author's reading",
@@ -56,7 +55,7 @@ export default function DailyAnalysis({ lang = 'es' }) {
 
   const cabecera = (
     <div className="ira-cabecera" style={{ marginBottom: '32px' }}>
-      <h1 className="ira-cabecera__titulo"><Brilla>{T.title}</Brilla></h1>
+      <h1 className="ira-cabecera__titulo">{T.title}</h1>
       <p className="ira-cabecera__texto">{T.desc}</p>
     </div>
   );

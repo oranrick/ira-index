@@ -14,6 +14,7 @@ import '../../styles/metodologia.css';
 import '../../styles/metodologia-piezas.css';
 import '../../styles/metodologia-p2.css';
 import '../../styles/metodologia-juego.css';
+import '../../styles/identidad.css';
 
 const MANUAL_URL = 'https://github.com/oranrick/ira-index/blob/main/research/manual/P2.md';
 const TONO_TITULO = 'oro';
@@ -73,7 +74,6 @@ function Destacado({ children, tono = 'oro' }) {
   return (
     <Aparecer as="p" className={`ira-met__destacado ira-met__destacado--${tono}`}>
       {children}
-      <Chispas tono={tono} semilla={String(children)} cantidad={3} />
     </Aparecer>
   );
 }
@@ -497,7 +497,7 @@ export default function MetodologiaP2() {
       <header className="ira-met__cabecera ira-met__cabecera--p1">
         <div className="ira-met__cabecera-texto">
           <p className="ira-met__rotulo">{t.rotulo} <span className="ira-p2-borrador">{t.enConstruccion}</span></p>
-          <h1 className="ira-met__titulo"><span className="ira-juego-titulo">{t.titulo}<Chispas tono={TONO_TITULO} semilla={t.titulo} cantidad={4} tamano={[9, 15]} /></span></h1>
+          <h1 className="ira-met__titulo">{t.titulo}</h1>
           <p className="ira-met__frase">{t.frase}</p>
         </div>
         <svg viewBox="0 0 200 200" className="ira-met__emblema ira-p2-emblema ira-juego-emblema" aria-hidden="true"
@@ -546,7 +546,6 @@ export default function MetodologiaP2() {
           {/* Por qué importa */}
           <Seccion {...sec('por-que-importa')} className="ira-met__seccion--banda">
             <figure className="ira-p2-cita">
-              <Chispas tono="oro" semilla={t.porque.entrada} cantidad={3} />
               <blockquote className="ira-met__entrada">{t.porque.entrada}</blockquote>
               <figcaption>{t.porque.entradaFuente}</figcaption>
             </figure>
@@ -728,7 +727,7 @@ export default function MetodologiaP2() {
           <Seccion {...sec('referencias')}>
             <p className="ira-met__nota">{t.referenciasNota}</p>
             <ul className="ira-met__referencias">{t.referencias.map((r) => <li key={r}>{r}</li>)}</ul>
-            <p><a href={MANUAL_URL} target="_blank" rel="noopener noreferrer" className="ira-met__enlace">{t.manual} →</a></p>
+            <p><a href={MANUAL_URL} target="_blank" rel="noopener noreferrer" className="ira-met__enlace">{t.manual}</a></p>
           </Seccion>
 
           <nav className="ira-met__pie-nav" aria-label="Navegación entre parámetros">

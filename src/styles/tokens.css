@@ -57,23 +57,26 @@
   --ira-estrella-empatica: #B9D2AC;
 
   /* Tipografía */
-  --ira-font-titulo: 'Space Grotesk', system-ui, sans-serif;
-  --ira-font-texto: 'Sora', system-ui, sans-serif;
-  --ira-font-cifra: 'JetBrains Mono', ui-monospace, monospace;
+  /* Identidad propia (oct 2026): letra de redacción para títulos, interfaz y cifras;
+     letra de libro para lo que es voz (citas, transcripciones, textos largos) */
+  --ira-font-titulo: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --ira-font-texto: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --ira-font-cifra: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --ira-font-voz: 'Literata', Georgia, 'Times New Roman', serif;
 
   /* Radios */
-  --ira-radio-s: 6px;    /* etiquetas de puntuación */
-  --ira-radio-m: 10px;   /* botones */
-  --ira-radio-l: 16px;   /* tarjetas */
-  --ira-radio-xl: 18px;  /* paneles grandes y ventanas */
+  --ira-radio-s: 3px;    /* etiquetas de puntuación */
+  --ira-radio-m: 4px;    /* botones: esquinas casi rectas */
+  --ira-radio-l: 6px;    /* tarjetas (las pocas que quedan) */
+  --ira-radio-xl: 8px;   /* paneles grandes y ventanas */
 }
 
 /* Jerarquía tipográfica */
-.ira-titulo     { font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(40px, 5.5vw, 76px); line-height: 1.02; letter-spacing: -0.03em; }
+.ira-titulo     { font-family: var(--ira-font-titulo); font-weight: 900; font-size: clamp(40px, 5.5vw, 76px); line-height: 0.95; letter-spacing: -0.04em; }
 .ira-subtitulo  { font-family: var(--ira-font-titulo); font-weight: 400; font-size: 26px; line-height: 34px; letter-spacing: -0.01em; }
 .ira-texto      { font-family: var(--ira-font-texto); font-weight: 400; font-size: 17px; line-height: 28px; }
 .ira-detalle    { font-family: var(--ira-font-texto); font-weight: 400; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
-.ira-cifra      { font-family: var(--ira-font-cifra); font-weight: 500; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.ira-cifra      { font-family: var(--ira-font-cifra); font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 
 /* Base */
 html, body { background: var(--ira-noche); color: var(--ira-nieve); font-family: var(--ira-font-texto); }

@@ -28,8 +28,8 @@ button, input, select, textarea { font-family: inherit; }
 /* ── Volver (fichas) ─────────────────────────────────────────────────────── */
 .ira-volver {
   display: block;
-  /* alineado con la columna de .detail-page (560px con 24px de margen) */
-  margin: 8px 0 0 max(24px, calc(50% - 256px));
+  /* alineado con la columna de .detail-page (720px con 24px de margen) */
+  margin: 8px 0 0 max(24px, calc(50% - 336px));
   position: relative;
   z-index: 1;
 }
@@ -72,7 +72,7 @@ button, input, select, textarea { font-family: inherit; }
 
 /* ── Entity Detail Page ──────────────────────────────────────────────────────── */
 .detail-page {
-  max-width: 560px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 24px 24px 80px;
 }

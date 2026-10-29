@@ -24,6 +24,7 @@ import datosP1 from '../../data/metodologia/p1.json';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-piezas.css';
 import '../../styles/metodologia-juego.css';
+import '../../styles/identidad.css';
 
 const MANUAL_URL = 'https://github.com/oranrick/ira-index/blob/main/research/manual/P1.md';
 const ICONOS_PASO = ['extraer', 'revisar', 'clasificar', 'calcular'];
@@ -100,7 +101,6 @@ function Destacado({ children, tono = 'oro' }) {
   return (
     <Aparecer as="p" className={`ira-met__destacado ira-met__destacado--${tono}`}>
       {children}
-      <Chispas tono={tono} semilla={String(children)} cantidad={3} />
     </Aparecer>
   );
 }
@@ -278,7 +278,7 @@ export default function MetodologiaP1() {
       <header className="ira-met__cabecera ira-met__cabecera--p1">
         <div className="ira-met__cabecera-texto">
           <p className="ira-met__rotulo">{t.rotulo}</p>
-          <h1 className="ira-met__titulo"><span className="ira-juego-titulo">{t.titulo}<Chispas tono={TONO_TITULO} semilla={t.titulo} cantidad={4} tamano={[9, 15]} /></span></h1>
+          <h1 className="ira-met__titulo">{t.titulo}</h1>
           <p className="ira-met__frase">{t.frase}</p>
         </div>
         <EmblemaFrontera />
@@ -459,7 +459,7 @@ export default function MetodologiaP1() {
             <ul className="ira-met__referencias">{t.referencias.map((r) => <li key={r}>{r}</li>)}</ul>
             <p>
               <a href={MANUAL_URL} target="_blank" rel="noopener noreferrer" className="ira-met__enlace">
-                {t.manual} →<span className="ira-sr"> {u.nuevaPestana}</span>
+                {t.manual}<span className="ira-sr"> {u.nuevaPestana}</span>
               </a>
             </p>
           </Seccion>

@@ -3,7 +3,6 @@
 // barra de 11 segmentos con "0 Polarizante" / "Empático 10" y botón "Ver desglose".
 import { colorCifra, formatearPuntuacion } from '../../lib/escala';
 import BarraEscala from './BarraEscala.jsx';
-import { Chispas } from './Chispas.jsx';
 
 const TXT = {
   es: { pol: '0 Polarizante', emp: 'Empático 10', ver: 'Ver desglose', de: 'de 10' },
@@ -27,7 +26,6 @@ export default function TarjetaDiscurso({
       {cita && (
         <blockquote className="ira-tarjeta__cita">
           «{cita}»
-          <Chispas tono={puntuacion >= 6 ? 'salvia' : puntuacion < 4 ? 'rojo' : 'oro'} semilla={cita} cantidad={2} tamano={[7, 11]} />
         </blockquote>
       )}
       <div className="ira-tarjeta__puntuacion">

@@ -13,7 +13,6 @@ import {
 } from 'recharts';
 import { supabase } from '../supabaseClient';
 import { politicalSpeeches as speeches } from '../data/speeches';
-import Brilla from './ui/Brilla.jsx';
 
 // ── Constantes de parámetros (fórmula vigente, 7 params — ver CLAUDE.md) ──
 const KEYS = ['pronominal', 'metafora', 'dicotomia', 'tono', 'disenso', 'vector', 'coherencia'];
@@ -211,7 +210,7 @@ export default function PatternsPage({ lang = 'es' }) {
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '1060px', margin: '0 auto', padding: '26px 20px 60px' }}>
         <div className="ira-cabecera" style={{ marginBottom: '32px' }}>
-          <h1 className="ira-cabecera__titulo"><Brilla>{t.title}</Brilla></h1>
+          <h1 className="ira-cabecera__titulo">{t.title}</h1>
           <p className="ira-cabecera__texto">{t.subtitle}</p>
         </div>
 
@@ -354,14 +353,14 @@ export default function PatternsPage({ lang = 'es' }) {
             <ResponsiveContainer width="100%" height={320}>
               <LineChart data={timeline.rows} margin={{ top: 8, right: 12, bottom: 4, left: -18 }}>
                 <CartesianGrid stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="date" tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontFamily: 'JetBrains Mono' }} tickFormatter={d => d?.slice(5)} />
-                <YAxis domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontFamily: 'JetBrains Mono' }} />
+                <XAxis dataKey="date" tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontFamily: 'Schibsted Grotesk' }} tickFormatter={d => d?.slice(5)} />
+                <YAxis domain={[0, 10]} ticks={[0, 2, 4, 6, 8, 10]} tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontFamily: 'Schibsted Grotesk' }} />
                 <Tooltip
-                  contentStyle={{ background: '#112A2A', border: '1px solid #2A4747', borderRadius: '10px', fontFamily: 'JetBrains Mono', fontSize: '14px' }}
+                  contentStyle={{ background: '#112A2A', border: '1px solid #2A4747', borderRadius: '10px', fontFamily: 'Schibsted Grotesk', fontSize: '14px' }}
                   labelStyle={{ color: "var(--ira-texto-2)" }}
                   formatter={(v, name) => [Number(v).toFixed(2), entities.find(e => e.id === name)?.name ?? name]}
                 />
-                <Legend formatter={id => <span style={{ color: entColor[id], fontSize: '13px', fontFamily: 'JetBrains Mono' }}>{entities.find(e => e.id === id)?.name ?? id}</span>} />
+                <Legend formatter={id => <span style={{ color: entColor[id], fontSize: '13px', fontFamily: 'Schibsted Grotesk' }}>{entities.find(e => e.id === id)?.name ?? id}</span>} />
                 {[7, 4].map(y => (
                   <Line key={`ref${y}`} dataKey={() => y} stroke="rgba(255,255,255,0.12)" strokeDasharray="4 5" dot={false} activeDot={false} legendType="none" isAnimationActive={false} />
                 ))}

@@ -16,7 +16,7 @@
 .ira-met__volver { align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; font-size: 14px; color: var(--ira-texto-2); text-decoration: none; margin-bottom: -28px; }
 .ira-met__volver:hover { color: var(--ira-nieve); }
 .ira-met__cabecera { display: flex; flex-direction: column; gap: 16px; }
-.ira-met__rotulo { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ira-texto-3); }
+.ira-met__rotulo { font-family: var(--ira-font-voz); font-style: italic; font-size: 15px; color: var(--ira-texto-3); }
 .ira-met__titulo { margin: 0; font-family: var(--ira-font-titulo); font-weight: 500; font-size: clamp(40px, 6vw, 68px); line-height: 1.04; letter-spacing: -0.03em; overflow-wrap: break-word; }
 .ira-met__entradilla { max-width: 680px; font-size: 18px; line-height: 30px; color: var(--ira-texto-cita); }
 
@@ -74,7 +74,7 @@
 .ira-met__cuerpo { display: flex; flex-direction: column; gap: 64px; min-width: 0; }
 .ira-met__indice--ancho { position: sticky; top: 24px; }
 .ira-met__indice--movil { display: none; }
-.ira-met__indice-titulo { margin-bottom: 8px !important; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ira-texto-3); }
+.ira-met__indice-titulo { font-family: var(--ira-font-voz); font-style: italic; margin-bottom: 8px !important; font-size: 15px; color: var(--ira-texto-3); }
 .ira-met__indice-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .ira-met__indice-lista a {
   display: flex; align-items: center; min-height: 36px; padding: 4px 0 4px 12px;
@@ -103,7 +103,7 @@
 .ira-met__teoria dt { margin-bottom: 6px; font-family: var(--ira-font-titulo); font-weight: 500; font-size: 16px; color: var(--ira-oro); }
 .ira-met__teoria dd { margin: 0; font-size: 14px; line-height: 23px; color: var(--ira-texto-2); }
 .ira-met__cautela { max-width: 720px; padding: 16px 18px; border: 1px dashed var(--ira-linea-fuerte); border-radius: var(--ira-radio-m); font-size: 15px; line-height: 24px; color: var(--ira-texto-cita); }
-.ira-met__cautela-titulo { margin-bottom: 4px !important; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ira-texto-2); }
+.ira-met__cautela-titulo { font-family: var(--ira-font-voz); font-style: italic; margin-bottom: 4px !important; font-size: 15px; font-weight: 500; color: var(--ira-texto-2); }
 
 /* ── Tablas (en móvil se apilan) ──────────────────────────────────────────── */
 .ira-met__tabla-marco { border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); overflow: hidden; }
@@ -230,9 +230,10 @@
    Ritmo visual: emblema, numeración, bandas, ilustraciones y tableros
    ════════════════════════════════════════════════════════════════════════════ */
 .ira-met {
-  --met-alcance: #7FA7D9;        /* categóricos de lib/escala: no se confunden con una puntuación */
-  --met-interpelacion: #B39DDB;
-  --met-permeabilidad: #5FC4C9;
+  /* Tres tintas de papel y piedra: se distinguen por la luz y nunca se confunden con una nota */
+  --met-alcance: #EDE4CF;        /* papel */
+  --met-permeabilidad: #A3C2B8;  /* liquen */
+  --met-interpelacion: #6F8C88;  /* piedra */
   --met-cierre: var(--ira-1);
   --met-apertura: var(--ira-salvia);
 }
