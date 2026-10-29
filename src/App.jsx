@@ -19,6 +19,8 @@ import BarraEscala from "./components/ui/BarraEscala.jsx";
 import TarjetaDiscurso from "./components/ui/TarjetaDiscurso.jsx";
 import FilaParametro from "./components/ui/FilaParametro.jsx";
 import { colorPuntuacion, colorCifra, formatearPuntuacion, CATEGORICOS } from "./lib/escala";
+import { HERRAMIENTAS_ABIERTAS } from "./lib/funciones";
+import AvisoArchivo from "./components/ui/AvisoArchivo.jsx";
 
 const Comparator   = lazy(() => import("./components/Comparator"));
 const RadarSection = lazy(() => import("./components/RadarSection"));
@@ -27,6 +29,7 @@ const DailyAnalysis = lazy(() => import("./components/DailyAnalysis"));
 const PatternsPage = lazy(() => import("./components/PatternsPage"));
 const Portada = lazy(() => import("./components/Portada.jsx"));
 const PaisPage = lazy(() => import("./components/PaisPage.jsx"));
+const Campana = lazy(() => import("./components/Campana.jsx"));
 const MetodologiaIndice = lazy(() => import("./components/metodologia/MetodologiaIndice.jsx"));
 const MetodologiaP1 = lazy(() => import("./components/metodologia/MetodologiaP1.jsx"));
 const MetodologiaP2 = lazy(() => import("./components/metodologia/MetodologiaP2.jsx"));
@@ -49,8 +52,8 @@ export const AppContext = createContext({
 
 const TEXTS = {
   es: {
-    subtitle:        "Medición del lenguaje empático y polarizador en políticos y medios. Escala 0–10. Analiza cualquier texto con IA.",
-    subtitleMedios:  "Medición del lenguaje empático y polarizador en medios y cabeceras periodísticas. Escala 0–10. Analiza cualquier texto con IA.",
+    subtitle:        "Discursos de políticos analizados entre 2024 y 2026 con la metodología del trabajo de fin de grado: siete parámetros y una nota de 0 a 10. Se recalcularán cuando cierre la Metodología 2.0.",
+    subtitleMedios:  "Medios y cabeceras analizados con la metodología del trabajo de fin de grado: siete parámetros y una nota de 0 a 10. Se recalcularán cuando cierre la Metodología 2.0.",
     namePlaceholderMedios: "ej. Editorial El País, 12 mayo 2025",
     textPlaceholderMedios: "Pega aquí el artículo, editorial, columna o texto periodístico que quieres medir...",
     modeTogglePolitico: "Político",
@@ -132,8 +135,8 @@ const TEXTS = {
     modalOriginPost: ", de Ricardo Grisales Ramírez, Trabajo Fin de Grado en Periodismo, Universidad Complutense de Madrid, junio de 2024. La metodología analiza discursos de Donald Trump, Gustavo Petro, Claudia Sheinbaum y Jacinda Ardern aplicando el Análisis Crítico del Discurso desde una perspectiva emocional y retórica.",
   },
   en: {
-    subtitle:        "Measuring empathic and polarizing language in politicians and media. Scale 0–10. Analyze any text with AI.",
-    subtitleMedios:  "Measuring empathic and polarizing language in media outlets and news organizations. Scale 0–10. Analyze any text with AI.",
+    subtitle:        "Political speeches analyzed between 2024 and 2026 with the method of the original thesis: seven parameters and a score from 0 to 10. They will be recalculated when Methodology 2.0 is complete.",
+    subtitleMedios:  "Media outlets analyzed with the method of the original thesis: seven parameters and a score from 0 to 10. They will be recalculated when Methodology 2.0 is complete.",
     namePlaceholderMedios: "e.g. Guardian editorial, May 2025",
     textPlaceholderMedios: "Paste the article, editorial, column or journalistic text you want to measure...",
     modeTogglePolitico: "Political",
@@ -1042,6 +1045,7 @@ function EntityDetailPage() {
         transform: mounted ? "none" : "translateY(20px)",
         transition:"all 0.4s ease",
       }}>
+        <AvisoArchivo lang={lang} />
         {/* Cabecera de ficha: retrato pequeño, nombre grande, nota grande. Sin chips. */}
         <header className="ira-ficha__cab">
           {entity.photo && (
@@ -1715,14 +1719,14 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
       <div className="main-container">
         <div className="ira-cabecera" style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease" }}>
           <h1 className="ira-cabecera__titulo">
-            {lang==='en' ? 'Leaderboard' : 'Clasificación'}
+            {lang==='en' ? 'Archive' : 'Archivo'}
           </h1>
           <p className="ira-cabecera__texto">
             {mode === 'medios' ? T.subtitleMedios : T.subtitle}
           </p>
           <div className="ira-cabecera__acciones">
             <button type="button" className="ira-boton ira-boton--principal" onClick={() => setShowIRA(true)}>{T.btnWhat}</button>
-            <Link to="/about" className="ira-boton ira-boton--secundario">{lang === 'en' ? "Methodology" : "Metodología"}</Link>
+            <Link to="/elecciones-29n" className="ira-boton ira-boton--secundario">{lang === 'en' ? "The 29-N campaign" : "La campaña del 29-N"}</Link>
           </div>
           <p className="ira-cabecera__extra">
             {lang === 'en' ? 'Also: ' : 'También: '}
@@ -1731,8 +1735,8 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           </p>
         </div>
 
-        {/* ── Casos de uso ── */}
-        <div style={{ marginBottom:"40px", opacity:mounted?1:0, transition:"opacity 0.6s ease 0.25s" }}>
+        {/* ── Casos de uso (hablan de comparar y analizar: se esconden con las herramientas) ── */}
+        {HERRAMIENTAS_ABIERTAS && <div style={{ marginBottom:"40px", opacity:mounted?1:0, transition:"opacity 0.6s ease 0.25s" }}>
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(240px, 1fr))", gap:"12px" }}>
             {[
               {
@@ -1760,8 +1764,9 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
               </div>
             ))}
           </div>
-        </div>
+        </div>}
 
+        {HERRAMIENTAS_ABIERTAS && (
         <nav className="ira-segmentos" aria-label={lang==='en' ? 'Sections' : 'Secciones'} style={{ opacity:mounted?1:0, transition:"opacity 0.5s ease 0.15s" }}>
           {[
             ["explore", T.tabExplore, mode === 'medios' ? '/medios' : '/politicos'],
@@ -1771,6 +1776,7 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
             <Link key={id} to={path} className={'ira-segmentos__opcion' + (tab===id ? ' is-activa' : '')} aria-current={tab===id ? 'page' : undefined}>{label}</Link>
           ))}
         </nav>
+        )}
 
         {tab === "explore" && (
           <>
@@ -1984,8 +1990,9 @@ export default function App() {
         <Route path="/pais/:slug" element={<Suspense fallback={null}><PaisPage /></Suspense>} />
         <Route path="/politicos" element={<MainView mode="politico" tab="explore" />} />
         <Route path="/medios" element={<MainView mode="medios" tab="explore" />} />
-        <Route path="/analyze" element={<MainView mode="politico" tab="analyze" />} />
-        <Route path="/compare" element={<MainView mode="politico" tab="compare" />} />
+        <Route path="/analyze" element={HERRAMIENTAS_ABIERTAS ? <MainView mode="politico" tab="analyze" /> : <Navigate to="/politicos" replace />} />
+        <Route path="/compare" element={HERRAMIENTAS_ABIERTAS ? <MainView mode="politico" tab="compare" /> : <Navigate to="/politicos" replace />} />
+        <Route path="/elecciones-29n" element={<Suspense fallback={null}><Campana /></Suspense>} />
         <Route path="/entity/:entityId" element={<EntityDetailPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/metodologia" element={<Suspense fallback={null}><MetodologiaIndice /></Suspense>} />

@@ -299,3 +299,114 @@ blockquote, q,
 .ira-mapa__chips .ira-chip { padding: 0 !important; margin-right: 18px; }
 @media (max-width: 1000px) { .ira-pais__titulos { flex-basis: 100% !important; } .ira-pais__bandera { width: 240px !important; } }
 @media (max-width: 600px) { .ira-pais__bandera { width: 160px !important; } }
+
+/* ── Aviso de archivo: una línea de lápiz, no una caja ── */
+.ira-archivo { margin: 0 0 22px; padding: 2px 0 2px 14px; border-left: 2px solid var(--ira-texto-3); display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; max-width: 64ch; }
+.ira-archivo__rotulo { font-weight: 800; font-size: 13px; color: var(--ira-texto-2); white-space: nowrap; }
+.ira-archivo__texto { font-family: var(--ira-font-voz); font-style: italic; font-size: 15px; line-height: 1.45; color: var(--ira-texto-3); }
+.ira-archivo__texto a { color: var(--ira-texto-2); text-decoration-color: var(--ira-texto-3); text-underline-offset: 3px; }
+
+/* ══ Campaña 29-N ══ */
+.ira-campana { max-width: 1040px; margin: 0 auto; padding: 48px 24px 96px; }
+.ira-campana__cab { margin-bottom: 72px; }
+.ira-campana__rotulo { margin: 0 0 14px; font-family: var(--ira-font-voz); font-style: italic; font-size: 17px; color: var(--ira-oro); }
+.ira-campana__titulo { margin: 0; font-weight: 900; font-size: clamp(48px, 9vw, 112px); line-height: 0.92; letter-spacing: -0.05em; color: var(--ira-nieve); max-width: 9ch; }
+.ira-campana__entradilla { margin: 26px 0 0; max-width: 40ch; font-family: var(--ira-font-voz); font-size: clamp(19px, 2.2vw, 23px); line-height: 1.5; color: var(--ira-texto-cita); }
+.ira-campana__hoy { margin: 40px 0 14px; font-weight: 800; font-size: 17px; color: var(--ira-nieve); }
+
+.ira-cinta { position: relative; padding-bottom: 46px; }
+.ira-cinta__pista { position: relative; height: 34px; border-bottom: 2px solid var(--ira-linea-fuerte); }
+.ira-cinta__campana { position: absolute; bottom: -2px; height: 2px; background: var(--ira-oro); }
+.ira-cinta__dia { position: absolute; bottom: 0; width: 1.5px; height: 10px; background: var(--ira-linea-fuerte); transform: translateX(-50%); }
+.ira-cinta__dia.is-finde { height: 18px; background: var(--ira-texto-3); }
+.ira-cinta__dia:last-of-type { height: 30px; width: 3px; background: var(--ira-nieve); }
+.ira-cinta__pieza { position: absolute; bottom: 12px; width: 9px; height: 9px; border-radius: 50%; background: var(--ira-nieve); transform: translateX(-50%); }
+.ira-cinta__hoy { position: absolute; bottom: -8px; top: -6px; width: 2px; background: var(--ira-oro); transform: translateX(-50%); }
+.ira-cinta__hoy span { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-family: var(--ira-font-voz); font-style: italic; font-size: 14px; color: var(--ira-oro); }
+.ira-cinta__hitos { position: relative; height: 0; }
+.ira-cinta__hitos span { position: absolute; top: 10px; white-space: nowrap; font-size: 14px; color: var(--ira-texto-2); }
+.ira-cinta__hitos b { font-weight: 900; font-size: 18px; color: var(--ira-nieve); margin-right: 4px; }
+.ira-cinta__hitos .is-derecha { transform: translateX(-100%); }
+.ira-cinta__hitos .is-final { transform: translateX(-100%); }
+
+.ira-campana__seccion { margin-top: 80px; }
+.ira-campana__h2 { margin: 0; padding-top: 22px; border-top: 2px solid var(--ira-nieve); font-weight: 900; font-size: clamp(30px, 4.4vw, 44px); letter-spacing: -0.035em; color: var(--ira-nieve); }
+.ira-campana__nota { margin: 10px 0 0; max-width: 56ch; font-family: var(--ira-font-voz); font-size: 17px; line-height: 1.5; color: var(--ira-texto-2); }
+.ira-campana__nota--pie { font-style: italic; color: var(--ira-texto-3); }
+
+.ira-campana__mesa { list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--ira-linea); }
+.ira-campana__fila { display: grid; grid-template-columns: 52px minmax(0, 15em) minmax(0, 1fr) auto; align-items: center; gap: 22px; padding: 18px 0; border-bottom: 1px solid var(--ira-linea); }
+.ira-campana__foto { width: 52px; height: 52px; border-radius: 3px; object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.05); }
+.ira-campana__foto--inicial { display: grid; place-items: center; background: var(--ira-superficie); border: 1px solid var(--ira-linea-fuerte); font-weight: 800; font-size: 17px; color: var(--ira-texto-2); filter: none; }
+.ira-campana__nombre { margin: 0; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: var(--ira-nieve); line-height: 1.1; }
+.ira-campana__formacion { margin: 3px 0 0; font-family: var(--ira-font-voz); font-style: italic; font-size: 16px; color: var(--ira-texto-2); }
+.ira-campana__onda { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ira-campana__plana { position: relative; display: block; height: 44px; overflow: hidden; }
+.ira-campana__plana::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1.5px dashed var(--ira-linea-fuerte); }
+.ira-campana__latido { position: absolute; top: 50%; left: 0; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: var(--ira-texto-3); }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-campana__latido { animation: ira-espera 6s cubic-bezier(.45, 0, .55, 1) infinite; }
+  .ira-campana__fila:nth-child(2) .ira-campana__latido { animation-delay: -1.5s; }
+  .ira-campana__fila:nth-child(3) .ira-campana__latido { animation-delay: -3s; }
+  .ira-campana__fila:nth-child(4) .ira-campana__latido { animation-delay: -4.5s; }
+}
+@keyframes ira-espera { 0% { left: 0; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: calc(100% - 7px); opacity: 0; } }
+.ira-campana__estado { font-family: var(--ira-font-voz); font-style: italic; font-size: 14px; color: var(--ira-texto-3); }
+.ira-campana__lecturas { display: flex; gap: 26px; }
+.ira-campana__lectura { margin: 0; display: flex; flex-direction: column; align-items: flex-end; min-width: 76px; }
+.ira-campana__lectura-n { font-weight: 900; font-size: 40px; line-height: 1; letter-spacing: -0.04em; color: var(--ira-texto-3); }
+.ira-campana__lectura-e { margin-top: 4px; font-size: 12px; font-weight: 700; color: var(--ira-texto-3); white-space: nowrap; }
+
+.ira-campana__params { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; margin-top: 30px; }
+.ira-campana__param { border-top: 1px solid var(--ira-linea-fuerte); padding-top: 14px; }
+.ira-campana__param-cod { margin: 0 0 6px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-weight: 900; font-size: 18px; color: var(--ira-oro); }
+.ira-campana__param-cod span { font-family: var(--ira-font-voz); font-style: italic; font-weight: 400; font-size: 14px; color: var(--ira-texto-3); }
+.ira-campana__param h3 { margin: 0 0 8px; font-weight: 800; font-size: 26px; letter-spacing: -0.025em; color: var(--ira-nieve); }
+.ira-campana__param p:not(.ira-campana__param-cod) { margin: 0 0 14px; font-family: var(--ira-font-voz); font-size: 17px; line-height: 1.55; color: var(--ira-texto-cita); }
+.ira-campana__enlace { font-weight: 700; font-size: 15px; color: var(--ira-nieve); text-decoration: underline; text-decoration-color: var(--ira-oro); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.ira-campana__sinnota { margin-top: 48px; padding-left: 22px; border-left: 2px solid var(--ira-oro); max-width: 62ch; }
+.ira-campana__sinnota h3 { margin: 0 0 8px; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: var(--ira-nieve); }
+.ira-campana__sinnota p { margin: 0; font-family: var(--ira-font-voz); font-size: 18px; line-height: 1.6; color: var(--ira-texto-cita); }
+
+.ira-campana__reglas { list-style: none; margin: 26px 0 0; padding: 0; counter-reset: regla; }
+.ira-campana__reglas li { counter-increment: regla; display: grid; grid-template-columns: 48px minmax(0, 13em) minmax(0, 1fr); gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--ira-linea); }
+.ira-campana__reglas li::before { content: counter(regla); font-weight: 900; font-size: 28px; line-height: 1; color: var(--ira-oro); }
+.ira-campana__reglas b { font-weight: 800; font-size: 20px; letter-spacing: -0.015em; color: var(--ira-nieve); }
+.ira-campana__reglas span { font-family: var(--ira-font-voz); font-size: 17px; line-height: 1.5; color: var(--ira-texto-cita); }
+
+.ira-campana__archivo { margin: 80px 0 0; font-family: var(--ira-font-voz); font-style: italic; font-size: 16px; color: var(--ira-texto-3); }
+.ira-campana__archivo a { font-family: var(--ira-font-titulo); font-style: normal; font-weight: 700; color: var(--ira-nieve); text-decoration-color: var(--ira-oro); text-underline-offset: 4px; }
+
+@media (max-width: 760px) {
+  .ira-campana { padding: 28px 16px 72px; }
+  .ira-campana__fila { grid-template-columns: 44px minmax(0, 1fr) auto; grid-template-areas: "foto quien lect" "onda onda onda"; row-gap: 12px; gap: 14px; }
+  .ira-campana__foto { grid-area: foto; width: 44px; height: 44px; }
+  .ira-campana__quien { grid-area: quien; }
+  .ira-campana__onda { grid-area: onda; }
+  .ira-campana__lecturas { grid-area: lect; gap: 14px; }
+  .ira-campana__lectura { min-width: 0; }
+  .ira-campana__lectura-n { font-size: 30px; }
+  .ira-campana__params { grid-template-columns: 1fr; gap: 28px; }
+  .ira-campana__reglas li { grid-template-columns: 32px 1fr; row-gap: 4px; }
+  .ira-campana__reglas span { grid-column: 2; }
+  .ira-cinta__hitos span { font-size: 12px; }
+  .ira-cinta__hitos .is-derecha { display: none; }
+}
+.ira-campana__titulo { max-width: 11ch; font-size: clamp(48px, 8.4vw, 104px); }
+.ira-cinta { display: flex; align-items: stretch; }
+.ira-cinta__tramo { position: relative; flex: 1; min-width: 0; }
+.ira-cinta__espera { position: relative; flex: 0 0 15%; height: 34px; border-bottom: 2px dashed var(--ira-linea-fuerte); margin-right: 0; }
+.ira-cinta__hoy-antes { position: absolute; left: 0; bottom: -10px; top: -4px; width: 2px; background: var(--ira-oro); }
+.ira-cinta__hoy-antes span { position: absolute; top: -20px; left: 0; font-family: var(--ira-font-voz); font-style: italic; font-size: 14px; color: var(--ira-oro); }
+.ira-cinta__faltan { position: absolute; left: 0; top: 46px; white-space: nowrap; font-family: var(--ira-font-voz); font-style: italic; font-size: 14px; color: var(--ira-oro); }
+.ira-campana__lectura-n--vacia { display: block; width: 30px; height: 3px; margin: 18px 0 19px; background: var(--ira-linea-fuerte); }
+@media (max-width: 760px) { .ira-cinta__espera { flex-basis: 18%; } .ira-campana__lectura-n--vacia { margin: 13px 0 14px; width: 22px; } }
+.ira-campana__hoy { margin-bottom: 40px; }
+.ira-cinta__faltan { display: none; }
+@media (max-width: 760px) {
+  .ira-campana__fila { grid-template-columns: 44px minmax(0, 1fr) auto; grid-template-areas: "foto quien quien" "onda onda lect"; align-items: end; }
+  .ira-campana__nombre { font-size: 20px; }
+  .ira-campana__lecturas { align-self: center; }
+}
+.ira-portada__origen { margin: -6px 0 0; font-family: var(--ira-font-voz); font-style: italic; font-size: 14px; color: var(--ira-texto-3); }
+.ira-portada__nuevo { align-items: flex-start !important; text-align: left !important; } .ira-portada__nuevo-rotulo { align-self: flex-start; }

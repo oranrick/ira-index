@@ -78,6 +78,13 @@ export default function AboutPage() {
   const { lang } = useContext(AppContext);
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setTimeout(() => setMounted(true), 60); }, []);
+  // Enlaces con ancla (p. ej. /about#metodologia-2024 desde Metodología 2.0)
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!id) return undefined;
+    const t = setTimeout(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }), 120);
+    return () => clearTimeout(t);
+  }, []);
 
   const es = lang !== 'en';
 
@@ -235,9 +242,9 @@ export default function AboutPage() {
         </div>
 
         {/* ── 8 PARÁMETROS ── */}
-        <div style={{ borderTop:"1px solid var(--ira-linea)", padding:"80px 24px" }}>
+        <div id="metodologia-2024" style={{ borderTop:"1px solid var(--ira-linea)", padding:"80px 24px", scrollMarginTop:"24px" }}>
           <div style={{ maxWidth:"900px", margin:"0 auto" }}>
-            <Label es={es} es_text="La metodología" en_text="The methodology" />
+            <Label es={es} es_text="La metodología de 2024, la del archivo" en_text="The 2024 methodology, used in the archive" />
             <div style={{ display:"flex", alignItems:"baseline", gap:"16px", marginBottom:"40px", flexWrap:"wrap" }}>
               <h2 style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
                 color:"var(--ira-nieve)", letterSpacing:"-0.03em" }}>
@@ -305,8 +312,8 @@ export default function AboutPage() {
 
           {/* CTAs */}
           <div style={{ display:"flex", gap:"12px", flexWrap:"wrap", marginTop:"32px" }}>
-            <Link to="/politicos" className="ira-boton ira-boton--principal">{es ? "Ver discursos analizados" : "See analyzed speeches"}</Link>
-            <Link to="/analyze" className="ira-boton ira-boton--secundario">{es ? "Analizar un texto" : "Analyze a text"}</Link>
+            <Link to="/politicos" className="ira-boton ira-boton--principal">{es ? "Ver el archivo" : "See the archive"}</Link>
+            <Link to="/elecciones-29n" className="ira-boton ira-boton--secundario">{es ? "La campaña del 29-N" : "The 29-N campaign"}</Link>
           </div>
         </div>
       </div>

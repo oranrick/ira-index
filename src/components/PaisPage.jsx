@@ -7,6 +7,7 @@ import { AppContext, mergeSpeech } from '../App.jsx';
 import { Superposicion } from './DiscursosPage.jsx';
 import BarraEscala from './ui/BarraEscala.jsx';
 import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
+import AvisoArchivo from './ui/AvisoArchivo.jsx';
 import { colorPuntuacion, colorCifra, formatearPuntuacion } from '../lib/escala';
 import { citaDestacada, fechaCorta } from '../lib/discursos';
 import {
@@ -86,6 +87,7 @@ export default function PaisPage() {
     <div className="main-container ira-pais" style={{ maxWidth: 1180 }}>
       <Link to="/politicos" className="ira-pais__volver">{t.volver}</Link>
 
+      <AvisoArchivo lang={lang} />
       <header className="ira-pais__cabecera">
         <img src={urlBandera(pais.iso)} alt={t.bandera(nombrePais(pais, lang))} width="440" height="330" className="ira-pais__bandera" />
         <div className="ira-pais__titulos">

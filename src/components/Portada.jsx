@@ -5,6 +5,7 @@ import { AppContext, mergeSpeech } from '../App.jsx';
 import { supabase } from '../supabaseClient';
 import { politicalSpeeches as speeches } from '../data/speeches';
 import IndicadorEscala from './ui/IndicadorEscala.jsx';
+import { HERRAMIENTAS_ABIERTAS } from '../lib/funciones';
 import PanelEjemplos from './PanelEjemplos.jsx';
 import ModalCiencia from './ModalCiencia.jsx';
 import { ejemploDesdeCorpus, ejemploDesdeDiario, seleccionarEjemplos } from '../lib/ejemplosPortada';
@@ -13,26 +14,30 @@ const TXT = {
   es: {
     titulo: 'Cómo suena la política cuando escucha',
     intro: (Met, Neuro, Ling, Psico) => (
-      <>IRA es un índice de resonancia afectiva construido sobre una {Met('metodología')} que integra {Neuro('neurociencia')}, {Ling('lingüística')} y {Psico('psicoanálisis')}. Aquí se recogen discursos ya analizados y, con una cuenta, puedes analizar los tuyos con una IA que aplica esa misma metodología.</>
+      <>IRA es un índice de resonancia afectiva construido sobre una {Met('metodología')} que integra {Neuro('neurociencia')}, {Ling('lingüística')} y {Psico('psicoanálisis')}. Escucha cómo hablan los políticos y mide si su lenguaje acerca o polariza. Durante la campaña del 29-N, escucha cada semana a los cuatro principales candidatos.</>
     ),
-    ver: 'Ver discursos analizados',
+    ver: 'Ver el archivo',
+    campana: 'La campaña del 29-N',
     crear: 'Crear cuenta para analizar',
     analizar: 'Analizar un discurso',
     nota: (Entrar) => <>¿Ya tienes cuenta? {Entrar('Inicia sesión')} para analizar un discurso.</>,
-    nuevoRotulo: 'Nuevo · Metodología 2.0',
-    nuevoTexto: 'P1, la frontera del nosotros: dónde traza un discurso la línea entre «nosotros» y «ellos».',
+    origen: 'Ejemplos del archivo, calculados con el método de 2024.',
+    nuevoRotulo: 'Elecciones generales · 29-N',
+    nuevoTexto: 'Del 13 al 27 de noviembre, un mitin por semana de cada candidatura, medido con P1 y P2 de la Metodología 2.0.',
   },
   en: {
     titulo: 'How politics sounds when it listens',
     intro: (Met, Neuro, Ling, Psico) => (
-      <>IRA is an affective resonance index built on a {Met('methodology')} that brings together {Neuro('neuroscience')}, {Ling('linguistics')} and {Psico('psychoanalysis')}. Here you will find speeches that have already been analyzed and, with an account, you can analyze your own with an AI that applies the same methodology.</>
+      <>IRA is an affective resonance index built on a {Met('methodology')} that brings together {Neuro('neuroscience')}, {Ling('linguistics')} and {Psico('psychoanalysis')}. It listens to how politicians speak and measures whether their language brings people closer or polarizes. During the campaign for Spain's 29 November election, it listens every week to the four main candidates.</>
     ),
-    ver: 'See analyzed speeches',
+    ver: 'See the archive',
+    campana: 'The 29-N campaign',
     crear: 'Create an account to analyze',
     analizar: 'Analyze a speech',
     nota: (Entrar) => <>Already have an account? {Entrar('Sign in')} to analyze a speech.</>,
-    nuevoRotulo: 'New · Methodology 2.0',
-    nuevoTexto: 'P1, the boundary of "us": where a speech draws the line between "us" and "them".',
+    origen: 'Examples from the archive, calculated with the 2024 method.',
+    nuevoRotulo: 'Spanish general election · 29-N',
+    nuevoTexto: 'From 13 to 27 November, one rally per candidate per week, measured with P1 and P2 of Methodology 2.0.',
   },
 };
 
@@ -93,12 +98,14 @@ export default function Portada() {
         </p>
         <div className="ira-portada__lado">
         <div className="ira-portada__acciones">
-          <Link to="/politicos" className="ira-boton ira-boton--principal">{t.ver}</Link>
-          {user
-            ? <Link to="/analyze" className="ira-boton ira-boton--secundario">{t.analizar}</Link>
-            : <button type="button" className="ira-boton ira-boton--secundario" onClick={openRegister}>{t.crear}</button>}
+          <Link to="/elecciones-29n" className="ira-boton ira-boton--principal">{t.campana}</Link>
+          {!HERRAMIENTAS_ABIERTAS
+            ? <Link to="/politicos" className="ira-boton ira-boton--secundario">{t.ver}</Link>
+            : user
+              ? <Link to="/analyze" className="ira-boton ira-boton--secundario">{t.analizar}</Link>
+              : <button type="button" className="ira-boton ira-boton--secundario" onClick={openRegister}>{t.crear}</button>}
         </div>
-        {!user && (
+        {HERRAMIENTAS_ABIERTAS && !user && (
           <p className="ira-portada__nota">
             {t.nota((x) => <button type="button" className="ira-enlace-boton" onClick={openLogin}>{x}</button>)}
           </p>
@@ -108,9 +115,10 @@ export default function Portada() {
       </div>
 
       <PanelEjemplos ejemplos={ejemplos} lang={lang} />
+      <p className="ira-portada__origen">{t.origen}</p>
 
       <div className="ira-portada__pie">
-        <Link to="/metodologia/p1" className="ira-portada__nuevo">
+        <Link to="/elecciones-29n" className="ira-portada__nuevo">
             <span className="ira-portada__nuevo-rotulo">{t.nuevoRotulo}</span>
             <span className="ira-portada__nuevo-texto">{t.nuevoTexto}</span>
           </Link>
