@@ -410,3 +410,7 @@ blockquote, q,
 }
 .ira-portada__origen { margin: -6px 0 0; font-family: var(--ira-font-voz); font-style: italic; font-size: 14px; color: var(--ira-texto-3); }
 .ira-portada__nuevo { align-items: flex-start !important; text-align: left !important; } .ira-portada__nuevo-rotulo { align-self: flex-start; }
+/* Fotos de campaña: mismo tamaño, blanco y negro y un leve contraste igualado */
+.ira-campana__fila { grid-template-columns: 68px minmax(0, 15em) minmax(0, 1fr) auto; }
+img.ira-campana__foto { width: 68px; height: 68px; filter: grayscale(1) contrast(1.08) brightness(0.92); }
+@media (max-width: 760px) { .ira-campana__fila { grid-template-columns: 52px minmax(0, 1fr) auto; } img.ira-campana__foto { width: 52px; height: 52px; } }
