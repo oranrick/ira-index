@@ -10,7 +10,7 @@ export const REPO_RESEARCH = 'https://github.com/oranrick/ira-index/tree/main/re
 export const AVISO = {
   es: {
     rotulo: 'Metodología 2.0 · en desarrollo',
-    texto: 'Estamos rediseñando el IRA parámetro a parámetro para que cada puntuación pueda explicarse frase a frase. Las puntuaciones que ves hoy en la web todavía se calculan con la versión anterior. Los parámetros en desarrollo se publican como borrador y pueden cambiar.',
+    texto: 'Estamos rediseñando el IRA parámetro a parámetro para que cada puntuación pueda explicarse frase a frase. Las notas del archivo se calcularon con la metodología de 2024; la campaña del 29-N se mide solo con P1 y P2. Los parámetros en desarrollo se publican como borrador y pueden cambiar.',
   },
 };
 

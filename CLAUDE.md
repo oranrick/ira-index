@@ -178,3 +178,21 @@ cuando la tabla está vacía.
   discurso real. Cuando De la Espriella asuma (7-ago-2026), evaluar si
   presidencia.gov.co se vuelve scrapeable (hoy es SharePoint solo-JS) y añadir
   su adaptador si lo es.
+
+---
+
+## Campaña 29-N y archivo (desde el 29-oct-2026)
+
+- **Campaña 29-N** (`/elecciones-29n`, `src/components/Campana.jsx`, datos en `src/data/campana.js`):
+  generales del 29 de noviembre de 2026, campaña del 13 al 27. Se mide **solo P1 y P2** de la
+  Metodología 2.0; sin nota IRA global. Candidaturas: las cuatro fuerzas más votadas en 2023
+  (PP, PSOE, Vox, Sumar → Frente Amplio), ordenadas por apellido, mismo trato (iniciales, sin fotos).
+  Reglas publicadas en la página: misma cuota, misma pieza, se publica todo, método a la vista.
+  Cada pieza se añade a `PIEZAS` con la transcripción completa y su codificación, para recalcular
+  con la 2.0 completa al terminar.
+- **Archivo** (`/politicos`, antes «Clasificación»): todo lo calculado con el método de 2024
+  (7 parámetros). Fichas y páginas de país llevan `AvisoArchivo`. Nunca mezclar en una vista
+  notas del método 2024 con lecturas 2.0.
+- **Herramientas escondidas** (`src/lib/funciones.js`, `HERRAMIENTAS_ABIERTAS = false`):
+  analizar texto, comparar, «Mide una frase» y los botones de cuenta. Usan el motor 2024; se
+  esconden, no se borran. `/analyze` y `/compare` redirigen al archivo mientras estén cerradas.

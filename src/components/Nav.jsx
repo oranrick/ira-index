@@ -1,16 +1,19 @@
 // IRA · barra de navegación global
-// Logo con nombre · Clasificación · Metodología · | · Iniciar sesión · Crear cuenta
+// Logo con nombre · Campaña 29-N · Archivo · Metodología · | · Iniciar sesión · Crear cuenta
+// (las cuentas solo sirven para analizar: con las herramientas escondidas no se ofrecen)
 // (Discursos se unió a Clasificación: cada político abre sus discursos)
 import { useContext, useEffect, useId, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import IraLogo from './IraLogo.jsx';
 import { AppContext } from '../App.jsx';
+import { HERRAMIENTAS_ABIERTAS } from '../lib/funciones';
 
 const TXT = {
   es: {
     nombre: 'Índice de Resonancia Afectiva',
     principal: 'Principal',
-    clasificacion: 'Clasificación',
+    campana: 'Campaña 29-N',
+    clasificacion: 'Archivo',
     metodologia: 'Metodología',
     entrar: 'Iniciar sesión',
     crear: 'Crear cuenta',
@@ -22,7 +25,8 @@ const TXT = {
   en: {
     nombre: 'Affective Resonance Index',
     principal: 'Main',
-    clasificacion: 'Leaderboard',
+    campana: '29-N campaign',
+    clasificacion: 'Archive',
     metodologia: 'Methodology',
     entrar: 'Sign in',
     crear: 'Create account',
@@ -35,6 +39,7 @@ const TXT = {
 
 // Clasificación cubre también las fichas, los discursos de cada figura y el modo medios
 const ACTIVA = {
+  campana: (p) => p.startsWith('/elecciones'),
   clasificacion: (p) => /^\/(politicos|medios|entity\/|discursos)/.test(p),
   metodologia: (p) => p.startsWith('/metodologia') || p.startsWith('/about'),
 };
@@ -92,15 +97,16 @@ export default function Nav() {
         </button>
 
         <nav id={panelId} className={'ira-nav__panel' + (abierto ? ' is-abierto' : '')} aria-label={t.principal}>
+          {enlace('campana', '/elecciones-29n')}
           {enlace('clasificacion', '/politicos')}
           {enlace('metodologia', '/metodologia')}
-          <span className="ira-nav__sep" aria-hidden="true" />
+          {(user || HERRAMIENTAS_ABIERTAS) && <span className="ira-nav__sep" aria-hidden="true" />}
           {user ? (
             <>
               <span className="ira-nav__usuario" title={user.email}>{profile?.username ?? user.email?.split('@')[0]}</span>
               <button type="button" className="ira-nav__enlace ira-nav__enlace--fuerte" onClick={() => signOut()}>{t.salir}</button>
             </>
-          ) : (
+          ) : HERRAMIENTAS_ABIERTAS && (
             <>
               <button type="button" className="ira-nav__enlace ira-nav__enlace--fuerte" onClick={openLogin}>{t.entrar}</button>
               <button type="button" className="ira-boton ira-boton--secundario ira-boton--compacto" onClick={openRegister}>{t.crear}</button>

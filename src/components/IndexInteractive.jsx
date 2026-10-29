@@ -1,3 +1,4 @@
+import { HERRAMIENTAS_ABIERTAS } from '../lib/funciones';
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -697,7 +698,7 @@ export default function IndexInteractive({ entities, lang, accent, accentA }) {
       <SpectrumSection entities={entities} lang={lang} accent={accent} />
       <ParameterSliderSection lang={lang} accent={accent} accentA={accentA} />
       <QuizSection lang={lang} accent={accent} accentA={accentA} />
-      <MiniAnalyzer lang={lang} accent={accent} accentA={accentA} />
+      {HERRAMIENTAS_ABIERTAS && <MiniAnalyzer lang={lang} accent={accent} accentA={accentA} />}
     </div>
   );
 }
