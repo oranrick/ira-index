@@ -148,6 +148,7 @@ export default function Campana() {
     const media = (k) => (suyas.length ? suyas.reduce((s, p) => s + p[k], 0) / suyas.length : null);
     return { ...c, piezas: suyas, p1: media('p1'), p2: media('p2') };
   });
+  const todasConFoto = CANDIDATURAS.every((c) => c.foto);
 
   return (
     <div className="ira-campana">
@@ -165,8 +166,10 @@ export default function Campana() {
         <ul className="ira-campana__mesa">
           {filas.map((f) => (
             <li key={f.id} className="ira-campana__fila">
-              {/* Iniciales para todas las candidaturas: mismo trato, sin fotos de unos sí y otros no */}
-              {<span className="ira-campana__foto ira-campana__foto--inicial" aria-hidden="true">{[f.nombre.split(' ')[0], f.nombre.split(' ').slice(-1)[0]].map((w) => w[0]).join('')}</span>}
+              {/* Mismo trato: o todas con foto o ninguna; si falta una, iniciales para todas */}
+              {todasConFoto
+                ? <img src={f.foto} alt="" className="ira-campana__foto" title={f.credito ?? undefined} loading="lazy" width="52" height="52" />
+                : <span className="ira-campana__foto ira-campana__foto--inicial" aria-hidden="true">{[f.nombre.split(' ')[0], f.nombre.split(' ').slice(-1)[0]].map((w) => w[0]).join('')}</span>}
               <div className="ira-campana__quien">
                 <p className="ira-campana__nombre">{f.nombre}</p>
                 <p className="ira-campana__formacion">{f.formacion}</p>

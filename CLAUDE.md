@@ -186,7 +186,8 @@ cuando la tabla está vacía.
 - **Campaña 29-N** (`/elecciones-29n`, `src/components/Campana.jsx`, datos en `src/data/campana.js`):
   generales del 29 de noviembre de 2026, campaña del 13 al 27. Se mide **solo P1 y P2** de la
   Metodología 2.0; sin nota IRA global. Candidaturas: las cuatro fuerzas más votadas en 2023
-  (PP, PSOE, Vox, Sumar → Frente Amplio), ordenadas por apellido, mismo trato (iniciales, sin fotos).
+  (PP, PSOE, Vox, Sumar → Frente Amplio), ordenadas por apellido, mismo trato (las cuatro fotos con el mismo recorte y en blanco y negro;
+  si faltara una, iniciales para todas).
   Reglas publicadas en la página: misma cuota, misma pieza, se publica todo, método a la vista.
   Cada pieza se añade a `PIEZAS` con la transcripción completa y su codificación, para recalcular
   con la 2.0 completa al terminar.

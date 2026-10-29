@@ -15,11 +15,14 @@ export const CAMPANA = {
 };
 
 // Orden alfabético por apellido: ningún orden de mérito.
+// Fotos: las cuatro con el mismo recorte cuadrado (la cara a la misma escala) y en blanco y
+// negro por CSS, para que ninguna parezca más cercana o más oficial que otra.
+// credito: fuente de la foto, cuando se sepa.
 export const CANDIDATURAS = [
-  { id: 'abascal', nombre: 'Santiago Abascal', formacion: 'Vox', entidad: null },
-  { id: 'colau', nombre: 'Ada Colau', formacion: 'Frente Amplio', entidad: null },
-  { id: 'feijoo', nombre: 'Alberto Núñez Feijóo', formacion: 'Partido Popular', entidad: null },
-  { id: 'sanchez-29n', nombre: 'Pedro Sánchez', formacion: 'PSOE', entidad: 'sanchez' },
+  { id: 'abascal', nombre: 'Santiago Abascal', formacion: 'Vox', entidad: null, foto: '/images/campana/abascal.jpg', credito: null },
+  { id: 'colau', nombre: 'Ada Colau', formacion: 'Frente Amplio', entidad: null, foto: '/images/campana/colau.jpg', credito: null },
+  { id: 'feijoo', nombre: 'Alberto Núñez Feijóo', formacion: 'Partido Popular', entidad: null, foto: '/images/campana/feijoo.jpg', credito: null },
+  { id: 'sanchez-29n', nombre: 'Pedro Sánchez', formacion: 'PSOE', entidad: 'sanchez', foto: '/images/campana/sanchez.jpg', credito: null },
 ];
 
 // Un registro por pieza analizada. Vacío hasta el primer mitin.
