@@ -158,7 +158,7 @@
 .ira-p2-reparto__caja { padding: 14px 16px; border-radius: var(--ira-radio-l); background: var(--ira-superficie); border: 1px dashed var(--ira-linea-fuerte); }
 .ira-p2-reparto__caja--p2 { border-style: solid; border-color: var(--ira-oro); background: linear-gradient(180deg, rgba(220, 177, 73, 0.08), transparent 80%), var(--ira-superficie); }
 .ira-p2-reparto__cab { display: flex; align-items: center; justify-content: space-between; margin: 0 0 10px; }
-.ira-p2-reparto__tipo { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ira-texto-3); }
+.ira-p2-reparto__tipo { font-family: var(--ira-font-voz); font-style: italic; font-size: 15px; color: var(--ira-texto-3); }
 .ira-p2-reparto__caja--p2 .ira-p2-reparto__tipo { color: var(--ira-oro); }
 .ira-p2-reparto ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .ira-p2-reparto li { padding: 8px 10px; border-radius: var(--ira-radio-m); background: var(--ira-elevada); font-size: 14px; color: var(--ira-nieve); }
@@ -213,7 +213,7 @@
 @media (max-width: 720px) { .ira-p2-dominios { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 /* ── La regla: blancos y recorrido ───────────────────────────────────────── */
-.ira-p2-nuevo { margin-left: 8px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--ira-oro); color: var(--ira-oro); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; vertical-align: 2px; white-space: nowrap; }
+.ira-p2-nuevo { font-family: var(--ira-font-voz); font-style: italic; margin-left: 8px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--ira-oro); color: var(--ira-oro); font-size: 15px; vertical-align: 2px; white-space: nowrap; }
 .ira-p2-blancos .ira-met__zona--si .ira-met__zona-titulo .ira-met-icono { color: var(--ira-estrella-polarizante); }
 
 .ira-p2-recorrido { list-style: none; margin: 0 0 28px; padding: 0 0 0 44px; position: relative; display: flex; flex-direction: column; gap: 14px; }
@@ -253,7 +253,7 @@
 /* ── Pendiente ───────────────────────────────────────────────────────────── */
 .ira-p2-pendiente { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .ira-p2-pendiente__item { padding: 16px 18px; border-radius: var(--ira-radio-l); border: 1px dashed var(--ira-linea-fuerte); background: repeating-linear-gradient(135deg, rgba(220, 177, 73, 0.03) 0 10px, transparent 10px 20px), var(--ira-superficie); }
-.ira-p2-pendiente__estado { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ira-oro); }
+.ira-p2-pendiente__estado { font-family: var(--ira-font-voz); font-style: italic; font-size: 15px; color: var(--ira-oro); }
 .ira-p2-pendiente__nombre { margin: 6px 0 4px; font-size: 16px; font-weight: 500; color: var(--ira-nieve); }
 .ira-p2-pendiente__item p:last-child { margin: 0; font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
 @media (max-width: 720px) { .ira-p2-pendiente { grid-template-columns: 1fr; } }

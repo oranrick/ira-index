@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App.jsx';
-import Brilla from './ui/Brilla.jsx';
 
-import { CATEGORICOS, CATEGORICOS as PARAM_COLORS } from '../lib/escala';
+import { CATEGORICOS } from '../lib/escala';
+import IndicadorEscala from './ui/IndicadorEscala.jsx';
 
 const AUTHORS = [
   {
@@ -29,8 +29,8 @@ const AUTHORS = [
     work: { es: "Metáforas de la vida cotidiana (1980)", en: "Metaphors We Live By (1980)" },
     color: CATEGORICOS[1],
     contribution: {
-      es: "Las metáforas conceptuales no son adornos: estructuran cómo percibimos la realidad. «Drenar el pantano» no es hipérbole — es un marco cognitivo que determina qué preguntas nos parecen posibles.",
-      en: "Conceptual metaphors are not ornaments: they structure how we perceive reality. «Drain the swamp» is not hyperbole — it's a cognitive frame that determines which questions seem possible.",
+      es: "Las metáforas conceptuales no son adornos: estructuran cómo percibimos la realidad. «Drenar el pantano» no es una hipérbole: es un marco cognitivo que determina qué preguntas nos parecen posibles.",
+      en: "Conceptual metaphors are not ornaments: they structure how we perceive reality. «Drain the swamp» is not hyperbole: it is a cognitive frame that determines which questions seem possible.",
     },
   },
   {
@@ -93,51 +93,40 @@ export default function AboutPage() {
       <div style={{ position:"relative", zIndex:1 }}>
 
         {/* ── HERO — título dramático ── */}
-        <div style={{ maxWidth:"900px", margin:"0 auto", padding:"120px 24px 80px",
+        <div style={{ maxWidth:"900px", margin:"0 auto", padding:"clamp(56px,12vw,120px) 24px 80px",
           opacity:mounted?1:0, transform:mounted?"none":"translateY(20px)", transition:"all 0.6s ease" }}>
           <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"24px" }}>
-            <div style={{ width:"5px", height:"5px", borderRadius:"50%", background:"#DCB149", boxShadow:"0 0 8px #DCB149" }} />
-            <span style={{ fontSize:"12px", letterSpacing:"0.22em", color:"var(--ira-texto-3)", textTransform:"uppercase" }}>
+            <span style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", fontSize:"15px", color:"var(--ira-texto-3)" }}>
               {es ? "Sobre el proyecto" : "About the project"}
             </span>
           </div>
 
           {/* Frase grande partido en líneas */}
           <div style={{ marginBottom:"60px" }}>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
-              color:"var(--ira-texto-3)", lineHeight:1, letterSpacing:"-0.04em" }}>
+            <p style={{ margin:0, fontSize:"clamp(40px,8vw,96px)", fontWeight:900, fontFamily:"var(--ira-font-titulo)",
+              color:"var(--ira-texto-3)", lineHeight:0.94, letterSpacing:"-0.05em" }}>
               {es ? "Las palabras" : "Words don't"}
             </p>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
-              color:"var(--ira-texto-3)", lineHeight:1, letterSpacing:"-0.04em" }}>
+            <p style={{ margin:0, fontSize:"clamp(40px,8vw,96px)", fontWeight:900, fontFamily:"var(--ira-font-titulo)",
+              color:"var(--ira-texto-3)", lineHeight:0.94, letterSpacing:"-0.05em" }}>
               {es ? "no solo describen" : "just describe"}
             </p>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
-              color:"var(--ira-nieve)", lineHeight:1, letterSpacing:"-0.04em" }}>
+            <p style={{ margin:0, fontSize:"clamp(40px,8vw,96px)", fontWeight:900, fontFamily:"var(--ira-font-titulo)",
+              color:"var(--ira-nieve)", lineHeight:0.94, letterSpacing:"-0.05em" }}>
               {es ? "la realidad." : "reality."}
             </p>
-            <p style={{ margin:0, fontSize:"clamp(36px,7vw,72px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
-              color:"#DCB149", lineHeight:1, letterSpacing:"-0.04em" }}>
-              <Brilla tono="oro" cantidad={4} tamano={[10, 16]}>{es ? "La configuran." : "They shape it."}</Brilla>
+            <p style={{ margin:0, fontSize:"clamp(40px,8vw,96px)", fontWeight:900, fontFamily:"var(--ira-font-titulo)",
+              color:"#DCB149", lineHeight:0.94, letterSpacing:"-0.05em" }}>
+              {es ? "La configuran." : "They shape it."}
             </p>
           </div>
 
-          {/* Stats strip */}
-          <div style={{ display:"flex", gap:"0", borderTop:"1px solid rgba(255,255,255,0.06)", borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
-            {[
-              { num:"7",    label: es?"parámetros":"parameters" },
-              { num:"0—10", label: es?"escala IRA":"IRA scale" },
-              { num:"6",    label: es?"autores clave":"key authors" },
-              { num:"2024", label: es?"UCM Madrid":"UCM Madrid" },
-            ].map((s, i) => (
-              <div key={i} style={{ flex:1, padding:"20px 0", textAlign:"center",
-                borderRight: i < 3 ? "1px solid rgba(255,255,255,0.06)" : "none" }}>
-                <p style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
-                  color:"#DCB149", letterSpacing:"-0.02em" }}>{s.num}</p>
-                <p style={{ margin:"4px 0 0", fontSize:"12px", color:"var(--ira-texto-3)", letterSpacing:"0.12em", textTransform:"uppercase" }}>{s.label}</p>
-              </div>
-            ))}
-          </div>
+          {/* En una frase, sin franja de cifras */}
+          <p style={{ margin:0, maxWidth:"36ch", fontFamily:"var(--ira-font-voz)", fontSize:"21px", lineHeight:1.5, color:"var(--ira-texto-cita)" }}>
+            {es
+              ? "Siete parámetros, una escala de 0 a 10 y seis autores de referencia. Nació como trabajo de fin de grado en la Complutense, en 2024."
+              : "Seven parameters, a 0 to 10 scale and six key authors. It began as a bachelor's thesis at Complutense University, in 2024."}
+          </p>
         </div>
 
         {/* ── ORIGEN ── */}
@@ -148,81 +137,66 @@ export default function AboutPage() {
           {/* Pull quote dramático */}
           <blockquote style={{ margin:"0 0 40px", padding:"0 0 0 20px",
             borderLeft:"3px solid var(--ira-1)" }}>
-            <p style={{ margin:0, fontSize:"clamp(18px,3vw,24px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
-              color:"var(--ira-marca-polarizante)", lineHeight:1.3, letterSpacing:"-0.01em" }}>
+            <p style={{ margin:0, fontSize:"clamp(24px,3.6vw,32px)", fontStyle:"italic", fontFamily:"var(--ira-font-voz)",
+              color:"var(--ira-marca-polarizante)", lineHeight:1.25 }}>
               {es ? "«Yo mataría a toda esa gente.»" : "«I would kill all those people.»"}
             </p>
-            <p style={{ margin:"10px 0 0", fontSize:"14px", color:"var(--ira-texto-3)", fontStyle:"italic" }}>
-              {es ? "— Frase escuchada demasiadas veces. Origen del IRA." : "— A phrase heard too many times. The origin of the IRA."}
+            <p style={{ margin:"10px 0 0", fontSize:"14px", color:"var(--ira-texto-3)" }}>
+              {es ? "Una frase escuchada demasiadas veces. Así empezó IRA." : "A phrase heard too many times. That is how IRA began."}
             </p>
           </blockquote>
 
           <Prose es={es}
-            es="La pregunta que dio origen al IRA no nació en una biblioteca. Nació de escuchar, una y otra vez, a personas decir cosas así — refiriéndose a políticos, a votantes del bando contrario, a desconocidos. No como amenaza real, sino como expresión cotidiana de un odio que se había normalizado hasta volverse invisible."
-            en="The question that gave rise to the IRA was not born in a library. It was born from hearing, again and again, people say things like that — referring to politicians, to voters on the other side, to strangers. Not as a real threat, but as an everyday expression of a hatred so normalized it had turned invisible."
+            es="La pregunta que dio origen al IRA no nació en una biblioteca. Nació de escuchar, una y otra vez, a personas decir cosas así, refiriéndose a políticos, a votantes del bando contrario, a desconocidos. No como amenaza real, sino como expresión cotidiana de un odio que se había normalizado hasta volverse invisible."
+            en="The question that gave rise to the IRA was not born in a library. It was born from hearing, again and again, people say things like that, referring to politicians, to voters on the other side, to strangers. Not as a real threat, but as an everyday expression of a hatred so normalized it had turned invisible."
           />
           <Prose es={es}
-            es="¿De dónde viene tanta ira? La respuesta que fue tomando forma es esta: somos una sociedad herida. Y las heridas se infectan cuando el lenguaje las toca todos los días — con metáforas de guerra, con enemigos fabricados, con miedo dosificado como combustible electoral."
-            en="Where does all this rage come from? The answer that took shape is this: we are a wounded society. And wounds become infected when language touches them every day — with war metaphors, manufactured enemies, fear dispensed as electoral fuel."
+            es="¿De dónde viene tanta ira? La respuesta que fue tomando forma es esta: somos una sociedad herida. Y las heridas se infectan cuando el lenguaje las toca todos los días: con metáforas de guerra, con enemigos fabricados, con miedo dosificado como combustible electoral."
+            en="Where does all this rage come from? The answer that took shape is this: we are a wounded society. And wounds become infected when language touches them every day: with war metaphors, manufactured enemies, fear dispensed as electoral fuel."
           />
           <Prose es={es}
             es="Si la empatía tiene una base biológica (la simulación encarnada del otro, la inteligencia emocional como capacidad entrenable), entonces la polarización también la tiene. Y si el odio se contagia a través del lenguaje, la empatía también puede contagiarse. Esa intuición es el fundamento del IRA."
             en="If empathy has a biological basis (the embodied simulation of others, emotional intelligence as a trainable capacity), then polarization has one too. And if hatred spreads through language, empathy can spread through language too. That intuition is the foundation of the IRA."
           />
 
-          {/* TFG callout */}
-          <div style={{ margin:"32px 0 0", padding:"20px 22px", background:"rgba(220,177,73,0.05)",
-            border:"1px solid rgba(220,177,73,0.15)", borderRadius:"14px" }}>
-            <p style={{ margin:"0 0 6px", fontSize:"12px", letterSpacing:"0.14em", color:"rgba(220,177,73,0.6)", textTransform:"uppercase" }}>
-              {es ? "Trabajo de Fin de Grado" : "Bachelor's Thesis"}
+          {/* TFG: ficha abierta, como una referencia */}
+          <div style={{ margin:"40px 0 0", paddingTop:"16px", borderTop:"2px solid var(--ira-oro)" }}>
+            <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin:"0 0 8px", fontSize:"15px", color:"var(--ira-oro)" }}>
+              {es ? "Trabajo de fin de grado" : "Bachelor's thesis"}
             </p>
-            <p style={{ margin:0, fontSize:"13px", fontWeight:500, fontFamily:"var(--ira-font-titulo)", color:"var(--ira-nieve)", lineHeight:1.35 }}>
-              {es ? "«El contagio de las palabras: Metáforas, empatía y polarización en el discurso político contemporáneo»"
-                  : "«The Contagion of Words: Metaphors, Empathy and Polarization in Contemporary Political Discourse»"}
+            <p style={{ margin:0, fontSize:"19px", fontWeight:800, fontFamily:"var(--ira-font-titulo)", color:"var(--ira-nieve)", lineHeight:1.3, letterSpacing:"-0.01em" }}>
+              {es ? "El contagio de las palabras. Metáforas, empatía y polarización en el discurso político contemporáneo"
+                  : "The Contagion of Words. Metaphors, Empathy and Polarization in Contemporary Political Discourse"}
             </p>
-            <p style={{ margin:"8px 0 0", fontSize:"13px", color:"var(--ira-texto-3)" }}>
-              Ricardo Grisales Ramírez · UCM Periodismo · 2024
+            <p style={{ margin:"8px 0 0", fontSize:"14px", color:"var(--ira-texto-3)" }}>
+              Ricardo Grisales Ramírez, {es ? "Periodismo, Universidad Complutense de Madrid, 2024" : "Journalism, Complutense University of Madrid, 2024"}
             </p>
           </div>
         </div>
 
         {/* ── MARCO TEÓRICO ── */}
-        <div style={{ background:"rgba(255,255,255,0.015)", borderTop:"1px solid rgba(255,255,255,0.05)", borderBottom:"1px solid rgba(255,255,255,0.05)", padding:"80px 24px" }}>
+        <div style={{ borderTop:"1px solid var(--ira-linea)", padding:"80px 24px" }}>
           <div style={{ maxWidth:"900px", margin:"0 auto" }}>
             <Label es={es} es_text="El marco teórico" en_text="Theoretical framework" />
-            <h2 style={{ margin:"0 0 12px", fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+            <h2 style={{ margin:"0 0 12px", fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
               color:"var(--ira-nieve)", letterSpacing:"-0.03em", lineHeight:1.15 }}>
-              {es ? "Antes de llegar al cerebro,\npasa por el cuerpo" : "Before it reaches the brain,\nit passes through the body"}
+              {es ? "Antes de llegar al cerebro, pasa por el cuerpo" : "Before it reaches the brain,\nit passes through the body"}
             </h2>
-            <p style={{ margin:"0 0 48px", fontSize:"12px", color:"var(--ira-texto-3)", maxWidth:"520px", lineHeight:1.7 }}>
-              {es ? "Seis autores que explican por qué las palabras no son neutras — y por qué medirlas importa."
-                  : "Six authors that explain why words are not neutral — and why measuring them matters."}
+            <p style={{ margin:"0 0 48px", fontFamily:"var(--ira-font-voz)", fontSize:"18px", color:"var(--ira-texto-2)", maxWidth:"560px", lineHeight:1.55 }}>
+              {es ? "Seis autores que explican por qué las palabras no son neutras y por qué importa medirlas."
+                  : "Six authors that explain why words are not neutral and why measuring them matters."}
             </p>
 
-            {/* Grid de autores */}
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(260px, 1fr))", gap:"16px" }}>
+            {/* Autores como bibliografía comentada: abierta, sin tarjetas ni colores */}
+            <ol className="ira-biblio">
               {AUTHORS.map((a, i) => (
-                <div key={i} style={{
-                  background:`${a.color}08`,
-                  border:`1px solid ${a.color}22`,
-                  borderRadius:"14px", padding:"20px",
-                  transition:"border-color 0.2s, background 0.2s",
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor=`${a.color}55`; e.currentTarget.style.background=`${a.color}12`; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor=`${a.color}22`; e.currentTarget.style.background=`${a.color}08`; }}
-                >
-                  <p style={{ margin:"0 0 4px", fontSize:"15px", fontWeight:500, fontFamily:"var(--ira-font-titulo)", color:a.color }}>
-                    {a.name}
-                  </p>
-                  <p style={{ margin:"0 0 12px", fontSize:"12px", color:"var(--ira-texto-3)", fontStyle:"italic" }}>
-                    {es ? a.work.es : a.work.en}
-                  </p>
-                  <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.7 }}>
-                    {es ? a.contribution.es : a.contribution.en}
-                  </p>
-                </div>
+                <li key={i}>
+                  <p className="ira-biblio__nombre">{a.name}</p>
+                  <p className="ira-biblio__obra">{es ? a.work.es : a.work.en}</p>
+                  <p className="ira-biblio__texto">{es ? a.contribution.es : a.contribution.en}</p>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
 
@@ -232,25 +206,24 @@ export default function AboutPage() {
 
           {/* Pull quote central */}
           <div style={{ margin:"0 0 40px", textAlign:"center" }}>
-            <p style={{ margin:0, fontSize:"clamp(14px,2.5vw,20px)", fontStyle:"italic", fontFamily:"var(--ira-font-texto)",
-              color:"var(--ira-texto-2)", lineHeight:1.6, maxWidth:"520px", marginInline:"auto" }}>
-              {es ? "«No es una herramienta de verdad o mentira. Es una herramienta de arquitectura emocional.»"
-                  : "«It is not a tool of truth or falsehood. It is a tool of emotional architecture.»"}
+            <p style={{ margin:0, fontSize:"clamp(21px,3vw,28px)", fontStyle:"italic", fontFamily:"var(--ira-font-voz)",
+              color:"var(--ira-nieve)", lineHeight:1.4, maxWidth:"560px", marginInline:"auto" }}>
+              {es ? "«IRA no mide si algo es verdad o mentira. Mide la arquitectura emocional de un discurso.»"
+                  : "«IRA does not measure whether something is true or false. It measures the emotional architecture of a speech.»"}
             </p>
           </div>
 
-          {/* Tres herramientas que no son el IRA */}
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px", marginBottom:"32px" }}>
+          {/* Tres herramientas que no son el IRA: columnas abiertas */}
+          <div className="ira-brecha">
             {[
-              { tool:"Fact-checking",    does: es?"Verifica hechos":"Verifies facts",             limit: es?"No mide el marco":"Doesn't measure the frame" },
-              { tool: es?"Análisis de sentimiento":"Sentiment analysis", does: es?"Positivo / negativo":"Positive / negative", limit: es?"No mide a quién se dirige":"Doesn't measure the target" },
-              { tool: es?"Periodismo de datos":"Data journalism",  does: es?"Cuantifica tendencias":"Quantifies trends", limit: es?"No mide el contagio":"Doesn't measure contagion" },
+              { tool:"Fact-checking",    does: es?"Verifica hechos.":"Verifies facts.",             limit: es?"No mide el marco.":"Doesn't measure the frame." },
+              { tool: es?"Análisis de sentimiento":"Sentiment analysis", does: es?"Separa positivo y negativo.":"Sorts positive from negative.", limit: es?"No mide a quién se dirige.":"Doesn't measure the target." },
+              { tool: es?"Periodismo de datos":"Data journalism",  does: es?"Cuantifica tendencias.":"Quantifies trends.", limit: es?"No mide el contagio.":"Doesn't measure contagion." },
             ].map((t, i) => (
-              <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.06)",
-                borderRadius:"10px", padding:"14px 12px" }}>
-                <p style={{ margin:"0 0 6px", fontSize:"13px", fontWeight:700, color:"var(--ira-texto-2)", textTransform:"uppercase", letterSpacing:"0.06em" }}>{t.tool}</p>
-                <p style={{ margin:"0 0 8px", fontSize:"14px", color:"var(--ira-texto-2)" }}>{t.does}</p>
-                <p style={{ margin:0, fontSize:"13px", color:"var(--ira-marca-polarizante)", fontStyle:"italic" }}>↳ {t.limit}</p>
+              <div key={i}>
+                <p className="ira-brecha__que">{t.tool}</p>
+                <p className="ira-brecha__hace">{t.does}</p>
+                <p className="ira-brecha__falta">{t.limit}</p>
               </div>
             ))}
           </div>
@@ -262,50 +235,38 @@ export default function AboutPage() {
         </div>
 
         {/* ── 8 PARÁMETROS ── */}
-        <div style={{ background:"rgba(255,255,255,0.015)", borderTop:"1px solid rgba(255,255,255,0.05)", borderBottom:"1px solid rgba(255,255,255,0.05)", padding:"80px 24px" }}>
+        <div style={{ borderTop:"1px solid var(--ira-linea)", padding:"80px 24px" }}>
           <div style={{ maxWidth:"900px", margin:"0 auto" }}>
             <Label es={es} es_text="La metodología" en_text="The methodology" />
             <div style={{ display:"flex", alignItems:"baseline", gap:"16px", marginBottom:"40px", flexWrap:"wrap" }}>
-              <h2 style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+              <h2 style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
                 color:"var(--ira-nieve)", letterSpacing:"-0.03em" }}>
                 {es ? "7 dimensiones." : "7 dimensions."}
               </h2>
-              <span style={{ fontSize:"clamp(22px,4vw,36px)", fontWeight:500, fontFamily:"var(--ira-font-titulo)",
+              <span style={{ fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
                 color:"var(--ira-texto-3)", letterSpacing:"-0.03em" }}>
                 {es ? "Una puntuación." : "One score."}
               </span>
             </div>
 
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(200px, 1fr))", gap:"12px" }}>
+            <ol className="ira-dimensiones">
               {PARAMS_BRIEF.map((p, i) => (
-                <div key={i} style={{ padding:"16px", borderRadius:"12px",
-                  background:"rgba(255,255,255,0.02)", border:`1px solid ${PARAM_COLORS[i]}22`,
-                  borderLeft:`3px solid ${PARAM_COLORS[i]}` }}>
-                  <p style={{ margin:"0 0 6px", fontSize:"12px", fontWeight:500, color:PARAM_COLORS[i], fontFamily:"var(--ira-font-titulo)" }}>
-                    {es ? p.es : p.en}
-                  </p>
-                  <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)", lineHeight:1.55 }}>
-                    {es ? p.desc_es : p.desc_en}
-                  </p>
-                </div>
+                <li key={i}>
+                  <span className="ira-dimensiones__n">P{i + 1}</span>
+                  <span className="ira-dimensiones__nombre">{es ? p.es : p.en}</span>
+                  <span className="ira-dimensiones__pregunta">{es ? p.desc_es : p.desc_en}</span>
+                </li>
               ))}
-            </div>
+            </ol>
 
-            {/* Escala visual */}
-            <div style={{ marginTop:"40px", display:"flex", alignItems:"center", gap:"12px" }}>
-              <span style={{ fontSize:"13px", color:"var(--ira-estrella-polarizante)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
-                0 — {es?"Máx. polarización":"Max. polarization"}
-              </span>
-              <div style={{ flex:1, height:"4px", borderRadius:"4px",
-                background:"linear-gradient(90deg,#8F1C17,#BE281A 10%,#CB4021 20%,#D7662A 30%,#E59236 40%,#EEA73D 50%,#F4BC41 60%,#DAB850 70%,#C1B360 80%,#A7AE6F 90%,#8DAA7E)" }} />
-              <span style={{ fontSize:"13px", color:"var(--ira-salvia)", fontFamily:"var(--ira-font-texto)", whiteSpace:"nowrap" }}>
-                10 — {es?"Máx. empatía":"Max. empathy"}
-              </span>
+            {/* La escala, con la misma traza que el resto del sitio */}
+            <div style={{ marginTop:"48px" }}>
+              <IndicadorEscala lang={lang} />
             </div>
 
             <p style={{ margin:"32px 0 0" }}>
               <Link to="/metodologia" style={{ display:"inline-flex", alignItems:"center", minHeight:"44px", fontSize:"16px", fontWeight:500, textUnderlineOffset:"4px" }}>
-                {es ? "Metodología 2.0 (en desarrollo) →" : "Methodology 2.0 (in development) →"}
+                {es ? "Metodología 2.0 (en desarrollo)" : "Methodology 2.0 (in development)"}
               </Link>
             </p>
           </div>
@@ -316,37 +277,31 @@ export default function AboutPage() {
           <Label es={es} es_text="El proyecto hoy" en_text="The project today" />
 
           <Prose es={es}
-            es="El IRA no está terminado. Ninguna metodología de análisis del discurso lo está — el lenguaje cambia más rápido que las herramientas para medirlo. Lo que hay aquí es el comienzo de algo: una forma de leer el mundo político que combine el rigor de la academia con la urgencia del periodismo."
-            en="The IRA is not finished. No discourse analysis methodology ever is — language changes faster than the tools to measure it. What exists here is the beginning of something: a way of reading the political world that combines academic rigor with journalistic urgency."
+            es="El IRA no está terminado. Ninguna metodología de análisis del discurso lo está: el lenguaje cambia más rápido que las herramientas para medirlo. Lo que hay aquí es el comienzo de algo: una forma de leer el mundo político que combine el rigor de la academia con la urgencia del periodismo."
+            en="The IRA is not finished. No discourse analysis methodology ever is: language changes faster than the tools to measure it. What exists here is the beginning of something: a way of reading the political world that combines academic rigor with journalistic urgency."
           />
           <Prose es={es}
-            es="El índice sigue creciendo. Nuevos líderes, nuevos medios, nuevos corpus. La inteligencia artificial analiza en tiempo real cualquier texto que quieras medir. Y la investigación continúa — en todas las direcciones posibles."
-            en="The index keeps growing. New leaders, new media, new corpora. Artificial intelligence analyzes in real time any text you want to measure. And the research continues — in every possible direction."
+            es="El índice sigue creciendo. Nuevos líderes, nuevos medios, nuevos corpus. La inteligencia artificial analiza en tiempo real cualquier texto que quieras medir. Y la investigación continúa en todas las direcciones posibles."
+            en="The index keeps growing. New leaders, new media, new corpora. Artificial intelligence analyzes in real time any text you want to measure. And the research continues in every possible direction."
           />
 
-          {/* Firma */}
-          <div style={{ marginTop:"48px", padding:"28px", background:"rgba(220,177,73,0.04)",
-            border:"1px solid rgba(220,177,73,0.15)", borderRadius:"16px" }}>
-            <p style={{ margin:"0 0 16px", fontSize:"clamp(16px,3vw,22px)", fontStyle:"italic",
-              fontFamily:"var(--ira-font-texto)", color:"var(--ira-texto-cita)", lineHeight:1.45 }}>
+          {/* Firma: una línea de oro y la frase, sin caja */}
+          <figure style={{ margin:"56px 0 0", paddingLeft:"22px", borderLeft:"2px solid var(--ira-oro)" }}>
+            <blockquote style={{ margin:"0 0 16px", fontSize:"clamp(20px,3vw,26px)", fontStyle:"italic",
+              fontFamily:"var(--ira-font-voz)", color:"var(--ira-nieve)", lineHeight:1.4 }}>
               {es ? "«Cambiar el mundo desde el amor y la ciencia dura.»"
                   : "«Changing the world through love and hard science.»"}
-            </p>
-            <div style={{ display:"flex", alignItems:"center", gap:"12px" }}>
-              <div style={{ width:"1px", height:"32px", background:"rgba(220,177,73,0.4)" }} />
-              <div>
-                <p style={{ margin:"0 0 2px", fontSize:"14px", fontWeight:700, color:"rgba(220,177,73,0.8)", letterSpacing:"0.06em" }}>
-                  Ricardo Grisales Ramírez
-                </p>
-                <p style={{ margin:0, fontSize:"13px", color:"var(--ira-texto-3)" }}>
-                  {es ? "Periodista · UCM 2024 · Creador del IRA" : "Journalist · UCM 2024 · Creator of the IRA"}
-                </p>
-              </div>
-            </div>
-            <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer"
-              style={{ display:"inline-flex", alignItems:"center", minHeight:"44px", marginTop:"6px", fontSize:"14px", textUnderlineOffset:"4px" }}
-            >oranrick.com →</a>
-          </div>
+            </blockquote>
+            <figcaption>
+              <p style={{ margin:"0 0 2px", fontSize:"15px", fontWeight:800, color:"var(--ira-nieve)" }}>
+                Ricardo Grisales Ramírez
+              </p>
+              <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-3)" }}>
+                {es ? "Periodista, creador del IRA. " : "Journalist, creator of the IRA. "}
+                <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" style={{ textUnderlineOffset:"4px" }}>oranrick.com</a>
+              </p>
+            </figcaption>
+          </figure>
 
           {/* CTAs */}
           <div style={{ display:"flex", gap:"12px", flexWrap:"wrap", marginTop:"32px" }}>
@@ -362,18 +317,19 @@ export default function AboutPage() {
 function Label({ es, es_text, en_text }) {
   return (
     <div style={{ display:"flex", alignItems:"center", gap:"10px", marginBottom:"16px" }}>
-      <div style={{ width:"28px", height:"1px", background:"rgba(220,177,73,0.5)" }} />
-      <span style={{ fontSize:"12px", letterSpacing:"0.2em", color:"rgba(220,177,73,0.55)", textTransform:"uppercase" }}>
+      <span style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", fontSize:"15px", color:"var(--ira-oro)" }}>
         {es ? es_text : en_text}
       </span>
     </div>
   );
 }
 
-function Prose({ es, es: _es, en, children }) {
-  const text = _es ? es : en;
+// Ojo: los usos pasan es={es} y luego es="texto"; gana el último, así que el idioma sale del contexto.
+function Prose({ es, en, children }) {
+  const { lang } = useContext(AppContext);
+  const text = lang === 'en' ? en : es;
   return (
-    <p style={{ margin:"0 0 18px", fontSize:"14px", color:"var(--ira-texto-2)", lineHeight:1.8 }}>
+    <p style={{ margin:"0 0 20px", fontFamily:"var(--ira-font-voz)", fontSize:"18px", color:"var(--ira-texto-cita)", lineHeight:1.65 }}>
       {text || children}
     </p>
   );

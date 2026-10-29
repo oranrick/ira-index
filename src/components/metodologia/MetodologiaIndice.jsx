@@ -9,7 +9,7 @@ import { Aparecer, Icono } from './Visuales.jsx';
 import { PARAMETROS, REPO_RESEARCH, SOLO_ES } from './textosComunes.js';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-juego.css';
-import Brilla from '../ui/Brilla.jsx';
+import '../../styles/identidad.css';
 
 const TXT = {
   es: {
@@ -49,9 +49,9 @@ export default function MetodologiaIndice() {
 
       <header className="ira-met__cabecera">
         <p className="ira-met__rotulo">{t.rotulo}</p>
-        <h1 className="ira-met__titulo"><Brilla tono="salvia" cantidad={4}>{t.titulo}</Brilla></h1>
+        <h1 className="ira-met__titulo">{t.titulo}</h1>
         <p className="ira-met__entradilla">{t.entradilla}</p>
-        <p><Link to="/about" className="ira-met__enlace">{t.anterior} →</Link></p>
+        <p><Link to="/about" className="ira-met__enlace">{t.anterior}</Link></p>
       </header>
 
       <section className="ira-met__seccion" aria-labelledby="met-principios">
@@ -84,7 +84,7 @@ export default function MetodologiaIndice() {
                   </span>
                   <span className="ira-met__param-nombre">{p.nombre}</span>
                   <span className="ira-met__param-def">{p.definicion}</span>
-                  <span className="ira-met__param-cta">{t.leer} →</span>
+                  <span className="ira-met__param-cta">{t.leer}</span>
                 </Link>
               ) : (
                 <div className="ira-met__param ira-met__param--pronto">
@@ -105,7 +105,7 @@ export default function MetodologiaIndice() {
         <p className="ira-met__texto">{t.researchTexto}</p>
         <p>
           <a href={REPO_RESEARCH} target="_blank" rel="noopener noreferrer" className="ira-met__enlace">
-            {t.researchEnlace} →<span className="ira-sr"> {t.nuevaPestana}</span>
+            {t.researchEnlace}<span className="ira-sr"> {t.nuevaPestana}</span>
           </a>
         </p>
       </section>

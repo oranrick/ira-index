@@ -4,6 +4,7 @@
 // el impacto más intenso brilla más, sea negativo o positivo.
 // Decorativo: aria-hidden, sin eventos de puntero, quieto con "reducir movimiento".
 import { useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { escucharClics } from './ui/Chispas.jsx';
 import { ESCALA } from '../lib/escala';
 import '../styles/destellos.css';
@@ -73,6 +74,9 @@ export default function Destellos({ cantidad = 90, intensidad = 1, animado = tru
   const destellos = useMemo(() => crearDestellos(cantidad, intensidad), [cantidad, intensidad]);
   // Cada clic de la web suelta destellos
   useEffect(() => escucharClics(), []);
+  // Las estrellas del fondo solo en la portada: en el resto, la traza es el elemento propio
+  const { pathname } = useLocation();
+  if (pathname !== '/') return null;
 
   return (
     <div className="ira-destellos" aria-hidden="true">

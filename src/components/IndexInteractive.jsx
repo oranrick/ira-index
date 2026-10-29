@@ -45,7 +45,7 @@ const QUIZ_RAW = [
     why: { es:"Reconocimiento del error en primera persona. Quien admite sus límites no necesita defensa retórica.", en:"First-person acknowledgment of failure. Whoever admits their limits needs no rhetorical defense." },
   },
   {
-    quote: { es: "«No llego sola, llegamos todas. Después de 503 años, por primera vez llegamos las mujeres.»", en: "«I do not arrive alone — we all arrive. After 503 years, for the first time we women have arrived.»" },
+    quote: { es: "«No llego sola, llegamos todas. Después de 503 años, por primera vez llegamos las mujeres.»", en: "«I do not arrive alone; we all arrive. After 503 years, for the first time we women have arrived.»" },
     options: ["Claudia Sheinbaum","Jacinda Ardern","Kamala Harris","Michelle Obama"],
     answer: "Claudia Sheinbaum", entityId:"sheinbaum", score:7.92,
     why: { es:"El «nosotros» extiende el sujeto político a toda la historia de las mujeres en 10 palabras.", en:"The 'we' extends the political subject to all of women's history in 10 words." },
@@ -113,31 +113,22 @@ function QuizSection({ lang, accent, accentA }) {
       </h3>
 
       <div className="ira-panel">
-        <p style={{ margin:"0 0 20px", fontSize:"20px", lineHeight:"32px", color:"var(--ira-texto-cita)" }}>
+        <blockquote className="ira-quien__cita">
           {es ? q.quote.es : q.quote.en}
-        </p>
+        </blockquote>
 
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px", marginBottom: selected ? "20px" : 0 }}>
+        <ol className="ira-quien__opciones" style={{ marginBottom: selected ? "20px" : 0 }}>
           {q.options.map(opt => {
             const isCorrect = opt === q.answer;
             const isSelected = opt === selected;
-            let bg = "transparent";
-            let border = "var(--ira-linea-fuerte)";
-            let color = "var(--ira-nieve)";
-            if (selected) {
-              if (isCorrect) { bg="rgba(141,170,126,0.14)"; border="var(--ira-salvia)"; color="var(--ira-marca-empatica)"; }
-              else if (isSelected) { bg="rgba(190,40,26,0.14)"; border="var(--ira-1)"; color="var(--ira-marca-polarizante)"; }
-              else { color="var(--ira-texto-3)"; }
-            }
+            const estado = !selected ? '' : isCorrect ? ' is-acierto' : isSelected ? ' is-fallo' : ' is-apagada';
             return (
-              <button type="button" key={opt} disabled={!!selected} onClick={() => setSelected(opt)} style={{
-                minHeight:"48px", padding:"10px 14px", borderRadius:"10px", border:`1px solid ${border}`,
-                background:bg, color, fontSize:"15px", fontFamily:"var(--ira-font-texto)",
-                cursor:selected?"default":"pointer", transition:"all 0.2s", textAlign:"left",
-              }}>{opt}</button>
+              <li key={opt}>
+                <button type="button" data-nota={es ? 'lo dijo' : 'said it'} className={`ira-quien__opcion${estado}`} disabled={!!selected} onClick={() => setSelected(opt)}>{opt}</button>
+              </li>
             );
           })}
-        </div>
+        </ol>
 
         {selected && (
           <div aria-live="polite" style={{ borderTop:"1px solid var(--ira-linea)", paddingTop:"16px" }}>
@@ -172,13 +163,13 @@ function SpectrumSection({ entities, lang, accent }) {
   return (
     <div style={{ marginBottom:"40px" }}>
       <h3 className="ira-seccion__titulo">
-        {es ? "El espectro IRA — corpus completo" : "The IRA spectrum — full corpus"}
+        {es ? "El espectro IRA en todo el corpus" : "The IRA spectrum across the corpus"}
       </h3>
 
       <div className="ira-panel" style={{ padding:"28px 24px 20px" }}>
 
         {/* Eje: escala con sus cifras; las figuras se marcan encima */}
-        <div style={{ position:"relative", marginBottom:"28px", paddingTop:"26px" }} ref={containerRef}>
+        <div className="ira-espectro" ref={containerRef}>
 
           {/* Dots */}
           {sorted.map(e => {
@@ -191,14 +182,8 @@ function SpectrumSection({ entities, lang, accent }) {
                 onMouseLeave={() => setHoverId(null)}
                 onClick={() => navigate(`/entity/${e.id}`)}
                 aria-hidden="true"
-                style={{
-                  position:"absolute", top: isHov ? "0px" : "3px", left:`calc(${pct}% * 0.91 + 4.5%)`,
-                  transform:"translateX(-50%)",
-                  width: isHov ? 18 : 12, height: isHov ? 18 : 12,
-                  borderRadius:"50%", background:"var(--ira-nieve)",
-                  border: isHov ? "2px solid var(--ira-oro)" : "2px solid var(--ira-noche)",
-                  cursor:"pointer", transition:"all 0.18s ease", zIndex: isHov ? 10 : 1,
-                }}
+                className={`ira-espectro__marca${isHov ? ' is-activa' : ''}`}
+                style={{ left:`${pct}%`, '--c': col }}
               >
                 {isHov && (
                   <div style={{
@@ -246,13 +231,13 @@ const PROMPTS = {
     "«Hay que echarlos a todos. Este país ya no tiene solución.»",
     "«Entiendo que hay quienes no comparten esta visión. Sus dudas también son legítimas.»",
     "«O estás con nosotros o estás contra el pueblo.»",
-    "«Trabajemos juntos — aunque no pensemos igual.»",
+    "«Trabajemos juntos, aunque no pensemos igual.»",
   ],
   en: [
     "«We have to get rid of all of them. This country has no solution.»",
     "«I understand some don't share this vision. Their concerns are also legitimate.»",
     "«Either you're with us or you're against the people.»",
-    "«Let's work together — even if we don't think alike.»",
+    "«Let's work together, even if we don't think alike.»",
   ],
 };
 
@@ -294,13 +279,13 @@ function MiniAnalyzer({ lang, accent, accentA }) {
       <div className="ira-panel">
 
         {/* Hint rotatorio */}
-        <p id="ira-mini-ej" style={{ margin:"0 0 10px", fontSize:"14px", color:"var(--ira-texto-2)", fontStyle:"italic", lineHeight:1.5 }}>
+        <p id="ira-mini-ej" style={{ margin:"0 0 10px", fontFamily:"var(--ira-font-voz)", fontSize:"16px", color:"var(--ira-texto-2)", fontStyle:"italic", lineHeight:1.5 }}>
           {es ? "ej." : "e.g."}{" "}{examples[tipIdx]}
         </p>
 
         <label htmlFor="ira-mini-texto" className="ira-sr">{es ? "Frase política" : "Political phrase"}</label>
         <textarea
-          id="ira-mini-texto" className="ira-campo" aria-describedby="ira-mini-ej"
+          id="ira-mini-texto" className="ira-campo ira-libreta" aria-describedby="ira-mini-ej"
           value={text}
           onChange={e => { setText(e.target.value); setResult(null); }}
           placeholder={es ? "Escribe o pega una frase política..." : "Write or paste a political phrase..."}
@@ -334,8 +319,8 @@ function ResultBlock({ result, es, col, accentA }) {
     <div aria-live="polite" style={{ marginTop:"16px", borderTop:"1px solid var(--ira-linea)", paddingTop:"16px",
       display:"flex", alignItems:"center", gap:"16px", flexWrap:"wrap" }}>
       <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", flexShrink:0, minWidth:"90px" }}>
-        <span style={{ display:"flex", alignItems:"baseline", gap:"4px", fontFamily:"var(--ira-font-cifra)", fontWeight:500, letterSpacing:"-0.04em", lineHeight:1 }}>
-          <span style={{ fontSize:"40px", color:col }}>{formatearPuntuacion(result.score, es ? 'es' : 'en')}</span>
+        <span style={{ display:"flex", alignItems:"baseline", gap:"4px", fontFamily:"var(--ira-font-cifra)", fontWeight:900, letterSpacing:"-0.04em", lineHeight:1 }}>
+          <span style={{ fontSize:"48px", color:col }}>{formatearPuntuacion(result.score, es ? 'es' : 'en')}</span>
           <span style={{ fontSize:"14px", color:"var(--ira-texto-3)", letterSpacing:0 }}>/10</span>
         </span>
         <span style={{ fontSize:"13px", color:"var(--ira-texto-cita)", marginTop:"6px" }}>
@@ -426,7 +411,7 @@ const SLIDER_PARAMS = {
         "«Confío en que podemos superar esto si lo enfrentamos juntos.»",
         "«Siento esperanza real cuando veo la resiliencia de nuestra gente.»",
         "«La compasión y la determinación pueden coexistir. Eso es lo que siento.»",
-        "«Siento genuina esperanza. No como retórica — como convicción profunda.»",
+        "«Siento genuina esperanza. No como retórica: como convicción profunda.»",
       ],
     },
     {
@@ -460,7 +445,7 @@ const SLIDER_PARAMS = {
         "«Trabajemos en lo que nos une. Las soluciones vendrán de cada comunidad.»",
         "«La acción más poderosa empieza por escucharse. Después, actuamos.»",
         "«Construyamos juntos. Cada voz cuenta, también la que no coincide con la mía.»",
-        "«Cuidemos esto entre todos. No desde arriba — desde cada uno de nosotros.»",
+        "«Cuidemos esto entre todos. No desde arriba: desde cada uno de nosotros.»",
       ],
     },
     {
@@ -547,7 +532,7 @@ const SLIDER_PARAMS = {
         "«I trust we can overcome this if we face it together.»",
         "«I feel real hope when I see the resilience of our people.»",
         "«Compassion and determination can coexist. That is what I feel.»",
-        "«I feel genuine hope. Not as rhetoric — as deep conviction.»",
+        "«I feel genuine hope. Not as rhetoric: as deep conviction.»",
       ],
     },
     {
@@ -557,7 +542,7 @@ const SLIDER_PARAMS = {
         "«Those who criticize us are part of the problem. I won't listen to them.»",
         "«Dissenters are infiltrated or misinformed. There is no possible debate.»",
         "«I won't waste time with those who act in bad faith.»",
-        "«I can hear real criticism — but not the kind driven by self-interest.»",
+        "«I can hear real criticism, but not the kind driven by self-interest.»",
         "«Some critical voices deserve attention, though very few.»",
         "«Disagreement exists and I won't deny it, even if I don't share it.»",
         "«I listen to criticism and respond with arguments, not dismissal.»",
@@ -581,7 +566,7 @@ const SLIDER_PARAMS = {
         "«Let's work on what unites us. Solutions will come from each community.»",
         "«The most powerful action starts with listening. Then we act.»",
         "«Let's build together. Every voice counts, including those that differ from mine.»",
-        "«Let's take care of this together. Not from above — from each one of us.»",
+        "«Let's take care of this together. Not from above: from each one of us.»",
       ],
     },
     {
@@ -652,11 +637,11 @@ function ParameterSliderSection({ lang, accent, accentA }) {
         {/* Puntuación elegida + escala */}
         <div style={{ marginBottom:"28px", display:"flex", flexDirection:"column", gap:"16px" }}>
           <div style={{ display:"flex", alignItems:"baseline", gap:"12px", flexWrap:"wrap" }}>
-            <span style={{ display:"flex", alignItems:"baseline", gap:"4px", fontFamily:"var(--ira-font-cifra)", fontWeight:500, letterSpacing:"-0.04em", lineHeight:1 }}>
-              <span style={{ fontSize:"48px", color:col, transition:"color 0.3s" }}>{formatearPuntuacion(val, es ? 'es' : 'en')}</span>
+            <span style={{ display:"flex", alignItems:"baseline", gap:"4px", fontFamily:"var(--ira-font-cifra)", fontWeight:900, letterSpacing:"-0.04em", lineHeight:1 }}>
+              <span style={{ fontSize:"64px", color:col, transition:"color 0.3s" }}>{formatearPuntuacion(val, es ? 'es' : 'en')}</span>
               <span style={{ fontSize:"16px", color:"var(--ira-texto-3)", letterSpacing:0 }}>/10</span>
             </span>
-            <span style={{ fontSize:"15px", color:"var(--ira-texto-cita)" }}>{iraLabel}</span>
+            <span style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", fontSize:"19px", color:"var(--ira-texto-cita)" }}>{iraLabel}</span>
           </div>
           <IndicadorEscala puntuacion={val} lang={es ? 'es' : 'en'} etiquetas={false} />
           <label htmlFor="ira-rango-nivel" className="ira-sr">{es ? "Nivel de la escala" : "Scale level"}</label>
@@ -665,7 +650,7 @@ function ParameterSliderSection({ lang, accent, accentA }) {
             type="range" min={0} max={10} step={0.1}
             value={val}
             onChange={handleChange}
-            aria-valuetext={`${formatearPuntuacion(val, es ? 'es' : 'en')} — ${iraLabel}`}
+            aria-valuetext={`${formatearPuntuacion(val, es ? 'es' : 'en')}, ${iraLabel}`}
           />
           <div className="ira-indicador__extremos" aria-hidden="true">
             <span>0 · {es ? "Polarizante" : "Polarizing"}</span><span>{es ? "Empático" : "Empathic"} · 10</span>
@@ -673,19 +658,13 @@ function ParameterSliderSection({ lang, accent, accentA }) {
         </div>
 
         {/* Parámetros */}
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(240px, 1fr))", gap:"10px" }}>
+        <div className="ira-niveles">
           {params.map((p, i) => (
-            <div key={p.id} style={{
-              background:"var(--ira-noche)", borderRadius:"12px",
-              padding:"16px", border:"1px solid var(--ira-linea)",
-            }}>
-              <p style={{ margin:"0 0 8px", fontSize:"13px", color:"var(--ira-texto-2)" }}>
+            <div key={p.id} className="ira-nivel">
+              <p className="ira-nivel__param">
                 {p.label}
               </p>
-              <p style={{
-                margin:0, fontSize:"15px",
-                lineHeight:1.6,
-                color:"var(--ira-texto-cita)",
+              <p className="ira-nivel__frase" style={{
                 opacity: fading ? 0.3 : 1,
                 transition:"opacity 0.25s",
               }}>
@@ -695,7 +674,7 @@ function ParameterSliderSection({ lang, accent, accentA }) {
           ))}
         </div>
 
-        <p style={{ margin:"16px 0 0", fontSize:"13px", color:"var(--ira-texto-2)", lineHeight:1.5, textAlign:"center" }}>
+        <p style={{ margin:"20px 0 0", fontFamily:"var(--ira-font-voz)", fontStyle:"italic", fontSize:"15px", color:"var(--ira-texto-3)", lineHeight:1.5 }}>
           {es
             ? "Los ejemplos son ilustrativos. Un registro distinto por cada punto entero de la escala."
             : "Examples are illustrative. A distinct register for each integer point on the scale."}
@@ -710,9 +689,9 @@ export default function IndexInteractive({ entities, lang, accent, accentA }) {
   const es = lang !== 'en';
 
   return (
-    <div style={{ marginTop:"48px" }}>
-      <h2 style={{ margin:"0 0 28px", paddingTop:"40px", borderTop:"1px solid var(--ira-linea)", fontFamily:"var(--ira-font-titulo)", fontWeight:500, fontSize:"32px", letterSpacing:"-0.02em" }}>
-        {es ? "Explora e interactúa" : "Explore & interact"}
+    <div className="ira-juega" style={{ marginTop:"64px" }}>
+      <h2 style={{ margin:"0 0 36px", paddingTop:"28px", borderTop:"2px solid var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", fontWeight:900, fontSize:"clamp(34px,5vw,52px)", letterSpacing:"-0.04em" }}>
+        {es ? "Juega con la escala" : "Play with the scale"}
       </h2>
 
       <SpectrumSection entities={entities} lang={lang} accent={accent} />

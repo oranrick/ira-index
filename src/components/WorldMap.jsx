@@ -13,7 +13,6 @@ import {
 } from '../lib/paises';
 import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
 import BarraEscala from './ui/BarraEscala.jsx';
-import IndicadorEscala from './ui/IndicadorEscala.jsx';
 
 const SIN_DATOS = '#4A5C5C';
 
@@ -108,7 +107,7 @@ export default function WorldMap({ entities, lang = 'es' }) {
     <section className="ira-panel ira-mapa" aria-labelledby="ira-mapa-titulo" style={{ marginTop: 28 }}>
       <div style={{ marginBottom: 18 }}>
         <h3 id="ira-mapa-titulo" className="ira-seccion__titulo" style={{ marginBottom: 6 }}>{t.titulo}</h3>
-        <p style={{ margin: 0, fontSize: 14, color: 'var(--ira-texto-2)', maxWidth: 640 }}>{t.sub}</p>
+        <p style={{ margin: 0, fontFamily: 'var(--ira-font-voz)', fontSize: 17, lineHeight: 1.5, color: 'var(--ira-texto-2)', maxWidth: 640 }}>{t.sub}</p>
       </div>
 
       <div className="ira-mapa__cuerpo">
@@ -136,7 +135,7 @@ export default function WorldMap({ entities, lang = 'es' }) {
                           strokeLinejoin="round" vectorEffect="non-scaling-stroke"
                           className="ira-mapa__pais" tabIndex={0} role="button" aria-pressed={fijado}
                           aria-label={`${nombrePais(p, lang)}, ${formatearPuntuacion(p.puntuacion, lang)} ${t.de}`}
-                          style={{ opacity: atenuado ? 0.5 : 0.92, filter: `drop-shadow(0 0 ${activo ? 14 : 7}px ${color})` }}
+                          style={{ opacity: atenuado ? 0.5 : 0.92, filter: activo ? `drop-shadow(0 0 10px ${color})` : "none" }}
                           onClick={() => alternar(p.slug)} onKeyDown={(e) => alTeclado(e, p.slug)}
                           onMouseEnter={() => entrar(p.slug)} onMouseLeave={salir} onFocus={() => entrar(p.slug)} onBlur={salir}
                         />
@@ -267,10 +266,6 @@ export default function WorldMap({ entities, lang = 'es' }) {
             <EtiquetaPuntuacion puntuacion={p.puntuacion} variante="punto" lang={lang} />
           </button>
         ))}
-      </div>
-
-      <div style={{ marginTop: 18, maxWidth: 420 }}>
-        <IndicadorEscala compacto lang={lang} />
       </div>
     </section>
   );

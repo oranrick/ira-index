@@ -50,7 +50,7 @@ function PoliticianSelector({ label, selected, onSelect, politicians, color, sea
 
   return (
     <div style={{ position: "relative", flex: "1 1 200px" }}>
-      <p style={{ margin: "0 0 8px", fontSize: "12px", letterSpacing: "0.14em", color: `${color}cc`, textTransform: "uppercase" }}>
+      <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin: "0 0 8px", fontSize: "15px", color: `${color}cc` }}>
         {label}
       </p>
       {selected && !open ? (
@@ -202,7 +202,7 @@ export default function Comparator({ politicians, paramsEs, paramShort, lang = "
               padding: "14px 16px", borderRadius: "12px",
               background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)",
             }}>
-              <p style={{ margin: "0 0 6px", fontSize: "12px", letterSpacing: "0.14em", color: "var(--ira-texto-3)", textTransform: "uppercase" }}>
+              <p style={{ fontFamily:"var(--ira-font-voz)", fontStyle:"italic", margin: "0 0 6px", fontSize:"15px", color: "var(--ira-texto-3)" }}>
                 {labelSynthesis}
               </p>
               {lang === "en" ? (

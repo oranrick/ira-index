@@ -95,7 +95,7 @@ export function LineaTiempo({ pasos, eje }) {
           </li>
         ))}
       </ol>
-      <p className="ira-met-tiempo__eje-rotulo" aria-hidden="true">{eje} →</p>
+      <p className="ira-met-tiempo__eje-rotulo" aria-hidden="true">{eje}</p>
     </Aparecer>
   );
 }
