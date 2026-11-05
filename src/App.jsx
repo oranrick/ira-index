@@ -58,7 +58,7 @@ const TEXTS = {
     textPlaceholderMedios: "Pega aquí el artículo, editorial, columna o texto periodístico que quieres medir...",
     modeTogglePolitico: "Político",
     modeToggleMedios:   "Medios",
-    btnWhat:         "¿Qué es el IRA?",
+    btnWhat:         "¿Qué es IRA?",
     tabExplore:      "Explorar",
     tabAnalyze:      "Analizar texto",
     tabCompare:      "Comparar",
@@ -69,7 +69,7 @@ const TEXTS = {
     polarizador:     "Polarizador",
     close:           "Cerrar",
     howWorks:        "Cómo funciona",
-    howWorksDesc:    "Pega cualquier texto en español o inglés. La IA lo analizará contra los 7 parámetros del IRA y generará una puntuación y síntesis interpretativa.",
+    howWorksDesc:    "Pega cualquier texto en español o inglés. La IA lo analizará contra los 7 parámetros de IRA y generará una puntuación y síntesis interpretativa.",
     nameLabel:       "Nombre / Fuente (opcional)",
     namePlaceholder: "ej. Discurso de Milei, mayo 2025",
     catLabel:        "Categoría",
@@ -123,14 +123,14 @@ const TEXTS = {
     iraLabelPol:     "Polarizante",
     modalTag:        "Metodología",
     modalTitle:      "Índice de Resonancia Afectiva",
-    modalIntro:      "El IRA es una herramienta de análisis lingüístico que mide la capacidad empática o polarizadora de un discurso político, mediático o institucional. Parte de una premisa respaldada por la investigación sobre emoción y juicio: la intuición afectiva suele llegar antes que el argumento y orienta cómo juzgamos lo que oímos. Las palabras no solo describen la realidad: la configuran. Una metáfora, un pronombre, un tono afectivo pueden construir comunidad o trincheras simbólicas.",
+    modalIntro:      "IRA es una herramienta de análisis lingüístico que mide la capacidad empática o polarizadora de un discurso político, mediático o institucional. Parte de una premisa respaldada por la investigación sobre emoción y juicio: la intuición afectiva suele llegar antes que el argumento y orienta cómo juzgamos lo que oímos. Las palabras no solo describen la realidad: la configuran. Una metáfora, un pronombre, un tono afectivo pueden construir comunidad o trincheras simbólicas.",
     modalWhatTitle:  "¿Qué mide?",
-    modalWhatPre:    "El IRA evalúa si un discurso activa mecanismos de empatía y cohesión social o, por el contrario, refuerza la polarización afectiva — esa repulsión visceral que convierte al adversario en enemigo irreconciliable. La escala va de 0 a 10: ",
+    modalWhatPre:    "IRA evalúa si un discurso activa mecanismos de empatía y cohesión social o, por el contrario, refuerza la polarización afectiva — esa repulsión visceral que convierte al adversario en enemigo irreconciliable. La escala va de 0 a 10: ",
     modalWhatPol:    "0 representa la máxima polarización",
     modalWhatEmp:    "10 la máxima resonancia empática",
     modalParamsTitle:"Los 8 parámetros",
     modalOriginTitle:"Origen académico",
-    modalOriginPre:  "El IRA surge de la investigación ",
+    modalOriginPre:  "IRA surge de la investigación ",
     modalOriginBook: "«El contagio de las palabras: Metáforas, empatía y polarización en el discurso político contemporáneo»",
     modalOriginPost: ", de Ricardo Grisales Ramírez, Trabajo Fin de Grado en Periodismo, Universidad Complutense de Madrid, junio de 2024. La metodología analiza discursos de Donald Trump, Gustavo Petro, Claudia Sheinbaum y Jacinda Ardern aplicando el Análisis Crítico del Discurso desde una perspectiva emocional y retórica.",
   },
@@ -141,7 +141,7 @@ const TEXTS = {
     textPlaceholderMedios: "Paste the article, editorial, column or journalistic text you want to measure...",
     modeTogglePolitico: "Political",
     modeToggleMedios:   "Media",
-    btnWhat:         "What is the IRA?",
+    btnWhat:         "What is IRA?",
     tabExplore:      "Explore",
     tabAnalyze:      "Analyze text",
     tabCompare:      "Compare",
@@ -206,14 +206,14 @@ const TEXTS = {
     iraLabelPol:     "Polarizing",
     modalTag:        "Methodology",
     modalTitle:      "Affective Resonance Index",
-    modalIntro:      "The IRA is a linguistic analysis tool that measures the empathic or polarizing capacity of a political, media or institutional discourse. It starts from a premise supported by research on emotion and judgment: affective intuition usually arrives before argument and shapes how we judge what we hear. Words don't just describe reality: they shape it. A metaphor, a pronoun, an affective tone can build community or symbolic trenches.",
+    modalIntro:      "IRA is a linguistic analysis tool that measures the empathic or polarizing capacity of a political, media or institutional discourse. It starts from a premise supported by research on emotion and judgment: affective intuition usually arrives before argument and shapes how we judge what we hear. Words don't just describe reality: they shape it. A metaphor, a pronoun, an affective tone can build community or symbolic trenches.",
     modalWhatTitle:  "What does it measure?",
-    modalWhatPre:    "The IRA evaluates whether a discourse activates mechanisms of empathy and social cohesion or, on the contrary, reinforces affective polarization — that visceral repulsion that turns the adversary into an irreconcilable enemy. The scale goes from 0 to 10: ",
+    modalWhatPre:    "IRA evaluates whether a discourse activates mechanisms of empathy and social cohesion or, on the contrary, reinforces affective polarization — that visceral repulsion that turns the adversary into an irreconcilable enemy. The scale goes from 0 to 10: ",
     modalWhatPol:    "0 represents maximum polarization",
     modalWhatEmp:    "10 maximum empathic resonance",
     modalParamsTitle:"The 8 parameters",
     modalOriginTitle:"Academic origin",
-    modalOriginPre:  "The IRA emerges from the research ",
+    modalOriginPre:  "IRA emerges from the research ",
     modalOriginBook: "«The contagion of words: Metaphors, empathy and polarization in contemporary political discourse»",
     modalOriginPost: ", by Ricardo Grisales Ramírez, Bachelor's Thesis in Journalism, Complutense University of Madrid, June 2024. The methodology analyzes discourses by Donald Trump, Gustavo Petro, Claudia Sheinbaum and Jacinda Ardern applying Critical Discourse Analysis from an emotional and rhetorical perspective.",
   },
@@ -345,7 +345,7 @@ const IRA_PARAMS_INFO_TRANS = {
     { name: "Tono emocional dominante",   desc: "¿Qué emoción instala el discurso en quien lo recibe? La compasión y la esperanza cohesionan; el miedo y la indignación sin salida fragmentan." },
     { name: "Reconocimiento del disenso", desc: "El parámetro que mejor distingue empatía real de empatía performativa. ¿El discurso valida la diferencia o la clausura? ¿Puede existir un 'nosotros' que incluya al que piensa distinto?" },
     { name: "Vector de acción",           desc: "¿El discurso convoca a cooperar o a confrontar? Un imperativo inclusivo ('construyamos juntos') activa lógicas distintas a un imperativo hostil ('hay que derrotarlos')." },
-    { name: "Coherencia afectiva",        desc: "El parámetro más original del IRA. Mide la distancia entre lo que el discurso dice y lo que hace retóricamente. Detecta el 'barniz de ternura': discursos que usan metáforas de cuidado pero cuya función real es polarizar." },
+    { name: "Coherencia afectiva",        desc: "El parámetro más original de IRA. Mide la distancia entre lo que el discurso dice y lo que hace retóricamente. Detecta el 'barniz de ternura': discursos que usan metáforas de cuidado pero cuya función real es polarizar." },
     { name: "Proyección de futuro",       desc: "¿El discurso abre un horizonte compartido o lo clausura? Un futuro inclusivo y posible cohesiona; un futuro apocalíptico o utópico sin ruta concreta fragmenta." },
   ],
   en: [
@@ -1580,7 +1580,7 @@ function ConfirmedToast({ lang, onDone }) {
   const [visible, setVisible] = useState(true);
   const msg = lang === "en"
     ? "Account created successfully. Welcome to IRA."
-    : "Cuenta creada con éxito. Bienvenido/a al IRA.";
+    : "Cuenta creada con éxito. Bienvenido/a a IRA.";
 
   useEffect(() => {
     const hide = setTimeout(() => setVisible(false), 4000);
@@ -1647,7 +1647,7 @@ function WelcomeModal({ lang, onClose }) {
       }}>
         <div style={{ display:"flex", alignItems:"center", gap:"8px", marginBottom:"20px" }}>
           <span style={{ fontSize:"13px", color:"var(--ira-oro)" }}>
-            {lang === "es" ? "Bienvenido/a al IRA" : "Welcome to IRA"}
+            {lang === "es" ? "Bienvenido/a a IRA" : "Welcome to IRA"}
           </span>
         </div>
         <h2 id="ira-bienvenida" style={{ margin:"0 0 14px", fontSize:"30px", fontWeight:500, color:"var(--ira-nieve)", fontFamily:"var(--ira-font-titulo)", letterSpacing:"-0.02em", lineHeight:1.15 }}>
@@ -1662,7 +1662,7 @@ function WelcomeModal({ lang, onClose }) {
           {lang === "es" ? "Empezar a explorar" : "Start exploring"}
         </button>
         <p style={{ margin:"16px 0 0", fontSize:"13px", color:"var(--ira-texto-2)", textAlign:"right", fontStyle:"italic" }}>
-          Rick Grisales, creador del IRA
+          Rick Grisales, creador de IRA
         </p>
       </div>
     </div>

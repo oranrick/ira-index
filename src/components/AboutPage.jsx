@@ -38,8 +38,8 @@ const AUTHORS = [
     work: { es: "Análisis Crítico del Discurso (1993–)", en: "Critical Discourse Analysis (1993–)" },
     color: CATEGORICOS[2],
     contribution: {
-      es: "El discurso no es neutro: construye identidades, consolida jerarquías y naturaliza el poder. El IRA hereda esta tradición y la aplica a la dimensión afectiva.",
-      en: "Discourse is not neutral: it constructs identities, consolidates hierarchies, and naturalizes power. The IRA inherits this tradition and applies it to the affective dimension.",
+      es: "El discurso no es neutro: construye identidades, consolida jerarquías y naturaliza el poder. IRA hereda esta tradición y la aplica a la dimensión afectiva.",
+      en: "Discourse is not neutral: it constructs identities, consolidates hierarchies, and naturalizes power. IRA inherits this tradition and applies it to the affective dimension.",
     },
   },
   {
@@ -47,8 +47,8 @@ const AUTHORS = [
     work: { es: "Capitalismo emocional (2007)", en: "Cold Intimacies (2007)" },
     color: CATEGORICOS[3],
     contribution: {
-      es: "El mercado no solo produce bienes: produce emociones. Los discursos políticos han colonizado el léxico terapéutico. El IRA detecta esos deslizamientos.",
-      en: "The market doesn't only produce goods: it produces emotions. Political discourses have colonized therapeutic lexicon. The IRA detects those slippages.",
+      es: "El mercado no solo produce bienes: produce emociones. Los discursos políticos han colonizado el léxico terapéutico. IRA detecta esos deslizamientos.",
+      en: "The market doesn't only produce goods: it produces emotions. Political discourses have colonized therapeutic lexicon. IRA detects those slippages.",
     },
   },
   {
@@ -154,16 +154,16 @@ export default function AboutPage() {
           </blockquote>
 
           <Prose es={es}
-            es="La pregunta que dio origen al IRA no nació en una biblioteca. Nació de escuchar, una y otra vez, a personas decir cosas así, refiriéndose a políticos, a votantes del bando contrario, a desconocidos. No como amenaza real, sino como expresión cotidiana de un odio que se había normalizado hasta volverse invisible."
-            en="The question that gave rise to the IRA was not born in a library. It was born from hearing, again and again, people say things like that, referring to politicians, to voters on the other side, to strangers. Not as a real threat, but as an everyday expression of a hatred so normalized it had turned invisible."
+            es="La pregunta que dio origen a IRA no nació en una biblioteca. Nació de escuchar, una y otra vez, a personas decir cosas así, refiriéndose a políticos, a votantes del bando contrario, a desconocidos. No como amenaza real, sino como expresión cotidiana de un odio que se había normalizado hasta volverse invisible."
+            en="The question that gave rise to IRA was not born in a library. It was born from hearing, again and again, people say things like that, referring to politicians, to voters on the other side, to strangers. Not as a real threat, but as an everyday expression of a hatred so normalized it had turned invisible."
           />
           <Prose es={es}
             es="¿De dónde viene tanta ira? La respuesta que fue tomando forma es esta: somos una sociedad herida. Y las heridas se infectan cuando el lenguaje las toca todos los días: con metáforas de guerra, con enemigos fabricados, con miedo dosificado como combustible electoral."
             en="Where does all this rage come from? The answer that took shape is this: we are a wounded society. And wounds become infected when language touches them every day: with war metaphors, manufactured enemies, fear dispensed as electoral fuel."
           />
           <Prose es={es}
-            es="Si la empatía tiene una base biológica (la simulación encarnada del otro, la inteligencia emocional como capacidad entrenable), entonces la polarización también la tiene. Y si el odio se contagia a través del lenguaje, la empatía también puede contagiarse. Esa intuición es el fundamento del IRA."
-            en="If empathy has a biological basis (the embodied simulation of others, emotional intelligence as a trainable capacity), then polarization has one too. And if hatred spreads through language, empathy can spread through language too. That intuition is the foundation of the IRA."
+            es="Si la empatía tiene una base biológica (la simulación encarnada del otro, la inteligencia emocional como capacidad entrenable), entonces la polarización también la tiene. Y si el odio se contagia a través del lenguaje, la empatía también puede contagiarse. Esa intuición es el fundamento de IRA."
+            en="If empathy has a biological basis (the embodied simulation of others, emotional intelligence as a trainable capacity), then polarization has one too. And if hatred spreads through language, empathy can spread through language too. That intuition is the foundation of IRA."
           />
 
           {/* TFG: ficha abierta, como una referencia */}
@@ -236,8 +236,8 @@ export default function AboutPage() {
           </div>
 
           <Prose es={es}
-            es="El IRA hace otra pregunta: ¿Qué tipo de sujeto político construye este discurso? ¿Convoca a una comunidad o excluye a un enemigo? ¿Activa la esperanza o el miedo? ¿Es coherente lo que dice con lo que hace retóricamente?"
-            en="The IRA asks a different question: What kind of political subject does this discourse construct? Does it summon a community or exclude an enemy? Does it activate hope or fear? Does what it says match what it rhetorically does?"
+            es="IRA hace otra pregunta: ¿Qué tipo de sujeto político construye este discurso? ¿Convoca a una comunidad o excluye a un enemigo? ¿Activa la esperanza o el miedo? ¿Es coherente lo que dice con lo que hace retóricamente?"
+            en="IRA asks a different question: What kind of political subject does this discourse construct? Does it summon a community or exclude an enemy? Does it activate hope or fear? Does what it says match what it rhetorically does?"
           />
         </div>
 
@@ -284,8 +284,8 @@ export default function AboutPage() {
           <Label es={es} es_text="El proyecto hoy" en_text="The project today" />
 
           <Prose es={es}
-            es="El IRA no está terminado. Ninguna metodología de análisis del discurso lo está: el lenguaje cambia más rápido que las herramientas para medirlo. Lo que hay aquí es el comienzo de algo: una forma de leer el mundo político que combine el rigor de la academia con la urgencia del periodismo."
-            en="The IRA is not finished. No discourse analysis methodology ever is: language changes faster than the tools to measure it. What exists here is the beginning of something: a way of reading the political world that combines academic rigor with journalistic urgency."
+            es="IRA no está terminado. Ninguna metodología de análisis del discurso lo está: el lenguaje cambia más rápido que las herramientas para medirlo. Lo que hay aquí es el comienzo de algo: una forma de leer el mundo político que combine el rigor de la academia con la urgencia del periodismo."
+            en="IRA is not finished. No discourse analysis methodology ever is: language changes faster than the tools to measure it. What exists here is the beginning of something: a way of reading the political world that combines academic rigor with journalistic urgency."
           />
           <Prose es={es}
             es="El índice sigue creciendo. Nuevos líderes, nuevos medios, nuevos corpus. La inteligencia artificial analiza en tiempo real cualquier texto que quieras medir. Y la investigación continúa en todas las direcciones posibles."
@@ -304,7 +304,7 @@ export default function AboutPage() {
                 Ricardo Grisales Ramírez
               </p>
               <p style={{ margin:0, fontSize:"14px", color:"var(--ira-texto-3)" }}>
-                {es ? "Periodista, creador del IRA. " : "Journalist, creator of the IRA. "}
+                {es ? "Periodista, creador de IRA. " : "Journalist, creator of IRA. "}
                 <a href="https://oranrick.com" target="_blank" rel="noopener noreferrer" style={{ textUnderlineOffset:"4px" }}>oranrick.com</a>
               </p>
             </figcaption>

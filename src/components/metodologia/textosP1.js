@@ -251,8 +251,8 @@ export const TEXTOS_P1 = {
     },
 
     excepcion: {
-      intro: 'El IRA está contra la violencia, no contra quien la nombra. Una frontera trazada frente a alguien por su conducta violenta o antidemocrática no penaliza: en la permeabilidad se registra como CP y no puntúa; en el alcance y la interpelación, el nosotros o la segunda persona conserva su categoría normal (U, G, 2I) con la nota «excepción democrática».',
-      verdad: 'El IRA no decide si la acusación es verdad. Por eso la excepción depende de cómo se traza la frontera, no de quién tiene razón. Se aplica solo si la oración cumple las tres condiciones:',
+      intro: 'IRA está contra la violencia, no contra quien la nombra. Una frontera trazada frente a alguien por su conducta violenta o antidemocrática no penaliza: en la permeabilidad se registra como CP y no puntúa; en el alcance y la interpelación, el nosotros o la segunda persona conserva su categoría normal (U, G, 2I) con la nota «excepción democrática».',
+      verdad: 'IRA no decide si la acusación es verdad. Por eso la excepción depende de cómo se traza la frontera, no de quién tiene razón. Se aplica solo si la oración cumple las tres condiciones:',
       condiciones: [
         ['Conducta concreta', 'Al otro se le identifica por un acto («atacó», «invadió», «asesinó», «anuló las elecciones»), no por lo que es.'],
         ['Agente acotado', 'El acto se atribuye a quien lo cometió: una persona, un gobierno, un grupo armado, «quienes hicieron esto». Nunca a un pueblo, una etnia, una religión o los votantes de un partido.'],
@@ -273,7 +273,7 @@ export const TEXTOS_P1 = {
       si: 'Sí', no: 'No',
       salvaguardasTitulo: 'Dos salvaguardas',
       salvaguardas: [
-        ['Aviso en la ficha', 'Cada excepción aplicada aparece listada en la ficha con la frase, bajo el aviso «el IRA no verifica estas acusaciones», para que el lector sepa dónde el análisis ha confiado en la palabra del orador.'],
+        ['Aviso en la ficha', 'Cada excepción aplicada aparece listada en la ficha con la frase, bajo el aviso «IRA no verifica estas acusaciones», para que el lector sepa dónde el análisis ha confiado en la palabra del orador.'],
         ['Retirada por desmentido documentado', 'Si una verificación independiente y publicada (un verificador acreditado por la red IFCN, como Maldita, Newtral o EFE Verifica) desmiente la acusación, la excepción se retira y la oración cuenta como cierre normal: inventarse un agresor para trazar una frontera es fabricar un enemigo. La fuente se cita en la ficha. Sin desmentido documentado, se mantiene la excepción con su aviso.'],
       ],
     },
@@ -297,7 +297,7 @@ export const TEXTOS_P1 = {
     limites: [
       ['«Ustedes» en América', 'Concuerda con el verbo en 3.ª persona. El extractor tiene una variedad americana: lo seguro se extrae como 2.ª persona y lo ambiguo («les», «sus», «saben» sin sujeto) sale como candidato para el codificador. Falta probarlo con un discurso real: si salen demasiados candidatos, la revisión deja de ser de 5 minutos.'],
       ['El adversario nombrado', 'El extractor solo capta «ellos»; los grupos nominales («la derecha», «los tecnoligarcas») y los sujetos implícitos («han intentado que...») los encuentra el codificador al anotar los eventos. Pendiente: proponerlos automáticamente.'],
-      ['Acusaciones falsas bien formuladas', 'Una acusación de violencia falsa que cumple las tres condiciones de la excepción pasa el filtro mientras no exista un desmentido documentado. El IRA mide el lenguaje, no los hechos; la ficha lo avisa y la verificación corresponde al periodismo.'],
+      ['Acusaciones falsas bien formuladas', 'Una acusación de violencia falsa que cumple las tres condiciones de la excepción pasa el filtro mientras no exista un desmentido documentado. IRA mide el lenguaje, no los hechos; la ficha lo avisa y la verificación corresponde al periodismo.'],
       ['Discursos con pocos eventos pero intensos', 'La ONU tiene dos cierres claros («gente sin escrúpulos, activistas de la mentira») y queda sin puntuar por el mínimo de 3.'],
       ['Traducciones', 'P1 no se aplica a discursos traducidos: el pronombre lo elige el traductor. Para inglés haría falta un extractor propio.'],
       ['Género discursivo', 'Mitin, intervención institucional, entrevista y redes deben anotarse para comparar dentro del mismo género.'],

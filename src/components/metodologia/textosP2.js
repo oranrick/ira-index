@@ -124,7 +124,7 @@ export const TEXTOS_P2 = {
         ],
       },
       autores: [
-        { autor: 'Gallese y Lakoff (2005)', texto: 'Los conceptos se apoyan en el sistema sensoriomotor: entender «agarrar» reutiliza parte de los circuitos con los que agarramos. Es el puente entre los dos pilares del IRA: la simulación encarnada y la metáfora conceptual.' },
+        { autor: 'Gallese y Lakoff (2005)', texto: 'Los conceptos se apoyan en el sistema sensoriomotor: entender «agarrar» reutiliza parte de los circuitos con los que agarramos. Es el puente entre los dos pilares de IRA: la simulación encarnada y la metáfora conceptual.' },
         { autor: 'Lakoff y Johnson (1980); Lakoff (1996)', texto: 'Pensamos lo abstracto con lo concreto: la discusión como guerra, la vida como viaje. En política, la familia es el modelo moral de fondo: el padre estricto frente al padre que cuida.' },
         { autor: 'Klemperer (1947)', texto: 'El filólogo que anotó la lengua del III Reich. Las palabras repetidas actúan como dosis mínimas de veneno: se toman sin notarlo y, con el tiempo, hacen su efecto.' },
         { autor: 'Esposito (2002, 2004)', texto: 'El paradigma inmunitario: la comunidad se protege de lo que percibe como infección, y la protección puede volverse contra la propia vida. De ahí que INM («erradicar», «limpiar») sea el dominio más peligroso.' },

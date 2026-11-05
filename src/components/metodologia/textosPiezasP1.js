@@ -57,7 +57,7 @@ export const TEXTOS_PIEZAS_P1 = {
         { codigo: 'A3', tipo: 'apertura', modo: 'dentro', corto: 'Pertenencia común con diferencia', frase: '«pensamos distinto, pero también son de aquí»', indicador: 'Permeabilidad', efecto: 'Suma una apertura', porque: 'Reconoce la diferencia y aun así coloca al otro dentro de la casa común.' },
         { codigo: 'A9', tipo: 'apertura', modo: 'umbral', corto: 'Inclusión condicionada', frase: '«los que rectifiquen serán bienvenidos»', indicador: 'Permeabilidad', efecto: 'Suma una apertura', porque: 'La puerta existe, aunque con condición: el otro queda en el umbral.' },
         { codigo: 'C4', tipo: 'cierre', modo: 'expulsion', corto: 'Expulsión de la comunidad', frase: '«no son el pueblo»', indicador: 'Permeabilidad', efecto: 'Suma un cierre', porque: 'Saca al otro de la comunidad: no solo está fuera, se le niega el derecho a estar dentro.' },
-        { codigo: 'CP', tipo: 'excepcion', modo: 'excepcion', corto: 'Excepción democrática', frase: '«Rusia ha invadido nuestro país»', indicador: 'Permeabilidad', efecto: 'Se anota como CP y no resta', porque: 'Acto concreto y el Estado como actor: cumple las tres condiciones. El IRA no verifica la acusación y la ficha lo avisa.' },
+        { codigo: 'CP', tipo: 'excepcion', modo: 'excepcion', corto: 'Excepción democrática', frase: '«Rusia ha invadido nuestro país»', indicador: 'Permeabilidad', efecto: 'Se anota como CP y no resta', porque: 'Acto concreto y el Estado como actor: cumple las tres condiciones. IRA no verifica la acusación y la ficha lo avisa.' },
       ],
     },
 
