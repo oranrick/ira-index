@@ -15,7 +15,7 @@ export const CIENCIAS = {
         ['polarizante', 'Apelaciones al miedo, la amenaza o la deshumanización (polarizante)'],
         ['neutro', 'Cuánto espacio deja el discurso para que el oyente se reconozca'],
       ],
-      autores: 'Referencia: Gallese.',
+      autores: 'Referencias: Gallese, Damasio.',
     },
     ling: {
       ciencia: 'Lingüística',
@@ -26,20 +26,18 @@ export const CIENCIAS = {
         ['polarizante', 'Dicotomías del tipo nosotros contra ellos (polarizante)'],
         ['empatico', 'Pronombres y fórmulas que incluyen a quien piensa distinto (empático)'],
       ],
-      autores: 'Referencias: Lakoff, Van Dijk.',
+      autores: 'Referencias: Lakoff, Van Dijk, Klemperer.',
     },
-    // Borrador pendiente de revisar por Rick (especificación del rediseño).
-    // Faltan los autores de referencia: cuando estén, rellenar `autores`.
     psico: {
       ciencia: 'Psicoanálisis',
       titulo: 'Lo que el discurso moviliza por debajo',
-      cuerpo: 'El discurso político no solo informa: moviliza deseos, miedos e identificaciones. La mirada psicoanalítica atiende a cómo se construye la figura del enemigo, a cómo se proyecta el malestar sobre otro y a si quien habla ofrece contención o alimenta la angustia de su audiencia.',
+      cuerpo: 'El discurso político no solo informa: moviliza deseos, miedos e identificaciones. La mirada psicoanalítica atiende a cómo se construye la figura del enemigo, a cómo se proyecta el malestar sobre otro y a si quien habla ofrece contención o alimenta la angustia de su audiencia. Freud describió los deseos y miedos inconscientes; Jung, el inconsciente colectivo y sus arquetipos. Edward Bernays, sobrino de Freud, convirtió ese saber en técnica de propaganda. IRA hace visible ese mecanismo.',
       observa: [
         ['polarizante', 'Construcción de un enemigo sobre el que se proyecta el malestar (polarizante)'],
         ['empatico', 'Gestos de contención, reconocimiento y reparación (empático)'],
         ['neutro', 'Identificaciones que el discurso propone al oyente'],
       ],
-      autores: null,
+      autores: 'Referencias: Freud, Jung, Bernays.',
     },
     enIra: 'en IRA',
     observaTitulo: 'Qué observa IRA',
@@ -56,7 +54,7 @@ export const CIENCIAS = {
         ['polarizante', 'Appeals to fear, threat or dehumanization (polarizing)'],
         ['neutro', 'How much room the speech leaves for listeners to recognize themselves'],
       ],
-      autores: 'Reference: Gallese.',
+      autores: 'References: Gallese, Damasio.',
     },
     ling: {
       ciencia: 'Linguistics',
@@ -67,18 +65,18 @@ export const CIENCIAS = {
         ['polarizante', 'Us-versus-them dichotomies (polarizing)'],
         ['empatico', 'Pronouns and phrasings that include those who think differently (empathic)'],
       ],
-      autores: 'References: Lakoff, Van Dijk.',
+      autores: 'References: Lakoff, Van Dijk, Klemperer.',
     },
     psico: {
       ciencia: 'Psychoanalysis',
       titulo: 'What a speech stirs beneath the surface',
-      cuerpo: 'Political speech does not only inform: it stirs desires, fears and identifications. The psychoanalytic lens looks at how the figure of the enemy is built, how discontent is projected onto someone else, and whether the speaker offers containment or feeds the anxiety of their audience.',
+      cuerpo: 'Political speech does not only inform: it stirs desires, fears and identifications. The psychoanalytic lens looks at how the figure of the enemy is built, how discontent is projected onto someone else, and whether the speaker offers containment or feeds the anxiety of their audience. Freud described unconscious desires and fears; Jung, the collective unconscious and its archetypes. Edward Bernays, Freud’s nephew, turned that knowledge into a propaganda technique. IRA makes that mechanism visible.',
       observa: [
         ['polarizante', 'Building an enemy onto whom discontent is projected (polarizing)'],
         ['empatico', 'Gestures of containment, recognition and repair (empathic)'],
         ['neutro', 'The identifications the speech offers its listeners'],
       ],
-      autores: null,
+      autores: 'References: Freud, Jung, Bernays.',
     },
     enIra: 'in IRA',
     observaTitulo: 'What IRA looks at',
