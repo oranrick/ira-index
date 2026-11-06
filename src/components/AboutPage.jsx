@@ -20,8 +20,8 @@ const AUTHORS = [
     work: { es: "Neuronas espejo (2003–)", en: "Mirror Neurons (2003–)" },
     color: CATEGORICOS[0],
     contribution: {
-      es: "Cuando escuchamos describir una emoción, activamos parcialmente las mismas redes que si la sintiéramos. El contagio de las palabras no es metáfora: es neurociencia.",
-      en: "When we hear an emotion described, we partially activate the same networks as if we felt it. The contagion of words is not a metaphor: it is neuroscience.",
+      es: "Cuando escuchamos describir una emoción, activamos parcialmente las mismas redes que si la sintiéramos. Por eso las palabras contagian. IRA no mide cerebros: mide cómo el lenguaje intenta mover a quien escucha.",
+      en: "When we hear an emotion described, we partially activate the same networks as if we felt it. That is why words are contagious. IRA does not measure brains: it measures how language tries to move those who listen.",
     },
   },
   {
@@ -56,8 +56,8 @@ const AUTHORS = [
     work: { es: "Communitas / Immunitas (1998 / 2002)", en: "Communitas / Immunitas (1998 / 2002)" },
     color: CATEGORICOS[5],
     contribution: {
-      es: "Toda comunidad política se define por lo que excluye. La exclusión se construye con metáforas de contaminación y pureza. El parámetro de Carga Dicotómica mide exactamente eso.",
-      en: "Every political community defines itself by what it excludes. Exclusion is built with metaphors of contamination and purity. The Dichotomous Load parameter measures exactly that.",
+      es: "Toda comunidad política se define por lo que excluye. La exclusión se construye con metáforas de contaminación y pureza. El parámetro de Polaridad moral (P3) observa esa frontera.",
+      en: "Every political community defines itself by what it excludes. Exclusion is built with metaphors of contamination and purity. The Moral Polarity parameter (P3) looks at that boundary.",
     },
   },
 ];
@@ -244,7 +244,7 @@ export default function AboutPage() {
         {/* ── 8 PARÁMETROS ── */}
         <div id="metodologia-2024" style={{ borderTop:"1px solid var(--ira-linea)", padding:"80px 24px", scrollMarginTop:"24px" }}>
           <div style={{ maxWidth:"900px", margin:"0 auto" }}>
-            <Label es={es} es_text="La metodología de 2024, la del archivo" en_text="The 2024 methodology, used in the archive" />
+            <Label es={es} es_text="Metodología 1.0, la del archivo" en_text="Methodology 1.0, used in the archive" />
             <div style={{ display:"flex", alignItems:"baseline", gap:"16px", marginBottom:"40px", flexWrap:"wrap" }}>
               <h2 style={{ margin:0, fontSize:"clamp(22px,4vw,36px)", fontWeight:800, fontFamily:"var(--ira-font-titulo)",
                 color:"var(--ira-nieve)", letterSpacing:"-0.03em" }}>

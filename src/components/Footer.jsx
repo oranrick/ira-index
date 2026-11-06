@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { AppContext } from '../App.jsx';
 
 const TXT = {
-  es: { dia: 'Análisis del día', patrones: 'Patrones', medios: 'Medios', autoria: 'TFG de Ricardo Grisales Ramírez · UCM' },
-  en: { dia: 'Daily analysis', patrones: 'Patterns', medios: 'Media', autoria: 'Thesis by Ricardo Grisales Ramírez · UCM' },
+  es: { dia: 'Análisis del día', patrones: 'Patrones', medios: 'Medios', autoria: 'Proyecto independiente de Ricardo Grisales Ramírez, nacido de su TFG en la UCM' },
+  en: { dia: 'Daily analysis', patrones: 'Patterns', medios: 'Media', autoria: 'An independent project by Ricardo Grisales Ramírez, born from his thesis at UCM' },
 };
 
 export default function Footer() {

@@ -60,13 +60,21 @@ const SUPABASE_KEY = 'sb_publishable_VRQ9UW5FrRcARTfkmiYI4w_etib_jVA';
 const PARAM_NAME_EN = {
   'Uso pronominal inclusivo':   'Inclusive Pronominal Use',
   'Tipo de metáfora dominante': 'Dominant Metaphor Type',
-  'Carga dicotómica':           'Dichotomous Load',
+  'Carga dicotómica':           'Moral Polarity',
   'Tono emocional dominante':   'Dominant Emotional Tone',
   'Reconocimiento del disenso': 'Recognition of Dissent',
   'Vector de acción':           'Action Vector',
   'Coherencia afectiva':        'Affective Coherence',
   'Proyección de futuro':       'Future Projection',
 };
+
+// Etiqueta visible en español cuando difiere de la clave de datos (P3).
+const PARAM_NAME_ES = {
+  'Carga dicotómica': 'Polaridad moral',
+};
+
+const paramLabel = (name, isEn) =>
+  (isEn ? PARAM_NAME_EN[name] : PARAM_NAME_ES[name]) || name;
 
 
 function useWindowWidth() {
@@ -359,7 +367,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
               return (
                 <FilaParametro
                   key={i}
-                  etiqueta={(isEn && PARAM_NAME_EN[param.name]) || param.name}
+                  etiqueta={paramLabel(param.name, isEn)}
                   puntuacion={param.value}
                   lang={lang}
                   abierto={open}
@@ -431,7 +439,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
                 <p style={{ ...styles.pinnedLabel, color: pinnedAnnotation.familia?.color }}>
                   {pinnedAnnotation.label}
                 </p>
-                <p style={styles.pinnedParam}>{pinnedAnnotation.param}</p>
+                <p style={styles.pinnedParam}>{paramLabel(pinnedAnnotation.param, isEn)}</p>
               </div>
             </div>
             <p style={styles.pinnedDesc}>{pinnedAnnotation.description}</p>

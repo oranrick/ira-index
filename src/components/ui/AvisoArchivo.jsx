@@ -3,8 +3,8 @@
 import { Link } from 'react-router-dom';
 
 const TXT = {
-  es: { rotulo: 'Archivo · método 2024', texto: 'Nota calculada con los siete parámetros del trabajo de fin de grado. Se recalculará cuando cierre la Metodología 2.0.', enlace: 'Cómo se calculaba' },
-  en: { rotulo: 'Archive · 2024 method', texto: 'Score calculated with the seven parameters of the original thesis. It will be recalculated when Methodology 2.0 is complete.', enlace: 'How it was calculated' },
+  es: { rotulo: 'Archivo · Metodología 1.0', texto: 'Nota calculada con los siete parámetros del trabajo de fin de grado. Se recalculará cuando cierre la Metodología 2.0.', enlace: 'Cómo se calculaba' },
+  en: { rotulo: 'Archive · Methodology 1.0', texto: 'Score calculated with the seven parameters of the original thesis. It will be recalculated when Methodology 2.0 is complete.', enlace: 'How it was calculated' },
 };
 
 export default function AvisoArchivo({ lang = 'es', className = '' }) {

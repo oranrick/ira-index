@@ -33,7 +33,7 @@ const TXT = {
     sinNota: 'La nota IRA reúne siete parámetros y la Metodología 2.0 tiene, de momento, dos. Dar una cifra global mezclando métodos sería inventarla. Por eso en campaña solo se publican P1 y P2, que ya pesan el 40 % de la fórmula. Cuando cierren los demás, la campaña entera se recalculará y se publicará completa.',
     reglasTitulo: 'Las reglas',
     reglasTexto: 'Se fijaron antes del primer análisis y no cambian durante la campaña.',
-    archivo: 'Los discursos analizados antes de la campaña, con el método de 2024, siguen en el archivo.',
+    archivo: 'Los discursos analizados antes de la campaña, con la Metodología 1.0, siguen en el archivo.',
     archivoEnlace: 'Ir al archivo',
   },
   en: {
@@ -61,7 +61,7 @@ const TXT = {
     sinNota: 'The IRA score combines seven parameters and Methodology 2.0 has two so far. A global figure mixing methods would be made up. So during the campaign only P1 and P2 are published, which already weigh 40% of the formula. When the rest are closed, the whole campaign will be recalculated and published in full.',
     reglasTitulo: 'The rules',
     reglasTexto: 'Set before the first analysis. They do not change during the campaign.',
-    archivo: 'Speeches analyzed before the campaign, with the 2024 method, remain in the archive.',
+    archivo: 'Speeches analyzed before the campaign with Methodology 1.0 remain in the archive.',
     archivoEnlace: 'Go to the archive',
   },
 };

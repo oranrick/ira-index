@@ -341,7 +341,7 @@ const IRA_PARAMS_INFO_TRANS = {
   es: [
     { name: "Uso pronominal inclusivo",   desc: "Analiza qué pronombres usa el discurso y con qué verbos los asocia. Un 'nosotros' vinculado a verbos de cuidado construye comunidad; vinculado a verbos de combate, construye trincheras." },
     { name: "Tipo de metáfora dominante", desc: "Las metáforas no son adornos: estructuran cómo percibimos la realidad. Las metáforas de cuidado, reparación y construcción activan empatía; las bélicas y de contagio activan miedo y exclusión." },
-    { name: "Carga dicotómica",           desc: "Mide la rigidez moral del discurso. Cuanto más divide el mundo en buenos y malos, patriotas y traidores, puros y corruptos, más polariza y menos espacio deja para el matiz." },
+    { name: "Polaridad moral",            desc: "Mide la rigidez moral del discurso. Cuanto más divide el mundo en buenos y malos, patriotas y traidores, puros y corruptos, más polariza y menos espacio deja para el matiz." },
     { name: "Tono emocional dominante",   desc: "¿Qué emoción instala el discurso en quien lo recibe? La compasión y la esperanza cohesionan; el miedo y la indignación sin salida fragmentan." },
     { name: "Reconocimiento del disenso", desc: "El parámetro que mejor distingue empatía real de empatía performativa. ¿El discurso valida la diferencia o la clausura? ¿Puede existir un 'nosotros' que incluya al que piensa distinto?" },
     { name: "Vector de acción",           desc: "¿El discurso convoca a cooperar o a confrontar? Un imperativo inclusivo ('construyamos juntos') activa lógicas distintas a un imperativo hostil ('hay que derrotarlos')." },
@@ -351,7 +351,7 @@ const IRA_PARAMS_INFO_TRANS = {
   en: [
     { name: "Inclusive Pronominal Use",  desc: "Analyzes which pronouns the discourse uses and which verbs they're paired with. A 'we' linked to verbs of care builds community; linked to combat verbs, it builds trenches." },
     { name: "Dominant Metaphor Type",    desc: "Metaphors are not ornaments: they structure how we perceive reality. Metaphors of care, repair and construction activate empathy; war and contagion metaphors activate fear and exclusion." },
-    { name: "Dichotomous Load",          desc: "Measures the moral rigidity of the discourse. The more it divides the world into good and evil, patriots and traitors, pure and corrupt, the more it polarizes and the less room it leaves for nuance." },
+    { name: "Moral Polarity",            desc: "Measures the moral rigidity of the discourse. The more it divides the world into good and evil, patriots and traitors, pure and corrupt, the more it polarizes and the less room it leaves for nuance." },
     { name: "Dominant Emotional Tone",   desc: "What emotion does the discourse install in its receiver? Compassion and hope bind; fear and outrage without resolution fragment." },
     { name: "Recognition of Dissent",    desc: "The parameter that best distinguishes real empathy from performative empathy. Does the discourse validate difference or shut it down? Can there be a 'we' that includes those who think differently?" },
     { name: "Action Vector",             desc: "Does the discourse call for cooperation or confrontation? An inclusive imperative ('let's build together') activates different logics from a hostile one ('we must defeat them')." },

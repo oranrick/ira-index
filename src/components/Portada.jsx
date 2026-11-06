@@ -14,28 +14,28 @@ const TXT = {
   es: {
     titulo: 'Cómo suena la política cuando escucha',
     intro: (Met, Neuro, Ling, Psico) => (
-      <>IRA es un índice de resonancia afectiva construido sobre una {Met('metodología')} que integra {Neuro('neurociencia')}, {Ling('lingüística')} y {Psico('psicoanálisis')}. Escucha cómo hablan los políticos y mide si su lenguaje acerca o polariza. Durante la campaña del 29-N, escucha cada semana a los cuatro principales candidatos.</>
+      <>IRA es un índice de resonancia afectiva construido sobre una {Met('metodología')} que integra {Neuro('neurociencia')}, {Ling('lingüística')} y {Psico('psicoanálisis')}. Escucha cómo hablan los políticos y mide si su lenguaje acerca o polariza. Durante la campaña del 29-N, escucha cada semana a las cuatro candidaturas más votadas en 2023.</>
     ),
     ver: 'Ver el archivo',
     campana: 'La campaña del 29-N',
     crear: 'Crear cuenta para analizar',
     analizar: 'Analizar un discurso',
     nota: (Entrar) => <>¿Ya tienes cuenta? {Entrar('Inicia sesión')} para analizar un discurso.</>,
-    origen: 'Ejemplos del archivo, calculados con el método de 2024.',
+    origen: 'Ejemplos del archivo, calculados con la Metodología 1.0.',
     nuevoRotulo: 'Elecciones generales · 29-N',
     nuevoTexto: 'Del 13 al 27 de noviembre, un mitin por semana de cada candidatura, medido con P1 y P2 de la Metodología 2.0.',
   },
   en: {
     titulo: 'How politics sounds when it listens',
     intro: (Met, Neuro, Ling, Psico) => (
-      <>IRA is an affective resonance index built on a {Met('methodology')} that brings together {Neuro('neuroscience')}, {Ling('linguistics')} and {Psico('psychoanalysis')}. It listens to how politicians speak and measures whether their language brings people closer or polarizes. During the campaign for Spain's 29 November election, it listens every week to the four main candidates.</>
+      <>IRA is an affective resonance index built on a {Met('methodology')} that brings together {Neuro('neuroscience')}, {Ling('linguistics')} and {Psico('psychoanalysis')}. It listens to how politicians speak and measures whether their language brings people closer or polarizes. During the campaign for Spain's 29 November election, it listens every week to the four parties that won the most votes in 2023.</>
     ),
     ver: 'See the archive',
     campana: 'The 29-N campaign',
     crear: 'Create an account to analyze',
     analizar: 'Analyze a speech',
     nota: (Entrar) => <>Already have an account? {Entrar('Sign in')} to analyze a speech.</>,
-    origen: 'Examples from the archive, calculated with the 2024 method.',
+    origen: 'Examples from the archive, calculated with Methodology 1.0.',
     nuevoRotulo: 'Spanish general election · 29-N',
     nuevoTexto: 'From 13 to 27 November, one rally per candidate per week, measured with P1 and P2 of Methodology 2.0.',
   },
