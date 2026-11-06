@@ -1,6 +1,7 @@
 // api/add-speech.js
 // Endpoint manual para añadir un discurso al feed "Análisis del día".
-// Protegido: requiere una sesión Supabase válida (Authorization: Bearer <access_token>).
+// Protegido: requiere una sesión Supabase válida (Authorization: Bearer <access_token>)
+// y que el email de esa sesión coincida con ADMIN_EMAIL (403 si no, o si no está definida).
 
 import { createClient } from '@supabase/supabase-js';
 import { runIraAnalysis } from './_lib/iraEngine.js';
@@ -20,6 +21,12 @@ export default async function handler(req, res) {
   const { data: userData, error: authError } = await supabase.auth.getUser(token);
   if (authError || !userData?.user) {
     return res.status(401).json({ error: 'Sesión inválida o expirada.' });
+  }
+
+  const adminEmail = (process.env.ADMIN_EMAIL || '').trim().toLowerCase();
+  const userEmail = (userData.user.email || '').trim().toLowerCase();
+  if (!adminEmail || userEmail !== adminEmail) {
+    return res.status(403).json({ error: 'No autorizado.' });
   }
 
   const { text, entityId, entityName, entityCountry, entityFlag, title, sourceUrl, date } = req.body;

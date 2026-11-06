@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { colorPuntuacion as scoreColor, formatearPuntuacion } from '../lib/escala';
 import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
 import IndicadorEscala from './ui/IndicadorEscala.jsx';
+import { supabase } from '../supabaseClient';
 const scoreLabel = (s, es) => s >= 7 ? (es?'Empático':'Empathic') : s >= 4.5 ? (es?'Mixto':'Mixed') : (es?'Polarizante':'Polarizing');
 
 // ─── A · QUIZ ─────────────────────────────────────────────────────────────────
@@ -247,6 +248,7 @@ function MiniAnalyzer({ lang, accent, accentA }) {
   const [text, setText] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [needsLogin, setNeedsLogin] = useState(false);
   const [tipIdx, setTipIdx] = useState(0);
   const examples = PROMPTS[es ? 'es' : 'en'];
 
@@ -257,16 +259,22 @@ function MiniAnalyzer({ lang, accent, accentA }) {
 
   async function analyze() {
     if (!text.trim() || text.trim().length < 8) return;
-    setLoading(true); setResult(null);
+    setResult(null); setNeedsLogin(false);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.access_token) { setNeedsLogin(true); return; }
+    setLoading(true);
     try {
       const res = await fetch('/api/quick-analyze', {
-        method:'POST', headers:{'Content-Type':'application/json'},
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', Authorization: `Bearer ${session.access_token}` },
         body: JSON.stringify({ text: text.trim() }),
       });
+      if (res.status === 401) { setNeedsLogin(true); return; }
       const data = await res.json();
       if (!data.error) setResult(data);
-    } catch {}
-    setLoading(false);
+    } catch {} finally {
+      setLoading(false);
+    }
   }
 
   const col = result ? scoreColor(result.score) : accent;
@@ -288,7 +296,7 @@ function MiniAnalyzer({ lang, accent, accentA }) {
         <textarea
           id="ira-mini-texto" className="ira-campo ira-libreta" aria-describedby="ira-mini-ej"
           value={text}
-          onChange={e => { setText(e.target.value); setResult(null); }}
+          onChange={e => { setText(e.target.value); setResult(null); setNeedsLogin(false); }}
           placeholder={es ? "Escribe o pega una frase política..." : "Write or paste a political phrase..."}
           maxLength={400}
           rows={2}
@@ -304,6 +312,12 @@ function MiniAnalyzer({ lang, accent, accentA }) {
             {loading ? (es?"Analizando...":"Analyzing...") : (es?"Calcular IRA":"Calculate IRA")}
           </button>
         </div>
+
+        {needsLogin && (
+          <p role="status" style={{ margin:"12px 0 0", fontSize:"14px", color:"var(--ira-texto-2)" }}>
+            {es ? "Inicia sesión para analizar" : "Sign in to analyze"}
+          </p>
+        )}
 
         {result && (
           <ResultBlock result={result} es={es} col={col} accentA={accentA} />

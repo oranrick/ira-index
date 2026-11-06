@@ -5,6 +5,7 @@ dist
 .vercel
 
 .vercel
+.claude/settings.local.json
 backups/
 
 # Entorno de investigación (Python)
