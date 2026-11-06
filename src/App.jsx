@@ -214,7 +214,7 @@ const TEXTS = {
     modalParamsTitle:"The 8 parameters",
     modalOriginTitle:"Academic origin",
     modalOriginPre:  "IRA emerges from the research ",
-    modalOriginBook: "«The contagion of words: Metaphors, empathy and polarization in contemporary political discourse»",
+    modalOriginBook: "“The contagion of words: Metaphors, empathy and polarization in contemporary political discourse”",
     modalOriginPost: ", by Ricardo Grisales Ramírez, Bachelor's Thesis in Journalism, Complutense University of Madrid, June 2024. The methodology analyzes discourses by Donald Trump, Gustavo Petro, Claudia Sheinbaum and Jacinda Ardern applying Critical Discourse Analysis from an emotional and rhetorical perspective.",
   },
 };
@@ -234,7 +234,7 @@ const PARAMS_TRANS = {
     { id: "tono",       label: "Tono emocional",        desc: "¿Qué emoción instala en quien lo recibe?" },
     { id: "disenso",    label: "Apertura al disenso",   desc: "¿Valida la diferencia o la clausura?" },
     { id: "vector",     label: "Llamada a la acción",   desc: "¿Convoca a cooperar o a confrontar?" },
-    { id: "coherencia", label: "Engagement dialógico",  desc: "¿Hay distancia entre lo que dice y lo que hace?" },
+    { id: "coherencia", label: "Coherencia afectiva",  desc: "¿Hay distancia entre lo que dice y lo que hace?" },
     // P8 (proyeccion) eliminado de la fórmula — retirado de la UI por decisión
     // del autor (jul 2026). La prosa curada de las fichas se conserva en
     // paramTexts.proyeccion por si se diseña un P8 nuevo.
@@ -246,7 +246,7 @@ const PARAMS_TRANS = {
     { id: "tono",       label: "Emotional Tone",         desc: "What emotion does it install in the receiver?" },
     { id: "disenso",    label: "Openness to Dissent",    desc: "Does it validate difference or shut it down?" },
     { id: "vector",     label: "Call to Action",         desc: "Does it call for cooperation or confrontation?" },
-    { id: "coherencia", label: "Dialogic Engagement",    desc: "Is there a gap between what is said and what is done?" },
+    { id: "coherencia", label: "Affective Coherence",    desc: "Is there a gap between what is said and what is done?" },
   ],
 };
 
@@ -296,43 +296,43 @@ const PARAM_DETAILS_TRANS = {
   en: {
     pronominal: {
       detail:      "Measures the frequency and type of pronouns used. 'We', 'our' and 'together' build community and shared responsibility. Dominant use of 'I' signals ego-centrism; 'they/the others' as the active subject indicates distance or structural antagonism.",
-      empatico:    "«We are going to face this together. What they did to all of us obliges us to respond united.»",
-      polarizador: "«I solved it. I warned about it. They are the ones who destroyed this country.»",
+      empatico:    "“We are going to face this together. What they did to all of us obliges us to respond united.”",
+      polarizador: "“I solved it. I warned about it. They are the ones who destroyed this country.”",
     },
     metafora: {
       detail:      "Metaphors structure political reality. Construction metaphors ('weaving networks', 'cultivating') activate cognitive schemas of cooperation. War or contamination metaphors ('clean up corruption', 'extirpate the problem') activate threat and exclusion schemas.",
-      empatico:    "«Democracy is a garden we all must tend. If we abandon it, it fills with weeds.»",
-      polarizador: "«We are at war. The enemy is inside our institutions and must be extirpated.»",
+      empatico:    "“Democracy is a garden we all must tend. If we abandon it, it fills with weeds.”",
+      polarizador: "“We are at war. The enemy is inside our institutions and must be extirpated.”",
     },
     dicotomia: {
       detail:      "Evaluates the moral rigidity of the discourse: whether it divides the world into absolute categories of good/evil, us/them, patriots/traitors. High dichotomy denies ambiguity, hinders dialogue, and legitimizes the symbolic elimination of the adversary.",
-      empatico:    "«I understand there are those who don't share this vision. Their concerns are also legitimate and deserve to be heard.»",
-      polarizador: "«Either you're with us or you're against the people. There are no grays, no middle ground.»",
+      empatico:    "“I understand there are those who don't share this vision. Their concerns are also legitimate and deserve to be heard.”",
+      polarizador: "“Either you're with us or you're against the people. There are no grays, no middle ground.”",
     },
     tono: {
       detail:      "Identifies the dominant emotion the discourse installs in its receiver. Hope, shared pride and gratitude favor social cohesion. Fear, anger and disgust are more contagious in the short term but erode institutional trust.",
-      empatico:    "«I feel deep hope when I see the resilience of our people. We have come out stronger from every crisis.»",
-      polarizador: "«They should be afraid. Because what's coming, if we don't act now, will be worse than they imagine.»",
+      empatico:    "“I feel deep hope when I see the resilience of our people. We have come out stronger from every crisis.”",
+      polarizador: "“They should be afraid. Because what's coming, if we don't act now, will be worse than they imagine.”",
     },
     disenso: {
       detail:      "Measures the capacity to recognize and validate opposing viewpoints without dismissing them. Its presence signals democratic maturity; its absence correlates with discursive authoritarianism, though not necessarily institutional authoritarianism.",
-      empatico:    "«There are people who vote differently from us with respectable reasons. This policy must also work for them.»",
-      polarizador: "«Those who oppose can only have two motives: ignorance or bad faith. I won't waste time debating with them.»",
+      empatico:    "“There are people who vote differently from us with respectable reasons. This policy must also work for them.”",
+      polarizador: "“Those who oppose can only have two motives: ignorance or bad faith. I won't waste time debating with them.”",
     },
     vector: {
       detail:      "Examines the type of action the discourse calls for. Cooperative vectors ('let's work together', 'let's build') generate social capital. Confrontational ones ('defeat', 'stop them') may be legitimate but carry a high cohesive cost.",
-      empatico:    "«I invite you to make this process together. The solution will come from each community, not from above.»",
-      polarizador: "«We must take to the streets to show them who holds the power. Let them see us. Let them tremble.»",
+      empatico:    "“I invite you to make this process together. The solution will come from each community, not from above.”",
+      polarizador: "“We must take to the streets to show them who holds the power. Let them see us. Let them tremble.”",
     },
     coherencia: {
       detail:      "Analyzes the gap between the emotional content of the discourse and the speaker's observable actions. It is the hardest parameter to measure because it requires extra-discursive context and longitudinal tracking.",
-      empatico:    "«I have always said transparency is non-negotiable, and today I publish all my financial data without anyone requiring it.»",
-      polarizador: "«I talk about dialogue every day.» [While systematically blocking institutional channels of participation.]",
+      empatico:    "“I have always said transparency is non-negotiable, and today I publish all my financial data without anyone requiring it.”",
+      polarizador: "“I talk about dialogue every day.” [While systematically blocking institutional channels of participation.]",
     },
     proyeccion: {
       detail:      "Evaluates the temporal horizon of the discourse. Empathic discourses build a shared future with collective agency. Polarizing ones anchor in the past as grievance or in a permanent crisis present, offering no real horizon.",
-      empatico:    "«Twenty years from now, when our children ask what we did here, I want us to be able to say we chose understanding.»",
-      polarizador: "«They have always done this to us. And if we don't stop it now, they will keep doing it to us forever.»",
+      empatico:    "“Twenty years from now, when our children ask what we did here, I want us to be able to say we chose understanding.”",
+      polarizador: "“They have always done this to us. And if we don't stop it now, they will keep doing it to us forever.”",
     },
   },
 };

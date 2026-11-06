@@ -20,8 +20,8 @@ const WEIGHTS = { pronominal: 0.20, metafora: 0.20, dicotomia: 0.10, tono: 0.20,
 // Colores categóricos fuera de la gama de la escala (ver src/lib/escala.js)
 const PARAM_COLORS = Object.fromEntries(KEYS.map((k, i) => [k, CATEGORICOS[i]]));
 const PARAM_LABEL = {
-  es: { pronominal: 'Pronombres y vínculo', metafora: 'Marco metafórico', dicotomia: 'Polaridad moral', tono: 'Tono emocional', disenso: 'Apertura al disenso', vector: 'Llamada a la acción', coherencia: 'Engagement dialógico' },
-  en: { pronominal: 'Pronouns & Bond', metafora: 'Metaphorical Frame', dicotomia: 'Moral Polarity', tono: 'Emotional Tone', disenso: 'Openness to Dissent', vector: 'Call to Action', coherencia: 'Dialogic Engagement' },
+  es: { pronominal: 'Pronombres y vínculo', metafora: 'Marco metafórico', dicotomia: 'Polaridad moral', tono: 'Tono emocional', disenso: 'Apertura al disenso', vector: 'Llamada a la acción', coherencia: 'Coherencia afectiva' },
+  en: { pronominal: 'Pronouns & Bond', metafora: 'Metaphorical Frame', dicotomia: 'Moral Polarity', tono: 'Emotional Tone', disenso: 'Openness to Dissent', vector: 'Call to Action', coherencia: 'Affective Coherence' },
 };
 const NAME2KEY = {
   'Uso pronominal inclusivo': 'pronominal', 'Tipo de metáfora dominante': 'metafora',

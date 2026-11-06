@@ -23,7 +23,7 @@ export const PARAMETROS = {
     { id: 'p4', codigo: 'P4', nombre: 'Tono emocional' },
     { id: 'p5', codigo: 'P5', nombre: 'Apertura al disenso' },
     { id: 'p6', codigo: 'P6', nombre: 'Llamada a la acción' },
-    { id: 'p7', codigo: 'P7', nombre: 'Engagement dialógico' },
+    { id: 'p7', codigo: 'P7', nombre: 'Coherencia afectiva' },
     { id: 'p8', codigo: 'P8', nombre: 'Por definir' },
   ],
 };

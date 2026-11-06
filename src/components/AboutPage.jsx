@@ -30,7 +30,7 @@ const AUTHORS = [
     color: CATEGORICOS[1],
     contribution: {
       es: "Las metáforas conceptuales no son adornos: estructuran cómo percibimos la realidad. «Drenar el pantano» no es una hipérbole: es un marco cognitivo que determina qué preguntas nos parecen posibles.",
-      en: "Conceptual metaphors are not ornaments: they structure how we perceive reality. «Drain the swamp» is not hyperbole: it is a cognitive frame that determines which questions seem possible.",
+      en: "Conceptual metaphors are not ornaments: they structure how we perceive reality. “Drain the swamp” is not hyperbole: it is a cognitive frame that determines which questions seem possible.",
     },
   },
   {
@@ -69,7 +69,7 @@ const PARAMS_BRIEF = [
   { es: "Tono emocional",        en: "Emotional Tone",         desc_es: "¿Qué emoción instala en el receptor?",           desc_en: "What emotion does it install in the receiver?" },
   { es: "Apertura al disenso",   en: "Openness to Dissent",    desc_es: "¿Valida la diferencia o la clausura?",           desc_en: "Does it validate difference or shut it down?" },
   { es: "Llamada a la acción",   en: "Call to Action",         desc_es: "¿Convoca a cooperar o a confrontar?",            desc_en: "Does it call for cooperation or confrontation?" },
-  { es: "Engagement dialógico",  en: "Dialogic Engagement",    desc_es: "¿Lo que dice coincide con lo que hace?",         desc_en: "Does what it says match what it does rhetorically?" },
+  { es: "Coherencia afectiva",  en: "Affective Coherence",    desc_es: "¿Lo que dice coincide con lo que hace?",         desc_en: "Does what it says match what it does rhetorically?" },
   // P8 (Horizonte de futuro) eliminado de la fórmula — retirado por decisión del autor (jul 2026)
 ];
 
@@ -146,7 +146,7 @@ export default function AboutPage() {
             borderLeft:"3px solid var(--ira-1)" }}>
             <p style={{ margin:0, fontSize:"clamp(24px,3.6vw,32px)", fontStyle:"italic", fontFamily:"var(--ira-font-voz)",
               color:"var(--ira-marca-polarizante)", lineHeight:1.25 }}>
-              {es ? "«Yo mataría a toda esa gente.»" : "«I would kill all those people.»"}
+              {es ? "«Yo mataría a toda esa gente.»" : "“I would kill all those people.”"}
             </p>
             <p style={{ margin:"10px 0 0", fontSize:"14px", color:"var(--ira-texto-3)" }}>
               {es ? "Una frase escuchada demasiadas veces. Así empezó IRA." : "A phrase heard too many times. That is how IRA began."}
@@ -216,7 +216,7 @@ export default function AboutPage() {
             <p style={{ margin:0, fontSize:"clamp(21px,3vw,28px)", fontStyle:"italic", fontFamily:"var(--ira-font-voz)",
               color:"var(--ira-nieve)", lineHeight:1.4, maxWidth:"560px", marginInline:"auto" }}>
               {es ? "«IRA no mide si algo es verdad o mentira. Mide la arquitectura emocional de un discurso.»"
-                  : "«IRA does not measure whether something is true or false. It measures the emotional architecture of a speech.»"}
+                  : "“IRA does not measure whether something is true or false. It measures the emotional architecture of a speech.”"}
             </p>
           </div>
 
@@ -297,7 +297,7 @@ export default function AboutPage() {
             <blockquote style={{ margin:"0 0 16px", fontSize:"clamp(20px,3vw,26px)", fontStyle:"italic",
               fontFamily:"var(--ira-font-voz)", color:"var(--ira-nieve)", lineHeight:1.4 }}>
               {es ? "«Cambiar el mundo desde el amor y la ciencia dura.»"
-                  : "«Changing the world through love and hard science.»"}
+                  : "“Changing the world through love and hard science.”"}
             </blockquote>
             <figcaption>
               <p style={{ margin:"0 0 2px", fontSize:"15px", fontWeight:800, color:"var(--ira-nieve)" }}>
