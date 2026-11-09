@@ -7,6 +7,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import IraLogo from './IraLogo.jsx';
 import { AppContext } from '../App.jsx';
 import { HERRAMIENTAS_ABIERTAS } from '../lib/funciones';
+import { chispazo } from './ui/Chispas.jsx';
 
 const TXT = {
   es: {
@@ -19,8 +20,7 @@ const TXT = {
     crear: 'Crear cuenta',
     salir: 'Salir',
     menu: 'Menú',
-    idioma: 'Switch to English',
-    idiomaCorto: 'EN',
+    idioma: 'Idioma',
   },
   en: {
     nombre: 'Affective Resonance Index',
@@ -32,8 +32,7 @@ const TXT = {
     crear: 'Create account',
     salir: 'Sign out',
     menu: 'Menu',
-    idioma: 'Cambiar a español',
-    idiomaCorto: 'ES',
+    idioma: 'Language',
   },
 };
 
@@ -60,11 +59,12 @@ export default function Nav() {
     return () => document.removeEventListener('keydown', esc);
   }, [abierto]);
 
-  const cambiarIdioma = () => setLang((l) => {
-    const next = l === 'es' ? 'en' : 'es';
+  const elegirIdioma = (next, ev) => {
+    if (next === lang) return;
+    chispazo(ev, 'salvia', 6);
     try { localStorage.setItem('ira-lang', next); } catch {}
-    return next;
-  });
+    setLang(next);
+  };
 
   const enlace = (id, to) => (
     <NavLink
@@ -112,11 +112,38 @@ export default function Nav() {
               <button type="button" className="ira-boton ira-boton--secundario ira-boton--compacto" onClick={openRegister}>{t.crear}</button>
             </>
           )}
-          <button type="button" className="ira-nav__idioma" onClick={cambiarIdioma} aria-label={t.idioma} lang={lang === 'es' ? 'en' : 'es'}>
-            {t.idiomaCorto}
-          </button>
+          <SelectorIdioma lang={lang} etiqueta={t.idioma} onElegir={elegirIdioma} />
         </nav>
       </div>
     </header>
+  );
+}
+
+// Selector de idioma como dos canales: los dos a la vista y, junto al activo, el punto de
+// resonancia del logo (la señal sintonizada). Al cambiar, el punto se desplaza al otro canal.
+const IDIOMAS = [
+  { id: 'es', corto: 'ES', largo: 'Español' },
+  { id: 'en', corto: 'EN', largo: 'English' },
+];
+
+function SelectorIdioma({ lang, etiqueta, onElegir }) {
+  const i = Math.max(0, IDIOMAS.findIndex((x) => x.id === lang));
+  return (
+    <div className="ira-idioma" role="group" aria-label={etiqueta} style={{ '--ira-idioma-i': i }}>
+      {IDIOMAS.map((x) => (
+        <button
+          key={x.id}
+          type="button"
+          lang={x.id}
+          className={'ira-idioma__canal' + (x.id === lang ? ' is-activo' : '')}
+          aria-pressed={x.id === lang}
+          onClick={(ev) => onElegir(x.id, ev)}
+        >
+          <span className="ira-idioma__corto" aria-hidden="true">{x.corto}</span>
+          <span className="ira-idioma__largo">{x.largo}</span>
+        </button>
+      ))}
+      <span key={lang} className="ira-idioma__senal" aria-hidden="true"><span /></span>
+    </div>
   );
 }

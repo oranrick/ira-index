@@ -65,12 +65,44 @@
   max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   color: var(--ira-texto-2);
 }
-.ira-nav__idioma {
-  min-width: 44px; height: 44px; padding: 0 8px; border-radius: var(--ira-radio-m);
-  background: transparent; border: 1px solid transparent; cursor: pointer;
-  font-family: var(--ira-font-cifra); font-size: 12px; letter-spacing: 0.04em; color: var(--ira-texto-2);
+/* Selector de idioma: dos canales; sobre el activo, el punto de resonancia del logo (como la i de «ira») */
+.ira-idioma {
+  --ira-idioma-w: 36px;
+  position: relative; display: inline-flex; align-items: center; height: 44px; padding-left: 14px;
 }
-.ira-nav__idioma:hover { color: var(--ira-nieve); border-color: var(--ira-linea); }
+.ira-idioma::before { content: ''; position: absolute; left: 0; top: 12px; bottom: 12px; width: 1px; background: var(--ira-linea); }
+.ira-idioma__canal {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  width: var(--ira-idioma-w); height: 44px; padding: 2px 0 0; background: none; border: none; cursor: pointer;
+  font: inherit; font-size: 13px; letter-spacing: 0.06em; color: var(--ira-texto-3); transition: color 0.25s ease;
+}
+.ira-idioma__canal:hover { color: var(--ira-nieve); }
+.ira-idioma__canal.is-activo { color: var(--ira-nieve); font-weight: 500; cursor: default; }
+.ira-idioma__canal:focus-visible { outline: 2px solid var(--ira-oro); outline-offset: -4px; border-radius: var(--ira-radio-m); }
+.ira-idioma__canal:not(.is-activo)::before {
+  content: ''; position: absolute; left: 50%; top: 8px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%;
+  border: 1px solid var(--ira-texto-3); box-sizing: border-box; opacity: 0; transform: scale(0.4);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.ira-idioma__canal:not(.is-activo):hover::before { opacity: 1; transform: scale(1); }
+.ira-idioma__largo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ira-idioma__senal {
+  position: absolute; top: 7px; width: 6px; height: 6px; pointer-events: none;
+  left: calc(14px + var(--ira-idioma-i) * var(--ira-idioma-w) + var(--ira-idioma-w) / 2 - 3px);
+  border-radius: 50%; background: var(--ira-salvia);
+  box-shadow: 0 0 0 3px rgba(141, 170, 126, 0.2), 0 0 8px rgba(141, 170, 126, 0.8);
+  animation: ira-idioma-sintoniza 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+.ira-idioma__senal > span {
+  position: absolute; inset: -4px; border-radius: 50%; border: 1px solid var(--ira-salvia);
+  animation: ira-idioma-resuena 2.4s ease-out 0.3s infinite both;
+}
+@keyframes ira-idioma-sintoniza { from { transform: translateY(6px) scale(0); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes ira-idioma-resuena { 0% { transform: scale(0.6); opacity: 0.9; } 70%, 100% { transform: scale(1.9); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .ira-idioma__senal, .ira-idioma__senal > span { animation: none; }
+  .ira-idioma__senal > span { opacity: 0.5; }
+}
 .ira-nav__menu {
   display: none; width: 44px; height: 44px; padding: 0; border-radius: var(--ira-radio-m);
   background: transparent; border: 1px solid var(--ira-linea-fuerte); color: var(--ira-nieve);
@@ -92,7 +124,17 @@
   .ira-nav__usuario { display: flex; align-items: center; max-width: none; }
   .ira-nav__sep { width: auto; height: 1px; margin: 8px 0; }
   .ira-nav__panel .ira-boton { margin-top: 8px; }
-  .ira-nav__idioma { align-self: flex-start; margin-top: 8px; border-color: var(--ira-linea); }
+  .ira-idioma { --ira-idioma-w: auto; align-self: stretch; gap: 28px; margin-top: 8px; padding: 8px 0 0; height: auto; }
+  .ira-idioma::before { left: 0; right: 0; top: 0; bottom: auto; width: auto; height: 1px; }
+  .ira-idioma__canal { width: auto; height: 52px; padding-top: 8px; font-size: 16px; letter-spacing: 0; }
+  .ira-idioma__canal:not(.is-activo)::before { top: 12px; }
+  .ira-idioma__senal { display: none; }
+  .ira-idioma__canal.is-activo::after {
+    content: ''; position: absolute; left: 50%; top: 12px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%;
+    background: var(--ira-salvia); box-shadow: 0 0 0 3px rgba(141, 170, 126, 0.18), 0 0 6px rgba(141, 170, 126, 0.75);
+  }
+  .ira-idioma__corto { display: none; }
+  .ira-idioma__largo { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
 }
 @media (max-width: 520px) {
   .ira-nav .ira-logo__nombre { display: none; }
