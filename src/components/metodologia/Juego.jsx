@@ -3,10 +3,17 @@
 // chispas que titilan alrededor de lo elegido, recorrido automático con barra de progreso,
 // cifras que cuentan hasta su valor y control segmentado con pastilla deslizante.
 // Todo el movimiento se apaga con prefers-reduced-motion. Nada de esto calcula IRA.
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { AppContext } from '../../App.jsx';
+import { UI_JUEGO } from './textosComunes.js';
 
 export { quieto, TONOS, tonoDe, chispazo, Chispas } from '../ui/Chispas.jsx';
 import { quieto, chispazo, tonoDe } from '../ui/Chispas.jsx';
+
+/** Idioma de la web (es | en) para los textos de las piezas. */
+export function useLang() {
+  return useContext(AppContext)?.lang === 'en' ? 'en' : 'es';
+}
 
 /** Cifra que cuenta desde su valor anterior hasta el nuevo. */
 export function NumeroAnimado({ valor, formato = (v) => String(Math.round(v)), duracion = 650, className = '', style }) {
@@ -95,8 +102,10 @@ function IcoFlecha({ dir }) {
 }
 
 /** Mando del recorrido: anterior · reproducir/pausa · siguiente, con puntos y contador. */
-export function Mando({ i, n, ir, recorrido, tono = 'oro', etiqueta = 'Ejemplos', textos = {} }) {
-  const tx = { anterior: 'Anterior', siguiente: 'Siguiente', recorrer: 'Recorrer', pausa: 'Pausa', ir: (k) => `Ir al ${k}`, ...textos };
+export function Mando({ i, n, ir, recorrido, tono = 'oro', etiqueta, textos = {} }) {
+  const base = UI_JUEGO[useLang()];
+  const tx = { ...base, ...textos };
+  etiqueta = etiqueta ?? base.ejemplos;
   const manual = (k) => { recorrido?.parar(); ir(k); };
   return (
     <div className={`ira-juego-mando ira-juego--${tonoDe(tono)}`} role="group" aria-label={etiqueta}>
@@ -181,7 +190,9 @@ export function Segmentado({ opciones, valor, onCambio, etiqueta, className = ''
 }
 
 /** Pista de teclado discreta (solo en pantallas con puntero fino). */
-export function PistaTeclas({ texto = 'También con las flechas del teclado' }) {
+export function PistaTeclas({ texto }) {
+  const base = UI_JUEGO[useLang()];
+  texto = texto ?? base.teclas;
   return (
     <p className="ira-juego-pista" aria-hidden="true">
       <kbd>↑</kbd><kbd>↓</kbd> <span>{texto}</span>
@@ -229,6 +240,8 @@ export function useDeslizar(siguiente, anterior, umbral = 45) {
 }
 
 /** Pista para pantallas táctiles: el diagrama también se desliza. */
-export function PistaDeslizar({ texto = 'Desliza el diagrama para cambiar de frase' }) {
+export function PistaDeslizar({ texto }) {
+  const base = UI_JUEGO[useLang()];
+  texto = texto ?? base.deslizar;
   return <p className="ira-juego-desliza" aria-hidden="true"><span>‹</span> {texto} <span>›</span></p>;
 }

@@ -95,7 +95,7 @@ export default function ApuntaMetafora({ t, resultados }) {
             ))}
           </div>
           <Mando i={activa} n={n} ir={elegir} recorrido={recorrido} tono={e.resultado} etiqueta={t.etiqueta}
-            textos={{ anterior: 'Frase anterior', siguiente: 'Frase siguiente', recorrer: 'Recorrer las siete' }} />
+            textos={t.mando} />
         </div>
 
         <div className={`ira-p2-apunta__lado ira-p2--${e.resultado} ira-juego--${tono}`} {...deslizar}>

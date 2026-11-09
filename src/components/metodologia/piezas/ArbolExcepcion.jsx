@@ -104,7 +104,7 @@ export default function ArbolExcepcion({ condiciones, ejemplos, ui }) {
             ))}
           </div>
           <Mando i={activa} n={n} ir={(k) => elegir(k)} recorrido={recorrido} tono="oro" etiqueta={ui.etiqueta}
-            textos={{ anterior: 'Frase anterior', siguiente: 'Frase siguiente', recorrer: 'Recorrer' }} />
+            textos={ui.mando} />
         </div>
 
         <div className="ira-pz-arbol__lado">

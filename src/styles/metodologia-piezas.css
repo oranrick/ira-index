@@ -405,6 +405,9 @@
 .ira-pz-anot__oracion-sel { padding: 10px 12px; border-radius: var(--ira-radio-s); background: var(--ira-superficie); font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
 .ira-pz-anot__regla, .ira-pz-anot__nota { font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
 .ira-pz-anot__regla > span:first-child, .ira-pz-anot__nota > span:first-child { color: var(--ira-texto-2); }
+.ira-pz-anot__traduccion { margin-top: -4px; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); font-style: italic; }
+.ira-pz-anot__traduccion > span:first-child { font-style: normal; }
+.ira-pz-anot__glosa { font-size: 0.8em; font-weight: 400; color: var(--ira-texto-2); }
 
 .ira-pz-anot__resumen { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
 .ira-pz-anot__resumen-titulo { font-family: var(--ira-font-titulo); font-weight: 500; font-size: 17px; }

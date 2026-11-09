@@ -82,12 +82,12 @@ export default function DiscursoAnotado({ fragmento, t, ui }) {
       : r.indicador === 'interpelacion' ? interpelacion.regla : fila?.ej;
     ficha = {
       grupo: r.grupo,
-      titulo: <><span className="ira-pz-anot__forma">«{r.forma}»</span> <span className="ira-pz-anot__codigo ira-cifra">{r.codigo}</span></>,
+      titulo: <><span className="ira-pz-anot__forma" lang="es">«{r.forma}»</span>{ui.formas?.[r.forma] && <span className="ira-pz-anot__glosa"> “{ui.formas[r.forma]}”</span>} <span className="ira-pz-anot__codigo ira-cifra">{r.codigo}</span></>,
       categoria: fila?.categoria,
       filas: [[ui.indicador, indicador ? `${indicador} · ${ui.vale(r.valor)}` : t.ind.noCuenta]],
       regla,
       reglaEtiqueta: esRegla ? ui.reglaManual : ui.segunManual,
-      nota: r.nota,
+      nota: ui.notas?.[`ref-${oracionSel.oracion}-${r.n}`] ?? r.nota,
     };
   } else if (sel.tipo === 'evento') {
     const e = oracionSel.eventos[sel.k];
@@ -99,7 +99,7 @@ export default function DiscursoAnotado({ fragmento, t, ui }) {
       filas: [[permeabilidad.nombre, e.tipo === 'C' ? ui.sumaCierre : ui.sumaApertura], [ui.blanco, ui.blancos?.[e.blanco] ?? e.blanco]],
       regla: m?.[2],
       reglaEtiqueta: ui.ejemploManual,
-      nota: e.nota,
+      nota: ui.notas?.[`evento-${oracionSel.oracion}-${sel.k}`] ?? e.nota,
     };
   } else {
     ficha = { grupo: 'tenue', titulo: dificil[0], categoria: ui.casoDificil, filas: [[permeabilidad.nombre, ui.sinEvento]], regla: dificil[1], reglaEtiqueta: ui.reglaManual };
@@ -123,7 +123,7 @@ export default function DiscursoAnotado({ fragmento, t, ui }) {
 
       <div className={`ira-pz-anot__mando ira-juego-espera${recorrido.visto ? ' is-visto' : ''}`} ref={recorrido.ref}>
         <Mando i={pos} n={orden.length} ir={ir} recorrido={recorrido} tono={sel.tipo === 'dificil' ? 'oro' : ficha.grupo}
-          etiqueta="Marcas del fragmento" textos={{ anterior: 'Marca anterior', siguiente: 'Marca siguiente', recorrer: 'Leer marca a marca' }} />
+          etiqueta={ui.mando.etiqueta} textos={ui.mando} />
       </div>
       <div className="ira-pz-banda ira-pz-anot__rejilla">
         <div className="ira-pz-anot__texto" lang="es">
@@ -172,8 +172,11 @@ export default function DiscursoAnotado({ fragmento, t, ui }) {
             {ficha.filas.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
           </dl>
           <p className="ira-pz-anot__oracion-sel" lang="es">«{oracionSel.texto}»</p>
+          {ui.traducciones?.[oracionSel.oracion] && (
+            <p className="ira-pz-anot__traduccion"><span>{ui.traduccion}</span> “{ui.traducciones[oracionSel.oracion]}”</p>
+          )}
           {ficha.regla && <p className="ira-pz-anot__regla"><span>{ficha.reglaEtiqueta}</span> {ficha.regla}</p>}
-          {ficha.nota && <p className="ira-pz-anot__nota"><span>{ui.notaCodificador}</span> <span lang="es">{ficha.nota}</span></p>}
+          {ficha.nota && <p className="ira-pz-anot__nota"><span>{ui.notaCodificador}</span> <span lang={ui.lang ?? 'es'}>{ficha.nota}</span></p>}
         </aside>
       </div>
 

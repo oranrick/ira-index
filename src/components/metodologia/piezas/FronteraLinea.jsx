@@ -105,7 +105,7 @@ export default function FronteraLinea({ cierres, aperturas, ui, lang }) {
         <div className="ira-pz-linea__lectura">
           <span className="ira-pz-linea__rotulo">{ui.permeabilidad}</span>
           <p className="ira-pz-linea__cifra ira-cifra" style={{ color: n === 0 ? 'var(--ira-texto-3)' : puntua ? colorCifra(perm) : 'var(--ira-texto-2)' }}>
-            {n === 0 ? 'n/p' : <NumeroAnimado className="ira-pz-linea__num" valor={perm} formato={(v) => formatearPuntuacion(v, lang, 2)} />}<span>/10</span>
+            {n === 0 ? (ui.sinPuntuar ?? 'n/p') : <NumeroAnimado className="ira-pz-linea__num" valor={perm} formato={(v) => formatearPuntuacion(v, lang, 2)} />}<span>/10</span>
           </p>
           <span className="ira-pz-linea__escala" aria-hidden="true">
             {ESCALA.map((c, i) => <span key={c} className={n !== 0 && i <= idx ? 'is-on' : ''} style={{ background: c, opacity: n === 0 ? 0.15 : i <= idx ? 1 : 0.18, '--i': i }} />)}

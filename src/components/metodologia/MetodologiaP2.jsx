@@ -1,10 +1,12 @@
 // IRA · /metodologia/p2 — P2 El marco metafórico (Metodología 2.0, borrador v0.1). SIMULACIÓN.
 // Todo el contenido sale de research/manual/P2.md (ver textosP2.js). P2 aún no tiene fórmula:
 // la página explica la regla y deja marcado lo pendiente.
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { AppContext } from '../../App.jsx';
 import AvisoVersion from './AvisoVersion.jsx';
+import { NOTA_EN } from './textosComunes.js';
 import { Aparecer, Icono } from './Visuales.jsx';
 import { Chispas, CifraAlVer, Segmentado, chispazo, tonoDe } from './Juego.jsx';
 import { TEXTOS_P2 } from './textosP2.js';
@@ -139,12 +141,12 @@ function DosDestinos({ d, t }) {
     <>
       <div className="ira-p2-destinos__modo">
         <Segmentado
-          etiqueta="Cómo ver los ejemplos"
-          opciones={[{ id: 'ver', nombre: 'Ver todo', tono: 'oro' }, { id: 'adivinar', nombre: 'Adivinar primero', tono: 'oro' }]}
+          etiqueta={t.ui.modoEtiqueta}
+          opciones={[{ id: 'ver', nombre: t.ui.verTodo, tono: 'oro' }, { id: 'adivinar', nombre: t.ui.adivinar, tono: 'oro' }]}
           valor={modo}
           onCambio={(m) => { setModo(m); setVistos({}); }}
         />
-        {adivinar && <span className="ira-p2-destinos__pista">Toca cada frase para destapar su resultado.</span>}
+        {adivinar && <span className="ira-p2-destinos__pista">{t.ui.pistaAdivinar}</span>}
       </div>
       <ul className={`ira-p2-destinos${adivinar ? ' is-adivinar' : ''}`}>
         {d.pares.map((p, i) => (
@@ -180,7 +182,7 @@ function DosDestinos({ d, t }) {
                     <p className="ira-p2-destino__frase">{x.frase}</p>
                     <p className="ira-p2-destino__pie">
                       {tapado ? (
-                        <span className="ira-p2-destino__tapa"><span aria-hidden="true">?</span> ¿Neutra o polariza?</span>
+                        <span className="ira-p2-destino__tapa"><span aria-hidden="true">?</span> {t.ui.tapa}</span>
                       ) : (
                         <><Pildora resultado={x.resultado} t={t} /> <span>{x.nota}</span></>
                       )}
@@ -198,15 +200,15 @@ function DosDestinos({ d, t }) {
 
 /** El experimento: el mismo problema con dos imágenes lleva a dos soluciones.
  *  Se elige la imagen con el interruptor y el camino hacia su solución se enciende. */
-function Experimento({ x }) {
+function Experimento({ x, ui }) {
   const [imagen, setImagen] = useState('virus');
   return (
     <Aparecer className={`ira-p2-exp is-${imagen}`}>
       <div className="ira-p2-exp__cab">
         <p className="ira-p2-exp__titulo">{x.titulo}</p>
         <Segmentado
-          etiqueta="Imagen del crimen"
-          opciones={[{ id: 'virus', nombre: `es ${x.virus.imagen}`, tono: 'salvia' }, { id: 'bestia', nombre: `es ${x.bestia.imagen}`, tono: 'rojo' }]}
+          etiqueta={ui.imagenEtiqueta}
+          opciones={[{ id: 'virus', nombre: `${ui.es} ${x.virus.imagen}`, tono: 'salvia' }, { id: 'bestia', nombre: `${ui.es} ${x.bestia.imagen}`, tono: 'rojo' }]}
           valor={imagen}
           onCambio={setImagen}
         />
@@ -223,7 +225,7 @@ function Experimento({ x }) {
               className={`ira-p2-exp__carril ira-p2-exp__carril--${i ? 'b' : 'a'}${imagen === id ? ' is-elegido' : ''}`}
             >
               <span className="ira-p2-exp__conector" aria-hidden="true" />
-              <span className="ira-p2-exp__imagen">es <strong>{c.imagen}</strong></span>
+              <span className="ira-p2-exp__imagen">{ui.es} <strong>{c.imagen}</strong></span>
               <span className="ira-p2-exp__flecha" aria-hidden="true">→</span>
               <span key={imagen === id ? `s-${imagen}` : id} className="ira-p2-exp__solucion ira-cifra">{c.solucion}</span>
             </button>
@@ -237,7 +239,7 @@ function Experimento({ x }) {
 }
 
 /** Escala viva → convencional → muerta. Un marcador recorre la pista y se posa en el tramo elegido. */
-function EscalaViva({ c }) {
+function EscalaViva({ c, ui }) {
   const [sel, setSel] = useState(0);
   const refs = useRef([]);
   const elegir = (k, ev) => {
@@ -255,7 +257,7 @@ function EscalaViva({ c }) {
         <span>{c.eje[0]}</span><span>{c.eje[1]}</span>
         <span className={`ira-p2-viva__marcador is-${c.tramos[sel].id}`} />
       </div>
-      <ol className="ira-p2-viva__tramos" role="radiogroup" aria-label="Grados de la metáfora">
+      <ol className="ira-p2-viva__tramos" role="radiogroup" aria-label={ui.gradosEtiqueta}>
         {c.tramos.map((tr, k) => (
           <Aparecer as="li" key={tr.id} className={`ira-p2-viva__tramo ira-p2-viva__tramo--${tr.id}${k === sel ? ' is-elegido' : ''}`}>
             <button
@@ -416,11 +418,11 @@ function Recorrido({ r, t }) {
         <h3 className="ira-met__h3">{r.arbolTitulo}</h3>
         <button type="button" className="ira-boton ira-boton--secundario ira-boton--compacto ira-p2-recorrido__otra" onClick={reiniciar} disabled={nodo === 1 && !final}>
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4" /></svg>
-          Empezar de nuevo
+          {t.ui.reiniciar}
         </button>
       </div>
       <p className="ira-met__nota ira-p2-recorrido__ayuda" aria-live="polite">
-        {final ? 'Ese es el resultado de la regla para tu metáfora.' : 'Piensa en una metáfora y responde: el botón activo es el paso en el que estás.'}
+        {final ? t.ui.ayudaFinal : t.ui.ayudaPaso}
       </p>
       <ol ref={lista} className={`ira-p2-recorrido is-en-${final ? 'final' : nodo}`}>
         <li className={`ira-p2-recorrido__ficha${final ? ` is-${final}` : ''}`} style={{ top: fichaTop }} aria-hidden="true" />
@@ -475,7 +477,9 @@ function Recorrido({ r, t }) {
 
 export default function MetodologiaP2() {
   const { hash } = useLocation();
-  const t = TEXTOS_P2.es;
+  const { lang } = useContext(AppContext);
+  const idioma = lang === 'en' ? 'en' : 'es';
+  const t = TEXTOS_P2[idioma];
   const numero = Object.fromEntries(t.secciones.map((s, i) => [s.id, i + 1]));
   const titulo = Object.fromEntries(t.secciones.map((s) => [s.id, s.titulo]));
   const sec = (id) => ({ id, n: numero[id], titulo: titulo[id] });
@@ -491,7 +495,8 @@ export default function MetodologiaP2() {
 
   return (
     <div className="main-container ira-met ira-met--p1 ira-met--p2" style={{ maxWidth: 1180 }}>
-      <AvisoVersion lang="es" />
+      <AvisoVersion lang={idioma} />
+      {idioma === 'en' && <p className="ira-met__nota ira-met__nota-en">{NOTA_EN}</p>}
 
       <Link to="/metodologia" className="ira-met__volver">{t.volverIndice}</Link>
       <header className="ira-met__cabecera ira-met__cabecera--p1">
@@ -549,7 +554,7 @@ export default function MetodologiaP2() {
               <blockquote className="ira-met__entrada">{t.porque.entrada}</blockquote>
               <figcaption>{t.porque.entradaFuente}</figcaption>
             </figure>
-            <Experimento x={t.porque.experimento} />
+            <Experimento x={t.porque.experimento} ui={t.ui} />
             <ol className="ira-p2-eslabones">
               {t.porque.pasos.map((p, i) => (
                 <Aparecer as="li" key={p.titulo} className="ira-p2-eslabon" style={{ '--retardo': `${i * 90}ms` }}>
@@ -605,7 +610,7 @@ export default function MetodologiaP2() {
           {/* Qué cuenta como metáfora */}
           <Seccion {...sec('que-cuenta')}>
             <p className="ira-met__texto">{t.cuenta.intro}</p>
-            <EscalaViva c={t.cuenta} />
+            <EscalaViva c={t.cuenta} ui={t.ui} />
             <p className="ira-met__nota">{t.cuenta.prueba}</p>
             <p className="ira-met__nota">{t.cuenta.peso}</p>
           </Seccion>
@@ -669,7 +674,7 @@ export default function MetodologiaP2() {
             <div className="ira-pz-banda ira-p2-prueba">
               <div className="ira-p2-prueba__nota">
                 <p className="ira-p2-prueba__cifra ira-cifra" aria-label={t.prueba.nota}>
-                  <CifraAlVer valor={Number(t.prueba.nota.replace(',', '.'))} formato={(v) => v.toFixed(2).replace('.', ',')} />
+                  <CifraAlVer valor={Number(t.prueba.nota.replace(',', '.'))} formato={(v) => v.toFixed(2).replace('.', t.ui.decimal)} />
                 </p>
                 <p className="ira-p2-prueba__solidez">P2 · {t.prueba.solidez}</p>
                 <p className="ira-p2-prueba__calculo ira-cifra">{t.prueba.calculo}</p>
@@ -730,7 +735,7 @@ export default function MetodologiaP2() {
             <p><a href={MANUAL_URL} target="_blank" rel="noopener noreferrer" className="ira-met__enlace">{t.manual}</a></p>
           </Seccion>
 
-          <nav className="ira-met__pie-nav" aria-label="Navegación entre parámetros">
+          <nav className="ira-met__pie-nav" aria-label={t.ui.navPie}>
             <Link to="/metodologia/p1" className="ira-boton ira-boton--secundario">{t.pie.anterior}</Link>
             <Link to="/metodologia" className="ira-boton ira-boton--secundario">{t.pie.volver}</Link>
           </nav>

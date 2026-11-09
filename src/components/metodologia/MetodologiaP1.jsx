@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { AppContext } from '../../App.jsx';
 import AvisoVersion from './AvisoVersion.jsx';
-import { SOLO_ES } from './textosComunes.js';
+import { NOTA_EN } from './textosComunes.js';
 import MarcadorPieza from './MarcadorPieza.jsx';
 import { Aparecer, BarraPesos, EscalaSolidez, Icono, LineaTiempo, Pestanas, Puntos } from './Visuales.jsx';
 import EtiquetaPuntuacion from '../ui/EtiquetaPuntuacion.jsx';
@@ -48,6 +48,7 @@ function EmblemaFrontera() {
 
 const UI = {
   es: { navPie: 'Navegación entre parámetros', pieza: 'Pieza', nuevaPestana: '(se abre en una pestaña nueva)' },
+  en: { navPie: 'Navigation between parameters', pieza: 'Piece', nuevaPestana: '(opens in a new tab)' },
 };
 
 function Seccion({ id, n, titulo, children, className = '' }) {
@@ -107,7 +108,7 @@ function Destacado({ children, tono = 'oro' }) {
 
 function Valor({ valor, t, lang }) {
   if (valor == null) return <span className="ira-met__no-cuenta">{t.ind.noCuenta}</span>;
-  return <EtiquetaPuntuacion puntuacion={Number(valor)} variante="punto" lang="es" decimales={0} />;
+  return <EtiquetaPuntuacion puntuacion={Number(valor)} variante="punto" lang={lang} decimales={0} />;
 }
 
 // Índice lateral con la sección actual resaltada (y desplegable en pantallas estrechas)
@@ -162,7 +163,7 @@ function PanelAlcance({ t, lang }) {
         filas={a.codigos.map((c) => [
           <span key="c" className="ira-met__codigo ira-cifra">{c.codigo}</span>,
           c.categoria,
-          <Valor key="v" valor={c.valor} t={t} lang="es" />,
+          <Valor key="v" valor={c.valor} t={t} lang={lang} />,
           c.ej,
         ])}
       />
@@ -221,7 +222,7 @@ function PanelPermeabilidad({ t, tp, lang }) {
         ))}
       </div>
 
-      <FronteraLinea cierres={a.cierres} aperturas={a.aperturas} ui={tp.linea} lang="es" />
+      <FronteraLinea cierres={a.cierres} aperturas={a.aperturas} ui={tp.linea} lang={lang} />
 
       <Acordeon titulo={a.dificilesTitulo}>
         <dl className="ira-met__marcas">
@@ -238,10 +239,11 @@ function PanelPermeabilidad({ t, tp, lang }) {
 export default function MetodologiaP1() {
   const { lang } = useContext(AppContext);
   const { hash } = useLocation();
-  // La sección solo está en español: los códigos y ejemplos de P1 dependen de la gramática española
-  const t = TEXTOS_P1.es;
-  const tp = TEXTOS_PIEZAS_P1.es;
-  const u = UI.es;
+  // En inglés, capa de lectura: los ejemplos se quedan en español con su traducción
+  const idioma = lang === 'en' ? 'en' : 'es';
+  const t = TEXTOS_P1[idioma];
+  const tp = TEXTOS_PIEZAS_P1[idioma];
+  const u = UI[idioma];
   const numero = Object.fromEntries(t.secciones.map((s, i) => [s.id, i + 1]));
   const titulo = Object.fromEntries(t.secciones.map((s) => [s.id, s.titulo]));
   const pieza = (k) => `${u.pieza} ${k}`;
@@ -271,8 +273,8 @@ export default function MetodologiaP1() {
 
   return (
     <div className="main-container ira-met ira-met--p1" style={{ maxWidth: 1180 }}>
-      {lang === 'en' && <p className="ira-met__nota" lang="en">{SOLO_ES}</p>}
-      <AvisoVersion lang="es" />
+      <AvisoVersion lang={idioma} />
+      {idioma === 'en' && <p className="ira-met__nota ira-met__nota-en">{NOTA_EN}</p>}
 
       <Link to="/metodologia" className="ira-met__volver">{t.volverIndice}</Link>
       <header className="ira-met__cabecera ira-met__cabecera--p1">
@@ -300,7 +302,7 @@ export default function MetodologiaP1() {
           {/* Por qué importa */}
           <Seccion {...sec('por-que-importa')} className="ira-met__seccion--banda">
             <p className="ira-met__entrada">{t.porque.entrada}</p>
-            <LineaTiempo pasos={t.porque.tiempo} eje={t.porque.eje} />
+            <LineaTiempo pasos={t.porque.tiempo} eje={t.porque.eje} repetir={t.porque.repetir} />
             <CadenaArgumento pasos={t.porque.pasos} cita={t.porque.cita} ui={tp.cadena} />
           </Seccion>
 
@@ -367,9 +369,9 @@ export default function MetodologiaP1() {
             <Pestanas
               etiqueta={t.pestanasEtiqueta}
               pestanas={[
-                { id: 'alcance', nombre: alcance.nombre, peso: alcance.peso, contenido: <PanelAlcance t={t} lang="es" /> },
+                { id: 'alcance', nombre: alcance.nombre, peso: alcance.peso, contenido: <PanelAlcance t={t} lang={idioma} /> },
                 { id: 'interpelacion', nombre: interpelacion.nombre, peso: interpelacion.peso, contenido: <PanelInterpelacion t={t} /> },
-                { id: 'permeabilidad', nombre: permeabilidad.nombre, peso: permeabilidad.peso, contenido: <PanelPermeabilidad t={t} tp={tp} lang="es" /> },
+                { id: 'permeabilidad', nombre: permeabilidad.nombre, peso: permeabilidad.peso, contenido: <PanelPermeabilidad t={t} tp={tp} lang={idioma} /> },
               ]}
             />
           </Seccion>

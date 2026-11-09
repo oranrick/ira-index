@@ -1,7 +1,7 @@
 // IRA · Metodología 2.0 · P1 La frontera del nosotros · textos de la página.
 // Fuente única: research/manual/P1.md (v1.1). Aquí solo se resume, se reordena y se adapta el
 // tono: no se añaden reglas, autores ni cifras que no estén en el manual.
-// Solo en español (ver textosComunes.js).
+// Bilingüe: en inglés los ejemplos se quedan en español con su traducción (ver textosComunes.js).
 
 const REFERENCIAS = [
   'Avenanti, A., Sirigu, A., y Aglioti, S. M. (2010). Racial bias reduces empathic sensorimotor resonance with other-race pain. Current Biology, 20(11), 1018–1022.',
@@ -60,6 +60,7 @@ export const TEXTOS_P1 = {
     porque: {
       entrada: 'La intuición suele llegar antes que el argumento. Por eso importa tanto dónde coloca el discurso a cada persona: dentro del nosotros, en su periferia o frente a él.',
       eje: 'tiempo',
+      repetir: 'Repetir',
       tiempo: [
         { titulo: 'Frase', texto: 'Llega al oyente.' },
         { titulo: 'Intuición', texto: 'Una valoración rápida lo coloca dentro o fuera del nosotros.' },
@@ -341,5 +342,326 @@ export const TEXTOS_P1 = {
     referencias: REFERENCIAS,
     manual: 'Manual completo de P1 en el repositorio',
     pie: { volver: '← Volver al índice', siguiente: 'Siguiente: P2 · El marco metafórico' },
+  },
+
+  // Inglés: capa de lectura del mismo manual. Los ejemplos van en español con su traducción.
+  en: {
+    volverIndice: '← Methodology 2.0',
+    rotulo: 'Parameter 1 · manual v1.1',
+    titulo: 'The boundary of “us”',
+    indiceTitulo: 'On this page',
+    indiceDesplegar: 'Jump to a section',
+    pieza: 'Interactive piece under construction',
+
+    secciones: [
+      { id: 'en-una-frase', titulo: 'The formula' },
+      { id: 'por-que-importa', titulo: 'Why it matters' },
+      { id: 'mapa', titulo: 'The map of the boundary' },
+      { id: 'que-mide', titulo: 'What it measures and why' },
+      { id: 'que-no-mide', titulo: 'What P1 does not measure' },
+      { id: 'como-se-aplica', titulo: 'How it is applied' },
+      { id: 'discurso-anotado', titulo: 'The annotated speech' },
+      { id: 'indicadores', titulo: 'The three indicators' },
+      { id: 'ficha', titulo: 'The scorecard' },
+      { id: 'excepcion', titulo: 'The democratic exception' },
+      { id: 'cuenta-o-no', titulo: 'Does it count?' },
+      { id: 'minimos', titulo: 'Minimums and robustness' },
+      { id: 'limites', titulo: 'Limits and pending work' },
+      { id: 'cambios', titulo: 'Change log' },
+      { id: 'referencias', titulo: 'References' },
+    ],
+
+    frase: 'P1 measures where the speech draws the line between “us” and “them”, and whether that line is a wall or a door.',
+    formula: ['P1 = 0.50 × Reach', '   + 0.28 × Permeability', '   + 0.22 × Direct address'],
+    formulaNota: 'If an indicator does not reach its minimum, its weight is shared out proportionally among the others.',
+
+    pesosEtiqueta: 'Weight of each indicator in P1',
+    pesos: { alcance: 'Reach', permeabilidad: 'Permeability', interpelacion: 'Direct address' },
+
+    porque: {
+      entrada: 'Intuition usually arrives before argument. That is why it matters so much where a speech places each person: inside the “us”, on its periphery or facing it.',
+      eje: 'time',
+      repetir: 'Replay',
+      tiempo: [
+        { titulo: 'Sentence', texto: 'It reaches the listener.' },
+        { titulo: 'Intuition', texto: 'A quick appraisal places them inside or outside the “us”.' },
+        { titulo: 'Reasoning', texto: 'It usually comes later and starts from that first appraisal.' },
+      ],
+      pasos: [
+        { titulo: 'Intuition → reasoning', texto: 'Political judgement is not affectively neutral. Intuition usually arrives before argument: a fast affective appraisal, largely unconscious, steers what seems relevant to us and how we judge it afterwards.', fuentes: 'Damasio, 1994 · Haidt, 2001' },
+        { titulo: 'The boundary weighs on that first response', texto: 'We understand others by simulating them in an embodied way, and that resonance weakens when the other is categorized as “them”.', fuentes: 'Gallese · Xu et al., 2009 · Avenanti et al., 2010 · Hein et al., 2010' },
+        { titulo: 'That is why the wall works so well', texto: 'A speech that opens the door keeps empathy available: recategorizing the other within a common “us” reduces bias, and warm relations between groups reduce affective polarization.', fuentes: 'Gaertner and Dovidio, 2000 · Huddy and Yair, 2021' },
+        { titulo: 'And the incentives push towards the wall', texto: 'On social media, animosity towards the out-group is what generates the most engagement. That is why it is worth measuring where the boundary is drawn.', fuentes: 'Rathje et al., 2021' },
+      ],
+      cita: 'A speech that builds a wall switches off empathy towards those left outside before the listener has been able to weigh a single argument.',
+    },
+
+    blancosZonas: [
+      { id: 'no', nombre: 'Not a boundary', icono: 'circulo' },
+      { id: 'depende', nombre: 'Only if given a body', icono: 'interrogante' },
+      { id: 'si', nombre: 'A boundary', icono: 'muro' },
+    ],
+    muroTitulo: 'The wall: closure marks',
+    puertaTitulo: 'The door: opening marks',
+    verEjemplo: 'Tap a mark to see its example.',
+    pestanasEtiqueta: 'P1 indicators',
+
+    solidez: {
+      titulo: 'Robustness by classifiable “we” mentions',
+      tramos: [
+        { id: 'no-fiable', nombre: 'Unreliable', rango: '0 to 14', desde: 0, hasta: 15 },
+        { id: 'orientativa', nombre: 'Indicative', rango: '15 to 40', desde: 15, hasta: 40 },
+        { id: 'solida', nombre: 'Solid', rango: 'more than 40', desde: 40, hasta: 60 },
+      ],
+      discursos: { 'sanchez-barcelona-2026': 'Barcelona 2026', 'sanchez-onu-2024': 'UN 2024' },
+      lecturas: { 'sanchez-barcelona-2026': 'solid', 'sanchez-onu-2024': 'below the minimum of 15' },
+      minimoTitulo: 'The minimum to score',
+    },
+
+    resultados: {
+      si: 'All three are met: democratic exception. It does not subtract, and the scorecard flags it.',
+      no: 'Any one fails: normal closure, and the “we” is GC.',
+    },
+
+    piezas: {
+      mapa: 'A map with the “us” at the centre and four sentences to try: how each one opens a door, builds a wall or widens the circle.',
+      anotado: 'An excerpt from Pedro Sánchez’s speech in Barcelona (2026) with every reference to people marked by category.',
+      ficha: 'The P1 scorecard for two speeches, Barcelona and the UN, with the calculation step by step.',
+      arbol: 'The decision tree for the democratic exception, with the example sentences from the manual.',
+      juego: 'A short game with the solved cases from the manual: does it count or not?',
+    },
+
+    que: {
+      intro: [
+        'Before any argument, language decides who is inside and who is outside. The pronoun puts the listener somewhere: inside the speaker’s circle, on its periphery or facing it.',
+        'That placement happens pre-reflectively: listeners feel included or excluded before they think about it.',
+      ],
+      teoriaTitulo: 'Theoretical basis',
+      teoria: [
+        { autor: 'Gallese (2001, 2003)', texto: 'Empathy is intersubjective resonance: the shared manifold lets us simulate the other in an embodied, pre-reflective way. The neuroscience of intergroup empathic bias (Xu et al., 2009; Avenanti et al., 2010; Hein et al., 2010) shows that this resonance weakens when the other is categorized as out-group, and partly recovers when they are individualized or recategorized as “one of us”.' },
+        { autor: 'Chilton (2004)', texto: 'Discourse builds a deictic space with a centre (I, we, here, now, what is right) and a periphery. Pronominal deixis is an act of political positioning.' },
+        { autor: 'Van Dijk (1998, 2006)', texto: 'The ideological square: emphasize our good things and their bad things.' },
+        { autor: 'Mouffe (2005)', texto: 'The legitimate adversary remains inside the common space; the enemy is left outside. Democracy needs a boundary, but an agonistic one, not an antagonistic one.' },
+        { autor: 'Laclau (2005)', texto: 'The boundary between “the people” and its other is literal and constitutive. Its opposite pole is often named with abstract words that designate people.' },
+        { autor: 'Tajfel and Turner (1979); Gaertner and Dovidio (2000)', texto: 'Categorization triggers in-group favouritism; recategorization into a common “us” reduces it.' },
+      ],
+      cautelaTitulo: 'Caution',
+      cautela: 'P1 does not measure the audience’s neural resonance. It is a discursive indicator of the categorization conditions that neuroscience associates with that resonance. Embodied simulation is Gallese’s hypothesis; the exact role of mirror neurons in humans is still debated (Hickok, 2014).',
+    },
+
+    noMide: {
+      cabecera: ['Phenomenon', 'Where it is measured'],
+      filas: [
+        { fenomeno: 'War verbs («derrotar», “defeat”; «luchar», “fight”)', destino: ['P2', 'P6'], nota: 'metaphor and action' },
+        { fenomeno: 'Competition frames («victoria», “victory”; «batalla», “battle”)', destino: ['P2'] },
+        { fenomeno: 'Moral judgement of the adversary («corruptos», “corrupt”; «malvados», “wicked”)', destino: ['P3'] },
+        { fenomeno: 'Dehumanization («plaga», “plague”; «virus»)', destino: ['P2', 'P3'], nota: 'in P1 it only counts as one more closure' },
+        { fenomeno: 'Emotions mobilized', destino: ['P4'] },
+        { fenomeno: 'Coercive actions («doblarles el brazo», “twist their arm”)', destino: ['P6'] },
+        { fenomeno: 'The speaker’s “I” (vertical distance from the audience)', destino: ['P8'], nota: 'does not score in P1; candidate for P8' },
+      ],
+      regla: 'General rule: P1 records where the line is drawn, not what is said about those on the other side.',
+    },
+
+    aplica: {
+      pasos: [
+        { nombre: 'Extract', quien: 'Code', texto: 'A script pulls out every reference to people: pronouns, first and second person verb endings, possessives and clitics, with their sentence. It is deterministic: the same text always produces the same table.' },
+        { nombre: 'Review', quien: 'Human, 5 minutes', texto: 'The extractor gets about 9 out of 10 right. Typical errors (wrong person assigned, nouns taken for verbs, attached clitics missed, subjects counted twice) are flagged, and omissions are added by hand.' },
+        { nombre: 'Classify', quien: 'Human or AI', texto: 'Each reference gets a code from the manual. Boundary events are recorded in a separate table.' },
+        { nombre: 'Calculate', quien: 'Code', texto: 'A script applies the formulas and writes the scorecard.' },
+      ],
+      clave: 'AI never sets the score: it classifies, and the formulas calculate.',
+      reproducibilidad: 'Version 1.1 tested with spaCy 3.8.16 and the es_core_news_md 3.8.0 model. Any change in the version of the software, the AI model or the manual is noted on the scorecard, because it can change the results.',
+    },
+
+    ind: {
+      queMide: 'What it measures',
+      unidad: 'Unit',
+      formula: 'Formula',
+      reglas: 'Rules',
+      codigo: 'Code',
+      categoria: 'Category',
+      valor: 'Value',
+      ejemplos: 'Examples',
+      noCuenta: 'does not count',
+      alcance: {
+        nombre: 'Reach of the “we”',
+        peso: '50%',
+        queMide: 'How many of the speech’s “we” mentions are built against someone.',
+        unidad: 'Each first person plural mention (pronoun, verb ending or possessive). In Spanish the subject pronoun is often dropped, so many “we” mentions live only in the verb: «queremos» (“we want”).',
+        codigos: [
+          { codigo: 'U', categoria: 'Universal, with no opposition', valor: '10', ej: '«nuestros hijos» (“our children”), «nuestras democracias» (“our democracies”), «no podemos volver a la situación anterior» (“we cannot go back to how things were”, said to the whole international community)' },
+          { codigo: 'G', categoria: 'Group with no loser', valor: '10', ej: '«en este lugar somos 5.000 personas soñando un mundo mejor» (“in this place we are 5,000 people dreaming of a better world”), «estamos aquí para celebrar nuestra unidad» (“we are here to celebrate our unity”)' },
+          { codigo: 'GC', categoria: 'Against someone (group or universal)', valor: '0', ej: '«la vergüenza para ellos; para nosotros el orgullo» (“shame for them; for us, pride”), «vamos a reconstruir lo que ellos han tratado de destruir» (“we will rebuild what they have tried to destroy”), «el pueblo frente a la casta» (“the people against the caste”), «los tecnoligarcas se llenan el bolsillo a costa de nuestras democracias» (“the tech oligarchs line their pockets at the expense of our democracies”)' },
+          { codigo: 'S', categoria: 'Situational', valor: null, ej: '«los líderes que nos acompañan aquí» (“the leaders who join us here”)' },
+          { codigo: 'I', categoria: 'Institutional', valor: null, ej: '«desde España condenamos» (“from Spain we condemn”), «estamos aprobando una regularización» (“we are approving a regularization”)' },
+          { codigo: 'A', categoria: 'Ambiguous', valor: null, ej: 'Cannot be decided with the available context.' },
+          { codigo: 'X', categoria: 'Extraction error', valor: null, ej: '' },
+          { codigo: 'Y', categoria: 'First person singular («yo», «me», «mi»: “I”, “me”, “my”)', valor: null, ej: 'Recorded for a future P8.' },
+          { codigo: 'F', categoria: 'Third person “they” («ellos»)', valor: null, ej: 'The boundary it marks is recorded as an event under permeability.' },
+        ],
+        reglas: [
+          '“Against someone” overrides reach. Any “we”, group or universal, that is built in its sentence against an identifiable other is GC. This is Laclau’s populist boundary: “the people” against “the caste” is universal in form and exclusionary in function. Only the democratic exception can spare it.',
+          'The loser has to be in the text. A “we” is GC only if the other is identifiable: named (“the right”) or recoverable from the immediate context (“they”, “those who criticize us”). If the loser is only implicit in a metaphor («esta victoria es vuestra», “this victory is yours”), it is G, and the competitive frame is picked up by P2.',
+          'The warm group is inclusive. Speaking to one’s own people without invalidating anyone builds no wall, which is why G is worth the same as U. What sets apart a speech that opens the boundary to the whole of society is picked up by permeability.',
+          'The sentence is the context. The classification is decided by looking at the sentence that contains the mention and, if needed, the one before.',
+          'Situational is the “we” that only points to those physically present. It is neither good nor bad.',
+        ],
+        formula: 'Reach = 10 × (U + G) / (U + G + GC)',
+      },
+      interpelacion: {
+        nombre: 'Direct address',
+        peso: '22%',
+        queMide: 'How the speech addresses its audience in the second person.',
+        unidad: 'Each second person mention, with its verb endings, possessives and clitics. Spanish has four forms that English collapses into “you”: «tú» and «usted» (singular, informal and formal) and «vosotros» and «ustedes» (plural, informal and formal).',
+        codigos: [
+          { codigo: '2I', categoria: 'Inclusive', ej: '«gracias por llenar este espacio con vuestra ilusión» (“thank you for filling this space with your hope”), «os pido que hagamos realidad nuestros sueños» (“I ask you to help us make our dreams come true”)' },
+          { codigo: '2C', categoria: 'Against someone', ej: '«os pido que no os engañen» (“I ask you not to let them fool you”, which assumes someone is deceiving), «ustedes, los de siempre» (“you, the usual suspects”)' },
+        ],
+        regla: 'Warmth towards one’s own audience is inclusive unless the sentence invalidates or attacks someone else. It follows the same logic as reach, including the democratic exception.',
+        formula: 'Direct address = 10 × 2I / (2I + 2C)',
+      },
+      permeabilidad: {
+        nombre: 'Permeability',
+        peso: '28%',
+        queMide: 'Whether the boundary is a wall or a door: whether the other can come to be part of the “us”.',
+        unidad: 'The boundary event: each sentence in which the speech places an identifiable human other in relation to the “us”. A sentence with two different referents produces two events. One referent with several marks in the same sentence is a single event.',
+        blancosTitulo: 'Who is left outside? Types of target',
+        blancosCabecera: ['Target', 'Example', 'Is it a boundary?'],
+        blancos: [
+          { blanco: 'A problem', ej: '«acabar con la pobreza» (“ending poverty”), «la corrupción» (“corruption”)', frontera: 'No', es: false },
+          { blanco: 'A policy', ej: '«esta reforma laboral es injusta» (“this labour reform is unfair”)', frontera: 'No', es: false },
+          { blanco: 'An ideology', ej: '«el neoliberalismo ha fracasado» (“neoliberalism has failed”)', frontera: 'Only if given a body: presented as a hostile agent («el comunismo quiere destruir vuestras familias», “communism wants to destroy your families”) or extended to those who hold it', es: null },
+          { blanco: 'People named as a structure', ej: '«la casta» (“the caste”), «las élites» (“the elites”), «el régimen» (“the regime”), «los de arriba» (“those at the top”)', frontera: 'Yes', es: true },
+          { blanco: 'The common home (democratic institutions)', ej: '«los jueces son golpistas» (“the judges are coup plotters”), «las elecciones están amañadas» (“the elections are rigged”)', frontera: 'Yes. Criticizing how an institution works («la justicia es lenta», “the courts are slow”) is not; delegitimizing it is', es: true },
+        ],
+        marcasTitulo: 'Closure and opening marks',
+        marcasNota: 'Every mark is worth 1.',
+        cierresTitulo: 'Closures (C) · 7 marks',
+        cierres: [
+          ['C1', 'Us/them contrast', '«la vergüenza para ellos; para nosotros el orgullo» (“shame for them; for us, pride”)'],
+          ['C2', 'Homogeneous bloc', '«todos son iguales» (“they are all the same”), a list of behaviours merged into a single “them”'],
+          ['C3', 'Irreversibility', '«son así y no van a cambiar» (“that is how they are and they will not change”), «jamás serán de los nuestros» (“they will never be one of us”)'],
+          ['C4', 'Expulsion from the community', '«no son el pueblo» (“they are not the people”), «antiespañoles» (“anti-Spanish”)'],
+          ['C5', 'Threat aimed at the “us”', '«vienen a por nosotros» (“they are coming for us”), «han intentado que nos avergoncemos» (“they have tried to make us ashamed”)'],
+          ['C6', 'Dehumanization', '«una plaga» (“a plague”), «ratas» (“rats”)'],
+          ['C7', 'Denial of voice', '«con esa gente no se habla» (“you do not talk to people like that”)'],
+        ],
+        aperturasTitulo: 'Openings (A) · 9 marks',
+        aperturas: [
+          ['A1', 'Invitation', '«también a quienes no nos votaron» (“also to those who did not vote for us”)'],
+          ['A2', 'Separating leaders from people', 'telling a government’s decision apart from its people'],
+          ['A3', 'Shared belonging despite difference', '«pensamos distinto, pero también son de aquí» (“we think differently, but they belong here too”), “they are us”'],
+          ['A4', 'Legitimate adversary', '«respeto a quien defiende otra opción» (“I respect those who support another option”)'],
+          ['A5', 'Humanizing someone on the other side', 'naming a specific person with their story'],
+          ['A6', 'Acknowledging a success, or self-criticism', '«en eso acertaron» (“they got that right”), «también nos equivocamos» (“we got things wrong too”)'],
+          ['A7', 'Shared fate', '«esto nos afecta a todos, pensemos lo que pensemos» (“this affects all of us, whatever we think”)'],
+          ['A8', 'Denying a closure', '«no son enemigos» (“they are not enemies”)'],
+          ['A9', 'Conditional inclusion', '«los que rectifiquen serán bienvenidos» (“those who change course will be welcome”)'],
+        ],
+        dificilesTitulo: 'Hard cases',
+        dificiles: [
+          ['Reported speech', '«Dicen que somos antiespañoles» (“They say we are anti-Spanish”) is not a closure by the speaker. If the speaker explicitly rejects it, it can be A8.'],
+          ['Irony', 'Coded according to the intention that is clear from context; if in doubt, it is not coded.'],
+          ['Mixed mark', '«Sus dirigentes nos traicionaron, pero sus votantes son gente honrada» (“Their leaders betrayed us, but their voters are decent people”) is two events: a closure (leaders) and an A2 opening (voters).'],
+          ['Addressing the adversary', '«Le quiero decir a la derecha...» (“I want to tell the right...”) is not a closure in itself: it speaks to them, it does not expel them. What it says about them is measured by P3.'],
+        ],
+        formula: 'Permeability = 10 × (A + 1) / (A + C + 2)',
+        formulaNombre: 'Laplace’s rule of succession',
+        formulaNota: 'With no events, permeability is not scored. With few events, the formula pulls the score towards the centre so that a single event does not send it to an extreme.',
+      },
+    },
+
+    excepcion: {
+      intro: 'IRA is against violence, not against those who name it. A boundary drawn against someone because of their violent or anti-democratic conduct is not penalized: under permeability it is recorded as CP and does not score; under reach and direct address, the “we” or the second person keeps its normal category (U, G, 2I) with the note “democratic exception”.',
+      verdad: 'IRA does not decide whether the accusation is true. That is why the exception depends on how the boundary is drawn, not on who is right. It only applies if the sentence meets all three conditions:',
+      condiciones: [
+        ['Specific conduct', 'The other is identified by an act (“attacked”, “invaded”, “murdered”, “annulled the elections”), not by what they are.'],
+        ['Bounded agent', 'The act is attributed to whoever committed it: a person, a government, an armed group, “those who did this”. Never to a people, an ethnic group, a religion or a party’s voters.'],
+        ['No extension', 'The sentence does not generalize (“all”, “always”), essentialize (“that is how they are”) or dehumanize.'],
+      ],
+      falla: 'If any one fails, it is a normal closure (and the “we” is GC).',
+      ejemplosCabecera: ['Sentence', 'Exception?'],
+      ejemplos: [
+        ['«El terrorista atacó a nuestra comunidad» (“The terrorist attacked our community”)', true, 'specific act, individual agent', [true, true, true]],
+        ['«Rusia ha invadido nuestro país» (“Russia has invaded our country”)', true, 'specific act, the state as the actor', [true, true, true]],
+        ['«El régimen de Kiev atacó a nuestro pueblo» (“The Kyiv regime attacked our people”)', true, 'formally identical to the previous one', [true, true, true]],
+        ['«El gobierno de X está cometiendo un genocidio» (“The government of X is committing genocide”)', true, 'bounded agent', [true, true, true]],
+        ['«Los X son genocidas» (“The X are genocidal”)', false, 'an entire people', [false, false, false]],
+        ['«Los ucranianos son nazis que nos odian» (“Ukrainians are Nazis who hate us”)', false, 'an entire people, essentialized', [false, false, false]],
+        ['«Los inmigrantes traen la violencia a nuestros barrios» (“Immigrants bring violence to our neighbourhoods”)', false, 'it talks about violence, but against a group for what it is', [false, false, false]],
+        ['«No pactaremos con quien justifique la violencia» (“We will not make deals with anyone who justifies violence”)', true, 'applies to anyone, including one’s own side', [true, true, true]],
+      ],
+      si: 'Yes', no: 'No',
+      salvaguardasTitulo: 'Two safeguards',
+      salvaguardas: [
+        ['Flag on the scorecard', 'Every exception applied is listed on the scorecard with its sentence, under the notice “IRA does not verify these accusations”, so readers know where the analysis has taken the speaker at their word.'],
+        ['Withdrawal after a documented debunk', 'If an independent, published fact-check (from a fact-checker accredited by the IFCN network, such as Maldita, Newtral or EFE Verifica) debunks the accusation, the exception is withdrawn and the sentence counts as a normal closure: inventing an aggressor to draw a boundary is manufacturing an enemy. The source is cited on the scorecard. Without a documented debunk, the exception stands, with its flag.'],
+      ],
+    },
+
+    minimos: {
+      cabecera: ['Indicator', 'Weight', 'Minimum to score'],
+      filas: [
+        ['Reach', '50%', '15 classifiable “we” mentions (U + G + GC)'],
+        ['Permeability', '28%', '3 events (A + C)'],
+        ['Direct address', '22%', '3 mentions (2I + 2C)'],
+      ],
+      notas: [
+        'If an indicator does not reach its minimum, its weight is shared out proportionally among the others.',
+        'P1 is scored if reach or permeability reaches its minimum. That way, a speech that polarizes almost entirely in the third person (“they steal, they lie”) does not go without a score: it gets one mainly from permeability.',
+        'Robustness of P1. If reach meets its minimum: 15 to 40 classifiable “we” mentions, indicative; more than 40, solid. If only permeability scores: 3 to 5 events, indicative; 6 or more, solid. If neither does: not scored.',
+        'Repetitions. Every mention and every event counts, even when repeated, and a single sentence can subtract under both reach and permeability: each indicator measures a different property of the sentence.',
+        'The minimum length is expressed in references, not words: a rally speech can have 40 “we” mentions per thousand words and an institutional address, 14.',
+      ],
+    },
+
+    limites: [
+      ['«Ustedes» in Latin America', 'In Latin American Spanish «ustedes» is the only plural “you”, and it agrees with the verb in the third person. The extractor has a Latin American variant: clear cases are extracted as second person, and ambiguous ones («les», «sus», «saben» with no subject) are passed to the coder as candidates. It still needs testing on a real speech: if too many candidates come out, the review stops taking 5 minutes.'],
+      ['The named adversary', 'The extractor only catches «ellos» (“they”); noun phrases («la derecha», “the right”; «los tecnoligarcas», “the tech oligarchs”) and implicit subjects («han intentado que...», “[they] have tried to...”) are found by the coder when recording events. Pending: proposing them automatically.'],
+      ['Well-phrased false accusations', 'A false accusation of violence that meets the three conditions of the exception gets through the filter as long as there is no documented debunk. IRA measures language, not facts; the scorecard says so, and verification is a job for journalism.'],
+      ['Speeches with few but intense events', 'The UN speech has two clear closures («gente sin escrúpulos, activistas de la mentira», “unscrupulous people, activists of lies”) and goes unscored because of the minimum of 3.'],
+      ['Translations', 'P1 is not applied to translated speeches: the pronoun is chosen by the translator. English would need an extractor of its own.'],
+      ['Genre', 'Rally, institutional address, interview and social media should be labelled so that comparisons stay within the same genre.'],
+      ['Weights and intensities', 'The weights (50/28/22) and the value of 1 for every mark are hypotheses: they will be calibrated with the corpus.'],
+      ['Reliability', 'The inter-coder study (Krippendorff’s α ≥ 0.80 on codes and events) and the human versus AI comparison are still pending.'],
+      ['Overlap between indicators', 'If, with more speeches, reach and permeability turned out to always move together, one of them would be redundant and P1 could be simplified. It is not an error, just a possible future simplification.'],
+    ],
+
+    cambios: {
+      fecha: '9 October 2026',
+      v1: {
+        titulo: 'Version 1',
+        decisiones: [
+          'P1 becomes purely deictic: the verbs that go with the pronoun leave P1 (they go to P2 and P6).',
+          'Counting by code (spaCy and a fixed lexicon) and classification by human or AI; calculation, always by code.',
+          'Robustness thresholds: fewer than 15 “we” mentions, unreliable; 15 to 40, indicative; more than 40, solid.',
+          'The group “we” with no loser is worth 10, the same as the universal one; only the “we” against someone is worth 0.',
+          'A loser implicit in a metaphor does not turn the “we” into “against someone”: P2 measures it.',
+          'New situational category, outside the calculation.',
+          'The “I” leaves P1; candidate for P8 once it can be coded with observable marks.',
+          'Direct address: warmth towards one’s own audience is inclusive unless it attacks or invalidates someone else.',
+          'Permeability through observable events; Laplace formula; minimum of 3 events.',
+          'Types of target: problems and policies are not a boundary; ideologies only when given a body; people named as structures and delegitimizing the common home are.',
+          'Democratic exception: a boundary drawn because of violent or anti-democratic conduct does not score.',
+          'Every closure and opening mark is worth 1 in this version.',
+        ],
+      },
+      v11: {
+        titulo: 'Version 1.1',
+        decisiones: [
+          '“Against someone” overrides reach: the universal “we” built against an identifiable other is GC.',
+          'P1 is scored if reach or permeability reaches its minimum.',
+          'Repetitions, and sentences that subtract under two indicators, count every time: each indicator measures a different property.',
+          'The democratic exception applies to all of P1, with three conditions (specific conduct, bounded agent, no extension) that do not depend on whether the accusation is true.',
+          'Every exception is flagged on the scorecard; it is withdrawn if an accredited fact-checker debunks it with a published source.',
+          'Expanded theory section: why it matters that the boundary is a door (the affective response comes before argument and the boundary shapes it). No changes to rules or calculations.',
+        ],
+      },
+    },
+
+    referencias: REFERENCIAS,
+    manual: 'Full P1 manual in the repository (in Spanish)',
+    pie: { volver: '← Back to the index', siguiente: 'Next: P2 · The metaphorical frame' },
   },
 };

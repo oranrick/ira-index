@@ -1,4 +1,5 @@
 // IRA · Metodología 2.0 · P2 El marco metafórico · textos de la página (SIMULACIÓN).
+// Bilingüe: en inglés los ejemplos se quedan en español con su traducción (ver textosComunes.js).
 // Fuente: research/manual/P2.md (borrador v0.1). Aquí solo se resume y se adapta el tono:
 // no se añaden reglas que no estén en el manual. Lo pendiente se marca como tal.
 
@@ -28,6 +29,17 @@ export const TEXTOS_P2 = {
     indiceTitulo: 'En esta página',
     indiceDesplegar: 'Ir a una sección',
     enConstruccion: 'En construcción',
+    ui: {
+      modoEtiqueta: 'Cómo ver los ejemplos', verTodo: 'Ver todo', adivinar: 'Adivinar primero',
+      pistaAdivinar: 'Toca cada frase para destapar su resultado.', tapa: '¿Neutra o polariza?',
+      imagenEtiqueta: 'Imagen del crimen', es: 'es',
+      gradosEtiqueta: 'Grados de la metáfora',
+      reiniciar: 'Empezar de nuevo',
+      ayudaFinal: 'Ese es el resultado de la regla para tu metáfora.',
+      ayudaPaso: 'Piensa en una metáfora y responde: el botón activo es el paso en el que estás.',
+      navPie: 'Navegación entre parámetros',
+      decimal: ',',
+    },
 
     secciones: [
       { id: 'la-idea', titulo: 'La idea' },
@@ -68,6 +80,7 @@ export const TEXTOS_P2 = {
       si: 'Sí', no: 'No', noAplica: 'No hace falta',
       dominio: 'Dominio',
       blanco: 'Blanco',
+      mando: { anterior: 'Frase anterior', siguiente: 'Frase siguiente', recorrer: 'Recorrer las siete' },
       ejemplos: [
         { dominio: 'GUE', nombreDominio: 'Guerra', frase: '«se comprometió a luchar por él [el porvenir]»', fuente: 'Sánchez, Barcelona 2026', blanco: 'algo', blancoTexto: 'Una meta', p1: false, p2: null, p3: false, resultado: 'neutra', porque: 'La imagen bélica apunta a algo deseado, no a alguien.' },
         { dominio: 'ENF', nombreDominio: 'Enfermedad', frase: '«la ira y el miedo son un virus que recorre nuestra sociedad»', blanco: 'algo', blancoTexto: 'Un problema', p1: false, p2: null, p3: false, resultado: 'neutra', porque: 'Diagnostica sin culpable humano. Diagnosticar no es polarizar.' },
@@ -113,6 +126,7 @@ export const TEXTOS_P2 = {
       ui: {
         ayuda: 'Pulsa un autor para ver qué aporta al marco metafórico.',
         referencias: 'Referencias',
+        mando: { etiqueta: 'Autores', anterior: 'Autor anterior', siguiente: 'Autor siguiente', recorrer: 'Recorrer' },
         zonas: { cuerpo: 'Cuerpo y mente', lenguaje: 'Lenguaje', politica: 'Política' },
         nodos: [
           { corto: 'Gallese · Lakoff', anios: '2005', zona: 'cuerpo', disciplina: 'Neurociencia y cognición', refs: ['Gallese, V., y Lakoff'] },
@@ -321,5 +335,321 @@ export const TEXTOS_P2 = {
     referenciasNota: 'Referencias por verificar antes de publicar.',
     manual: 'Borrador del manual de P2 en el repositorio',
     pie: { volver: '← Volver al índice', anterior: '← P1 · La frontera del nosotros' },
+  },
+
+  // Inglés: capa de lectura del mismo borrador. Los ejemplos van en español con su traducción.
+  en: {
+    volverIndice: '← Methodology 2.0',
+    rotulo: 'Parameter 2 · draft v0.1',
+    titulo: 'The metaphorical frame',
+    frase: 'P2 measures which images the speech uses to think about conflict, and who they are aimed at.',
+    lema: ['The domain does not decide.', 'The target does.'],
+    indiceTitulo: 'On this page',
+    indiceDesplegar: 'Jump to a section',
+    enConstruccion: 'Under construction',
+    ui: {
+      modoEtiqueta: 'How to view the examples', verTodo: 'Show all', adivinar: 'Guess first',
+      pistaAdivinar: 'Tap each sentence to reveal its result.', tapa: 'Neutral or polarizing?',
+      imagenEtiqueta: 'Image of crime', es: 'is',
+      gradosEtiqueta: 'Degrees of metaphor',
+      reiniciar: 'Start again',
+      ayudaFinal: 'That is the result of the rule for your metaphor.',
+      ayudaPaso: 'Think of a metaphor and answer: the active button is the step you are on.',
+      navPie: 'Navigation between parameters',
+      decimal: '.',
+    },
+
+    secciones: [
+      { id: 'la-idea', titulo: 'The idea' },
+      { id: 'apunta', titulo: 'Who is it aimed at?' },
+      { id: 'dos-destinos', titulo: 'Same image, two destinations' },
+      { id: 'por-que-importa', titulo: 'Why it matters' },
+      { id: 'que-mide', titulo: 'Theoretical basis' },
+      { id: 'que-no-mide', titulo: 'What P2 does not measure' },
+      { id: 'que-cuenta', titulo: 'What counts as a metaphor' },
+      { id: 'unidad', titulo: 'The unit: the event' },
+      { id: 'dominios', titulo: 'The domains' },
+      { id: 'regla', titulo: 'The rule, step by step' },
+      { id: 'formula', titulo: 'The formula' },
+      { id: 'casos', titulo: 'Solved cases' },
+      { id: 'prueba', titulo: 'The tests: Barcelona and the UN' },
+      { id: 'pendiente', titulo: 'What is still missing' },
+      { id: 'cambios', titulo: 'Decision log' },
+      { id: 'referencias', titulo: 'References' },
+    ],
+
+    resultados: {
+      polariza: { nombre: 'Polarizing', texto: 'The image is aimed at people and denies them the place of a legitimate rival.' },
+      neutra: { nombre: 'Neutral', texto: 'The image is aimed at a problem or a goal, or treats the rival by the rules.' },
+      empatica: { nombre: 'Empathetic', texto: 'The image accepts and unites: it leaves nobody out and builds something shared.' },
+    },
+
+    apunta: {
+      intro: 'Pick a sentence. The arrow leaves the image and reaches its target; the steps of the rule decide the result.',
+      etiqueta: 'Example sentences',
+      imagen: 'image',
+      blancos: { alguien: 'someone', algo: 'something', nosotros: 'us' },
+      blancosNota: { alguien: 'people or groups', algo: 'problem, policy or goal', nosotros: 'the community, excluding no one' },
+      paso1: 'Is the target human?',
+      paso2: 'Does it keep the rules?',
+      paso3: 'Does it accept and unite?',
+      atajo: 'ANI and INM against people: there is no step 2',
+      si: 'Yes', no: 'No', noAplica: 'Not needed',
+      dominio: 'Domain',
+      blanco: 'Target',
+      mando: { anterior: 'Previous sentence', siguiente: 'Next sentence', recorrer: 'Play all seven' },
+      ejemplos: [
+        { dominio: 'GUE', nombreDominio: 'War', frase: '«se comprometió a luchar por él [el porvenir]» (“he committed to fighting for it [the future]”)', fuente: 'Sánchez, Barcelona 2026', blanco: 'algo', blancoTexto: 'A goal', p1: false, p2: null, p3: false, resultado: 'neutra', porque: 'The war image is aimed at something desired, not at someone.' },
+        { dominio: 'ENF', nombreDominio: 'Disease', frase: '«la ira y el miedo son un virus que recorre nuestra sociedad» (“anger and fear are a virus spreading through our society”)', blanco: 'algo', blancoTexto: 'A problem', p1: false, p2: null, p3: false, resultado: 'neutra', porque: 'It diagnoses without a human culprit. Diagnosing is not polarizing.' },
+        { dominio: 'DEP', nombreDominio: 'Sport', frase: '«vamos a ganarle al PP en las urnas» (“we are going to beat the PP at the ballot box”; the PP is Spain’s main conservative party)', blanco: 'alguien', blancoTexto: 'A party', p1: true, p2: true, p3: false, resultado: 'neutra', porque: 'It is aimed at people, but it keeps the rules: a rival, not an enemy.' },
+        { dominio: 'GUE', nombreDominio: 'War', frase: '«vamos a aplastar al PP» (“we are going to crush the PP”)', blanco: 'alguien', blancoTexto: 'A party', p1: true, p2: false, p3: null, resultado: 'polariza', porque: 'Humiliation: the rival is no longer beaten, it is destroyed.' },
+        { dominio: 'ANI', nombreDominio: 'Animal and plague', frase: '«son una plaga» (“they are a plague”)', blanco: 'alguien', blancoTexto: 'A group', p1: true, p2: 'atajo', p3: null, resultado: 'polariza', porque: 'Calling someone a plague already denies them the status of legitimate rival. There is no respectful way to say it.' },
+        { dominio: 'CON', nombreDominio: 'Construction', frase: '«vamos a tejer este país entre todos» (“together we are going to weave this country”)', blanco: 'nosotros', blancoTexto: 'Everyone', p1: false, p2: null, p3: true, resultado: 'empatica', porque: 'It unites and leaves nobody out. There is no need to name the other.' },
+        { dominio: 'CUI', nombreDominio: 'Care', frase: '«tendemos la mano también a quienes no nos votaron» (“we reach out our hand to those who did not vote for us, too”)', blanco: 'alguien', blancoTexto: 'Those who did not vote', p1: true, p2: true, p3: true, resultado: 'empatica', porque: 'It is aimed at people, but to bring them in: it accepts the other and unites.' },
+      ],
+    },
+
+    destinos: {
+      intro: 'Under the previous rubric, «luchar» (“fight”) or «virus» lowered the score on their own. Now the same image can end up in opposite places.',
+      pares: [
+        { dominio: 'GUE', nombre: 'War', a: { frase: '«Esta es una batalla de ideas, y la vamos a ganar con mejores argumentos» (“This is a battle of ideas, and we will win it with better arguments”)', resultado: 'neutra', nota: 'there is no one on the other side' }, b: { frase: '«Esta es una batalla de ideas contra quienes quieren destruir España» (“This is a battle of ideas against those who want to destroy Spain”)', resultado: 'polariza', nota: 'people presented as a threat' } },
+        { dominio: 'ENF', nombre: 'Disease', a: { frase: '«La ira y el miedo son un virus que recorre nuestra sociedad» (“Anger and fear are a virus spreading through our society”)', resultado: 'neutra', nota: 'the virus is a problem' }, b: { frase: '«…y quienes lo propagan son X» (“…and those who spread it are X”)', resultado: 'polariza', nota: 'the virus has human carriers' } },
+        { dominio: 'DEP', nombre: 'Sport', a: { frase: '«Vamos a ganarle al PP en las urnas» (“We are going to beat the PP at the ballot box”)', resultado: 'neutra', nota: 'it keeps the rules' }, b: { frase: '«Vamos a aplastar al PP» (“We are going to crush the PP”)', resultado: 'polariza', nota: 'humiliation' } },
+      ],
+    },
+
+    porque: {
+      entrada: 'If we conceive of a problem in terms of war, we will look for war-like solutions. Under the war metaphor, citizens become soldiers, and disagreeing starts to look like betrayal.',
+      entradaFuente: 'El contagio de las palabras (“The contagion of words”), undergraduate thesis, 2024',
+      experimento: {
+        titulo: 'The same crime, two images',
+        texto: 'In a classic experiment, describing crime as a virus or as a beast changed the solutions people preferred: prevent and reform, or hunt down and lock up.',
+        fuente: 'Thibodeau and Boroditsky, 2011',
+        virus: { imagen: 'a virus', solucion: 'prevent · reform' },
+        bestia: { imagen: 'a beast', solucion: 'hunt down · lock up' },
+        problema: 'crime',
+        cautela: 'The replication by Steen, Reijnierse and Burgers (2014) found weaker effects. P2 does not measure the effect on the audience: it measures the image the speech chooses.',
+      },
+      pasos: [
+        { titulo: 'The image structures thought', texto: 'We think about an abstract domain (politics) through a concrete one (war, the body, the path).', fuentes: 'Lakoff and Johnson, 1980' },
+        { titulo: 'And it does so unnoticed', texto: 'Conventional metaphors act before reflection: language “thinks for you”.', fuentes: 'Klemperer, 1947' },
+        { titulo: 'The danger lies in the target', texto: 'When the image turns people into an infection or a plague, the community protects itself by expelling them.', fuentes: 'Esposito, 2002 · Musolff, 2010' },
+      ],
+    },
+
+    teoria: {
+      intro: 'P2 draws on cognitive linguistics, on the history of the language of hatred and on the political philosophy of immunity.',
+      ui: {
+        ayuda: 'Tap an author to see what they contribute to the metaphorical frame.',
+        referencias: 'References',
+        mando: { etiqueta: 'Authors', anterior: 'Previous author', siguiente: 'Next author', recorrer: 'Play through' },
+        zonas: { cuerpo: 'Body and mind', lenguaje: 'Language', politica: 'Politics' },
+        nodos: [
+          { corto: 'Gallese · Lakoff', anios: '2005', zona: 'cuerpo', disciplina: 'Neuroscience and cognition', refs: ['Gallese, V., y Lakoff'] },
+          { corto: 'Lakoff · Johnson', anios: '1980', zona: 'lenguaje', disciplina: 'Conceptual metaphor', refs: ['Lakoff, G., y Johnson', 'Lakoff, G. (1996)'] },
+          { corto: 'Klemperer', anios: '1947', zona: 'lenguaje', disciplina: 'Philology', refs: ['Klemperer'] },
+          { corto: 'Esposito', anios: '2002 · 2004', zona: 'politica', disciplina: 'Political philosophy', refs: ['Esposito'] },
+          { corto: 'Musolff', anios: '2010', zona: 'politica', disciplina: 'Critical metaphor analysis', refs: ['Musolff'] },
+          { corto: 'Thibodeau · Boroditsky', anios: '2011', zona: 'cuerpo', disciplina: 'Cognitive psychology', refs: ['Thibodeau', 'Steen, G. J., Reijnierse'] },
+        ],
+      },
+      autores: [
+        { autor: 'Gallese and Lakoff (2005)', texto: 'Concepts rest on the sensorimotor system: understanding “grasp” reuses part of the circuits we grasp with. It is the bridge between IRA’s two pillars: embodied simulation and conceptual metaphor.' },
+        { autor: 'Lakoff and Johnson (1980); Lakoff (1996)', texto: 'We think about the abstract through the concrete: argument as war, life as a journey. In politics, the family is the underlying moral model: the strict father versus the nurturing parent.' },
+        { autor: 'Klemperer (1947)', texto: 'The philologist who documented the language of the Third Reich. Repeated words act like tiny doses of poison: swallowed without noticing, they take effect over time.' },
+        { autor: 'Esposito (2002, 2004)', texto: 'The immunitary paradigm: the community protects itself from what it perceives as infection, and that protection can turn against life itself. That is why INM («erradicar», “eradicate”; «limpiar», “cleanse”) is the most dangerous domain.' },
+        { autor: 'Musolff (2010)', texto: 'Reconstructs the body politic and the image of the parasite, the sick organism that must expel what is foreign. He links Klemperer with Esposito.' },
+        { autor: 'Thibodeau and Boroditsky (2011)', texto: 'Metaphor changes reasoning: crime as a virus or as a beast leads to different solutions. The replication by Steen, Reijnierse and Burgers (2014) found weaker effects.' },
+      ],
+      otros: 'Also: Sontag (illness as metaphor), Charteris-Black (critical metaphor analysis), Steen et al. (the MIPVU procedure) and Mouffe (agonism).',
+      cautelaTitulo: 'Caution',
+      cautela: 'P2 does not measure what each listener feels. It is an indicator of the images the speech makes available and of who they are directed at.',
+    },
+
+    noMide: {
+      filas: [
+        { fenomeno: 'Where the us/them line is drawn', destino: ['P1'] },
+        { fenomeno: 'Literal moral judgement («corruptos», “corrupt”; «traidores», “traitors”)', destino: ['P3'] },
+        { fenomeno: 'Emotions mobilized', destino: ['P4'] },
+        { fenomeno: 'What the speech literally asks people to do (vote, mobilize, punish)', destino: ['P6'], nota: 'the final line will be drawn when P6 is revised' },
+      ],
+      reparto: [
+        { frase: '«Son una plaga» (“They are a plague”)', destino: 'P2', tipo: 'figurado' },
+        { frase: '«Vamos a aplastarlos» (“We are going to crush them”)', destino: 'P2', tipo: 'figurado' },
+        { frase: '«Son unos corruptos» (“They are corrupt”)', destino: 'P3', tipo: 'literal' },
+        { frase: '«Salgan a votar el domingo» (“Go out and vote on Sunday”)', destino: 'P6', tipo: 'literal' },
+      ],
+      repartoTitulo: 'Each sentence lands in one place only',
+      figurado: 'figurative', literal: 'literal',
+      regla: 'The figurative goes to P2; the literal, to the others. That way P2 no longer moves together with P3 and P6.',
+    },
+
+    cuenta: {
+      intro: 'Metaphors range from living to dead. P2 counts the living and the conventional ones, because conventional metaphors are precisely the ones that act without anyone noticing.',
+      tramos: [
+        { id: 'viva', nombre: 'Living', ej: '«un tsunami de odio» (“a tsunami of hatred”), «son una plaga» (“they are a plague”)', nota: 'it stands out; someone chose it', cuenta: true },
+        { id: 'convencional', nombre: 'Conventional', ej: '«lucha contra el paro» (“the fight against unemployment”), «fractura social» (“social fracture”), «la derecha rendida» (“the right, having surrendered”)', nota: 'barely noticeable, but the image is still there', cuenta: true },
+        { id: 'muerta', nombre: 'Dead', ej: '«la pata de la mesa» (“the leg of the table”), «los precios suben» (“prices go up”)', nota: 'it is now just the normal word', cuenta: false },
+      ],
+      cuentaSi: 'Counts', cuentaNo: 'Does not count',
+      eje: ['noticeable', 'unnoticed'],
+      prueba: 'How to tell it is dead: the dictionary gives that sense as a normal one and no source image is activated. This is the MIPVU comparison between the word’s basic sense and the sense it has in the sentence.',
+      peso: 'Living or conventional is noted on the scorecard, but it does not change the weight: every event is worth 1.',
+    },
+
+    unidad: {
+      definicion: ['one sentence', 'one domain', 'one target'],
+      igual: '1 event',
+      ejemplos: [
+        { frase: '«Es una batalla y no vamos a ceder ni una trinchera ante ellos» (“It is a battle and we will not give up a single trench to them”)', eventos: 1, nota: 'many war words, one target' },
+        { frase: '«Combatiremos la pobreza y a quienes la provocan» (“We will fight poverty and those who cause it”)', eventos: 2, nota: 'a problem and some people' },
+      ],
+      repeticiones: 'Repetitions in different sentences count every time, as in P1: insistence is part of the effect.',
+      eventosRotulo: (n) => (n === 1 ? '1 event' : `${n} events`),
+    },
+
+    dominios: {
+      intro: 'A closed list. The domain does not decide the result, but it helps describe the speech and spot the two domains that can never be respectful towards a person.',
+      lista: [
+        { codigo: 'GUE', nombre: 'War and conflict', ej: 'fight, battle, front, trench, surrender', icono: 'guerra' },
+        { codigo: 'DEP', nombre: 'Sport and competition', ej: 'win, come back, team, match', icono: 'deporte' },
+        { codigo: 'ENF', nombre: 'Disease and contagion', ej: 'virus, cancer, contagion, infect', icono: 'enfermedad' },
+        { codigo: 'INM', nombre: 'Immunity, cleansing and purity', ej: 'eradicate, clean up the country, take out the trash, purge', icono: 'inmunidad', siempre: true },
+        { codigo: 'ANI', nombre: 'Animal and plague', ej: 'plague, rats, parasite, hyena, vermin', icono: 'animal', siempre: true },
+        { codigo: 'CAT', nombre: 'Natural disaster', ej: 'wave, avalanche, tsunami, flood', icono: 'catastrofe' },
+        { codigo: 'REL', nombre: 'Religion', ej: 'crusade, demon, sin, salvation', icono: 'religion' },
+        { codigo: 'CON', nombre: 'Construction', ej: 'build, foundations, bridges, weave', icono: 'construccion' },
+        { codigo: 'VIA', nombre: 'Journey and path', ej: 'walk, course, move forward, horizon', icono: 'viaje' },
+        { codigo: 'FAM', nombre: 'Family and home', ej: 'brothers and sisters, common home, motherland', icono: 'familia' },
+        { codigo: 'CUI', nombre: 'Care and body', ej: 'embrace, heal wounds, reach out a hand', icono: 'cuidado' },
+        { codigo: 'OTR', nombre: 'Other', ej: 'if it recurs, it joins the list', icono: 'otro' },
+      ],
+      siempre: 'Against people, always polarizing',
+      nota: 'The codes are abbreviations of the Spanish names. ANI is dehumanization: the rival as an animal, a plague or a parasite. An insult that belittles without taking away humanity («lacayo», “lackey”; «títere», “puppet”) goes to P3. ENF and INM are kept apart: “virus” diagnoses, “eradicate” expels. For Esposito, the danger lies in the immune reaction.',
+    },
+
+    regla: {
+      blancosTitulo: 'Step 0 · What is the image aimed at?',
+      blancosNota: 'The same typology as P1, plus two categories of P2’s own.',
+      zonas: [
+        { id: 'no', nombre: 'Not human', icono: 'circulo', items: [['A problem', '«la pobreza» (“poverty”), «la ira y el miedo» (“anger and fear”)'], ['A policy', '«esta reforma» (“this reform”)'], ['A goal or the future', '«luchar por el porvenir» (“fight for the future”)', true], ['The “us” itself', '«sanar nuestras heridas» (“heal our wounds”)', true]] },
+        { id: 'depende', nombre: 'Only if given a body', icono: 'interrogante', items: [['An ideology', '«el neoliberalismo» (“neoliberalism”). Human if presented as a hostile agent or extended to those who hold it']] },
+        { id: 'si', nombre: 'Human', icono: 'persona', items: [['People or groups', '«ellos» (“they”), «la derecha» (“the right”)'], ['People named as a structure', '«la casta» (“the caste”), «las élites» (“the elites”)'], ['The common home', '«los jueces» (“the judges”), «las elecciones» (“the elections”), if delegitimized']] },
+      ],
+      nuevo: 'new in P2',
+      arbolTitulo: 'The three steps',
+      p1: 'Is the target human?',
+      p2: 'Does it keep the rules and recognize the rival?',
+      p3: 'Does it accept and unite?',
+      irA: 'step',
+      atajoTexto: 'against people skip this step: they always polarize.',
+      senalesTitulo: 'Signals for step 2',
+      conserva: { titulo: 'Keeps the rules', items: ['«que gane el mejor» (“may the best one win”)', '«aceptaremos el resultado» (“we will accept the result”)', '«les ganaremos en las urnas» (“we will beat them at the ballot box”)'] },
+      pierde: { titulo: 'Breaks the rules', items: [['Humiliation', '«aplastarlos» (“crush them”), «no dejarles ni respirar» (“not even let them breathe”)'], ['Delegitimized referee', '«el árbitro está comprado» (“the referee has been bought”)'], ['Ultras logic', 'the rival as the team you hate'], ['Drift into war', '«esto ya no es un partido, es una guerra» (“this is no longer a match, it is a war”)']] },
+      intensidad: 'No intensity levels: «luchar contra ellos» (“fight against them”) weighs the same as «son una plaga» (“they are a plague”). Every event is worth 1, like P1’s marks.',
+    },
+
+    casos: {
+      cabecera: ['Sentence', 'Domain', 'Target', 'Result'],
+      filas: [
+        ['«La ira y el miedo son un virus que recorre nuestra sociedad en su conjunto» (“Anger and fear are a virus spreading through our society as a whole”)', 'ENF', 'Problem', 'neutra'],
+        ['«Se comprometió a luchar por él [el porvenir]» (“He committed to fighting for it [the future]”; Sánchez, Barcelona 2026)', 'GUE', 'Goal', 'neutra'],
+        ['«Esta es una batalla de ideas, y la vamos a ganar con mejores argumentos» (“This is a battle of ideas, and we will win it with better arguments”)', 'GUE', 'Ideology without a body', 'neutra'],
+        ['«Esta es una batalla de ideas contra quienes quieren destruir España» (“This is a battle of ideas against those who want to destroy Spain”)', 'GUE', 'People', 'polariza'],
+        ['«Vamos a ganarle al PP en las urnas» (“We are going to beat the PP at the ballot box”)', 'DEP', 'People', 'neutra'],
+        ['«Vamos a aplastar al PP» (“We are going to crush the PP”)', 'GUE', 'People', 'polariza'],
+        ['«Vamos a tejer este país entre todos» (“Together we are going to weave this country”)', 'CON', 'The “us” itself', 'empatica'],
+        ['«Tendemos la mano también a quienes no nos votaron» (“We reach out our hand to those who did not vote for us, too”)', 'CUI', 'People, included', 'empatica'],
+      ],
+      porResolverTitulo: 'Unresolved',
+      porResolver: [
+        '«Vamos a reconstruir lo que ellos han tratado de destruir» (“We will rebuild what they have tried to destroy”; Sánchez, Barcelona 2026): construction for the “us”, destruction attributed to “them”.',
+        '«La derecha rendida a…» (“The right, surrendered to…”; Sánchez, Barcelona 2026): conventional, war-like, human target.',
+      ],
+    },
+
+    pendiente: [
+      ['Other speakers', 'Test with speeches by other speakers and genres (Trump, Ardern, Petro).'],
+      ['How it is applied', 'The list of candidate words per domain (code) and the adaptation of MIPVU (human).'],
+      ['Theoretical basis and references', 'Write up the theoretical basis and verify every reference.'],
+    ],
+
+    formula: {
+      lineas: ['P2 = 10 × (E + 1) / (E + P + 2)'],
+      leyenda: [['E', 'empathetic events'], ['P', 'polarizing events'], ['N', 'neutral: not part of the score']],
+      notas: [
+        'Neutral events are left out so they do not dilute the images that take sides. The scorecard counts them separately.',
+        'With few events, the formula pulls the score towards the centre (Laplace’s rule of succession, as with P1’s permeability).',
+        'Minimum: 3 events with a sign. Robustness: 3 to 5, indicative; 6 or more, solid.',
+        'The scorecard also describes density (events per thousand words) and the dominant domain, without changing the score.',
+      ],
+      excepcion: 'Democratic exception: a metaphor aimed at someone who uses violence or acts against democracy, under P1’s three conditions, is neutral. If it is ANI or INM, the scorecard notes that better metaphors were available.',
+    },
+
+    prueba: {
+      intro: 'Pedro Sánchez’s speech at the Progressive Summit in Barcelona (18 April 2026), coded in full with the rules on this page. Draft: doubtful cases are flagged. Sentence numbers refer to the Spanish transcript.',
+      nota: '5.83',
+      solidez: 'solid · 10 events with a sign',
+      calculo: '10 × (6 + 1) / (6 + 4 + 2) = 5.83',
+      cifras: [['6', 'empathetic'], ['4', 'polarizing'], ['23', 'neutral']],
+      descriptivo: '33 events in 1,197 words: 27.6 per thousand. Most frequent domain: “Other” (11): noise, tools, trade. The list of domains needs expanding.',
+      p1: 'In P1 the same speech scores 5.5. With two speeches it is impossible to tell whether P1 and P2 move together: the corpus is needed.',
+      onu: 'Second test, UN General Assembly 2024: P2 = 5.71 (indicative, 5 events with a sign), with two democratic exceptions. P1 leaves that speech unscored for lack of material; P2 does score it.',
+      polarizanTitulo: 'The images that polarize',
+      polarizan: [
+        ['30', 'CON', '«Vamos a reconstruir lo que ellos han tratado de destruir» (“We will rebuild what they have tried to destroy”)'],
+        ['45', 'GUE', '«La vergüenza cambia de bando» (“Shame is changing sides”)'],
+        ['60', 'GUE', '«doblándoles el brazo a quienes se creen intocables» (“twisting the arm of those who think they are untouchable”)'],
+        ['66', 'OTR', '«Las ponemos en su sitio» (“We put them in their place”)'],
+      ],
+      empaticasTitulo: 'The images that unite',
+      empaticas: [
+        ['29', 'FAM', '«vamos a traer al mundo y a todos nuestros países una nueva era de progreso» (“we will bring into the world, as in giving birth, a new era of progress for all our countries”)'],
+        ['34 · 35', 'OTR · CON', '«lo que se respira aquí: unidad» (“what you can breathe in here: unity”), «consolidar nuestra unidad» (“consolidate our unity”)'],
+        ['37', 'VIA', '«recuperar un horizonte compartido» (“recover a shared horizon”)'],
+        ['54', 'FAM', '«España es hija de la migración y no va a ser madre de la xenofobia» (“Spain is a daughter of migration and will not be a mother of xenophobia”)'],
+        ['73', 'FAM', '«La promesa que todo padre y toda madre le debe a su hijo y a su hija» (“The promise every father and every mother owes their son and their daughter”)'],
+      ],
+      dudasTitulo: 'What changed when the test was reviewed',
+      dudas: [
+        ['Noise (sentences 16, 17 and 19)', '«Hacen mucho ruido» (“They make a lot of noise”), «gritan tanto y tan alto» (“they shout so much and so loud”): it criticizes the rival’s style, it does not deny them a voice. Neutral. The score went from 4.38 to 5.83.'],
+        ['«Unas derechas lacayas» (“a lackey right wing”, 16)', 'An insult the dictionary already lists with that sense: it is literal judgement and is measured by P3, not P2.'],
+        ['«Que no os engañen» (“Don’t let them fool you”, 18)', 'Polarizing, but literal: there is no metaphor. It is picked up by P1 and P3.'],
+        ['The unity of one’s own group (34 and 35)', 'Empathetic: it unites without excluding anyone, like P1’s group “we” with no loser.'],
+      ],
+    },
+
+    cambios: {
+      titulo: 'Draft v0.1 · 23 and 24 October 2026',
+      decisiones: [
+        'The core of P2 is domain by target: the domain alone does not decide whether the metaphor polarizes.',
+        'P2 uses P1’s typology of targets, plus two categories of its own: goal or future, and the “us” itself.',
+        'A metaphor with a non-human target is neutral: diagnosing is not polarizing.',
+        'Living and conventional metaphors count; dead ones do not.',
+        'Unit: the metaphorical event (sentence + domain + target). Repetitions count every time.',
+        'Closed list of 11 domains plus “Other”; ENF and INM kept apart; REL included.',
+        'Two-step rule for every domain: human target and, if so, the rules-of-the-game test.',
+        'An agonistic metaphor with a human target is neutral, not empathetic.',
+        'ANI and INM against people always polarize.',
+        'Empathetic only for the metaphor that accepts and unites, even if it does not mention the other.',
+        'Division with P3 and P6: the figurative goes to P2; the literal, to the others.',
+        'No intensity levels: every event is worth 1.',
+        'Democratic exception as in P1, also for ANI and INM: the metaphor is neutral, with a note that better metaphors were available.',
+        'The rule becomes three steps: human target?, keeps the rules?, accepts and unites?',
+        'The target is decided with the whole speech, including its topic; if it comes from context, the reason is noted.',
+        'Formula: P2 = 10 × (E + 1) / (E + P + 2); neutral events are left out; minimum of 3 events with a sign.',
+        'Change from the undergraduate thesis: a metaphor against problems («curar la desigualdad», “cure inequality”) moves from empathetic to neutral.',
+        'ANI is dehumanization; an insult that belittles without taking away humanity («títere», “puppet”; «lacayo», “lackey”) goes to P3. The scorecard adds density per thousand words and the dominant domain.',
+        '«La derecha rendida» (“the right, having surrendered”): provisionally neutral in P2.',
+        'Criticizing the rival’s style («hacen mucho ruido», “they make a lot of noise”) is not denying them a voice: neutral.',
+        'An insult the dictionary already lists with that sense («lacayo», “lackey”) is literal judgement: it goes to P3.',
+        'The unity of one’s own group is empathetic if it excludes no one.',
+      ],
+    },
+
+    referencias: REFERENCIAS,
+    referenciasNota: 'References still to be verified before publication.',
+    manual: 'Draft of the P2 manual in the repository (in Spanish)',
+    pie: { volver: '← Back to the index', anterior: '← P1 · The boundary of “us”' },
   },
 };

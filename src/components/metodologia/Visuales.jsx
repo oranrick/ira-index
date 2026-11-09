@@ -52,13 +52,13 @@ export function Icono({ nombre, tamano = 24, className = '' }) {
 }
 
 /** Oír → sentir dónde me colocan → pensar. Ilustración de línea con las etiquetas en HTML. */
-export function LineaTiempo({ pasos, eje }) {
+export function LineaTiempo({ pasos, eje, repetir = 'Repetir' }) {
   const [vuelta, setVuelta] = useState(0);
   return (
     <Aparecer key={vuelta} className="ira-met-tiempo">
       <button type="button" className="ira-met-tiempo__repetir" onClick={(ev) => { chispazo(ev, 'oro', 7); setVuelta((v) => v + 1); }}>
         <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4" /></svg>
-        Repetir
+        {repetir}
       </button>
       <svg viewBox="0 0 720 150" className="ira-met-tiempo__svg" aria-hidden="true" onClick={(ev) => chispazo(ev, 'oro', 8)}>
         {/* 1 · la frase llega como onda */}

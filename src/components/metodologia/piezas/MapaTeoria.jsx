@@ -34,7 +34,7 @@ export default function MapaTeoria({ teoria, ui, referencias }) {
       <div className="ira-juego-cab">
         <p className="ira-met__nota">{ui.ayuda}</p>
         <Mando i={activo} n={total} ir={(k) => setActivo(k)} recorrido={recorrido} tono={ui.nodos[activo].zona === 'cuerpo' ? 'salvia' : ui.nodos[activo].zona === 'lenguaje' ? 'oro' : 'interpelacion'}
-          etiqueta="Autores" textos={{ anterior: 'Autor anterior', siguiente: 'Autor siguiente', recorrer: 'Recorrer' }} />
+          etiqueta={ui.mando.etiqueta} textos={ui.mando} />
       </div>
       <div className="ira-pz-teoria__rejilla">
         <div className="ira-pz-teoria__mapa">

@@ -68,7 +68,7 @@ export default function PruebaFrontera({ t }) {
             ))}
           </div>
           <Mando i={activa} n={n} ir={elegir} recorrido={recorrido} tono={e.tipo} etiqueta={t.etiqueta}
-            textos={{ anterior: 'Frase anterior', siguiente: 'Frase siguiente', recorrer: 'Recorrer las seis' }} />
+            textos={t.mando} />
         </div>
 
         <div className="ira-pz-frontera__lado" {...deslizar}>
