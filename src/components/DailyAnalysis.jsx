@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import TarjetaDiscurso from './ui/TarjetaDiscurso.jsx';
-import { fechaCorta, citaDestacada } from '../lib/discursos';
+import { fechaCorta, citaDestacadaBilingue } from '../lib/discursos';
 
 const TEXTS = {
   es: {
@@ -75,7 +75,7 @@ export default function DailyAnalysis({ lang = 'es' }) {
         orador={row.entity_name}
         cargo={row.title}
         fecha={fechaCorta(row.published_date)}
-        cita={citaDestacada({ segments: row.segments, summary: row.summary }, lang, 260)}
+        {...citaDestacadaBilingue({ segments: row.segments, summary: row.summary }, lang, 260)}
         puntuacion={Number(row.ira)}
         pie={row.origin === 'manual' ? T.manual : T.cron}
       />

@@ -5,7 +5,8 @@
 // Cada ejemplo: { id, pais, fecha, persona, discurso, puntuacion,
 //                 fragmentos: [{ texto, polaridad, puntuacion }] }
 
-import { fechaCorta, textoFragmento } from './discursos';
+import { fechaCorta, fragmentoBilingue } from './discursos';
+import { paisEntidad } from './paises';
 import { polaridadFragmento, puntuacionFragmento, puntuacionesPorClave } from './anotaciones';
 
 const MAX_CARACTERES = 130;
@@ -25,13 +26,14 @@ export function construirFragmentos(segmentos, puntuaciones, lang = 'es') {
   const candidatos = (segmentos ?? [])
     .map((seg, orden) => {
       if (!seg?.type) return null;
-      const texto = textoFragmento(seg, lang).trim();
+      const { texto: bruto, traduccion } = fragmentoBilingue(seg, lang);
+      const texto = bruto.trim();
       const polaridad = polaridadFragmento(seg.type, puntuaciones);
       const puntuacion = puntuacionFragmento(seg.type, puntuaciones);
       if (texto.length < MIN_CARACTERES || !polaridad || puntuacion == null) return null;
       // Solo fragmentos coherentes: los destellos no pueden contradecir la cifra
       if ((polaridad === 'polarizante') !== (puntuacion < 5)) return null;
-      return { texto: recortar(texto), polaridad, puntuacion, orden };
+      return { texto: recortar(texto), traduccion: traduccion ? recortar(traduccion.trim()) : null, polaridad, puntuacion, orden };
     })
     .filter(Boolean)
     .filter((c, i, l) => l.findIndex((o) => o.texto === c.texto) === i)
@@ -47,7 +49,7 @@ export function construirFragmentos(segmentos, puntuaciones, lang = 'es') {
     if (!elegidos.includes(c)) elegidos.push(c);
   }
   return elegidos.slice(0, 3).sort((a, b) => a.orden - b.orden)
-    .map(({ texto, polaridad, puntuacion }) => ({ texto, polaridad, puntuacion }));
+    .map(({ texto, traduccion, polaridad, puntuacion }) => ({ texto, traduccion, polaridad, puntuacion }));
 }
 
 /** Discurso del corpus (speeches.js, con la puntuación de la tabla analyses ya fusionada). */
@@ -56,7 +58,7 @@ export function ejemploDesdeCorpus(speech, entidad, lang = 'es') {
   return {
     id: speech.id,
     reciente: false,
-    pais: entidad?.country ?? '',
+    pais: paisEntidad(entidad?.country, lang),
     fecha: fechaCorta(speech.date),
     persona: speech.entityName,
     discurso: (lang === 'en' && speech.titleEn) || speech.title,
@@ -72,7 +74,7 @@ export function ejemploDesdeDiario(row, lang = 'es') {
     id: `daily-${row.id}`,
     reciente: true,
     orden: row.published_date ?? '',
-    pais: row.entity_country ?? '',
+    pais: paisEntidad(row.entity_country, lang),
     fecha: fechaCorta(row.published_date),
     persona: row.entity_name,
     discurso: row.title ?? '',

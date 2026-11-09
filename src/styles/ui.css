@@ -160,6 +160,10 @@
 .ira-tarjeta__cargo { font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
 .ira-tarjeta__fecha { font-family: var(--ira-font-cifra); font-size: 13px; color: var(--ira-texto-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .ira-tarjeta__cita { position: relative; margin: 0; font-size: 20px; line-height: 32px; color: var(--ira-texto-cita); }
+.ira-tarjeta__traduccion { margin: -4px 0 0; font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+.ira-pais__traduccion { padding-left: 22px; }
+.ira-tarjeta--compacta .ira-tarjeta__traduccion { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.ira-panel-ej__traduccion { margin: 4px 0 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
 .ira-tarjeta__puntuacion { display: flex; flex-direction: column; gap: 16px; }
 .ira-tarjeta__cifra { margin: 0; display: flex; align-items: baseline; gap: 8px; font-family: var(--ira-font-cifra); font-weight: 500; line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
 .ira-tarjeta__cifra > span:first-child { font-size: 88px; }

@@ -10,7 +10,7 @@ const TXT = {
 };
 
 export default function TarjetaDiscurso({
-  orador, cargo, fecha, cita, puntuacion, lang = 'es', pie, onVerDesglose, compacta = false, as: Etiqueta = 'article',
+  orador, cargo, fecha, cita, traduccion, puntuacion, lang = 'es', pie, onVerDesglose, compacta = false, as: Etiqueta = 'article',
 }) {
   const t = TXT[lang] ?? TXT.es;
   const cifra = formatearPuntuacion(puntuacion, lang);
@@ -24,10 +24,11 @@ export default function TarjetaDiscurso({
         {fecha && <span className="ira-tarjeta__fecha">{fecha}</span>}
       </div>
       {cita && (
-        <blockquote className="ira-tarjeta__cita">
+        <blockquote className="ira-tarjeta__cita" lang={traduccion ? 'es' : undefined}>
           «{cita}»
         </blockquote>
       )}
+      {cita && traduccion && <p className="ira-tarjeta__traduccion">“{traduccion}”</p>}
       <div className="ira-tarjeta__puntuacion">
         <p className="ira-tarjeta__cifra">
           <span style={{ color: colorCifra(puntuacion) }}>{cifra}</span>

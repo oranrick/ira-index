@@ -142,3 +142,9 @@ export function discursosDelPais(figuras, supabaseMap, mezclar) {
 
 /** Nombre de un país en el idioma de la interfaz (`pais` viene de agruparPorPais) */
 export const nombrePais = (pais, lang = 'es') => (lang === 'en' && pais.en ? pais.en : pais.nombre);
+
+// Campo `country` de ENTITIES en el idioma de la web («España / Colombia», «EE.UU.», «Rusia / Global»)
+const OTROS_EN = { 'EE.UU.': 'US', Global: 'Global' };
+export const paisEntidad = (country, lang = 'es') => (lang === 'en' && country
+  ? country.split(' / ').map((c) => PAISES[c]?.en ?? OTROS_EN[c] ?? c).join(' / ')
+  : (country ?? ''));

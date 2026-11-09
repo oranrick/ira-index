@@ -21,6 +21,7 @@ import FilaParametro from "./components/ui/FilaParametro.jsx";
 import { colorPuntuacion, colorCifra, formatearPuntuacion, CATEGORICOS } from "./lib/escala";
 import { HERRAMIENTAS_ABIERTAS } from "./lib/funciones";
 import AvisoArchivo from "./components/ui/AvisoArchivo.jsx";
+import { paisEntidad } from './lib/paises';
 
 const Comparator   = lazy(() => import("./components/Comparator"));
 const RadarSection = lazy(() => import("./components/RadarSection"));
@@ -406,6 +407,7 @@ const ENTITIES = [
     id: "ardern", name: "Jacinda Ardern", breakName: true, category: "Político", country: "Nueva Zelanda", flag: "🇳🇿",
     photo: "/images/ardern.jpg",
     photoCredit: "Gobierno de Nueva Zelanda",
+    photoCreditEn: "Government of New Zealand",
     score: 8.75,
     params: { pronominal:9.1, metafora:9.0, dicotomia:8.2, tono:9.0, disenso:8.8, vector:9.0, coherencia:8.9, proyeccion:8.0 },
     context: "Primera ministra de Nueva Zelanda (2017–2023). Analizado sobre respuesta a Christchurch (2019) y discurso ONU (2018).",
@@ -444,6 +446,7 @@ const ENTITIES = [
     id: "petro", name: "Gustavo Petro", category: "Político", country: "Colombia", flag: "🇨🇴",
     photo: "/images/petro.jpg",
     photoCredit: "Departamento Nacional de Planeación, Colombia",
+    photoCreditEn: "National Planning Department, Colombia",
     score: 5.60,
     params: { pronominal:6.8, metafora:5.2, dicotomia:4.5, tono:6.0, disenso:5.1, vector:5.8, coherencia:5.2, proyeccion:6.2 },
     context: "Presidente de Colombia (2022–2026). IRA promedio sobre IX Cumbre CELAC (2025) y mitin Consulta Popular (2025).",
@@ -476,7 +479,7 @@ const ENTITIES = [
     score: 5.97,
     params: { pronominal:6.5, metafora:6.0, dicotomia:4.8, tono:6.8, disenso:4.3, vector:6.5, coherencia:6.3, proyeccion:7.3 },
     context: "Presidente del Gobierno de España (2018–). IRA promedio sobre discurso ante la 79.ª Asamblea General de la ONU (2024) y la Cumbre Progresista Internacional de Barcelona (2026).",
-    contextEn: "Prime Minister of Spain (2018–). Average IRA across speech before the 79th UN General Assembly (2024) and the International Progressive Summit in Barcelona (2026).",
+    contextEn: "Prime Minister of Spain (2018–). Average IRA across his address to the 79th UN General Assembly (2024) and his speech at the International Progressive Summit in Barcelona (2026).",
     paramTexts: {
       pronominal: "El uso pronominal varía significativamente según el registro. En la ONU el «nosotros» se expande hasta los 8.000 millones de habitantes del planeta; en Barcelona se estrecha al «nosotros los progresistas», con un «ellos» persistente y activo. El parámetro revela a un orador que adapta el perímetro del sujeto colectivo al auditorio: diplomático-universal ante la comunidad internacional, tribal-militante ante aliados políticos.",
       metafora:   "Las metáforas oscilan entre dos registros según el contexto. En lo multilateral: «levantó pieza a pieza de las cenizas», «luz al final del túnel», metáforas de construcción compartida. En lo movilizador: «doblándoles el brazo», «la ortodoxia neoliberal murió», «la vergüenza cambia de bando». El blanco de las metáforas bélicas son siempre estructuras —élites, regímenes— nunca personas anónimas.",
@@ -512,6 +515,7 @@ const ENTITIES = [
     id: "trump", name: "Donald Trump", category: "Político", country: "Estados Unidos", flag: "🇺🇸",
     photo: "/images/trump.jpg",
     photoCredit: "Dominio público / Casa Blanca",
+    photoCreditEn: "Public domain / White House",
     score: 2.48,
     params: { pronominal:2.5, metafora:1.8, dicotomia:2.0, tono:2.1, disenso:1.5, vector:2.0, coherencia:2.8, proyeccion:3.1 },
     context: "Presidente de EEUU (2017–2021, 2024–). Analizado sobre discurso victoria 2024 y mitin 'We Will Never Concede' (2021).",
@@ -521,6 +525,7 @@ const ENTITIES = [
     id: "milei", name: "Javier Milei", category: "Político", country: "Argentina", flag: "🇦🇷",
     photo: "/images/milei.jpg",
     photoCredit: "Presidencia de la República Argentina",
+    photoCreditEn: "Presidency of the Argentine Republic",
     score: null,   // sin corpus propio todavía (los análisis del cron se borraron en oct-2026)
     params: { pronominal:2.5, metafora:2.0, dicotomia:1.5, tono:2.5, disenso:1.5, vector:2.0, coherencia:2.5, proyeccion:3.0 },
     context: "Presidente de Argentina (2023–). Corpus en construcción a partir de discursos de casarosada.gob.ar.",
@@ -849,7 +854,7 @@ function EntityCard({ entity, lang }) {
       {entity.photo && <img src={entity.photo} alt="" className="ira-canal__foto" />}
       <span className="ira-canal__nombre">
         {entity.name}
-        <span className="ira-canal__pais">{entity.country}</span>
+        <span className="ira-canal__pais">{paisEntidad(entity.country, lang)}</span>
       </span>
       <Traza notas={traza} semilla={entity.id} alto={52} grosor={1.9} duracion={1300} repetir className="ira-canal__traza" />
       <span className="ira-canal__nota" style={{ color: hasScore ? colorCifra(entity.score) : "var(--ira-texto-3)" }}>
@@ -1051,13 +1056,13 @@ function EntityDetailPage() {
           {entity.photo && (
             <figure className="ira-ficha__retrato">
               <img src={entity.photo} alt="" />
-              {entity.photoCredit && <figcaption>{entity.photoCredit}</figcaption>}
+              {entity.photoCredit && <figcaption>{(lang === 'en' && entity.photoCreditEn) || entity.photoCredit}</figcaption>}
             </figure>
           )}
           <div className="ira-ficha__quien">
             <h1>{entity.name}</h1>
             <p className="ira-ficha__donde">
-              <FlagEmoji emoji={entity.flag} size={18} /> {entity.country}{entity.category !== 'Político' ? `, ${catLabel.toLowerCase()}` : ''}
+              <FlagEmoji emoji={entity.flag} size={18} /> {paisEntidad(entity.country, lang)}{entity.category !== 'Político' ? `, ${catLabel.toLowerCase()}` : ''}
             </p>
           </div>
           <p className="ira-ficha__nota">

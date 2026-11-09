@@ -1,6 +1,7 @@
 // src/components/SpeechView.jsx
 import { useState, useRef, useEffect } from 'react';
 import { ANNOTATION_TYPES } from '../data/speeches';
+import { NOTAS_EN, TIPOS_EN } from '../data/notasEn';
 import { colorCifra, formatearPuntuacion } from '../lib/escala';
 import { polaridadFragmento, puntuacionesPorClave } from '../lib/anotaciones';
 import BarraEscala from './ui/BarraEscala.jsx';
@@ -110,6 +111,11 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
   const displayContext = (isEn && speech.contextEn)  || speech.context;
   const displayIraLabel = (isEn && speech.iraLabelEn) || speech.iraLabel;
   const displaySummary = (isEn && speech.summaryEn)  || speech.summary;
+  // Capa de lectura en inglés: etiquetas de tipo y notas de cada fragmento
+  const tipoDe = (key) => (isEn ? { ...ANNOTATION_TYPES[key], ...TIPOS_EN[key] } : ANNOTATION_TYPES[key]);
+  const notaDe = (segment) => (isEn
+    ? (NOTAS_EN[`${speech.id}:${(speech.segments ?? []).indexOf(segment)}`] ?? segment.note)
+    : segment.note);
 
   const isEnglishSpeech = speech.speechLang === 'en';
   const isSpanishSpeech = speech.speechLang === 'es';
@@ -159,7 +165,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
 
   const handleAnnotationHover = (e, segment) => {
     if (!segment.type || isMobile) return;
-    const annotationType = ANNOTATION_TYPES[segment.type];
+    const annotationType = tipoDe(segment.type);
     const rect = e.target.getBoundingClientRect();
     const containerRect = containerRef.current.getBoundingClientRect();
     const TOOLTIP_W = 255;
@@ -172,14 +178,14 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
     // clamp so tooltip doesn't overflow container left edge
     left = Math.max(0, left);
     setTooltipPos({ top: rect.bottom - containerRect.top + 8, left });
-    setActiveAnnotation({ ...annotationType, note: segment.note, familia: familia(segment.type) });
+    setActiveAnnotation({ ...annotationType, note: notaDe(segment), familia: familia(segment.type) });
   };
 
   const handleAnnotationClick = (e, segment) => {
     if (!segment.type) return;
     e.stopPropagation();
-    const annotationType = ANNOTATION_TYPES[segment.type];
-    setPinnedAnnotation({ ...annotationType, note: segment.note, familia: familia(segment.type) });
+    const annotationType = tipoDe(segment.type);
+    setPinnedAnnotation({ ...annotationType, note: notaDe(segment), familia: familia(segment.type) });
     setActiveAnnotation(null);
   };
 
@@ -240,7 +246,7 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
       {/* Legend */}
       <div style={styles.legend}>
         {Object.entries(annotationCounts).map(([typeKey, count]) => {
-          const t = ANNOTATION_TYPES[typeKey];
+          const t = tipoDe(typeKey);
           const f = familia(typeKey);
           return (
             <div key={typeKey} style={styles.legendItem}>
@@ -275,9 +281,9 @@ export function SpeechView({ speech, onBack, lang = 'es' }) {
               if (!segment.type) {
                 return <span key={i} style={styles.plainText}>{segment.text}</span>;
               }
-              const at = ANNOTATION_TYPES[segment.type];
+              const at = tipoDe(segment.type);
               const f = familia(segment.type);
-              const isPinned = pinnedAnnotation?.note === segment.note;
+              const isPinned = pinnedAnnotation?.note === notaDe(segment);
               return (
                 <span
                   key={i}

@@ -197,3 +197,17 @@ cuando la tabla está vacía.
 - **Herramientas escondidas** (`src/lib/funciones.js`, `HERRAMIENTAS_ABIERTAS = false`):
   analizar texto, comparar, «Mide una frase» y los botones de cuenta. Usan el motor 2024; se
   esconden, no se borran. `/analyze` y `/compare` redirigen al archivo mientras estén cerradas.
+
+---
+
+## Inglés: capa de lectura (desde el 9-nov-2026)
+
+- IRA analiza siempre el original en español; el inglés es solo para leer. No se publican discursos en inglés.
+- Citas de discursos en español: en inglés se muestra el original y, debajo, la traducción de referencia
+  (`fragmentoBilingue` y `citaDestacadaBilingue` en `src/lib/discursos.js`). Nunca se traduce la cita en su sitio.
+- Metodología 2.0: cada `textos*.js` tiene bloque `es` y `en` con la misma estructura; los ejemplos van como
+  «original» (“traducción”). `NOTA_EN` (en `textosComunes.js`) explica qué rasgos del español no pasan al inglés.
+- Archivo: notas de anotación y etiquetas de tipo en inglés en `src/data/notasEn.js` (clave `speechId:índice`
+  del segmento). Si se reordena un segmento en `speeches.js`, revisar su clave.
+- Términos fijados: frontera del nosotros = The boundary of “us”; alcance = Reach; permeabilidad = Permeability;
+  interpelación = Direct address; cierres/aperturas = Closures/Openings; ficha = scorecard.

@@ -1,7 +1,7 @@
 // src/components/SpeechCard.jsx
 import { getSpeechesByEntity } from '../data/speeches';
 import TarjetaDiscurso from './ui/TarjetaDiscurso.jsx';
-import { fechaCorta, citaDestacada } from '../lib/discursos';
+import { fechaCorta, citaDestacadaBilingue } from '../lib/discursos';
 
 const CARD_TEXTS = {
   es: {
@@ -37,7 +37,7 @@ export function SpeechesSection({ entityId, speeches: speechesProp, onSelectSpee
       </div>
       {fromTFG && (
         <p style={styles.sectionDesc}>
-          {T.speechesDesc} <em>El contagio de las palabras</em> (UCM, 2024)
+          {T.speechesDesc} <em lang="es">El contagio de las palabras</em>{lang === 'en' && ' (“The contagion of words”)'} (UCM, 2024)
         </p>
       )}
       <div className="speeches-grid">
@@ -63,7 +63,7 @@ function SpeechCard({ speech, onClick, lang = 'es' }) {
       orador={title}
       cargo={speech.entityName}
       fecha={fechaCorta(speech.date)}
-      cita={citaDestacada(speech, lang, 200)}
+      {...(({ cita, traduccion }) => ({ cita, traduccion }))(citaDestacadaBilingue(speech, lang, lang === 'en' ? 130 : 200))}
       puntuacion={speech.iraScore}
       pie={extra}
       onVerDesglose={onClick}

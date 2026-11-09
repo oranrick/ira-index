@@ -9,7 +9,7 @@ import BarraEscala from './ui/BarraEscala.jsx';
 import EtiquetaPuntuacion from './ui/EtiquetaPuntuacion.jsx';
 import AvisoArchivo from './ui/AvisoArchivo.jsx';
 import { colorPuntuacion, colorCifra, formatearPuntuacion } from '../lib/escala';
-import { citaDestacada, fechaCorta } from '../lib/discursos';
+import { citaDestacadaBilingue, fechaCorta } from '../lib/discursos';
 import {
   PAISES, POLITICOS, PENDIENTES, nombrePais, urlBandera, etiquetaNivel, agruparPorPais, puntuacionFigura, discursosDelPais,
 } from '../lib/paises';
@@ -113,7 +113,15 @@ export default function PaisPage() {
             <div className="ira-pais__ultimo-texto">
               <p className="ira-pais__orador"><strong>{ultimo.entityName}</strong>{rol(ultimo.entityId) && <span>{rol(ultimo.entityId)}</span>}<time>{fechaCorta(ultimo.date)}</time></p>
               <h3 className="ira-pais__ultimo-titulo">{titulo(ultimo)}</h3>
-              <blockquote className="ira-pais__cita">«{citaDestacada(ultimo, lang, 260)}»</blockquote>
+              {(() => {
+                const { cita, traduccion } = citaDestacadaBilingue(ultimo, lang, 260);
+                return (
+                  <>
+                    <blockquote className="ira-pais__cita" lang={traduccion ? 'es' : undefined}>«{cita}»</blockquote>
+                    {traduccion && <p className="ira-tarjeta__traduccion ira-pais__traduccion">“{traduccion}”</p>}
+                  </>
+                );
+              })()}
               <div><button type="button" className="ira-boton ira-boton--principal" onClick={() => setActivo(ultimo)}>{t.ver}</button></div>
             </div>
             <div className="ira-pais__ultimo-cifra">

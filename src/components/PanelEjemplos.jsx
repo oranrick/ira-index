@@ -32,8 +32,9 @@ function Fragmento({ f, lang, t }) {
   return (
     <figure className={`ira-panel-ej__fragmento ira-panel-ej__fragmento--${f.polaridad}`}>
       <blockquote className="ira-panel-ej__cita">
-        <p><span className="ira-panel-ej__marca">«{f.texto}»</span></p>
+        <p lang={f.traduccion ? 'es' : undefined}><span className="ira-panel-ej__marca">«{f.texto}»</span></p>
       </blockquote>
+      {f.traduccion && <p className="ira-panel-ej__traduccion">“{f.traduccion}”</p>}
       <figcaption className="ira-panel-ej__pie-frase">
         <span className="ira-sr">{f.polaridad === 'polarizante' ? t.marcaPol : t.marcaEmp}: </span>
         <b style={{ color: colorCifra(f.puntuacion) }}>{formatearPuntuacion(f.puntuacion, lang)}</b>

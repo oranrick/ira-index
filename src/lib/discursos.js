@@ -31,6 +31,31 @@ export function textoFragmento(seg, lang = 'es') {
   return seg.text ?? '';
 }
 
+/**
+ * Fragmento para mostrar: en inglés, si el original está en español, devuelve el original
+ * y la traducción de referencia por separado (capa de lectura: la cita nunca se traduce en su sitio).
+ */
+export function fragmentoBilingue(seg, lang = 'es') {
+  if (!seg) return { texto: '', traduccion: null };
+  const original = seg.text ?? '';
+  if (lang === 'en' && seg.textEn && seg.textEn.trim() !== original.trim()) return { texto: original, traduccion: seg.textEn };
+  return { texto: textoFragmento(seg, lang), traduccion: null };
+}
+
+const limpiarCita = (t, max) => {
+  t = (t ?? '').trim().replace(/^["“«]+|["”»]+$/g, '').trim();
+  if (t.length > max) t = t.slice(0, max).replace(/\s+\S*$/, '').replace(/[\s.,;:]+$/, '') + '…';
+  return t;
+};
+
+/** Como citaDestacada, pero con la traducción aparte: { cita, traduccion }. */
+export function citaDestacadaBilingue(speech, lang = 'es', max = 220) {
+  const seg = (speech?.segments ?? []).find((s) => s.type && (s.text ?? '').trim().length > 20);
+  const { texto, traduccion } = fragmentoBilingue(seg, lang);
+  if (!texto) return { cita: citaDestacada(speech, lang, max), traduccion: null };
+  return { cita: limpiarCita(texto, max), traduccion: traduccion ? limpiarCita(traduccion, max) : null };
+}
+
 /** Primer fragmento anotado del discurso, para usarlo como cita de la tarjeta. */
 export function citaDestacada(speech, lang = 'es', max = 220) {
   const seg = (speech?.segments ?? []).find((s) => s.type && (s.text ?? '').trim().length > 20);

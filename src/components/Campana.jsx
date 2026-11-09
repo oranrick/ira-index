@@ -56,7 +56,7 @@ const TXT = {
     queTitulo: 'What is measured',
     p1: { codigo: 'P1', nombre: 'The boundary of "us"', texto: 'Where the speech draws the line between "us" and "them", and whether that line is a wall or a door.', estado: 'Manual v1.1', ruta: '/metodologia/p1' },
     p2: { codigo: 'P2', nombre: 'The metaphorical frame', texto: 'Which images the speech uses to think about conflict and who they are aimed at. The domain does not decide; the target does.', estado: 'Closes before 13 November', ruta: '/metodologia/p2' },
-    leer: 'Read the method (in Spanish)',
+    leer: 'Read the method',
     sinNotaTitulo: 'Why there is no IRA score',
     sinNota: 'The IRA score combines seven parameters and Methodology 2.0 has two so far. A global figure mixing methods would be made up. So during the campaign only P1 and P2 are published, which already weigh 40% of the formula. When the rest are closed, the whole campaign will be recalculated and published in full.',
     reglasTitulo: 'The rules',
@@ -128,7 +128,7 @@ function Lectura({ etiqueta, valor, lang }) {
   return (
     <p className="ira-campana__lectura">
       {valor == null
-        ? <span className="ira-campana__lectura-n ira-campana__lectura-n--vacia" aria-label="sin datos" />
+        ? <span className="ira-campana__lectura-n ira-campana__lectura-n--vacia" aria-label={lang === 'en' ? 'no data' : 'sin datos'} />
         : <span className="ira-campana__lectura-n">{formatearPuntuacion(valor, lang)}</span>}
       <span className="ira-campana__lectura-e">{etiqueta}</span>
     </p>
