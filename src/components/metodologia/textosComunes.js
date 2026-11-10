@@ -33,26 +33,56 @@ export const UI_JUEGO = {
   },
 };
 
-// Índice de parámetros. P1 (manual cerrado) y P2 (borrador) tienen página; el resto conserva su nombre actual.
+// Índice de parámetros. P1, P3, P5 y P6 (manuales cerrados) y P2 (borrador) tienen página; el resto conserva su nombre actual.
 export const PARAMETROS = {
   es: [
     { id: 'p1', codigo: 'P1', nombre: 'La frontera del nosotros', definicion: 'Dónde traza el discurso la línea entre «nosotros» y «ellos», y si esa línea es un muro o una puerta.', ruta: '/metodologia/p1', estado: 'Manual v1.1' },
     { id: 'p2', codigo: 'P2', nombre: 'El marco metafórico', definicion: 'Con qué imágenes piensa el discurso el conflicto y contra quién apuntan: el dominio no decide, decide el blanco.', ruta: '/metodologia/p2', estado: 'Borrador v0.1 · en desarrollo', borrador: true },
-    { id: 'p3', codigo: 'P3', nombre: 'Polaridad moral' },
+    { id: 'p3', codigo: 'P3', nombre: 'El juicio sobre el otro', definicion: 'Qué dice el discurso, en sentido literal, de quienes no son el nosotros: si juzga lo que hacen o lo que son.', ruta: '/metodologia/p3', estado: 'Manual v0.1' },
     { id: 'p4', codigo: 'P4', nombre: 'Tono emocional' },
-    { id: 'p5', codigo: 'P5', nombre: 'Apertura al disenso' },
-    { id: 'p6', codigo: 'P6', nombre: 'Llamada a la acción' },
+    { id: 'p5', codigo: 'P5', nombre: 'La palabra del otro', definicion: 'Qué hace el discurso con lo que dice quien piensa distinto: lo escucha, lo responde o lo anula.', ruta: '/metodologia/p5', estado: 'Manual v0.1' },
+    { id: 'p6', codigo: 'P6', nombre: 'Lo que pide hacer', definicion: 'Qué acción pone el discurso sobre la mesa, sobre quién recae y si deja sitio al otro después.', ruta: '/metodologia/p6', estado: 'Manual v0.1' },
     { id: 'p7', codigo: 'P7', nombre: 'Coherencia afectiva' },
     { id: 'p8', codigo: 'P8', nombre: 'Por definir' },
   ],
   en: [
     { id: 'p1', codigo: 'P1', nombre: 'The boundary of “us”', definicion: 'Where the speech draws the line between “us” and “them”, and whether that line is a wall or a door.', ruta: '/metodologia/p1', estado: 'Manual v1.1' },
     { id: 'p2', codigo: 'P2', nombre: 'The metaphorical frame', definicion: 'Which images the speech uses to think about conflict, and who they are aimed at: the domain does not decide, the target does.', ruta: '/metodologia/p2', estado: 'Draft v0.1 · in development', borrador: true },
-    { id: 'p3', codigo: 'P3', nombre: 'Moral polarity' },
+    { id: 'p3', codigo: 'P3', nombre: 'Judging the other', definicion: 'What the speech says, literally, about those outside “us”: whether it judges what they do or what they are.', ruta: '/metodologia/p3', estado: 'Manual v0.1' },
     { id: 'p4', codigo: 'P4', nombre: 'Emotional tone' },
-    { id: 'p5', codigo: 'P5', nombre: 'Openness to dissent' },
-    { id: 'p6', codigo: 'P6', nombre: 'Call to action' },
+    { id: 'p5', codigo: 'P5', nombre: 'The other’s word', definicion: 'What the speech does with what people who think differently say: it listens, it answers or it cancels.', ruta: '/metodologia/p5', estado: 'Manual v0.1' },
+    { id: 'p6', codigo: 'P6', nombre: 'What it calls for', definicion: 'Which action the speech puts on the table, who it falls on and whether it leaves room for the other afterwards.', ruta: '/metodologia/p6', estado: 'Manual v0.1' },
     { id: 'p7', codigo: 'P7', nombre: 'Affective coherence' },
     { id: 'p8', codigo: 'P8', nombre: 'To be defined' },
   ],
+};
+
+// Textos fijos de las páginas de manual cerrado (P3, P5, P6: MetodologiaManual.jsx)
+export const UI_MANUAL = {
+  es: {
+    volver: '← Metodología 2.0',
+    volverIndice: 'Volver al índice',
+    indice: 'En esta página',
+    indiceDesplegar: 'Índice de la página',
+    navPie: 'Navegación entre parámetros',
+    cautela: 'Cautela',
+    pendiente: 'Pendiente',
+    motor: 'Manual cerrado. Todavía no puntúa en la web: el archivo usa el método de 2024 y la campaña del 29-N mide solo P1 y P2.',
+    referenciasNota: 'Tomadas del dossier de literatura verificada. Las marcadas [por verificar] no están confirmadas del todo.',
+    manual: 'Leer el manual completo en GitHub',
+    nuevaPestana: '(se abre en una pestaña nueva)',
+  },
+  en: {
+    volver: '← Methodology 2.0',
+    volverIndice: 'Back to the index',
+    indice: 'On this page',
+    indiceDesplegar: 'Page contents',
+    navPie: 'Navigation between parameters',
+    cautela: 'Caution',
+    pendiente: 'Pending',
+    motor: 'Closed manual. It does not score anything on the site yet: the archive uses the 2024 method and 29-N coverage measures only P1 and P2.',
+    referenciasNota: 'Taken from the verified literature dossier. Entries marked [to be verified] are not fully confirmed.',
+    manual: 'Read the full manual on GitHub (in Spanish)',
+    nuevaPestana: '(opens in a new tab)',
+  },
 };

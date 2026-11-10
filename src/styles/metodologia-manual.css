@@ -1,0 +1,94 @@
+/* IRA · Metodología 2.0 · páginas de manual cerrado (P3, P5, P6).
+   Reutiliza metodologia.css y metodologia-p2.css (signos, píldoras, tarjetas); aquí solo lo propio. */
+
+/* Signo "otro parámetro / sin evento" */
+.ira-p2--otro { --p2-color: var(--ira-linea-fuerte); --p2-claro: var(--ira-texto-2); --p2-fondo: transparent; --p2-halo: transparent; }
+.ira-p2-pildora.ira-p2--otro { border-style: dashed; }
+.ira-p2-pildora.ira-p2--otro::before { background: transparent; border: 1px solid var(--ira-texto-2); }
+
+/* Cabecera */
+.ira-man-estado {
+  margin-left: 8px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--ira-salvia);
+  color: var(--ira-marca-empatica); font-size: 11px; letter-spacing: 0.08em; vertical-align: 1px; white-space: nowrap;
+}
+.ira-man-motor { margin: 12px 0 0; max-width: 620px; font-size: 14px; line-height: 22px; color: var(--ira-texto-2); }
+.ira-man-emblema__eje { stroke: var(--ira-linea-fuerte); stroke-width: 2; stroke-dasharray: 4 6; }
+.ira-man-emblema__p { fill: var(--p2-fondo); stroke: var(--p2-color); stroke-width: 3; filter: drop-shadow(0 0 12px var(--p2-halo)); }
+.ira-man-emblema__codigo { fill: var(--ira-oro); font-size: 34px; letter-spacing: 0.04em; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-man-emblema__p { transform-box: fill-box; transform-origin: center; animation: ira-man-latido 4.8s ease-in-out infinite; }
+  .ira-man-emblema__p.ira-p2--neutra { animation-delay: 0.6s; }
+  .ira-man-emblema__p.ira-p2--empatica { animation-delay: 1.2s; }
+}
+@keyframes ira-man-latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+
+/* La idea */
+.ira-man-tres__cab { display: flex; align-items: center; justify-content: space-between; }
+.ira-p2-tres + .ira-met__texto, .ira-met__texto + .ira-p2-tres { margin-top: 16px; }
+
+/* Base teórica */
+.ira-man-teoria { list-style: none; margin: 0 0 16px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.ira-man-teoria__item { padding: 18px; border-radius: var(--ira-radio-l); border: 1px solid var(--ira-linea); background: var(--ira-superficie); }
+.ira-man-teoria__item .ira-met__h3 { margin: 0 0 6px; }
+.ira-man-teoria__item p { margin: 0; font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
+@media (max-width: 720px) { .ira-man-teoria { grid-template-columns: minmax(0, 1fr); } }
+
+/* Qué no mide */
+.ira-man-ejemplo { display: block; margin-top: 2px; font-family: var(--ira-font-voz); font-style: italic; font-size: 14px; color: var(--ira-texto-2); }
+.ira-man-orden { list-style: none; counter-reset: orden; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px; }
+.ira-man-orden li {
+  counter-increment: orden; display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border-radius: var(--ira-radio-m); border: 1px solid var(--ira-linea); background: var(--ira-superficie); font-size: 15px; color: var(--ira-texto-cita);
+}
+.ira-man-orden li::before { content: counter(orden); font-family: var(--ira-font-cifra, inherit); color: var(--ira-oro); min-width: 16px; }
+.ira-man-orden__p { flex: 1; }
+
+/* Unidad */
+.ira-man-definicion {
+  margin: 0 0 16px; padding: 16px 18px; border-left: 3px solid var(--ira-oro); max-width: 720px;
+  font-family: var(--ira-font-titulo); font-size: clamp(18px, 2.4vw, 22px); line-height: 1.35; color: var(--ira-nieve);
+}
+
+/* Pruebas y reglas */
+.ira-man-condiciones { list-style: none; margin: 0 0 16px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.ira-man-condicion { position: relative; padding: 18px 18px 16px; border-radius: var(--ira-radio-l); border: 1px solid var(--ira-linea); border-top: 3px solid var(--ira-oro); background: var(--ira-superficie); }
+.ira-man-condicion__n { font-size: 13px; color: var(--ira-oro); }
+.ira-man-condicion__titulo { margin: 4px 0 6px !important; font-size: 16px; font-weight: 500; color: var(--ira-nieve); }
+.ira-man-condicion p:last-child { margin: 0; font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
+.ira-man-regla { margin: 12px 0 0; max-width: 720px; padding: 14px 16px; border-radius: var(--ira-radio-m); border: 1px solid var(--ira-linea); }
+.ira-man-regla__titulo { margin: 0 0 4px !important; font-size: 15px; font-weight: 500; color: var(--ira-nieve); }
+.ira-man-regla p:last-child { margin: 0; font-size: 14px; line-height: 22px; color: var(--ira-texto-cita); }
+
+/* Tablas */
+.ira-man-tabla td:first-child { color: var(--ira-nieve); }
+.ira-man-tabla--codigos td:first-child, .ira-man-casos td:nth-child(2) { white-space: nowrap; }
+.ira-man-tabla--cifras td:not(:first-child), .ira-man-tabla--cifras th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.ira-man-tabla--cifras td:last-child { color: var(--ira-oro); }
+.ira-man-signo { color: var(--p2-claro); white-space: nowrap; }
+.ira-met__tabla-marco + .ira-met__nota, .ira-met__tabla-marco + .ira-met__h3 { margin-top: 14px; }
+@media (max-width: 720px) {
+  .ira-man-tabla thead { display: none; }
+  .ira-man-tabla tr { display: block; padding: 12px 14px; border-bottom: 1px solid var(--ira-linea); }
+  .ira-man-tabla td { display: block; padding: 2px 0; border: 0; }
+  .ira-man-tabla td::before { content: attr(data-rotulo); display: block; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ira-texto-2); }
+  .ira-man-tabla td:first-child::before { display: none; }
+  .ira-man-tabla--cifras td:not(:first-child) { text-align: left; display: inline-block; margin-right: 14px; }
+  .ira-man-casos td:nth-child(2)::before { display: none; }
+  .ira-man-casos td:nth-child(2) { margin: 6px 0 2px; }
+}
+
+/* Lista cerrada (D3) */
+.ira-man-etiquetas { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.ira-man-etiquetas li { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--ira-1); background: rgba(190, 40, 26, 0.1); font-size: 14px; color: var(--ira-marca-polarizante); }
+
+/* Umbrales */
+.ira-man-umbrales { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; max-width: 720px; }
+.ira-man-umbrales li { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: var(--ira-radio-m); border: 1px solid var(--ira-linea); background: var(--ira-superficie); font-size: 14px; color: var(--ira-texto-cita); }
+.ira-man-umbrales__n { font-size: 18px; color: var(--ira-nieve); }
+@media (max-width: 600px) { .ira-man-umbrales { grid-template-columns: 1fr; } }
+
+/* Límites: sin rayado de "pendiente" */
+.ira-man-limite { border-style: solid; background: var(--ira-superficie); }
+
+/* Procedimiento: cuatro pasos en rejilla de dos */
+@media (min-width: 861px) { .ira-p2-eslabones.ira-man-pasos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

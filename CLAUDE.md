@@ -67,7 +67,7 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 **Estado: sin cambios.**
 
-> Metodología 2.0 en desarrollo: P3 v0.1 cerrado en `research/manual/P3.md` (juicio moral literal: ancla, D1 a D6, R1 a R3; fórmula con la neutra a 5). El motor web sigue usando la definición anterior hasta que se migre.
+> Metodología 2.0 en desarrollo: P3 v0.1 cerrado en `research/manual/P3.md` (juicio moral literal: ancla, D1 a D6, R1 a R3; fórmula con la neutra a 5). Página en `/metodologia/p3` (componente genérico `MetodologiaManual.jsx` + `textosP3.js`). El motor web sigue usando la definición anterior hasta que se migre.
 
 ## P4 · Tono Emocional · peso 20% ✓ REVISADO
 
@@ -100,7 +100,7 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 **Estado: sin cambios.**
 
-> Metodología 2.0 en desarrollo: P5 v0.1 cerrado en `research/manual/P5.md` (apertura al disenso). El motor web sigue usando la definición anterior hasta que se migre.
+> Metodología 2.0 en desarrollo: P5 v0.1 cerrado en `research/manual/P5.md` (apertura al disenso). Página en `/metodologia/p5` (componente genérico `MetodologiaManual.jsx` + `textosP5.js`). El motor web sigue usando la definición anterior hasta que se migre.
 
 ## P6 · Llamada a la Acción · peso 5% ✓ REVISADO
 
@@ -116,7 +116,7 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 **Estado: sin cambios.**
 
-> Metodología 2.0 en desarrollo: P6 v0.1 cerrado en `research/manual/P6.md` (lo que se pide hacer de verdad). El motor web sigue usando la definición anterior hasta que se migre.
+> Metodología 2.0 en desarrollo: P6 v0.1 cerrado en `research/manual/P6.md` (lo que se pide hacer de verdad). Página en `/metodologia/p6` (componente genérico `MetodologiaManual.jsx` + `textosP6.js`). El motor web sigue usando la definición anterior hasta que se migre.
 
 ## P7 · Engagement Dialógico · peso 5% ✓ REVISADO
 

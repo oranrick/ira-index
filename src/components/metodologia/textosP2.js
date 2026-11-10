@@ -335,7 +335,7 @@ export const TEXTOS_P2 = {
     referencias: REFERENCIAS,
     referenciasNota: 'Referencias por verificar antes de publicar.',
     manual: 'Borrador del manual de P2 en el repositorio',
-    pie: { volver: '← Volver al índice', anterior: '← P1 · La frontera del nosotros' },
+    pie: { volver: '← Volver al índice', anterior: '← P1 · La frontera del nosotros', siguiente: 'Siguiente: P3 · El juicio sobre el otro' },
   },
 
   // Inglés: capa de lectura del mismo borrador. Los ejemplos van en español con su traducción.
@@ -652,6 +652,6 @@ export const TEXTOS_P2 = {
     referencias: REFERENCIAS,
     referenciasNota: 'References still to be verified before publication.',
     manual: 'Draft of the P2 manual in the repository (in Spanish)',
-    pie: { volver: '← Back to the index', anterior: '← P1 · The boundary of “us”' },
+    pie: { volver: '← Back to the index', anterior: '← P1 · The boundary of “us”', siguiente: 'Next: P3 · Judging the other' },
   },
 };
