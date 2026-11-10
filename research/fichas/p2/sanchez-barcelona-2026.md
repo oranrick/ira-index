@@ -6,11 +6,11 @@ Cálculo: 10 × (E + 1) / (E + P + 2) = 10 × (6 + 1) / (6 + 4 + 2) = **5,83**
 
 - Empáticas (E): 6
 - Polarizan (P): 4
-- Neutras (N, no entran en la nota): 23
+- Neutras (N, no entran en la nota): 21
 
-Descriptivo: 33 eventos en 1197 palabras, **27,6 por mil**. Dominio dominante: **OTR** (11 eventos).
+Descriptivo: 31 eventos en 1197 palabras, **25,9 por mil**. Dominio dominante: **OTR** (11 eventos).
 
-Por dominio: OTR 11, GUE 7, CUI 3, VIA 3, CON 3, FAM 3, DEP 2, ENF 1
+Por dominio: OTR 11, GUE 5, CUI 3, VIA 3, CON 3, FAM 3, DEP 2, ENF 1
 
 **Eventos que polarizan**
 - 30 · CON · «Vamos a reconstruir lo que ellos han tratado de destruir»

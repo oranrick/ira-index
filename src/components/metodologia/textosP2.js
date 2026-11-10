@@ -172,7 +172,7 @@ export const TEXTOS_P2 = {
       intro: 'Las metáforas van de vivas a muertas. P2 cuenta las vivas y las convencionales, porque las convencionales son justo las que actúan sin que nadie las note.',
       tramos: [
         { id: 'viva', nombre: 'Viva', ej: '«un tsunami de odio», «son una plaga»', nota: 'se nota, alguien la eligió', cuenta: true },
-        { id: 'convencional', nombre: 'Convencional', ej: '«lucha contra el paro», «fractura social», «la derecha rendida»', nota: 'casi no se nota, pero la imagen sigue ahí', cuenta: true },
+        { id: 'convencional', nombre: 'Convencional', ej: '«lucha contra el paro», «fractura social», «tender puentes»', nota: 'casi no se nota, pero la imagen sigue ahí', cuenta: true },
         { id: 'muerta', nombre: 'Muerta', ej: '«la pata de la mesa», «los precios suben»', nota: 'ya es la palabra normal', cuenta: false },
       ],
       cuentaSi: 'Cuenta', cuentaNo: 'No cuenta',
@@ -209,7 +209,7 @@ export const TEXTOS_P2 = {
         { codigo: 'OTR', nombre: 'Otro', ej: 'si se repite, pasa a la lista', icono: 'otro' },
       ],
       siempre: 'Contra personas, siempre polariza',
-      nota: 'ANI es deshumanizar: el rival como animal, plaga o parásito. El insulto que lo rebaja sin quitarle lo humano («lacayo», «títere») va a P3. ENF e INM van separados: «virus» diagnostica, «erradicar» expulsa. En Esposito, el peligro está en la reacción inmunitaria.',
+      nota: 'ANI es deshumanizar: el rival como animal, plaga o parásito. El insulto que lo rebaja sin quitarle lo humano («lacayo», «títere», «marioneta», «rendido» como sumiso) va a P3. ENF e INM van separados: «virus» diagnostica, «erradicar» expulsa. En Esposito, el peligro está en la reacción inmunitaria.',
     },
 
     regla: {
@@ -248,7 +248,6 @@ export const TEXTOS_P2 = {
       porResolverTitulo: 'Por resolver',
       porResolver: [
         '«Vamos a reconstruir lo que ellos han tratado de destruir» (Sánchez, Barcelona 2026): construcción para el nosotros, destrucción atribuida a «ellos».',
-        '«La derecha rendida a…» (Sánchez, Barcelona 2026): convencional, bélica, blanco humano.',
       ],
     },
 
@@ -275,8 +274,8 @@ export const TEXTOS_P2 = {
       nota: '5,83',
       solidez: 'sólida · 10 eventos con signo',
       calculo: '10 × (6 + 1) / (6 + 4 + 2) = 5,83',
-      cifras: [['6', 'empáticas'], ['4', 'polarizan'], ['23', 'neutras']],
-      descriptivo: '33 eventos en 1.197 palabras: 27,6 por mil. Dominio más frecuente: «Otro» (11): ruido, herramientas, comercio. La lista de dominios necesita ampliarse.',
+      cifras: [['6', 'empáticas'], ['4', 'polarizan'], ['21', 'neutras']],
+      descriptivo: '31 eventos en 1.197 palabras: 25,9 por mil. Dominio más frecuente: «Otro» (11): ruido, herramientas, comercio. La lista de dominios necesita ampliarse.',
       p1: 'En P1 el mismo discurso saca 5,5. Con dos discursos no se puede saber si P1 y P2 van juntos: hace falta el corpus.',
       onu: 'Segunda prueba, Asamblea General de la ONU 2024: P2 = 5,71 (orientativa, 5 eventos con signo), con dos excepciones democráticas. P1 deja ese discurso sin puntuar por falta de material; P2 sí lo puntúa.',
       polarizanTitulo: 'Las imágenes que polarizan',
@@ -298,13 +297,14 @@ export const TEXTOS_P2 = {
       dudas: [
         ['El ruido (oraciones 16, 17 y 19)', '«Hacen mucho ruido», «gritan tanto y tan alto»: critica el estilo del rival, no le niega la palabra. Neutra. La nota pasó de 4,38 a 5,83.'],
         ['«Unas derechas lacayas» (16)', 'Insulto que el diccionario ya recoge con ese sentido: es juicio literal y lo mide P3, no P2.'],
+        ['«La derecha rendida» (23 y 28)', 'El diccionario recoge «rendido» como sumiso: es juicio literal y va a P3, igual que «su rendición al negacionismo». Eran neutras, así que la nota no cambia.'],
         ['«Que no os engañen» (18)', 'Polariza, pero es literal: no hay metáfora. Lo recogen P1 y P3.'],
         ['La unidad del propio grupo (34 y 35)', 'Empática: une sin excluir a nadie, como el nosotros de grupo sin perdedor de P1.'],
       ],
     },
 
     cambios: {
-      titulo: 'Borrador v0.1 · 23 y 24 de octubre de 2026',
+      titulo: 'Borrador v0.1 · 23 y 24 de octubre y 10 de noviembre de 2026',
       decisiones: [
         'El núcleo de P2 es dominio por blanco: el dominio por sí solo no decide si la metáfora polariza.',
         'P2 usa la tipología de blancos de P1, más dos categorías propias: meta o futuro, y el propio nosotros.',
@@ -324,10 +324,11 @@ export const TEXTOS_P2 = {
         'Fórmula: P2 = 10 × (E + 1) / (E + P + 2); las neutras no entran; mínimo de 3 eventos con signo.',
         'Cambio respecto al TFG: la metáfora contra problemas («curar la desigualdad») pasa de empática a neutra.',
         'ANI es deshumanizar; el insulto que rebaja sin quitar lo humano («títere», «lacayo») va a P3. La ficha añade densidad por mil palabras y dominio dominante.',
-        '«La derecha rendida»: neutra en P2 de forma provisional.',
         'Criticar el estilo del rival («hacen mucho ruido») no es negarle la palabra: neutra.',
         'Un insulto que el diccionario ya recoge con ese sentido («lacayo») es juicio literal: va a P3.',
         'La unidad del propio grupo es empática si no excluye a nadie.',
+        '«Rendido» como sumiso es juicio literal, como «lacayo», «títere» y «marioneta»: «la derecha rendida» sale de P2 y va a P3.',
+        'Comercio: lo que puede ser literalmente cierto («comprar votos») va a P3; la imagen («vender el país», «negocio con el dolor») se queda en P2.',
       ],
     },
 
@@ -488,7 +489,7 @@ export const TEXTOS_P2 = {
       intro: 'Metaphors range from living to dead. P2 counts the living and the conventional ones, because conventional metaphors are precisely the ones that act without anyone noticing.',
       tramos: [
         { id: 'viva', nombre: 'Living', ej: '«un tsunami de odio» (“a tsunami of hatred”), «son una plaga» (“they are a plague”)', nota: 'it stands out; someone chose it', cuenta: true },
-        { id: 'convencional', nombre: 'Conventional', ej: '«lucha contra el paro» (“the fight against unemployment”), «fractura social» (“social fracture”), «la derecha rendida» (“the right, having surrendered”)', nota: 'barely noticeable, but the image is still there', cuenta: true },
+        { id: 'convencional', nombre: 'Conventional', ej: '«lucha contra el paro» (“the fight against unemployment”), «fractura social» (“social fracture”), «tender puentes» (“building bridges”)', nota: 'barely noticeable, but the image is still there', cuenta: true },
         { id: 'muerta', nombre: 'Dead', ej: '«la pata de la mesa» (“the leg of the table”), «los precios suben» (“prices go up”)', nota: 'it is now just the normal word', cuenta: false },
       ],
       cuentaSi: 'Counts', cuentaNo: 'Does not count',
@@ -525,7 +526,7 @@ export const TEXTOS_P2 = {
         { codigo: 'OTR', nombre: 'Other', ej: 'if it recurs, it joins the list', icono: 'otro' },
       ],
       siempre: 'Against people, always polarizing',
-      nota: 'The codes are abbreviations of the Spanish names. ANI is dehumanization: the rival as an animal, a plague or a parasite. An insult that belittles without taking away humanity («lacayo», “lackey”; «títere», “puppet”) goes to P3. ENF and INM are kept apart: “virus” diagnoses, “eradicate” expels. For Esposito, the danger lies in the immune reaction.',
+      nota: 'The codes are abbreviations of the Spanish names. ANI is dehumanization: the rival as an animal, a plague or a parasite. An insult that belittles without taking away humanity («lacayo», “lackey”; «títere», “puppet”; «marioneta», “marionette”; «rendido», “surrendered”, in the sense of submissive) goes to P3. ENF and INM are kept apart: “virus” diagnoses, “eradicate” expels. For Esposito, the danger lies in the immune reaction.',
     },
 
     regla: {
@@ -564,7 +565,6 @@ export const TEXTOS_P2 = {
       porResolverTitulo: 'Unresolved',
       porResolver: [
         '«Vamos a reconstruir lo que ellos han tratado de destruir» (“We will rebuild what they have tried to destroy”; Sánchez, Barcelona 2026): construction for the “us”, destruction attributed to “them”.',
-        '«La derecha rendida a…» (“The right, surrendered to…”; Sánchez, Barcelona 2026): conventional, war-like, human target.',
       ],
     },
 
@@ -591,8 +591,8 @@ export const TEXTOS_P2 = {
       nota: '5.83',
       solidez: 'solid · 10 events with a sign',
       calculo: '10 × (6 + 1) / (6 + 4 + 2) = 5.83',
-      cifras: [['6', 'empathetic'], ['4', 'polarizing'], ['23', 'neutral']],
-      descriptivo: '33 events in 1,197 words: 27.6 per thousand. Most frequent domain: “Other” (11): noise, tools, trade. The list of domains needs expanding.',
+      cifras: [['6', 'empathetic'], ['4', 'polarizing'], ['21', 'neutral']],
+      descriptivo: '31 events in 1,197 words: 25.9 per thousand. Most frequent domain: “Other” (11): noise, tools, trade. The list of domains needs expanding.',
       p1: 'In P1 the same speech scores 5.5. With two speeches it is impossible to tell whether P1 and P2 move together: the corpus is needed.',
       onu: 'Second test, UN General Assembly 2024: P2 = 5.71 (indicative, 5 events with a sign), with two democratic exceptions. P1 leaves that speech unscored for lack of material; P2 does score it.',
       polarizanTitulo: 'The images that polarize',
@@ -614,13 +614,14 @@ export const TEXTOS_P2 = {
       dudas: [
         ['Noise (sentences 16, 17 and 19)', '«Hacen mucho ruido» (“They make a lot of noise”), «gritan tanto y tan alto» (“they shout so much and so loud”): it criticizes the rival’s style, it does not deny them a voice. Neutral. The score went from 4.38 to 5.83.'],
         ['«Unas derechas lacayas» (“a lackey right wing”, 16)', 'An insult the dictionary already lists with that sense: it is literal judgement and is measured by P3, not P2.'],
+        ['«La derecha rendida» (“the right, having surrendered”, 23 and 28)', 'The dictionary lists «rendido» as submissive: it is literal judgement and goes to P3, as does «su rendición al negacionismo» (“their surrender to denialism”). Both were neutral, so the score does not change.'],
         ['«Que no os engañen» (“Don’t let them fool you”, 18)', 'Polarizing, but literal: there is no metaphor. It is picked up by P1 and P3.'],
         ['The unity of one’s own group (34 and 35)', 'Empathetic: it unites without excluding anyone, like P1’s group “we” with no loser.'],
       ],
     },
 
     cambios: {
-      titulo: 'Draft v0.1 · 23 and 24 October 2026',
+      titulo: 'Draft v0.1 · 23 and 24 October and 10 November 2026',
       decisiones: [
         'The core of P2 is domain by target: the domain alone does not decide whether the metaphor polarizes.',
         'P2 uses P1’s typology of targets, plus two categories of its own: goal or future, and the “us” itself.',
@@ -640,10 +641,11 @@ export const TEXTOS_P2 = {
         'Formula: P2 = 10 × (E + 1) / (E + P + 2); neutral events are left out; minimum of 3 events with a sign.',
         'Change from the undergraduate thesis: a metaphor against problems («curar la desigualdad», “cure inequality”) moves from empathetic to neutral.',
         'ANI is dehumanization; an insult that belittles without taking away humanity («títere», “puppet”; «lacayo», “lackey”) goes to P3. The scorecard adds density per thousand words and the dominant domain.',
-        '«La derecha rendida» (“the right, having surrendered”): provisionally neutral in P2.',
         'Criticizing the rival’s style («hacen mucho ruido», “they make a lot of noise”) is not denying them a voice: neutral.',
         'An insult the dictionary already lists with that sense («lacayo», “lackey”) is literal judgement: it goes to P3.',
         'The unity of one’s own group is empathetic if it excludes no one.',
+        '«Rendido» (“surrendered”) in the sense of submissive is literal judgement, like «lacayo», «títere» and «marioneta»: «la derecha rendida» leaves P2 and goes to P3.',
+        'Trade: what can be literally true («comprar votos», “buying votes”) goes to P3; the image («vender el país», “selling out the country”; «negocio con el dolor», “making a business out of pain”) stays in P2.',
       ],
     },
 

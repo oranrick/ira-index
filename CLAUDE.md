@@ -67,6 +67,8 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 **Estado: sin cambios.**
 
+> Metodología 2.0 en desarrollo: P3 v0.1 cerrado en `research/manual/P3.md` (juicio moral literal: ancla, D1 a D6, R1 a R3; fórmula con la neutra a 5). El motor web sigue usando la definición anterior hasta que se migre.
+
 ## P4 · Tono Emocional · peso 20% ✓ REVISADO
 
 **Base teórica:**
@@ -98,6 +100,8 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 **Estado: sin cambios.**
 
+> Metodología 2.0 en desarrollo: P5 v0.1 cerrado en `research/manual/P5.md` (apertura al disenso). El motor web sigue usando la definición anterior hasta que se migre.
+
 ## P6 · Llamada a la Acción · peso 5% ✓ REVISADO
 
 **Base teórica:**
@@ -111,6 +115,8 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 - **BAJO (0-3):** imperativos coercitivos sin justificación ("hay que echarlos", "vamos a derrotarlos", "no podemos tolerar más esto"). La acción se dirige contra adversarios humanos identificados. Urgencia sin alternativa deliberativa.
 
 **Estado: sin cambios.**
+
+> Metodología 2.0 en desarrollo: P6 v0.1 cerrado en `research/manual/P6.md` (lo que se pide hacer de verdad). El motor web sigue usando la definición anterior hasta que se migre.
 
 ## P7 · Engagement Dialógico · peso 5% ✓ REVISADO
 
@@ -128,6 +134,8 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 **Estado: peso cambiado de 10% a 5% (esos 5% fueron a P5).**
 
 ## P8 — ELIMINADO. Sus 5% fueron a P5. Pendiente de reemplazar por nuevo parámetro.
+
+> Estado de la Metodología 2.0 (qué está cerrado, qué falta y los cambios acumulados para otros manuales): `research/ESTADO.md`. Orden de prioridad entre parámetros cuando una frase toca varios: P2, P6, P5, P1, P4, P3, salvo que un manual ya resuelva el caso.
 
 ---
 
