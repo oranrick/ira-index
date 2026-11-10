@@ -738,6 +738,7 @@ export default function MetodologiaP2() {
           <nav className="ira-met__pie-nav" aria-label={t.ui.navPie}>
             <Link to="/metodologia/p1" className="ira-boton ira-boton--secundario">{t.pie.anterior}</Link>
             <Link to="/metodologia" className="ira-boton ira-boton--secundario">{t.pie.volver}</Link>
+            <Link to="/metodologia/p3" className="ira-boton ira-boton--principal">{t.pie.siguiente}</Link>
           </nav>
         </div>
       </div>

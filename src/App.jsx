@@ -34,6 +34,9 @@ const Campana = lazy(() => import("./components/Campana.jsx"));
 const MetodologiaIndice = lazy(() => import("./components/metodologia/MetodologiaIndice.jsx"));
 const MetodologiaP1 = lazy(() => import("./components/metodologia/MetodologiaP1.jsx"));
 const MetodologiaP2 = lazy(() => import("./components/metodologia/MetodologiaP2.jsx"));
+const MetodologiaP3 = lazy(() => import("./components/metodologia/MetodologiaP3.jsx"));
+const MetodologiaP5 = lazy(() => import("./components/metodologia/MetodologiaP5.jsx"));
+const MetodologiaP6 = lazy(() => import("./components/metodologia/MetodologiaP6.jsx"));
 
 const AccentContext = createContext({
   accent: '#DCB149',
@@ -2003,6 +2006,9 @@ export default function App() {
         <Route path="/metodologia" element={<Suspense fallback={null}><MetodologiaIndice /></Suspense>} />
         <Route path="/metodologia/p1" element={<Suspense fallback={null}><MetodologiaP1 /></Suspense>} />
         <Route path="/metodologia/p2" element={<Suspense fallback={null}><MetodologiaP2 /></Suspense>} />
+        <Route path="/metodologia/p3" element={<Suspense fallback={null}><MetodologiaP3 /></Suspense>} />
+        <Route path="/metodologia/p5" element={<Suspense fallback={null}><MetodologiaP5 /></Suspense>} />
+        <Route path="/metodologia/p6" element={<Suspense fallback={null}><MetodologiaP6 /></Suspense>} />
         <Route path="/analisis-del-dia" element={<DailyAnalysisPage />} />
         <Route path="/patrones" element={<PatternsPageRoute />} />
         <Route path="*" element={<Navigate to="/politicos" replace />} />
