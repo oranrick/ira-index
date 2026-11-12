@@ -1,6 +1,6 @@
 # Sánchez · Cumbre Progresista, Barcelona 2026
 
-**P2 = 5,83** · solidez: sólida (10 eventos con signo)
+**P2 = 5,83** (margen 4,0 a 7,6) · solidez: sólida (10 eventos con signo)
 
 Cálculo: 10 × (E + 1) / (E + P + 2) = 10 × (6 + 1) / (6 + 4 + 2) = **5,83**
 
@@ -8,9 +8,9 @@ Cálculo: 10 × (E + 1) / (E + P + 2) = 10 × (6 + 1) / (6 + 4 + 2) = **5,83**
 - Polarizan (P): 4
 - Neutras (N, no entran en la nota): 21
 
-Descriptivo: 31 eventos en 1197 palabras, **25,9 por mil**. Dominio dominante: **OTR** (11 eventos).
+Descriptivo: 31 eventos en 1197 palabras, **25,9 por mil**. Dominio dominante: **OTR** (5 eventos).
 
-Por dominio: OTR 11, GUE 5, CUI 3, VIA 3, CON 3, FAM 3, DEP 2, ENF 1
+Por dominio: OTR 5, GUE 5, CUI 3, VIA 3, SON 3, CON 3, FAM 3, DEP 2, MAQ 2, COM 1, ENF 1
 
 **Eventos que polarizan**
 - 30 · CON · «Vamos a reconstruir lo que ellos han tratado de destruir»
@@ -26,4 +26,4 @@ Por dominio: OTR 11, GUE 5, CUI 3, VIA 3, CON 3, FAM 3, DEP 2, ENF 1
 - 54 · FAM · «España es hija de la migración y no va a ser madre de la xenofobia»
 - 73 · FAM · «La promesa que todo padre y toda madre le debe a su hijo y a su hija»
 
-_P2 borrador v0.1 (2026-10-24)_
+_P2 v1.0 (2026-11-12)_

@@ -1,4 +1,4 @@
-// IRA · /metodologia/p2 — P2 El marco metafórico (Metodología 2.0, borrador v0.1). SIMULACIÓN.
+// IRA · /metodologia/p2 — P2 El marco metafórico (Metodología 2.0, manual v1.0, cerrado el 12-nov-2026).
 // Todo el contenido sale de research/manual/P2.md (ver textosP2.js). P2 aún no tiene fórmula:
 // la página explica la regla y deja marcado lo pendiente.
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -15,6 +15,7 @@ import MapaTeoria from './piezas/MapaTeoria.jsx';
 import '../../styles/metodologia.css';
 import '../../styles/metodologia-piezas.css';
 import '../../styles/metodologia-p2.css';
+import '../../styles/metodologia-manual.css';
 import '../../styles/metodologia-juego.css';
 import '../../styles/identidad.css';
 
@@ -34,6 +35,9 @@ const TRAZOS_P2 = {
   viaje: <><path d="M5 20c0-4 4-4 4-8s-4-4-4-8" strokeDasharray="2.4 2.4" /><circle cx="17" cy="7" r="2.5" /><path d="M17 9.5V20" /></>,
   familia: <><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /><path d="M10 20v-5h4v5" /></>,
   cuidado: <><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></>,
+  sonido: <><path d="M4 10v4h3l4 3.5V6.5L7 10z" /><path d="M15 9.5a3.5 3.5 0 0 1 0 5" /><path d="M17.5 7a7 7 0 0 1 0 10" /></>,
+  maquina: <><circle cx="12" cy="12" r="3" /><path d="M12 3.5v2.5M12 18v2.5M3.5 12H6M18 12h2.5M6 6l1.8 1.8M16.2 16.2L18 18M6 18l1.8-1.8M16.2 7.8L18 6" /></>,
+  comercio: <><path d="M4 7h16l-1.5 7.5a2 2 0 0 1-2 1.5H7.5a2 2 0 0 1-2-1.5z" /><path d="M8 7a4 4 0 0 1 8 0" /><circle cx="9" cy="20" r="1" /><circle cx="15" cy="20" r="1" /></>,
   otro: <><circle cx="6" cy="12" r="1.3" /><circle cx="12" cy="12" r="1.3" /><circle cx="18" cy="12" r="1.3" /></>,
   persona: <><circle cx="12" cy="8" r="3.5" /><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" /></>,
 };
@@ -328,6 +332,7 @@ function Dominios({ d }) {
             <span className="ira-p2-dominio__nombre">{x.nombre}</span>
             <span className="ira-p2-dominio__ej">{x.ej}</span>
             {x.siempre && <span className="ira-p2-dominio__aviso">{d.siempre}</span>}
+            {x.nuevo && <span className="ira-p2-dominio__nuevo">{d.nuevo}</span>}
           </Aparecer>
         ))}
       </ul>
@@ -437,6 +442,7 @@ function Recorrido({ r, t }) {
         <Aparecer as="li" className={`ira-p2-nodo${estado(2)}`}>
           <span className="ira-p2-nodo__n ira-cifra" aria-hidden="true">2</span>
           <p className="ira-p2-nodo__q">{r.p2}</p>
+          <p className="ira-p2-nodo__nota">{r.p2Nota}</p>
           <p className="ira-p2-nodo__atajo"><span className="ira-cifra">ANI · INM</span> {r.atajoTexto}</p>
           <div className="ira-p2-nodo__salidas">
             {salida(2, t.apunta.no, 'polariza', 'polariza', t.resultados.polariza.nombre)}
@@ -471,6 +477,26 @@ function Recorrido({ r, t }) {
         </div>
       </div>
       <p className="ira-met__nota">{r.intensidad}</p>
+
+      <div className="ira-p2-ancla">
+        <h3 className="ira-met__h3">{r.ancla.titulo}</h3>
+        <p className="ira-met__texto">{r.ancla.intro}</p>
+        <ol className="ira-p2-ancla__condiciones">
+          {r.ancla.condiciones.map(([n, e], i) => (
+            <li key={n}><span className="ira-p2-ancla__n ira-cifra" aria-hidden="true">{i + 1}</span><b>{n}</b><span>{e}</span></li>
+          ))}
+        </ol>
+        <ul className="ira-p2-ancla__ejemplos">
+          {r.ancla.ejemplos.map(([f, res, por]) => (
+            <li key={f} className={`ira-p2--${res}`}>
+              <span className="ira-p2-ancla__frase">{f}</span>
+              <Pildora resultado={res} t={t} />
+              <span className="ira-p2-ancla__por">{por}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="ira-met__nota">{r.ancla.nota}</p>
+      </div>
     </>
   );
 }
@@ -501,7 +527,7 @@ export default function MetodologiaP2() {
       <Link to="/metodologia" className="ira-met__volver">{t.volverIndice}</Link>
       <header className="ira-met__cabecera ira-met__cabecera--p1">
         <div className="ira-met__cabecera-texto">
-          <p className="ira-met__rotulo">{t.rotulo} <span className="ira-p2-borrador">{t.enConstruccion}</span></p>
+          <p className="ira-met__rotulo">{t.rotulo} <span className="ira-man-estado">{t.enConstruccion}</span></p>
           <h1 className="ira-met__titulo">{t.titulo}</h1>
           <p className="ira-met__frase">{t.frase}</p>
         </div>
@@ -677,6 +703,7 @@ export default function MetodologiaP2() {
                   <CifraAlVer valor={Number(t.prueba.nota.replace(',', '.'))} formato={(v) => v.toFixed(2).replace('.', t.ui.decimal)} />
                 </p>
                 <p className="ira-p2-prueba__solidez">P2 · {t.prueba.solidez}</p>
+                <p className="ira-p2-prueba__margen">{t.prueba.margen}</p>
                 <p className="ira-p2-prueba__calculo ira-cifra">{t.prueba.calculo}</p>
                 <ul className="ira-p2-prueba__cifras">
                   {t.prueba.cifras.map(([n, k], i) => (
@@ -711,9 +738,9 @@ export default function MetodologiaP2() {
           {/* Pendiente */}
           <Seccion {...sec('pendiente')}>
             <ul className="ira-p2-pendiente">
-              {t.pendiente.map(([n, e]) => (
-                <li key={n} className="ira-p2-pendiente__item">
-                  <span className="ira-p2-pendiente__estado ira-cifra">{t.enConstruccion}</span>
+              {t.pendiente.map(([n, e, despues]) => (
+                <li key={n} className={`ira-p2-pendiente__item${despues ? '' : ' ira-man-limite'}`}>
+                  {despues && <span className="ira-p2-pendiente__estado ira-cifra">{t.pendienteEtiqueta}</span>}
                   <p className="ira-p2-pendiente__nombre">{n}</p>
                   <p>{e}</p>
                 </li>

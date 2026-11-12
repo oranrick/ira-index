@@ -51,7 +51,7 @@ IRA = (P1×0.20) + (P2×0.20) + (P3×0.10) + (P4×0.20) + (P5×0.20) + (P6×0.05
 
 **Estado: sin cambios.**
 
-> Metodología 2.0 en desarrollo: P2 borrador v0.1 en `research/manual/P2.md` (dominio por blanco, regla en tres pasos, P2 = 10 × (E + 1) / (E + P + 2)). Página en `/metodologia/p2`, enlazada desde el índice como borrador en desarrollo. El motor web sigue usando la definición anterior hasta que se migre.
+> Metodología 2.0: P2 v1.0 cerrado el 12-nov-2026 en `research/manual/P2.md` (dominio por blanco, regla en tres pasos, imagen-acusación con prueba del ancla, P2 = 10 × (E + 1) / (E + P + 2), margen = intervalo central del 80 % de la beta (E+1, P+1)). Congelado durante la campaña del 29-N. Página en `/metodologia/p2`. El motor web sigue usando la definición anterior hasta que se migre.
 
 ## P3 · Polaridad Moral · peso 10% ✓ REVISADO
 
@@ -196,7 +196,12 @@ cuando la tabla está vacía.
   Metodología 2.0; sin nota IRA global. Candidaturas: las cuatro fuerzas más votadas en 2023
   (PP, PSOE, Vox, Sumar → Frente Amplio), ordenadas por apellido, mismo trato (las cuatro fotos con el mismo recorte y en blanco y negro;
   si faltara una, iniciales para todas).
-  Reglas publicadas en la página: misma cuota, misma pieza, se publica todo, método a la vista.
+  Piezas: el mitin central de cada fin de semana y los debates a cuatro (en un debate, una pieza por
+  candidatura con solo sus intervenciones). Reglas publicadas en la página: misma cuota, misma pieza,
+  se publica todo, método a la vista, cada número con su margen.
+  **Números con margen (desde el 12-nov-2026):** `PIEZAS` guarda recuentos, no notas; `src/lib/margen.js`
+  calcula P1 y P2 con su margen (intervalo central del 80 %). La nota de campaña de cada candidatura
+  junta los eventos de todas sus piezas (nunca promedia notas) y nunca se ordena de mayor a menor.
   Cada pieza se añade a `PIEZAS` con la transcripción completa y su codificación, para recalcular
   con la 2.0 completa al terminar.
 - **Archivo** (`/politicos`, antes «Clasificación»): todo lo calculado con el método de 2024
