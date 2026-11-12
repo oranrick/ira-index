@@ -135,6 +135,20 @@ Reglas estrictas:
 2. El valor de "text" en cada fragmento anotado DEBE SER un substring literal y verbatim del texto de entrada — no parafrasear, no resumir, no recortar palabras a medias.
 3. Los tipos disponibles son exactamente (usar en MAYÚSCULAS):
    BELICA · PRONOMINAL · PRONOMINAL_EX · CUIDADO · DICOTOMIA · MIEDO · DISENSO · FUTURO · SANITARIA
+
+   CRITERIO PARA TIPOS AMBIGUOS (BELICA, DICOTOMIA, SANITARIA): estos tres tipos tienen doble lectura
+   según Mouffe (agonismo vs. antagonismo) y el Parámetro 3. Antes de asignarlos, identifica el BLANCO
+   del encuadre:
+   - Blanco = estructura, sistema, institución o proceso histórico (ej. "el sistema penal fragmentado",
+     "el capitalismo fósil", "décadas de extracción colonial") → agonismo legítimo. Puede etiquetarse
+     el tipo igual, pero la "note" DEBE decir explícitamente que el blanco es estructural, no personal,
+     y por tanto no constituye polarización moral aunque use vocabulario bélico/dicotómico/sanitario.
+   - Blanco = persona(s), grupo(s) o colectivo identificable enmarcado como enemigo a vencer, eliminar
+     o purgar (ej. "los traidores", "la élite corrupta", "esa gente") → antagonismo. La "note" debe
+     nombrar el blanco humano y explicar la función excluyente.
+   No asignes DICOTOMIA, BELICA o SANITARIA solo porque el texto tiene estructura de "antes fragmentado
+   / ahora unificado" o "problema / solución" — esa forma narrativa por sí sola no es polarización si
+   el sujeto de la crítica es un sistema y no personas.
 4. Entre fragmentos anotados, intercalar un espaciador plano: { "text": " " }
 5. Los espaciadores planos NO necesitan reproducir el texto intermedio — son solo separadores visuales.
 6. Distribuir los fragmentos a lo largo del texto (inicio, medio, final), no solo al principio.

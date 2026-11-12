@@ -11,7 +11,7 @@ export const ANNOTATION_TYPES = {
     border: '#ff6600',
     param: 'Tipo de metáfora dominante',
     icon: '⚔️',
-    description: 'Encuadra la política como guerra. Convierte al adversario en enemigo a eliminar, no en interlocutor.',
+    description: 'Encuadra la política como guerra. Ambigua: si el blanco es una estructura injusta, puede cohesionar; si el blanco son personas o grupos, convierte al adversario en enemigo a eliminar.',
   },
   PRONOMINAL: {
     id: 'pronominal',
@@ -51,7 +51,7 @@ export const ANNOTATION_TYPES = {
     border: '#a855f7',
     param: 'Carga dicotómica',
     icon: '⚡',
-    description: 'División maniquea del mundo en buenos y malos. Simplificación ética que cierra el espacio político.',
+    description: 'Ambigua: dicotomía estructural (un sistema, una historia) es agonismo legítimo (Mouffe); dicotomía moralizada sobre personas o grupos ("buenos y malos") es antagonismo que cierra el espacio político.',
   },
   MIEDO: {
     id: 'miedo',
