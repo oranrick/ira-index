@@ -11,7 +11,7 @@ export const ANNOTATION_TYPES = {
     border: '#ff6600',
     param: 'Tipo de metáfora dominante',
     icon: '⚔️',
-    description: 'Encuadra la política como guerra. Convierte al adversario en enemigo a eliminar, no en interlocutor.',
+    description: 'Encuadra el conflicto como guerra. Ambigua: si el blanco es una estructura o proceso injusto, es agonismo (lucha legítima); si el blanco es una persona o grupo moralizado como enemigo, convierte al adversario en objetivo a eliminar.',
   },
   PRONOMINAL: {
     id: 'pronominal',
@@ -51,7 +51,7 @@ export const ANNOTATION_TYPES = {
     border: '#a855f7',
     param: 'Carga dicotómica',
     icon: '⚡',
-    description: 'División maniquea del mundo en buenos y malos. Simplificación ética que cierra el espacio político.',
+    description: 'División del mundo en dos polos morales. Ambigua: si el blanco es una estructura o sistema (desigualdad, colonialismo), es crítica estructural; si el blanco es una persona o grupo etiquetado como bueno/malo, es simplificación maniquea que cierra el espacio político.',
   },
   MIEDO: {
     id: 'miedo',
