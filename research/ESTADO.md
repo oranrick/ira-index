@@ -4,7 +4,7 @@ Pega este archivo, con el brief, al empezar un chat nuevo. Sustituye a toda la c
 
 ## Cerrado
 
-- **P1 v1.1** (congelado del 13 al 27 de noviembre), **P2 v0.1**, **P3 v0.1**, **P5 v0.1**, **P6 v0.1**. Manuales en `research/manual/`.
+- **P1 v1.1** y **P2 v1.0** (los dos congelados del 13 al 27 de noviembre; P2 cerrado el 12 nov 2026), **P3 v0.1**, **P5 v0.1**, **P6 v0.1**. Manuales en `research/manual/`.
 
 ## Reglas transversales aceptadas
 
@@ -29,6 +29,8 @@ Pega este archivo, con el brief, al empezar un chat nuevo. Sustituye a toda la c
 
 - **P1 v1.2** (tras el 27 nov, recalcular campaña): C7 y el reconocimiento de un acierto (A6) pasan a P5 · A5 queda como humanizar sin evaluar · A4 legitima a la persona; legitimar el desacuerdo es P5 (V1) · C6 solo deshumanización literal · C4 no incluye la expulsión pedida (P6).
 - **P2.md:** "rendida" sale de P2 (P3, D1) y entra en la lista de juicios literales · comercio: lo literalmente posible ("comprar votos") es P3; la imagen ("vender el país") es P2. **Aplicado el 10 nov 2026** (manual, CSV y ficha de Barcelona, textos de la web).
+- **P2 v1.0 (12 nov 2026):** imagen-acusación con prueba del ancla de P3 (imagen-acción sigue con la prueba de las reglas); dominios SON, MAQ, COM; muertas comprobadas con el DLE; margen del 80 % en la ficha; base teórica y procedimiento redactados.
+- **P1.md (para v1.2, después del 27 nov):** la tabla «Qué NO mide» ya está alineada (12 nov, sin cambios de reglas). Queda quitar el doble recuento de la deshumanización figurada (cierre en P1 y evento en P2) y pasar a P5 el reconocimiento de un acierto.
 
 ## Notas
 

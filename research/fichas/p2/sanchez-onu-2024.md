@@ -1,6 +1,6 @@
 # Sánchez · Asamblea General de la ONU 2024
 
-**P2 = 5,71** · solidez: orientativa (5 eventos con signo)
+**P2 = 5,71** (margen 3,3 a 8,0) · solidez: orientativa (5 eventos con signo)
 
 Cálculo: 10 × (E + 1) / (E + P + 2) = 10 × (3 + 1) / (3 + 2 + 2) = **5,71**
 
@@ -25,4 +25,4 @@ Por dominio: GUE 6, CON 4, OTR 4, VIA 3, CUI 1
 - 26 · CUI · «trabajar por su regeneración interna»
 - 37 · CON · «la refundación del multilateralismo»
 
-_P2 borrador v0.1 (2026-10-24)_
+_P2 v1.0 (2026-11-12)_

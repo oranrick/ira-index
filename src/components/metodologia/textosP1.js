@@ -27,6 +27,7 @@ export const TEXTOS_P1 = {
   es: {
     volverIndice: '← Metodología 2.0',
     rotulo: 'Parámetro 1 · manual v1.1',
+    estado: 'Congelado durante la campaña: 13 a 27 de noviembre',
     titulo: 'La frontera del nosotros',
     indiceTitulo: 'En esta página',
     indiceDesplegar: 'Ir a una sección',
@@ -43,7 +44,6 @@ export const TEXTOS_P1 = {
       { id: 'indicadores', titulo: 'Los tres indicadores' },
       { id: 'ficha', titulo: 'La ficha' },
       { id: 'excepcion', titulo: 'La excepción democrática' },
-      { id: 'cuenta-o-no', titulo: '¿Cuenta o no?' },
       { id: 'minimos', titulo: 'Mínimos y solidez' },
       { id: 'limites', titulo: 'Límites y trabajo pendiente' },
       { id: 'cambios', titulo: 'Registro de cambios' },
@@ -131,12 +131,14 @@ export const TEXTOS_P1 = {
     noMide: {
       cabecera: ['Fenómeno', 'Dónde se mide'],
       filas: [
-        { fenomeno: 'Verbos bélicos («derrotar», «luchar»)', destino: ['P2', 'P6'], nota: 'metáfora y acción' },
+        { fenomeno: 'Verbos bélicos («derrotar», «luchar»)', destino: ['P2', 'P6'], nota: 'como imagen, P2; como acción pedida de verdad, P6' },
         { fenomeno: 'Marcos de competición («victoria», «batalla»)', destino: ['P2'] },
         { fenomeno: 'Juicio moral sobre el adversario («corruptos», «malvados»)', destino: ['P3'] },
-        { fenomeno: 'Deshumanización («plaga», «virus»)', destino: ['P2', 'P3'], nota: 'en P1 solo cuenta como un cierre más' },
+        { fenomeno: 'Deshumanización («plaga», «parásito»)', destino: ['P2'], nota: 'en P1 v1.1 cuenta además como un cierre; se corrige en v1.2' },
         { fenomeno: 'Emociones movilizadas', destino: ['P4'] },
-        { fenomeno: 'Acciones coercitivas («doblarles el brazo»)', destino: ['P6'] },
+        { fenomeno: 'Coerción en imagen («doblarles el brazo», «aplastarlos»)', destino: ['P2'] },
+        { fenomeno: 'Coerción pedida de verdad («que se vayan del país», «que se callen»)', destino: ['P6'] },
+        { fenomeno: 'Trato a la palabra del otro («no diga chorradas»)', destino: ['P5'] },
         { fenomeno: 'El «yo» del hablante (distancia vertical con el público)', destino: ['P8'], nota: 'no puntúa en P1; candidato a P8' },
       ],
       regla: 'Regla general: P1 registra dónde se traza la línea, no lo que se dice de quien queda al otro lado.',
@@ -292,6 +294,7 @@ export const TEXTOS_P1 = {
         'Solidez de P1. Si el alcance llega al mínimo: de 15 a 40 nosotros clasificables, orientativa; más de 40, sólida. Si solo puntúa la permeabilidad: de 3 a 5 eventos, orientativa; 6 o más, sólida. Si no llega ninguno: sin puntuar.',
         'Repeticiones. Cada mención y cada evento cuentan, aunque se repitan, y una misma oración puede restar en el alcance y en la permeabilidad: cada indicador mide una propiedad distinta de la frase.',
         'La extensión mínima se expresa en referencias, no en palabras: un mitin puede tener 40 nosotros por cada mil palabras y una intervención institucional, 14.',
+        'Margen. En la campaña del 29-N la nota se publica con su margen: el rango donde cae con 4 de cada 5 probabilidades, calculado con los mismos recuentos. Es presentación: no cambia la nota.',
       ],
     },
 
@@ -307,6 +310,24 @@ export const TEXTOS_P1 = {
       ['Solapamiento entre indicadores', 'Si con más discursos el alcance y la permeabilidad resultaran ir siempre juntos, uno de los dos sobraría y P1 podría simplificarse. No es un error, sino una posible simplificación futura.'],
     ],
 
+    fichaReal: {
+      intro: 'Cada análisis produce una ficha con cada indicador, su recuento y el cálculo. Dos ejemplos reales:',
+      piezas: [
+        { id: 'sanchez-barcelona-2026', titulo: 'Sánchez · Cumbre Progresista, Barcelona 2026' },
+        { id: 'sanchez-onu-2024', titulo: 'Sánchez · Asamblea General de la ONU 2024', sinNota: '13 nosotros clasificables y 2 eventos de frontera: los dos por debajo del mínimo. Lista además 3 fronteras por conducta violenta o antidemocrática, con el aviso de que IRA no las verifica.' },
+      ],
+      indicadores: { alcance: 'Alcance', permeabilidad: 'Permeabilidad', interpelacion: 'Interpelación' },
+      recuento: {
+        alcance: (r) => `${r.U + r.G} inclusivos y ${r.GC} contra alguien`,
+        permeabilidad: (r) => `${r.A} ${r.A === 1 ? 'apertura' : 'aperturas'} y ${r.Cp} cierres`,
+        interpelacion: (r) => `${r.I} ${r.I === 1 ? 'inclusiva' : 'inclusivas'} y ${r.C} contra alguien`,
+      },
+      bajoMinimo: 'bajo el mínimo',
+      nota: 'P1',
+      margen: (a, b) => `margen: de ${a} a ${b}`,
+      solidez: { solida: 'sólida', orientativa: 'orientativa', sin: 'sin puntuar' },
+      calculo: 'Cálculo',
+    },
     cambios: {
       fecha: '9 de octubre de 2026',
       v1: {
@@ -348,6 +369,7 @@ export const TEXTOS_P1 = {
   en: {
     volverIndice: '← Methodology 2.0',
     rotulo: 'Parameter 1 · manual v1.1',
+    estado: 'Frozen during the campaign: 13 to 27 November',
     titulo: 'The boundary of “us”',
     indiceTitulo: 'On this page',
     indiceDesplegar: 'Jump to a section',
@@ -364,7 +386,6 @@ export const TEXTOS_P1 = {
       { id: 'indicadores', titulo: 'The three indicators' },
       { id: 'ficha', titulo: 'The scorecard' },
       { id: 'excepcion', titulo: 'The democratic exception' },
-      { id: 'cuenta-o-no', titulo: 'Does it count?' },
       { id: 'minimos', titulo: 'Minimums and robustness' },
       { id: 'limites', titulo: 'Limits and pending work' },
       { id: 'cambios', titulo: 'Change log' },
@@ -452,12 +473,14 @@ export const TEXTOS_P1 = {
     noMide: {
       cabecera: ['Phenomenon', 'Where it is measured'],
       filas: [
-        { fenomeno: 'War verbs («derrotar», “defeat”; «luchar», “fight”)', destino: ['P2', 'P6'], nota: 'metaphor and action' },
+        { fenomeno: 'War verbs («derrotar», “defeat”; «luchar», “fight”)', destino: ['P2', 'P6'], nota: 'as an image, P2; as an action really called for, P6' },
         { fenomeno: 'Competition frames («victoria», “victory”; «batalla», “battle”)', destino: ['P2'] },
         { fenomeno: 'Moral judgement of the adversary («corruptos», “corrupt”; «malvados», “wicked”)', destino: ['P3'] },
-        { fenomeno: 'Dehumanization («plaga», “plague”; «virus»)', destino: ['P2', 'P3'], nota: 'in P1 it only counts as one more closure' },
+        { fenomeno: 'Dehumanization («plaga», “plague”; «parásito», “parasite”)', destino: ['P2'], nota: 'in P1 v1.1 it also counts as a closure; fixed in v1.2' },
         { fenomeno: 'Emotions mobilized', destino: ['P4'] },
-        { fenomeno: 'Coercive actions («doblarles el brazo», “twist their arm”)', destino: ['P6'] },
+        { fenomeno: 'Coercion as an image («doblarles el brazo», “twist their arm”; «aplastarlos», “crush them”)', destino: ['P2'] },
+        { fenomeno: 'Coercion really called for («que se vayan del país», “let them leave the country”; «que se callen», “let them shut up”)', destino: ['P6'] },
+        { fenomeno: 'How the other’s word is treated («no diga chorradas», “stop talking rubbish”)', destino: ['P5'] },
         { fenomeno: 'The speaker’s “I” (vertical distance from the audience)', destino: ['P8'], nota: 'does not score in P1; candidate for P8' },
       ],
       regla: 'General rule: P1 records where the line is drawn, not what is said about those on the other side.',
@@ -613,6 +636,7 @@ export const TEXTOS_P1 = {
         'Robustness of P1. If reach meets its minimum: 15 to 40 classifiable “we” mentions, indicative; more than 40, solid. If only permeability scores: 3 to 5 events, indicative; 6 or more, solid. If neither does: not scored.',
         'Repetitions. Every mention and every event counts, even when repeated, and a single sentence can subtract under both reach and permeability: each indicator measures a different property of the sentence.',
         'The minimum length is expressed in references, not words: a rally speech can have 40 “we” mentions per thousand words and an institutional address, 14.',
+        'Margin. In the 29-N campaign the score is published with its margin: the range it falls in with a 4-in-5 probability, calculated from the same counts. It is presentation only: it does not change the score.',
       ],
     },
 
@@ -628,6 +652,24 @@ export const TEXTOS_P1 = {
       ['Overlap between indicators', 'If, with more speeches, reach and permeability turned out to always move together, one of them would be redundant and P1 could be simplified. It is not an error, just a possible future simplification.'],
     ],
 
+    fichaReal: {
+      intro: 'Each analysis produces a scorecard with every indicator, its count and the calculation. Two real examples:',
+      piezas: [
+        { id: 'sanchez-barcelona-2026', titulo: 'Sánchez · Progressive Summit, Barcelona 2026' },
+        { id: 'sanchez-onu-2024', titulo: 'Sánchez · UN General Assembly 2024', sinNota: '13 classifiable “we” mentions and 2 boundary events: both below the minimum. It also lists 3 boundaries drawn by violent or anti-democratic conduct, with the notice that IRA does not verify them.' },
+      ],
+      indicadores: { alcance: 'Reach', permeabilidad: 'Permeability', interpelacion: 'Direct address' },
+      recuento: {
+        alcance: (r) => `${r.U + r.G} inclusive and ${r.GC} against someone`,
+        permeabilidad: (r) => `${r.A} ${r.A === 1 ? 'opening' : 'openings'} and ${r.Cp} closures`,
+        interpelacion: (r) => `${r.I} inclusive and ${r.C} against someone`,
+      },
+      bajoMinimo: 'below the minimum',
+      nota: 'P1',
+      margen: (a, b) => `margin: ${a} to ${b}`,
+      solidez: { solida: 'solid', orientativa: 'indicative', sin: 'not scored' },
+      calculo: 'Calculation',
+    },
     cambios: {
       fecha: '9 October 2026',
       v1: {

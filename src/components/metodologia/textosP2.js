@@ -1,7 +1,7 @@
 // IRA · Metodología 2.0 · P2 El marco metafórico · textos de la página (SIMULACIÓN).
 // Bilingüe: en inglés los ejemplos se quedan en español con su traducción (ver textosComunes.js).
-// Fuente: research/manual/P2.md (borrador v0.1). Aquí solo se resume y se adapta el tono:
-// no se añaden reglas que no estén en el manual. Lo pendiente se marca como tal.
+// Fuente: research/manual/P2.md (versión 1.0, cerrada el 12-nov-2026). Aquí solo se resume y se adapta
+// el tono: no se añaden reglas que no estén en el manual.
 
 const REFERENCIAS = [
   'Charteris-Black, J. (2004). Corpus approaches to critical metaphor analysis. Palgrave Macmillan.',
@@ -13,22 +13,25 @@ const REFERENCIAS = [
   'Lakoff, G., y Johnson, M. (1980). Metaphors we live by. University of Chicago Press.',
   'Mouffe, C. (2005). On the political. Routledge.',
   'Musolff, A. (2010). Metaphor, nation and the Holocaust: The concept of the body politic. Routledge.',
+  'Pragglejaz Group (2007). MIP: A method for identifying metaphorically used words in discourse. Metaphor and Symbol, 22(1), 1–39.',
   'Sontag, S. (1978). Illness as metaphor. Farrar, Straus and Giroux.',
   'Steen, G. J., Dorst, A. G., Herrmann, J. B., Kaal, A. A., Krennmayr, T., y Pasma, T. (2010). A method for linguistic metaphor identification: From MIP to MIPVU. John Benjamins.',
   'Steen, G. J., Reijnierse, W. G., y Burgers, C. (2014). When do natural language metaphors influence reasoning? A follow-up study to Thibodeau and Boroditsky (2013). PLoS ONE, 9(12), e113536.',
   'Thibodeau, P. H., y Boroditsky, L. (2011). Metaphors we think with: The role of metaphor in reasoning. PLoS ONE, 6(2), e16782.',
+  'Thibodeau, P. H., Hendricks, R. K., y Boroditsky, L. (2017). How linguistic metaphor scaffolds reasoning. Trends in Cognitive Sciences, 21(11), 852–863.',
 ];
 
 export const TEXTOS_P2 = {
   es: {
     volverIndice: '← Metodología 2.0',
-    rotulo: 'Parámetro 2 · borrador v0.1',
+    rotulo: 'Parámetro 2 · manual v1.0',
     titulo: 'El marco metafórico',
     frase: 'P2 mide con qué imágenes piensa el discurso el conflicto y contra quién apuntan.',
     lema: ['El dominio no decide.', 'Decide el blanco.'],
     indiceTitulo: 'En esta página',
     indiceDesplegar: 'Ir a una sección',
-    enConstruccion: 'En construcción',
+    enConstruccion: 'Cerrado el 12 de noviembre de 2026',
+    pendienteEtiqueta: 'Después de la campaña',
     ui: {
       modoEtiqueta: 'Cómo ver los ejemplos', verTodo: 'Ver todo', adivinar: 'Adivinar primero',
       pistaAdivinar: 'Toca cada frase para destapar su resultado.', tapa: '¿Neutra o polariza?',
@@ -55,7 +58,7 @@ export const TEXTOS_P2 = {
       { id: 'formula', titulo: 'La fórmula' },
       { id: 'casos', titulo: 'Casos resueltos' },
       { id: 'prueba', titulo: 'Las pruebas: Barcelona y la ONU' },
-      { id: 'pendiente', titulo: 'Lo que falta' },
+      { id: 'pendiente', titulo: 'Límites y validación' },
       { id: 'cambios', titulo: 'Registro de decisiones' },
       { id: 'referencias', titulo: 'Referencias' },
     ],
@@ -112,7 +115,7 @@ export const TEXTOS_P2 = {
         virus: { imagen: 'un virus', solucion: 'prevenir · reformar' },
         bestia: { imagen: 'una bestia', solucion: 'perseguir · encerrar' },
         problema: 'el crimen',
-        cautela: 'La réplica de Steen, Reijnierse y Burgers (2014) encontró efectos más débiles. P2 no mide el efecto en la audiencia: mide la imagen que el discurso elige.',
+        cautela: 'Una réplica con grupo de control (Steen, Reijnierse y Burgers, 2014) no encontró el efecto en su diseño, y una revisión posterior lo sitúa sobre todo en metáforas coherentes con el resto del texto (Thibodeau, Hendricks y Boroditsky, 2017). Por eso P2 no mide el efecto en la audiencia: mide la imagen que el discurso elige y contra quién la dirige.',
       },
       pasos: [
         { titulo: 'La imagen estructura el pensamiento', texto: 'Pensamos un dominio abstracto (la política) con otro concreto (la guerra, el cuerpo, el camino).', fuentes: 'Lakoff y Johnson, 1980' },
@@ -134,7 +137,7 @@ export const TEXTOS_P2 = {
           { corto: 'Klemperer', anios: '1947', zona: 'lenguaje', disciplina: 'Filología', refs: ['Klemperer'] },
           { corto: 'Esposito', anios: '2002 · 2004', zona: 'politica', disciplina: 'Filosofía política', refs: ['Esposito'] },
           { corto: 'Musolff', anios: '2010', zona: 'politica', disciplina: 'Análisis crítico de la metáfora', refs: ['Musolff'] },
-          { corto: 'Thibodeau · Boroditsky', anios: '2011', zona: 'cuerpo', disciplina: 'Psicología cognitiva', refs: ['Thibodeau', 'Steen, G. J., Reijnierse'] },
+          { corto: 'Thibodeau · Boroditsky', anios: '2011 · 2017', zona: 'cuerpo', disciplina: 'Psicología cognitiva', refs: ['Thibodeau', 'Steen, G. J., Reijnierse'] },
         ],
       },
       autores: [
@@ -143,7 +146,7 @@ export const TEXTOS_P2 = {
         { autor: 'Klemperer (1947)', texto: 'El filólogo que anotó la lengua del III Reich. Las palabras repetidas actúan como dosis mínimas de veneno: se toman sin notarlo y, con el tiempo, hacen su efecto.' },
         { autor: 'Esposito (2002, 2004)', texto: 'El paradigma inmunitario: la comunidad se protege de lo que percibe como infección, y la protección puede volverse contra la propia vida. De ahí que INM («erradicar», «limpiar») sea el dominio más peligroso.' },
         { autor: 'Musolff (2010)', texto: 'Reconstruye el cuerpo político y la imagen del parásito, del organismo enfermo que debe expulsar lo ajeno. Une a Klemperer con Esposito.' },
-        { autor: 'Thibodeau y Boroditsky (2011)', texto: 'La metáfora cambia el razonamiento: el crimen como virus o como bestia lleva a soluciones distintas. La réplica de Steen, Reijnierse y Burgers (2014) encontró efectos más débiles.' },
+        { autor: 'Thibodeau y Boroditsky (2011, 2017)', texto: 'La metáfora puede orientar el razonamiento: el crimen como virus o como bestia llevó a preferir soluciones distintas. El efecto depende del contexto: una réplica con grupo de control no lo encontró (Steen, Reijnierse y Burgers, 2014). Es un efecto posible, no una ley.' },
       ],
       otros: 'También: Sontag (la enfermedad como metáfora), Charteris-Black (análisis crítico de la metáfora), Steen et al. (el procedimiento MIPVU) y Mouffe (agonismo).',
       cautelaTitulo: 'Cautela',
@@ -153,9 +156,10 @@ export const TEXTOS_P2 = {
     noMide: {
       filas: [
         { fenomeno: 'Dónde se traza la línea nosotros/ellos', destino: ['P1'] },
-        { fenomeno: 'Juicio moral literal («corruptos», «traidores»)', destino: ['P3'] },
+        { fenomeno: 'Juicio moral literal («corruptos», «traidores», «lacayo»)', destino: ['P3'] },
         { fenomeno: 'Emociones movilizadas', destino: ['P4'] },
-        { fenomeno: 'Lo que se pide hacer de verdad (votar, movilizarse, castigar)', destino: ['P6'], nota: 'la línea definitiva, al revisar P6' },
+        { fenomeno: 'Trato a la palabra del otro («no diga chorradas»)', destino: ['P5'] },
+        { fenomeno: 'Lo que se pide hacer de verdad (votar, movilizarse, castigar)', destino: ['P6'] },
       ],
       reparto: [
         { frase: '«Son una plaga»', destino: 'P2', tipo: 'figurado' },
@@ -165,7 +169,7 @@ export const TEXTOS_P2 = {
       ],
       repartoTitulo: 'Cada frase cae en un solo sitio',
       figurado: 'figurado', literal: 'literal',
-      regla: 'Lo figurado va a P2; lo literal, a los demás. Así P2 deja de moverse junto a P3 y P6.',
+      regla: 'Lo figurado va a P2; lo literal, a los demás. Si una marca cabe en dos parámetros, manda este orden: P2, P6, P5, P1, P4, P3. P2 va primero: si es imagen, es P2.',
     },
 
     cuenta: {
@@ -206,8 +210,12 @@ export const TEXTOS_P2 = {
         { codigo: 'VIA', nombre: 'Viaje y camino', ej: 'caminar, rumbo, avanzar, horizonte', icono: 'viaje' },
         { codigo: 'FAM', nombre: 'Familia y casa', ej: 'hermanos, casa común, madre patria', icono: 'familia' },
         { codigo: 'CUI', nombre: 'Cuidado y cuerpo', ej: 'abrazar, sanar heridas, tender la mano', icono: 'cuidado' },
+        { codigo: 'SON', nombre: 'Sonido y voz', ej: 'ruido, gritar, silenciar, eco', icono: 'sonido', nuevo: true },
+        { codigo: 'MAQ', nombre: 'Máquina y herramienta', ej: 'palanca, motor, engranaje, desmantelar', icono: 'maquina', nuevo: true },
+        { codigo: 'COM', nombre: 'Comercio', ej: 'vender, comprar, negocio, precio', icono: 'comercio', nuevo: true },
         { codigo: 'OTR', nombre: 'Otro', ej: 'si se repite, pasa a la lista', icono: 'otro' },
       ],
+      nuevo: 'nuevo en v1.0',
       siempre: 'Contra personas, siempre polariza',
       nota: 'ANI es deshumanizar: el rival como animal, plaga o parásito. El insulto que lo rebaja sin quitarle lo humano («lacayo», «títere», «marioneta», «rendido» como sumiso) va a P3. ENF e INM van separados: «virus» diagnostica, «erradicar» expulsa. En Esposito, el peligro está en la reacción inmunitaria.',
     },
@@ -224,8 +232,23 @@ export const TEXTOS_P2 = {
       arbolTitulo: 'Los tres pasos',
       p1: '¿El blanco es humano?',
       p2: '¿Conserva las reglas y reconoce al rival?',
+      p2Nota: 'Si la imagen acusa al rival de algo que hizo («destruir», «hundir»), la pregunta es otra: ¿tiene ancla?',
       p3: '¿Acepta y une?',
       irA: 'paso',
+      ancla: {
+        titulo: 'La imagen que acusa: prueba del ancla',
+        intro: 'Hay dos clases de imagen contra personas. La imagen-acción dice lo que se hará al rival («aplastarlos», «doblarles el brazo») y pasa la prueba de las reglas. La imagen-acusación dice lo que el rival hizo («destruir», «romper», «hundir», «partir en dos») y pasa la prueba del ancla, la misma de P3.',
+        condiciones: [
+          ['Acto identificable', 'una ley, una decisión, una votación, una gestión nombrada'],
+          ['Agente acotado', 'una persona, un gobierno, una dirección; nunca «ellos» sin más ni unos votantes'],
+          ['Sin extensión', 'sin «siempre», «todo», «todos»'],
+        ],
+        ejemplos: [
+          ['«Hundieron la sanidad pública con los recortes de 2012»', 'neutra', 'cumple las tres'],
+          ['«Vamos a reconstruir lo que ellos han tratado de destruir»', 'polariza', 'ni acto ni agente: el rival queda como destructor por lo que es'],
+        ],
+        nota: 'La prueba mira la forma, no la verdad: IRA no comprueba la acusación. Si un verificador la desmiente, la nota no cambia y la ficha lo señala. ANI e INM no entran en esta prueba: «plaga» o «veneno» polarizan aunque se nombre un acto.',
+      },
       atajoTexto: 'contra personas no pasan por aquí: polarizan siempre.',
       senalesTitulo: 'Señales para el paso 2',
       conserva: { titulo: 'Conserva las reglas', items: ['«que gane el mejor»', '«aceptaremos el resultado»', '«les ganaremos en las urnas»'] },
@@ -245,16 +268,19 @@ export const TEXTOS_P2 = {
         ['«Vamos a tejer este país entre todos»', 'CON', 'Propio nosotros', 'empatica'],
         ['«Tendemos la mano también a quienes no nos votaron»', 'CUI', 'Personas, incluidas', 'empatica'],
       ],
-      porResolverTitulo: 'Por resolver',
+      porResolverTitulo: 'Resuelto al cerrar el manual',
       porResolver: [
-        '«Vamos a reconstruir lo que ellos han tratado de destruir» (Sánchez, Barcelona 2026): construcción para el nosotros, destrucción atribuida a «ellos».',
+        '«Vamos a reconstruir lo que ellos han tratado de destruir» (Sánchez, Barcelona 2026): imagen-acusación sin ancla, polariza. La reconstrucción no es empática porque se hace contra alguien.',
+        'Metáforas muertas comprobadas con el DLE: «gris» (triste), «transcurso», «frenar» (moderar) y «soñar» (anhelar) son acepciones recogidas. No cuentan.',
       ],
     },
 
     pendiente: [
-      ['Otros oradores', 'Probar con discursos de otros oradores y géneros (Trump, Ardern, Petro).'],
-      ['Cómo se aplica', 'La lista de palabras candidatas por dominio (código) y la adaptación del MIPVU (humano).'],
-      ['Base teórica y referencias', 'Redactar la base teórica y verificar cada referencia.'],
+      ['Identificar metáforas es difícil', 'Incluso con el MIPVU, los codificadores discrepan en las convencionales. Por eso la decisión de signo es binaria y casi todas las dudosas acaban en neutro, fuera de la nota.'],
+      ['El efecto no se mide caso a caso', 'P2 registra qué imágenes pone en circulación el discurso, no lo que provocan en cada oyente.'],
+      ['Pocos eventos con signo', 'Un discurso puede tener 30 metáforas y solo 4 con signo. El margen de la nota lo hace visible.'],
+      ['Otros oradores', 'Probar con otros oradores y géneros (Trump, Ardern, Petro).', true],
+      ['Fiabilidad', 'Tres acuerdos por separado (¿es metáfora?, ¿blanco humano?, función), humano frente a IA. Objetivo α ≥ 0,80 en los dos últimos.', true],
     ],
 
     formula: {
@@ -264,18 +290,20 @@ export const TEXTOS_P2 = {
         'Las neutras no entran para que no diluyan las imágenes que toman partido. La ficha las cuenta aparte.',
         'Con pocos eventos, la fórmula acerca la nota al centro (regla de sucesión de Laplace, como la permeabilidad de P1).',
         'Mínimo: 3 eventos con signo. Solidez: de 3 a 5, orientativa; 6 o más, sólida.',
+        'Margen: la nota se publica con el rango donde cae con 4 de cada 5 probabilidades (intervalo central del 80 % de una beta con E + 1 y P + 1). Con pocos eventos es ancho. Si dos márgenes se solapan, no hay diferencia clara.',
         'La ficha describe además la densidad (eventos por mil palabras) y el dominio dominante, sin que cambien la nota.',
       ],
       excepcion: 'Excepción democrática: la metáfora contra quien ejerce violencia o actúa contra la democracia, con las tres condiciones de P1, queda neutra. Si es ANI o INM, la ficha avisa de que había metáforas mejores a mano.',
     },
 
     prueba: {
-      intro: 'El discurso de Pedro Sánchez en la Cumbre Progresista de Barcelona (18 de abril de 2026), codificado entero con las reglas de esta página. Borrador: los casos dudosos están marcados.',
+      intro: 'El discurso de Pedro Sánchez en la Cumbre Progresista de Barcelona (18 de abril de 2026), codificado entero con las reglas de esta página.',
       nota: '5,83',
       solidez: 'sólida · 10 eventos con signo',
+      margen: 'margen: de 4,0 a 7,6',
       calculo: '10 × (6 + 1) / (6 + 4 + 2) = 5,83',
       cifras: [['6', 'empáticas'], ['4', 'polarizan'], ['21', 'neutras']],
-      descriptivo: '31 eventos en 1.197 palabras: 25,9 por mil. Dominio más frecuente: «Otro» (11): ruido, herramientas, comercio. La lista de dominios necesita ampliarse.',
+      descriptivo: '31 eventos en 1.197 palabras: 25,9 por mil. Con la lista de la versión 1.0, «Otro» baja de 11 a 5: el ruido pasa a SON, las herramientas y palancas a MAQ y el comercio a COM.',
       p1: 'En P1 el mismo discurso saca 5,5. Con dos discursos no se puede saber si P1 y P2 van juntos: hace falta el corpus.',
       onu: 'Segunda prueba, Asamblea General de la ONU 2024: P2 = 5,71 (orientativa, 5 eventos con signo), con dos excepciones democráticas. P1 deja ese discurso sin puntuar por falta de material; P2 sí lo puntúa.',
       polarizanTitulo: 'Las imágenes que polarizan',
@@ -299,12 +327,13 @@ export const TEXTOS_P2 = {
         ['«Unas derechas lacayas» (16)', 'Insulto que el diccionario ya recoge con ese sentido: es juicio literal y lo mide P3, no P2.'],
         ['«La derecha rendida» (23 y 28)', 'El diccionario recoge «rendido» como sumiso: es juicio literal y va a P3, igual que «su rendición al negacionismo». Eran neutras, así que la nota no cambia.'],
         ['«Que no os engañen» (18)', 'Polariza, pero es literal: no hay metáfora. Lo recogen P1 y P3.'],
+        ['«Reconstruir lo que ellos han tratado de destruir» (30)', 'Era el caso abierto. Imagen-acusación sin ancla: polariza, como estaba codificada.'],
         ['La unidad del propio grupo (34 y 35)', 'Empática: une sin excluir a nadie, como el nosotros de grupo sin perdedor de P1.'],
       ],
     },
 
     cambios: {
-      titulo: 'Borrador v0.1 · 23 y 24 de octubre y 10 de noviembre de 2026',
+      titulo: 'Del borrador v0.1 (23 y 24 de octubre) a la versión 1.0 (12 de noviembre de 2026)',
       decisiones: [
         'El núcleo de P2 es dominio por blanco: el dominio por sí solo no decide si la metáfora polariza.',
         'P2 usa la tipología de blancos de P1, más dos categorías propias: meta o futuro, y el propio nosotros.',
@@ -329,25 +358,33 @@ export const TEXTOS_P2 = {
         'La unidad del propio grupo es empática si no excluye a nadie.',
         '«Rendido» como sumiso es juicio literal, como «lacayo», «títere» y «marioneta»: «la derecha rendida» sale de P2 y va a P3.',
         'Comercio: lo que puede ser literalmente cierto («comprar votos») va a P3; la imagen («vender el país», «negocio con el dolor») se queda en P2.',
+        'v1.0 · La imagen-acusación (lo que el rival hizo) pasa la prueba del ancla de P3; la imagen-acción (lo que se le hará) sigue con la prueba de las reglas. ANI e INM, fuera del ancla.',
+        'v1.0 · «Reconstruir lo que ellos han tratado de destruir»: sin ancla, polariza.',
+        'v1.0 · Tres dominios nuevos: SON (sonido y voz), MAQ (máquina y herramienta) y COM (comercio).',
+        'v1.0 · Metáforas muertas comprobadas con el DLE.',
+        'v1.0 · La nota se publica con su margen (intervalo central del 80 %).',
+        'v1.0 · Orden de prioridad entre parámetros: P2, P6, P5, P1, P4, P3.',
+        'v1.0 · Base teórica y procedimiento redactados; referencias verificadas. Esta versión no cambia durante la campaña del 29-N.',
       ],
     },
 
     referencias: REFERENCIAS,
-    referenciasNota: 'Referencias por verificar antes de publicar.',
-    manual: 'Borrador del manual de P2 en el repositorio',
+    referenciasNota: 'Referencias verificadas al cerrar la versión 1.0.',
+    manual: 'Manual de P2 en el repositorio',
     pie: { volver: '← Volver al índice', anterior: '← P1 · La frontera del nosotros', siguiente: 'Siguiente: P3 · El juicio sobre el otro' },
   },
 
-  // Inglés: capa de lectura del mismo borrador. Los ejemplos van en español con su traducción.
+  // Inglés: capa de lectura del mismo manual. Los ejemplos van en español con su traducción.
   en: {
     volverIndice: '← Methodology 2.0',
-    rotulo: 'Parameter 2 · draft v0.1',
+    rotulo: 'Parameter 2 · manual v1.0',
     titulo: 'The metaphorical frame',
     frase: 'P2 measures which images the speech uses to think about conflict, and who they are aimed at.',
     lema: ['The domain does not decide.', 'The target does.'],
     indiceTitulo: 'On this page',
     indiceDesplegar: 'Jump to a section',
-    enConstruccion: 'Under construction',
+    enConstruccion: 'Closed on 12 November 2026',
+    pendienteEtiqueta: 'After the campaign',
     ui: {
       modoEtiqueta: 'How to view the examples', verTodo: 'Show all', adivinar: 'Guess first',
       pistaAdivinar: 'Tap each sentence to reveal its result.', tapa: 'Neutral or polarizing?',
@@ -374,7 +411,7 @@ export const TEXTOS_P2 = {
       { id: 'formula', titulo: 'The formula' },
       { id: 'casos', titulo: 'Solved cases' },
       { id: 'prueba', titulo: 'The tests: Barcelona and the UN' },
-      { id: 'pendiente', titulo: 'What is still missing' },
+      { id: 'pendiente', titulo: 'Limits and validation' },
       { id: 'cambios', titulo: 'Decision log' },
       { id: 'referencias', titulo: 'References' },
     ],
@@ -429,7 +466,7 @@ export const TEXTOS_P2 = {
         virus: { imagen: 'a virus', solucion: 'prevent · reform' },
         bestia: { imagen: 'a beast', solucion: 'hunt down · lock up' },
         problema: 'crime',
-        cautela: 'The replication by Steen, Reijnierse and Burgers (2014) found weaker effects. P2 does not measure the effect on the audience: it measures the image the speech chooses.',
+        cautela: 'A replication with a control group (Steen, Reijnierse and Burgers, 2014) did not find the effect in its design, and a later review places it mainly in metaphors that fit the rest of the text (Thibodeau, Hendricks and Boroditsky, 2017). That is why P2 does not measure the effect on the audience: it measures the image the speech chooses and who it is aimed at.',
       },
       pasos: [
         { titulo: 'The image structures thought', texto: 'We think about an abstract domain (politics) through a concrete one (war, the body, the path).', fuentes: 'Lakoff and Johnson, 1980' },
@@ -451,7 +488,7 @@ export const TEXTOS_P2 = {
           { corto: 'Klemperer', anios: '1947', zona: 'lenguaje', disciplina: 'Philology', refs: ['Klemperer'] },
           { corto: 'Esposito', anios: '2002 · 2004', zona: 'politica', disciplina: 'Political philosophy', refs: ['Esposito'] },
           { corto: 'Musolff', anios: '2010', zona: 'politica', disciplina: 'Critical metaphor analysis', refs: ['Musolff'] },
-          { corto: 'Thibodeau · Boroditsky', anios: '2011', zona: 'cuerpo', disciplina: 'Cognitive psychology', refs: ['Thibodeau', 'Steen, G. J., Reijnierse'] },
+          { corto: 'Thibodeau · Boroditsky', anios: '2011 · 2017', zona: 'cuerpo', disciplina: 'Cognitive psychology', refs: ['Thibodeau', 'Steen, G. J., Reijnierse'] },
         ],
       },
       autores: [
@@ -460,7 +497,7 @@ export const TEXTOS_P2 = {
         { autor: 'Klemperer (1947)', texto: 'The philologist who documented the language of the Third Reich. Repeated words act like tiny doses of poison: swallowed without noticing, they take effect over time.' },
         { autor: 'Esposito (2002, 2004)', texto: 'The immunitary paradigm: the community protects itself from what it perceives as infection, and that protection can turn against life itself. That is why INM («erradicar», “eradicate”; «limpiar», “cleanse”) is the most dangerous domain.' },
         { autor: 'Musolff (2010)', texto: 'Reconstructs the body politic and the image of the parasite, the sick organism that must expel what is foreign. He links Klemperer with Esposito.' },
-        { autor: 'Thibodeau and Boroditsky (2011)', texto: 'Metaphor changes reasoning: crime as a virus or as a beast leads to different solutions. The replication by Steen, Reijnierse and Burgers (2014) found weaker effects.' },
+        { autor: 'Thibodeau and Boroditsky (2011, 2017)', texto: 'Metaphor can steer reasoning: crime as a virus or as a beast led people to prefer different solutions. The effect depends on context: a replication with a control group did not find it (Steen, Reijnierse and Burgers, 2014). It is a possible effect, not a law.' },
       ],
       otros: 'Also: Sontag (illness as metaphor), Charteris-Black (critical metaphor analysis), Steen et al. (the MIPVU procedure) and Mouffe (agonism).',
       cautelaTitulo: 'Caution',
@@ -470,9 +507,10 @@ export const TEXTOS_P2 = {
     noMide: {
       filas: [
         { fenomeno: 'Where the us/them line is drawn', destino: ['P1'] },
-        { fenomeno: 'Literal moral judgement («corruptos», “corrupt”; «traidores», “traitors”)', destino: ['P3'] },
+        { fenomeno: 'Literal moral judgement («corruptos», “corrupt”; «traidores», “traitors”; «lacayo», “lackey”)', destino: ['P3'] },
         { fenomeno: 'Emotions mobilized', destino: ['P4'] },
-        { fenomeno: 'What the speech literally asks people to do (vote, mobilize, punish)', destino: ['P6'], nota: 'the final line will be drawn when P6 is revised' },
+        { fenomeno: 'How the other’s word is treated («no diga chorradas», “stop talking rubbish”)', destino: ['P5'] },
+        { fenomeno: 'What the speech literally asks people to do (vote, mobilize, punish)', destino: ['P6'] },
       ],
       reparto: [
         { frase: '«Son una plaga» (“They are a plague”)', destino: 'P2', tipo: 'figurado' },
@@ -482,7 +520,7 @@ export const TEXTOS_P2 = {
       ],
       repartoTitulo: 'Each sentence lands in one place only',
       figurado: 'figurative', literal: 'literal',
-      regla: 'The figurative goes to P2; the literal, to the others. That way P2 no longer moves together with P3 and P6.',
+      regla: 'The figurative goes to P2; the literal, to the others. If a mark fits two parameters, this order decides: P2, P6, P5, P1, P4, P3. P2 comes first: if it is an image, it is P2.',
     },
 
     cuenta: {
@@ -523,8 +561,12 @@ export const TEXTOS_P2 = {
         { codigo: 'VIA', nombre: 'Journey and path', ej: 'walk, course, move forward, horizon', icono: 'viaje' },
         { codigo: 'FAM', nombre: 'Family and home', ej: 'brothers and sisters, common home, motherland', icono: 'familia' },
         { codigo: 'CUI', nombre: 'Care and body', ej: 'embrace, heal wounds, reach out a hand', icono: 'cuidado' },
+        { codigo: 'SON', nombre: 'Sound and voice', ej: 'noise, shout, silence, echo', icono: 'sonido', nuevo: true },
+        { codigo: 'MAQ', nombre: 'Machine and tool', ej: 'lever, engine, gear, dismantle', icono: 'maquina', nuevo: true },
+        { codigo: 'COM', nombre: 'Trade', ej: 'sell, buy, business, price', icono: 'comercio', nuevo: true },
         { codigo: 'OTR', nombre: 'Other', ej: 'if it recurs, it joins the list', icono: 'otro' },
       ],
+      nuevo: 'new in v1.0',
       siempre: 'Against people, always polarizing',
       nota: 'The codes are abbreviations of the Spanish names. ANI is dehumanization: the rival as an animal, a plague or a parasite. An insult that belittles without taking away humanity («lacayo», “lackey”; «títere», “puppet”; «marioneta», “marionette”; «rendido», “surrendered”, in the sense of submissive) goes to P3. ENF and INM are kept apart: “virus” diagnoses, “eradicate” expels. For Esposito, the danger lies in the immune reaction.',
     },
@@ -541,8 +583,23 @@ export const TEXTOS_P2 = {
       arbolTitulo: 'The three steps',
       p1: 'Is the target human?',
       p2: 'Does it keep the rules and recognize the rival?',
+      p2Nota: 'If the image accuses the rival of something they did («destruir», “destroy”; «hundir», “sink”), the question changes: does it have an anchor?',
       p3: 'Does it accept and unite?',
       irA: 'step',
+      ancla: {
+        titulo: 'The image that accuses: the anchor test',
+        intro: 'There are two kinds of image aimed at people. The action image says what will be done to the rival («aplastarlos», “crush them”; «doblarles el brazo», “twist their arm”) and goes through the rules test. The accusation image says what the rival did («destruir», «romper», «hundir», «partir en dos»: “destroy”, “break”, “sink”, “split in two”) and goes through the anchor test, the same one as in P3.',
+        condiciones: [
+          ['Identifiable act', 'a law, a decision, a vote, a named area of government'],
+          ['Bounded agent', 'a person, a government, a party leadership; never a bare “them” or a set of voters'],
+          ['No extension', 'no «siempre», «todo», «todos» (“always”, “everything”, “all”)'],
+        ],
+        ejemplos: [
+          ['«Hundieron la sanidad pública con los recortes de 2012» (“They sank public healthcare with the 2012 cuts”)', 'neutra', 'meets all three'],
+          ['«Vamos a reconstruir lo que ellos han tratado de destruir» (“We will rebuild what they have tried to destroy”)', 'polariza', 'no act, no agent: the rival becomes a destroyer by nature'],
+        ],
+        nota: 'The test looks at form, not truth: IRA does not check the accusation. If a fact-checker refutes it, the score does not change and the scorecard flags it. ANI and INM are outside this test: «plaga» (“plague”) or «veneno» (“poison”) polarize even when an act is named.',
+      },
       atajoTexto: 'against people skip this step: they always polarize.',
       senalesTitulo: 'Signals for step 2',
       conserva: { titulo: 'Keeps the rules', items: ['«que gane el mejor» (“may the best one win”)', '«aceptaremos el resultado» (“we will accept the result”)', '«les ganaremos en las urnas» (“we will beat them at the ballot box”)'] },
@@ -562,16 +619,19 @@ export const TEXTOS_P2 = {
         ['«Vamos a tejer este país entre todos» (“Together we are going to weave this country”)', 'CON', 'The “us” itself', 'empatica'],
         ['«Tendemos la mano también a quienes no nos votaron» (“We reach out our hand to those who did not vote for us, too”)', 'CUI', 'People, included', 'empatica'],
       ],
-      porResolverTitulo: 'Unresolved',
+      porResolverTitulo: 'Resolved when the manual was closed',
       porResolver: [
-        '«Vamos a reconstruir lo que ellos han tratado de destruir» (“We will rebuild what they have tried to destroy”; Sánchez, Barcelona 2026): construction for the “us”, destruction attributed to “them”.',
+        '«Vamos a reconstruir lo que ellos han tratado de destruir» (“We will rebuild what they have tried to destroy”; Sánchez, Barcelona 2026): an accusation image with no anchor, polarizing. Rebuilding is not empathetic because it is done against someone.',
+        'Dead metaphors checked against the Spanish dictionary (DLE): «gris» (gloomy), «transcurso» (passage of time), «frenar» (to curb) and «soñar» (to long for) are listed senses. They do not count.',
       ],
     },
 
     pendiente: [
-      ['Other speakers', 'Test with speeches by other speakers and genres (Trump, Ardern, Petro).'],
-      ['How it is applied', 'The list of candidate words per domain (code) and the adaptation of MIPVU (human).'],
-      ['Theoretical basis and references', 'Write up the theoretical basis and verify every reference.'],
+      ['Identifying metaphors is hard', 'Even with MIPVU, coders disagree on conventional metaphors. That is why the sign decision is binary and almost every doubtful case ends up neutral, outside the score.'],
+      ['The effect is not measured case by case', 'P2 records which images the speech puts into circulation, not what they do to each listener.'],
+      ['Few events with a sign', 'A speech can have 30 metaphors and only 4 with a sign. The margin of the score makes that visible.'],
+      ['Other speakers', 'Test with other speakers and genres (Trump, Ardern, Petro).', true],
+      ['Reliability', 'Three separate agreements (is it a metaphor?, human target?, function), human versus AI. Target α ≥ 0.80 for the last two.', true],
     ],
 
     formula: {
@@ -581,18 +641,20 @@ export const TEXTOS_P2 = {
         'Neutral events are left out so they do not dilute the images that take sides. The scorecard counts them separately.',
         'With few events, the formula pulls the score towards the centre (Laplace’s rule of succession, as with P1’s permeability).',
         'Minimum: 3 events with a sign. Robustness: 3 to 5, indicative; 6 or more, solid.',
+        'Margin: the score is published with the range it falls in with a 4-in-5 probability (the central 80% interval of a beta with E + 1 and P + 1). With few events it is wide. If two margins overlap, there is no clear difference.',
         'The scorecard also describes density (events per thousand words) and the dominant domain, without changing the score.',
       ],
       excepcion: 'Democratic exception: a metaphor aimed at someone who uses violence or acts against democracy, under P1’s three conditions, is neutral. If it is ANI or INM, the scorecard notes that better metaphors were available.',
     },
 
     prueba: {
-      intro: 'Pedro Sánchez’s speech at the Progressive Summit in Barcelona (18 April 2026), coded in full with the rules on this page. Draft: doubtful cases are flagged. Sentence numbers refer to the Spanish transcript.',
+      intro: 'Pedro Sánchez’s speech at the Progressive Summit in Barcelona (18 April 2026), coded in full with the rules on this page. Sentence numbers refer to the Spanish transcript.',
       nota: '5.83',
       solidez: 'solid · 10 events with a sign',
+      margen: 'margin: 4.0 to 7.6',
       calculo: '10 × (6 + 1) / (6 + 4 + 2) = 5.83',
       cifras: [['6', 'empathetic'], ['4', 'polarizing'], ['21', 'neutral']],
-      descriptivo: '31 events in 1,197 words: 25.9 per thousand. Most frequent domain: “Other” (11): noise, tools, trade. The list of domains needs expanding.',
+      descriptivo: '31 events in 1,197 words: 25.9 per thousand. With the version 1.0 list, “Other” drops from 11 to 5: noise moves to SON, tools and levers to MAQ, and trade to COM.',
       p1: 'In P1 the same speech scores 5.5. With two speeches it is impossible to tell whether P1 and P2 move together: the corpus is needed.',
       onu: 'Second test, UN General Assembly 2024: P2 = 5.71 (indicative, 5 events with a sign), with two democratic exceptions. P1 leaves that speech unscored for lack of material; P2 does score it.',
       polarizanTitulo: 'The images that polarize',
@@ -616,12 +678,13 @@ export const TEXTOS_P2 = {
         ['«Unas derechas lacayas» (“a lackey right wing”, 16)', 'An insult the dictionary already lists with that sense: it is literal judgement and is measured by P3, not P2.'],
         ['«La derecha rendida» (“the right, having surrendered”, 23 and 28)', 'The dictionary lists «rendido» as submissive: it is literal judgement and goes to P3, as does «su rendición al negacionismo» (“their surrender to denialism”). Both were neutral, so the score does not change.'],
         ['«Que no os engañen» (“Don’t let them fool you”, 18)', 'Polarizing, but literal: there is no metaphor. It is picked up by P1 and P3.'],
+        ['«Reconstruir lo que ellos han tratado de destruir» (“rebuild what they have tried to destroy”, 30)', 'This was the open case. An accusation image with no anchor: polarizing, as it was coded.'],
         ['The unity of one’s own group (34 and 35)', 'Empathetic: it unites without excluding anyone, like P1’s group “we” with no loser.'],
       ],
     },
 
     cambios: {
-      titulo: 'Draft v0.1 · 23 and 24 October and 10 November 2026',
+      titulo: 'From draft v0.1 (23 and 24 October) to version 1.0 (12 November 2026)',
       decisiones: [
         'The core of P2 is domain by target: the domain alone does not decide whether the metaphor polarizes.',
         'P2 uses P1’s typology of targets, plus two categories of its own: goal or future, and the “us” itself.',
@@ -646,12 +709,19 @@ export const TEXTOS_P2 = {
         'The unity of one’s own group is empathetic if it excludes no one.',
         '«Rendido» (“surrendered”) in the sense of submissive is literal judgement, like «lacayo», «títere» and «marioneta»: «la derecha rendida» leaves P2 and goes to P3.',
         'Trade: what can be literally true («comprar votos», “buying votes”) goes to P3; the image («vender el país», “selling out the country”; «negocio con el dolor», “making a business out of pain”) stays in P2.',
+        'v1.0 · The accusation image (what the rival did) goes through P3’s anchor test; the action image (what will be done to them) keeps the rules test. ANI and INM stay outside the anchor test.',
+        'v1.0 · «Reconstruir lo que ellos han tratado de destruir» (“rebuild what they have tried to destroy”): no anchor, polarizing.',
+        'v1.0 · Three new domains: SON (sound and voice), MAQ (machine and tool) and COM (trade).',
+        'v1.0 · Dead metaphors checked against the Spanish dictionary.',
+        'v1.0 · The score is published with its margin (central 80% interval).',
+        'v1.0 · Priority order between parameters: P2, P6, P5, P1, P4, P3.',
+        'v1.0 · Theoretical basis and procedure written up; references verified. This version does not change during the 29-N campaign.',
       ],
     },
 
     referencias: REFERENCIAS,
-    referenciasNota: 'References still to be verified before publication.',
-    manual: 'Draft of the P2 manual in the repository (in Spanish)',
+    referenciasNota: 'References verified when version 1.0 was closed.',
+    manual: 'P2 manual in the repository (in Spanish)',
     pie: { volver: '← Back to the index', anterior: '← P1 · The boundary of “us”', siguiente: 'Next: P3 · Judging the other' },
   },
 };
