@@ -19,7 +19,7 @@ function Chevron() {
   return <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" className="ira-met__chevron"><polyline points="6 9 12 15 18 9" /></svg>;
 }
 
-function Acordeon({ titulo, children }) {
+export function Acordeon({ titulo, children }) {
   return (
     <details className="ira-met__acordeon">
       <summary><span>{titulo}</span><Chevron /></summary>
@@ -40,11 +40,11 @@ function Seccion({ id, n, titulo, children, className = '' }) {
   );
 }
 
-function Pildora({ tono, children }) {
+export function Pildora({ tono, children }) {
   return <span className={`ira-p2-pildora ira-p2--${tono}`}>{children}</span>;
 }
 
-function Tabla({ cabecera, filas, clase = '', render }) {
+export function Tabla({ cabecera, filas, clase = '', render }) {
   return (
     <div className="ira-met__tabla-marco">
       <table className={`ira-met__tabla ira-man-tabla ${clase}`}>
@@ -103,7 +103,7 @@ function IndiceSecciones({ t }) {
 }
 
 /** Pinta un código con el color de su signo: la letra decide (tabla t.signos). */
-function Codigo({ codigo, signos }) {
+export function Codigo({ codigo, signos }) {
   const tono = signos[codigo] ?? signos[codigo.replace(/\d+$/, '')] ?? 'otro';
   return <Pildora tono={tono}>{codigo}</Pildora>;
 }
@@ -369,7 +369,9 @@ const SECCIONES = {
   ),
 };
 
-export default function MetodologiaManual({ textos, manualUrl, anterior, siguiente }) {
+// extra: secciones propias de un parámetro ({ id: (t, manualUrl) => nodo }); sustituyen a la genérica
+// del mismo id o añaden una nueva. emblema: dibujo de cabecera propio. clase: clase extra de la página.
+export default function MetodologiaManual({ textos, manualUrl, anterior, siguiente, extra, emblema, clase = '' }) {
   const { hash } = useLocation();
   const { lang } = useContext(AppContext);
   const idioma = lang === 'en' ? 'en' : 'es';
@@ -385,7 +387,7 @@ export default function MetodologiaManual({ textos, manualUrl, anterior, siguien
   }, []);
 
   return (
-    <div className="main-container ira-met ira-met--p1 ira-met--manual" style={{ maxWidth: 1180 }}>
+    <div className={`main-container ira-met ira-met--p1 ira-met--manual ${clase}`} style={{ maxWidth: 1180 }}>
       <AvisoVersion lang={idioma} />
       {idioma === 'en' && <p className="ira-met__nota ira-met__nota-en">{NOTA_EN}</p>}
 
@@ -397,13 +399,15 @@ export default function MetodologiaManual({ textos, manualUrl, anterior, siguien
           <p className="ira-met__frase">{t.frase}</p>
           <p className="ira-man-motor">{t.ui.motor}</p>
         </div>
-        <svg viewBox="0 0 200 200" className="ira-met__emblema ira-man-emblema" aria-hidden="true">
-          <line x1="40" y1="100" x2="160" y2="100" className="ira-man-emblema__eje" />
-          <circle cx="40" cy="100" r="18" className="ira-man-emblema__p ira-p2--polariza" />
-          <circle cx="100" cy="100" r="13" className="ira-man-emblema__p ira-p2--neutra" />
-          <circle cx="160" cy="100" r="18" className="ira-man-emblema__p ira-p2--empatica" />
-          <text x="100" y="152" textAnchor="middle" className="ira-man-emblema__codigo ira-cifra">{t.codigo}</text>
-        </svg>
+        {emblema ?? (
+          <svg viewBox="0 0 200 200" className="ira-met__emblema ira-man-emblema" aria-hidden="true">
+            <line x1="40" y1="100" x2="160" y2="100" className="ira-man-emblema__eje" />
+            <circle cx="40" cy="100" r="18" className="ira-man-emblema__p ira-p2--polariza" />
+            <circle cx="100" cy="100" r="13" className="ira-man-emblema__p ira-p2--neutra" />
+            <circle cx="160" cy="100" r="18" className="ira-man-emblema__p ira-p2--empatica" />
+            <text x="100" y="152" textAnchor="middle" className="ira-man-emblema__codigo ira-cifra">{t.codigo}</text>
+          </svg>
+        )}
       </header>
 
       <div className="ira-met__rejilla">
@@ -411,7 +415,7 @@ export default function MetodologiaManual({ textos, manualUrl, anterior, siguien
         <div className="ira-met__cuerpo">
           {t.secciones.map((s, i) => (
             <Seccion key={s.id} id={s.id} n={i + 1} titulo={s.titulo} className={s.banda ? 'ira-met__seccion--banda' : ''}>
-              {SECCIONES[s.id](t, manualUrl)}
+              {(extra?.[s.id] ?? SECCIONES[s.id])(t, manualUrl)}
             </Seccion>
           ))}
 
