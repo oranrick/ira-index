@@ -1,7 +1,7 @@
-"""IRA · P2 El marco metafórico · borrador v0.1 · cálculo y ficha.
+"""IRA · P2 El marco metafórico · versión 1.0 · cálculo y ficha.
 
 Lee la tabla de eventos metafóricos ya clasificada (ver manual/P2.md) y escribe la ficha:
-nota, solidez, recuento por resultado y por dominio, densidad y dominio dominante.
+nota con su margen (80 %), solidez, recuento por resultado y por dominio, densidad y dominio dominante.
 
 Uso:  python calcular_p2.py datos/p2/<id>_eventos.csv textos/<id>.txt fichas/p2/<id>.md "Título"
 
@@ -12,10 +12,34 @@ import csv
 import sys
 from collections import Counter
 
-VERSION = "P2 borrador v0.1 (2026-10-24)"
+VERSION = "P2 v1.0 (2026-11-12)"
 MINIMO = 3          # eventos con signo (E + P)
 SOLIDA_DESDE = 6    # de 3 a 5, orientativa
 NOMBRES = {"P": "polarizan", "N": "neutras", "E": "empáticas"}
+
+
+def beta_cdf(x, a, b):
+    """CDF de una beta con a y b enteros: cola de una binomial (exacta)."""
+    from math import comb
+    n = a + b - 1
+    return sum(comb(n, j) * x**j * (1 - x) ** (n - j) for j in range(a, n + 1))
+
+
+def beta_cuantil(q, a, b):
+    lo, hi = 0.0, 1.0
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        if beta_cdf(mid, a, b) < q:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+def margen(E, P, nivel=0.8):
+    """Intervalo central (80 % por defecto) de la beta (E + 1, P + 1), en escala 0-10."""
+    cola = (1 - nivel) / 2
+    return 10 * beta_cuantil(cola, E + 1, P + 1), 10 * beta_cuantil(1 - cola, E + 1, P + 1)
 
 
 def num(x, d=2):
@@ -39,7 +63,8 @@ def main(eventos_csv, texto, salida, titulo):
     else:
         nota = 10 * (E + 1) / (E + P + 2)
         solidez = "sólida" if con_signo >= SOLIDA_DESDE else "orientativa"
-        lineas.append(f"**P2 = {num(nota)}** · solidez: {solidez} ({con_signo} eventos con signo)")
+        bajo, alto = margen(E, P)
+        lineas.append(f"**P2 = {num(nota)}** (margen {num(bajo, 1)} a {num(alto, 1)}) · solidez: {solidez} ({con_signo} eventos con signo)")
         lineas.append("")
         lineas.append(f"Cálculo: 10 × (E + 1) / (E + P + 2) = 10 × ({E} + 1) / ({E} + {P} + 2) = **{num(nota)}**")
     lineas += [

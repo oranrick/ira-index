@@ -414,3 +414,54 @@ blockquote, q,
 .ira-campana__fila { grid-template-columns: 68px minmax(0, 15em) minmax(0, 1fr) auto; }
 img.ira-campana__foto { width: 68px; height: 68px; filter: grayscale(1) contrast(1.08) brightness(0.92); }
 @media (max-width: 760px) { .ira-campana__fila { grid-template-columns: 52px minmax(0, 1fr) auto; } img.ira-campana__foto { width: 52px; height: 52px; } }
+
+/* ── Campaña: márgenes y piezas (P2 v1.0, 12-nov-2026) ── */
+.ira-campana__lectura-m { margin-top: 2px; font-family: var(--ira-font-voz); font-style: italic; font-size: 12px; color: var(--ira-texto-3); white-space: nowrap; }
+
+.ira-margenes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; margin-top: 30px; }
+.ira-margenes__panel { position: relative; margin: 0; padding-bottom: 30px; }
+.ira-margenes__cab { margin: 0 0 14px; font-weight: 800; font-size: 18px; color: var(--ira-nieve); }
+.ira-margenes__cab b { color: var(--ira-oro); margin-right: 6px; }
+.ira-margenes__filas { position: relative; list-style: none; margin: 0; padding: 0; }
+.ira-margenes__fila { display: grid; grid-template-columns: 6.2em minmax(0, 1fr) 7.4em; align-items: center; gap: 12px; height: 46px; border-bottom: 1px solid var(--ira-linea); }
+.ira-margenes__quien { font-weight: 700; font-size: 15px; color: var(--ira-texto-cita); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ira-margenes__pista { position: relative; height: 100%; }
+.ira-margenes__pista::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--ira-linea-fuerte); }
+.ira-margenes__banda { position: absolute; top: 50%; height: 12px; margin-top: -6px; border-radius: 6px; background: var(--c); opacity: 0.32; }
+.ira-margenes__punto { position: absolute; top: 50%; width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px var(--ira-fondo, #041414); }
+.ira-margenes__vacia { position: absolute; left: 0; right: 0; top: 50%; border-top: 1.5px dashed var(--ira-linea-fuerte); }
+.ira-margenes__valor { text-align: right; font-size: 12px; line-height: 1.2; color: var(--ira-texto-3); }
+.ira-margenes__valor b { display: block; font-weight: 900; font-size: 20px; letter-spacing: -0.03em; }
+.ira-margenes__valor span { font-family: var(--ira-font-voz); font-style: italic; }
+.ira-margenes__sin { font-size: 13px; }
+/* Guías 0 · 5 · 10, alineadas con la pista (columna central) */
+.ira-margenes__rejilla, .ira-margenes__eje { position: absolute; left: calc(6.2em + 12px); right: calc(7.4em + 12px); }
+.ira-margenes__rejilla { top: 38px; bottom: 30px; pointer-events: none; }
+.ira-margenes__guia { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--ira-linea); }
+.ira-margenes__eje { bottom: 4px; height: 18px; }
+.ira-margenes__eje span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; font-size: 11px; color: var(--ira-texto-3); }
+.ira-margenes__eje span:first-child { transform: none; }
+.ira-margenes__eje span:last-child { transform: translateX(-100%); }
+
+.ira-piezas { list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--ira-linea); }
+.ira-pieza { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 24px; padding: 22px 0; border-bottom: 1px solid var(--ira-linea); }
+.ira-pieza__meta { grid-column: 1; margin: 0; font-family: var(--ira-font-voz); font-style: italic; font-size: 15px; color: var(--ira-oro); }
+.ira-pieza__quien { grid-column: 1; margin: 0; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: var(--ira-nieve); }
+.ira-pieza__quien span { font-family: var(--ira-font-voz); font-style: italic; font-weight: 400; font-size: 16px; color: var(--ira-texto-2); }
+.ira-pieza__titulo { grid-column: 1; margin: 0; font-family: var(--ira-font-voz); font-size: 16px; color: var(--ira-texto-cita); }
+.ira-pieza__lecturas { grid-column: 2; grid-row: 1 / span 3; display: flex; gap: 26px; align-self: center; }
+.ira-pieza__frases { grid-column: 1 / -1; list-style: none; margin: 10px 0 4px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.ira-pieza__frases li { padding-left: 12px; border-left: 2px solid var(--ira-linea-fuerte); font-family: var(--ira-font-voz); font-size: 16px; line-height: 1.45; color: var(--ira-texto-cita); }
+.ira-pieza__frases li.is-cierra { border-left-color: #BE281A; }
+.ira-pieza__frases li.is-abre { border-left-color: #8DAA7E; }
+.ira-pieza__signo { display: block; font-family: var(--ira-font-titulo); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ira-texto-3); }
+.ira-pieza .ira-campana__enlace { grid-column: 1; justify-self: start; margin-top: 6px; font-size: 14px; }
+
+@media (max-width: 760px) {
+  .ira-margenes { grid-template-columns: 1fr; gap: 28px; }
+  .ira-margenes__fila { grid-template-columns: 5.2em minmax(0, 1fr) 6.4em; gap: 10px; }
+  .ira-margenes__rejilla, .ira-margenes__eje { left: calc(5.2em + 10px); right: calc(6.4em + 10px); }
+  .ira-pieza { grid-template-columns: 1fr; }
+  .ira-pieza__lecturas { grid-column: 1; grid-row: auto; gap: 18px; }
+  .ira-pieza__lecturas .ira-campana__lectura { align-items: flex-start; }
+}

@@ -21,7 +21,9 @@ import ArbolExcepcion from './piezas/ArbolExcepcion.jsx';
 import DiscursoAnotado from './piezas/DiscursoAnotado.jsx';
 import Membrana from './piezas/Membrana.jsx';
 import datosP1 from '../../data/metodologia/p1.json';
+import { calcularP1 } from '../../lib/margen';
 import '../../styles/metodologia.css';
+import '../../styles/metodologia-manual.css';
 import '../../styles/metodologia-piezas.css';
 import '../../styles/metodologia-juego.css';
 import '../../styles/identidad.css';
@@ -50,6 +52,49 @@ const UI = {
   es: { navPie: 'Navegación entre parámetros', pieza: 'Pieza', nuevaPestana: '(se abre en una pestaña nueva)' },
   en: { navPie: 'Navigation between parameters', pieza: 'Piece', nuevaPestana: '(opens in a new tab)' },
 };
+
+// La ficha: dos discursos reales con su recuento, su cálculo y su margen (datos de research/, vía p1.json).
+function FichaP1({ f, lang }) {
+  const num = (v, d = 1) => (v == null ? '—' : v.toFixed(d).replace('.', lang === 'en' ? '.' : ','));
+  return (
+    <>
+      <p className="ira-met__texto">{f.intro}</p>
+      <div className="ira-ficha-p1">
+        {f.piezas.map((pz) => {
+          const d = datosP1.fichas[pz.id];
+          const ind = d.indicadores;
+          const rec = {
+            ...ind.alcance.recuento, A: ind.permeabilidad.recuento.A, Cp: ind.permeabilidad.recuento.C,
+            I: ind.interpelacion.recuento['2I'], C: ind.interpelacion.recuento['2C'],
+          };
+          const r = calcularP1(rec);
+          return (
+            <Aparecer as="article" key={pz.id} className={`ira-ficha-p1__tarjeta${r.nota == null ? ' is-sin' : ''}`}>
+              <h3 className="ira-ficha-p1__titulo">{pz.titulo}</h3>
+              <div className="ira-ficha-p1__nota">
+                <span className="ira-ficha-p1__p">{f.nota}</span>
+                {r.nota != null
+                  ? <EtiquetaPuntuacion puntuacion={r.nota} lang={lang} />
+                  : <span className="ira-ficha-p1__sin">{f.solidez.sin}</span>}
+                {r.nota != null && <span className="ira-ficha-p1__meta">{f.margen(num(r.margen[0]), num(r.margen[1]))} · {f.solidez[r.solidez]}</span>}
+              </div>
+              <ul className="ira-ficha-p1__ind">
+                {['alcance', 'permeabilidad', 'interpelacion'].map((k) => (
+                  <li key={k} className={ind[k].puntua ? '' : 'is-fuera'}>
+                    <span className="ira-ficha-p1__k">{f.indicadores[k]}</span>
+                    <span className="ira-ficha-p1__v ira-cifra">{ind[k].puntua ? num(ind[k].valor) : f.bajoMinimo}</span>
+                    <span className="ira-ficha-p1__r">{f.recuento[k](rec)}</span>
+                  </li>
+                ))}
+              </ul>
+              {pz.sinNota && <p className="ira-ficha-p1__nota-sin">{pz.sinNota}</p>}
+            </Aparecer>
+          );
+        })}
+      </div>
+    </>
+  );
+}
 
 function Seccion({ id, n, titulo, children, className = '' }) {
   return (
@@ -279,7 +324,7 @@ export default function MetodologiaP1() {
       <Link to="/metodologia" className="ira-met__volver">{t.volverIndice}</Link>
       <header className="ira-met__cabecera ira-met__cabecera--p1">
         <div className="ira-met__cabecera-texto">
-          <p className="ira-met__rotulo">{t.rotulo}</p>
+          <p className="ira-met__rotulo">{t.rotulo} {t.estado && <span className="ira-man-estado">{t.estado}</span>}</p>
           <h1 className="ira-met__titulo">{t.titulo}</h1>
           <p className="ira-met__frase">{t.frase}</p>
         </div>
@@ -378,7 +423,7 @@ export default function MetodologiaP1() {
 
           {/* Pieza 3 */}
           <Seccion {...sec('ficha')}>
-            <MarcadorPieza etiqueta={pieza(3)} texto={t.piezas.ficha} aviso={t.pieza} />
+            <FichaP1 f={t.fichaReal} lang={idioma} />
           </Seccion>
 
           {/* Excepción democrática + Pieza 8 */}
@@ -411,11 +456,6 @@ export default function MetodologiaP1() {
                 </li>
               ))}
             </ul>
-          </Seccion>
-
-          {/* Pieza 7 */}
-          <Seccion {...sec('cuenta-o-no')}>
-            <MarcadorPieza etiqueta={pieza(7)} texto={t.piezas.juego} aviso={tp.proximamente} />
           </Seccion>
 
           {/* Mínimos y solidez */}

@@ -1,0 +1,265 @@
+/* IRA · Metodología 2.0 · P5 La palabra del otro.
+   Reutiliza metodologia.css, metodologia-p2.css (tonos, píldoras, pasos, veredicto) y
+   metodologia-juego.css; aquí solo lo propio de P5.
+   Gramática de color: la voz del otro en claro, la del discurso en oro, el resultado en su signo.
+   Todo el movimiento se apaga con prefers-reduced-motion. */
+
+.ira-met--p5 {
+  --p5-otro: var(--ira-texto-cita);       /* la voz de quien piensa distinto */
+  --p5-propia: var(--ira-oro);            /* la voz del discurso */
+  --p5-silencio: var(--ira-linea-fuerte); /* la línea sin voz */
+}
+
+/* ── Emblema de cabecera ─────────────────────────────────────────────────── */
+.ira-p5-emblema path, .ira-p5-emblema line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ira-p5-emblema__entra { stroke: var(--p5-otro); stroke-width: 3; }
+.ira-p5-emblema__puerta { stroke: var(--p5-propia); stroke-width: 4; }
+.ira-p5-emblema__ramal { stroke: var(--ira-linea-fuerte); stroke-width: 1.5; stroke-dasharray: 2 5; }
+.ira-p5-emblema__sale { stroke: var(--p2-color); stroke-width: 3; }
+.ira-p2--empatica .ira-p5-emblema__sale { filter: drop-shadow(0 0 8px var(--p2-halo)); }
+.ira-p2--neutra .ira-p5-emblema__sale { stroke: var(--p5-otro); }
+.ira-p5-emblema__pulso { stroke: var(--ira-nieve); stroke-width: 3; stroke-dasharray: 9 91; stroke-dashoffset: 9; opacity: 0; }
+.ira-p5-emblema__codigo { fill: var(--ira-oro); font-size: 24px; letter-spacing: 0.04em; }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-p5-emblema__pulso { animation: ira-p5-emblema-entra 4.2s linear infinite; }
+  .ira-p5-emblema__pulso--sale { animation-name: ira-p5-emblema-sale; }
+  .ira-p2--polariza .ira-p5-emblema__pulso--sale { animation-name: ira-p5-emblema-muere; }
+}
+@keyframes ira-p5-emblema-entra { 0% { stroke-dashoffset: 9; opacity: 0; } 4% { opacity: 0.9; } 38% { opacity: 0.9; } 42% { stroke-dashoffset: -91; opacity: 0; } 100% { stroke-dashoffset: -91; opacity: 0; } }
+@keyframes ira-p5-emblema-sale { 0%, 44% { stroke-dashoffset: 9; opacity: 0; } 48% { opacity: 0.9; } 82% { opacity: 0.9; } 88%, 100% { stroke-dashoffset: -91; opacity: 0; } }
+@keyframes ira-p5-emblema-muere { 0%, 44% { stroke-dashoffset: 9; opacity: 0; } 48% { opacity: 0.8; } 62%, 100% { stroke-dashoffset: -30; opacity: 0; } }
+
+/* ── La idea: la misma voz en tres finales ───────────────────────────────── */
+.ira-p5-tres .ira-p2-tres__item { gap: 10px; }
+.ira-p5-glifo { width: 100%; max-width: 190px; height: auto; display: block; overflow: visible; margin-bottom: 2px; }
+.ira-p5-glifo path, .ira-p5-glifo line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ira-p5-glifo__entra { stroke: var(--p5-otro); stroke-width: 2; opacity: 0.75; }
+.ira-p5-glifo__puerta { stroke: var(--p5-propia); stroke-width: 2.5; }
+.ira-p5-glifo__sale { stroke: var(--p2-color); stroke-width: 2.5; }
+.ira-p5-glifo--B .ira-p5-glifo__sale { stroke: var(--p5-otro); }
+.ira-p5-glifo--V .ira-p5-glifo__sale { filter: drop-shadow(0 0 6px var(--p2-halo)); }
+.ira-p5-glifo__propia { stroke: var(--p5-propia); stroke-width: 2; }
+.ira-p5-glifo__plano { stroke: var(--p2-color); stroke-width: 2; stroke-dasharray: 2 5; opacity: 0.7; }
+
+/* ── Pieza principal: la escena ──────────────────────────────────────────── */
+.ira-p5-escena { width: 100%; height: auto; display: block; overflow: visible; cursor: pointer; }
+.ira-p5-escena path, .ira-p5-escena line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ira-p5-escena__base { stroke: var(--p5-silencio); stroke-width: 1.5; stroke-dasharray: 1.5 6; }
+.ira-p5-escena__puerta line { stroke: var(--p5-propia); stroke-width: 4.5; transition: stroke 0.3s; }
+.ira-p5-escena__rotulo { font-family: var(--ira-font-texto); font-size: 13px; fill: var(--ira-texto-3); text-anchor: middle; }
+.ira-p5-escena__rotulo--discurso { fill: var(--p5-propia); text-anchor: start; }
+.ira-p5-escena__llegada { fill: none; stroke: var(--p2-color); stroke-width: 2; opacity: 0; }
+.ira-p5-escena--B .ira-p5-escena__llegada { stroke: var(--p5-propia); }
+
+.ira-p5-escena__entra { stroke: var(--p5-otro); stroke-width: 3; }
+.ira-p5-escena--norma .ira-p5-escena__entra { stroke-dasharray: 1.6 2.4; opacity: 0.7; }
+.ira-p5-escena__sale { stroke: var(--p2-color); stroke-width: 3; }
+.ira-p5-escena--B .ira-p5-escena__sale { stroke: var(--p5-otro); }
+.ira-p5-escena--V .ira-p5-escena__sale { stroke-width: 3.5; filter: drop-shadow(0 0 9px var(--p2-halo)); }
+.ira-p5-escena--Z .ira-p5-escena__sale { filter: drop-shadow(0 0 6px var(--p2-halo)); }
+.ira-p5-escena__ruido { stroke-width: 2.2; stroke-linejoin: miter; }
+.ira-p5-escena__propia { stroke: var(--p5-propia); stroke-width: 2.6; }
+.ira-p5-escena__vuelta path { stroke: var(--ira-1); stroke-width: 2.6; filter: drop-shadow(0 0 6px rgba(190, 40, 26, 0.5)); }
+.ira-p5-escena__cierre line { stroke: var(--ira-1); stroke-width: 7; filter: drop-shadow(0 0 10px rgba(190, 40, 26, 0.7)); }
+.ira-p5-escena__rebote { stroke: var(--ira-1); stroke-width: 2; opacity: 0; }
+.ira-p5-escena--Z3 .ira-p5-escena__puerta line { stroke: var(--ira-1); }
+
+.ira-p5-escena__aro { fill: var(--ira-superficie); stroke: var(--p5-otro); stroke-width: 2; }
+.ira-p5-escena__figura { fill: none; stroke: var(--p5-otro); stroke-width: 1.7; }
+.ira-p5-escena--Z1 .ira-p5-escena__aro { stroke: var(--ira-1); fill: rgba(190, 40, 26, 0.14); }
+.ira-p5-escena--Z1 .ira-p5-escena__figura { stroke: var(--ira-marca-polarizante); }
+
+.ira-p5-escena__pulso { stroke: var(--ira-nieve); stroke-width: 3.2; stroke-dasharray: 5 95; stroke-dashoffset: 5; opacity: 0; }
+.ira-p5-escena__pulso--propia { stroke: var(--ira-oro-hover); }
+
+.ira-p5-voz__escena { margin: 0; text-align: center; font-family: var(--ira-font-voz); font-style: italic; font-size: 16px; line-height: 23px; color: var(--p2-claro); min-height: 46px; }
+.ira-p5-voz__signo { margin-left: 10px; font-size: 13px; color: var(--ira-texto-2); }
+.ira-p5-voz__subtipo { margin: 0; font-family: var(--ira-font-titulo); font-size: 17px; font-weight: 500; line-height: 1.3; color: var(--ira-nieve); }
+.ira-p5-resp--polariza { border-color: var(--ira-1); color: var(--ira-marca-polarizante); }
+.ira-p5-resp--empatica { border-color: var(--ira-salvia); color: var(--ira-marca-empatica); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 1 · la voz llega; 2 · el discurso hace algo con ella; 3 · queda latiendo */
+  .ira-p5-escena__entra { stroke-dasharray: 100; animation: ira-p5-trazo 620ms cubic-bezier(.4, 0, .3, 1) both; }
+  .ira-p5-escena--norma .ira-p5-escena__entra { stroke-dasharray: 1.6 2.4; animation: ira-p5-asoma 620ms ease-out both; }
+  .ira-p5-escena__sale { stroke-dasharray: 100; animation: ira-p5-trazo 700ms cubic-bezier(.3, 0, .2, 1) 560ms both; }
+  .ira-p5-escena__ruido { animation: ira-p5-trazo 520ms steps(14) 560ms both, ira-p5-tiembla 1.6s steps(5) 1300ms infinite; }
+  .ira-p5-escena__llegada { animation: ira-p5-llegada 700ms ease-out 520ms both; }
+  .ira-p5-escena__propia { stroke-dasharray: 100; animation: ira-p5-trazo 640ms cubic-bezier(.3, 0, .2, 1) 820ms both; }
+  .ira-p5-escena__propia--espera { animation-delay: 1250ms; }
+  .ira-p5-escena__vuelta path:first-child { stroke-dasharray: 100; animation: ira-p5-trazo 560ms cubic-bezier(.5, 0, .3, 1) 620ms both; }
+  .ira-p5-escena__vuelta-punta { animation: ira-p5-asoma 160ms ease-out 1140ms both; }
+  .ira-p5-escena--Z1 .ira-p5-escena__otro { transform-box: fill-box; transform-origin: center; animation: ira-juego-sacudida 520ms ease-out 1180ms both; }
+  .ira-p5-escena--Z1 .ira-p5-escena__aro { animation: ira-p5-tinte 300ms ease-out 1180ms both; }
+  .ira-p5-escena--Z1 .ira-p5-escena__figura { animation: ira-p5-tinte-trazo 300ms ease-out 1180ms both; }
+  .ira-p5-escena__cierre line { animation: ira-p5-cerrar 300ms cubic-bezier(.6, 0, .4, 1.4) 430ms both; }
+  .ira-p5-escena__rebote { animation: ira-p5-rebote 1500ms ease-out calc(700ms + var(--k) * 180ms) infinite; }
+  .ira-p5-escena--V .ira-p5-escena__sale { animation: ira-p5-trazo 700ms cubic-bezier(.3, 0, .2, 1) 560ms both, ira-p5-resuena 2.8s ease-in-out 1400ms infinite; }
+
+  .ira-p5-escena__pulso { animation: ira-p5-pulso 2.6s linear 1500ms infinite; }
+  .ira-p5-escena--Z .ira-p5-escena__pulso { animation-name: ira-p5-pulso-corto; animation-duration: 2.2s; }
+  .ira-p5-escena__pulso--propia { animation-delay: 2100ms; }
+  .ira-p5-voz__escena { animation: ira-pz-entrar 380ms ease-out 900ms both; }
+}
+@keyframes ira-p5-trazo { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes ira-p5-asoma { from { opacity: 0; } }
+@keyframes ira-p5-llegada { 0% { opacity: 0; transform: scale(0.6); } 12% { opacity: 0.95; } 100% { opacity: 0; transform: scale(4.2); } }
+@keyframes ira-p5-tiembla { 0%, 100% { transform: none; } 25% { transform: translateY(-1.4px); } 50% { transform: translateY(1.2px); } 75% { transform: translateY(-0.6px); } }
+@keyframes ira-p5-cerrar { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes ira-p5-rebote { 0% { opacity: 0; transform: translateX(6px); } 18% { opacity: 0.8; } 60%, 100% { opacity: 0; transform: translateX(-8px); } }
+@keyframes ira-p5-resuena { 0%, 100% { filter: drop-shadow(0 0 7px var(--p2-halo)); } 50% { filter: drop-shadow(0 0 16px var(--ira-salvia)); } }
+@keyframes ira-p5-tinte { from { stroke: var(--p5-otro); fill: var(--ira-superficie); } }
+@keyframes ira-p5-tinte-trazo { from { stroke: var(--p5-otro); } }
+@keyframes ira-p5-pulso { 0% { stroke-dashoffset: 5; opacity: 0; } 6% { opacity: 0.95; } 90% { opacity: 0.95; } 100% { stroke-dashoffset: -95; opacity: 0; } }
+@keyframes ira-p5-pulso-corto { 0% { stroke-dashoffset: 5; opacity: 0; } 8% { opacity: 0.95; } 55% { opacity: 0.95; } 62%, 100% { stroke-dashoffset: -95; opacity: 0; } }
+
+/* ── La unidad: un evento, por partes ────────────────────────────────────── */
+.ira-p5-anatomia { margin: 22px 0 22px; max-width: 760px; display: flex; flex-direction: column; gap: 18px; }
+.ira-p5-anatomia__frase { margin: 0; font-family: var(--ira-font-voz); font-size: clamp(21px, 3vw, 28px); line-height: 1.55; color: var(--ira-nieve); }
+.ira-p5-anatomia__traduccion { display: block; margin-top: 6px; font-size: 15px; line-height: 22px; font-style: italic; color: var(--ira-texto-3); }
+.ira-p5-tramo { --tramo: var(--ira-oro); background: linear-gradient(var(--tramo), var(--tramo)) 0 100% / 100% 3px no-repeat; padding-bottom: 3px; }
+.ira-p5-tramo sup { margin-left: 3px; font-family: var(--ira-font-cifra); font-size: 12px; font-style: normal; color: var(--tramo); vertical-align: super; line-height: 0; }
+/* misma gramática que la escena: la marca y la respuesta son del discurso (oro); lo citado, del otro (claro) */
+.ira-p5-tramo--marca, .ira-p5-parte--marca { --tramo: var(--ira-oro); }
+.ira-p5-tramo--voz, .ira-p5-parte--voz { --tramo: var(--p5-otro); }
+.ira-p5-tramo--hace, .ira-p5-parte--hace { --tramo: var(--ira-oro); }
+.ira-p5-tramo--marca { background-image: repeating-linear-gradient(90deg, var(--tramo) 0 5px, transparent 5px 9px); }
+.ira-p5-parte--marca { border-top-style: dashed; }
+.ira-p5-anatomia__partes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ira-p5-parte { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 2px 10px; align-items: start; padding: 12px 14px; border-radius: var(--ira-radio-l); background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-top: 3px solid var(--tramo); }
+.ira-p5-parte__n { grid-row: span 2; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; font-size: 12px; color: var(--tramo); border: 1px solid var(--tramo); }
+.ira-p5-parte__nombre { font-size: 15px; font-weight: 500; color: var(--ira-nieve); }
+.ira-p5-parte__texto { font-size: 14px; line-height: 21px; color: var(--ira-texto-cita); }
+.ira-p5-anatomia__suma { margin: 0; }
+@media (max-width: 720px) { .ira-p5-anatomia__partes { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: no-preference) {
+  .ira-p5-tramo { background-size: 0 3px; transition: background-size 520ms cubic-bezier(.3, 0, .2, 1) calc(200ms + var(--k) * 420ms); }
+  .ira-p5-anatomia.is-visto .ira-p5-tramo { background-size: 100% 3px; }
+  .ira-p5-parte { opacity: 0; transform: translateY(8px); transition: opacity 380ms ease-out calc(380ms + var(--k) * 420ms), transform 380ms ease-out calc(380ms + var(--k) * 420ms); }
+  .ira-p5-anatomia.is-visto .ira-p5-parte { opacity: 1; transform: none; }
+}
+
+/* ── Qué se ataca ────────────────────────────────────────────────────────── */
+.ira-p5-ayuda { margin: 0 0 12px; font-size: 14px; color: var(--ira-texto-2); }
+.ira-p5-golpe { margin-bottom: 16px; }
+.ira-p5-golpe__banda { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-areas: 'svg veredicto' 'opciones opciones'; gap: 20px 32px; align-items: center; }
+.ira-p5-golpe__svg { grid-area: svg; width: 100%; height: auto; display: block; overflow: visible; }
+.ira-p5-golpe__opciones { grid-area: opciones; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.ira-p5-golpe__veredicto { grid-area: veredicto; }
+.ira-p5-golpe__svg path, .ira-p5-golpe__svg line, .ira-p5-golpe__svg circle, .ira-p5-golpe__svg rect { fill: none; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s, opacity 0.3s, fill 0.3s; }
+.ira-p5-golpe__zona { cursor: pointer; }
+.ira-p5-golpe__area { stroke: none; fill: transparent !important; pointer-events: all; }
+.ira-p5-golpe__persona { stroke: var(--p5-otro); stroke-width: 2; fill: var(--ira-superficie) !important; }
+.ira-p5-golpe__trazo { stroke: var(--p5-otro); stroke-width: 2; }
+.ira-p5-golpe__motivo { stroke: var(--ira-texto-3); stroke-width: 2; stroke-dasharray: 3 6; }
+.ira-p5-golpe__bocadillo { stroke: var(--p5-otro); stroke-width: 2.2; fill: var(--ira-superficie) !important; pointer-events: all; }
+.ira-p5-golpe__lineas line { stroke: var(--p5-otro); stroke-width: 5; opacity: 0.85; }
+.ira-p5-golpe__garabato { stroke: var(--ira-1); stroke-width: 2.4; opacity: 0; }
+.ira-p5-golpe__niega { stroke: var(--ira-nieve); stroke-width: 2.6; opacity: 0; }
+.ira-p5-golpe__rotulo { font-family: var(--ira-font-texto); font-size: 13px; fill: var(--ira-texto-3); text-anchor: middle; transition: fill 0.3s; }
+.ira-p5-golpe__zona.is-sel .ira-p5-golpe__rotulo { fill: var(--ira-nieve); font-weight: 500; }
+.ira-p5-golpe__zona:hover .ira-p5-golpe__rotulo { fill: var(--ira-texto-cita); }
+.ira-p5-golpe__sale { opacity: 0; transition: opacity 0.3s; }
+.ira-p5-golpe__sale path { stroke: var(--ira-oro); stroke-width: 2; }
+.ira-p5-golpe__sale text { fill: var(--ira-oro); font-size: 15px; text-anchor: middle; }
+.ira-p5-golpe__onda { stroke: var(--p2-color); stroke-width: 2; opacity: 0; }
+.ira-p5-golpe__estrella { fill: var(--p2-claro) !important; stroke: none; filter: drop-shadow(0 0 6px var(--p2-color)); }
+.ira-p2--otro .ira-p5-golpe__estrella { fill: var(--ira-oro-hover) !important; filter: drop-shadow(0 0 6px var(--ira-oro)); }
+.ira-p2--otro .ira-p5-golpe__onda { stroke: var(--ira-oro); }
+
+/* contenido: se niega lo dicho, pero el bocadillo sigue entero */
+.is-contenido .ira-p5-golpe__niega { opacity: 0.9; }
+.is-contenido .ira-p5-golpe__lineas line { opacity: 0.5; }
+/* sentido: lo dicho deja de decir algo */
+.is-sentido .ira-p5-golpe__bocadillo { stroke: var(--ira-1); stroke-dasharray: 5 7; fill: rgba(190, 40, 26, 0.06) !important; }
+.is-sentido .ira-p5-golpe__lineas line { opacity: 0; }
+.is-sentido .ira-p5-golpe__garabato { opacity: 0.85; }
+/* motivo: se corta lo que une a la persona con lo dicho, y lo dicho queda sin respuesta */
+.is-motivo .ira-p5-golpe__motivo { stroke: var(--ira-1); stroke-dasharray: none; stroke-width: 2.6; filter: drop-shadow(0 0 5px rgba(190, 40, 26, 0.6)); }
+.is-motivo .ira-p5-golpe__bocadillo, .is-motivo .ira-p5-golpe__lineas line { opacity: 0.3; }
+.is-motivo .ira-p5-golpe__persona { stroke: var(--ira-1); }
+/* persona: el juicio ya no es P5 */
+.is-persona .ira-p5-golpe__persona { stroke: var(--ira-oro); stroke-width: 2.6; }
+.is-persona .ira-p5-golpe__trazo { stroke: var(--ira-oro-hover); }
+.is-persona .ira-p5-golpe__bocadillo, .is-persona .ira-p5-golpe__lineas line, .is-persona .ira-p5-golpe__motivo { opacity: 0.3; }
+.is-persona .ira-p5-golpe__sale { opacity: 1; }
+
+.ira-p5-golpe__opcion {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; min-height: 48px; cursor: pointer; text-align: left;
+  background: var(--ira-superficie); border: 1px solid var(--ira-linea); border-radius: var(--ira-radio-l); color: var(--ira-texto-cita); font: inherit; font-size: 14px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.ira-p5-golpe__opcion:hover { background: var(--ira-elevada); }
+.ira-p5-golpe__opcion.is-sel { background: var(--ira-elevada); border-color: var(--p2-color); color: var(--ira-nieve); box-shadow: inset 0 -3px 0 var(--p2-color); }
+.ira-p5-golpe__opcion.ira-p2--otro.is-sel { border-color: var(--ira-oro); box-shadow: inset 0 -3px 0 var(--ira-oro); }
+.ira-p5-golpe__opcion.is-sel .ira-p2-codigo { border-color: var(--p2-color); }
+.ira-p5-golpe__titulo { margin: 0; font-family: var(--ira-font-titulo); font-size: 20px; font-weight: 500; line-height: 1.25; color: var(--ira-nieve); }
+.ira-p5-golpe__ejemplos { margin: 0; font-family: var(--ira-font-voz); font-style: italic; font-size: 15px; line-height: 23px; color: var(--ira-texto-cita); }
+.ira-p5-golpe .ira-p2--otro .ira-p2-pildora, .ira-p5-golpe.ira-p2--otro .ira-p2-pildora { border-color: var(--ira-oro); border-style: dashed; color: var(--ira-oro); }
+.ira-p5-golpe.ira-p2--otro .ira-p2-veredicto { border-top-color: var(--ira-oro); }
+@media (max-width: 640px) { .ira-p5-escena__rotulo { font-size: 17px; } }
+@media (max-width: 860px) {
+  .ira-p5-golpe__banda { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'svg' 'opciones' 'veredicto'; gap: 16px; }
+  .ira-p5-golpe__opciones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ira-p5-golpe__rotulo { font-size: 15px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ira-met .ira-p5-golpe__veredicto { animation: ira-pz-entrar 320ms ease-out both 120ms; }
+  .ira-met .ira-p5-golpe__veredicto .ira-p2-pildora { animation: ira-juego-sello 460ms cubic-bezier(.3, 1.8, .5, 1) both 260ms; }
+  .ira-p5-golpe__estrella { animation: ira-p5-caer 620ms cubic-bezier(.3, 1.5, .5, 1) both; }
+  .ira-p5-golpe__onda { animation: ira-p5-onda 900ms ease-out 200ms both; }
+  .ira-p5-golpe__opcion:active { transform: scale(0.97); }
+}
+@keyframes ira-p5-caer { 0% { opacity: 0; transform: translateY(-34px) scale(0.2) rotate(-40deg); } 55% { opacity: 1; transform: scale(1.5) rotate(8deg); } 100% { opacity: 1; transform: scale(0.85); } }
+@keyframes ira-p5-onda { 0% { opacity: 0.9; transform: scale(0.4); } 100% { opacity: 0; transform: scale(2.4); } }
+
+/* ── La fórmula, para probarla ───────────────────────────────────────────── */
+.ira-p5-balanza { margin: 20px 0 28px; display: flex; flex-direction: column; gap: 18px; }
+.ira-p5-balanza__titulo { margin: 0; font-family: var(--ira-font-titulo); font-size: 22px; font-weight: 500; color: var(--ira-nieve); }
+.ira-p5-balanza__intro { margin: 4px 0 0; font-size: 15px; color: var(--ira-texto-2); }
+.ira-p5-balanza__presets { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ira-p5-balanza__presets-rotulo { width: 100%; font-size: 12px; letter-spacing: 0.04em; color: var(--ira-texto-3); }
+.ira-p5-preset { padding: 7px 14px; border-radius: 999px; cursor: pointer; background: transparent; border: 1px solid var(--ira-linea-fuerte); color: var(--ira-texto-cita); font: inherit; font-size: 14px; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+.ira-p5-preset:hover { background: var(--ira-elevada); }
+.ira-p5-preset.is-on { border-color: var(--ira-oro); color: var(--ira-oro); background: rgba(220, 177, 73, 0.08); }
+.ira-p5-balanza__rejilla { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 36px; align-items: start; }
+.ira-p5-balanza__contadores { display: flex; flex-direction: column; gap: 8px; }
+.ira-p5-contador { display: grid; grid-template-columns: 28px minmax(0, 1fr) 38px 34px 38px; align-items: center; gap: 8px; padding: 8px 10px; border-radius: var(--ira-radio-l); background: var(--ira-noche); border: 1px solid var(--ira-linea); border-left: 3px solid var(--p2-color); }
+.ira-p5-contador__k { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--p2-color); color: var(--ira-noche); font-size: 12px; }
+.ira-p5-contador__nombre { font-size: 15px; color: var(--ira-nieve); }
+.ira-p5-contador__n { text-align: center; font-size: 20px; color: var(--p2-claro); }
+.ira-p5-contador__boton { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; cursor: pointer; background: var(--ira-superficie); border: 1px solid var(--ira-linea-fuerte); color: var(--ira-nieve); font-size: 20px; line-height: 1; transition: background 0.15s, border-color 0.15s, transform 0.15s; }
+.ira-p5-contador__boton:hover:not(:disabled) { background: var(--ira-elevada); border-color: var(--p2-color); }
+.ira-p5-contador__boton:active:not(:disabled) { transform: scale(0.9); }
+.ira-p5-contador__boton:disabled { opacity: 0.3; cursor: default; }
+.ira-p5-fichas { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; min-height: 12px; }
+.ira-p5-ficha { width: 12px; height: 12px; border-radius: 50%; background: var(--p2-color); box-shadow: 0 0 8px var(--p2-halo); }
+.ira-p5-balanza__total { margin: 2px 0 0; font-size: 13px; color: var(--ira-texto-2); }
+.ira-p5-balanza__total strong { font-weight: 500; color: var(--ira-nieve); }
+
+.ira-p5-balanza__resultado { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ira-p5-balanza__rotulo { margin: 0; font-size: 12px; letter-spacing: 0.04em; color: var(--ira-texto-3); }
+.ira-p5-balanza__nota { font-size: 72px; line-height: 1; transition: color 0.4s; }
+.ira-p5-balanza__nota--sin { font-family: var(--ira-font-titulo); font-size: 34px; line-height: 72px; font-weight: 500; color: var(--ira-texto-3); }
+.ira-p5-balanza__aviso { margin: 0; min-height: 21px; font-size: 14px; color: var(--ira-texto-2); }
+.ira-p5-regla { position: relative; margin: 14px 0 6px; padding-bottom: 26px; }
+.ira-p5-regla__pista { display: grid; grid-template-columns: repeat(11, 1fr); gap: 2px; height: 8px; }
+.ira-p5-regla__pista span { border-radius: 2px; opacity: 0.55; }
+.ira-p5-regla__pista span.is-centro { opacity: 1; }
+.is-sin .ira-p5-regla__pista span { opacity: 0.2; }
+.ira-p5-regla__aguja { position: absolute; top: -7px; width: 4px; height: 22px; margin-left: -2px; border-radius: 2px; background: var(--ira-nieve); box-shadow: 0 0 12px var(--aguja, var(--ira-oro)); transition: left 520ms cubic-bezier(.3, 1.3, .5, 1); }
+.ira-p5-regla__centro, .ira-p5-regla__polo { position: absolute; top: 16px; font-size: 12px; color: var(--ira-texto-3); white-space: nowrap; }
+.ira-p5-regla__centro { left: 50%; transform: translateX(-50%); }
+.ira-p5-regla__polo { left: 0; }
+.ira-p5-regla__polo--fin { left: auto; right: 0; }
+.ira-p5-balanza__cuenta { margin: 6px 0 0; padding: 10px 14px; border-radius: var(--ira-radio-m); background: var(--ira-noche); border: 1px solid var(--ira-linea); font-size: 15px; line-height: 1.7; font-weight: 500; color: var(--ira-texto-cita); letter-spacing: -0.01em; }
+.ira-p5-balanza__cuenta b { font-weight: 800; color: var(--p2-claro); }
+.ira-p5-balanza__dilucion { margin: 0; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+@media (max-width: 860px) {
+  .ira-p5-balanza__rejilla { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .ira-p5-balanza__nota { font-size: 60px; }
+  .ira-p5-regla__polo { display: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ira-p5-ficha { animation: ira-il-pop 320ms cubic-bezier(.3, 1.7, .5, 1) both; }
+}

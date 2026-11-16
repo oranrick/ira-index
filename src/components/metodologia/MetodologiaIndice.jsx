@@ -24,7 +24,7 @@ const TXT = {
       { titulo: 'Reproducible', texto: 'Manual, código y datos están en el repositorio público, con versiones fijadas.' },
     ],
     parametrosTitulo: 'Los parámetros',
-    parametrosTexto: 'Cada parámetro se publica con su manual. P1, P3, P5 y P6 están cerrados; P2 es un borrador en desarrollo y puede cambiar. P4, P7 y P8 conservan, de momento, su nombre actual. Solo P1 y P2 puntúan ya, en la campaña del 29-N.',
+    parametrosTexto: 'Cada parámetro se publica con su manual. P1, P2, P3, P5 y P6 están cerrados. P4, P7 y P8 conservan, de momento, su nombre actual. Solo P1 y P2 puntúan ya, en la campaña del 29-N.',
     proximamente: 'Próximamente',
     leer: 'Leer el método',
     researchTitulo: 'Manual, código y datos',
@@ -44,7 +44,7 @@ const TXT = {
       { titulo: 'Reproducible', texto: 'Manual, code and data are in the public repository, with pinned versions.' },
     ],
     parametrosTitulo: 'The parameters',
-    parametrosTexto: 'Each parameter is published with its manual. P1, P3, P5 and P6 are closed; P2 is a draft in development and may change. P4, P7 and P8 keep their current names for now. Only P1 and P2 score anything yet, in the 29-N coverage.',
+    parametrosTexto: 'Each parameter is published with its manual. P1, P2, P3, P5 and P6 are closed. P4, P7 and P8 keep their current names for now. Only P1 and P2 score anything yet, in the 29-N coverage.',
     proximamente: 'Coming soon',
     leer: 'Read the method',
     researchTitulo: 'Manual, code and data',
@@ -93,7 +93,8 @@ export default function MetodologiaIndice() {
         <h2 id="met-parametros" className="ira-met__h2">{t.parametrosTitulo}</h2>
         <p className="ira-met__texto">{t.parametrosTexto}</p>
         <ul className="ira-met__parametros">
-          {parametros.map((p) => (
+          {/* Primero los que tienen manual; los pendientes juntos al final, en su propia fila */}
+          {[...parametros.filter((x) => x.ruta), ...parametros.filter((x) => !x.ruta)].map((p) => (
             <li key={p.id}>
               {p.ruta ? (
                 <Link to={p.ruta} className="ira-met__param ira-met__param--activo">

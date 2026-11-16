@@ -33,11 +33,11 @@ export const UI_JUEGO = {
   },
 };
 
-// Índice de parámetros. P1, P3, P5 y P6 (manuales cerrados) y P2 (borrador) tienen página; el resto conserva su nombre actual.
+// Índice de parámetros. P1, P2, P3, P5 y P6 (manuales cerrados) tienen página; el resto conserva su nombre actual.
 export const PARAMETROS = {
   es: [
     { id: 'p1', codigo: 'P1', nombre: 'La frontera del nosotros', definicion: 'Dónde traza el discurso la línea entre «nosotros» y «ellos», y si esa línea es un muro o una puerta.', ruta: '/metodologia/p1', estado: 'Manual v1.1' },
-    { id: 'p2', codigo: 'P2', nombre: 'El marco metafórico', definicion: 'Con qué imágenes piensa el discurso el conflicto y contra quién apuntan: el dominio no decide, decide el blanco.', ruta: '/metodologia/p2', estado: 'Borrador v0.1 · en desarrollo', borrador: true },
+    { id: 'p2', codigo: 'P2', nombre: 'El marco metafórico', definicion: 'Con qué imágenes piensa el discurso el conflicto y contra quién apuntan: el dominio no decide, decide el blanco.', ruta: '/metodologia/p2', estado: 'Manual v1.0' },
     { id: 'p3', codigo: 'P3', nombre: 'El juicio sobre el otro', definicion: 'Qué dice el discurso, en sentido literal, de quienes no son el nosotros: si juzga lo que hacen o lo que son.', ruta: '/metodologia/p3', estado: 'Manual v0.1' },
     { id: 'p4', codigo: 'P4', nombre: 'Tono emocional' },
     { id: 'p5', codigo: 'P5', nombre: 'La palabra del otro', definicion: 'Qué hace el discurso con lo que dice quien piensa distinto: lo escucha, lo responde o lo anula.', ruta: '/metodologia/p5', estado: 'Manual v0.1' },
@@ -47,7 +47,7 @@ export const PARAMETROS = {
   ],
   en: [
     { id: 'p1', codigo: 'P1', nombre: 'The boundary of “us”', definicion: 'Where the speech draws the line between “us” and “them”, and whether that line is a wall or a door.', ruta: '/metodologia/p1', estado: 'Manual v1.1' },
-    { id: 'p2', codigo: 'P2', nombre: 'The metaphorical frame', definicion: 'Which images the speech uses to think about conflict, and who they are aimed at: the domain does not decide, the target does.', ruta: '/metodologia/p2', estado: 'Draft v0.1 · in development', borrador: true },
+    { id: 'p2', codigo: 'P2', nombre: 'The metaphorical frame', definicion: 'Which images the speech uses to think about conflict, and who they are aimed at: the domain does not decide, the target does.', ruta: '/metodologia/p2', estado: 'Manual v1.0' },
     { id: 'p3', codigo: 'P3', nombre: 'Judging the other', definicion: 'What the speech says, literally, about those outside “us”: whether it judges what they do or what they are.', ruta: '/metodologia/p3', estado: 'Manual v0.1' },
     { id: 'p4', codigo: 'P4', nombre: 'Emotional tone' },
     { id: 'p5', codigo: 'P5', nombre: 'The other’s word', definicion: 'What the speech does with what people who think differently say: it listens, it answers or it cancels.', ruta: '/metodologia/p5', estado: 'Manual v0.1' },

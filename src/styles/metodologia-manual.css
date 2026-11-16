@@ -92,3 +92,52 @@
 
 /* Procedimiento: cuatro pasos en rejilla de dos */
 @media (min-width: 861px) { .ira-p2-eslabones.ira-man-pasos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ── P2 v1.0 ─────────────────────────────────────────────────────────────── */
+.ira-p2-dominio__nuevo {
+  align-self: flex-start; margin-top: 6px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--ira-oro);
+  font-size: 11px; letter-spacing: 0.06em; color: var(--ira-oro);
+}
+.ira-p2-nodo__nota { margin: 4px 0 8px !important; font-size: 13px; line-height: 20px; color: var(--ira-texto-2); max-width: 560px; }
+.ira-p2-prueba__margen { margin: 2px 0 0; font-size: 13px; color: var(--ira-oro); letter-spacing: 0.02em; }
+
+.ira-p2-ancla { margin-top: 32px; padding: 22px 22px 8px; border-radius: var(--ira-radio-l); border: 1px solid var(--ira-linea); background: var(--ira-superficie); }
+.ira-p2-ancla .ira-met__h3 { margin-top: 0; }
+.ira-p2-ancla__condiciones { list-style: none; margin: 0 0 16px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.ira-p2-ancla__condiciones li { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: var(--ira-radio-m); border-top: 3px solid var(--ira-oro); background: rgba(255, 255, 255, 0.02); font-size: 14px; line-height: 21px; color: var(--ira-texto-cita); }
+.ira-p2-ancla__condiciones b { font-weight: 500; color: var(--ira-nieve); }
+.ira-p2-ancla__n { font-size: 12px; color: var(--ira-oro); }
+.ira-p2-ancla__ejemplos { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ira-p2-ancla__ejemplos li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 12px 14px; border-radius: var(--ira-radio-m); border-left: 3px solid var(--p2-color); background: var(--p2-fondo); }
+.ira-p2-ancla__frase { font-family: var(--ira-font-voz); font-style: italic; color: var(--ira-nieve); }
+.ira-p2-ancla__por { grid-column: 1 / -1; font-size: 13px; color: var(--ira-texto-2); }
+@media (max-width: 720px) {
+  .ira-p2-ancla { padding: 18px 14px 4px; }
+  .ira-p2-ancla__condiciones { grid-template-columns: minmax(0, 1fr); }
+  .ira-p2-ancla__ejemplos li { grid-template-columns: minmax(0, 1fr); }
+}
+.ira-p2-ancla__ejemplos .ira-p2-pildora { justify-self: start; }
+@media (max-width: 860px) {
+  .ira-p2-prueba__lista li { grid-template-columns: max-content max-content; justify-content: start; }
+}
+.ira-p2-ancla > .ira-met__texto { margin: 6px 0 16px; }
+.ira-met__rotulo .ira-man-estado { display: inline-block; margin-top: 4px; }
+
+/* ── P1 · la ficha real ── */
+.ira-ficha-p1 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.ira-ficha-p1__tarjeta { padding: 20px; border-radius: var(--ira-radio-l); border: 1px solid var(--ira-linea); background: var(--ira-superficie); }
+.ira-ficha-p1__tarjeta.is-sin { border-style: dashed; }
+.ira-ficha-p1__titulo { margin: 0 0 14px; font-size: 16px; font-weight: 500; color: var(--ira-nieve); }
+.ira-ficha-p1__nota { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; padding-bottom: 14px; border-bottom: 1px solid var(--ira-linea); }
+.ira-ficha-p1__p { font-weight: 800; font-size: 15px; color: var(--ira-oro); }
+.ira-ficha-p1__nota .ira-etiqueta--pastilla { font-size: 22px; padding: 4px 12px; }
+.ira-ficha-p1__sin { font-family: var(--ira-font-voz); font-style: italic; font-size: 17px; color: var(--ira-texto-2); }
+.ira-ficha-p1__meta { flex-basis: 100%; font-size: 13px; color: var(--ira-texto-2); }
+.ira-ficha-p1__ind { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.ira-ficha-p1__ind li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; font-size: 14px; }
+.ira-ficha-p1__k { color: var(--ira-nieve); }
+.ira-ficha-p1__v { color: var(--ira-oro); text-align: right; white-space: nowrap; }
+.ira-ficha-p1__r { grid-column: 1 / -1; font-size: 13px; color: var(--ira-texto-2); }
+.ira-ficha-p1__ind li.is-fuera .ira-ficha-p1__v { color: var(--ira-texto-3); font-family: var(--ira-font-voz); font-style: italic; }
+.ira-ficha-p1__nota-sin { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--ira-linea); font-size: 13px; line-height: 20px; color: var(--ira-texto-2); }
+@media (max-width: 720px) { .ira-ficha-p1 { grid-template-columns: minmax(0, 1fr); } }

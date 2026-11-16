@@ -26,15 +26,24 @@ export const CANDIDATURAS = [
 ];
 
 // Un registro por pieza analizada. Vacío hasta el primer mitin.
-// { id, candidatura, tipo: 'mitin' | 'debate' | 'entrevista', fecha, lugar, titulo, fuente,
-//   palabras, p1, p2, eventosP2: { e, p, n }, fragmentos: [{ frase, p1?, p2? }] }
+// Se guardan los RECUENTOS, no las notas: las notas y sus márgenes los calcula src/lib/margen.js.
+// La nota de campaña de cada candidatura junta los eventos de todas sus piezas (no promedia notas).
+// {
+//   id, candidatura, tipo: 'mitin' | 'debate', fecha: 'AAAA-MM-DD', lugar, titulo, fuente (URL de la
+//   transcripción o del vídeo), palabras,
+//   p1: { U, G, GC, I, C, A, Cp },   // P1 v1.1: alcance (U, G, GC), interpelación (I, C), permeabilidad (A, Cp)
+//   p2: { E, P, N },                 // P2 v1.0: empáticas, que polarizan, neutras
+//   frases: [{ texto, parametro: 'P1' | 'P2', signo: 'abre' | 'cierra' }],  // las que suman o restan
+// }
+// En un debate a cuatro se crea una pieza por candidatura, con solo sus intervenciones.
 export const PIEZAS = [];
 
 export const REGLAS = {
   es: [
-    { titulo: 'Misma cuota', texto: 'Un mitin por semana de cada candidatura, elegido con el mismo criterio: el acto central del fin de semana.' },
+    { titulo: 'Misma cuota', texto: 'El mitin central de cada fin de semana de cada candidatura y los debates en los que estén las cuatro. En un debate, cada candidatura se mide solo con sus intervenciones.' },
     { titulo: 'Misma pieza', texto: 'Mitin con mitin, debate con debate. Siempre la transcripción completa, nunca fragmentos sueltos.' },
     { titulo: 'Se publica todo', texto: 'Todo lo que se analiza se publica, cuadre o no con lo que se esperaba.' },
-    { titulo: 'Método a la vista', texto: 'Cada ficha dice con qué versión de cada parámetro se calculó y enseña las frases que suman o restan.' },
+    { titulo: 'Método a la vista', texto: 'Cada ficha dice con qué versión de cada parámetro se calculó (P1 v1.1, P2 v1.0) y enseña las frases que suman o restan.' },
+    { titulo: 'Cada número, con su margen', texto: 'Las notas van con el rango donde caen con 4 de cada 5 probabilidades. Si dos márgenes se solapan, no hay diferencia clara. Nadie se ordena de mayor a menor.' },
   ],
 };

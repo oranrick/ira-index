@@ -30,6 +30,7 @@ export const TEXTOS_P5 = {
 
     secciones: [
       { id: 'la-idea', titulo: 'La idea' },
+      { id: 'la-voz', titulo: 'Qué hace con la voz del otro' },
       { id: 'que-mide', titulo: 'Qué mide y por qué' },
       { id: 'que-no-mide', titulo: 'Qué no mide' },
       { id: 'procedimiento', titulo: 'Cómo se codifica' },
@@ -248,6 +249,7 @@ export const TEXTOS_P5 = {
 
     secciones: [
       { id: 'la-idea', titulo: 'The idea' },
+      { id: 'la-voz', titulo: 'What it does with the other’s voice' },
       { id: 'que-mide', titulo: 'What it measures and why' },
       { id: 'que-no-mide', titulo: 'What it does not measure' },
       { id: 'procedimiento', titulo: 'How it is coded' },
