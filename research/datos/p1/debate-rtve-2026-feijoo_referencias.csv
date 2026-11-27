@@ -1,0 +1,247 @@
+n,oracion,forma,lema,tipo,persona,numero,sujeto_explicito,contexto,categoria,nota
+1,1,leo,leer,verbo,1,sg,,"Pues mire, le deo le leo dos titulares del señor Sánchez.",Y,
+2,3,leo,leer,verbo,1,sg,,Le leo un titular de este mes de noviembre del 26.,Y,
+3,4,nuestra,nuestro,posesivo,1,pl,,La vivienda va a ser nuestra prioridad a la próxima legislatura.,X,«nuestra prioridad» dentro de un titular de Sánchez que cita: no es nosotros del hablante
+4,6,Creo,creer,verbo,1,sg,,Creo que los españoles no se van a dejar engañar otra vez.,Y,
+5,10,vamos,ir,verbo,1,pl,,Si vamos a también a hablar del pudor con el que usted utilizó el fallecimiento de Maric Carmen.,S,los presentes en el debate
+6,10,usted,usted,pronombre,2,sg,,Si vamos a también a hablar del pudor con el que usted utilizó el fallecimiento de Maric Carmen.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+7,11,recuerdo,recordar,verbo,1,sg,,"Señor Sánchez, le recuerdo que durante todos los días de su mandato, la media de desaucios fueron 90 diarios.",Y,
+8,12,yo,yo,pronombre,1,sg,,"Mire, yo creo que convocar elecciones con esa excusa es una falta de ética.",Y,
+9,12,creo,creer,verbo,1,sg,yo,"Mire, yo creo que convocar elecciones con esa excusa es una falta de ética.",Y,
+10,13,Yo,yo,pronombre,1,sg,,"Yo le vuelvo a reiterar, usted ha convocado elecciones para parar los sumarios judiciales que le están investigando.",Y,
+11,13,vuelvo,volver,verbo,1,sg,Yo,"Yo le vuelvo a reiterar, usted ha convocado elecciones para parar los sumarios judiciales que le están investigando.",Y,
+12,13,usted,usted,pronombre,2,sg,,"Yo le vuelvo a reiterar, usted ha convocado elecciones para parar los sumarios judiciales que le están investigando.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+13,14,nos,yo,pronombre,1,pl,,"Mire, nos intentaron vender los decretos de Maric Carmen.",GC,«nos intentaron vender los decretos»: el Gobierno contra nosotros
+14,15,usted,usted,pronombre,2,sg,,"Realmente, si usted quiere utilizar el nombre de una mujer para recordar los decretos, le propongo que recuerde usted a Jessica y a Andrea, a con ellas les pagaban la hipoteca y les y les pusieron un piso, es decir, con las mordidas del dinero público.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+15,15,propongo,proponer,verbo,1,sg,,"Realmente, si usted quiere utilizar el nombre de una mujer para recordar los decretos, le propongo que recuerde usted a Jessica y a Andrea, a con ellas les pagaban la hipoteca y les y les pusieron un piso, es decir, con las mordidas del dinero público.",Y,
+16,15,usted,usted,pronombre,2,sg,,"Realmente, si usted quiere utilizar el nombre de una mujer para recordar los decretos, le propongo que recuerde usted a Jessica y a Andrea, a con ellas les pagaban la hipoteca y les y les pusieron un piso, es decir, con las mordidas del dinero público.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+17,15,ellas,él,pronombre,3,pl,,"Realmente, si usted quiere utilizar el nombre de una mujer para recordar los decretos, le propongo que recuerde usted a Jessica y a Andrea, a con ellas les pagaban la hipoteca y les y les pusieron un piso, es decir, con las mordidas del dinero público.",F,ellas (terceras personas)
+18,18,ustedes,tú,pronombre,2,pl,,"Con ustedes, para tener una casa hay que heredarla, ocuparla o salir en los sumarios.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+19,20,nuestra,nuestro,posesivo,1,pl,,"Modificación de la ley del suelo, modificación de la ley de propiedad horizontal, licencias a los 90 días y para jóvenes, la mayor rebaja fiscal de nuestra historia, un 60% menos de impuestos y avales hasta el 100%.",U,nuestra historia
+20,22,ustedes,tú,pronombre,2,pl,,"Señorías, señores, ustedes están en contra de la ocupación ilegal de viviendas.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+21,23,Me,yo,pronombre,1,sg,,Me gustaría que me lo me lo respondieran.,Y,
+22,23,me,yo,pronombre,1,sg,,Me gustaría que me lo me lo respondieran.,Y,
+23,23,me,yo,pronombre,1,sg,,Me gustaría que me lo me lo respondieran.,Y,
+24,24,usted,usted,pronombre,2,sg,,Gracias.  8 años lleva usted gobernando con este señor y a mí me dice y a mí me dice que tiene que venir el gobierno progresista y es el primer problema.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+25,24,mí,yo,pronombre,1,sg,,Gracias.  8 años lleva usted gobernando con este señor y a mí me dice y a mí me dice que tiene que venir el gobierno progresista y es el primer problema.,Y,
+26,24,me,yo,pronombre,1,sg,,Gracias.  8 años lleva usted gobernando con este señor y a mí me dice y a mí me dice que tiene que venir el gobierno progresista y es el primer problema.,Y,
+27,24,mí,yo,pronombre,1,sg,,Gracias.  8 años lleva usted gobernando con este señor y a mí me dice y a mí me dice que tiene que venir el gobierno progresista y es el primer problema.,Y,
+28,24,me,yo,pronombre,1,sg,,Gracias.  8 años lleva usted gobernando con este señor y a mí me dice y a mí me dice que tiene que venir el gobierno progresista y es el primer problema.,Y,
+29,25,ustedes,tú,pronombre,2,pl,,"Mire, señor Sánchez, ustedes [risas] sabe lo que dijo una ministra de su gobierno hace unos días, que usted lo que debería de darme eran cuatro bofetadas durante el debate.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+30,25,usted,usted,pronombre,2,sg,,"Mire, señor Sánchez, ustedes [risas] sabe lo que dijo una ministra de su gobierno hace unos días, que usted lo que debería de darme eran cuatro bofetadas durante el debate.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+31,26,Yo,yo,pronombre,1,sg,,"Yo me voy a ir un poco para aquí, no vaya a ser que se le ocurra y además me ha llamado en ergúmeno, pero en fin.",Y,
+32,26,me,yo,pronombre,1,sg,,"Yo me voy a ir un poco para aquí, no vaya a ser que se le ocurra y además me ha llamado en ergúmeno, pero en fin.",Y,
+33,26,voy,ir,verbo,1,sg,,"Yo me voy a ir un poco para aquí, no vaya a ser que se le ocurra y además me ha llamado en ergúmeno, pero en fin.",Y,
+34,26,me,yo,pronombre,1,sg,,"Yo me voy a ir un poco para aquí, no vaya a ser que se le ocurra y además me ha llamado en ergúmeno, pero en fin.",Y,
+35,27,usted,usted,pronombre,2,sg,,"Ahora bien, usted presumiendo buena educación.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+36,28,ustedes,tú,pronombre,2,pl,,"Mire, el PP lo que propone son 1 millón de viviendas y ustedes están hablando de 1 millón de excusas y el problema es que la vivienda en esta legislatura se ha hecho imposible.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+37,29,usted,usted,pronombre,2,sg,,Pero usted quiere presentarse a candidato a la presidencia de la Comunidad Autónoma de Madrid.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+38,30,He,haber,verbo,1,sg,,He preguntado por los ocupas y se lo he preguntado al gobierno progresista.,Y,
+39,30,ocupas,ocupar,verbo,2,sg,,He preguntado por los ocupas y se lo he preguntado al gobierno progresista.,X,«ocupas» es sustantivo
+40,30,he,haber,verbo,1,sg,,He preguntado por los ocupas y se lo he preguntado al gobierno progresista.,Y,
+41,33,defendemos,defender,verbo,1,pl,,O defendemos a los inquilinos y a los propietarios a la vez o no hay nada que hacer.,U,o defendemos a inquilinos y propietarios
+42,41,Mire,mire,verbo,1,sg,,Mire a quién van a dejar fuera si sube el precio o si hay menos viviendas.,X,"«Mire» es imperativo de usted, no primera persona"
+43,43,Ustedes,tú,pronombre,2,pl,,Ustedes no protegen al inquilino.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+44,44,Ustedes,Ustedes,pronombre,2,pl,,Ustedes consideran que el inquilino es un sospechoso.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+45,47,Yo,yo,pronombre,1,sg,,"Yo vuelvo a reiterar, ¿ustedes están de acuerdo con la ocupación?",Y,
+46,47,vuelvo,volver,verbo,1,sg,Yo,"Yo vuelvo a reiterar, ¿ustedes están de acuerdo con la ocupación?",Y,
+47,47,ustedes,tú,pronombre,2,pl,,"Yo vuelvo a reiterar, ¿ustedes están de acuerdo con la ocupación?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+48,52,nuestra,nuestro,posesivo,1,pl,,Pues la nuestra no.,GC,"«la nuestra no», frente al gobierno progresista"
+49,53,nuestra,nuestro,posesivo,1,pl,,La nuestra es hacer un millón de viviendas.,GC,sigue la contraposición de la oración anterior
+50,54,lleguemos,llegar,verbo,1,pl,yo,"No se preocupe, ya verá que cuando lleguemos al gobierno yo me voy a preocupar y una vicepresidencia de gobierno se va a preocupar de los temas de vivienda, desde luego, haciendo exactamente lo contrario de lo que ha hecho usted en Barcelona.",GC,haremos lo contrario de lo que hizo Colau en Barcelona
+51,54,me,yo,pronombre,1,sg,,"No se preocupe, ya verá que cuando lleguemos al gobierno yo me voy a preocupar y una vicepresidencia de gobierno se va a preocupar de los temas de vivienda, desde luego, haciendo exactamente lo contrario de lo que ha hecho usted en Barcelona.",Y,
+52,54,voy,ir,verbo,1,sg,,"No se preocupe, ya verá que cuando lleguemos al gobierno yo me voy a preocupar y una vicepresidencia de gobierno se va a preocupar de los temas de vivienda, desde luego, haciendo exactamente lo contrario de lo que ha hecho usted en Barcelona.",Y,
+53,54,usted,usted,pronombre,2,sg,,"No se preocupe, ya verá que cuando lleguemos al gobierno yo me voy a preocupar y una vicepresidencia de gobierno se va a preocupar de los temas de vivienda, desde luego, haciendo exactamente lo contrario de lo que ha hecho usted en Barcelona.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+54,55,me,yo,pronombre,1,sg,,El problema de la vivienda en Galicia era el problema número 16 y cuando me fui era el problema número 34.,Y,
+55,55,fui,ir,verbo,1,sg,,El problema de la vivienda en Galicia era el problema número 16 y cuando me fui era el problema número 34.,Y,
+56,60,Hemos,haber,verbo,1,pl,,Hemos perdido 8 años.,GC,"hemos perdido 8 años, tras «mucha hipocresía» del Gobierno (oración anterior)"
+57,61,hacemos,hacer,verbo,1,pl,,O hacemos un millón de viviendas y le bajamos los impuestos a los jóvenes o si no seguiremos con el gobierno progresisto durante 8 años más.,GC,o nosotros o el gobierno progresista
+58,61,bajamos,bajar,verbo,1,pl,,O hacemos un millón de viviendas y le bajamos los impuestos a los jóvenes o si no seguiremos con el gobierno progresisto durante 8 años más.,GC,ídem
+59,61,seguiremos,seguir,verbo,1,pl,,O hacemos un millón de viviendas y le bajamos los impuestos a los jóvenes o si no seguiremos con el gobierno progresisto durante 8 años más.,GC,ídem
+60,63,Yo,yo,pronombre,1,sg,,Yo también.,Y,
+61,65,usted,usted,pronombre,2,sg,,"Es una pena que usted le criticase tanto cuando era gobernador del Banco de España, el señor Sánchez y la señora Colau ha dicho que Yolanda Díaz es una excelente vicepresidenta y por qué le han sustituido pero en fin.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+62,68,Yo,yo,pronombre,1,sg,,"Yo le digo lo que voy a recortar, asesores, altos cargos y voy a recortar todo tipo de indecencia y de corrupción en mi país, en nuestro país.",Y,
+63,68,digo,decir,verbo,1,sg,Yo,"Yo le digo lo que voy a recortar, asesores, altos cargos y voy a recortar todo tipo de indecencia y de corrupción en mi país, en nuestro país.",Y,
+64,68,voy,ir,verbo,1,sg,,"Yo le digo lo que voy a recortar, asesores, altos cargos y voy a recortar todo tipo de indecencia y de corrupción en mi país, en nuestro país.",Y,
+65,68,voy,ir,verbo,1,sg,,"Yo le digo lo que voy a recortar, asesores, altos cargos y voy a recortar todo tipo de indecencia y de corrupción en mi país, en nuestro país.",Y,
+66,68,mi,mi,posesivo,1,sg,,"Yo le digo lo que voy a recortar, asesores, altos cargos y voy a recortar todo tipo de indecencia y de corrupción en mi país, en nuestro país.",Y,
+67,68,nuestro,nuestro,posesivo,1,pl,,"Yo le digo lo que voy a recortar, asesores, altos cargos y voy a recortar todo tipo de indecencia y de corrupción en mi país, en nuestro país.",U,nuestro país
+68,70,usted,usted,pronombre,2,sg,,"Oiga, pero usted se da cuenta que la gente realmente cuando abre la nevera no ve ni al señor Sánchez ni al señor Acolao, sino lo que ve es que no puede llegar a fin de mes.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+69,72,usted,usted,pronombre,2,sg,,"La verdad es que usted y el señor Zapatero tienen cosas en común, señor Sánchez.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+70,75,pongamos,poner,verbo,1,pl,,"Pero pongamos otro ejemplo, usted conoce la pizzería Luna Rosa, ¿verdad, señor Sánchez?",S,los presentes en el debate
+71,75,usted,usted,pronombre,2,sg,,"Pero pongamos otro ejemplo, usted conoce la pizzería Luna Rosa, ¿verdad, señor Sánchez?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+72,77,usted,usted,pronombre,2,sg,,"Dice usted que la pizza de Luna Rosa, perdóneme, es cojonuda.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+73,77,perdóneme,perdónemar,verbo,2,sg,,"Dice usted que la pizza de Luna Rosa, perdóneme, es cojonuda.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+74,78,usted,usted,pronombre,2,sg,,¿Sabe usted cuánto ha subido esa pizza desde que usted gobierna?,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+75,78,usted,usted,pronombre,2,sg,,¿Sabe usted cuánto ha subido esa pizza desde que usted gobierna?,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+76,82,llevamos,llevar,verbo,1,pl,,"Porque su dinero se esfuma porque llevamos 18 meses, insisto, con una inflación por encima de la eurozona.",U,llevamos 18 meses con inflación
+77,82,insisto,insistir,verbo,1,sg,,"Porque su dinero se esfuma porque llevamos 18 meses, insisto, con una inflación por encima de la eurozona.",Y,
+78,84,ustedes,tú,pronombre,2,pl,,Porque los impuestos ustedes no han subido.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+79,87,ustedes,tú,pronombre,2,pl,,"Y sí, ahora han hablado ustedes de los malvados ricos, no, no, ustedes lo que se está cargando es a la clase media.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+80,87,ustedes,tú,pronombre,2,pl,,"Y sí, ahora han hablado ustedes de los malvados ricos, no, no, ustedes lo que se está cargando es a la clase media.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+81,88,ustedes,tú,pronombre,2,pl,,"Desde que ustedes gobiernan, el 3% de la gente cuando llegaron al gobierno se consigaba de clase baja o pobre.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+82,91,vamos,ir,verbo,1,pl,,"Efectivamente vamos camino de dos Españas, los que tienen mucho y los que llevan justito a fin de mes, entre ellos los 3,illones y medio de euros.",U,vamos camino de dos Españas
+83,91,ellos,él,pronombre,3,pl,,"Efectivamente vamos camino de dos Españas, los que tienen mucho y los que llevan justito a fin de mes, entre ellos los 3,illones y medio de euros.",F,ellos (los que no llegan)
+84,93,estoy,estar,verbo,1,sg,,"Se aprueba por real decreto del gobierno, ¿de verdad que todavía no se lo sabe?  Claro que estoy a favor de subir el salario medio  No, no vamos a perder el tiempo.",Y,
+85,93,vamos,ir,verbo,1,pl,,"Se aprueba por real decreto del gobierno, ¿de verdad que todavía no se lo sabe?  Claro que estoy a favor de subir el salario medio  No, no vamos a perder el tiempo.",S,los presentes en el debate
+86,94,Yo,yo,pronombre,1,sg,,"Yo vuelvo a insistir, [risas] ¿no?",Y,
+87,94,vuelvo,volver,verbo,1,sg,Yo,"Yo vuelvo a insistir, [risas] ¿no?",Y,
+88,96,ustedes,tú,pronombre,2,pl,,"Oiga, que ustedes manejen a los sindicatos no significa que yo maneja a la patronal.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+89,96,yo,yo,pronombre,1,sg,,"Oiga, que ustedes manejen a los sindicatos no significa que yo maneja a la patronal.",Y,
+90,97,ustedes,tú,pronombre,2,pl,,ustedes cuando llegaban acuerdos usted manejaba la patronal y cuando llega ese acuerdo la manejo yo.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+91,97,usted,usted,pronombre,2,sg,,ustedes cuando llegaban acuerdos usted manejaba la patronal y cuando llega ese acuerdo la manejo yo.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+92,97,yo,yo,pronombre,1,sg,,ustedes cuando llegaban acuerdos usted manejaba la patronal y cuando llega ese acuerdo la manejo yo.,Y,
+93,100,yo,yo,pronombre,1,sg,,"Pues nada, yo pensaba que veníamos a divertir aquí con alguien que ha sido presidente del gobierno durante 8 años, pero realmente es usted un tertuliano, señor Sánchez.",Y,
+94,100,veníamos,venir,verbo,1,pl,,"Pues nada, yo pensaba que veníamos a divertir aquí con alguien que ha sido presidente del gobierno durante 8 años, pero realmente es usted un tertuliano, señor Sánchez.",S,los presentes en el debate
+95,100,usted,usted,pronombre,2,sg,,"Pues nada, yo pensaba que veníamos a divertir aquí con alguien que ha sido presidente del gobierno durante 8 años, pero realmente es usted un tertuliano, señor Sánchez.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+96,102,yo,yo,pronombre,1,sg,,"Pero en fin, yo lo que me parece sorprendido y sorprendente es que la gente tiene derecho a perseguir el éxito y desde luego no tiene derecho a que el gobierno persiga a esa gente.",Y,
+97,102,me,yo,pronombre,1,sg,,"Pero en fin, yo lo que me parece sorprendido y sorprendente es que la gente tiene derecho a perseguir el éxito y desde luego no tiene derecho a que el gobierno persiga a esa gente.",Y,
+98,103,ustedes,tú,pronombre,2,pl,,La gente tiene derecho a intentarlo y ustedes cada vez que un español intenta lo machacan.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+99,105,nuestros,nuestro,posesivo,1,pl,,"Mire, nuestros compromisos están muy claros.",G,nuestros compromisos (el partido)
+100,110,sé,saber,verbo,1,sg,,"Y las pensiones, ya sé que les molesta, las vamos a subir de acuerdo con el IPC anualmente.",Y,
+101,110,vamos,ir,verbo,1,pl,,"Y las pensiones, ya sé que les molesta, las vamos a subir de acuerdo con el IPC anualmente.",GC,"las vamos a subir, «ya sé que les molesta»"
+102,113,usted,usted,pronombre,2,sg,,"Pero sabe usted, usted ha sido el único presidente del gobierno de la democracia que no ha sido capaz de presentar el presupuesto durante toda la legislatura.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+103,113,usted,usted,pronombre,2,sg,,"Pero sabe usted, usted ha sido el único presidente del gobierno de la democracia que no ha sido capaz de presentar el presupuesto durante toda la legislatura.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+104,114,Yo,yo,pronombre,1,sg,,Yo presentaré un presupuesto en primavera para el año 27 y otro para el año 28 antes de que finalice el año 27.,Y,
+105,114,presentaré,presentar,verbo,1,sg,Yo,Yo presentaré un presupuesto en primavera para el año 27 y otro para el año 28 antes de que finalice el año 27.,Y,
+106,115,mí,yo,pronombre,1,sg,,"A mí me gustan las cuentas, a ustedes les gustan los cuentas.",Y,
+107,115,me,yo,pronombre,1,sg,,"A mí me gustan las cuentas, a ustedes les gustan los cuentas.",Y,
+108,115,ustedes,tú,pronombre,2,pl,,"A mí me gustan las cuentas, a ustedes les gustan los cuentas.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+109,117,he,haber,verbo,1,sg,,"Señor Sánchez, he hecho yo más presupuestos en en mi vida de que los que usted le resta.",Y,
+110,117,yo,yo,pronombre,1,sg,,"Señor Sánchez, he hecho yo más presupuestos en en mi vida de que los que usted le resta.",Y,
+111,117,mi,mi,posesivo,1,sg,,"Señor Sánchez, he hecho yo más presupuestos en en mi vida de que los que usted le resta.",Y,
+112,117,usted,usted,pronombre,2,sg,,"Señor Sánchez, he hecho yo más presupuestos en en mi vida de que los que usted le resta.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+113,118,vamos,ir,verbo,1,pl,,"Pero mire, gasto públicas público, vamos a bajar los impuestos, si no vamos a disminuir la recaudación.",G,programa
+114,118,vamos,ir,verbo,1,pl,,"Pero mire, gasto públicas público, vamos a bajar los impuestos, si no vamos a disminuir la recaudación.",G,programa
+115,120,ustedes,tú,pronombre,2,pl,,"Por ejemplo, que la economía crezca de forma sana, cómo creando 500,000 puestos de trabajo para un millón de viviendas  señor Colao, ustedes llevan, le insisto, 8 años en el gobierno.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+116,120,insisto,insistir,verbo,1,sg,,"Por ejemplo, que la economía crezca de forma sana, cómo creando 500,000 puestos de trabajo para un millón de viviendas  señor Colao, ustedes llevan, le insisto, 8 años en el gobierno.",Y,
+117,121,usted,usted,pronombre,2,sg,,"Los servicios públicos que usted critica son sus servicios públicos, pero en fin, después de 40 años de topicazos, se la señora Cola otra vez ha vuelto a hacer lo mismo que el critica no habla usted del tren.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+118,121,usted,usted,pronombre,2,sg,,"Los servicios públicos que usted critica son sus servicios públicos, pero en fin, después de 40 años de topicazos, se la señora Cola otra vez ha vuelto a hacer lo mismo que el critica no habla usted del tren.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+119,123,Yo,yo,pronombre,1,sg,,"Yo le hice cinco preguntas al Sr. Sánchez hace unas semanas, se las vuelvo a reiterar porque a lo mejor hoy me las contesta.",Y,
+120,123,hice,hacer,verbo,1,sg,Yo,"Yo le hice cinco preguntas al Sr. Sánchez hace unas semanas, se las vuelvo a reiterar porque a lo mejor hoy me las contesta.",Y,
+121,123,vuelvo,volver,verbo,1,sg,,"Yo le hice cinco preguntas al Sr. Sánchez hace unas semanas, se las vuelvo a reiterar porque a lo mejor hoy me las contesta.",Y,
+122,123,me,yo,pronombre,1,sg,,"Yo le hice cinco preguntas al Sr. Sánchez hace unas semanas, se las vuelvo a reiterar porque a lo mejor hoy me las contesta.",Y,
+123,124,ustedes,tú,pronombre,2,pl,,"Señor Sánchez, ¿por qué ustedes hallan un sistema de seguridad que tuvo 170 fallos en los dos últimos años?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+124,125,usted,usted,pronombre,2,sg,,¿Qué hizo usted después de la tragedia de Adam para evitarla de Toledo?,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+125,126,usted,usted,pronombre,2,sg,,"Oiga, ¿por qué no hizo caso usted a las incidencias que los maquinistas apuntaban en los partes?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+126,127,vuelvo,volver,verbo,1,sg,,"Le vuelvo a reiterar, usted o Moncloa filtró los audios del maquinista muerto.",Y,
+127,127,usted,usted,pronombre,2,sg,,"Le vuelvo a reiterar, usted o Moncloa filtró los audios del maquinista muerto.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+128,128,usted,usted,pronombre,2,sg,,"Señor Sánchez, ¿debería usted respetar a las víctimas?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+129,129,Usted,usted,pronombre,2,sg,,"Usted también, señora Colao, ¿usted ha visto la entrevista hoy, por ejemplo, de Curro Vázquez?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+130,129,usted,usted,pronombre,2,sg,,"Usted también, señora Colao, ¿usted ha visto la entrevista hoy, por ejemplo, de Curro Vázquez?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+131,130,usted,usted,pronombre,2,sg,,"¿Lo que opina de usted que se pone a bailar para celebrar este este disparate que han hecho ustedes con la gestión de los servicios públicos, concretamente en sistema ferroviario?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+132,130,ustedes,tú,pronombre,2,pl,,"¿Lo que opina de usted que se pone a bailar para celebrar este este disparate que han hecho ustedes con la gestión de los servicios públicos, concretamente en sistema ferroviario?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+133,133,leo,leer,verbo,1,sg,,Le leo solamente una frase de un sumario.,Y,
+134,134,te,tú,pronombre,2,sg,,La Carlota se enrolla que te cagas.,X,dentro de la frase del sumario que cita
+135,134,cagas,cagar,verbo,2,sg,,La Carlota se enrolla que te cagas.,X,ídem
+136,136,nuestro,nuestro,posesivo,1,pl,,que ha gobernado nuestro país y que protege a las mujeres.,GC,ironía: el gobierno progresista que ha gobernado nuestro país
+137,139,yo,yo,pronombre,1,sg,,"Mire, yo me he reunido con una de las víctimas de las pulseras antimaltrato.",Y,
+138,139,me,yo,pronombre,1,sg,,"Mire, yo me he reunido con una de las víctimas de las pulseras antimaltrato.",Y,
+139,139,he,haber,verbo,1,sg,,"Mire, yo me he reunido con una de las víctimas de las pulseras antimaltrato.",Y,
+140,143,Usted,usted,pronombre,2,sg,,¿Usted le ha pedido explicación a la ministra de Igualdad?,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+141,145,usted,usted,pronombre,2,sg,,Y usted le ha pedido explicación de por qué la Fiscalía Europea está investigando la adjudicación de las pulseras que no funcionan.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+142,147,me,yo,pronombre,1,sg,,Igual me contesta.,Y,
+143,149,yo,yo,pronombre,1,sg,,"Hombre, pues yo creo que un poco mejor que la de Cataluña, eh,  Allí hubo dimisiones, en el gobierno de España, ni una y ha vuelto a ganar el señor Juanma Moreno, se lo recuerdo  otra vez con la chuleta.",Y,
+144,149,creo,creer,verbo,1,sg,yo,"Hombre, pues yo creo que un poco mejor que la de Cataluña, eh,  Allí hubo dimisiones, en el gobierno de España, ni una y ha vuelto a ganar el señor Juanma Moreno, se lo recuerdo  otra vez con la chuleta.",Y,
+145,149,recuerdo,recordar,verbo,1,sg,,"Hombre, pues yo creo que un poco mejor que la de Cataluña, eh,  Allí hubo dimisiones, en el gobierno de España, ni una y ha vuelto a ganar el señor Juanma Moreno, se lo recuerdo  otra vez con la chuleta.",Y,
+146,150,hemos,haber,verbo,1,pl,,"Pero señor Sánchez, de verdad, mire lo que hemos visto [risas] lo que hemos visto es que ni la señora Col y el señor Sánchez no quieren hablar de trenes, pero sobre todo han ensayado muy bien estas intervenciones previamente, ya se han puesto de acuerdo, han ensayado muy bien las intervenciones, la verdad es que han tenido que dedicarle un tiempo a esta interpretación.",GC,lo que hemos visto de Colau y Sánchez
+147,150,hemos,haber,verbo,1,pl,,"Pero señor Sánchez, de verdad, mire lo que hemos visto [risas] lo que hemos visto es que ni la señora Col y el señor Sánchez no quieren hablar de trenes, pero sobre todo han ensayado muy bien estas intervenciones previamente, ya se han puesto de acuerdo, han ensayado muy bien las intervenciones, la verdad es que han tenido que dedicarle un tiempo a esta interpretación.",GC,ídem
+148,151,Yo,yo,pronombre,1,sg,,Yo le felicito.,Y,
+149,151,felicito,felicitar,verbo,1,sg,Yo,Yo le felicito.,Y,
+150,154,Vamos,ir,verbo,1,pl,,Vamos a hacer una auditoría palmo a palmo del corredor Andalucía y del resto de corredores.,G,programa
+151,155,Vamos,ir,verbo,1,pl,,Vamos a mantener blindado la conservación y mantenimiento red de alta velocidad y de cercanías y rodalíes.,G,programa
+152,157,Ellos,él,pronombre,3,pl,,Ellos se burlan y bailan.,F,ellos
+153,158,Yo,yo,pronombre,1,sg,,Yo respeto a la gente porque efectivamente sé gestionar.,Y,
+154,158,respeto,respetar,verbo,1,sg,Yo,Yo respeto a la gente porque efectivamente sé gestionar.,Y,
+155,158,sé,saber,verbo,1,sg,,Yo respeto a la gente porque efectivamente sé gestionar.,Y,
+156,160,ustedes,tú,pronombre,2,pl,,"En sanidad, hombre, si ustedes gestionan el hospital de Ceuta y Melilla nada más y presume de sanidad y son los peores hospitales gestionados de España, los que gestiona la ministra de sanidad.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+157,165,tenemos,tener,verbo,1,pl,,Eso es lo que tenemos que hacer.,G,lo que tenemos que hacer en educación
+158,166,ustedes,tú,pronombre,2,pl,,"Mire, ustedes lo que intentan es meter miedo.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+159,167,He,haber,verbo,1,sg,,"He gestionado la sanidad pública, la voy a defender.",Y,
+160,167,voy,ir,verbo,1,sg,,"He gestionado la sanidad pública, la voy a defender.",Y,
+161,168,He,haber,verbo,1,sg,,"He gestionado la educación pública, la voy a defender.",Y,
+162,168,voy,ir,verbo,1,sg,,"He gestionado la educación pública, la voy a defender.",Y,
+163,169,me,yo,pronombre,1,sg,,No me van a dar lecciones de defensa de los servicios públicos porque llevo 30 años gestionando servicios públicos.,Y,
+164,169,llevo,llevar,verbo,1,sg,,No me van a dar lecciones de defensa de los servicios públicos porque llevo 30 años gestionando servicios públicos.,Y,
+165,171,usted,usted,pronombre,2,sg,,"Eh, señora Colau, mire, buena gestión es ponerse al frente de una emergencia nacional y no salir huyendo de Pipporta y usted calladita.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+166,175,mí,yo,pronombre,1,sg,,"Mir, España necesita, oiga, a mí me han me han imputado una cuestión que no tengo nada que ver, pero me da igual.",Y,
+167,175,me,yo,pronombre,1,sg,,"Mir, España necesita, oiga, a mí me han me han imputado una cuestión que no tengo nada que ver, pero me da igual.",Y,
+168,175,me,yo,pronombre,1,sg,,"Mir, España necesita, oiga, a mí me han me han imputado una cuestión que no tengo nada que ver, pero me da igual.",Y,
+169,175,tengo,tener,verbo,1,sg,,"Mir, España necesita, oiga, a mí me han me han imputado una cuestión que no tengo nada que ver, pero me da igual.",Y,
+170,175,me,yo,pronombre,1,sg,,"Mir, España necesita, oiga, a mí me han me han imputado una cuestión que no tengo nada que ver, pero me da igual.",Y,
+171,178,yo,yo,pronombre,1,sg,,"Y yo voy a nombrar a gente que sepa para que el tren llegue, para que el médico atienda y para que los niños aprendan.",Y,
+172,178,voy,ir,verbo,1,sg,,"Y yo voy a nombrar a gente que sepa para que el tren llegue, para que el médico atienda y para que los niños aprendan.",Y,
+173,178,sepa,sepa,verbo,1,sg,,"Y yo voy a nombrar a gente que sepa para que el tren llegue, para que el médico atienda y para que los niños aprendan.",X,«sepa» es tercera persona
+174,180,yo,yo,pronombre,1,sg,,Y yo sé gest.,Y,
+175,180,sé,saber,verbo,1,sg,yo,Y yo sé gest.,Y,
+176,181,Yo,yo,pronombre,1,sg,,Yo espero que el señor Sánchez no me mande a los rochos como le mandó desde las colacas que usted dirigía a la jueza que investigaba su hermano.,Y,
+177,181,espero,esperar,verbo,1,sg,Yo,Yo espero que el señor Sánchez no me mande a los rochos como le mandó desde las colacas que usted dirigía a la jueza que investigaba su hermano.,Y,
+178,181,me,yo,pronombre,1,sg,,Yo espero que el señor Sánchez no me mande a los rochos como le mandó desde las colacas que usted dirigía a la jueza que investigaba su hermano.,Y,
+179,181,usted,usted,pronombre,2,sg,,Yo espero que el señor Sánchez no me mande a los rochos como le mandó desde las colacas que usted dirigía a la jueza que investigaba su hermano.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+180,184,ustedes,tú,pronombre,2,pl,,"Pues sí, tengan ustedes cuidado.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+181,186,yo,yo,pronombre,1,sg,,Porque yo no voy a admitir la delincuencia en el gobierno ni en la administración pública.,Y,
+182,186,voy,ir,verbo,1,sg,,Porque yo no voy a admitir la delincuencia en el gobierno ni en la administración pública.,Y,
+183,187,Yo,yo,pronombre,1,sg,,"Yo, desde luego, voy a ir contra los corruptos y se le acaba el chollo a los corruptos.",Y,
+184,187,voy,ir,verbo,1,sg,,"Yo, desde luego, voy a ir contra los corruptos y se le acaba el chollo a los corruptos.",Y,
+185,190,usted,usted,pronombre,2,sg,,"Y tenga cuidado también usted, señor Sánchez, porque voy a hacer una auditoría de arriba abajo de lo que usted ha gastado y del saqueo que ha producido al presupuesto de los españoles.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+186,190,voy,ir,verbo,1,sg,,"Y tenga cuidado también usted, señor Sánchez, porque voy a hacer una auditoría de arriba abajo de lo que usted ha gastado y del saqueo que ha producido al presupuesto de los españoles.",Y,
+187,190,usted,usted,pronombre,2,sg,,"Y tenga cuidado también usted, señor Sánchez, porque voy a hacer una auditoría de arriba abajo de lo que usted ha gastado y del saqueo que ha producido al presupuesto de los españoles.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+188,193,Usted,usted,pronombre,2,sg,,"Usted le defiende, le pide consejo, es quien le asesora, le ha asesorado en el debate.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+189,194,usted,usted,pronombre,2,sg,,"Bueno, usted le ha asesorado en los debates Coldo Ávalos, Cerdán y ahora Zapatero.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+190,197,yo,yo,pronombre,1,sg,,"Oiga, yo le pregunto, ¿por qué se rescató Plus Ultra y no rescató usted a los autónomos? que le acaba de dar permisos a todo el mundo, pero los autónomos no.",Y,
+191,197,pregunto,preguntar,verbo,1,sg,yo,"Oiga, yo le pregunto, ¿por qué se rescató Plus Ultra y no rescató usted a los autónomos? que le acaba de dar permisos a todo el mundo, pero los autónomos no.",Y,
+192,197,usted,usted,pronombre,2,sg,,"Oiga, yo le pregunto, ¿por qué se rescató Plus Ultra y no rescató usted a los autónomos? que le acaba de dar permisos a todo el mundo, pero los autónomos no.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+193,198,dimos,dar,verbo,1,pl,,Si les dimos unas laerínea plus ultra y no se rescató el AVE entre Madrid y Andalucía.,A,«les dimos»: transcripción dudosa
+194,200,usted,usted,pronombre,2,sg,,¿Le va a pedir usted al señor Zapatero que devuelva la comisión que cobró de Plus Ultra?,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+195,201,usted,usted,pronombre,2,sg,,"¿Sí o no?  señor Colao, habla usted de que usted ha gobernado 8 años en Barcelona y no la han encontrado nada.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+196,201,usted,usted,pronombre,2,sg,,"¿Sí o no?  señor Colao, habla usted de que usted ha gobernado 8 años en Barcelona y no la han encontrado nada.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+197,202,Yo,yo,pronombre,1,sg,,Yo 30.,Y,
+198,203,me,yo,pronombre,1,sg,,"Por tanto, no me hable de corrupción después de 30.",Y,
+199,205,Estamos,estar,verbo,1,pl,,Estamos hablando democráticz.,S,los presentes en el debate
+200,206,usted,usted,pronombre,2,sg,,"Mire, mire, usted vuelvo a preguntar, ¿le va a pedir?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+201,206,vuelvo,volver,verbo,1,sg,,"Mire, mire, usted vuelvo a preguntar, ¿le va a pedir?",Y,
+202,210,ustedes,tú,pronombre,2,pl,,"O sea, ustedes se apoyan entre sí o se están encubriendo.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+203,211,yo,yo,pronombre,1,sg,,"Mire, yo no voy a hablar, vuelvo a insistir, de su hermano y de su mujer.",Y,
+204,211,voy,ir,verbo,1,sg,,"Mire, yo no voy a hablar, vuelvo a insistir, de su hermano y de su mujer.",Y,
+205,211,vuelvo,volver,verbo,1,sg,,"Mire, yo no voy a hablar, vuelvo a insistir, de su hermano y de su mujer.",Y,
+206,212,Yo,yo,pronombre,1,sg,,Yo sería incapaz de venir aquí si estoy en su situación procesal.,Y,
+207,212,estoy,estar,verbo,1,sg,,Yo sería incapaz de venir aquí si estoy en su situación procesal.,Y,
+208,213,nos,yo,pronombre,1,pl,,"Pero bueno, nos tenemos que creer que usted es un ingenuo.",GC,ironía: nos tenemos que creer que usted es un ingenuo
+209,213,tenemos,tener,verbo,1,pl,,"Pero bueno, nos tenemos que creer que usted es un ingenuo.",GC,ídem
+210,213,usted,usted,pronombre,2,sg,,"Pero bueno, nos tenemos que creer que usted es un ingenuo.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+211,214,usted,usted,pronombre,2,sg,,"Los corruptos se iban siempre con usted, que tiene un imán para la corrupción.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+212,216,usted,usted,pronombre,2,sg,,¿Qué vieron en usted los corruptos?,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+213,217,usted,usted,pronombre,2,sg,,¿Qué vieron en usted los corruptos?,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+214,218,usted,usted,pronombre,2,sg,,"Mire, sabe una cosa, cuando uno atrae a tantos corruptos debería de preguntar dando elecciones usted dando elecciones dos contra uno.  30 años intachable.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+215,220,dígaselo,dígaselir,verbo,1,sg,,"Señor Feijóo, dígaselo a la Cámara, que las primarias se la pagaron los militantes y que usted no ha recibido donativos provenientes de su familia.",2R,imperativo de usted dirigido a Sánchez (el extractor lo marcó como 1.ª)
+216,220,usted,usted,pronombre,2,sg,,"Señor Feijóo, dígaselo a la Cámara, que las primarias se la pagaron los militantes y que usted no ha recibido donativos provenientes de su familia.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+217,222,dígaselo,dígaselir,verbo,1,sg,,Pero dígaselo.,2R,imperativo de usted dirigido a Sánchez
+218,223,usted,usted,pronombre,2,sg,,"Mire, no se ponga usted aquí a bailar o a escribir una carta de amor.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+219,225,usted,usted,pronombre,2,sg,,entienda que no quiere hablar usted de corrupción.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+220,226,comprendo,comprender,verbo,1,sg,,"Lo comprendo perfectamente, señor Sánchez, le subo la puesta [risas] presidir el gobierno de España.",Y,
+221,228,usted,usted,pronombre,2,sg,,"Asume usted la responsabilidad uno, de dimitir después de las elecciones, dos, dejar [risas] el acta de diputado, tres, de renunciar al aforamiento.",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+222,229,usted,usted,pronombre,2,sg,,Renuncia usted yo.,2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+223,229,yo,yo,pronombre,1,sg,,Renuncia usted yo.,Y,
+224,231,reconozco,reconocer,verbo,1,sg,,"Señor Feijó, prueba de que lo reconozco que le estoy diciendo que o usted o yo vamos a presidir el gobierno, usted va a dimitir y va a dejar el aforamiento, ¿sí o no?",Y,
+225,231,estoy,estar,verbo,1,sg,,"Señor Feijó, prueba de que lo reconozco que le estoy diciendo que o usted o yo vamos a presidir el gobierno, usted va a dimitir y va a dejar el aforamiento, ¿sí o no?",Y,
+226,231,usted,usted,pronombre,2,sg,,"Señor Feijó, prueba de que lo reconozco que le estoy diciendo que o usted o yo vamos a presidir el gobierno, usted va a dimitir y va a dejar el aforamiento, ¿sí o no?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+227,231,yo,yo,pronombre,1,sg,,"Señor Feijó, prueba de que lo reconozco que le estoy diciendo que o usted o yo vamos a presidir el gobierno, usted va a dimitir y va a dejar el aforamiento, ¿sí o no?",Y,
+228,231,vamos,ir,verbo,1,pl,,"Señor Feijó, prueba de que lo reconozco que le estoy diciendo que o usted o yo vamos a presidir el gobierno, usted va a dimitir y va a dejar el aforamiento, ¿sí o no?",S,o usted o yo vamos a presidir: los dos candidatos
+229,231,usted,usted,pronombre,2,sg,,"Señor Feijó, prueba de que lo reconozco que le estoy diciendo que o usted o yo vamos a presidir el gobierno, usted va a dimitir y va a dejar el aforamiento, ¿sí o no?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+230,232,Yo,yo,pronombre,1,sg,,Yo sí.,Y,
+231,233,Yo,yo,pronombre,1,sg,,"Yo le voy a explicar lo que voy a hacer, qué es lo que he hecho durante 30 años.",Y,
+232,233,voy,ir,verbo,1,sg,,"Yo le voy a explicar lo que voy a hacer, qué es lo que he hecho durante 30 años.",Y,
+233,233,voy,ir,verbo,1,sg,,"Yo le voy a explicar lo que voy a hacer, qué es lo que he hecho durante 30 años.",Y,
+234,233,he,haber,verbo,1,sg,,"Yo le voy a explicar lo que voy a hacer, qué es lo que he hecho durante 30 años.",Y,
+235,236,Yo,yo,pronombre,1,sg,,Yo no voy a indultar a ningún político condenado por corrupción.,Y,
+236,236,voy,ir,verbo,1,sg,,Yo no voy a indultar a ningún político condenado por corrupción.,Y,
+237,241,usted,usted,pronombre,2,sg,,"Señor Colao, se lo pregunta usted, ¿usted cree que Zapatero debe devolver la comisión de Plus Ultra o no?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+238,241,usted,usted,pronombre,2,sg,,"Señor Colao, se lo pregunta usted, ¿usted cree que Zapatero debe devolver la comisión de Plus Ultra o no?",2R,"segunda persona dirigida a un rival del debate: no es interpelación al público, no puntúa"
+239,242,aseguro,asegurar,verbo,1,sg,,Les aseguro que España se merece un gobierno decente y yo pongo mis 30 años de gestión a disposición de la decencia en la política.,Y,
+240,242,yo,yo,pronombre,1,sg,,Les aseguro que España se merece un gobierno decente y yo pongo mis 30 años de gestión a disposición de la decencia en la política.,Y,
+241,242,pongo,poner,verbo,1,sg,yo,Les aseguro que España se merece un gobierno decente y yo pongo mis 30 años de gestión a disposición de la decencia en la política.,Y,
+242,242,mis,mi,posesivo,1,sg,,Les aseguro que España se merece un gobierno decente y yo pongo mis 30 años de gestión a disposición de la decencia en la política.,Y,
+243,243,quiero,querer,verbo,1,sg,,Lo quiero utilizar.,Y,
+244,73,cojan,cojan,verbo,2,pl,,"Mire, cojan la factura de la luz, el ticket de el ticket del súper, el ticket de la gasolinera y y comprobarán la la compra ha subido un 43%, señor Colau, la política progresista.",2C,"omisión del extractor (el «ustedes» al público concuerda en 3.ª persona), añadida a mano; al público, para atacar «la política progresista»"
+245,73,comprobarán,comprobarán,verbo,2,pl,,"Mire, cojan la factura de la luz, el ticket de el ticket del súper, el ticket de la gasolinera y y comprobarán la la compra ha subido un 43%, señor Colau, la política progresista.",2C,"omisión del extractor (el «ustedes» al público concuerda en 3.ª persona), añadida a mano; ídem"
+246,242,Les,les,pronombre,2,pl,,Les aseguro que España se merece un gobierno decente y yo pongo mis 30 años de gestión a disposición de la decencia en la política.,2C,"omisión del extractor (el «ustedes» al público concuerda en 3.ª persona), añadida a mano; al público; «un gobierno decente» deja como indecente al actual (bloque de corrupción)"

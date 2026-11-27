@@ -1,0 +1,58 @@
+n,oracion,fragmento,blanco,signo,codigo,nota
+1,6,Creo que los españoles no se van a dejar engañar otra vez.,Sánchez,A,A,engaño atado a los dos titulares citados
+2,10,del pudor con el que usted utilizó el fallecimiento de Maric Carmen,Sánchez,A,A,
+3,11,"durante todos los días de su mandato, la media de desaucios fueron 90 diarios",Sánchez,A,A,gestión y cifra
+4,12,convocar elecciones con esa excusa es una falta de ética,Sánchez,A,A,juicio atado a un acto
+5,13,usted ha convocado elecciones para parar los sumarios judiciales que le están investigando,Sánchez,A,A,acto identificable; el móvil acompaña al acto
+6,15,"a con ellas les pagaban la hipoteca y les y les pusieron un piso, es decir, con las mordidas del dinero público",entorno de Sánchez (caso Ábalos),A,A,nombra personas concretas
+7,17,corrupción de todo tipo.,Gobierno,D,D5,extensión («de todo tipo»)
+8,18,"Con ustedes, para tener una casa hay que heredarla, ocuparla o salir en los sumarios.",Gobierno,D,D5,generalización irónica de corrupción
+9,25,sabe lo que dijo una ministra de su gobierno hace unos días,ministra del Gobierno,A,A,declaración identificable (las «cuatro bofetadas»)
+10,26,además me ha llamado en ergúmeno,Sánchez,A,A,
+11,32,otra vez ha vuelto a engañar a los españoles,Sánchez,A,A,ancla: página 244 del programa de 2023
+12,43,Ustedes no protegen al inquilino.,Gobierno,A,A,ámbito: política de vivienda
+13,44,Ustedes consideran que el inquilino es un sospechoso.,Gobierno,A,A,ámbito: política de vivienda
+14,45,"En Barcelona, en Barcelona aplicaron en su receta menos pisos.",Colau,A,A,gestión nombrada
+15,49,"Esa es su propuesta de vivienda, señor Colau.",Colau,D,D5,le atribuye defender la ocupación sin acto identificable
+16,50,"Esa es su propuesta, señor Sánchez.",Sánchez,D,D5,ídem
+17,51,Este es el gobierno progresista que lo ocupe la vivienda de forma ilegal a una persona.,gobierno progresista,D,D5,ídem
+18,58,¿De verdad que le van a seguir tomando el pelo a la gent?,Colau y Sánchez,D,D5,acusación de engaño sin acto (como «que no os engañen»)
+19,59,"muchas promesas, mucha hipocresía y pocas casas",Gobierno,A,A,etiqueta con ancla en la gestión de vivienda («pocas casas»)
+20,65,Es una pena que usted le criticase tanto cuando era gobernador del Banco de España,Sánchez,A,A,
+21,71,Zapatero negaba la crisis,Zapatero,A,A,
+22,84,Porque los impuestos ustedes no han subido.,Gobierno,A,A,ironía clara; cifra de presión fiscal en la oración siguiente
+23,87,ustedes lo que se está cargando es a la clase media,Gobierno,A,A,ámbito: política fiscal
+24,88,"Desde que ustedes gobiernan, el 3% de la gente cuando llegaron al gobierno se consigaba de clase baja o pobre",Gobierno,A,A,gestión y cifra
+25,100,"pero realmente es usted un tertuliano, señor Sánchez",Sánchez,D,D1,rasgo sin ancla
+26,103,ustedes cada vez que un español intenta lo machacan,Gobierno,D,D5,extensión («cada vez que»)
+27,104,Lo machacan impuestos.,Gobierno,A,A,ámbito: impuestos
+28,109,menudo saqueo hecho con los autónomos en el último Consejo de Ministros,Gobierno,A,A,decisión con fecha
+29,113,usted ha sido el único presidente del gobierno de la democracia que no ha sido capaz de presentar el presupuesto,Sánchez,A,A,capacidad atada a una gestión
+30,122,116 muertos en menos de un año y ni palabra.,Colau,A,A,
+31,124,¿por qué ustedes hallan un sistema de seguridad que tuvo 170 fallos en los dos últimos años?,Gobierno,A,A,
+32,125,¿Qué hizo usted después de la tragedia de Adam para evitarla de Toledo?,Sánchez,A,A,
+33,126,¿por qué no hizo caso usted a las incidencias que los maquinistas apuntaban en los partes?,Sánchez,A,A,
+34,127,usted o Moncloa filtró los audios del maquinista muerto,Sánchez,A,A,
+35,128,¿debería usted respetar a las víctimas?,Sánchez,A,A,atado a la filtración de la oración anterior
+36,130,que se pone a bailar para celebrar este este disparate,Colau,A,A,acto identificable
+37,131,este es el gobierno más machista de la democracia,Gobierno,D,D2,sanción sin ancla en la oración ni en la contigua
+38,132,Mujeres como mercancía.,Gobierno,A,A,ancla en el sumario que lee a continuación
+39,153,"Ni una respuesta, ni una disculpas y a bailar.",Gobierno,A,A,
+40,156,"al frente habrá ingenieros que sepan, eh, no twitteros",responsables actuales de transportes,D,D1,rasgo sin ancla
+41,157,Ellos se burlan y bailan.,Gobierno,D,D5,acusación generalizada de burla
+42,160,"son los peores hospitales gestionados de España, los que gestiona la ministra de sanidad",ministra de Sanidad,A,A,gestión nombrada
+43,171,no salir huyendo de Pipporta,Sánchez,A,A,acto identificable
+44,181,como le mandó desde las colacas que usted dirigía a la jueza que investigaba su hermano,Sánchez,A,A,
+45,190,del saqueo que ha producido al presupuesto de los españoles,Sánchez,A,A,gestión nombrada: el presupuesto
+46,194,"usted le ha asesorado en los debates Coldo Ávalos, Cerdán y ahora Zapatero",Sánchez,A,A,nombra personas concretas
+47,196,un 1% que cobró el señor Zapatero,Zapatero,A,A,
+48,197,¿por qué se rescató Plus Ultra y no rescató usted a los autónomos?,Sánchez,A,A,
+49,207,Le importa un pimiento pedir al señor Zapatero que devuelva la comisión,Sánchez,A,A,atado a su falta de respuesta
+50,210,ustedes se apoyan entre sí o se están encubriendo,Sánchez y Colau,D,D5,acusación de encubrimiento sin acto
+51,213,nos tenemos que creer que usted es un ingenuo,Sánchez,D,D5,ironía clara: complicidad sin acto
+52,214,Los corruptos se iban siempre con usted,Sánchez,D,D5,extensión («siempre»)
+53,216,¿Qué vieron en usted los corruptos?,Sánchez,D,D5,insinuación sin acto
+54,217,¿Qué vieron en usted los corruptos?,Sánchez,D,D5,repetición
+55,218,cuando uno atrae a tantos corruptos,Sánchez,D,D5,insinuación sin acto
+56,219,sigue sin responder quién le pagó las primarias,Sánchez,A,A,
+57,225,entienda que no quiere hablar usted de corrupción,Sánchez,A,A,atado a su cambio de tema

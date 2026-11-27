@@ -1,0 +1,33 @@
+n,oracion,fragmento,voz,codigo,nota
+1,16,"como dijo el señor Ávalos, era un derecho, pero también un bien de mercado",PSOE (Ábalos),B,"cita y responde («no se puede especular», oración 18)"
+2,22,"Cuando habla de extranjeros, habla de los fondos buitre",Abascal,B,responde con ironía a lo dicho sobre los extranjeros
+3,23,Se refiere a los fondos buitre.,Abascal,B,repetición
+4,24,Está hablando de expropiar a los fondos buitre.,Abascal,B,repetición
+5,26,"yo estoy de acuerdo con las críticas a las políticas de derechas, pero le he dicho, efectivamente la política de contención de precios en Barcelona ha tenido un efecto y ha bajado ligeramente un 4%",Sánchez,V2,concede el dato de Sánchez (bajada del 4 %)
+6,27,Pero no es suficiente porque esa ley se aprobó demasiado tarde,Sánchez,B,
+7,28,"Sí, sí, pero ya son demasiado altos los precios en Barcelona",Sánchez,B,
+8,33,"Porque primero dijo que lo haría usted, pero que luego dijo que no lo haría usted.",Feijóo,B,
+9,37,no sé cómo piensa usted hacer un millón de viviendas,Feijóo,B,responde con el dato de la oración anterior
+10,39,usted me hablaba de la ocupación,Feijóo,B,responde con el dato de la oración 40
+11,42,me ha hablado de Barcelona,Feijóo,B,responde con los datos de Barcelona (oración 44)
+12,48,Que ustedes utilizan mucho la palabra ocupación,PP y Vox,B,
+13,49,luego se llenan la la boca de la palabra ocupación,PP y Vox,B,burla que acompaña a una respuesta (las votaciones)
+14,70,si le preocupa tanto la nevera de los españoles,Feijóo,B,cita y responde con las votaciones
+15,71,¿Está a favor de las subidas del salario minimo?  ¿Ah si?,Feijóo,B,pone en duda lo dicho y responde en la oración siguiente
+16,74,"Entonces lo celebro, le hemos convencido.",Feijóo,B,"ironía clara: no concede, insinúa un cambio de opinión"
+17,75,"porque habla de ayudas, de reducciones de impuestos",Feijóo,B,
+18,76,Con algunos podríamos estar de acuerdo,Feijóo,V2,concede parte de las rebajas y ayudas de Feijóo
+19,76,porque dicen que están en contra de subir los impuestos a los rios,Feijóo,B,
+20,79,¿de dónde va a sacar el dinero para hacer esas medidas de las que habla?,Feijóo,B,
+21,82,me hizo ilusión cuando vimos que en campaña te animabas y asumías esta propuesta,Sánchez,V2,"celebra que Sánchez asuma la propuesta («nos parece muy bien», oración 83)"
+22,84,en el caso del Partido Socialista se plantea para recaudar 2000 millones,PSOE,B,responde en la oración siguiente
+23,96,usted le gusta mucho presumir de buena gestión,Feijóo,B,"burla que acompaña a una respuesta (Madrid, Andalucía, oraciones 99-110)"
+24,113,Yo estoy de acuerdo que en el tema de los trenes son gravísimos los dos accidentes,Feijóo,V2,concede el punto de Feijóo sobre los trenes
+25,117,¿cómo me puede hablar usted de buena gestión,Feijóo,B,responde con Mazón
+26,118,¿Cómo puede decir que eso es buena gestión?,Feijóo,B,repetición
+27,121,¿de verdad se cree que puede venir aquí a dar lecciones?,Feijóo,Z1,caso resuelto del manual («ustedes no son quiénes para hablar de corrupción»): sustituye a la respuesta
+28,123,¿de verdad cree que puede venir aquí a dar lecciones?,Feijóo,Z1,repetición
+29,132,"Señor Sánchez, en eso discrepo.",Sánchez,B,responde a «no existe la corrupción cero»
+30,160,decencia del presidente del partido que tiene más casos de corrupción,Feijóo,B,responde a su «decencia» con los casos
+31,161,30 años de gestión.,Feijóo,Z2,"eco burlón de su frase, sin respuesta"
+32,164,es verdad que se les ha apartado de sus responsabilidades,Sánchez,V2,concede que el PSOE apartó a los implicados

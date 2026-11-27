@@ -1,0 +1,48 @@
+n,oracion,fragmento,blanco,signo,codigo,nota
+1,2,"de un espacio político como el de la señora Colau, que se encargó de escarcelar a violadores en España",el espacio político de Colau,A,A,acto identificable (las excarcelaciones por la ley del «solo sí es sí»)
+2,2,que ha multiplicado las agresiones sexuales a las mujeres por tres,Sánchez,D,D6,resultado negativo nombrado + blanco humano + culpa total; «importar violadores» va a P2
+3,2,se rodeó en un peuyot de una banda de guarros que todos sabemos perfectamente cómo trataban a las mujeres,"los del Peugeot (Ábalos, Koldo, Cerdán)",A,A,"insulto con su ancla: episodio identificable (el Peugeot, su trato a las mujeres)"
+4,12,La vivienda se ha encarecido con el señor Sánchez un 74%,Sánchez,A,A,cifra
+5,13,"los precios de la vivienda, señores, se deciden en los puertos, en los aeropuertos y en las fronteras",inmigrantes,D,D6,chivo expiatorio: el precio de la vivienda atribuido entero a quienes llegan; el blanco humano sale de la oración anterior (el 52 % de los inquilinos son extranjeros)
+6,16,"es el presidente del gobierno que ha impulsado la inmigración masiva, que ha disparado los precios de la vivienda y que ha facilitado todos a los especuladores",Sánchez,D,D5,extensión («facilitado todo»)
+7,28,Las regulaciones de la izquierda han hecho desaparecer la mitad de la oferta.,la izquierda,A,A,cifra; las regulaciones se nombran en la oración siguiente
+8,36,Vidas completamente paradas por culpa de sus políticas.,el Gobierno,A,A,ámbito: las políticas de vivienda nombradas en la oración 29
+9,44,este gobierno se ha convertido en un enemigo de los trabajadores,el Gobierno,A,A,«enemigo» en su sentido literal (contrario a); ámbito nombrado: la economía y los datos macroeconómicos
+10,50,la patronal más egoísta,la patronal,D,D1,rasgo sin ancla
+11,55,la mafia que representa el señor Sánchez,Sánchez,D,D2,sanción criminal sin acto que la ancle
+12,56,contra la mafia que ha entregado el poder en España al separatismo y que ha abierto las fronteras de España,Sánchez,D,D2,"«mafia»: los actos que siguen son políticas (pactos, fronteras), no anclan una sanción criminal (como la «censura franquista» de Sánchez)"
+13,68,porque en realidad no quieren eliminar ningún tipo de gasto que representa un estado de bienestar para la casta política,los rivales del debate,D,D5,"imputa un móvil sin acto («en realidad no quieren»), con extensión («ningún tipo»)"
+14,71,no mienta,Sánchez,A,A,atado a un dicho identificable (lo que dijo del ingreso mínimo vital)
+15,97,"La red ferroviaria, gastándoselo en mordidas, en fulanas",el Gobierno,A,A,ámbito: la red ferroviaria (gestión nombrada)
+16,108,que pagan esa sanidad y que ustedes han convertido en universal,el Gobierno,A,A,decisión identificable (sanidad universal)
+17,116,A nadie le ha ocurrido a este señor porque andaba con las energías intermitentes,Sánchez,A,A,ámbito: el apagón
+18,117,"desprotegiendo a los que nos protegen a todos, negándoles la profesión de riesgo, negándoles la equiparación salarial",el Gobierno,A,A,decisiones identificables
+19,118,"Si hay españoles traicionados por este gobierno, esos han sido precisamente las mujeres.",el Gobierno,D,D2,"«traicionados»: la oración contigua nombra medidas sobre policías, no un acto sobre las mujeres"
+20,121,"Lo que pasa es que hay menos casas para los españoles, menos médicos y menos sanitarios, menos policías y guardias civiles y menos profesores.",inmigrantes,D,D6,caso resuelto del manual («desde que llegaron no hay trabajo»): el blanco son las 6.270.000 personas de la oración anterior
+21,122,Porque ustedes han regalado lo que es de los españoles,el Gobierno,A,A,ámbito: el acceso a los servicios públicos
+22,123,pero seguro que son muy tacaños con lo que es suyo,el Gobierno,D,D1,rasgo sin ancla
+23,126,están financiando el capricho de Sánchez para promover la inmigración masiva en España,Sánchez,A,A,"el móvil («capricho») acompaña a una gestión nombrada (la política migratoria), como Feijóo, 13"
+24,131,porque se lo gastan en cosas absolutamente indecentes,el Gobierno,D,D5,acusación sin acto («cosas»)
+25,134,hay que sacar a los políticos y a los amigotes puteros,cargos de ADIF y Renfe,A,A,"insulto con su ancla en la misma oración (ADIF y Renfe, el caso Koldo)"
+26,134,lo que ha hecho es subir la vivienda un 74%,Sánchez,A,A,cifra (la cita que responde va a P5)
+27,135,Qué vergüenza.,Sánchez,A,A,"etiqueta con ancla en la oración contigua (la vivienda, un 74 %)"
+28,136,"de los pasajeros del Peuyot, que fueron los grandes amigotes de Pedro Sánchez y que hoy están todos en la cárcel o en el banquillo",los del Peugeot y Sánchez,A,A,episodio identificable; «todos» se refiere a un grupo cerrado
+29,137,el señor Sánchez llegó como abanderado de la lucha contra la corrupción en una moción de censura presentada por José Luis Ávalos,Sánchez,A,A,"ironía clara, atada a un acto (la moción de censura)"
+30,138,"no han sido solo las mordidas, señor Sánchez, o las corruptelas",Sánchez,A,A,casos identificables (oración 136)
+31,139,"la corrupción de Sánchez ha matado españoles en las vías del tren, en el apagón, en la Dana",Sánchez,D,D6,chivo expiatorio: muertes de tres catástrofes atribuidas a su corrupción (culpa desmedida)
+32,142,el señor Sánchez bailando antes y después,Sánchez,A,A,acto identificable (el baile)
+33,145,"La corrupción ha matado y ha intentado matar más, por ejemplo, a una juez a la que quisieron eliminar",Sánchez y el PSOE,D,D6,repite la culpa desmedida de la 139; el episodio de la jueza va con la misma marca
+34,151,"tiene usted algún juicio en Mozambique, están pagando algo",Sánchez,D,D5,insinuación sin acto (ironía clara)
+35,159,nueve veces la ley Ela ante la que se resistieron y no quisieron financiar,el Gobierno,A,A,ley nombrada
+36,161,"Esto es una corrupción de la peor especie, señor Sánchez, porque no hay un acto más reprochable que regalar a los demás lo que se roba",Sánchez,D,D2,llama corrupción y robo a partidas de cooperación legales: la sanción no tiene un acto que la ancle
+37,165,después de haberse reído hoy mismo de una forma absolutamente intolerable de las víctimas de la Dana,Sánchez,A,A,acto con fecha (hoy)
+38,168,este señor ha degenerado la democracia en España,Sánchez,A,A,"ancla en la oración siguiente (2019, pactos, amnistía)"
+39,169,mintiendo a los españoles y a sus propios votantes sobre sus pactos,Sánchez,A,A,declaraciones identificables
+40,172,Ha mentido a los españoles de la manera más brutal.,Sánchez,A,A,ancla en la oración contigua (la amnistía)
+41,174,un político que miente en todo,Sánchez,D,D5,extensión («en todo»)
+42,176,"Paradores para sus cosas, ADIF y Renfe, ya hemos hablado bastante y no hace falta decir para qué",Sánchez,D,D5,insinuación sin acto
+43,177,"Correos, ya sabemos también para qué.",Sánchez,D,D5,insinuación sin acto
+44,178,el Tribunal de Cuentas para multar a Vox con multas que después anulaba el Tribunal Supremo,el Gobierno,A,A,decisiones identificables
+45,178,en este caso con la ayuda del PP,PP,A,A,renovación del CGPJ y del Constitucional (identificable)
+46,179,todas sus pretensiones de alterar el resultado de estas elecciones,el Gobierno,A,A,ancla: la ley de nietos y la sentencia del Supremo
+47,181,No le da vergüenza.,Sánchez,A,A,ancla en las oraciones contiguas

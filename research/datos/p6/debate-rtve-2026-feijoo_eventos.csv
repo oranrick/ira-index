@@ -1,0 +1,34 @@
+n,oracion,fragmento,blanco,codigo,nota
+1,20,"Modificación de la ley del suelo, modificación de la ley de propiedad horizontal",,N-prog,
+2,21,Combatir el miedo de los propietarios,,N-prog,
+3,33,O defendemos a los inquilinos y a los propietarios a la vez o no hay nada que hacer.,,N-prog,"disyuntiva sobre una política, sin blanco humano"
+4,68,"voy a recortar, asesores, altos cargos",,N-prog,
+5,101,el Partido Popular lo que propone es que sea vitalicio,,N-prog,
+6,110,las vamos a subir de acuerdo con el IPC anualmente,,N-prog,
+7,114,Yo presentaré un presupuesto en primavera,,N-prog,
+8,143,¿Usted le ha pedido explicación a la ministra de Igualdad?,ministra de Igualdad,R,pedir explicaciones (directiva indirecta)
+9,145,usted le ha pedido explicación de por qué la Fiscalía Europea está investigando,ministra de Igualdad,R,
+10,154,Vamos a hacer una auditoría palmo a palmo del corredor Andalucía,,N-prog,
+11,159,agresores a la cárcel,agresores,R,"grupo definido por su conducta, por vía penal"
+12,164,lo que hay que hacer es más autoridad para el profesor,,N-prog,
+13,171,y usted calladita,Colau,X3,le pide que calle
+14,178,yo voy a nombrar a gente que sepa,,N-prog,
+15,187,voy a ir contra los corruptos y se le acaba el chollo a los corruptos,corruptos,R,grupo definido por su conducta
+16,190,voy a hacer una auditoría de arriba abajo de lo que usted ha gastado,Sánchez,R,
+17,200,¿Le va a pedir usted al señor Zapatero que devuelva la comisión que cobró de Plus Ultra?,Zapatero,R,
+18,207,pedir al señor Zapatero que devuelva la comisión por el rescate de Plusultra,Zapatero,R,repetición
+19,220,dígaselo a la Cámara,Sánchez,R,
+20,221,Dígaselo.,Sánchez,R,repetición
+21,222,Pero dígaselo.,Sánchez,R,repetición
+22,224,"Explique sus primarias, explique la trama y deje de tapar la corrupción",Sánchez,R,
+23,228,"Asume usted la responsabilidad uno, de dimitir después de las elecciones",Sánchez,R,dimitir si pierde
+24,229,Renuncia usted yo.,Sánchez,R,repetición
+25,231,"usted va a dimitir y va a dejar el aforamiento, ¿sí o no?",Sánchez,R,repetición
+26,234,el gobierno responderá de la corrupción de los que nombre,,N-prog,
+27,236,Yo no voy a indultar a ningún político condenado por corrupción.,,N-prog,
+28,237,Los corruptos van a devolver lo robado,corruptos,R,grupo definido por su conducta
+29,237,quien quiera gobernar España tendrá que explicar quién le financian las primarias en su partido,Sánchez,R,
+30,238,Los jueces van a elegir otra vez a los jueces.,,N-prog,
+31,240,En el Tribunal Constitucional no habrá ningún ministro ni ningún alto cargo del gobierno,,N-prog,
+32,241,¿usted cree que Zapatero debe devolver la comisión de Plus Ultra o no?,Zapatero,R,repetición
+33,242,yo pongo mis 30 años de gestión a disposición de la decencia en la política,,N-mov,

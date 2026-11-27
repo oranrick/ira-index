@@ -1,0 +1,51 @@
+n,oracion,fragmento,blanco,signo,codigo,nota
+1,1,no reconoce la violencia de género,Vox,A,A,posición pública identificable
+2,3,él lo que está haciendo es pactar con la ultraderecha en los gobiernos autonómicos,Feijóo,A,A,pactos de gobierno identificables
+3,4,pocas soluciones ofrece el señor Feijóo como siempre,Feijóo,D,D1,capacidad con extensión («como siempre»)
+4,13,gobiernos autonómicos abiertamente que están boicoteando la ley estatal de vivienda,gobiernos del PP y Vox,A,A,no aplicar una ley nombrada
+5,15,Ni protegen ni dejan ni dejan que protejamos,PP y Vox,A,A,ámbito: la ley de vivienda (oración anterior)
+6,21,que se niegan a aplicar en las comunidades autónomas y en los ayuntamientos gobernados por el Partido Popular y por Vox,PP y Vox,A,A,
+7,27,el Partido Popular y Vox quieren que sea un objeto de especulación para que hagan negocio,PP y Vox,D,D5,imputa un móvil (hacer negocio) sin acto identificable
+8,29,Pues los de siempre y también ellos,«los de siempre» y el PP,D,D5,acusación generalizada de hacer negocio con la vivienda
+9,29,la presidenta de la Comunidad de Madrid pagar con dinero público con 7 millones de euros un aticazo,Ayuso,A,A,acto identificable
+10,34,es que tiene miedo a pasar como pasó Casado a la historia del Partido Popular,Feijóo,A,A,atado a un acto: no pedir la dimisión de Ayuso
+11,37,los verificadores con el señor Feijóo y el señor Avascal van a echar humos en esta noche,Feijóo y Abascal,D,D5,"acusación general de mentir, sin dicho concreto"
+12,38,"No deja de ser llamativo que se queje la derecha, la ultraderecha",PP y Vox,A,A,ancla en la oración siguiente (boicot y votaciones)
+13,39,si lo que han hecho ha sido boicotear una ley que funciona,PP y Vox,A,A,votaciones nombradas
+14,52,"la guerra de Irán, que por cierto apoya el señor Ab y también el señor Feijó",Abascal y Feijóo,A,A,posición pública identificable
+15,60,cuando realmente en el parlamento han votado en contra de revalorizar las pensiones conforme al IPC,Feijóo y Abascal,A,A,votaciones nombradas
+16,61,es la hipocresía de dos partidos políticos que no han pensado en el bien común,PP y Vox,A,A,etiqueta con su ancla en la oración contigua (las votaciones)
+17,62,"Han votado contra la gente, señora Vascal.",Vox,A,A,votaciones
+18,63,Han votado contra la gente.,Vox,A,A,votaciones
+19,64,que disfruta en su chalet.,Abascal,A,A,acto: cobrar el bono social térmico
+20,65,quiere cargarse el ingreso mínimo vital y por supuesto quiere congelar el salario mínimo interprofesional,Abascal,A,A,posiciones y propuesta de recorte nombradas
+21,66,Si es que no saben ni de lo que hablan.,Vox,A,A,capacidad atada a la propuesta de recorte de la oración anterior
+22,67,Es que no saben ni de lo que hablan.,Vox,A,A,"repetición, mismo ámbito"
+23,69,Lo único que ha aportado la ultraderecha a este país,la ultraderecha,D,D5,"«lo único... insultos, mentiras, bulos»: extensión"
+24,69,con el eh por supuesto calor y el aplauso del señor Fijó,Feijóo,D,D5,complicidad sin acto identificable
+25,72,usted por la cara está cobrando el social,Abascal,A,A,acto: cobrar el bono social térmico
+26,73,es mentira que usted está cobrando el bon social térmico,Abascal,A,A,repetición del acto
+27,74,Pero si votó en contra de las familias numerosas esta misma semana.,Abascal,A,A,votación con fecha
+28,75,"vota en contra para los demás, pero lo quiere para sí mismo",Abascal,A,A,votación
+29,76,Menuda hipocresía.,Abascal,A,A,etiqueta con ancla en la oración contigua
+30,86,que es lo que proponía el señor Feijó cuando cuando gobernaba Galicia,Feijóo,A,A,gestión nombrada
+31,91,"que están proponiendo recortes en el estado del bienestar, que allí donde gobiernan está recortando y privatizando la sanidad",Abascal y Feijóo,A,A,
+32,98,"el el dolor se acompaña, no se hace campaña con él",Abascal,A,A,ancla en la oración contigua: no respetar el luto del accidente
+33,99,Fue lamentable que usted no respetara el luto del accidente ferroviario de ODA,Abascal,A,A,
+34,117,"recortó el presupuesto del servicio de salud gallego, recortó el número de de camas hospitalarias",Feijóo,A,A,gestión nombrada
+35,126,"machismo es este, señor Feijo",Feijóo,A,A,etiqueta atada al acto contiguo («usted calladita»)
+36,127,"lo que lo que hizo Mariano Rajoy al frente del gobierno, que la bajó a un -65%",Rajoy,A,A,
+37,128,dado que ustedes están poniendo en cuestión eh el sistema público de pensiones,Abascal y Feijóo,A,A,"declaraciones citadas antes (sistema mixto, «petado»)"
+38,133,que tienen 42 42 casos de corrupción abiertos,Feijóo y Abascal,A,A,cifra
+39,134,"lo que hace el Partido Popular es comprar esa corrupción, sino que le pregunten a Coldo García",PP,A,A,nombra personas concretas: episodio identificable
+40,136,están desmantelando todas las instituciones de lucha contra la corrupción,Feijóo y Abascal,D,D5,extensión («todas»)
+41,139,están imponiendo una censura franquista a la cultura,PP y Vox,D,D4,"comparación con un régimen deslegitimado; hay ancla (Zaragoza), pero el estigma va en la etiqueta"
+42,140,Han anunciado su intención de recortar derechos a todo el mundo.,PP y Vox,D,D5,extensión («a todo el mundo»)
+43,142,pero su intención es recortar los derechos de las mujeres,Abascal,A,A,ancla en la oración contigua (gasto superfluo en violencia de género)
+44,144,"También recortar los derechos de los trabajadores, de los sindicatos, de los migrantes",Abascal,A,A,programa nombrado
+45,146,los programas del Partido Popular y de Vox contienen al menos 57 retrocesos en derechos humanos,PP y Vox,A,A,informe y cifra
+46,149,como lo hizo también el señor Rajoy a las puertas de las elecciones del año 2011,Rajoy,A,A,
+47,150,que se metió un tajo de 9000 millones de euros a la educación pública y la sanidad pública y estaba gobernando el señor Rajoy,Rajoy,A,A,
+48,158,Su sede está financiada con dinero B.,PP,A,A,sentencia identificable
+49,159,que su sede está financiado,PP,A,A,repetición
+50,161,el programa del Partido Popular y de Vox contiene 57 medidas que vulneran,PP y Vox,A,A,informe y cifra

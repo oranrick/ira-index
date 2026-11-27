@@ -1,0 +1,17 @@
+n,oracion,fragmento,dominio,tipo,blanco,tipo_blanco,humano,reglas,une,excepcion,resultado,nota
+1,11,ese tapón a la regulación y a la protección,MAQ,convencional,"Feijóo, Abascal y Junts",personas,sí,ancla,no,no,N,"imagen-acusación con ancla: bloqueo de la regulación en el Parlamento, agentes nombrados"
+2,14,están actuando como el perro del hortelano,OTR,convencional,PP y Vox,personas,sí,ancla,no,no,N,refrán; imagen-acusación con ancla en la oración contigua (no protegen ni dejan proteger con la ley de vivienda)
+3,37,van a echar humos en esta noche,OTR,convencional,los verificadores,personas (terceros),sí,,no,no,N,"hipérbole sobre terceros, sin rival como blanco"
+4,41,llenar la hucha de las pensiones,COM,convencional,el fondo de pensiones,política,no,,no,no,N,
+5,41,robustecer el estado del bienestar,CUI,convencional,el estado del bienestar,política,no,,no,no,N,
+6,42,no hacer un giro de 180º,VIA,convencional,la política económica,política,no,,no,no,N,
+7,43,"con la motosierra de 112,000 millones de euros al año",MAQ,convencional,el recorte propuesto,política,no,,no,no,N,
+8,45,esa motosierra,MAQ,convencional,la política de Milei,política,no,,no,no,N,
+9,47,una economía que continúe avanzando,VIA,convencional,la economía,meta,no,,no,no,N,
+10,47,de la mano del de las tijeras y el de la motosierra,MAQ,convencional,Feijóo y Abascal,personas,sí,ancla,no,no,N,apodo por la herramienta del recorte; imagen-acusación con ancla en los recortes propuestos (112.000 millones)
+11,60,disfrazados de Robin Hood,OTR,convencional,Feijóo y Abascal,personas,sí,ancla,no,no,N,imagen-acusación con ancla: las votaciones nombradas en la misma oración
+12,65,meter un tajo al gasto público,MAQ,convencional,el gasto público,política,no,,no,no,N,
+13,111,yo me partí la cara ante Trump,GUE,convencional,Trump (gobierno extranjero),personas (terceros),sí,,no,no,N,agonista: negociación diplomática
+14,128,blindarlo en la Constitución española,INM,convencional,el sistema público de pensiones,política,no,,no,no,N,«blindar» protege una política; el pacto «entre todos» lo recoge P6 (C1)
+15,134,expulsar la corrupción,INM,convencional,la corrupción,problema,no,,no,no,N,
+16,147,es ir hacia atrás,VIA,convencional,el rumbo del país,meta,no,,no,no,N,

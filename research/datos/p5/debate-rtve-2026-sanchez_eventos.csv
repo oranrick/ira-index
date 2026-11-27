@@ -1,0 +1,25 @@
+n,oracion,fragmento,voz,codigo,nota
+1,4,"sobre los insultos, los bulos, los reproches",Feijóo,B,niega el contenido («bulos»)
+2,19,"los ataques personales, señora Vascal, al reality",Abascal,Z2,manda lo dicho al «reality» sin responderlo
+3,30,"yo le he escuchado decir, hombre, tampoco es para tanto",Feijóo,B,cita y responde
+4,35,"Mucho bulo, mucha mentira.",Abascal,B,niega el contenido; responde con datos en la oración siguiente
+5,43,lo que propone el señor Avascal y Vox es un recorde,Abascal,B,cita la propuesta y la responde en la oración siguiente
+6,57,el señor Feijóo lo que dice es esto lo externalizamos,Feijóo,B,
+7,61,esto no es un bulo,Abascal,B,niega la acusación de bulo
+8,72,Es que usted dice que el ingreso mínimo vital hay que cargarse,Abascal,B,responde a «es un bulo»
+9,73,es mentira que usted está cobrando el bon social térmico,Abascal,B,responde a «no mienta»
+10,77,se a otro perro con ese hueso,Abascal,Z1,"locución: trata lo dicho como excusa, sin responderlo"
+11,78,las matemáticas del señor Feijóo son como su nivel de inglés,Feijóo,Z2,ridiculiza las cifras sin responderlas
+12,98,"Mucho bulo, mucho mucha mentira, mucho insulto",Abascal,B,niega el contenido
+13,100,el señor Absascal propone un sistema mixto,Abascal,B,responde en la oración siguiente («no se va a privatizar»)
+14,100,el Partido Popular por boca de su portavoz ha dicho que el sistema público de pensiones está petado,PP,B,responde en la oración siguiente
+15,111,Meter miedo a los pensionistas diciendo que que poco menos no se va a poder sostener el sistema público de pensiones,las derechas,Z1,ataca el móvil de lo dicho (meter miedo)
+16,115,Pero eso no significa nada señor Feijóo,Feijóo,B,responde a «ha vuelto a ganar Juanma Moreno»
+17,117,"No solamente da da miedo su discurso, sino que da pena",Abascal,Z2,descalifica el discurso y pasa a otra cosa sin responderlo
+18,143,Tilan de gastus superfluo eh en las políticas de violencia de género,Abascal,B,
+19,149,esto es un cuento que se ha inventado el señor Feijó,Feijóo,B,responde al contenido (cuentas auditadas); el móvil atribuido acompaña a la respuesta: B (regla del «y tú más»)
+20,154,"Pero con quién viajaba usted de vacaciones, señor Feijóo.",Feijóo,Z1,"«y tú más» que sustituye a la respuesta (con «¿Pero me está hablando usted?», oración contigua)"
+21,156,Los militantes y está avalado por el Tribunal de Cuentas.,Feijóo,B,responde quién pagó las primarias
+22,159,Pero que lo estoy diciendo y que está avalado por el Tribunal de Cuentas,Feijóo,B,
+23,161,reconocer el trabajo de Amnistía Internacional,Abascal,B,responde a la descalificación de Amnistía
+24,162,yo estoy escuchando al señor Feijóo y al señor Avascal hablar de pucherazo,Feijóo y Abascal,B,responde con la pregunta de la oración 164
