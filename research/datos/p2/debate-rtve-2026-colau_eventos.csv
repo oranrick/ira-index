@@ -1,0 +1,9 @@
+n,oracion,fragmento,dominio,tipo,blanco,tipo_blanco,humano,reglas,une,excepcion,resultado,nota
+1,10,regalar las viviendas y el suelo a los especuladores,COM,convencional,la derecha,personas,sí,extensión,no,no,P,«regalar» lo que se vende: imagen-acusación con extensión («siempre es la misma»)
+2,51,ha hundido la economía,OTR,convencional,Milei,personas (terceros),sí,ancla,no,no,N,imagen-acusación con ancla: la recesión técnica anunciada hoy
+3,52,desmantelar los servicios públicos y las pensiones de este país,MAQ,convencional,el recorte propuesto,política,no,,no,no,N,
+4,75,hay un agujero en su argumentación,OTR,convencional,el argumento de Feijóo,idea,no,,no,no,N,
+5,96,luego las batallamos,GUE,convencional,las medidas propias,política,no,,no,no,N,
+6,102,que la [risas] señora está regalando a sus amiguetes de la sanidad privada,COM,convencional,Ayuso,personas,sí,ancla,no,no,N,«regalar» lo que se contrata; imagen-acusación con ancla: la privatización de la sanidad de Madrid (gestión nombrada)
+7,120,que acaban de hundir la economía y las pensiones,OTR,convencional,Milei,personas (terceros),sí,ancla,no,no,N,imagen-acusación con ancla: la recesión argentina (oración 51)
+8,174,que dinamita la democracia,GUE,convencional,la cultura bipartidista de PP y PSOE,personas,sí,ancla,no,no,N,imagen-acusación con ancla: las puertas giratorias (exministros en consejos de administración)

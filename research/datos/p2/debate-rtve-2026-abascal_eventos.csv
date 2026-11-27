@@ -1,0 +1,27 @@
+n,oracion,fragmento,dominio,tipo,blanco,tipo_blanco,humano,reglas,une,excepcion,resultado,nota
+1,2,se ha dedicado a importar violadores,COM,viva,Sánchez,personas,sí,sin ancla,no,no,P,personas como mercancía; imagen-acusación sin ancla (no hay acto ni fecha; «se ha dedicado a»)
+2,15,El gran buitre que hay en España está justo a mi izquierda.,ANI,viva,Sánchez,personas,sí,ANI,no,no,P,ANI contra una persona: polariza siempre (responde a los «fondos buitre» de Colau)
+3,21,para que le haga el juego sucio,DEP,convencional,Colau,personas,sí,ancla,no,no,N,imagen-acusación con ancla: la intervención de Colau en el debate (8:45)
+4,33,una especie de juegos del hambre,OTR,convencional,el mercado del alquiler,problema,no,,no,no,N,ficción distópica
+5,41,zancadillas a la construcción,DEP,convencional,la regulación,política,no,,no,no,N,
+6,50,algunos se han convertido en los recaderos de la patronal más egoísta,OTR,viva,«algunos» (rivales sin nombrar),personas,sí,sin ancla,no,no,P,"imagen-acusación sin ancla: el agente es «algunos», sin acotar"
+7,54,"nos prometen un futuro verde, pero que es un futuro negro",OTR,convencional,el futuro económico,meta,no,,no,no,N,color
+8,56,la mafia que ha secuestrado las instituciones,OTR,viva,el Gobierno,personas,sí,sin ancla,no,no,P,secuestro; imagen-acusación sin ancla (ninguna institución ni acto nombrado)
+9,56,que ha destruido las instituciones públicas,CON,convencional,el Gobierno,personas,sí,sin ancla,no,no,P,imagen-acusación sin ancla
+10,87,ir destruyendo poco a poco nuestra capacidad de producción de energía,CON,convencional,las políticas energéticas,política,no,,no,no,N,sin agente humano nombrado
+11,88,Tenemos que subirnos al carro del futuro.,VIA,convencional,el país,meta,no,,no,no,N,
+12,95,destruir todo lo que funcionaba,CON,convencional,Sánchez,personas,sí,extensión,no,no,P,imagen-acusación con extensión («todo»)
+13,96,"Todas las redes que nos protegían, que protegían nuestra prosperidad, nuestra salud y nuestra seguridad, han sido destruidas",CON,convencional,el Gobierno (oraciones 93-95),personas,sí,extensión,no,no,P,imagen-acusación con extensión («todas»)
+14,99,la destrucción de las redes que protegían a los españoles por parte de este gobierno,CON,convencional,el Gobierno,personas,sí,ancla,no,no,N,"imagen-acusación con ancla: las redes se nombran en las oraciones contiguas (ferroviaria, 100)"
+15,100,que era la joya de la corona para los españoles,OTR,convencional,la red ferroviaria,política,no,,no,no,N,
+16,101,Ahora la joya de la corona está en la sede,OTR,viva,el PSOE de Sánchez,personas,sí,sin ancla,no,no,P,insinúa que el dinero está en Ferraz; imagen-acusación sin ancla
+17,102,"son las joyas de José Luis Rodríguez Joyero, su mentor",OTR,viva,Zapatero,personas,sí,sin ancla,no,no,P,apodo que sigue la imagen de las joyas; imagen-acusación sin ancla
+18,105,La red educativa también ha sido destruida,CON,convencional,el Gobierno,personas,sí,ancla,no,no,N,imagen-acusación con ancla: los peores datos en las comparativas internacionales (misma oración)
+19,119,los defensores de lo público que han destruido todo lo público,CON,convencional,Sánchez y Colau,personas,sí,extensión,no,no,P,imagen-acusación con extensión («todo»)
+20,127,los servicios públicos que se han destruido,CON,convencional,los servicios públicos,política,no,,no,no,N,sin agente
+21,145,por orden de una cloaca de Ferraz,OTR,convencional,el PSOE,personas,sí,ancla,no,no,N,"«cloaca»; imagen-acusación con ancla: la jueza que investiga al hermano del presidente (como Feijóo, 181)"
+22,166,después de haber asaltado Radio Televisión Española,GUE,convencional,Sánchez,personas,sí,ancla,no,no,N,"imagen-acusación con ancla: RTVE, el día de la dana"
+23,169,Señor Sánchez asaltó en el año 2019 las instituciones,GUE,convencional,Sánchez,personas,sí,ancla,no,no,N,imagen-acusación con ancla: 2019 y los pactos nombrados
+24,175,decidió asaltar el resto de las instituciones,GUE,convencional,Sánchez,personas,sí,ancla,no,no,N,imagen-acusación con ancla: las instituciones se nombran en la oración siguiente
+25,178,hay que barrer todo este asalto a las instituciones en España,INM,viva,los nombrados en las instituciones,personas,sí,INM,no,no,P,imagen-acción INM; el blanco humano sale del contexto (los cargos de las instituciones que enumera): INM contra personas polariza siempre
+26,179,lo que ha intentado es asaltar el censo electoral con la ley de nietos,GUE,convencional,el Gobierno,personas,sí,ancla,no,no,N,imagen-acusación con ancla: la ley de nietos y la sentencia del Supremo

@@ -1,0 +1,39 @@
+n,oracion,fragmento,blanco,signo,codigo,nota
+1,3,le agradezco que haya condenado la violencia machista,Feijóo,R,R1,juicio positivo sobre un acto del rival
+2,3,un partido que no condena la violencia machista,Vox,A,A,posición pública identificable
+3,7,he visto muchos gobiernos del Partido Popular y [carraspeo] del Partido Socialista,gobiernos del PP y del PSOE,A,A,"ámbito: la vivienda («el problema no se ha resuelto», oración siguiente)"
+4,9,"de la derecha, la verdad es que ya no espero nada porque ya sé cuál es su receta y ya sé que ha fracasado",la derecha,A,A,ámbito: la política de vivienda
+5,11,una auténtica estafa que se perpetró entre el gobierno del Partido Popular y la banca de este país,gobierno del PP y la banca,A,A,etiqueta con su ancla (la burbuja de 2007)
+6,16,el Partido Socialista demasiadas veces ha coincidido con la derecha en que estaba bien mercantilizar la vivienda,PSOE,A,A,ámbito: vivienda; declaración citada de Ábalos
+7,22,fondos buitre y de grandes propietarios que están subiendo los alquileres y están desauciando a miles de personas,fondos buitre,A,A,cifra
+8,25,"que se insulte de la manera que lo hace usted, señoros",Abascal,A,A,«señoros» con su ancla: el insulto de la oración anterior del debate (8:38)
+9,35,"ya que es buen gestor, seguramente tiene idea",Feijóo,A,A,ironía clara; ancla en la oración siguiente (16 viviendas)
+10,36,en sus últimos 4 años de mandato en Galicia hizo solo 16 viviendas protegidas,Feijóo,A,A,cifra
+11,48,ustedes no proponen políticas de vivienda que ofrezcan soluciones a la gente para que no tenga que ocupar,PP y Vox,A,A,ámbito: vivienda
+12,49,"ustedes han votado contra los decretos, Maric Carmen",PP y Vox,A,A,votaciones
+13,50,"su portavoz Figaredo ha anunciado hoy un recorte del gasto público de 112,000 millones",Vox,A,A,anuncio con fecha y cifra
+14,50,los recortes que hizo Rajoy con las consecuencias nefastas que tuvieron los servicios públicos,Rajoy,A,A,
+15,70,¿por qué han votado siempre hasta cuatro veces en contra de la subida del salario mínimo interprofesional,PP,A,A,votaciones contadas («hasta cuatro veces»): el «siempre» queda acotado
+16,72,se ha posicionado siempre a favor de la patronal y en contra de las subidas del salario mínimo,Feijóo,D,D5,extensión («siempre»)
+17,75,chiringuitos como el de Esperanza Guerra que le pagaba usted más de 80,Abascal,A,A,pago identificable (persona nombrada)
+18,77,A estos ustedes no les quieren subir los impuestos.,PP,A,A,posición identificable
+19,78,en Madrid han bajado los impuestos a las grandes fortunas,PP,A,A,decisión identificable
+20,102,sus amiguetes de la sanidad privada,Ayuso,A,A,etiqueta con ancla: la privatización de la sanidad de Madrid
+21,104,¿Qué le parece que la señora Garrapatas Garrapatas les llama a los maestras y maestras de la pública?,Ayuso,A,A,declaración identificable: cita la palabra de Ayuso (transcripción dudosa del nombre)
+22,106,"que es una vergüenza que después de comprarse un ático con dinero público de más de 6 millones de euros, después de insultar a Marie Carmen",Ayuso,A,A,actos identificables
+23,109,¿Qué le parece los cribados?,gobierno andaluz del PP,A,A,pregunta retórica clara; la crisis de cribados
+24,117,el Partido Popular que usted preside aún mantiene Amazón con cargo público aforado,Feijóo,A,A,decisión identificable (Mazón)
+25,120,"evidentemente no van a garantizar las pensiones, sino que las van a privatizar y las van a poner en peligro",Feijóo y Abascal,D,D5,acusación sobre el futuro sin acto que la ancle
+26,122,"El líder de un partido que ha sido condenado por corrupción, que ha sido condenado como organización criminal",PP,A,A,sentencias
+27,123,"Un partido que pagó su sede con dinero negro, un partido que durante años ha estado repartiendo sobres",PP,A,A,casos identificables
+28,128,A cargos y a familiares del PP.,PP de Alicante,A,A,adjudicación identificable
+29,129,"Corrupción y vivienda, todo junto, lo tienen todo.",PP,D,D5,extensión («lo tienen todo»)
+30,135,"me han puesto 20 querellas falsas los distintos lobis económicos, fondos buitra",lobis económicos y fondos buitre,A,A,querellas archivadas (oración siguiente)
+31,142,grandes empresas que han pagado comisiones y que han participado de la corrupción luego salgan de rositas,empresas corruptoras,A,A,agente acotado por su acto
+32,148,El partido con más condenas por corrupción.,PP,A,A,condenas
+33,150,siguen siendo el partido político más corrupto de Europa,PP,A,A,etiqueta con su ancla en las oraciones contiguas (condenas)
+34,151,lo han condenado por organización criminal,PP,A,A,sentencia
+35,160,que ha hecho cero autocrítica,Feijóo,A,A,ámbito: los casos de corrupción de su partido
+36,163,el Partido Popular es el partido que acumula más casos de corrupción,PP,A,A,
+37,164,han habido casos graves de corrupción recientes de personas de su máxima confianza en el Partido Socialista,PSOE,A,A,casos identificables
+38,165,Yo creo que eso ha decepcionado a mucha gente.,PSOE,A,A,ancla en la oración anterior

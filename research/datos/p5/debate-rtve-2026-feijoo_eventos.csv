@@ -1,0 +1,33 @@
+n,oracion,fragmento,voz,codigo,nota
+1,4,La vivienda va a ser nuestra prioridad a la próxima legislatura.,Sánchez,B,cita sus titulares y los responde con el balance de vivienda
+2,24,a mí me dice y a mí me dice que tiene que venir el gobierno progresista,Colau,B,
+3,28,ustedes están hablando de 1 millón de excusas,Gobierno,Z2,llama «excusas» a lo dicho sin responderlo
+4,29,Pero usted quiere presentarse a candidato a la presidencia de la Comunidad Autónoma de Madrid.,Sánchez,Z2,responde con una burla a la pregunta sobre Ayuso
+5,55,El problema de la vivienda en Galicia era el problema número 16,Colau,B,
+6,56,Nueve de cada 10 casas en España son de pequeños propietarios.,Colau,B,responde a los fondos buitre y a la ocupación
+7,63,Yo también.,Sánchez,V2,se suma a la felicitación de Sánchez a Hernández de Cos
+8,65,la señora Colau ha dicho que Yolanda Díaz es una excelente vicepresidenta y por qué le han sustituido,Colau,B,
+9,69,la gente debe estar indignada escuchándoles hablar,Sánchez y Colau,Z2,descalifica lo dicho sin responderlo (con la 70)
+10,71,Sánchez niega que España esté por encima en el incremento de precios,Sánchez,B,
+11,77,"Dice usted que la pizza de Luna Rosa, perdóneme, es cojonuda.",Sánchez,B,responde con la subida del precio
+12,87,ahora han hablado ustedes de los malvados ricos,Gobierno,B,"parafrasea con burla, pero responde al contenido"
+13,92,"Pero si esto se aprueba por real decreto, no se aprueba por ley.",Colau,B,
+14,93,Claro que estoy a favor de subir el salario medio,Colau,B,
+15,96,que ustedes manejen a los sindicatos no significa que yo maneja a la patronal,Colau,B,«y tú más» que acompaña a una respuesta
+16,112,"Debe ser su tesis doctoral, señor Sánchez.",Sánchez,Z2,ridiculiza que presuma de economía sin responder
+17,116,el señor Sánchez dice que sabe mucho de economía y no ha sido capaz de presentar un solo presupuesto,Sánchez,B,
+18,121,Los servicios públicos que usted critica son sus servicios públicos,Colau,B,responde; «topicazos» acompaña a la respuesta
+19,148,Mayoría absoluta en la Comunidad de Madrid se lo reencía.,Colau,B,
+20,149,yo creo que un poco mejor que la de Cataluña,Colau,B,sobre la sanidad de Madrid
+21,149,"Allí hubo dimisiones, en el gobierno de España, ni una",Colau,B,sobre los cribados de Andalucía
+22,149,otra vez con la chuleta,Sánchez,Z2,se burla de que lea sus notas y no responde al balance de Galicia
+23,150,han ensayado muy bien estas intervenciones previamente,Colau y Sánchez,Z1,descalifica sus críticas por cómo se habrían preparado
+24,163,el señor Sánchez y la señora Colau vienen a presumir de educación,Sánchez y Colau,B,responde con el informe PISA
+25,166,ustedes lo que intentan es meter miedo,Sánchez y Colau,Z1,ataca el móvil de lo dicho
+26,169,No me van a dar lecciones de defensa de los servicios públicos porque llevo 30 años gestionando servicios públicos.,Sánchez y Colau,B,
+27,174,"no manipule, no manipule",Sánchez,B,con la 175 («no tengo nada que ver»): responde al contenido
+28,183,"Cuidado que viene el PP, cuidado que viene Feijó.",Gobierno,B,cita su lema de campaña y lo responde
+29,201,habla usted de que usted ha gobernado 8 años en Barcelona y no la han encontrado nada,Colau,B,responde con su propia trayectoria
+30,204,¿Qué tendrá que ver la corrupción con la muerte?,Abascal,B,rebate que «la corrupción mata»
+31,223,no se ponga usted aquí a bailar o a escribir una carta de amor,Sánchez,Z2,se burla de la respuesta sin rebatirla
+32,231,prueba de que lo reconozco que le estoy diciendo que o usted o yo vamos a presidir el gobierno,Sánchez,B,responde si reconocerá el resultado

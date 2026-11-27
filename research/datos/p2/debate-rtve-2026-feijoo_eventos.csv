@@ -1,0 +1,11 @@
+n,oracion,fragmento,dominio,tipo,blanco,tipo_blanco,humano,reglas,une,excepcion,resultado,nota
+1,14,nos intentaron vender los decretos,COM,convencional,el Gobierno,personas,sí,ancla,no,no,N,"imagen-acusación con ancla: los decretos Maricarmen, identificables"
+2,68,voy a recortar todo tipo de indecencia y de corrupción,MAQ,convencional,la corrupción,problema,no,,no,no,N,
+3,91,vamos camino de dos Españas,VIA,convencional,el país,meta,no,,no,no,N,
+4,150,esta interpretación,OTR,convencional,Colau y Sánchez,personas,sí,ancla,no,no,N,el debate como teatro; imagen-acusación con ancla: sus intervenciones en el debate
+5,155,Vamos a mantener blindado la conservación y mantenimiento red de alta velocidad,INM,convencional,el mantenimiento ferroviario,política,no,,no,no,N,
+6,173,España necesita ponerse a funcionar,MAQ,convencional,el país,meta,no,,no,no,N,
+7,176,España necesita ponerse a funcionar,MAQ,convencional,el país,meta,no,,no,no,N,
+8,181,las colacas que usted dirigía,OTR,convencional,Sánchez,personas,sí,ancla,no,no,N,«cloacas»; imagen-acusación con ancla: la jueza que investigaba a su hermano
+9,214,que tiene un imán para la corrupción,MAQ,viva,Sánchez,personas,sí,sin ancla,no,no,P,"imagen-acusación sin ancla: atracción de corruptos «siempre», sin acto identificable"
+10,226,le subo la puesta,DEP,convencional,Sánchez,personas,sí,agonista,no,no,N,"apuesta: agonista, conserva las reglas"

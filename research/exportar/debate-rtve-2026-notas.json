@@ -1,0 +1,260 @@
+{
+"rows": [
+{
+"candidato": "abascal",
+"persona": "Santiago Abascal",
+"partido": "Vox",
+"parametro": "P1",
+"nombre_parametro": "Frontera del nosotros",
+"nota": 5.2011,
+"margen_bajo": 4.0385,
+"margen_alto": 5.4014,
+"solidez": "sólida",
+"eventos": 46
+},
+{
+"candidato": "abascal",
+"persona": "Santiago Abascal",
+"partido": "Vox",
+"parametro": "P2",
+"nombre_parametro": "Marco metafórico",
+"nota": 0.7692,
+"margen_bajo": 0.0874,
+"margen_alto": 1.746,
+"solidez": "sólida",
+"eventos": 11
+},
+{
+"candidato": "abascal",
+"persona": "Santiago Abascal",
+"partido": "Vox",
+"parametro": "P3",
+"nombre_parametro": "Polaridad moral",
+"nota": 3.1633,
+"margen_bajo": 2.3329,
+"margen_alto": 4.0267,
+"solidez": "sólida",
+"eventos": 47
+},
+{
+"candidato": "abascal",
+"persona": "Santiago Abascal",
+"partido": "Vox",
+"parametro": "P5",
+"nombre_parametro": "Apertura al disenso",
+"nota": 2.6,
+"margen_bajo": 1.5348,
+"margen_alto": 3.7521,
+"solidez": "sólida",
+"eventos": 23
+},
+{
+"candidato": "abascal",
+"persona": "Santiago Abascal",
+"partido": "Vox",
+"parametro": "P6",
+"nombre_parametro": "Llamada a la acción",
+"nota": 4.6667,
+"margen_bajo": 3.0455,
+"margen_alto": 6.3087,
+"solidez": "sólida",
+"eventos": 13
+},
+{
+"candidato": "colau",
+"persona": "Ada Colau",
+"partido": "Frente Amplio",
+"parametro": "P1",
+"nombre_parametro": "Frontera del nosotros",
+"nota": 5.5977,
+"margen_bajo": 4.7768,
+"margen_alto": 6.4009,
+"solidez": "sólida",
+"eventos": 67
+},
+{
+"candidato": "colau",
+"persona": "Ada Colau",
+"partido": "Frente Amplio",
+"parametro": "P2",
+"nombre_parametro": "Marco metafórico",
+"nota": null,
+"margen_bajo": null,
+"margen_alto": null,
+"solidez": "sin puntuar",
+"eventos": 1
+},
+{
+"candidato": "colau",
+"persona": "Ada Colau",
+"partido": "Frente Amplio",
+"parametro": "P3",
+"nombre_parametro": "Polaridad moral",
+"nota": 4.75,
+"margen_bajo": 3.7451,
+"margen_alto": 5.7605,
+"solidez": "sólida",
+"eventos": 38
+},
+{
+"candidato": "colau",
+"persona": "Ada Colau",
+"partido": "Frente Amplio",
+"parametro": "P5",
+"nombre_parametro": "Apertura al disenso",
+"nota": 5.2941,
+"margen_bajo": 4.1986,
+"margen_alto": 6.3819,
+"solidez": "sólida",
+"eventos": 32
+},
+{
+"candidato": "colau",
+"persona": "Ada Colau",
+"partido": "Frente Amplio",
+"parametro": "P6",
+"nombre_parametro": "Llamada a la acción",
+"nota": 6.1111,
+"margen_bajo": 4.899,
+"margen_alto": 7.2861,
+"solidez": "sólida",
+"eventos": 25
+},
+{
+"candidato": "feijoo",
+"persona": "Alberto Núñez Feijóo",
+"partido": "PP",
+"parametro": "P1",
+"nombre_parametro": "Frontera del nosotros",
+"nota": 2.48,
+"margen_bajo": 2.1623,
+"margen_alto": 3.8019,
+"solidez": "orientativa",
+"eventos": 25
+},
+{
+"candidato": "feijoo",
+"persona": "Alberto Núñez Feijóo",
+"partido": "PP",
+"parametro": "P2",
+"nombre_parametro": "Marco metafórico",
+"nota": null,
+"margen_bajo": null,
+"margen_alto": null,
+"solidez": "sin puntuar",
+"eventos": 1
+},
+{
+"candidato": "feijoo",
+"persona": "Alberto Núñez Feijóo",
+"partido": "PP",
+"parametro": "P3",
+"nombre_parametro": "Polaridad moral",
+"nota": 3.5593,
+"margen_bajo": 2.7741,
+"margen_alto": 4.3659,
+"solidez": "sólida",
+"eventos": 57
+},
+{
+"candidato": "feijoo",
+"persona": "Alberto Núñez Feijóo",
+"partido": "PP",
+"parametro": "P5",
+"nombre_parametro": "Apertura al disenso",
+"nota": 3.9706,
+"margen_bajo": 2.9148,
+"margen_alto": 5.0534,
+"solidez": "sólida",
+"eventos": 32
+},
+{
+"candidato": "feijoo",
+"persona": "Alberto Núñez Feijóo",
+"partido": "PP",
+"parametro": "P6",
+"nombre_parametro": "Llamada a la acción",
+"nota": 4.75,
+"margen_bajo": 3.3369,
+"margen_alto": 6.1746,
+"solidez": "sólida",
+"eventos": 18
+},
+{
+"candidato": "sanchez",
+"persona": "Pedro Sánchez",
+"partido": "PSOE",
+"parametro": "P1",
+"nombre_parametro": "Frontera del nosotros",
+"nota": 4.3833,
+"margen_bajo": 3.4634,
+"margen_alto": 4.9471,
+"solidez": "sólida",
+"eventos": 44
+},
+{
+"candidato": "sanchez",
+"persona": "Pedro Sánchez",
+"partido": "PSOE",
+"parametro": "P2",
+"nombre_parametro": "Marco metafórico",
+"nota": null,
+"margen_bajo": null,
+"margen_alto": null,
+"solidez": "sin puntuar",
+"eventos": 0
+},
+{
+"candidato": "sanchez",
+"persona": "Pedro Sánchez",
+"partido": "PSOE",
+"parametro": "P3",
+"nombre_parametro": "Polaridad moral",
+"nota": 4.1346,
+"margen_bajo": 3.2698,
+"margen_alto": 5.0141,
+"solidez": "sólida",
+"eventos": 50
+},
+{
+"candidato": "sanchez",
+"persona": "Pedro Sánchez",
+"partido": "PSOE",
+"parametro": "P5",
+"nombre_parametro": "Apertura al disenso",
+"nota": 3.8462,
+"margen_bajo": 2.6529,
+"margen_alto": 5.0795,
+"solidez": "sólida",
+"eventos": 24
+},
+{
+"candidato": "sanchez",
+"persona": "Pedro Sánchez",
+"partido": "PSOE",
+"parametro": "P6",
+"nombre_parametro": "Llamada a la acción",
+"nota": 6.1538,
+"margen_bajo": 4.41,
+"margen_alto": 7.8132,
+"solidez": "sólida",
+"eventos": 11
+}
+],
+"meta": [
+{
+"label": "exportar_debate.py",
+"value": "\"\"\"IRA · Debate a cuatro de RTVE (26-nov-2026) · exporta los resultados para el panel.\n\nLee las tablas codificadas (datos/pX/debate-rtve-2026-*.csv), calcula las notas con los mismos\ncálculos que las fichas (calcular_p1.py, src/lib/margen.js vía margen_cli.mjs, calcular_signo.py)\ny escribe cuatro JSON {rows, meta} en exportar/: notas, recuentos, eventos y sensibilidad.\n\nUso (desde research/):  python scripts/exportar_debate.py\n\"\"\"\nimport csv\nimport json\nimport os\nimport sys\nfrom collections import Counter\n\nRAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))\nsys.path.insert(0, os.path.join(RAIZ, \"scripts\"))\nimport calcular_p1  # noqa: E402\nimport calcular_signo  # noqa: E402\nfrom calcular_debate import CANDIDATURAS, margen_web  # noqa: E402\n\nPARAMS = [(\"P1\", \"Frontera del nosotros\"), (\"P2\", \"Marco metafórico\"), (\"P3\", \"Polaridad moral\"),\n          (\"P5\", \"Apertura al disenso\"), (\"P6\", \"Llamada a la acción\")]\nPOLO = {\"p3\": {\"R\": \"empático\", \"A\": \"neutro\", \"D\": \"polariza\"},\n        \"p5\": {\"V\": \"empático\", \"B\": \"neutro\", \"Z\": \"polariza\"},\n        \"p6\": {\"C\": \"empático\", \"R\": \"neutro\", \"X\": \"polariza\", \"N\": \"programa\"}}\n\n\ndef leer(ruta):\n    return list(csv.DictReader(open(ruta, encoding=\"utf-8\")))\n\n\ndef r2(x):\n    return None if x is None else round(x, 4)\n\n\ndef nota_signo(e, n, p):\n    return 10 * (e + 0.5 * n + 1) / (e + n + p + 2)\n\n\ndef p1_nota(c):\n    return margen_web(p1=c)[\"p1\"][\"nota\"]\n\n\ndef main():\n    notas, recuentos, eventos = [], [], []\n    base = {}\n    for slug, nombre in CANDIDATURAS:\n        id_ = f\"debate-rtve-2026-{slug}\"\n        persona, partido = nombre[:-1].split(\" (\")\n        palabras = len(open(f\"{RAIZ}/textos/{id_}.txt\", encoding=\"utf-8\").read().split())\n        refs, ev1 = leer(f\"{RAIZ}/datos/p1/{id_}_referencias.csv\"), leer(f\"{RAIZ}/datos/p1/{id_}_eventos.csv\")\n        cat, tip = Counter(f[\"categoria\"] for f in refs), Counter(f[\"tipo\"] for f in ev1)\n        c1 = dict(U=cat[\"U\"], G=cat[\"G\"], GC=cat[\"GC\"], I=cat[\"2I\"], C=cat[\"2C\"], A=tip[\"A\"], Cp=tip[\"C\"])\n        w1 = margen_web(p1=c1)[\"p1\"]\n        sol1 = calcular_p1.calcular(f\"{RAIZ}/datos/p1/{id_}_referencias.csv\", f\"{RAIZ}/datos/p1/{id_}_eventos.csv\")[\"sol\"]\n        ev2 = leer(f\"{RAIZ}/datos/p2/{id_}_eventos.csv\")\n        c2 = Counter(f[\"resultado\"] for f in ev2)\n        w2 = margen_web(p2=dict(E=c2[\"E\"], P=c2[\"P\"], N=c2[\"N\"]))[\"p2\"]\n        sig = {p: calcular_signo.calcular(p, leer(f\"{RAIZ}/datos/{p}/{id_}_eventos.csv\")) for p in (\"p3\", \"p5\", \"p6\")}\n        base[slug] = dict(c1=c1, sig=sig)\n\n        def fila(par, nota, margen, solidez, n):\n            return dict(candidato=slug, persona=persona, partido=partido, parametro=par, nombre_parametro=dict(PARAMS)[par],\n                        nota=r2(nota), margen_bajo=r2(margen[0]) if margen else None, margen_alto=r2(margen[1]) if margen else None,\n                        solidez=solidez, eventos=n)\n\n        notas.append(fila(\"P1\", w1[\"nota\"], w1.get(\"margen\"), (sol1 or \"sin puntuar\").split(\" (\")[0],\n                          c1[\"U\"] + c1[\"G\"] + c1[\"GC\"]))\n        notas.append(fila(\"P2\", w2[\"nota\"], w2.get(\"margen\"),\n                          {\"solida\": \"sólida\", \"orientativa\": \"orientativa\", \"sin\": \"sin puntuar\"}[w2[\"solidez\"]], c2[\"E\"] + c2[\"P\"]))\n        for p in (\"p3\", \"p5\", \"p6\"):\n            s = sig[p]\n            notas.append(fila(p.upper(), s[\"nota\"], s[\"margen\"], s[\"solidez\"] if s[\"nota\"] is not None else \"sin puntuar\", s[\"total\"]))\n\n        recuentos.append(dict(\n            candidato=slug, persona=persona, partido=partido, palabras=palabras,\n            nosotros_inclusivos=c1[\"U\"] + c1[\"G\"], nosotros_contra=c1[\"GC\"], interpelacion_inclusiva=c1[\"I\"],\n            interpelacion_contra=c1[\"C\"], segunda_a_rivales=cat[\"2R\"], aperturas=c1[\"A\"], cierres=c1[\"Cp\"],\n            excepciones=tip[\"CP\"], metaforas_polarizan=c2[\"P\"], metaforas_neutras=c2[\"N\"], metaforas_empaticas=c2[\"E\"],\n            p3_R=sig[\"p3\"][\"e\"], p3_A=sig[\"p3\"][\"n\"], p3_D=sig[\"p3\"][\"p\"],\n            p5_V=sig[\"p5\"][\"e\"], p5_B=sig[\"p5\"][\"n\"], p5_Z=sig[\"p5\"][\"p\"],\n            p6_C=sig[\"p6\"][\"e\"], p6_R=sig[\"p6\"][\"n\"], p6_X=sig[\"p6\"][\"p\"]))\n\n        for f in ev1:\n            polo = {\"C\": \"polariza\", \"A\": \"empático\", \"CP\": \"excepción democrática\"}[f[\"tipo\"]]\n            eventos.append(dict(candidato=slug, persona=persona, parametro=\"P1\", oracion=int(f[\"oracion\"]),\n                                codigo=f[\"marca\"].split(\" \")[0] if f[\"tipo\"] != \"CP\" else \"CP\", polo=polo,\n                                blanco=f[\"blanco\"], fragmento=f[\"texto\"], nota=f[\"nota\"]))\n        for f in ev2:\n            eventos.append(dict(candidato=slug, persona=persona, parametro=\"P2\", oracion=int(f[\"oracion\"]), codigo=f[\"dominio\"],\n                                polo={\"P\": \"polariza\", \"N\": \"neutro\", \"E\": \"empático\"}[f[\"resultado\"]],\n                                blanco=f[\"blanco\"], fragmento=f[\"fragmento\"], nota=f[\"nota\"]))\n        for p in (\"p3\", \"p5\", \"p6\"):\n            for f in leer(f\"{RAIZ}/datos/{p}/{id_}_eventos.csv\"):\n                k = calcular_signo.polo_de(p, f)\n                eventos.append(dict(candidato=slug, persona=persona, parametro=p.upper(), oracion=int(f[\"oracion\"]), codigo=f[\"codigo\"],\n                                    polo=POLO[p][k], blanco=f.get(\"blanco\") or f.get(\"voz\", \"\"), fragmento=f[\"fragmento\"], nota=f[\"nota\"]))\n    eventos.sort(key=lambda e: (e[\"candidato\"], e[\"parametro\"], e[\"oracion\"]))\n    for i, e in enumerate(eventos, 1):\n        e[\"id\"] = f\"{e['candidato']}-{e['parametro']}-{i}\"\n\n    # ── Sensibilidad: cómo cambiaría cada nota si se decidiera lo contrario ──────────────\n    a6, a3 = base[\"abascal\"][\"sig\"][\"p6\"], base[\"abascal\"][\"sig\"][\"p3\"]\n    prio = 3  # oraciones 41, 73 y 132: X1 → R\n    oferta = 2  # oraciones 64 y 65: sin C1 ni C2\n    mafia = 3  # oraciones 55, 56 y 161: D2 → A\n    ca = dict(base[\"abascal\"][\"c1\"])\n    fe = dict(base[\"feijoo\"][\"c1\"])\n    f3 = base[\"feijoo\"][\"sig\"][\"p3\"]\n    sin_int = dict(ca, I=0, C=0)\n    sens = [\n        dict(clave=\"prioridad\", decision=\"«Prioridad nacional» y «solo para españoles» como acción reglada (R) en vez de excluyente (X1)\",\n             candidato=\"abascal\", persona=\"Santiago Abascal\", parametro=\"P6\",\n             nota_actual=r2(a6[\"nota\"]), nota_alternativa=r2(nota_signo(a6[\"e\"], a6[\"n\"] + prio, a6[\"p\"] - prio))),\n        dict(clave=\"oferta\", decision=\"Quitar «Comprométanse. Vamos a dejarlo en un 50 %» como acciones cooperativas (C1 y C2)\",\n             candidato=\"abascal\", persona=\"Santiago Abascal\", parametro=\"P6\",\n             nota_actual=r2(a6[\"nota\"]), nota_alternativa=r2(nota_signo(a6[\"e\"] - oferta, a6[\"n\"], a6[\"p\"]))),\n        dict(clave=\"ambas\", decision=\"Las dos anteriores a la vez\",\n             candidato=\"abascal\", persona=\"Santiago Abascal\", parametro=\"P6\",\n             nota_actual=r2(a6[\"nota\"]), nota_alternativa=r2(nota_signo(a6[\"e\"] - oferta, a6[\"n\"] + prio, a6[\"p\"] - prio))),\n        dict(clave=\"mafia\", decision=\"«Mafia» y «robo» para políticas legales como críticas ancladas (A) en vez de D2\",\n             candidato=\"abascal\", persona=\"Santiago Abascal\", parametro=\"P3\",\n             nota_actual=r2(a3[\"nota\"]), nota_alternativa=r2(nota_signo(a3[\"e\"], a3[\"n\"] + mafia, a3[\"p\"] - mafia))),\n        dict(clave=\"interpelacion\", decision=\"P1 sin el indicador de interpelación (3 casos, justo el mínimo)\",\n             candidato=\"abascal\", persona=\"Santiago Abascal\", parametro=\"P1\",\n             nota_actual=r2(p1_nota(ca)), nota_alternativa=r2(p1_nota(sin_int))),\n        dict(clave=\"presencia\", decision=\"«Yo sería incapaz de venir aquí en su situación procesal» en P3 (A) en vez de P1 (C4)\",\n             candidato=\"feijoo\", persona=\"Alberto Núñez Feijóo\", parametro=\"P1\",\n             nota_actual=r2(p1_nota(fe)), nota_alternativa=r2(p1_nota(dict(fe, Cp=fe[\"Cp\"] - 1)))),\n        dict(clave=\"presencia-p3\", decision=\"La misma frase, efecto en P3\",\n             candidato=\"feijoo\", persona=\"Alberto Núñez Feijóo\", parametro=\"P3\",\n             nota_actual=r2(f3[\"nota\"]), nota_alternativa=r2(nota_signo(f3[\"e\"], f3[\"n\"] + 1, f3[\"p\"]))),\n    ]\n\n    codigo = open(os.path.abspath(__file__), encoding=\"utf-8\").read()\n    meta = [\n        {\"label\": \"exportar_debate.py\", \"value\": codigo, \"type\": \"code\", \"lang\": \"python\"},\n        {\"label\": \"Input\", \"value\": \"research/datos/p1, p2, p3, p5 y p6: debate-rtve-2026-<candidatura>_*.csv (repositorio oranrick/ira-index, rama debate-rtve-2026)\"},\n        {\"label\": \"Cálculo\", \"value\": \"calcular_p1.py y src/lib/margen.js (P1, P2); calcular_signo.py (P3, P5, P6). Codificación: research/codificacion/debate_<candidatura>.py y CRITERIOS.md\"},\n    ]\n    os.makedirs(f\"{RAIZ}/exportar\", exist_ok=True)\n    for nombre, filas in ((\"notas\", notas), (\"recuentos\", recuentos), (\"eventos\", eventos), (\"sensibilidad\", sens)):\n        with open(f\"{RAIZ}/exportar/debate-rtve-2026-{nombre}.json\", \"w\", encoding=\"utf-8\") as fh:\n            json.dump({\"rows\": filas, \"meta\": meta}, fh, ensure_ascii=False, indent=0)\n        print(nombre, len(filas))\n\n\nif __name__ == \"__main__\":\n    main()\n",
+"type": "code",
+"lang": "python"
+},
+{
+"label": "Input",
+"value": "research/datos/p1, p2, p3, p5 y p6: debate-rtve-2026-<candidatura>_*.csv (repositorio oranrick/ira-index, rama debate-rtve-2026)"
+},
+{
+"label": "Cálculo",
+"value": "calcular_p1.py y src/lib/margen.js (P1, P2); calcular_signo.py (P3, P5, P6). Codificación: research/codificacion/debate_<candidatura>.py y CRITERIOS.md"
+}
+]
+}
