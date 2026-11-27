@@ -30,7 +30,6 @@ const DailyAnalysis = lazy(() => import("./components/DailyAnalysis"));
 const PatternsPage = lazy(() => import("./components/PatternsPage"));
 const Portada = lazy(() => import("./components/Portada.jsx"));
 const PaisPage = lazy(() => import("./components/PaisPage.jsx"));
-const Campana = lazy(() => import("./components/Campana.jsx"));
 const MetodologiaIndice = lazy(() => import("./components/metodologia/MetodologiaIndice.jsx"));
 const MetodologiaP1 = lazy(() => import("./components/metodologia/MetodologiaP1.jsx"));
 const MetodologiaP2 = lazy(() => import("./components/metodologia/MetodologiaP2.jsx"));
@@ -1734,7 +1733,6 @@ function MainView({ mode = 'politico', tab = 'explore' }) {
           </p>
           <div className="ira-cabecera__acciones">
             <button type="button" className="ira-boton ira-boton--principal" onClick={() => setShowIRA(true)}>{T.btnWhat}</button>
-            <Link to="/elecciones-29n" className="ira-boton ira-boton--secundario">{lang === 'en' ? "The 29-N campaign" : "La campaña del 29-N"}</Link>
           </div>
           <p className="ira-cabecera__extra">
             {lang === 'en' ? 'Also: ' : 'También: '}
@@ -2000,7 +1998,7 @@ export default function App() {
         <Route path="/medios" element={<MainView mode="medios" tab="explore" />} />
         <Route path="/analyze" element={HERRAMIENTAS_ABIERTAS ? <MainView mode="politico" tab="analyze" /> : <Navigate to="/politicos" replace />} />
         <Route path="/compare" element={HERRAMIENTAS_ABIERTAS ? <MainView mode="politico" tab="compare" /> : <Navigate to="/politicos" replace />} />
-        <Route path="/elecciones-29n" element={<Suspense fallback={null}><Campana /></Suspense>} />
+        <Route path="/elecciones-29n" element={<Navigate to="/" replace />} />
         <Route path="/entity/:entityId" element={<EntityDetailPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/metodologia" element={<Suspense fallback={null}><MetodologiaIndice /></Suspense>} />

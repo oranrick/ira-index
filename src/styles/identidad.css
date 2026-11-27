@@ -465,3 +465,7 @@ img.ira-campana__foto { width: 68px; height: 68px; filter: grayscale(1) contrast
   .ira-pieza__lecturas { grid-column: 1; grid-row: auto; gap: 18px; }
   .ira-pieza__lecturas .ira-campana__lectura { align-items: flex-start; }
 }
+
+/* Portada sin el aviso de la campaña (26-nov-2026): la escala se queda en su columna de siempre */
+.ira-portada__pie > .ira-portada__escala { grid-column: 2; }
+@media (max-width: 760px) { .ira-portada__pie > .ira-portada__escala { grid-column: auto; } }

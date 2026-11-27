@@ -11,11 +11,11 @@ export const REPO_RESEARCH = 'https://github.com/oranrick/ira-index/tree/main/re
 export const AVISO = {
   es: {
     rotulo: 'Metodología 2.0 · en desarrollo',
-    texto: 'Estamos rediseñando IRA parámetro a parámetro para que cada puntuación pueda explicarse frase a frase. Las notas del archivo se calcularon con la metodología de 2024; la campaña del 29-N se mide solo con P1 y P2. Los parámetros en desarrollo se publican como borrador y pueden cambiar.',
+    texto: 'Estamos rediseñando IRA parámetro a parámetro para que cada puntuación pueda explicarse frase a frase. Las notas del archivo se calcularon con la metodología de 2024. Los parámetros en desarrollo se publican como borrador y pueden cambiar.',
   },
   en: {
     rotulo: 'Methodology 2.0 · in development',
-    texto: 'We are redesigning IRA parameter by parameter so that every score can be explained sentence by sentence. The scores in the archive were calculated with the 2024 methodology; coverage of Spain’s 29 November general election (29-N) uses only P1 and P2. Parameters in development are published as drafts and may change.',
+    texto: 'We are redesigning IRA parameter by parameter so that every score can be explained sentence by sentence. The scores in the archive were calculated with the 2024 methodology. Parameters in development are published as drafts and may change.',
   },
 };
 
@@ -67,7 +67,7 @@ export const UI_MANUAL = {
     navPie: 'Navegación entre parámetros',
     cautela: 'Cautela',
     pendiente: 'Pendiente',
-    motor: 'Manual cerrado. Todavía no puntúa en la web: el archivo usa el método de 2024 y la campaña del 29-N mide solo P1 y P2.',
+    motor: 'Manual cerrado. Todavía no puntúa en la web: el archivo usa el método de 2024.',
     referenciasNota: 'Tomadas del dossier de literatura verificada. Las marcadas [por verificar] no están confirmadas del todo.',
     manual: 'Leer el manual completo en GitHub',
     nuevaPestana: '(se abre en una pestaña nueva)',
@@ -80,7 +80,7 @@ export const UI_MANUAL = {
     navPie: 'Navigation between parameters',
     cautela: 'Caution',
     pendiente: 'Pending',
-    motor: 'Closed manual. It does not score anything on the site yet: the archive uses the 2024 method and 29-N coverage measures only P1 and P2.',
+    motor: 'Closed manual. It does not score anything on the site yet: the archive uses the 2024 method.',
     referenciasNota: 'Taken from the verified literature dossier. Entries marked [to be verified] are not fully confirmed.',
     manual: 'Read the full manual on GitHub (in Spanish)',
     nuevaPestana: '(opens in a new tab)',
