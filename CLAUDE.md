@@ -189,21 +189,15 @@ cuando la tabla está vacía.
 
 ---
 
-## Campaña 29-N y archivo (desde el 29-oct-2026)
+## Archivo (desde el 29-oct-2026) y campaña 29-N (retirada)
 
-- **Campaña 29-N** (`/elecciones-29n`, `src/components/Campana.jsx`, datos en `src/data/campana.js`):
-  generales del 29 de noviembre de 2026, campaña del 13 al 27. Se mide **solo P1 y P2** de la
-  Metodología 2.0; sin nota IRA global. Candidaturas: las cuatro fuerzas más votadas en 2023
-  (PP, PSOE, Vox, Sumar → Frente Amplio), ordenadas por apellido, mismo trato (las cuatro fotos con el mismo recorte y en blanco y negro;
-  si faltara una, iniciales para todas).
-  Piezas: el mitin central de cada fin de semana y los debates a cuatro (en un debate, una pieza por
-  candidatura con solo sus intervenciones). Reglas publicadas en la página: misma cuota, misma pieza,
-  se publica todo, método a la vista, cada número con su margen.
-  **Números con margen (desde el 12-nov-2026):** `PIEZAS` guarda recuentos, no notas; `src/lib/margen.js`
-  calcula P1 y P2 con su margen (intervalo central del 80 %). La nota de campaña de cada candidatura
-  junta los eventos de todas sus piezas (nunca promedia notas) y nunca se ordena de mayor a menor.
-  Cada pieza se añade a `PIEZAS` con la transcripción completa y su codificación, para recalcular
-  con la 2.0 completa al terminar.
+- **Campaña 29-N: retirada de la web el 26-nov-2026.** No se analizó ningún discurso durante la
+  campaña (`PIEZAS` siguió vacío), así que se quitaron el enlace del menú, los botones de la portada,
+  el archivo y «Sobre IRA», el aviso de la portada y las menciones en Metodología. `/elecciones-29n`
+  redirige a `/`. `src/components/Campana.jsx` y `src/data/campana.js` se quedan en el repositorio
+  sin enlazar, como base para la página del debate a cuatro del 26-nov-2026 (candidaturas, fotos,
+  recuentos con margen en `src/lib/margen.js`, una pieza por candidatura con solo sus intervenciones).
+  No volver a anunciar en la web análisis que todavía no existen.
 - **Archivo** (`/politicos`, antes «Clasificación»): todo lo calculado con el método de 2024
   (7 parámetros). Fichas y páginas de país llevan `AvisoArchivo`. Nunca mezclar en una vista
   notas del método 2024 con lecturas 2.0.

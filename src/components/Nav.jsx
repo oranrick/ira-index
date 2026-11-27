@@ -1,5 +1,5 @@
 // IRA · barra de navegación global
-// Logo con nombre · Campaña 29-N · Archivo · Metodología · | · Iniciar sesión · Crear cuenta
+// Logo con nombre · Archivo · Metodología · | · Iniciar sesión · Crear cuenta
 // (las cuentas solo sirven para analizar: con las herramientas escondidas no se ofrecen)
 // (Discursos se unió a Clasificación: cada político abre sus discursos)
 import { useContext, useEffect, useId, useState } from 'react';
@@ -13,7 +13,6 @@ const TXT = {
   es: {
     nombre: 'Índice de Resonancia Afectiva',
     principal: 'Principal',
-    campana: 'Campaña 29-N',
     clasificacion: 'Archivo',
     metodologia: 'Metodología',
     entrar: 'Iniciar sesión',
@@ -25,7 +24,6 @@ const TXT = {
   en: {
     nombre: 'Affective Resonance Index',
     principal: 'Main',
-    campana: '29-N campaign',
     clasificacion: 'Archive',
     metodologia: 'Methodology',
     entrar: 'Sign in',
@@ -38,7 +36,6 @@ const TXT = {
 
 // Clasificación cubre también las fichas, los discursos de cada figura y el modo medios
 const ACTIVA = {
-  campana: (p) => p.startsWith('/elecciones'),
   clasificacion: (p) => /^\/(politicos|medios|entity\/|discursos)/.test(p),
   metodologia: (p) => p.startsWith('/metodologia') || p.startsWith('/about'),
 };
@@ -97,7 +94,6 @@ export default function Nav() {
         </button>
 
         <nav id={panelId} className={'ira-nav__panel' + (abierto ? ' is-abierto' : '')} aria-label={t.principal}>
-          {enlace('campana', '/elecciones-29n')}
           {enlace('clasificacion', '/politicos')}
           {enlace('metodologia', '/metodologia')}
           {(user || HERRAMIENTAS_ABIERTAS) && <span className="ira-nav__sep" aria-hidden="true" />}

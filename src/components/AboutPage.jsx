@@ -313,7 +313,6 @@ export default function AboutPage() {
           {/* CTAs */}
           <div style={{ display:"flex", gap:"12px", flexWrap:"wrap", marginTop:"32px" }}>
             <Link to="/politicos" className="ira-boton ira-boton--principal">{es ? "Ver el archivo" : "See the archive"}</Link>
-            <Link to="/elecciones-29n" className="ira-boton ira-boton--secundario">{es ? "La campaña del 29-N" : "The 29-N campaign"}</Link>
           </div>
         </div>
       </div>

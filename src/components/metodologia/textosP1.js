@@ -294,7 +294,7 @@ export const TEXTOS_P1 = {
         'Solidez de P1. Si el alcance llega al mínimo: de 15 a 40 nosotros clasificables, orientativa; más de 40, sólida. Si solo puntúa la permeabilidad: de 3 a 5 eventos, orientativa; 6 o más, sólida. Si no llega ninguno: sin puntuar.',
         'Repeticiones. Cada mención y cada evento cuentan, aunque se repitan, y una misma oración puede restar en el alcance y en la permeabilidad: cada indicador mide una propiedad distinta de la frase.',
         'La extensión mínima se expresa en referencias, no en palabras: un mitin puede tener 40 nosotros por cada mil palabras y una intervención institucional, 14.',
-        'Margen. En la campaña del 29-N la nota se publica con su margen: el rango donde cae con 4 de cada 5 probabilidades, calculado con los mismos recuentos. Es presentación: no cambia la nota.',
+        'Margen. La nota se publica con su margen: el rango donde cae con 4 de cada 5 probabilidades, calculado con los mismos recuentos. Es presentación: no cambia la nota.',
       ],
     },
 
@@ -636,7 +636,7 @@ export const TEXTOS_P1 = {
         'Robustness of P1. If reach meets its minimum: 15 to 40 classifiable “we” mentions, indicative; more than 40, solid. If only permeability scores: 3 to 5 events, indicative; 6 or more, solid. If neither does: not scored.',
         'Repetitions. Every mention and every event counts, even when repeated, and a single sentence can subtract under both reach and permeability: each indicator measures a different property of the sentence.',
         'The minimum length is expressed in references, not words: a rally speech can have 40 “we” mentions per thousand words and an institutional address, 14.',
-        'Margin. In the 29-N campaign the score is published with its margin: the range it falls in with a 4-in-5 probability, calculated from the same counts. It is presentation only: it does not change the score.',
+        'Margin. The score is published with its margin: the range it falls in with a 4-in-5 probability, calculated from the same counts. It is presentation only: it does not change the score.',
       ],
     },
 
